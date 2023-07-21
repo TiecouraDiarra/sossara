@@ -17,7 +17,7 @@ export class DataService {
       showAsTab: false,
       separateRoute: true,
 
-      route: '/home-nine',
+      route: '/accueil',
     },
     /*{
       tittle: 'Accueil',

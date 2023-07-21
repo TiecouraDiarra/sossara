@@ -71,7 +71,7 @@ export class routes {
     return this.baseUrl + '/home-eight';
   }
   public static get home9(): string {
-    return this.baseUrl + '/home-nine';
+    return this.baseUrl + '/accueil';
   }
   public static get listinggrid(): string {
     return this.baseUrl + '/listings/listing-grid';
@@ -146,12 +146,12 @@ export class routes {
     return this.baseUrl + '/error/error500';
   }
   public static get forgotpassword(): string {
-    return this.baseUrl + '/auth/forgot-password';
+    return this.baseUrl + '/auth/mdp-oublie';
   }
   public static get login(): string {
-    return this.baseUrl + '/auth/login';
+    return this.baseUrl + '/auth/connexion';
   }
   public static get signup(): string {
-    return this.baseUrl + '/auth/signup';
+    return this.baseUrl + '/auth/inscription';
   }
 }

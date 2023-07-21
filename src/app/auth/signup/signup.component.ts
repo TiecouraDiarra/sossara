@@ -11,6 +11,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 export class SignupComponent {
   public routes = routes;
   public Toggledata = false;
+  public ToggledataC = false;
 
   constructor(public router:Router){
     
@@ -18,10 +19,15 @@ export class SignupComponent {
   path(){
     this.router.navigate([routes.login])
   }
+
   iconLogle() {
     this.Toggledata = !this.Toggledata;
-   
-  
+
+  }
+
+  iconLogleC() {
+    this.ToggledataC = !this.ToggledataC;
+    
   }
 
 }

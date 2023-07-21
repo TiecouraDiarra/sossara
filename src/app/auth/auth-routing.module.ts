@@ -5,19 +5,19 @@ import { AuthComponent } from './auth.component';
 const routes: Routes = [
   { path: '', component: AuthComponent },
   {
-    path: 'forgot-password',
+    path: 'mdp-oublie',
     loadChildren: () =>
       import('./forgot-password/forgot-password.module').then(
         (m) => m.ForgotPasswordModule
       ),
   },
   {
-    path: 'login',
+    path: 'connexion',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'signup',
+    path: 'inscription',
     loadChildren: () =>
       import('./signup/signup.module').then((m) => m.SignupModule),
   },

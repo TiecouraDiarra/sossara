@@ -10,10 +10,10 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home-nine',
+        redirectTo: 'accueil',
       },
       {
-        path: 'home-nine',
+        path: 'accueil',
         loadChildren: () =>
           import('./home-nine/home-nine.module').then((m) => m.HomeNineModule),
       },
@@ -57,7 +57,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'home-nine',
+        path: 'accueil',
         loadChildren: () =>
           import('./home-nine/home-nine.module').then((m) => m.HomeNineModule),
       },
