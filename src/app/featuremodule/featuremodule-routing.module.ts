@@ -10,7 +10,7 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'accueil',
+        redirectTo: 'home-nine',
       },
       {
         path: '',
