@@ -5607,8 +5607,9 @@ ul.tags {
 .login-wrap p, .login-wrap {
     color: #666;
    	background: #fff;
-	max-width: 425px;
+	max-width: 1006px;
 	margin: 0 auto;
+    width: 585px;
 }
 .login-wrap .group-img input {
     padding: 6px 15px 6px 38px;
