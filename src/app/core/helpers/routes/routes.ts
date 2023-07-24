@@ -38,7 +38,7 @@ export class routes {
     return this.baseUrl + '/blog/blog-grid';
   }
   public static get bloggridsidebar(): string {
-    return this.baseUrl + '/blog/blog-grid-sidebar';
+    return this.baseUrl + '/blog/blog';
   }
   public static get bloglist(): string {
     return this.baseUrl + '/blog/blog-list';
@@ -77,7 +77,7 @@ export class routes {
     return this.baseUrl + '/listings/listing-grid';
   }
   public static get listinggridsidebar(): string {
-    return this.baseUrl + '/listings/listing-grid-sidebar';
+    return this.baseUrl + '/listings/biens';
   }
   public static get listinglistsidebar(): string {
     return this.baseUrl + '/listings/listing-list-sidebar';
@@ -116,7 +116,7 @@ export class routes {
     return this.baseUrl + '/pages/terms-condition';
   }
   public static get addlisting(): string {
-    return this.baseUrl + '/userpages/add-listing';
+    return this.baseUrl + '/userpages/ajouter-propriete';
   }
   public static get bookmarks(): string {
     return this.baseUrl + '/userpages/bookmarks';
@@ -128,13 +128,13 @@ export class routes {
     return this.baseUrl + '/userpages/messages';
   }
   public static get mylisting(): string {
-    return this.baseUrl + '/userpages/my-listing';
+    return this.baseUrl + '/userpages/mes-proprietes';
   }
   public static get profile(): string {
     return this.baseUrl + '/userpages/profile';
   }
   public static get reviews(): string {
-    return this.baseUrl + '/userpages/reviews';
+    return this.baseUrl + '/userpages/commentaire';
   }
   public static get error(): string {
     return this.baseUrl + '/error';

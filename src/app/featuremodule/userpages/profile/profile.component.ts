@@ -8,8 +8,8 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 })
 export class ProfileComponent {
 public routes=routes;
-public Toggledata = false;
-public Toggle = false;
+public Toggledata = true;
+public Toggle = true;
 
 
 

@@ -127,6 +127,14 @@ export class DataService {
       ],
     },*/
     {
+      tittle: 'Biens',
+      base: 'listings',
+      showAsTab: false,
+      separateRoute: true,
+
+      route: '/listings/biens',
+    },
+    /*{
       tittle: 'Listings',
       base: 'listings',
       showAsTab: false,
@@ -183,8 +191,8 @@ export class DataService {
           subMenus: [],
         },
       ],
-    },
-    {
+    },*/
+    /*{
       tittle: 'Pages',
       base: 'pages',
       showAsTab: false,
@@ -301,7 +309,7 @@ export class DataService {
           subMenus: [],
         },
       ],
-    },
+    },*/
 
     {
       tittle: 'User Pages',
@@ -386,6 +394,14 @@ export class DataService {
       tittle: 'Blog',
       base: 'blog',
       showAsTab: false,
+      separateRoute: true,
+
+      route: '/blog/blog',
+    },
+    /*{
+      tittle: 'Blog',
+      base: 'blog',
+      showAsTab: false,
       separateRoute: false,
       menu: [
         {
@@ -439,7 +455,7 @@ export class DataService {
           subMenus: [],
         },
       ],
-    },
+    },*/
     {
       tittle: 'Contact',
       base: 'Contact',
@@ -817,7 +833,7 @@ export class DataService {
   public bookmarkList = [
     {
       img1: 'assets/img/list/listgrid-1.jpg',
-      headline: 'Featured',
+      headline: 'A louer',
       img2: 'assets/img/profiles/avatar-02.jpg',
       search: '4000 ',
       select: '  Vehicles',
@@ -831,7 +847,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/list/listgrid-4.jpg',
-      headline: 'Featured',
+      headline: 'A vendre',
       img2: 'assets/img/profiles/avatar-03.jpg',
       search: '4000 ',
       select: '  Electronics',
@@ -845,7 +861,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/list/listgrid-8.jpg',
-      headline: 'Featured',
+      headline: 'A louer',
       img2: 'assets/img/profiles/avatar-03.jpg',
       search: '4000 ',
       select: '  Electronics',
@@ -857,7 +873,7 @@ export class DataService {
       rating: '4.7',
       rating1: '(50)',
     },
-    {
+    /*{
       img1: 'assets/img/featured/feature-4.jpg',
       headline: 'Featured',
       img2: 'assets/img/profiles/avatar-05.jpg',
@@ -940,7 +956,7 @@ export class DataService {
       oldamount: '$450',
       rating: '4.7',
       rating1: '(50)',
-    },
+    },*/
   ];
   public gridsidebarList = [
     {
@@ -1060,7 +1076,7 @@ export class DataService {
   public listsidebarList = [
     {
       img1: 'assets/img/blog/bloglistimg-1.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: '  Construction',
       img2: 'assets/img/profiles/avatar-01.jpg',
       name: 'John Doe',
@@ -1075,7 +1091,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-2.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: '   Jobs',
       img2: 'assets/img/profiles/avatar-10.jpg',
       name: 'Orlando Diggs',
@@ -1090,7 +1106,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-3.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: '  Electronics',
       img2: 'assets/img/profiles/avatar-04.jpg',
       name: 'Kate Morrison',
@@ -1105,7 +1121,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-4.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: '  Vehicles',
       img2: 'assets/img/profiles/avatar-06.jpg',
       name: 'Koray Okumus',
@@ -1120,7 +1136,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-5.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: '  Vehicles',
       img2: 'assets/img/profiles/avatar-05.jpg',
       name: 'Ava Wright',
@@ -1135,7 +1151,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-6.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: ' Electronics',
       img2: 'assets/img/profiles/avatar-08.jpg',
       name: 'Eve Leroy',
@@ -1150,7 +1166,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-7.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: ' Electronics',
       img2: 'assets/img/profiles/avatar-09.jpg',
       name: 'Zahir Mays',
@@ -1165,7 +1181,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-8.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: ' Electronics',
       img2: 'assets/img/profiles/avatar-10.jpg',
       name: 'Zahir Mays',
@@ -2456,7 +2472,7 @@ export class DataService {
       details: 'Villa 457 sq.m. In Benidorm Fully Qquipped House',
       img: 'assets/img/list/tablelist-1.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2466,7 +2482,7 @@ export class DataService {
       details: 'CDL A OTR Compnay Driver Job-N',
       img: 'assets/img/list/tablelist-2.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Vendre',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2476,7 +2492,7 @@ export class DataService {
       details: 'HP Gaming 15.6 Touchscren 12G',
       img: 'assets/img/list/tablelist-3.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Vendre',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2486,7 +2502,7 @@ export class DataService {
       details: '2012 AudiR8  GT Spider Convrtibile',
       img: 'assets/img/list/tablelist-4.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2496,7 +2512,7 @@ export class DataService {
       details: '2017 Gulfsteam Ameri-Lite',
       img: 'assets/img/list/tablelist-5.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2506,7 +2522,7 @@ export class DataService {
       details: 'Fashion Luxury Men Date',
       img: 'assets/img/list/tablelist-6.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2516,7 +2532,7 @@ export class DataService {
       details: 'Apple iPhone 6 16GB 4G LTE',
       img: 'assets/img/list/tablelist-7.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Vendre',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2526,7 +2542,7 @@ export class DataService {
       details: 'Customized Apple iMac 21.5″ All-In ',
       img: 'assets/img/list/tablelist-8.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Un Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',

@@ -3,11 +3,11 @@
     <div class="container">
         <div class="row align-items-center text-center">
             <div class="col-md-12 col-12">
-                <h2 class="breadcrumb-title">My Listing</h2>
+                <h2 class="breadcrumb-title">Mes propriétés</h2>
                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a [routerLink]="routes.home1">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Listing</li>
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Propriétés</li>
                     </ol>
                 </nav>							
             </div>
@@ -27,19 +27,19 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.profile">
-                        <i class="fa-solid fa-user"></i> <span>Profile</span>
+                        <i class="fa-solid fa-user"></i> <span>Profil</span>
                     </a>
                 </li>
                 <li  class="active">
                     <a [routerLink]="routes.mylisting">
-                        <i class="feather-list"></i> <span>My Listing</span>
+                        <i class="feather-list"></i> <span>Mes propriétés</span>
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a [routerLink]="routes.bookmarks">
                         <i class="fas fa-solid fa-heart"></i> <span>Bookmarks</span>
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <a [routerLink]="routes.messages">
                         <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -47,12 +47,12 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Reviews</span>
+                        <i class="fas fa-solid fa-star"></i> <span>Commentaires</span>
                     </a>
                 </li>
                 <li>
                     <a [routerLink]="routes.login">
-                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Logout</span>
+                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
                     </a>
                 </li>
             </ul>																
@@ -60,25 +60,26 @@
         <div class="dash-listingcontent dashboard-info">
             <div class="dash-cards card">
                 <div class="card-header">
-                    <h4>My Listings</h4>
-                    <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting"><i class="fa-solid fa-plus"></i> Add Listing</a>									
+                    <h4>Mes propriétés</h4>
+                    <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
+                        <i class="fa-solid fa-plus"></i> Ajouter une propriété</a>									
                 </div>
                 <div class="card-body">
                     <div class="listing-search">
                         <div class="filter-content form-group">
                             <div class="group-img">
-                              <input type="text" class="form-control" placeholder="Search...">
+                              <input type="text" class="form-control" placeholder="Recherche...">
                               <i class="feather-search"></i>
                             </div>
                         </div>
                         <div class="sorting-div">
                              <div class="sortbyset">
-                                <span class="sortbytitle">Sort by</span>
+                                <span class="sortbytitle">Trier par</span>
                                 <div class="sorting-select">
                                      <select class="form-control select">
-                                        <option>Newest</option>
-                                        <option>Newest</option>
-                                        <option>Oldest</option>
+                                        <option>Tout</option>
+                                        <option>A louer</option>
+                                        <option>A vendre</option>
                                     </select>
                                 </div>
                             </div>						
@@ -90,8 +91,8 @@
                             <tr>
                                 <th mat-sort-header="img"class="no-sort" >Image</th>										 
                                 <th mat-sort-header="details"class="no-sort">Details</th>										 
-                                <th mat-sort-header="status">Status</th>										 
-                                <th mat-sort-header="view">Views</th>										 
+                                <th mat-sort-header="status">Statut</th>										 
+                                <th mat-sort-header="view">Vues</th>										 
                                 <th mat-sort-header="Action">Action</th>										 
                              </tr>	
                              </thead>
@@ -105,7 +106,7 @@
                                      <div class="listingtable-rate"><a href="javascript:void(0)" class="cat-icon"><i class="fa-regular fa-circle-stop"></i> {{data.select}}</a> <span class="discount-amt">{{data.oldamount}}</span><span class="fixed-amt">{{data.newamount}}</span></div>
                                      <p>{{data.description}}</p>
                                  </td>
-                                 <td><span [ngClass]="{'unpublish': data.status === 'Un Published' }"
+                                 <td><span [ngClass]="{'unpublish': data.status === 'Louer' }"
                                     class="status-text">{{data.status}}</span></td>
                                  <td><span class="views-count">{{data.view}}</span></td>
                                  <td>
@@ -125,7 +126,7 @@
                         <nav>
                             <ul class="pagination">
                                 <li class="page-item previtem">
-                                    <a class="page-link" href="javascript:void(0)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+                                    <a class="page-link" href="javascript:void(0)"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
                                 </li>
                                 <li class="justify-content-center pagination-center"> 
                                     <div class="pagelink">
@@ -143,7 +144,7 @@
                                     </div>													
                                 </li>													
                                 <li class="page-item nextlink">
-                                    <a class="page-link" href="javascript:void(0)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+                                    <a class="page-link" href="javascript:void(0)">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
                                 </li>
                             </ul>
                         </nav>

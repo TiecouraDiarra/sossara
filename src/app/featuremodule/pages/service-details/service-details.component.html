@@ -1,3 +1,26 @@
+<!-- Breadscrumb Section -->
+<div class="breadcrumb-bar">
+    <div class="container">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12 col-12">
+          <h2 class="breadcrumb-title">Details</h2>
+          <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="routes.home9">Accueil</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a [routerLink]="routes.listinggridsidebar">Biens</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Details</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Breadscrumb Section -->
+
 <!--Galler Slider Section-->
 <div class="bannergallery-section">
     <div class="gallery-slider d-flex">
@@ -17,7 +40,7 @@
            <div class="showphotos">
                <a href="javascript:void(0)"
 
-                (click)="openAll(albumsOne)">... Show Photos</a>
+                (click)="openAll(albumsOne)">... Voir les Photos</a>    
            </div>								
       </div>			
 </div>		
@@ -51,19 +74,19 @@
          </div>
          <div class="descriptionlinks">
            <div class="row">
-                 <div class="col-lg-9">
+                 <div class="col-lg-7">
                      <ul>
                          <li><a href="javascript:void(0);"><i class="feather-map"></i> Get Directions</a></li>
                          <li><a href="javascript:void(0);"><img src="assets/img/website.svg" alt="website">Website</a></li>
-                         <li><a href="javascript:void(0);"><i class="feather-share-2"></i> share</a></li>
-                         <li><a href="javascript:void(0);"><i class="fa-regular fa-comment-dots"></i> Write a review</a></li>
+                         <!--<li><a href="javascript:void(0);"><i class="feather-share-2"></i> share</a></li>
+                         <li><a href="javascript:void(0);"><i class="fa-regular fa-comment-dots"></i> Write a review</a></li>-->
                          <li><a href="javascript:void(0);"><i class="feather-flag"></i> report</a></li>
                          <li><a href="javascript:void(0);"><i class="feather-heart"></i> Save</a></li>
                      </ul>
                  </div>
-                 <div class="col-lg-3">
+                 <div class="col-lg-5">
                      <div class="callnow">
-                         <a [routerLink]="routes.contact"> <i class="feather-phone-call"></i>  Call Now</a>
+                         <a [routerLink]="routes.contact"> <i class="feather-phone-call"></i>Contacter le proprietaire</a>
                      </div>
                  </div>
             </div>
@@ -96,7 +119,7 @@
                <div class="card ">
                    <div class="card-header">
                            <i class="feather-list"></i>
-                           <h4>Listing Features</h4>
+                           <h4>Les commodités</h4>
                    </div>
                    <div class="card-body">
                      <div class="lisiting-featues">
@@ -175,7 +198,7 @@
                <div class="card gallery-section ">
                    <div class="card-header ">
                        <img src="assets/img/galleryicon.svg" alt="gallery">
-                       <h4>Gallery</h4>
+                       <h4>Galerie</h4>
                    </div>
                    <div class="card-body">
                      <div class="gallery-content">
@@ -201,7 +224,7 @@
                <!--/Gallery Section-->
                
                <!--Ratings Section-->
-               <div class="card ">
+               <!--<div class="card ">
                    <div class="card-header  align-items-center">
                        <i class="feather-star"></i>
                        <h4>Ratings</h4>
@@ -275,14 +298,14 @@
                            </div>
                        </div>
                    </div>
-               </div>							
+               </div>-->						
                <!--/Ratings Section-->
                    
                <!--Review  Section-->
                <div  class="card review-sec  mb-0">
                    <div class="card-header  align-items-center">
                        <i class="fa-regular fa-comment-dots"></i>
-                       <h4>Write a Review</h4>
+                       <h4>Commentaires</h4>
                    </div>
                    <div class="card-body">
                        <div class="review-list">
@@ -296,13 +319,13 @@
                                    <div class="review-details">
                                        <h6>Joseph</h6>
                                        <div class="rating">
-                                           <div class="rating-star">
+                                          <!-- <div class="rating-star">
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fa-regular fa-star rating-overall"></i>
-                                           </div>							        
+                                           </div>	-->						        
                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> 4 months ago</div>
                                            <div>by: Demo Test</div>
                                        </div>	
@@ -338,10 +361,10 @@
                                                </div>														
                                            </div>
                                        <div class="reply-box ">
-                                           <p>Was This Review...? <a href="javascript:void(0);" class="thumbsup"><i class="feather-thumbs-up"></i> Like </a>
-                                              <a href="javascript:void(0);" class="thumbsdown"><i class="feather-thumbs-down"></i> Dislike </a>
+                                           <p><a href="javascript:void(0);" class="thumbsup"><i class="feather-thumbs-up"></i> Aimer </a>
+                                              <a href="javascript:void(0);" class="thumbsdown"><i class="feather-thumbs-down"></i> Ne pas aimer </a>
                                            </p>
-                                           <a href="javascript:void(0);" class="replylink"><i class="feather-corner-up-left"></i> Reply</a>													
+                                           <a href="javascript:void(0);" class="replylink"><i class="feather-corner-up-left"></i> Repondre</a>													
                                        </div>
                                    </div>							
                                </li>
@@ -354,13 +377,13 @@
                                    <div class="review-details">
                                        <h6>Dev</h6>
                                        <div class="rating">
-                                           <div class="rating-star">
+                                           <!--<div class="rating-star">
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fa-regular fa-star rating-overall"></i>
-                                           </div>							        
+                                           </div>-->						        
                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> 4 months ago</div>
                                            <div>by: Demo Test</div>
                                        </div>		
@@ -376,46 +399,46 @@
                                    <div class="review-details">
                                        <h6>Johnson</h6>
                                        <div class="rating">
-                                           <div class="rating-star">
+                                           <!--<div class="rating-star">
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fas fa-star filled"></i>
                                               <i class="fa-regular fa-star rating-overall"></i>
-                                           </div>							        
+                                           </div>-->							        
                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> 4 months ago</div>
                                            <div>by: Demo Test</div>
                                        </div>		
                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>																	
                                        <div class="reply-box ">
-                                           <p>Was This Review...? <a href="javascript:void(0);" class="thumbsup"><i class="feather-thumbs-up"></i> Like </a>
-                                              <a href="javascript:void(0);" class="thumbsdown"><i class="feather-thumbs-down"></i> Dislike </a>
+                                           <p><a href="javascript:void(0);" class="thumbsup"><i class="feather-thumbs-up"></i> Aimer </a>
+                                              <a href="javascript:void(0);" class="thumbsdown"><i class="feather-thumbs-down"></i> Ne pas aimer </a>
                                            </p>
-                                           <a href="javascript:void(0);" class="replylink"><i class="feather-corner-up-left"></i> Reply</a>													
+                                           <a href="javascript:void(0);" class="replylink"><i class="feather-corner-up-left"></i> Repondre</a>													
                                        </div>
                                    </div>
                                </li>
                                <li class="review-box feedbackbox mb-0">
                                    <div class="review-details">
-                                      <h6>Leave feedback about this</h6>
+                                      <h6>Ecrire un commentaire</h6>
                                    </div>
                                    <div class="card-body">
                                        <form class="">
                                            <div class="form-group">
-                                               <input type="text" class="form-control" placeholder="Title">
+                                               <input type="text" class="form-control" placeholder="Titre">
                                            </div>
                                            <div class="namefield">
                                                <div class="form-group">
-                                                  <input type="text" class="form-control" placeholder="Name*" required>
+                                                  <input type="text" class="form-control" placeholder="Nom*" required>
                                                </div>
                                                <div class="form-group me-0">
-                                                  <input type="email" class="form-control" placeholder="Email*" required>
+                                                  <input type="email" class="form-control" placeholder="Adresse Email*" required>
                                                </div>
                                            </div>
                                            <div class="form-group">
-                                                  <textarea rows="4" class="form-control"  placeholder="Write a Review*" required></textarea>
+                                                  <textarea rows="4" class="form-control"  placeholder="Ecriver votre commentaire*" required></textarea>
                                            </div>
-                                           <div class="reviewbox-rating">
+                                           <!--<div class="reviewbox-rating">
                                                <p><span> Rating</span> 
                                                    <i class="fas fa-star filled"></i>
                                                     <i class="fas fa-star filled"></i>
@@ -423,9 +446,9 @@
                                                    <i class="fas fa-star filled"></i>
                                                    <i class="fas fa-star filled"></i>
                                                </p>
-                                           </div>
+                                           </div>-->
                                            <div class="submit-section">
-                                               <button class="btn btn-primary submit-btn" type="submit"> Submit Review</button>
+                                               <button class="btn btn-primary submit-btn" type="submit"> Commenter</button>
                                            </div>
                                        </form>
                                    </div>
@@ -441,7 +464,7 @@
             <div class="stickybar">
                 <div class="rightsidebar">
                     <div class="card">
-                     <h4><img  src="assets/img/details-icon.svg" alt="details-icon"> Details</h4>
+                     <h4><img  src="assets/img/details-icon.svg" alt="details-icon"> Details du bien</h4>
                      <ul>
                         <li>Contract <span>For Rent</span></li>
                         <li>Location <span>New York, USA</span></li>
@@ -456,7 +479,19 @@
                      </ul>
                     </div>
                     <div class="card">
-                        <h4><img src="assets/img/breifcase.svg" alt=""> Business Info</h4>
+                        <h4> <i class="feather-user"></i> Auteur</h4>
+                        <div class="sidebarauthor-details align-items-center">
+                           <div class="sideauthor-img">
+                             <img src="assets/img/profiles/avatar-12.jpg" alt="author">
+                           </div>
+                           <div class="sideauthor-info">
+                               <p class="authorname">Johnson</p>
+                               <p >Member since Nov 24, 2017</p>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4><img src="assets/img/breifcase.svg" alt="">Info Entreprise</h4>
                         <div class="map-details">
                           <div class="map-frame">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2238528387797!2d-122.41637708468208!3d37.78479337975754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858090475dcdc3%3A0x417fdbbd16e076ed!2s484%20Ellis%20St%2C%20San%20Francisco%2C%20CA%2094102%2C%20USA!5e0!3m2!1sen!2sin!4v1669879954211!5m2!1sen!2sin" width="200" height="160" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -475,7 +510,7 @@
                           </ul>
                         </div>
                     </div>
-                    <div class="card">
+                    <!--<div class="card">
                         <h4><img src="assets/img/statistic-icon.svg" alt="location"> Statisfic</h4>
                         <ul class="statistics-list">
                             <li><div class="statistic-details"><span class="icons"><i class="fa-regular fa-eye"></i></span>
@@ -487,33 +522,22 @@
                             <li class="mb-0"><div class="statistic-details"><span class="icons"><i class="feather-share-2"></i></span>
                                  Shares </div><span class="text-end"> 50</span></li>
                         </ul>
-                    </div>
-                    <div class="card">
-                        <h4> <i class="feather-user"></i> Author</h4>
-                        <div class="sidebarauthor-details align-items-center">
-                           <div class="sideauthor-img">
-                             <img src="assets/img/profiles/avatar-12.jpg" alt="author">
-                           </div>
-                           <div class="sideauthor-info">
-                               <p class="authorname">Johnson</p>
-                               <p >Member since Nov 24, 2017</p>
-                           </div>
-                        </div>
-                    </div>
+                    </div>-->
+                    
                     <div class="card mb-0">
-                        <h4> <i class="feather-phone-call"></i> Contact Business</h4>
+                        <h6> <i class="feather-phone-call"></i> Contacter l'entreprise</h6>
                              <form class="contactbusinessform">
                                 <div class="form-group">
-                                   <input type="text" class="form-control" placeholder="Name">
+                                   <input type="text" class="form-control" placeholder="Nom">
                                 </div>
                                 <div class="form-group">
-                                   <input type="email" class="form-control" placeholder="Email Address">
+                                   <input type="email" class="form-control" placeholder="Adresse email">
                                 </div>
                                 <div class="form-group">
                                        <textarea rows="6" class="form-control"  placeholder="Message" ></textarea>
                                 </div>
                                 <div class="submit-section">
-                                    <button (click)="direction()" class="btn btn-primary submit-btn" type="submit">Send Message</button>
+                                    <button (click)="direction()" class="btn btn-primary submit-btn" type="submit">Envoyer</button>
                                 </div>
                             </form>
                     </div>

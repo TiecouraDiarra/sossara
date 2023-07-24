@@ -3,13 +3,13 @@
   <div class="container">
     <div class="row align-items-center text-center">
       <div class="col-md-12 col-12">
-        <h2 class="breadcrumb-title">Listings-Grid</h2>
+        <h2 class="breadcrumb-title">Les biens immobiliés</h2>
         <nav aria-label="breadcrumb" class="page-breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a [routerLink]="routes.home1">Home</a>
+              <a [routerLink]="routes.home9">Accueil</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Grid</li>
+            <li class="breadcrumb-item active" aria-current="page">Biens</li>
           </ol>
         </nav>
       </div>
@@ -28,72 +28,99 @@
             <div class="card">
               <h4>
                 <img src="assets/img/details-icon.svg" alt="details-icon" />
-                Filter
+                Filtrer
               </h4>
               <form>
-                <div class="filter-content looking-input form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="What are you looking for?"
-                  />
+                <!--<div class="filter-content looking-input form-group">
+                  <input type="text" class="form-control" placeholder="What are you looking for?" />
+                </div>-->
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Région</mat-label>
+                    <mat-select [(ngModel)]="selectedCategory">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Region.nom" *ngFor="let Region of region">{{ Region.nom
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
                 </div>
                 <div class="filter-content form-group">
                   <mat-form-field class="mat-custom-select">
                     <mat-label *ngIf="selectedCategory == ''">
-                      Choose Category</mat-label
-                    >
+                      Commune</mat-label>
                     <mat-select [(ngModel)]="selectedCategory">
                       <mat-option disabled class="search-input-option">
-                        <input
-                          [(ngModel)]="searchInputCategory"
-                          (ngModelChange)="
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
                             searchCategory(searchInputCategory)
-                          "
-                          class="search-input"
-                          type="text"
-                        />
+                          " class="search-input" type="text" />
                       </mat-option>
-                      <mat-option
-                        [value]="item.categoryName"
-                        *ngFor="let item of categories"
-                        >{{ item.categoryName }}</mat-option
-                      >
+                      <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
                     </mat-select>
                   </mat-form-field>
-                 
+
                 </div>
-                <div
-                  class="filter-content looking-input form-group input-placeholder"
-                >
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Statut</mat-label>
+                    <mat-select [(ngModel)]="selectedCategory">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option>A louer</mat-option>
+                      <mat-option>A vendre</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+                <!--<div class="filter-content looking-input form-group input-placeholder">
                   <div class="group-img">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Where to look?"
-                    />
+                    <input type="text" class="form-control" placeholder="Where to look?" />
                     <i class="feather-map-pin"></i>
                   </div>
-                </div>
-                <div class="filter-content form-group region">
-                  
-                   <select class="form-control form-select region-select">
-                    <option value="">Region</option>
-                    <option>Canada</option>
-                    <option>USA</option>
-                    <option>india</option>
-                  </select> 
+                </div>-->
+                <!--<div class="filter-content form-group region">
+
+                  <select class="form-control form-select region-select">
+                    <option value="">Statut</option>
+                    <option>A louer</option>
+                    <option>A vendre</option>
+                  </select>
+                </div>-->
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Type</mat-label>
+                    <mat-select [(ngModel)]="selectedCategory">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
                 </div>
                 <div class="filter-content form-group amenities">
-                  <h4>Amenities</h4>
+                  <h4>Autres commodités</h4>
                   <ul>
-                    <li>
+                    <li *ngFor="let Commodite of commodite">
                       <label class="custom_check">
                         <input type="checkbox" name="wireless-internet" />
-                        <span class="checkmark"></span> Wireless Internet
+                        <span class="checkmark"></span> {{Commodite.nom}}
                       </label>
                     </li>
-                    <li>
+                    <!--<li>
                       <label class="custom_check">
                         <input type="checkbox" name="accept-credit-card" />
                         <span class="checkmark"></span> Accepts Credit Cards
@@ -122,10 +149,10 @@
                         <input type="checkbox" name="Smoking-Allowed" />
                         <span class="checkmark"></span> Smoking Allowed
                       </label>
-                    </li>
+                    </li>-->
                   </ul>
                 </div>
-                <div class="filter-content form-group amenities radius">
+                <!--<div class="filter-content form-group amenities radius">
                   <div class="slidecontainer">
                     <div class="slider-info">
                       <h4>Radius</h4>
@@ -135,30 +162,22 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="filter-range">
-                      <ngx-slider
-                        [(value)]="slidevalue"
-                        [options]="options"
-                      ></ngx-slider>
+                      <ngx-slider [(value)]="slidevalue" [options]="options"></ngx-slider>
                     </div>
                   </div>
-                </div>
+                </div>-->
                 <div class="filter-content amenities mb-0">
-                  <h4>Price Range</h4>
+                  <!--<h4>Price Range</h4>
                   <div class="form-group mb-0">
                     <input type="text" class="form-control" placeholder="Min" />
-                    <input
-                      type="text"
-                      class="form-control me-0"
-                      placeholder="Max"
-                    />
-                  </div>
+                    <input type="text" class="form-control me-0" placeholder="Max" />
+                  </div>-->
                   <div class="search-btn">
                     <button class="btn btn-primary" type="submit">
-                      <i class="fa fa-search" aria-hidden="true"></i> Search
+                      <i class="fa fa-search" aria-hidden="true"></i> Rechercher
                     </button>
                     <button class="btn btn-reset mb-0" type="submit">
-                      <i class="fas fa-light fa-arrow-rotate-right"></i> Reset
-                      Filters
+                      <i class="fas fa-light fa-arrow-rotate-right"></i> Actualiser 
                     </button>
                   </div>
                 </div>
@@ -169,29 +188,29 @@
       </div>
       <div class="col-lg-8">
         <div class="row sorting-div">
-          <div class="col-lg-4 col-md-4 col-sm-4 align-items-center d-flex">
+          <!--<div class="col-lg-4 col-md-4 col-sm-4 align-items-center d-flex">
             <div class="count-search">
               <p>Showing <span>1-8</span> of 10 Results</p>
             </div>
-          </div>
+          </div>-->
           <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
             <div class="sortbyset">
-              <span class="sortbytitle">Sort by</span>
+              <span class="sortbytitle">Trier</span>
               <div class="sorting-select">
                 <select class="form-control form-select">
-                  <option>Default</option>
-                  <option>Price Low to High</option>
-                  <option>Price High to Low</option>
+                  <option>Tout</option>
+                  <option>A louer</option>
+                  <option>A vendre</option>
                 </select>
               </div>
             </div>
             <div class="grid-listview">
               <ul>
-                <li>
-                  <a [routerLink]="routes.listinglistsidebar">
+                <!--<li>
+                  <a [routerLink]="routes.listinggridsidebar">
                     <i class="feather-list"></i>
                   </a>
-                </li>
+                </li>-->
                 <li>
                   <a [routerLink]="routes.listinggridsidebar" class="active">
                     <i class="feather-grid"></i>
@@ -203,19 +222,15 @@
         </div>
         <div class="grid-view listgrid-sidebar">
           <div class="row">
-            <div class="col-lg-6 col-md-4" *ngFor="let slide of listsidebar">
+            <div class="col-lg-6 col-md-4" *ngFor="let BienImo of bienImmo ">
               <div class="card">
                 <div class="blog-widget">
                   <div class="blog-img">
                     <a [routerLink]="routes.servicedetails">
-                      <img
-                        [src]="slide.img1"
-                        class="img-fluid"
-                        alt="blog-img"
-                      />
+                      <img src="assets/img/blog/bloglistimg-1.jpg" class="img-fluid" alt="blog-img" />
                     </a>
                     <div class="fav-item">
-                      <span class="Featured-text">{{ slide.headline }}</span>
+                      <span [ngClass]="{'statuts': BienImo.statut === 'A Louer' }" class="Featured-text">{{ BienImo.statut }}</span>
                       <a href="javascript:void(0)" class="fav-icon">
                         <i class="feather-heart"></i>
                       </a>
@@ -225,43 +240,39 @@
                     <div class="card-body">
                       <div class="blogfeaturelink">
                         <div class="grid-author">
-                          <img [src]="slide.img2" alt="author" />
+                          <!--<img [src]="slide.img2" alt="author" />-->
+                          <img src="assets/img/profiles/avatar-01.jpg" alt="author" />
                         </div>
                         <div class="blog-features">
-                          <a href="javascript:void(0)"
-                            ><span>
+                          <a href="javascript:void(0)"><span>
                               <i class="fa-regular fa-circle-stop"></i>
-                              {{ slide.select }}</span
-                            ></a
-                          >
+                              {{ BienImo.typeImmo.nom }}</span></a>
                         </div>
                         <div class="blog-author text-end">
                           <span>
-                            <i class="feather-eye"></i>{{ slide.search }}
+                            <i class="feather-eye"></i>400
                           </span>
                         </div>
                       </div>
                       <h6>
-                        <a [routerLink]="routes.servicedetails">{{
-                          slide.details
-                        }}</a>
+                        <a [routerLink]="routes.servicedetails">Nom bien</a>
                       </h6>
                       <div class="blog-location-details">
                         <div class="location-info">
-                          <i class="feather-map-pin"></i> {{ slide.map }}
+                          <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
                         </div>
                         <div class="location-info">
                           <i class="fa-solid fa-calendar-days"></i>
-                          {{ slide.date }}
+                          
                         </div>
                       </div>
                       <div class="amount-details">
                         <div class="amount">
-                          <span class="validrate">{{ slide.amount }}</span>
-                          <span>{{ slide.oldamount }}</span>
+                          <span class="validrate">{{ BienImo.prix }}</span>
+                          <!--<span>{{ slide.oldamount }}</span>-->
                         </div>
                         <div class="ratings">
-                          <span>{{ slide.rating }}</span> {{ slide.rating1 }}
+                          <!--<span>{{ slide.rating }}</span> {{ slide.rating1 }}-->
                         </div>
                       </div>
                     </div>
@@ -277,9 +288,7 @@
           <nav>
             <ul class="pagination">
               <li class="page-item previtem">
-                <a class="page-link" href="javascript:void(0)"
-                  ><i class="fas fa-regular fa-arrow-left"></i> Prev</a
-                >
+                <a class="page-link" href="javascript:void(0)"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
               </li>
               <li class="justify-content-center pagination-center">
                 <div class="pagelink">
@@ -288,9 +297,8 @@
                       <a class="page-link" href="javascript:void(0)">1</a>
                     </li>
                     <li class="page-item active">
-                      <a class="page-link" href="javascript:void(0)"
-                        >2 <span class="visually-hidden">(current)</span></a
-                      >
+                      <a class="page-link" href="javascript:void(0)">2 <span
+                          class="visually-hidden">(current)</span></a>
                     </li>
                     <li class="page-item">
                       <a class="page-link" href="javascript:void(0)">3</a>
@@ -305,9 +313,7 @@
                 </div>
               </li>
               <li class="page-item nextlink">
-                <a class="page-link" href="javascript:void(0)"
-                  >Next <i class="fas fa-regular fa-arrow-right"></i
-                ></a>
+                <a class="page-link" href="javascript:void(0)">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
               </li>
             </ul>
           </nav>

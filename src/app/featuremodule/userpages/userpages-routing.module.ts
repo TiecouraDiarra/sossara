@@ -5,7 +5,7 @@ import { UserpagesComponent } from './userpages.component';
 const routes: Routes = [
   { path: '', component: UserpagesComponent,children:[
     {
-    path: 'add-listing',
+    path: 'ajouter-propriete',
     loadChildren: () =>
       import('./add-listing/add-listing.module').then(
         (m) => m.AddListingModule
@@ -27,7 +27,7 @@ const routes: Routes = [
       import('./messages/messages.module').then((m) => m.MessagesModule),
   },
   {
-    path: 'my-listing',
+    path: 'mes-proprietes',
     loadChildren: () =>
       import('./my-listing/my-listing.module').then((m) => m.MyListingModule),
   },
@@ -37,7 +37,7 @@ const routes: Routes = [
       import('./profile/profile.module').then((m) => m.ProfileModule),
   },
   {
-    path: 'reviews',
+    path: 'commentaire',
     loadChildren: () =>
       import('./reviews/reviews.module').then((m) => m.ReviewsModule),
   },

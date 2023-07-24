@@ -16,6 +16,7 @@ import { BienImmo } from 'src/app/modele/bien-immo';
 export class HomeNineComponent {
   public routes = routes; 
   public  listing: any = [];
+  public Bookmark :any =[];
   public managementcomponies:any =[];
   public hoildayCabin:any=[];
   public bestrooms :any=[];
@@ -44,6 +45,7 @@ export class HomeNineComponent {
     (this.bestrooms = this.DataService.bestrooms),
     (this.recentproperties = this.DataService.recentproperties),
     (this.ourtestimonials = this.DataService.ourtestimonials),
+    (this.Bookmark=this.DataService.bookmarkList),
     (this. recentarticle = this.DataService. recentarticle)
 
 
@@ -246,7 +248,7 @@ export class HomeNineComponent {
 
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.bienImmo = data;
+      this.bienImmo = data.biens;
       console.log(this.bienImmo);
     }
     )

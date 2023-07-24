@@ -10,6 +10,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 export class LoginComponent {
   public routes = routes;
   public Toggledata = true;
+  type = true;
 
   constructor(public router:Router){
     
@@ -17,6 +18,7 @@ export class LoginComponent {
   path(){
     this.router.navigate([routes.dashboard])
   }
+
   iconLogle() {
     this.Toggledata = !this.Toggledata;
    

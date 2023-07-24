@@ -306,77 +306,69 @@
             <div class="row align-items-center">
                 <div class="col-lg-4 col-md-3"></div>
                 <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
-                    <h2>Les propriétés</h2>
-                    <p>Les hébergements les plus tendances disponibles</p>
+                    <h2>Les biens</h2>
+                    <p>Les biens les plus vues disponibles</p>
                 </div>
                 <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
-                    <a [routerLink]="routes.categories" class="btn  btn-view">Voir toutes propriétés</a>
+                    <a [routerLink]="routes.listinggridsidebar" class="btn  btn-view">Voir tous les biens</a>
                 </div>
             </div>
         </div>
         <div class="row aos" data-aos="fade-up" data-aos-delay="200">
             <div class="col-lg-12">
-                <div class="car-class-carousel">
-                    <div class="real-featured-listing ">
-                        <owl-carousel-o [options]="listingOwlOptions">
-                            <ng-container *ngFor="let slide of listing">
-                                <ng-template carouselSlide>
-                                    <div class="feature-rent">
-                                        <div class="feature-home-img">
-                                            <a [routerLink]="routes.listingmaplist"><img [src]="slide.img"
-                                                    class="img-fluid" alt=""></a>
-                                        </div>
-                                        <div class="green-logo">
-                                            <img [src]="slide.img1" class="img-fluid" alt="">
-                                        </div>
-                                        <div class="select-favourite-room">
-                                            <div class="favourite-small-user">
-                                                <img [src]="slide.img2" class="img-fluid" alt="">
-                                            </div>
-                                            <i class="fa-solid fa-heart"></i>
-                                        </div>
-                                        <div class="house-location">
-                                            <span>{{slide.location}}</span>
-                                            <p><i class="feather-map-pin"></i>{{slide.map}}</p>
-                                        </div>
-                                        <div class="home-img-text">
-                                            <div class="star-rated">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <span>2.8</span>
-                                            </div>
-                                            <h3><a [routerLink]="routes.listingmaplist">Nom Bien</a></h3>
-                                            <div class="top-room-details">
-                                                <div class="area">
-                                                    <span><img [src]="slide.areaicon" class="img-fluid"
-                                                            alt="">{{slide.area}}</span>
-                                                </div>
-                                                <div class="area">
-                                                    <span><img [src]="slide.bedicon" class="img-fluid"
-                                                            alt="">{{slide.bed}}</span>
-                                                </div>
-                                                <div class="area">
-                                                    <span><img [src]="slide.bathicon" class="img-fluid"
-                                                            alt="">{{slide.bath}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="house-type">
-                                                <span class="room-type"><i
-                                                        class="feather-home"></i>{{slide.type}}</span>
-                                                <span class="double-tick"><i
-                                                        class="fa-solid fa-check-double"></i></span>
-                                            </div>
-                                        </div>
+                <div class="bookmarks-content grid-view featured-slider">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 " *ngFor="let slide of bienImmo">
+                            <div class="card aos aos-init aos-animate" data-aos="fade-up">
+                                <div class="blog-widget">
+                                    <div class="blog-img">
+                                        <a [routerLink]="routes.servicedetails">
+                                            <img src="assets/img/list/listgrid-1.jpg" class="img-fluid" alt="blog-img">
+                                        </a>
+                                        <div class="fav-item">
+                                            <span [ngClass]="{'statut': slide.statut === 'A Louer' }" class="Featured-text">{{slide.statut}}</span>
+                                                <a href="javascript:void(0)" class="fav-icon">
+                                                    <i class="feather-heart"></i>
+                                                </a>										
+                                        </div>	
                                     </div>
-                                </ng-template>
-                            </ng-container>
-                        </owl-carousel-o>
-
-
-                    </div>
+                                    <div class="bloglist-content">
+                                        <div class="card-body">
+                                            <div class="blogfeaturelink">
+                                                <div class="grid-author">
+                                                    <img  src="assets/img/profiles/avatar-02.jpg" alt="author">
+                                                </div>
+                                                <div class="blog-features">
+                                                   <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{slide.typeImmo.nom }}</span></a>
+                                                </div>																	  
+                                                <div class="blog-author text-end"> 
+                                                    <span> <i class="feather-eye"></i>400</span>
+                                                </div>
+                                            </div> 
+                                            <h6><a [routerLink]="routes.servicedetails">Nom bien</a></h6>																	 
+                                            <div class="blog-location-details">
+                                                <div class="location-info">
+                                                   <i class="feather-map-pin"></i> {{slide.adresse.quartier}}
+                                                </div>
+                                                <div class="location-info">
+                                                    <i class="fa-solid fa-calendar-days"></i>
+                                                </div>
+                                            </div>
+                                            <div class="amount-details">
+                                                <div class="amount">
+                                                    <span class="validrate">{{slide.prix}}</span>
+                                                    <!--<span>{{slide.oldamount}}</span>-->
+                                                </div>
+                                                <div class="ratings">
+                                                    <!--<span>{{slide.rating}}</span> {{slide.rating1}}-->
+                                                </div>												
+                                            </div>	
+                                        </div>	
+                                    </div>			 
+                                </div> 
+                            </div>
+                        </div>
+                    </div>						
                 </div>
             </div>
 
@@ -674,26 +666,26 @@
             <div class="col-md-3 col-sm-6">
                 <div class="property-counter-list text-center">
                     <h4 class="counterUp " [countUp]="66180" [options]="{ duration: 30 }">66,180</h4>
-                    <p>HOMES FOR SALE</p>
+                    <p>Nombre de Biens a louer</p>
                 </div>
 
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="property-counter-list text-center">
                     <h4 class="counterUp" [countUp]="4809" [options]="{ duration: 10 }">4,809</h4>
-                    <p>OPEN HOUSES</p>
+                    <p>Nombre de Biens a vendre</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="property-counter-list text-center">
                     <h4 class="counterUp" [countUp]="30469" [options]="{ duration: 20 }">30,469</h4>
-                    <p>RECENTLY SOLD</p>
+                    <p>Nombre d'agence</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="property-counter-list text-center">
                     <h4 class="counterUp" [countUp]="2919" [options]="{ duration: 60 }">2,919</h4>
-                    <p>PRICE REDUCED</p>
+                    <p>Nombre de zone</p>
                 </div>
             </div>
         </div>
@@ -711,11 +703,11 @@
             <div class="row align-items-center">
                 <div class="col-md-3"></div>
                 <div class="col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
-                    <h2>Propriétés récentes à louer</h2>
+                    <h2>Biens récents à louer</h2>
                     <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
                 </div>
                 <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
-                    <a [routerLink]="routes.categories" class="btn  btn-view">Voir toutes les propriétés</a>
+                    <a [routerLink]="routes.categories" class="btn  btn-view">Voir tous les biens</a>
                 </div>
             </div>
         </div>
@@ -907,7 +899,7 @@
                 <a [routerLink]="routes.servicedetails">
                     <div class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
                         <img src="./assets/img/city/car-location-1.png" class="img-fluid" alt="">
-                        <span>Las Vegas</span>
+                        <span>Bamako</span>
                     </div>
                 </a>
             </div>
@@ -915,7 +907,7 @@
                 <a [routerLink]="routes.servicedetails">
                     <div class="car-location-img aos" data-aos="fade-up" data-aos-delay="400">
                         <img src="./assets/img/city/car-location-2.png" class="img-fluid" alt="">
-                        <span>Singapore</span>
+                        <span>Kayes</span>
                     </div>
                 </a>
             </div>
@@ -923,7 +915,7 @@
                 <a [routerLink]="routes.servicedetails">
                     <div class="car-location-img aos" data-aos="fade-up" data-aos-delay="600">
                         <img src="./assets/img/city/car-location-3.png" class="img-fluid" alt="">
-                        <span>Denmark</span>
+                        <span>Sikasso</span>
                     </div>
                 </a>
             </div>
@@ -931,7 +923,7 @@
                 <a [routerLink]="routes.servicedetails">
                     <div class="car-location-img aos" data-aos="fade-up" data-aos-delay="800">
                         <img src="./assets/img/city/car-location-4.png" class="img-fluid" alt="">
-                        <span>France</span>
+                        <span>Segou</span>
                     </div>
                 </a>
             </div>
@@ -939,7 +931,7 @@
                 <a [routerLink]="routes.servicedetails">
                     <div class="car-location-img aos" data-aos="fade-up" data-aos-delay="1000">
                         <img src="./assets/img/city/car-location-5.png" class="img-fluid" alt="">
-                        <span>Indonesia</span>
+                        <span>Koulikoro</span>
                     </div>
                 </a>
             </div>
@@ -947,7 +939,7 @@
                 <a [routerLink]="routes.servicedetails">
                     <div class="car-location-img aos" data-aos="fade-up" data-aos-delay="1200">
                         <img src="./assets/img/city/car-location-6.png" class="img-fluid" alt="">
-                        <span>New York</span>
+                        <span>Mopti</span>
                     </div>
                 </a>
             </div>
@@ -1183,4 +1175,4 @@
     </div>
 </section>-->
 <!-- /Become Agent -->
-<app-footer-nine></app-footer-nine>
+<!--<app-footer-nine></app-footer-nine>-->

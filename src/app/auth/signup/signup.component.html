@@ -56,17 +56,17 @@
             <div class="form-group">
               <div class="pass-group group-img">
                 <i class="feather-lock"></i>
-                <input type="password" class="form-control pass-input" placeholder="Mot de passe" />
-                <span [ngClass]="Toggledata == true ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
+                <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'" class="form-control pass-input" placeholder="Mot de passe" />
+                <span [ngClass]="Toggledata == true ? 'toggle-password feather-eye-off' : 'toggle-password feather-eye'"
                   (click)="iconLogle()"></span>
               </div>
             </div>
             <div class="form-group">
               <div class="pass-group group-img">
                 <i class="feather-lock"></i>
-                <input type="password" class="form-control pass-input" placeholder="Confirmer Mot de passe" />
+                <input type="password" name="password" [type]="ToggledataC ? 'password' : 'text'" class="form-control pass-input" placeholder="Confirmer Mot de passe" />
                 <span
-                  [ngClass]="ToggledataC == true ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
+                  [ngClass]="ToggledataC == true ? 'toggle-password feather-eye-off' : 'toggle-password feather-eye'"
                   (click)="iconLogleC()"></span>
               </div>
             </div>

@@ -10,14 +10,16 @@
             <span></span>
           </span>
         </a>
-        <a [routerLink]="routes.home9" class="navbar-brand logo">
-          <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+        <a [routerLink]="routes.home9" class="navbar-brand logo" style="color: #e98b11; font-weight: bold;">
+          <!--<img src="assets/img/logo.png" class="img-fluid" alt="Logo" />-->
+          Sossara
         </a>
       </div>
       <div class="main-menu-wrapper">
         <div class="menu-header">
-          <a [routerLink]="routes.home9" class="menu-logo">
-            <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+          <a [routerLink]="routes.home9" class="menu-logo" style="color: #e98b11; font-weight: bold;">
+           <!-- <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />-->
+           Sossara
           </a>
           <a id="menu_close"(click)="hideSidebar()" class="menu-close" href="javascript:void(0);">
             <i class="fas fa-times"></i
@@ -139,16 +141,16 @@
 
           <ul class="nav header-navbar-rht "*ngIf="nav == true">
             <li class="nav-item">
-              <a class="nav-link header-reg" [routerLink]="routes.signup">Sign Up</a>
+              <a class="nav-link header-reg" [routerLink]="routes.signup">Inscription</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link header-login" [routerLink]="routes.login"> Sign In</a>
+              <a class="nav-link header-login" [routerLink]="routes.login"> Connexion</a>
             </li>
             <li class="nav-item">
               <a
                 class="nav-link header-login add-listing"
                 [routerLink]="routes.addlisting"
-                ><i class="fa-solid fa-plus"></i> Add Listing</a
+                ><i class="fa-solid fa-plus"></i> Ajouter une propriété</a
               >
             </li>
 
@@ -163,7 +165,7 @@
               <a
                 class="nav-link header-login add-listing"
                 [routerLink]="routes.addlisting"
-                ><i class="fa-solid fa-plus"></i> Add Listing</a
+                ><i class="fa-solid fa-plus"></i> Ajouter une propriété</a
               >
             </li>
 
@@ -175,8 +177,8 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end">
               <a class="dropdown-item" [routerLink]='routes.dashboard'>Dashboard</a>
-              <a class="dropdown-item" [routerLink]='routes.profile'>Profile Settings</a>
-              <a class="dropdown-item" [routerLink]= 'routes.login'>Logout</a>
+              <a class="dropdown-item" [routerLink]='routes.profile'>Profil</a>
+              <a class="dropdown-item" [routerLink]= 'routes.login'>Déconnexion</a>
             </div>
           </li>
         </ul>

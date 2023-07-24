@@ -10,8 +10,8 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 })
 export class SignupComponent {
   public routes = routes;
-  public Toggledata = false;
-  public ToggledataC = false;
+  public Toggledata = true;
+  public ToggledataC = true;
 
   constructor(public router:Router){
     
