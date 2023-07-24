@@ -14,39 +14,40 @@ import { BienImmo } from 'src/app/modele/bien-immo';
   styleUrls: ['./home-nine.component.scss']
 })
 export class HomeNineComponent {
-  public routes = routes; 
-  public  listing: any = [];
-  public Bookmark :any =[];
-  public managementcomponies:any =[];
-  public hoildayCabin:any=[];
-  public bestrooms :any=[];
-  public recentproperties:any=[];
-  public ourtestimonials:any=[];
-  public recentarticle:any=[];
+  public routes = routes;
+  public listing: any = [];
+  public Bookmark: any = [];
+  public managementcomponies: any = [];
+  public hoildayCabin: any = [];
+  public bestrooms: any = [];
+  public recentproperties: any = [];
+  public ourtestimonials: any = [];
+  public recentarticle: any = [];
 
 
-  commodite : any
-  adresse : any
-  region : any
-  commune : any
-  typebien : any
-  bienImmo : any;
+  commodite: any
+  adresse: any
+  region: any
+  commune: any
+  typebien: any
+  bienImmo: any;
+  BienLoueRecens: any
 
   constructor(
-    private DataService: DataService, 
+    private DataService: DataService,
     public router: Router,
     private serviceCommodite: CommoditeService,
-    private serviceBienImmo : BienimmoService
-    ){
-    
+    private serviceBienImmo: BienimmoService
+  ) {
+
     (this.listing = this.DataService.listing),
-    (this.managementcomponies = this.DataService.managementcomponies),
-    (this.hoildayCabin = this.DataService.hoildayCabin),
-    (this.bestrooms = this.DataService.bestrooms),
-    (this.recentproperties = this.DataService.recentproperties),
-    (this.ourtestimonials = this.DataService.ourtestimonials),
-    (this.Bookmark=this.DataService.bookmarkList),
-    (this. recentarticle = this.DataService. recentarticle)
+      (this.managementcomponies = this.DataService.managementcomponies),
+      (this.hoildayCabin = this.DataService.hoildayCabin),
+      (this.bestrooms = this.DataService.bestrooms),
+      (this.recentproperties = this.DataService.recentproperties),
+      (this.ourtestimonials = this.DataService.ourtestimonials),
+      (this.Bookmark = this.DataService.bookmarkList),
+      (this.recentarticle = this.DataService.recentarticle)
 
 
   }
@@ -56,25 +57,25 @@ export class HomeNineComponent {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots:true,
+    dots: true,
     navSpeed: 700,
     navText: [
       "<i class='fa-solid fa-angle-left'></i>",
       "<i class='fa-solid fa-angle-right'></i>",
     ],
     responsive: {
-      0:{
-        items:1
+      0: {
+        items: 1
       },
-      768:{
-        items:3
+      768: {
+        items: 3
       },
-      1170:{
-        items:5,
-        loop:true
+      1170: {
+        items: 5,
+        loop: true
       }
     },
-    nav:false,
+    nav: false,
   };
   public managementcomponiesOwlOptions: OwlOptions = {
     margin: 24,
@@ -82,25 +83,25 @@ export class HomeNineComponent {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots:true,
+    dots: true,
     navSpeed: 700,
     navText: [
       "<i class='fa-solid fa-angle-left'></i>",
       "<i class='fa-solid fa-angle-right'></i>",
     ],
     responsive: {
-      0:{
-        items:1
+      0: {
+        items: 1
       },
-      768:{
-        items:4
+      768: {
+        items: 4
       },
-      1170:{
-        items:5,
-        loop:true
+      1170: {
+        items: 5,
+        loop: true
       }
     },
-    nav:false,
+    nav: false,
   };
   public hoildayCabinOwlOptions: OwlOptions = {
     margin: 24,
@@ -108,25 +109,25 @@ export class HomeNineComponent {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots:false,
+    dots: false,
     navSpeed: 700,
     navText: [
       "<i class='fa-solid fa-angle-left'></i>",
       "<i class='fa-solid fa-angle-right'></i>",
     ],
     responsive: {
-      0:{
-        items:1
+      0: {
+        items: 1
       },
-      768:{
-        items:1
+      768: {
+        items: 1
       },
-      1170:{
-        items:1,
-        loop:false
+      1170: {
+        items: 1,
+        loop: false
       }
     },
-    nav:true,
+    nav: true,
   };
   public bestroomsOwlOptions: OwlOptions = {
     margin: 24,
@@ -134,25 +135,25 @@ export class HomeNineComponent {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots:true,
+    dots: true,
     navSpeed: 700,
     navText: [
       "<i class='fa-solid fa-angle-left'></i>",
       "<i class='fa-solid fa-angle-right'></i>",
     ],
     responsive: {
-      0:{
-        items:1
+      0: {
+        items: 1
       },
-      768:{
-        items:4
+      768: {
+        items: 4
       },
-      1170:{
-        items:1,
-        loop:true
+      1170: {
+        items: 1,
+        loop: true
       }
     },
-    nav:false,
+    nav: false,
   };
   public recentpropertiesOwlOptions: OwlOptions = {
     margin: 24,
@@ -160,25 +161,25 @@ export class HomeNineComponent {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots:true,
+    dots: true,
     navSpeed: 700,
     navText: [
       "<i class='fa-solid fa-angle-left'></i>",
       "<i class='fa-solid fa-angle-right'></i>",
     ],
     responsive: {
-      0:{
-        items:1
+      0: {
+        items: 1
       },
-      768:{
-        items:2
+      768: {
+        items: 2
       },
-      1170:{
-        items:1,
-        loop:true
+      1170: {
+        items: 1,
+        loop: true
       }
     },
-    nav:false,
+    nav: false,
   };
   public ourtestimonialsOwlOptions: OwlOptions = {
     margin: 24,
@@ -186,25 +187,25 @@ export class HomeNineComponent {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots:true,
+    dots: true,
     navSpeed: 700,
     navText: [
       "<i class='fa-solid fa-angle-left'></i>",
       "<i class='fa-solid fa-angle-right'></i>",
     ],
     responsive: {
-      0:{
-        items:1
+      0: {
+        items: 1
       },
-      768:{
-        items:3
+      768: {
+        items: 3
       },
-      1170:{
-        items:1,
-        loop:true
+      1170: {
+        items: 1,
+        loop: true
       }
     },
-    nav:false,
+    nav: false,
   };
   public recentarticleOwlOptions: OwlOptions = {
     margin: 24,
@@ -212,29 +213,29 @@ export class HomeNineComponent {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots:true,
+    dots: true,
     navSpeed: 700,
     navText: [
       "<i class='fa-solid fa-angle-left'></i>",
       "<i class='fa-solid fa-angle-right'></i>",
     ],
     responsive: {
-      0:{
-        items:1
+      0: {
+        items: 1
       },
-      768:{
-        items:3
+      768: {
+        items: 3
       },
-      1170:{
-        items:1,
-        loop:true
+      1170: {
+        items: 1,
+        loop: true
       }
     },
-    nav:false,
+    nav: false,
   };
- 
+
   ngOnInit(): void {
-    AOS.init({disable:'mobile'}
+    AOS.init({ disable: 'mobile' }
     );
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
@@ -250,6 +251,13 @@ export class HomeNineComponent {
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.biens;
       console.log(this.bienImmo);
+    }
+    )
+
+    //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+      this.BienLoueRecens = data.biens;
+      console.log(this.BienLoueRecens);
     }
     )
   }

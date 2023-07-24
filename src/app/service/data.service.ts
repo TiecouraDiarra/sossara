@@ -13,7 +13,7 @@ export class DataService {
   public header: any = [
     {
       tittle: 'Accueil',
-      base: 'home',
+      base: 'accueil',
       showAsTab: false,
       separateRoute: true,
 
@@ -312,6 +312,14 @@ export class DataService {
     },*/
 
     {
+      tittle: 'Trouver votre bien',
+      base: 'listings',
+      showAsTab: false,
+      separateRoute: true,
+
+      route: '/listings/listingmap-list',
+    },
+   /* {
       tittle: 'User Pages',
       base: 'userpages',
       showAsTab: false,
@@ -389,7 +397,7 @@ export class DataService {
           subMenus: [],
         },
       ],
-    },
+    },*/
     {
       tittle: 'Blog',
       base: 'blog',
@@ -458,7 +466,7 @@ export class DataService {
     },*/
     {
       tittle: 'Contact',
-      base: 'Contact',
+      base: 'contact',
       showAsTab: false,
       separateRoute: true,
 

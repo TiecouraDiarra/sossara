@@ -1,5 +1,5 @@
 <!-- Breadscrumb Section -->
-<div class="breadcrumb-bar">
+<!--<div class="breadcrumb-bar">
   <div class="container">
     <div class="row align-items-center text-center">
       <div class="col-md-12 col-12">
@@ -13,11 +13,11 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 <!-- /Breadscrumb Section -->
 
 <!-- Login Section -->
-<div class="login-content">
+<div class="login-content" style="margin-top: 40px;">
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-lg-5 mx-auto">
@@ -29,16 +29,22 @@
 
           <!-- Login Form -->
           <form>
-            <div class="form-group group-img">
-              <div class="group-img">
-                <i class="feather-user"></i>
-                <input type="text" class="form-control" placeholder="Nom" />
+            <div class="row">
+              <div class="col">
+                <div class="form-group group-img">
+                  <div class="group-img">
+                    <i class="feather-user"></i>
+                    <input type="text" class="form-control" placeholder="Nom" />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group group-img">
-              <div class="group-img">
-                <i class="feather-user"></i>
-                <input type="text" class="form-control" placeholder="Prenom" />
+              <div class="col">
+                <div class="form-group group-img">
+                  <div class="group-img">
+                    <i class="feather-user"></i>
+                    <input type="text" class="form-control" placeholder="Prenom" />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group group-img">
@@ -53,23 +59,31 @@
                 <input type="text" class="form-control" placeholder="Adresse Email" />
               </div>
             </div>
-            <div class="form-group">
-              <div class="pass-group group-img">
-                <i class="feather-lock"></i>
-                <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'" class="form-control pass-input" placeholder="Mot de passe" />
-                <span [ngClass]="Toggledata == true ? 'toggle-password feather-eye-off' : 'toggle-password feather-eye'"
-                  (click)="iconLogle()"></span>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <div class="pass-group group-img">
+                    <i class="feather-lock"></i>
+                    <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'" class="form-control pass-input" placeholder="Mot de passe" />
+                    <span [ngClass]="Toggledata == true ? 'toggle-password feather-eye-off' : 'toggle-password feather-eye'"
+                      (click)="iconLogle()"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <div class="pass-group group-img">
+                    <i class="feather-lock"></i>
+                    <input type="password" name="password" [type]="ToggledataC ? 'password' : 'text'" class="form-control pass-input" placeholder="Confirmer Mot de passe" />
+                    <span
+                      [ngClass]="ToggledataC == true ? 'toggle-password feather-eye-off' : 'toggle-password feather-eye'"
+                      (click)="iconLogleC()"></span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="pass-group group-img">
-                <i class="feather-lock"></i>
-                <input type="password" name="password" [type]="ToggledataC ? 'password' : 'text'" class="form-control pass-input" placeholder="Confirmer Mot de passe" />
-                <span
-                  [ngClass]="ToggledataC == true ? 'toggle-password feather-eye-off' : 'toggle-password feather-eye'"
-                  (click)="iconLogleC()"></span>
-              </div>
-            </div>
+            
+            
             <button (click)="path()" class="btn btn-primary w-100 login-btn" type="submit">
               Creer un compte
             </button>

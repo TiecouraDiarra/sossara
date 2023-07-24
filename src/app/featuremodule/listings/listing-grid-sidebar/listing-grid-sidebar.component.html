@@ -230,7 +230,7 @@
                       <img src="https://ghost.playplay.com/content/images/2020/10/video-immobilier.jpg" class="img-fluid" alt="blog-img" />
                     </a>
                     <div class="fav-item">
-                      <span [ngClass]="{'statuts': BienImo.statut === 'A Louer' }" class="Featured-text">{{ BienImo.statut }}</span>
+                      <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }" class="Featured-text">{{ BienImo.statut }}</span>
                       <a href="javascript:void(0)" class="fav-icon">
                         <i class="feather-heart"></i>
                       </a>
@@ -268,7 +268,7 @@
                       </div>
                       <div class="amount-details">
                         <div class="amount">
-                          <span class="validrate">{{ BienImo.prix }}</span>
+                          <span class="validrate">{{ BienImo.prix }} FCFA</span>
                           <!--<span>{{ slide.oldamount }}</span>-->
                         </div>
                         <div class="ratings">

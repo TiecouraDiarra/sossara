@@ -5801,7 +5801,7 @@ ul.tags {
 .login-wrap {
   color: #666;
   background: #fff;
-  max-width: 425px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 .login-wrap .group-img input {
@@ -12238,12 +12238,12 @@ button.btn.car-search-icon:hover {
 }
 .banner-section.banner-nine {
   position: relative;
-  background-image: url(./assets/img/bg/banner-bg.png);
+  background-image: url(https://www.blog.monsieurhugo.com/wp-content/uploads/2019/10/agent-immobilier-1080x627.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 590.76px;
   margin-top: 130px;
-  padding: 75px 0 0;
+  padding: 75px 0 0; 
 }
 .banner-section.banner-nine h1 {
   font-weight: 800;
