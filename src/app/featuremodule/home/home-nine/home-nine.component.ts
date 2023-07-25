@@ -7,6 +7,7 @@ import * as AOS from 'aos';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { BienImmo } from 'src/app/modele/bien-immo';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-home-nine',
@@ -32,6 +33,10 @@ export class HomeNineComponent {
   typebien: any
   bienImmo: any;
   BienLoueRecens: any
+  searchInputCategory: any;
+  public categories: any = [];
+  categoriesDataSource = new MatTableDataSource();
+  selectedCategory: any = '';
 
   constructor(
     private DataService: DataService,
@@ -50,6 +55,11 @@ export class HomeNineComponent {
       (this.recentarticle = this.DataService.recentarticle)
 
 
+  }
+  searchCategory(value: any): void {
+    const filterValue = value;
+    this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
+    this.categories = this.categoriesDataSource.filteredData;
   }
   public listingOwlOptions: OwlOptions = {
     margin: 24,

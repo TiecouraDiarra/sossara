@@ -1,20 +1,12 @@
 <div id="map" class="map-listing">
-  <p-gmap
-    [options]="options"
-    [overlays]="overlays"
-    (onOverlayClick)="setInfo($event)"
-    [style]="{ width: '100%', height: '100%' }"
-  ></p-gmap>
+  <p-gmap [options]="options" [overlays]="overlays" (onOverlayClick)="setInfo($event)"
+    [style]="{ width: '100%', height: '100%' }"></p-gmap>
 </div>
-<div class="showfilter" [class.filter-open]="showFilter">
+<!-- <div class="showfilter" [class.filter-open]="showFilter">
   <button (click)="showFilter = !showFilter" class="btn filterbtn">
-    <span class="showfilter-btn"
-      ><img src="assets/img/details-icon.svg" alt="details-icon" /> Show
-      Filters</span
-    >
-    <span class="hidefilter-btn"
-      ><i class="feather-eye-off"></i> Hide Filters</span
-    >
+    <span class="showfilter-btn"><img src="assets/img/details-icon.svg" alt="details-icon" /> Show
+      Filters</span>
+    <span class="hidefilter-btn"><i class="feather-eye-off"></i> Hide Filters</span>
   </button>
   <div class="listings-sidebar">
     <div class="card">
@@ -24,11 +16,7 @@
       </h4>
       <form>
         <div class="filter-content looking-input form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="What are you looking for?"
-          />
+          <input type="text" class="form-control" placeholder="What are you looking for?" />
         </div>
         <div class="filter-content form-group">
           <select class="form-control select category-select">
@@ -40,11 +28,7 @@
         </div>
         <div class="filter-content looking-input form-group">
           <div class="group-img">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Where to look?"
-            />
+            <input type="text" class="form-control" placeholder="Where to look?" />
             <i class="feather-map-pin"></i>
           </div>
         </div>
@@ -127,4 +111,4 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->

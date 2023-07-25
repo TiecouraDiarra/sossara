@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
 
 declare var google: any;
@@ -11,9 +12,20 @@ declare var google: any;
 export class ListingmapListComponent implements OnInit {
   public routes = routes;
   public mapList: any = [];
+  bienImmo : any;
 
-  constructor(private Dataservice: DataService) {
+  constructor(
+    private Dataservice: DataService,
+    private serviceBienImmo : BienimmoService
+    ) {
     this.mapList = this.Dataservice.mapList;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+     //AFFICHER LA LISTE DES BIENS IMMO
+     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+      this.bienImmo = data.biens;
+      console.log(this.bienImmo);
+    }
+    );
+  }
 }

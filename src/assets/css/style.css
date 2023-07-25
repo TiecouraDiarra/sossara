@@ -4631,13 +4631,13 @@ ul.tags {
     margin: 0 0 25px;
 }
 .rightsidebar .card .article .articleimg-1 {
-	background-image: url('../img/blog/article-1.jpg');
+	background-image: url('https://ghost.playplay.com/content/images/2020/10/video-immobilier.jpg');
 }
 .rightsidebar .card .article .articleimg-2 {
-	background-image: url('../img/blog/article-2.jpg');
+	background-image: url('https://ghost.playplay.com/content/images/2020/10/video-immobilier.jpg');
 }
 .rightsidebar .card .article .articleimg-3 {
-	background-image: url('../img/blog/article-3.jpg');
+	background-image: url('https://ghost.playplay.com/content/images/2020/10/video-immobilier.jpg');
 }
 .rightsidebar .card .article a {
     display: block;
@@ -5607,7 +5607,7 @@ ul.tags {
 .login-wrap p, .login-wrap {
     color: #666;
    	background: #fff;
-	max-width: 1006px;
+	max-width: 20px;
 	margin: 0 auto;
     width: 585px;
 }
@@ -6070,6 +6070,9 @@ body table.listing-table.datatable {
     color: #e98b11;
 }
 .listgrid-sidebar .Featured-text.statutbien {
+    background-color:#e98b11;
+}
+.grid-view .Featured-text.statutbien {
     background-color:#e98b11;
 }
 .featured-slider .Featured-text.statut {
