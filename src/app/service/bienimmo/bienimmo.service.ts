@@ -15,4 +15,9 @@ export class BienimmoService {
     AfficherLaListeBienImmo():Observable<any>{
       return this.http.get(`${this.API_URL}/`);
     }
+
+    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+    AfficherBienImmoParId(id: number):Observable<any>{
+      return this.http.get(`${this.API_URL}/${id}`);
+    }
 }

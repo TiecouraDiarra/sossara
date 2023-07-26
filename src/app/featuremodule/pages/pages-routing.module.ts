@@ -37,7 +37,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'service-details',
+    path: 'service-details/:id',
     loadChildren: () =>
       import('./service-details/service-details.module').then(
         (m) => m.ServiceDetailsModule

@@ -42,7 +42,7 @@ export class HomeNineComponent {
     private DataService: DataService,
     public router: Router,
     private serviceCommodite: CommoditeService,
-    private serviceBienImmo: BienimmoService
+    private serviceBienImmo: BienimmoService,
   ) {
 
     (this.listing = this.DataService.listing),
@@ -270,5 +270,11 @@ export class HomeNineComponent {
       console.log(this.BienLoueRecens);
     }
     )
+  }
+
+   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
+   goToDettailBien(id: number) {
+    console.log(id);
+    return this.router.navigate(['pages/service-details', id])
   }
 }

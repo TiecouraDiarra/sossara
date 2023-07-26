@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -10,10 +12,33 @@ import { DataService } from 'src/app/service/data.service';
 export class BlogGridSidebarComponent {
   public routes=routes;
   public gridBlog :any =[];
-  constructor(private Dataservice:DataService){
-    this.gridBlog=this.Dataservice.gridBlog
+  categoriesDataSource = new MatTableDataSource();
+  searchInputCategory: any;
+  public categories: any = [];
+  selectedCategory: any = '';
+  typebien : any
+
+  constructor(
+    private Dataservice:DataService,
+    private serviceCommodite: CommoditeService,
+    ){
+    this.gridBlog=this.Dataservice.gridBlog;
+    this.categories = this.Dataservice.categoriesList;
+    (this.categoriesDataSource = new MatTableDataSource(this.categories));
+  }
+  searchCategory(value: any): void {
+    const filterValue = value;
+    this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
+    this.categories = this.categoriesDataSource.filteredData;
   }
 
+  ngOnInit(): void {
+    //AFFICHER LA LISTE DES COMMODITES
+    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+     this.typebien = data.type;
+     console.log(this.typebien);
+   });
+ }
 
 
 }

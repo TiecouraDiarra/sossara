@@ -6,6 +6,7 @@ import { DataService } from 'src/app/service/data.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listing-grid-sidebar',
@@ -37,6 +38,7 @@ export class ListingGridSidebarComponent  {
   (private Dataservice: DataService,
     private serviceBienImmo : BienimmoService,
     private serviceCommodite: CommoditeService,
+    private routerr : Router
     ) {
     this.listsidebar = this.Dataservice.listsidebarList,
     this.categories = this.Dataservice.categoriesList;
@@ -63,5 +65,11 @@ export class ListingGridSidebarComponent  {
       this.typebien = data.type;
       console.log(this.adresse);
     });
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
+  goToDettailBien(id: number) {
+    console.log(id);
+    return this.routerr.navigate(['pages/service-details', id])
   }
 }

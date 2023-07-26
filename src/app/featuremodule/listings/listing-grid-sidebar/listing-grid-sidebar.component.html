@@ -226,7 +226,7 @@
               <div class="card">
                 <div class="blog-widget">
                   <div class="blog-img">
-                    <a [routerLink]="routes.servicedetails">
+                    <a (click)="goToDettailBien(BienImo.id)">
                       <img src="https://ghost.playplay.com/content/images/2020/10/video-immobilier.jpg" class="img-fluid" alt="blog-img" />
                     </a>
                     <div class="fav-item">
@@ -255,7 +255,7 @@
                         </div>
                       </div>
                       <h6>
-                        <a [routerLink]="routes.servicedetails">Nom bien</a>
+                        <a (click)="goToDettailBien(BienImo.id)">Nom bien</a>
                       </h6>
                       <div class="blog-location-details">
                         <div class="location-info">
