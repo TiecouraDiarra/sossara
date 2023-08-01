@@ -21,6 +21,7 @@ export class ListingGridSidebarComponent  {
   searchInputCategory: any;
   selectedCategory: any = '';
   bienImmo : any;
+  searchText: any;
 
   commodite : any
   adresse : any
@@ -52,7 +53,7 @@ export class ListingGridSidebarComponent  {
   ngOnInit(): void {
      //AFFICHER LA LISTE DES BIENS IMMO
      this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.bienImmo = data.biens;
+      this.bienImmo = data.biens.reverse();
       console.log(this.bienImmo);
     }
     );

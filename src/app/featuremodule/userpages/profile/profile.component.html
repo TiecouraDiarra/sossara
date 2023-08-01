@@ -9,7 +9,7 @@
                         <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Profil</li>
                     </ol>
-                </nav>							
+                </nav>
             </div>
         </div>
     </div>
@@ -17,16 +17,16 @@
 <!-- /Breadscrumb Section -->
 
 <!-- Profile Content -->
-<div class="dashboard-content">		
+<div class="dashboard-content">
     <div class="container">
-        <div class="">			        
+        <div class="">
             <ul class="dashborad-menus">
                 <li>
                     <a [routerLink]="routes.dashboard">
                         <i class="feather-grid"></i> <span>Dashboard</span>
                     </a>
                 </li>
-                <li  class="active">
+                <li class="active">
                     <a [routerLink]="routes.profile">
                         <i class="fa-solid fa-user"></i> <span>Profil</span>
                     </a>
@@ -56,59 +56,61 @@
                         <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
                     </a>
                 </li>
-            </ul>											
+            </ul>
         </div>
         <div class="profile-content">
-             <div class="row dashboard-info">
+            <div class="row dashboard-info">
                 <div class="col-lg-9">
                     <div class="card dash-cards">
                         <div class="card-header">
-                            <h4>Details du profil</h4>																
+                            <h4>Details du profil</h4>
                         </div>
                         <div class="card-body">
                             <div class="profile-photo">
                                 <div class="profile-img">
                                     <div class="settings-upload-img">
-                                         <img src="assets/img/profile-img.jpg" alt="profile">
-                                    </div>										    
-                                     <div class="settings-upload-btn">											    
-                                        <input type="file" accept="image/*" name="image" class="hide-input image-upload" id="file">
-                                        <label for="file" class="file-upload">Changer Photo profil</label>												
-                                     </div>	
-                                     <span>Taille Max: 5MB</span>
-                                </div>                                        									
-                                <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>										
+                                        <img src="assets/img/profile-img.jpg" alt="profile">
+                                    </div>
+                                    <div class="settings-upload-btn">
+                                        <input type="file" accept="image/*" name="image" class="hide-input image-upload"
+                                            id="file">
+                                        <label for="file" class="file-upload">Changer Photo profil</label>
+                                    </div>
+                                    <span>Taille Max: 5MB</span>
+                                </div>
+                                <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>
                             </div>
                             <div class="profile-form">
-                                 <form>
-                                    <div class="form-group">
+                                <form>
+                                    <div class="form-group" *ngIf="User.user && User.user.username">
                                         <label class="col-form-label">Votre nom et prenom</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-user"></i></span>
-                                            <input type="text" class="form-control" value="John Doe">													
+                                            <input type="text" class="form-control" value="{{User.user.username}}">
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="row">
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group" *ngIf="User.user && User.user.telephone">
                                                 <label class="col-form-label">Numero</label>
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i class="feather-phone-call"></i></span>
-                                                    <input type="tel" class="form-control" value="+44 215346 1223">													
+                                                    <input type="tel" class="form-control"
+                                                        value="{{User.user.telephone}}">
                                                 </div>
                                             </div>
-                                         </div>
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group" *ngIf="User.user && User.user.email">
                                                 <label class="col-form-label">Adresse Email</label>
                                                 <div class="group-img">
                                                     <i class="feather-mail"></i>
-                                                    <input type="text" class="form-control" value="johndoe@email.com">
+                                                    <input type="text" class="form-control" value="{{User.user.email}}">
                                                 </div>
                                             </div>
-                                         </div>											
+                                        </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-form-label">Notes</label>
                                         <div class="pass-group group-img">
                                             <textarea rows="4" class="form-control">Mauris vestibulum lorem a condimentum vulputate. Integer vitae turpis turpis. Cras at tincidunt urna. Aenean leo justo, congue et felis a, elementum rutrum felis. Fusce rutrum ipsum eu pretium faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean leo justo, congue et felis a.  Aenean leo justo, congue et felis a.	</textarea>												
@@ -153,52 +155,59 @@
                                                 </div>
                                             </div>
                                          </div>											
-                                    </div>										 
-                                 </form>
-                            </div> 
-                        </div>								
-                    </div>	
+                                    </div>										  -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="profile-sidebar">
                         <div class="card">
                             <div class="card-header">
                                 <h6>Changer Mot de passe</h6>
-                            </div>	
+                            </div>
                             <div class="card-body">
-                               <form>
+                                <form>
                                     <div class="form-group">
                                         <label class="col-form-label">Ancien mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" class="form-control pass-input" placeholder="Password">													
+                                            <input type="password" class="form-control pass-input"
+                                                placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Nouveau mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" [type]="Toggledata ? 'password' : 'text'" class="form-control pass-input" value="..............">
-                                            
-                                            <span  [ngClass]="Toggledata == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"  (click)="iconLogle()"></span>
+                                            <input type="password" [type]="Toggledata ? 'password' : 'text'"
+                                                class="form-control pass-input" value="..............">
+
+                                            <span
+                                                [ngClass]="Toggledata == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
+                                                (click)="iconLogle()"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Confirmer Nouveau MDP</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" name="password" [type]="Toggle ? 'password' : 'text'" class="form-control pass-input" value="..............">
-                                            <span [ngClass]="Toggle == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'" (click)="icon()"></span>
+                                            <input type="password" name="password" [type]="Toggle ? 'password' : 'text'"
+                                                class="form-control pass-input" value="..............">
+                                            <span
+                                                [ngClass]="Toggle == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
+                                                (click)="icon()"></span>
                                         </div>
-                                    </div>	
-                                    <button class="btn btn-primary" type="submit"> Changer mot de passe</button>											
-                               </form>								
-                            </div>  									
-                        </div>							
+                                    </div>
+                                    <button class="btn btn-primary" type="submit"> Changer mot de passe</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>							
-             </div>				
+                </div>
+            </div>
         </div>
-    </div>		
-</div>		
+    </div>
+</div>
 <!-- /Profile Content -->

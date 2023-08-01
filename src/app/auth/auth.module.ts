@@ -3,15 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AuthComponent
-  ],
+  declarations: [AuthComponent],
   imports: [
-    CommonModule,
-    AuthRoutingModule
-  ]
+    FormsModule,
+    CommonModule, 
+    AuthRoutingModule],
 })
-export class AuthModule { }
+export class AuthModule {}

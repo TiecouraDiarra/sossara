@@ -1,4 +1,4 @@
-import { Component,ViewChild  } from '@angular/core';
+import { Component,OnInit,ViewChild  } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/service/data.service';
 import {
@@ -8,6 +8,7 @@ import {
   ApexXAxis,
   ChartComponent
 } from "ng-apexcharts";
+import { StorageService } from 'src/app/service/auth/storage.service';
 export type ChartOptions = {
   series: ApexAxisChartSeries | any;
   chart: ApexChart | any;
@@ -28,13 +29,17 @@ export type ChartOptions = {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
   public routes=routes;
+  User : any
   public dashboarddata:any=[]
   public dashboardreview:any=[]
   @ViewChild("chart") chart !: ChartComponent ;
   public chartOptions: Partial<ChartOptions>;
-  constructor(private DataService:DataService) {
+  constructor(
+    private DataService:DataService,
+    private storageService: StorageService
+    ) {
     this.chartOptions = {
       series: [
         {
@@ -100,6 +105,12 @@ export class DashboardComponent {
     };
     this.dashboarddata=this.DataService.dashboarddata
     this.dashboardreview=this.DataService.dashboardreview
+    this.User = this.storageService.getUser();
+    console.log(this.User);
+    
+  }
+  ngOnInit(): void {
+      console.log(this.storageService.getUser());
   }
 
 }

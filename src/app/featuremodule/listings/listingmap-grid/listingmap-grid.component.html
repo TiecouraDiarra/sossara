@@ -14,8 +14,8 @@
               <div class="sortbyset">
                 <span class="sortbytitle">Filtrer par</span>
                 <div class="sorting-select">
-                  <select class="form-control select">
-                    <option>Tout</option>
+                  <select class="form-control select" [(ngModel)]="searchText">
+                    <option value="" selected>Tout</option>
                     <option>A louer</option>
                     <option>A vendre</option>
                   </select>
@@ -45,7 +45,7 @@
                 Filtrer
               </h5>
             </a>
-           
+
             <form class="collapse" id="collapseExample">
               <div class="row">
                 <div class="col-lg-6 col-md-4">
@@ -162,12 +162,12 @@
           </div>
           <div class="grid-view">
             <div class="row">
-              <div class="col-lg-6 col-md-4" *ngFor="let slide of bienImmo">
+              <div class="col-lg-6 col-md-4" *ngFor="let slide of bienImmo | filter:searchText">
                 <div class="card">
                   <div class="blog-widget">
                     <div class="blog-img">
                       <a [routerLink]="routes.servicedetails">
-                        <img src="https://ghost.playplay.com/content/images/2020/10/video-immobilier.jpg"
+                        <img src="assets/img/gallery/gallery1/gallery-1.jpg"
                           class="img-fluid" alt="blog-img" />
                       </a>
                       <div class="fav-item">

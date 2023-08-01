@@ -197,8 +197,8 @@
             <div class="sortbyset">
               <span class="sortbytitle">Trier</span>
               <div class="sorting-select">
-                <select class="form-control form-select">
-                  <option>Tout</option>
+                <select class="form-control form-select" [(ngModel)]="searchText">
+                  <option value="" selected>Tout</option>
                   <option>A louer</option>
                   <option>A vendre</option>
                 </select>
@@ -222,12 +222,12 @@
         </div>
         <div class="grid-view listgrid-sidebar">
           <div class="row">
-            <div class="col-lg-6 col-md-4" *ngFor="let BienImo of bienImmo ">
+            <div class="col-lg-6 col-md-4" *ngFor="let BienImo of bienImmo | filter:searchText">
               <div class="card">
                 <div class="blog-widget">
                   <div class="blog-img">
                     <a (click)="goToDettailBien(BienImo.id)">
-                      <img src="https://ghost.playplay.com/content/images/2020/10/video-immobilier.jpg" class="img-fluid" alt="blog-img" />
+                      <img src="assets/img/gallery/gallery1/gallery-1.jpg" class="img-fluid" alt="blog-img" />
                     </a>
                     <div class="fav-item">
                       <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }" class="Featured-text">{{ BienImo.statut }}</span>

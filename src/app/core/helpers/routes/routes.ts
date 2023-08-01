@@ -38,7 +38,7 @@ export class routes {
     return this.baseUrl + '/blog/blog-grid';
   }
   public static get bloggridsidebar(): string {
-    return this.baseUrl + '/blog/blog';
+    return this.baseUrl + '/blog';
   }
   public static get bloglist(): string {
     return this.baseUrl + '/blog/blog-list';
@@ -74,16 +74,16 @@ export class routes {
     return this.baseUrl + '/accueil';
   }
   public static get listinggrid(): string {
-    return this.baseUrl + '/listings/listing-grid';
+    return this.baseUrl + '/bienparcommune';
   }
   public static get listinggridsidebar(): string {
-    return this.baseUrl + '/listings/biens';
+    return this.baseUrl + '/biens';
   }
   public static get listinglistsidebar(): string {
     return this.baseUrl + '/listings/listing-list-sidebar';
   }
   public static get listingmapgrid(): string {
-    return this.baseUrl + '/listings/listingmap-grid';
+    return this.baseUrl + '/trouverbien';
   }
   public static get listingmaplist(): string {
     return this.baseUrl + '/listings/listingmap-list';

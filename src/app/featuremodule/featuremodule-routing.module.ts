@@ -38,6 +38,41 @@ const routes: Routes = [
           import('./userpages/userpages.module').then((m) => m.UserpagesModule),
       },
       {
+        path: 'trouverbien',
+        loadChildren: () =>
+          import('./listings/listingmap-grid/listingmap-grid.module').then(
+            (m) => m.ListingmapGridModule
+          ),
+      },
+      {
+        path: 'biens',
+        loadChildren: () =>
+          import('./listings/listing-grid-sidebar/listing-grid-sidebar.module').then(
+            (m) => m.ListingGridSidebarModule
+          ),
+      },
+      {
+        path: 'bienparcommune/:id',
+        loadChildren: () =>
+          import('./listings/listing-grid/listing-grid.module').then(
+            (m) => m.ListingGridModule
+          ),
+      },
+      {
+        path: 'blog',
+        loadChildren: () =>
+          import('./blog/blog-grid-sidebar/blog-grid-sidebar.module').then(
+            (m) => m.BlogGridSidebarModule
+          ),
+      },
+      // {
+      //   path: 'commune',
+      //   loadChildren: () =>
+      //     import('./listings/listing-grid/listing-grid.module').then(
+      //       (m) => m.ListingGridModule
+      //     ),
+      // },
+      {
         path: 'blog',
         loadChildren: () =>
           import('./blog/blog.module').then((m) => m.BlogModule),

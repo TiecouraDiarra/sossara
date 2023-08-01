@@ -259,14 +259,21 @@ export class HomeNineComponent {
 
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.bienImmo = data.biens;
+      // for (let index = 0; index < 7; index++) {
+      //   this.bienImmo.push(data.biens.reverse()[index])
+      // }
+       this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3],data.biens.reverse()[4],data.biens.reverse()[5]];
       console.log(this.bienImmo);
     }
     )
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.BienLoueRecens = data.biens;
+    this.serviceBienImmo.AfficherLaListeBienImmoRecent().subscribe(data => {
+      // for (let index = 0; index < 4; index++) {
+      //   this.BienLoueRecens.push(data.biens.reverse()[index])
+      // }
+      //this.BienLoueRecens.push(data.biens.reverse()[index])
+      this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3]]
       console.log(this.BienLoueRecens);
     }
     )
@@ -276,5 +283,11 @@ export class HomeNineComponent {
    goToDettailBien(id: number) {
     console.log(id);
     return this.router.navigate(['pages/service-details', id])
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
+  goToDettailCommune(id: number) {
+    console.log(id);
+    return this.router.navigate(['bienparcommune', id])
   }
 }

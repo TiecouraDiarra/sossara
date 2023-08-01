@@ -4,6 +4,7 @@ import { DataService } from 'src/app/service/data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { SidebarService } from 'src/app/service/sidebar.service';
 import { CommonService } from 'src/app/service/common.service';
+import { StorageService } from 'src/app/service/auth/storage.service';
 
 @Component({
   selector: 'app-header',
@@ -15,15 +16,20 @@ export class HeaderComponent implements OnInit {
   base: string = '';
   page: string = '';
   last: string = '';
+  User : any
 
   public nav : boolean = false;
   header: Array<any> = [];
   sidebar: Array<any> = [];
   
   
-constructor(private data : DataService,private router: Router, private common: CommonService,
-  
-  private sidebarService: SidebarService){
+constructor(
+  private data : DataService,
+  private router: Router, 
+  private common: CommonService,
+  private sidebarService: SidebarService,
+  private storageService: StorageService
+  ){
   this.header = this.data.header;
   this.router.events.subscribe((event: any) => {
     if (event instanceof NavigationStart) {
@@ -31,6 +37,8 @@ constructor(private data : DataService,private router: Router, private common: C
     }
   });
   this.getroutes(this.router);
+  this.User = this.storageService.getUser();
+    console.log(this.User);
 }
 ngOnInit(): void {}
 private getroutes(route: any): void {

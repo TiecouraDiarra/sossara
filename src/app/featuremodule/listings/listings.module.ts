@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ListingsRoutingModule } from './listings-routing.module';
 import { ListingsComponent } from './listings.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
-// import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [ListingsComponent],
@@ -12,7 +12,7 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
     CommonModule, 
     ListingsRoutingModule, 
     SharedModule,
-    // Ng2SearchPipeModule,
+    Ng2SearchPipeModule,
 
   ],
 })

@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
+// import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 
@@ -29,7 +31,17 @@ import { HttpClientModule } from '@angular/common/http';
     BsDatepickerModule.forRoot()
     
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: LocationStrategy,
+    //   useClass: HashLocationStrategy,
+    // },
+    // {
+    //   provide: PERFECT_SCROLLBAR_CONFIG,
+    //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    // },
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

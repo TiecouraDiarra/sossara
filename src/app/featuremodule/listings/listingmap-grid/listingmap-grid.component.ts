@@ -24,6 +24,7 @@ export class ListingmapGridComponent implements OnInit {
   region : any
   commune : any
   typebien : any
+  searchText: any;
 
 
   constructor(
@@ -45,7 +46,7 @@ export class ListingmapGridComponent implements OnInit {
   ngOnInit(): void {
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-     this.bienImmo = data.biens;
+     this.bienImmo = data.biens.reverse();
      console.log(this.bienImmo);
    }
    );
