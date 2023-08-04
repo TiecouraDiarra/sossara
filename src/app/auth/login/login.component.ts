@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit{
 
   User : any;
 
-  // isLoggedIn = false;
-  // isLoginFailed = false;
-  // errorMessage = '';
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
 
   form: any = {
     email: null,

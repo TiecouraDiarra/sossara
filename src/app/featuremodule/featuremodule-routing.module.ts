@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../auth.guard';
 import { FeaturemoduleComponent } from './featuremodule.component';
 
 const routes: Routes = [
@@ -21,21 +22,25 @@ const routes: Routes = [
         path: 'auth',
         loadChildren: () =>
           import('../auth/auth.module').then((m) => m.AuthModule),
+          // canActivate: [AuthGuard]
       },
       {
         path: 'listings',
         loadChildren: () =>
           import('./listings/listings.module').then((m) => m.ListingsModule),
+          canActivate: [AuthGuard]
       },
       {
         path: 'pages',
         loadChildren: () =>
           import('./pages/pages.module').then((m) => m.PagesModule),
+          canActivate: [AuthGuard]
       },
       {
         path: 'userpages',
         loadChildren: () =>
           import('./userpages/userpages.module').then((m) => m.UserpagesModule),
+          // canActivate: [AuthGuard]
       },
       {
         path: 'trouverbien',
@@ -43,6 +48,7 @@ const routes: Routes = [
           import('./listings/listingmap-grid/listingmap-grid.module').then(
             (m) => m.ListingmapGridModule
           ),
+          // canActivate: [AuthGuard]
       },
       {
         path: 'biens',
@@ -50,6 +56,7 @@ const routes: Routes = [
           import('./listings/listing-grid-sidebar/listing-grid-sidebar.module').then(
             (m) => m.ListingGridSidebarModule
           ),
+          // canActivate: [AuthGuard]
       },
       {
         path: 'bienparcommune/:id',
@@ -57,6 +64,7 @@ const routes: Routes = [
           import('./listings/listing-grid/listing-grid.module').then(
             (m) => m.ListingGridModule
           ),
+          // canActivate: [AuthGuard]
       },
       {
         path: 'blog',
@@ -64,6 +72,7 @@ const routes: Routes = [
           import('./blog/blog-grid-sidebar/blog-grid-sidebar.module').then(
             (m) => m.BlogGridSidebarModule
           ),
+          // canActivate: [AuthGuard]
       },
       // {
       //   path: 'commune',
@@ -76,11 +85,13 @@ const routes: Routes = [
         path: 'blog',
         loadChildren: () =>
           import('./blog/blog.module').then((m) => m.BlogModule),
+          // canActivate: [AuthGuard]
       },
       {
         path: 'contact',
         loadChildren: () =>
           import('./contact/contact.module').then((m) => m.ContactModule),
+          // canActivate: [AuthGuard]
       },
     ],
   },

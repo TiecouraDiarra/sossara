@@ -17,7 +17,7 @@ const httpOptions = {
 })
 export class BienimmoService {
 
-  API_URL = 'http://192.168.1.108:8000/api/bien/immo';
+  API_URL = 'http://192.168.1.4:8000/api/bien/immo';
 
   constructor(private http: HttpClient) { }
 

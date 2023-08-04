@@ -8,6 +8,8 @@ import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { BienImmo } from 'src/app/modele/bien-immo';
 import { MatTableDataSource } from '@angular/material/table';
+import { StorageService } from 'src/app/service/auth/storage.service';
+import { UserService } from 'src/app/service/auth/user.service';
 
 @Component({
   selector: 'app-home-nine',
@@ -27,6 +29,7 @@ export class HomeNineComponent {
 
 
   commodite: any
+  agence: any
   adresse: any
   region: any
   commune: any
@@ -40,9 +43,11 @@ export class HomeNineComponent {
 
   constructor(
     private DataService: DataService,
-    public router: Router,
+    private router: Router,
+    private storageService: StorageService,
     private serviceCommodite: CommoditeService,
     private serviceBienImmo: BienimmoService,
+    private serviceUser : UserService
   ) {
 
     (this.listing = this.DataService.listing),
@@ -265,7 +270,13 @@ export class HomeNineComponent {
        this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3],data.biens.reverse()[4],data.biens.reverse()[5]];
       console.log(this.bienImmo);
     }
-    )
+    );
+     //AFFICHER LA LISTE DES AGENCES
+     this.serviceUser.AfficherLaListeAgence().subscribe(data => {
+       this.agence = data.agences.reverse();
+      console.log(this.agence);
+    }
+    );
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmoRecent().subscribe(data => {
@@ -289,5 +300,14 @@ export class HomeNineComponent {
   goToDettailCommune(id: number) {
     console.log(id);
     return this.router.navigate(['bienparcommune', id])
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
+  AjouterBienOrLogin(){
+    if(this.storageService.isLoggedIn()){
+      this.router.navigateByUrl("/userpages/ajouter-propriete")
+    }else{
+      this.router.navigateByUrl("/auth/connexion")
+    }
   }
 }

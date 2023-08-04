@@ -12,10 +12,10 @@
                     <p class="aos" data-aos="fade-up" data-aos-delay="200">Optimiser le processus de vente des biens 
                         immobiliers des particuliers et des programmes immo de professionnels.</p>
                     <div class="banner-nine-btn-group">
-                        <a [routerLink]="routes.categories" class="aos" data-aos="fade-up" data-aos-delay="300">
+                        <a (click)="AjouterBienOrLogin()" class="aos" data-aos="fade-up" data-aos-delay="300">
                             <span>Ajouter un bien</span>
                         </a>
-                        <a [routerLink]="routes.categories" class="aos" data-aos="fade-up" data-aos-delay="300">
+                        <a [routerLink]="routes.listingmapgrid" class="aos" data-aos="fade-up" data-aos-delay="300">
                             <span>Rechercher un bien</span>
                         </a>
                     </div>
@@ -369,7 +369,7 @@
                                                                <i class="feather-map-pin"></i> {{BienImo.adresse.quartier}}
                                                             </div>
                                                             <div class="location-info">
-                                                                <i class="fa-solid fa-calendar-days"></i>
+                                                                <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date | date:"dd/MM/yyyy"}}
                                                             </div>
                                                         </div>
                                                         <div class="amount-details">
@@ -457,14 +457,14 @@
 <!-- /Why Choose Us -->
 
 <!-- Listed Properties Management Companies -->
-<!-- <div class="section properties-managments common-padding">
+<div class="section properties-managments common-padding" *ngIf="agence && agence.length > 0">
     <div class="container">
         <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
             <div class="row align-items-center">
                 <div class="col-md-3"></div>
                 <div class="col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
                     <h2>Sociétés de Gestion de Propriétés(Agences)</h2>
-                    <p>The most trendy accommodations available</p>
+                    <!-- <p>The most trendy accommodations available</p> -->
                 </div>
                 <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
                     <a [routerLink]="routes.categories" class="btn  btn-view">Voir toutes les agences</a>
@@ -476,38 +476,38 @@
                 <div class="car-class-carousel">
                     <div class="property-listing-slider">
                         <owl-carousel-o [options]="managementcomponiesOwlOptions">
-                            <ng-container *ngFor="let slide of managementcomponies">
+                            <ng-container *ngFor="let Agence of agence">
                                 <ng-template carouselSlide>
                                     <div class="property-item">
                                         <a [routerLink]="routes.categories">
                                             <div class="companies-set mb-4">
                                                 <div class="companies-set-head">
                                                     <div class="companies-set-logo">
-                                                        <span><img [src]="slide.logo" alt="img"></span>
+                                                        <span><img src="assets/img/icons/property.svg" alt="img"></span>
                                                     </div>
                                                     <div class="companies-set-content">
-                                                        <h5><span>{{slide. number}}</span>{{slide.content}}</h5>
-                                                        <h6>{{slide. propertyname}}</h6>
+                                                        <h5><span>10</span>Biens</h5>
+                                                        <h6>{{Agence.nom}}</h6>
                                                     </div>
                                                 </div>
                                                 <div class="companies-set-count">
                                                     <ul>
                                                         <li>
-                                                            <h6>{{slide. companiescount1}}</h6>
-                                                            <span>{{slide.name}}</span>
+                                                            <h6>10</h6>
+                                                            <span>test</span>
                                                         </li>
                                                         <li>
-                                                            <h6>{{slide. companiescount2}}</h6>
-                                                            <span>{{slide.name}}</span>
+                                                            <h6>10</h6>
+                                                            <span>test</span>
                                                         </li>
                                                         <li>
-                                                            <h6>{{slide. companiescount3}}</h6>
-                                                            <span>{{slide.name}}</span>
+                                                            <h6>10</h6>
+                                                            <span>test</span>
                                                         </li>
                                                     </ul>
                                                     <div class="companies-set-btn">
                                                         <a [routerLink]="routes.listinglistsidebar"
-                                                            class="btn btn-linebtn">View All Listing<i
+                                                            class="btn btn-linebtn">Voir plus<i
                                                                 class="fa fa-arrow-right ms-3"
                                                                 aria-hidden="true"></i></a>
                                                     </div>
@@ -515,7 +515,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="property-item">
+                                    <!-- <div class="property-item">
                                         <a [routerLink]="routes.categories">
                                             <div class="companies-set mb-4">
                                                 <div class="companies-set-head">
@@ -552,7 +552,7 @@
                                             </div>
                                         </a>
 
-                                    </div>
+                                    </div> -->
                                 </ng-template>
                             </ng-container>
                         </owl-carousel-o>
@@ -564,7 +564,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 <!-- /Listed Properties Management Companies -->
 
 <!-- Perfect Holiday Cabin Section -->

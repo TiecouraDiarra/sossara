@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CommoditeService {
-  API_URL = 'http://192.168.1.108:8000/api/type/immo';
+  API_URL = 'http://192.168.1.4:8000/api/type/immo';
 
   constructor(private http: HttpClient) { }
 

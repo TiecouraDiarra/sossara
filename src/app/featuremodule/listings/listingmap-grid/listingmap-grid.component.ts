@@ -25,6 +25,26 @@ export class ListingmapGridComponent implements OnInit {
   commune : any
   typebien : any
   searchText: any;
+  selectedRegion: any;
+  selectedCommune: any;
+  selectedType: any;
+
+
+    //RECHERCHER PAR REGION
+    onRegionSelectionChange(event: any) {
+      this.selectedRegion = event.value;
+    }
+  
+  
+    //RECHERCHER PAR COMMUNE
+    onCommuneSelectionChange(event: any) {
+      this.selectedCommune = event.value;
+    }
+  
+    //RECHERCHER PAR TYPE
+    onTypeSelectionChange(event: any) {
+      this.selectedType = event.value;
+    }
 
 
   constructor(
@@ -54,7 +74,7 @@ export class ListingmapGridComponent implements OnInit {
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.commodite = data.commodite;
       this.adresse = data;
-      this.region = data.region;
+      this.region = data.region.reverse();
       this.commune = data.commune;
       this.typebien = data.type;
       console.log(this.adresse);

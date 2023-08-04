@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  gridBlog">
+                    <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  gridBlog | filter:searchText">
                         <div class="blog grid-blog">
                             <div class="blog-image">
                                 <a [routerLink]="routes.blogdetails"><img class="img-fluid" [src]="slide.img"
@@ -108,7 +108,7 @@
                             <h4><img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon"> Filtrer
                             </h4>
                             <div class="filter-content looking-input form-group mb-0">
-                                <input type="text" class="form-control" placeholder="Rechercher">
+                                <input type="text" class="form-control" placeholder="Rechercher" >
                             </div>
                         </div>
                         <!--<div class="card">

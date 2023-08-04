@@ -3,12 +3,12 @@
     <div class="container">
         <div class="row align-items-center text-center">
             <div class="col-md-12 col-12">
-                <h2 class="breadcrumb-title">Ajouter une propriété</h2>
+                <h2 class="breadcrumb-title">Ajouter un bien</h2>
                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a [routerLink]="routes.home1">Accueil</a></li>
-                        <li class="breadcrumb-item"><a [routerLink]="routes.mylisting">Mes propriétés</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Ajouter propriété</li>
+                        <li class="breadcrumb-item"><a [routerLink]="routes.mylisting">Mes biens</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ajouter bien</li>
                     </ol>
                 </nav>
             </div>
@@ -34,7 +34,7 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.mylisting">
-                        <i class="feather-list"></i> <span>Mes propriétés</span>
+                        <i class="feather-list"></i> <span>Mes biens</span>
                     </a>
                 </li>
                 <!--<li>
@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="routes.login">
+                    <a (click)="logout()">
                         <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
                     </a>
                 </li>

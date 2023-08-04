@@ -13,21 +13,50 @@ import { Router } from '@angular/router';
   templateUrl: './listing-grid-sidebar.component.html',
   styleUrls: ['./listing-grid-sidebar.component.css'],
 })
-export class ListingGridSidebarComponent  {
+export class ListingGridSidebarComponent {
   public routes = routes;
   public listsidebar: any = [];
   public categories: any = [];
   categoriesDataSource = new MatTableDataSource();
   searchInputCategory: any;
   selectedCategory: any = '';
-  bienImmo : any;
+  bienImmo: any;
   searchText: any;
+  selectedRegion: any;
+  selectedCommune: any;
+  selectedType: any;
+  selectedStatut: any;
+  commoditeSelectionnees: string[] = [];
 
-  commodite : any
-  adresse : any
-  region : any
-  commune : any
-  typebien : any
+  commodite: any
+  adresse: any
+  region: any
+  commune: any
+  typebien: any
+
+  //RECHERCHER PAR REGION
+  onRegionSelectionChange(event: any) {
+    this.selectedRegion = event.value;
+  }
+
+
+  //RECHERCHER PAR COMMUNE
+  onCommuneSelectionChange(event: any) {
+    this.selectedCommune = event.value;
+  }
+
+  //RECHERCHER PAR TYPE
+  onTypeSelectionChange(event: any) {
+    this.selectedType = event.value;
+  }
+
+    //RECHERCHER PAR COMMODITE
+    onCommoditeSelectionChange(event: any) {
+      this.selectedStatut = event.value;
+    }
+
+    
+   
 
   slidevalue: number = 55;
   options: Options = {
@@ -36,13 +65,13 @@ export class ListingGridSidebarComponent  {
   };
 
   constructor
-  (private Dataservice: DataService,
-    private serviceBienImmo : BienimmoService,
-    private serviceCommodite: CommoditeService,
-    private routerr : Router
+    (private Dataservice: DataService,
+      private serviceBienImmo: BienimmoService,
+      private serviceCommodite: CommoditeService,
+      private routerr: Router
     ) {
     this.listsidebar = this.Dataservice.listsidebarList,
-    this.categories = this.Dataservice.categoriesList;
+      this.categories = this.Dataservice.categoriesList;
     (this.categoriesDataSource = new MatTableDataSource(this.categories));
   }
   searchCategory(value: any): void {
@@ -51,17 +80,17 @@ export class ListingGridSidebarComponent  {
     this.categories = this.categoriesDataSource.filteredData;
   }
   ngOnInit(): void {
-     //AFFICHER LA LISTE DES BIENS IMMO
-     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+    //AFFICHER LA LISTE DES BIENS IMMO
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.biens.reverse();
       console.log(this.bienImmo);
     }
     );
-     //AFFICHER LA LISTE DES COMMODITES
-     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+    //AFFICHER LA LISTE DES COMMODITES
+    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.commodite = data.commodite;
       this.adresse = data;
-      this.region = data.region;
+      this.region = data.region.reverse();
       this.commune = data.commune;
       this.typebien = data.type;
       console.log(this.adresse);

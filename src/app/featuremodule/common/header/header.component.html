@@ -109,32 +109,29 @@
 
 
       <ul class="nav header-navbar-rht " *ngIf="nav == true">
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isLoginFailed == false">
           <a class="nav-link header-reg" [routerLink]="routes.signup">Inscription</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isLoginFailed == false">
           <a class="nav-link header-login" [routerLink]="routes.login"> Connexion</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting"><i class="fa-solid fa-plus"></i>
+          <a class="nav-link header-login add-listing" (click)="AjouterBienOrLogin()"><i class="fa-solid fa-plus"></i>
             Ajouter un bien</a>
         </li>
 
 
       </ul>
 
-
-
-
       <ul class="nav header-navbar-rht" *ngIf="nav == false">
         <li class="nav-item">
-          <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting"><i class="fa-solid fa-plus"></i>
+          <a class="nav-link header-login add-listing" (click)="AjouterBienOrLogin()"><i class="fa-solid fa-plus"></i>
             Ajouter un bien</a>
         </li>
 
 
-        <li class="nav-item dropdown has-arrow logged-item" >
-          <a  href="javascript:void(0);" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown"
+        <li class="nav-item dropdown has-arrow logged-item">
+          <a href="javascript:void(0);" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown"
             aria-expanded="false" *ngIf="User.user && User.user.username">
             <img src="assets/img/profile-img.jpg" alt="">
             <span>{{User.user.username}}</span>
@@ -142,7 +139,7 @@
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" [routerLink]='routes.dashboard'>Dashboard</a>
             <a class="dropdown-item" [routerLink]='routes.profile'>Profil</a>
-            <a class="dropdown-item" [routerLink]='routes.login'>Déconnexion</a>
+            <a class="dropdown-item" (click)="logout()">Déconnexion</a>
           </div>
         </li>
       </ul>

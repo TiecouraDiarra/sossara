@@ -9,7 +9,7 @@
             <li class="d-flex align-items-center"><a [routerLink]="routes.signup">Devenir un bailleur</a></li>
           </ul>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="isLoginFailed == false">
           <div class="selection-list">
             <div class="head-contact">
               <i class="feather-lock me-1"></i>
@@ -139,7 +139,7 @@
       </div>
       <div class="d-flex align-items-center block-e home-nine-btn">
 
-        <a [routerLink]="routes.categories" class="car-list-btn">
+        <a (click)="AjouterBienOrLogin()" class="car-list-btn">
           <i class="feather-plus-circle"></i>
           <span>Ajouter un bien</span>
         </a>

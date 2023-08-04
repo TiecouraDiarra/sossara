@@ -16,7 +16,8 @@ export class BlogGridSidebarComponent {
   searchInputCategory: any;
   public categories: any = [];
   selectedCategory: any = '';
-  typebien : any
+  typebien : any;
+  searchText: any;
 
   constructor(
     private Dataservice:DataService,
