@@ -81,12 +81,12 @@ const routes: Routes = [
       //       (m) => m.ListingGridModule
       //     ),
       // },
-      {
-        path: 'blog',
-        loadChildren: () =>
-          import('./blog/blog.module').then((m) => m.BlogModule),
-          // canActivate: [AuthGuard]
-      },
+      // {
+      //   path: 'blog',
+      //   loadChildren: () =>
+      //     import('./blog/blog.module').then((m) => m.BlogModule),
+      //     canActivate: [AuthGuard]
+      // },
       {
         path: 'contact',
         loadChildren: () =>

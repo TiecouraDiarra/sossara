@@ -10,11 +10,11 @@ const routes: Routes = [
         (m) => m.BlogDetailsModule
       ),
   },
-  {
-    path: 'blog-grid',
-    loadChildren: () =>
-      import('./blog-grid/blog-grid.module').then((m) => m.BlogGridModule),
-  },
+  // {
+  //   path: 'blog-grid',
+  //   loadChildren: () =>
+  //     import('./blog-grid/blog-grid.module').then((m) => m.BlogGridModule),
+  // },
   {
     path: 'blog',
     loadChildren: () =>
@@ -22,18 +22,18 @@ const routes: Routes = [
         (m) => m.BlogGridSidebarModule
       ),
   },
-  {
-    path: 'blog-list',
-    loadChildren: () =>
-      import('./blog-list/blog-list.module').then((m) => m.BlogListModule),
-  },
-  {
-    path: 'blog-list-sidebar',
-    loadChildren: () =>
-      import('./blog-list-sidebar/blog-list-sidebar.module').then(
-        (m) => m.BlogListSidebarModule
-      ),
-  },
+  // {
+  //   path: 'blog-list',
+  //   loadChildren: () =>
+  //     import('./blog-list/blog-list.module').then((m) => m.BlogListModule),
+  // },
+  // {
+  //   path: 'blog-list-sidebar',
+  //   loadChildren: () =>
+  //     import('./blog-list-sidebar/blog-list-sidebar.module').then(
+  //       (m) => m.BlogListSidebarModule
+  //     ),
+  // },
 
   ] },
  
