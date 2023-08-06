@@ -28,6 +28,8 @@ export class ListingmapGridComponent implements OnInit {
   selectedRegion: any;
   selectedCommune: any;
   selectedType: any;
+  p:number=1;
+
 
 
     //RECHERCHER PAR REGION

@@ -14,6 +14,7 @@ export class ListingGridComponent {
   public Bookmark :any =[];
   bienImmo : any
   commune : any
+  p:number=1;
   id:any
 
   constructor(

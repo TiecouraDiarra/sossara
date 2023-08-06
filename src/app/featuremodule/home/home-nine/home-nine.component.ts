@@ -40,6 +40,10 @@ export class HomeNineComponent {
   public categories: any = [];
   categoriesDataSource = new MatTableDataSource();
   selectedCategory: any = '';
+  nombreAgence: number = 0
+  nombreZone: number = 0
+  nombreBienLoue: number = 0
+  nombreBienVendre: number = 0
 
   constructor(
     private DataService: DataService,
@@ -257,6 +261,7 @@ export class HomeNineComponent {
       this.commodite = data.commodite;
       this.adresse = data;
       this.region = data.region;
+      this.nombreZone = data.region.length;
       this.commune = data.commune;
       this.typebien = data.type;
       console.log(this.adresse);
@@ -274,18 +279,26 @@ export class HomeNineComponent {
      //AFFICHER LA LISTE DES AGENCES
      this.serviceUser.AfficherLaListeAgence().subscribe(data => {
        this.agence = data.agences.reverse();
+       this.nombreAgence = data.length;
+      console.log(this.nombreAgence);
       console.log(this.agence);
     }
     );
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmoRecent().subscribe(data => {
+    this.serviceBienImmo.AfficherLaListeBienImmoRecentAlouer().subscribe(data => {
       // for (let index = 0; index < 4; index++) {
       //   this.BienLoueRecens.push(data.biens.reverse()[index])
       // }
       //this.BienLoueRecens.push(data.biens.reverse()[index])
+      this.nombreBienLoue = data.biens.length;
       this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3]]
       console.log(this.BienLoueRecens);
+    }
+    );
+     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
+     this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
+      this.nombreBienVendre = data.biens.length;
     }
     )
   }

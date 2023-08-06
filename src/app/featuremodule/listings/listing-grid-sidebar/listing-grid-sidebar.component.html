@@ -112,15 +112,28 @@
 
                 </div>
                 <div class="filter-content form-group amenities">
-                  <h4>Autres commodités</h4>
-                  <ul>
+                  <h4 class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
+                  aria-expanded="false" aria-controls="collapseExample">Autres commodités</h4>
+                  <div class="collapse" id="cautrecomm">
+                    <div class="row">
+                      <div class="col-4" *ngFor="let Commodite of commodite">
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            {{Commodite.nom}}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <ul>
                     <li *ngFor="let Commodite of commodite">
                       <label class="custom_check">
                         <input type="checkbox" name="wireless-internet" />
                         <span class="checkmark"></span> {{Commodite.nom}}
                       </label>
                     </li>
-                  </ul>
+                  </ul> -->
                 </div>
                 <!--<div class="filter-content form-group amenities radius">
                   <div class="slidecontainer">
@@ -187,7 +200,8 @@
         </div>
         <div class="grid-view listgrid-sidebar">
           <div class="row">
-            <div class="col-lg-6 col-md-4" *ngFor="let BienImo of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut">
+            <div class="col-lg-6 col-md-4"
+              *ngFor="let BienImo of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut | paginate:{itemsPerPage :4, currentPage:p}">
               <div class="card">
                 <div class="blog-widget">
                   <div class="blog-img">
@@ -252,7 +266,7 @@
         </div>
 
         <!--Pagination-->
-        <div class="blog-pagination">
+        <!-- <div class="blog-pagination">
           <nav>
             <ul class="pagination">
               <li class="page-item previtem">
@@ -285,7 +299,11 @@
               </li>
             </ul>
           </nav>
-        </div>
+        </div> -->
+        <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event" previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+          previousClass="pagination__previous" nextClass="pagination__next" containerClass="pagination__container"
+          pageClass="pagination__page" activeClassName="pagination__page--active"
+          disabledClass="pagination__page--disabled"></pagination-controls>
         <!--Pagination-->
       </div>
     </div>

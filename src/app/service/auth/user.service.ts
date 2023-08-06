@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/app/environments/environment';
 
 const API_URL = 'http://localhost:8080/api/test/';
+const URL_BASE: string = environment.Url_BASE
 const USER_KEY = 'auth-user';
 
 @Injectable({
@@ -10,7 +12,7 @@ const USER_KEY = 'auth-user';
 })
 export class UserService {
 
-  API_URLE = 'http://192.168.1.4:8000/api/';
+  // API_URLE = 'http://192.168.1.6:8000/api/';
 
    // Méthode pour stocker le token JWT dans le sessionStorage
   //  storeToken(token: string): void {
@@ -48,11 +50,11 @@ export class UserService {
 
   //AFFICHER LA LISTE DES AGENCES
   AfficherLaListeAgence():Observable<any>{
-    return this.http.get(`${this.API_URLE}user/agence/get`);
+    return this.http.get(`${URL_BASE}/user/agence/get`);
   }
 
   //AFFICHER LA LISTE DES RDV EN FONCTION DE USER
   AfficherLaListeRdv():Observable<any>{
-    return this.http.get(`${this.API_URLE}rdv/get`, this.httpOptions);
+    return this.http.get(`${URL_BASE}/rdv/get`, this.httpOptions);
   }
 }

@@ -24,6 +24,7 @@ export class ListingGridSidebarComponent {
   searchText: any;
   selectedRegion: any;
   selectedCommune: any;
+  p:number=1;
   selectedType: any;
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];

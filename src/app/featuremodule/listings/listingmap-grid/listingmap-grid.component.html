@@ -162,7 +162,7 @@
           </div>
           <div class="grid-view">
             <div class="row">
-              <div class="col-lg-6 col-md-4" *ngFor="let slide of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType">
+              <div class="col-lg-6 col-md-4" *ngFor="let slide of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | paginate:{itemsPerPage :4, currentPage:p}">
                 <div class="card">
                   <div class="blog-widget">
                     <div class="blog-img">
@@ -227,7 +227,7 @@
           </div>
 
           <!--Pagination-->
-          <div class="blog-pagination">
+          <!-- <div class="blog-pagination">
             <nav>
               <ul class="pagination">
                 <li class="page-item previtem">
@@ -260,7 +260,11 @@
                 </li>
               </ul>
             </nav>
-          </div>
+          </div> -->
+          <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event" previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+            previousClass="pagination__previous" nextClass="pagination__next" containerClass="pagination__container"
+            pageClass="pagination__page" activeClassName="pagination__page--active"
+            disabledClass="pagination__page--disabled"></pagination-controls>
           <!--/Pagination-->
         </div>
       </div>

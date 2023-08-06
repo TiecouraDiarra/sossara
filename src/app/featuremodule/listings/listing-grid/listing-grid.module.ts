@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ListingGridRoutingModule } from './listing-grid-routing.module';
 import { ListingGridComponent } from './listing-grid.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ListingGridComponent } from './listing-grid.component';
   ],
   imports: [
     CommonModule,
-    ListingGridRoutingModule
+    ListingGridRoutingModule,
+    NgxPaginationModule
   ]
 })
 export class ListingGridModule { }
