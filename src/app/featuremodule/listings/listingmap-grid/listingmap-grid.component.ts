@@ -4,6 +4,7 @@ import { DataService } from 'src/app/service/data.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class ListingmapGridComponent implements OnInit {
   constructor(
     private Dataservice :DataService,
     private serviceBienImmo : BienimmoService,
+    private router: Router,
     private serviceCommodite: CommoditeService
     ){
     this.mapgrid=this.Dataservice.mapgridList;
@@ -83,4 +85,9 @@ export class ListingmapGridComponent implements OnInit {
     });
  }
 
+    //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
+    goToDettailBien(id: number) {
+      console.log(id);
+      return this.router.navigate(['pages/service-details', id])
+    }
 }

@@ -11,18 +11,9 @@ const USER_KEY = 'auth-user';
   providedIn: 'root',
 })
 export class UserService {
+  
+  private accessToken!: string; // Ajoutez cette ligne
 
-  // API_URLE = 'http://192.168.1.6:8000/api/';
-
-   // Méthode pour stocker le token JWT dans le sessionStorage
-  //  storeToken(token: string): void {
-  //   sessionStorage.setItem('jwt_token', token);
-  // }
-
-  // Méthode pour récupérer le token JWT depuis le sessionStorage
-  // getToken(): string | null {
-  //   return sessionStorage.getItem('jwt_token');
-  // }
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -31,6 +22,16 @@ export class UserService {
     })
   };
   constructor(private http: HttpClient) {}
+
+  setAccessToken(token: string) {
+    this.accessToken = token;
+  }
+   // Méthode pour ajouter le token JWT aux en-têtes
+   getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.accessToken}`
+    });
+  }
 
   getPublicContent(): Observable<any> {
     return this.http.get(API_URL + 'all', { responseType: 'text' });
@@ -48,6 +49,7 @@ export class UserService {
     return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
 
+
   //AFFICHER LA LISTE DES AGENCES
   AfficherLaListeAgence():Observable<any>{
     return this.http.get(`${URL_BASE}/user/agence/get`);
@@ -55,6 +57,36 @@ export class UserService {
 
   //AFFICHER LA LISTE DES RDV EN FONCTION DE USER
   AfficherLaListeRdv():Observable<any>{
-    return this.http.get(`${URL_BASE}/rdv/get`, this.httpOptions);
+    const headers = this.getHeaders();
+    console.log(headers)
+    return this.http.get(`${URL_BASE}/rdv/get/mine`, { headers });
+  }
+
+  //AFFICHER LA PHOTO DE USER CONNECTER
+  AfficherPhotoUserConnecter():Observable<any>{
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/user/photo/get`, { headers });
+  }
+
+  //PRENDRE RENDEZ-VOUS EN FONCTION DU BIEN
+  PrendreRdv(date: Date, heure :string, id: any): Observable<any> {
+    const headers = this.getHeaders();
+    // const data = new FormData();
+    // data.append("contenu", contenu)
+    console.log(id)
+    console.log(headers)
+    console.log(date)
+    console.log(heure)
+    return this.http.post(`${URL_BASE}/rdv/${id}`, {
+      date,
+      heure
+    }, { headers });
+  }
+
+  //AFFICHER LA LISTE DES CANDIDATURES DE BIENS EN FONCTION DE USER
+  AfficherLaListeCandidature():Observable<any>{
+    const headers = this.getHeaders();
+    console.log(headers)
+    return this.http.get(`${URL_BASE}/candidature/get`, { headers });
   }
 }

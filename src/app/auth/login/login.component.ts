@@ -10,12 +10,12 @@ import { StorageService } from 'src/app/service/auth/storage.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   public routes = routes;
   public Toggledata = true;
   type = true;
-
-  User : any;
+  User: any;
+  roles: string[] = [];
 
   isLoggedIn = false;
   isLoginFailed = false;
@@ -27,19 +27,20 @@ export class LoginComponent implements OnInit{
   };
 
   constructor(
-    public router: Router, 
+    public router: Router,
     private authService: AuthService,
     private storageService: StorageService
-    ) {}
+  ) {}
 
-
-    ngOnInit(): void {
-      // if (this.storageService.isLoggedIn()) {
-      //   this.isLoggedIn = true;
-      //   this.roles = this.storageService.getUser().roles;
-      // }
-      console.log(this.storageService.getUser());
+  ngOnInit(): void {
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+      this.path();
+      // this.roles = this.storageService.getUser().roles;
+      console.log(this.storageService.getUser().roles);
     }
+    // console.log(this.storageService.getUser());
+  }
   path() {
     this.router.navigate([routes.dashboard]);
   }
@@ -50,21 +51,25 @@ export class LoginComponent implements OnInit{
 
   onSubmit(form: NgForm): void {
     const { email, password } = this.form;
+
     this.authService.login(email, password).subscribe({
       next: (data) => {
-         this.storageService.saveUser(data);
-        //this.User = data;
-        // this.isLoginFailed = true;
-        // this.User = this.storageService.getUser();
-        //console.log(data);
-        // console.log(this.User);
+        this.storageService.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.storageService.getUser().roles;
+        this.reloadPage();
+        // this.path();
       },
       error: (err) => {
-        console.log(err);
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
       },
     });
-    console.log(this.storageService.getUser());
-    console.log('email: ', email);
-    console.log('password: ', password);
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

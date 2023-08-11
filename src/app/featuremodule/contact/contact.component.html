@@ -1,98 +1,129 @@
 <!--Inner Banner-->
-<div class="contactbanner innerbanner">		   
-    <div class="inner-breadcrumb">
-      <div class="container">
-        <div class="row align-items-center text-center">
-            <div class="col-md-12 col-12 ">
-               <h2 class="breadcrumb-title">Contacter nous</h2>
-                <nav aria-label="breadcrumb" class="page-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Contact</li>
-                    </ol>
-                </nav>							
-            </div>
+<div class="contactbanner innerbanner">
+  <div class="inner-breadcrumb">
+    <div class="container">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12 col-12">
+          <h2 class="breadcrumb-title">Contacter nous</h2>
+          <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="routes.home9">Accueil</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Contact
+              </li>
+            </ol>
+          </nav>
         </div>
-      </div>		            
-    </div>		            
-</div>	
+      </div>
+    </div>
+  </div>
+</div>
 <!--/Inner Banner-->
 
-
-<!--contact Information-->	
+<!--contact Information-->
 <div class="contactus-info">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 contactus-img col-md-12">
-                <div class="contactleft-info">
-                    <img style="height: 570px;" src="data:image/jpeg;base64,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" class="img-fluid" alt="">
-                    <div class="contactinfo-content">
-                        <div class="contact-hours">
-                             <h6>Hours</h6>
-                             <ul>
-                                 <li>Tuesday - Saturday : 9am - 5pm</li>
-                                 <li>Monday: 10:30am - 3pm Closed on Sunday</li>								 
-                             </ul>
-                        </div>
-                        <div class="contact-hours">
-                             <h6>Contact Us</h6>
-                             <ul>
-                                 <li>132, My Street, Kingston, New York 12401</li>
-                                 <li>Tel : +088 01562 1452</li>								 
-                                 <li> Email : support@listee.com</li>								 
-                             </ul>
-                        </div>						
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 contactus-img col-md-12">
+        <div class="contactleft-info">
+          <img src="assets/img/contactleftimg.jpg" class="img-fluid" alt="" />
+          <div class="contactinfo-content">
+            <div class="contact-hours">
+              <h6>Hours</h6>
+              <ul>
+                <li>Tuesday - Saturday : 9am - 5pm</li>
+                <li>Monday: 10:30am - 3pm Closed on Sunday</li>
+              </ul>
             </div>
-            <div class="col-lg-6 contactright-map col-md-12">
-                 <div class="google-maps">
-                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7786.343154427149!2d-8.030656515344216!3d12.636746500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sml!4v1691164622424!5m2!1sfr!2sml" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d0.01!2d-8.0335744!3d12.6367905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDM4JzEyLjUiNTEuMCs4CsODIuNSJF!5e0!3m2!1sen!2sin!4v1670922579281!5m2!1sen!2sin" width="600" height="544" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                 </div>
-            </div>				
-        </div>		
-    </div>		
-</div>		
-<!--/contact Information-->	
+            <div class="contact-hours">
+              <h6>Contact Us</h6>
+              <ul>
+                <li>132, My Street, Kingston, New York 12401</li>
+                <li>Tel : +088 01562 1452</li>
+                <li>Email : support@listee.com</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 contactright-map col-md-12">
+        <div class="google-maps">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2967.8862835683544!2d-73.98256668525309!3d41.93829486962529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89dd0ee3286615b7%3A0x42bfa96cc2ce4381!2s132%20Kingston%20St%2C%20Kingston%2C%20NY%2012401%2C%20USA!5e0!3m2!1sen!2sin!4v1670922579281!5m2!1sen!2sin"
+            width="600"
+            height="544"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/contact Information-->
 
-<!--contact Form-->	
+<!--contact Form-->
 <section class="contactusform-section">
-       <div class="container">	
-            <div class="contact-info">
-               <h2>Contacter <span>Nous</span></h2> 
-               <p>Nous sommes la pour vous aider</p>
-           </div>		       
-           <div class="row align-items-center">
-                <div class="col-lg-5 col-md-5">
-                    <div class="contactform-img">
-                         <img src="assets/img/contactform-img.svg" class="img-fluid"  alt="">
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-7">
-                    
-                    <div class="contactus-form">
-                        <form class="">
-                            <div class="form-group">
-                               <input type="text" class="form-control" placeholder="Nom*" required>
-                            </div>
-                            <div class="form-group me-0">
-                               <input type="email" class="form-control" placeholder="Email*" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Objet">
-                            </div>
-                            <div class="form-group">
-                                   <textarea rows="4" class="form-control" placeholder="Description*" required></textarea>
-                            </div>
-                            <div class="submit-section">
-                                <button class="btn btn-primary submit-btn" type="submit"> Envoyer </button>
-                            </div>
-                        </form>
-                    
-                    </div>
-                </div>
-           </div>				   
-       </div>		
-</section>		
-<!--/contact Form-->	
+  <div class="container">
+    <div class="contact-info">
+      <h2>Contacter <span>Nous</span></h2>
+      <p>Nous sommes la pour vous aider</p>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-5 col-md-5">
+        <div class="contactform-img">
+          <img src="assets/img/contactform-img.svg" class="img-fluid" alt="" />
+        </div>
+      </div>
+      <div class="col-lg-7 col-md-7">
+        <div class="contactus-form">
+          <form class="" (submit)="sendEmail($event)">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nom"
+                name="name"
+              />
+            </div>
+            <div class="form-group me-0">
+              <input
+                type="email"
+                class="form-control"
+                name="user_email"
+                placeholder="email"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                name="object"
+                placeholder="Objet"
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                rows="4"
+                class="form-control"
+                placeholder="Description*"
+                name="message"
+                required
+              ></textarea>
+            </div>
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn" type="submit">
+                Envoyer
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/contact Form-->

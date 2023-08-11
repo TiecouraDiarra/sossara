@@ -1,0 +1,10 @@
+.ligne{
+    overflow-y: scroll; 
+    height: 350px;
+    --overflow: hidden;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

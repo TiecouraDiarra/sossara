@@ -47,7 +47,7 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Commentaires</span>
+                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
                     </a>
                 </li>
                 <li>
@@ -98,7 +98,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let BienImmo of bienImmo | filter:searchText">
+                                <tr *ngFor="let BienImmo of bienImmo | filter:searchText | paginate:{itemsPerPage :4, currentPage:p}">
                                     <td>
                                         <div class="listingtable-img"> <a (click)="goToDettailBien(BienImmo.id)"><img
                                                     class="img-fluid avatar-img"
@@ -133,7 +133,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="blog-pagination">
+                    <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event" previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                        previousClass="pagination__previous" nextClass="pagination__next" containerClass="pagination__container"
+                        pageClass="pagination__page" activeClassName="pagination__page--active"
+                        disabledClass="pagination__page--disabled"></pagination-controls>
+                    <!-- <div class="blog-pagination">
                         <nav>
                             <ul class="pagination">
                                 <li class="page-item previtem">
@@ -162,7 +166,7 @@
                                 </li>
                             </ul>
                         </nav>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

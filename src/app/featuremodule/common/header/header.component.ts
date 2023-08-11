@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
+      
       // this.roles = this.storageService.getUser().roles;
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
@@ -121,6 +122,10 @@ export class HeaderComponent implements OnInit {
     } else {
       this.router.navigateByUrl("/auth/connexion")
     }
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 
 }

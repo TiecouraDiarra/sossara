@@ -37,9 +37,13 @@ export type ChartOptions = {
 export class DashboardComponent implements OnInit {
   public routes = routes;
   User: any
-  bienImmo : any;
-  rdv : any;
+  bienImmo: any;
+  rdv: any;
   nombrebien: number = 0
+  public somme: number = 0
+  nombreCandidatureBienUser: number = 0
+  nombreRdvUser: number = 0
+  nombreMessageUser: number = 0
   public dashboarddata: any = []
   public dashboardreview: any = []
   @ViewChild("chart") chart !: ChartComponent;
@@ -49,7 +53,7 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private serviceBienImmo: BienimmoService,
-    private serviceUser : UserService,
+    private serviceUser: UserService,
     private storageService: StorageService
   ) {
     this.chartOptions = {
@@ -110,7 +114,7 @@ export class DashboardComponent implements OnInit {
 
 
       xaxis: {
-        categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+        categories: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
       },
 
 
@@ -124,22 +128,39 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.storageService.getUser());
     this.User = this.storageService.getUser().user.id;
+    const Users = this.storageService.getUser();
     console.log(this.User);
+    const token = Users.token;
+    this.serviceUser.setAccessToken(token);
+
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    this.serviceBienImmo.AfficherBienImmoParUser(this.User).subscribe(data => {
-      this.bienImmo = data.biens;
+    this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
+      this.bienImmo = data.biens.reverse();
       this.nombrebien = data.biens.length;
       console.log(this.bienImmo);
     });
 
-      //AFFICHER LA LISTE DES RDV
-      this.serviceUser.AfficherLaListeRdv().subscribe(data => {
-        // this.serviceUser.storeToken(data.token);
-        this.rdv = data;
-       console.log(this.rdv);
-     }
-     );
+    //AFFICHER LA LISTE DES RDV
+    this.serviceUser.AfficherLaListeRdv().subscribe(data => {
+      this.rdv = data.reverse();
+      this.nombreRdvUser = data.length;
+      console.log(this.rdv);
+    }
+    );
+
+    //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+      this.nombreCandidatureBienUser = data.candidature.length;
+      // this.nombreRdvUser = data.length;
+      console.log(this.nombreCandidatureBienUser);
+
+      // Calculer la somme des candidatures et des rendez-vous
+      this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser;
+      // console.log( "Somme =",this.somme);
+
+    }
+    );
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER

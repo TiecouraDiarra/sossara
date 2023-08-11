@@ -274,12 +274,14 @@ export class HomeNineComponent {
       // }
        this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3],data.biens.reverse()[4],data.biens.reverse()[5]];
       console.log(this.bienImmo);
+      console.log(data);
+      console.log(data.biens.length);
     }
     );
      //AFFICHER LA LISTE DES AGENCES
      this.serviceUser.AfficherLaListeAgence().subscribe(data => {
        this.agence = data.agences.reverse();
-       this.nombreAgence = data.length;
+       this.nombreAgence = data.agences.length;
       console.log(this.nombreAgence);
       console.log(this.agence);
     }
@@ -294,11 +296,17 @@ export class HomeNineComponent {
       this.nombreBienLoue = data.biens.length;
       this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3]]
       console.log(this.BienLoueRecens);
+      console.log(data.biens);
+      console.log(this.nombreBienLoue);
     }
     );
      //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
      this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
       this.nombreBienVendre = data.biens.length;
+      console.log(this.nombreBienVendre);
+      console.log(data.biens);
+
+
     }
     )
   }

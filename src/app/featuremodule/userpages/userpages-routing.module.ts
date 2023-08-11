@@ -12,7 +12,7 @@ const routes: Routes = [
           import('./add-listing/add-listing.module').then(
             (m) => m.AddListingModule
           ),
-          canActivate: [AuthGuard]
+          // canActivate: [AuthGuard]
       },
       {
         path: 'bookmarks',
@@ -23,31 +23,31 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-          canActivate: [AuthGuard]
+          // canActivate: [AuthGuard]
       },
       {
         path: 'messages',
         loadChildren: () =>
           import('./messages/messages.module').then((m) => m.MessagesModule),
-          canActivate: [AuthGuard]
+          // canActivate: [AuthGuard]
       },
       {
         path: 'mes-proprietes',
         loadChildren: () =>
           import('./my-listing/my-listing.module').then((m) => m.MyListingModule),
-          canActivate: [AuthGuard]
+          // canActivate: [AuthGuard]
       },
       {
         path: 'profile',
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
-          canActivate: [AuthGuard]
+          // canActivate: [AuthGuard]
       },
       {
         path: 'commentaire',
         loadChildren: () =>
           import('./reviews/reviews.module').then((m) => m.ReviewsModule),
-          canActivate: [AuthGuard]
+          // canActivate: [AuthGuard]
       },
 
     ]

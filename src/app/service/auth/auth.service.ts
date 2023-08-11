@@ -53,4 +53,6 @@ export class AuthService {
     const req = new HttpRequest('POST', URL_BASE + '/logout', {}, httpOptions);
     return this.http.request(req);
   }
+
+  
 }

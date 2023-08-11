@@ -166,7 +166,7 @@
                 <div class="card">
                   <div class="blog-widget">
                     <div class="blog-img">
-                      <a [routerLink]="routes.servicedetails">
+                      <a (click)="goToDettailBien(slide.id)">
                         <img src="assets/img/gallery/gallery1/gallery-1.jpg"
                           class="img-fluid" alt="blog-img" />
                       </a>
@@ -198,7 +198,7 @@
                           </div>
                         </div>
                         <h6>
-                          <a [routerLink]="routes.servicedetails">Nom bien</a>
+                          <a (click)="goToDettailBien(slide.id)">Nom bien</a>
                         </h6>
                         <div class="blog-location-details">
                           <div class="location-info">

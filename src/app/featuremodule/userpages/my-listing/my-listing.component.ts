@@ -18,6 +18,8 @@ export class MyListingComponent implements OnInit {
   User : any;
   searchText: any;
   bienImmo : any;
+  p:number=1;
+
   public electronics:any=[]
 
   constructor(
@@ -36,7 +38,7 @@ export class MyListingComponent implements OnInit {
     console.log(this.User);
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    this.serviceBienImmo.AfficherBienImmoParUser(this.User).subscribe(data => {
+    this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.biens;
       console.log(this.bienImmo);
     });

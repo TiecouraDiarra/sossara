@@ -63,6 +63,9 @@
                 ></span>
               </div>
             </div>
+            <div *ngIf="isLoginFailed" class="alert alert-danger" role="">
+              {{ errorMessage }}
+            </div>
             <div class="row">
               <div class="col-md-6 col-sm-6">
                 <label class="custom_check">
@@ -79,7 +82,7 @@
               </div>
             </div>
             <button
-              [routerLink]="routes.dashboard"
+              
               class="btn btn-primary w-100 login-btn"
               type="submit"
             >
