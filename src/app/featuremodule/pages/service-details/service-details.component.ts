@@ -25,6 +25,7 @@ export class ServiceDetailsComponent {
   isError: any = false;
   isLoggedIn = false;
   isLoginFailed = true;
+  isCandidatureSent: any = false; // Variable pour suivre l'état de la candidature
   // typeImmo : any
   // adresse : any
   // createdAt : any
@@ -112,6 +113,7 @@ export class ServiceDetailsComponent {
     this.router.navigate([routes.servicedetails])
   }
 
+  //METHODE PERMETTANT DE FAIRE UN COMMENTAIRE 
   FaireCommentaire(): void {
     this.id = this.route.snapshot.params["id"]
     // const Users = this.storageService.getUser();
@@ -153,6 +155,7 @@ export class ServiceDetailsComponent {
     // });
   }
 
+  //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
   PrendreRvd(): void {
     this.id = this.route.snapshot.params["id"]
     const user = this.storageService.getUser();
@@ -185,6 +188,7 @@ export class ServiceDetailsComponent {
     }
   }
 
+  //METHODE PERMETTANT DE CANDIDATER UN BIEN
   CandidaterBien(): void {
     this.id = this.route.snapshot.params["id"]
     // const user = this.storageService.getUser();
@@ -198,7 +202,7 @@ export class ServiceDetailsComponent {
     })
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
-      text: "Etes-vous sûre de valider cette candidature?",
+      text: "Etes-vous sûre de candidater ce bien?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Confirmer',
@@ -217,6 +221,7 @@ export class ServiceDetailsComponent {
               console.log("Candidature envoyée avec succès:", data);
               this.isSuccess = true;
               this.errorMessage = 'Candidature envoyée avec succès';
+              this.isCandidatureSent = true;
               // Afficher le premier popup de succès
               this.popUpConfirmation();
             },
@@ -255,9 +260,12 @@ export class ServiceDetailsComponent {
 
     }).then((result) => {
       this.reloadPage();
+       // Après avoir réussi à candidater, mettez à jour l'état de la candidature
+       
     })
   }
 
+  //METHODE PERMETTANT D'ACTUALISER LA PAGE
   reloadPage(): void {
     window.location.reload();
   }

@@ -87,30 +87,50 @@ export class BienimmoService {
     description: any,
     quartier: any,
     rue: any,
-    porte: any
+    porte: any,
+    photo: File // Liste de photos
   ): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
-
+    console.log('commo', commodite);
+    console.log('commune', commune);
+    console.log('piece', nb_piece);
+    console.log('nom', nom);
+    console.log('chamb', chambre);
+    console.log('cuis', cuisine);
+    console.log('toil', toilette);
+    console.log('sur', surface);
+    console.log('prix', prix);
+    console.log('stat', statut);
+    console.log('descr', description);
+    console.log('quart', quartier);
+    console.log('rue', rue);
+    console.log('porte', porte);
+    console.log('Photo', photo);
+    const formData = new FormData();
+    formData.append('commodite', commodite);
+    formData.append('type', type);
+    formData.append('commune', commune);
+    formData.append('nb_piece', nb_piece);
+    formData.append('nom', nom);
+    formData.append('chambre', chambre);
+    formData.append('cuisine', cuisine);
+    formData.append('toilette', toilette);
+    formData.append('surface', surface);
+    formData.append('prix', prix);
+    formData.append('statut', statut);
+    formData.append('description', description);
+    formData.append('quartier', quartier);
+    formData.append('rue', rue);
+    formData.append('porte', porte);
+    formData.append('photo', photo);
+    
+    // for (const image of photo) {
+    //   formData.append('photo[]', image, image.name);
+    // }
     return this.http.post(
       URL_BASE + '/bien/immo/new',
-      {
-        commodite,
-        type,
-        commune,
-        nb_piece,
-        nom,
-        chambre,
-        cuisine,
-        toilette,
-        surface,
-        prix,
-        statut,
-        description,
-        quartier,
-        rue,
-        porte,
-      },
+      formData,
       { headers }
     );
   }

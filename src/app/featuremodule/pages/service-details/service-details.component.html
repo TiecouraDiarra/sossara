@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-lg-5"  *ngIf="isLoggedIn == true">
                     <div class="callnow">
-                        <a (click)="CandidaterBien()"> <i class="feather-phone-call"></i>Candidater ce bien</a>
+                        <a (click)="CandidaterBien()" disabled="isAlreadyCandidated(user.id, bien.id)"> <i class="feather-phone-call"></i>Candidater ce bien</a>
                     </div>
                 </div>
             </div>

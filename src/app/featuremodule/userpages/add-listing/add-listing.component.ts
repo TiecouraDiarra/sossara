@@ -55,10 +55,43 @@ export class AddListingComponent {
   selectedValue: string | any = 'pays';
   selectedValueR: string | any = 'region';
   fliesValues: any = [];
-  valuesFileCurrent: any = 'assets/img/mediaimg-2.jpg';
+  valuesFileCurrent: String = 'assets/img/mediaimg-2.jpg';
   errorMessage: any = '';
   isSuccess: any = false;
   files: any = [];
+  photo: any;
+  selectedFiles : any;
+  imagesArray: string[] = []; // Array to store URLs of selected images
+
+  //CHARGER L'IMAGE
+  // chargeImg(event: any) {
+  //   this.photo = event.target["files"][0]
+  //   console.log(this.photo);
+  // }
+  // chargeImg(event: any): void {
+  //   const selectedFile = event.target.files[0];
+  //   console.log(selectedFile);
+  //   if (selectedFile) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       this.valuesFileCurrent = e.target.result;
+  //     };
+  //     reader.readAsDataURL(selectedFile);
+  //   }
+  // }
+  chargeImg(event: any): void {
+    this.photo = event.target.files;
+    const reader = new FileReader();
+    // this.imagesArray =  [];
+    console.log(this.photo);
+    for (const file of this.photo) {
+      reader.onload = (e: any) => {
+        this.imagesArray.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+      
+    }
+  }
 
   form: any = {
     commodite: null,
@@ -121,6 +154,10 @@ export class AddListingComponent {
     this.valuesFileCurrent = newValue.target.value;
   }
   onSubmit(form: NgForm): void {
+    if (this.photo === null) {
+      console.error('La photo est manquante.');
+      return;
+    }
     const {
       commodite,
       type,
@@ -144,21 +181,22 @@ export class AddListingComponent {
       this.serviceBienImmo.setAccessToken(user.token);
       this.serviceBienImmo
         .registerBien(
-        this.form.commodite,
-        this.form.type,
-        this.form.commune,
-        this.form.nb_piece,
-        this.form.nom,
-        this.form.chambre,
-        this.form.cuisine,
-        this.form.toilette,
-        this.form.surface,
-        this.form.prix,
-        this.form.statut,
-        this.form.description,
-        this.form.quartier,
-        this.form.rue,
-        this.form.porte,
+          this.form.commodite,
+          this.form.type,
+          this.form.commune,
+          this.form.nb_piece,
+          this.form.nom,
+          this.form.chambre,
+          this.form.cuisine,
+          this.form.toilette,
+          this.form.surface,
+          this.form.prix,
+          this.form.statut,
+          this.form.description,
+          this.form.quartier,
+          this.form.rue,
+          this.form.porte,
+          this.photo
         )
         .subscribe({
           next: (data) => {
@@ -175,4 +213,12 @@ export class AddListingComponent {
       console.error('Token JWT manquant');
     }
   }
+
+  // onPhotosSelected(event: any): void {
+  //   if (event.target.files && event.target.files.length > 0) {
+  //     this.photo = Array.from(event.target.files);
+  //   } else {
+  //     this.photo = [];
+  //   }
+  // }
 }
