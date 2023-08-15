@@ -3,17 +3,17 @@
   <div class="container">
     <div class="row align-items-center text-center">
       <div class="col-md-12 col-12">
-        <h2 class="breadcrumb-title">Ajouter une propriété</h2>
+        <h2 class="breadcrumb-title">Ajouter un bien</h2>
         <nav aria-label="breadcrumb" class="page-breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a [routerLink]="routes.home1">Accueil</a>
             </li>
             <li class="breadcrumb-item">
-              <a [routerLink]="routes.mylisting">Mes propriétés</a>
+              <a [routerLink]="routes.mylisting">Mes biens</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
-              Ajouter propriété
+              Ajouter bien
             </li>
           </ol>
         </nav>
@@ -75,7 +75,7 @@
           <div class="card-body">
             <div class="form-group">
               <label class="col-form-label"
-                >Nom de la propriété <span>*</span></label
+                >Nom du bien <span>*</span></label
               >
               <input
                 type="text"
@@ -88,7 +88,7 @@
 
             <div class="form-group">
               <label class="col-form-label"
-                >Description de la propriété <span>*</span></label
+                >Description du bien <span>*</span></label
               >
               <textarea
                 rows="6"
@@ -675,7 +675,14 @@
               <div class=" featured-img1">
                 <h6 class="media-title">Featured Image</h6>
                 <div class="media-image">
-                  <img *ngFor="let imageUrl of imagesArray; let i = index" class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
+                  <div *ngFor="let imageUrl of imagesArray; let i = index" class="image-container m-3">
+                    <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
+                    <button class="close-button" (click)="removeImage(i)">
+                      <!-- Icône de fermeture (à remplacer par l'icône de votre choix) -->
+                      <i class="fas fa-times close-icon"></i>
+                    </button>
+                  </div>
+                  <!-- <img *ngFor="let imageUrl of imagesArray; let i = index" class="m-3" [src]="imageUrl" alt="Image {{ i }}" /> -->
                 </div>
               </div>
               <div class="settings-upload-btn">

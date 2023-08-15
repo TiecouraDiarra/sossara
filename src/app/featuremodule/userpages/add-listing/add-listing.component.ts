@@ -39,7 +39,7 @@ export class AddListingComponent {
   regions: any = [];
   communes: any = [];
   fileName: any;
-  valuesSelect: any = ['1', '2', '3', '4', '4 et plus'];
+  valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   status: any = ['A louer', 'A vendre'];
 
   constructor(
@@ -213,6 +213,10 @@ export class AddListingComponent {
     } else {
       console.error('Token JWT manquant');
     }
+  }
+
+  removeImage(index: number) {
+    this.imagesArray.splice(index, 1); // Supprime l'image du tableau
   }
 
   // onPhotosSelected(event: any): void {
