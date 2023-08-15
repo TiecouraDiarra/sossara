@@ -67,7 +67,7 @@
       </ul>
     </div>
     <div class="profile-content">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="messages-form">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="messages-form" enctype="multipart/form-data">
         <div class="card">
           <div class="card-header">
             <h4>Basic information</h4>
@@ -202,7 +202,7 @@
             <div class="row social-info">
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
-                  <label class="col-form-label">Commodites</label>
+                  <label class="col-form-label">Commodites <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       [(ngModel)]="form.commodite"
@@ -219,7 +219,7 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Statut</label>
+                  <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       [(ngModel)]="form.statut"
@@ -245,7 +245,7 @@
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                  <label class="col-form-label">Pix du bien</label>
+                  <label class="col-form-label">Pix du bien <span>*</span></label>
                   <input
                     type="number"
                     pattern="[0-9]"
@@ -260,7 +260,7 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                  <label class="col-form-label">Nombre de salon</label>
+                  <label class="col-form-label">Nombre de salon <span>*</span></label>
                       <div class="pass-group group-img">
                         <select
                           [(ngModel)]="form.nb_piece"
@@ -280,7 +280,7 @@
             <div class="row social-info">
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
-                  <label class="col-form-label">Cuisines</label>
+                  <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       [(ngModel)]="form.cuisine"
@@ -297,7 +297,7 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Chambres</label>
+                  <label class="col-form-label">Chambres <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       [(ngModel)]="form.chambre"
@@ -317,7 +317,7 @@
             <div class="row social-info">
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
-                  <label class="col-form-label">Type</label>
+                  <label class="col-form-label">Type <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       [(ngModel)]="form.type"
@@ -335,7 +335,7 @@
 
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Toilette</label>
+                  <label class="col-form-label">Toilette <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       [(ngModel)]="form.toilette"
@@ -354,7 +354,7 @@
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                  <label class="col-form-label">Surface du bien</label>
+                  <label class="col-form-label">Surface du bien <span>*</span></label>
                   <input
                     type="number"
                     pattern="[0-9]"
@@ -422,7 +422,7 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
                   <div class="pass-group group-img">
-                    <label class="col-form-label">Quartier</label>
+                    <label class="col-form-label">Quartier <span>*</span></label>
                     <input
                       type="text"
                       name="quartier"
@@ -435,7 +435,7 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Porte</label>
+                  <label class="col-form-label">Porte <span>*</span></label>
                   <input
                   type="number"
                     pattern="[0-9]"
@@ -452,7 +452,7 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
                   <div class="pass-group group-img">
-                    <label class="col-form-label">Rue</label>
+                    <label class="col-form-label">Rue <span>*</span></label>
                     <input
                       name="rue"
                       [(ngModel)]="form.rue"
@@ -465,7 +465,7 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Pays</label>
+                  <label class="col-form-label">Pays <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       class="form-control"
@@ -485,7 +485,7 @@
             <div class="row social-info">
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Region</label>
+                  <label class="col-form-label">Region <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       name="region"
@@ -503,7 +503,7 @@
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Commune</label>
+                  <label class="col-form-label">Commune <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
                       [(ngModel)]="form.commune"
@@ -673,7 +673,7 @@
           <div class="card-body">
             <div class="row">
               <div class=" featured-img1">
-                <h6 class="media-title">Featured Image</h6>
+                <h6 class="media-title">Images biens <span>*</span></h6>
                 <div class="media-image">
                   <div *ngFor="let imageUrl of imagesArray; let i = index" class="image-container m-3">
                     <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />

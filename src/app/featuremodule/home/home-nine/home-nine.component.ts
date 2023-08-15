@@ -282,7 +282,7 @@ export class HomeNineComponent {
       this.nombreZone = data.region.length;
       this.commune = data.commune;
       this.typebien = data.type;
-      console.log(this.adresse);
+      console.log(this.commodite);
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO

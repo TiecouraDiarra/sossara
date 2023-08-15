@@ -97,20 +97,20 @@
                     </div>
                     <!-- /Footer Widget -->
                 </div>
-                <div class="col-lg-2 col-md-6">
+                <div class="col-lg-2 col-md-6" *ngIf="commune && commune.length > 0">
                     <!-- Footer Widget -->
                     <div class="footer-widget footer-menu">
                         <h2 class="footer-title">Top villes</h2>
                         <ul>
-                            <li>
-                                <a href="javascript:void(0)">Commune VI</a>
+                            <li *ngFor="let Commune of commune">
+                                <a (click)="goToDettailCommune(Commune.id)">{{Commune.nom}}</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="javascript:void(0)">Commune III</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">Commune I</a>
-                            </li>
+                            </li> -->
                             <!--<li>
                                 <a href="javascript:void(0)">Chicago</a>
                             </li>

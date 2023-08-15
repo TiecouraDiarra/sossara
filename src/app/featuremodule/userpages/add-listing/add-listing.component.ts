@@ -109,7 +109,11 @@ export class AddListingComponent {
     quartier: null,
     rue: null,
     porte: null,
+    commoditeChecked: false,
+    selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
+
+  
 
   ngOnInit(): void {
     Aos.init({ disable: 'mobile' });
@@ -150,6 +154,8 @@ export class AddListingComponent {
     );
   }
 
+  
+
   onFileSelected(newValue: any) {
     this.files.push(newValue.target.files[0]);
     this.valuesFileCurrent = newValue.target.value;
@@ -182,21 +188,21 @@ export class AddListingComponent {
       this.serviceBienImmo.setAccessToken(user.token);
       this.serviceBienImmo
         .registerBien(
-          this.form.commodite,
-          this.form.type,
-          this.form.commune,
-          this.form.nb_piece,
-          this.form.nom,
-          this.form.chambre,
-          this.form.cuisine,
-          this.form.toilette,
-          this.form.surface,
-          this.form.prix,
-          this.form.statut,
-          this.form.description,
-          this.form.quartier,
-          this.form.rue,
-          this.form.porte,
+          commodite,
+          type,
+          commune,
+          nb_piece,
+          nom,
+          chambre,
+          cuisine,
+          toilette,
+          surface,
+          prix,
+          statut,
+          description,
+          quartier,
+          rue,
+          porte,
           this.photo
         )
         .subscribe({

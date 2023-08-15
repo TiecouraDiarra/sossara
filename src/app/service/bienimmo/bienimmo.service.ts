@@ -73,7 +73,7 @@ export class BienimmoService {
 
   //AJOUTER UN BIEN
   registerBien(
-    commodite: any,
+    commodite: Array<any>,
     type: any,
     commune: any,
     nb_piece: any,
@@ -108,7 +108,9 @@ export class BienimmoService {
     console.log('porte', porte);
     console.log('Photo', photo);
     const formData = new FormData();
-    formData.append('commodite', commodite);
+    for (const c of commodite) {
+      formData.append('commodite[]', c);
+    }
     formData.append('type', type);
     formData.append('commune', commune);
     formData.append('nb_piece', nb_piece);
