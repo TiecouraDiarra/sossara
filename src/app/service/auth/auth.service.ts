@@ -34,16 +34,27 @@ export class AuthService {
     nom: string,
     email: string,
     password: string,
-    telephone: string
+    telephone: string,
+    dateNaissance: string,
+    nom_doc: string,
+    num_doc: string,
+    roles: string,
+    photo: File
   ): Observable<any> {
+    const formData = new FormData();
+    formData.append('nom', nom);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('telephone', telephone);
+    formData.append('dateNaissance', dateNaissance);
+    formData.append('nom_doc', nom_doc);
+    formData.append('num_doc', num_doc);
+    formData.append('roles', roles);
+    formData.append('photo', photo);
+
     return this.http.post(
       this.URL_BASE + '/register',
-      {
-        nom,
-        email,
-        password,
-        telephone,
-      },
+        formData,
       httpOptions
     );
   }

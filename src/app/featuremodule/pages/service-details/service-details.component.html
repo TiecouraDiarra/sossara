@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="rate-details" *ngIf="bien && bien.prix">
-                <h4>{{bien.prix}} FCFA</h4>
+                <h4>{{ formatPrice(bien.prix) }} FCFA</h4>
                 <p>Fixe</p>
             </div>
         </div>
@@ -466,10 +466,10 @@
                                 <li *ngIf="bien && bien.adresse">Rue <span>{{bien.adresse.rue}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Porte <span>{{bien.adresse.porte}}</span></li>
                                 <li *ngIf="bien && bien.createdAt">Date de publication <span>{{bien.createdAt.date | date:"dd/MM/yyyy"}}</span></li>
-                                <li>Salon <span>4</span></li>
-                                <li *ngIf="bien && bien.nb_piece">Chambre <span>{{bien.nb_piece}}</span></li>
-                                <li>Cuisine <span>4</span></li>
-                                <li>Toilette<span>8</span></li>
+                                <li *ngIf="bien && bien.nb_piece">Salon <span>{{bien.nb_piece}}</span></li>
+                                <li *ngIf="bien && bien.chambre">Chambre <span>{{bien.nb_piece}}</span></li>
+                                <li *ngIf="bien && bien.cuisine">Cuisine <span>{{bien.cuisine}}</span></li>
+                                <li *ngIf="bien && bien.toilette">Toilette<span>{{bien.toilette}}</span></li>
                                 <!-- <li>Gadgets <span>6</span></li>
                                 <li>Home Area <span>30sqft</span></li>
                                 <li>Lot Dimensions <span>30*30*20 ft</span></li>
@@ -529,23 +529,14 @@
                         <div class="card mb-0">
                             <h6> <i class="feather-phone-call"></i> Prendre Rendez-vous </h6>
                             <form class="contactbusinessform">
-                                <!-- <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Nom">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Adresse email">
-                                </div> -->
                                 <div class="form-group">
                                     <label for="datePicker">Date :</label>
-                                    <input type="date" class="form-control" id="datePicker" name="date" [(ngModel)]="RdvForm.date">
+                                    <input type="date" class="form-control" id="datePicker" name="date" [(ngModel)]="RdvForm.date" min="{{ getCurrentDate() }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="timePicker">Heure :</label>
                                     <input type="time" class="form-control" id="timePicker" name="heure" [(ngModel)]="RdvForm.heure">
                                 </div>
-                                <!-- <div class="form-group">
-                                    <textarea rows="6" class="form-control" placeholder="Message"></textarea>
-                                </div> -->
                                 <div *ngIf="isSuccess" class="alert alert-success" role="alert">
                                     {{ errorMessage }}
                                 </div>

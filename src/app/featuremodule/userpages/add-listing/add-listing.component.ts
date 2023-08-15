@@ -137,6 +137,7 @@ export class AddListingComponent {
     //   console.log(this.BienLoueRecens);
     // });
   }
+  
   onChange(newValue: any) {
     this.regions = this.region.filter(
       (el: any) => el.pays.nom == newValue.value

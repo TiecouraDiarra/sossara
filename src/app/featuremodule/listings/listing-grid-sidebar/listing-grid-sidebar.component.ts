@@ -29,11 +29,29 @@ export class ListingGridSidebarComponent {
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];
 
+  regions: any = [];
+  communes: any = [];
+
   commodite: any
   adresse: any
   region: any
   commune: any
   typebien: any
+
+
+  //AFFICHER REGION EN FONCTION DU PAYS
+  onChange(newValue: any) {
+    this.regions = this.region.filter(
+      (el: any) => el.pays.nom == newValue.value
+    );
+  }
+
+  //AFFICHER COMMUNE EN FONCTION DE REGION
+  onChangeRegion(newValue: any) {
+    this.communes = this.commune.filter(
+      (el: any) => el.region.nom == newValue.value
+    );
+  }
 
   //RECHERCHER PAR REGION
   onRegionSelectionChange(event: any) {

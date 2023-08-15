@@ -45,6 +45,8 @@ export class HomeNineComponent {
   nombreBienLoue: number = 0
   nombreBienVendre: number = 0
 
+  imagesCommunes = ['commune1.jpeg', 'commune2.png', 'commune3.jpg', 'commune4.jpg', 'commune5.jpeg', 'commune6.jpeg'];
+
   constructor(
     private DataService: DataService,
     private router: Router,
@@ -322,7 +324,10 @@ export class HomeNineComponent {
     console.log(id);
     return this.router.navigate(['bienparcommune', id])
   }
-
+  //FORMATER LE PRIX
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
   AjouterBienOrLogin(){
     if(this.storageService.isLoggedIn()){

@@ -109,7 +109,7 @@
                                         <div class="listingtable-rate">
                                             <a href="javascript:void(0)" class="cat-icon">
                                                 <i class="fa-regular fa-circle-stop"></i> {{BienImmo.typeImmo.nom}}
-                                            </a> <span class="discount-amt">{{BienImmo.prix}} FCFA</span>
+                                            </a> <span class="discount-amt">{{ formatPrice(BienImmo.prix) }} FCFA</span>
                                             <!-- <span class="fixed-amt">{{BienImmo.typeImmo.nom}}</span> -->
                                         </div>
                                         <p>{{BienImmo.adresse.commune.region.pays.nom}} - {{BienImmo.adresse.commune.region.nom}} - {{BienImmo.adresse.commune.nom}} - {{BienImmo.adresse.quartier}}</p>

@@ -198,8 +198,12 @@
             </div>
           </div>
         </div>
+
         <div class="grid-view listgrid-sidebar">
           <div class="row">
+            <!-- <div class="dd" *ngIf="bienImmo && bienImmo.length == 0">
+              Pas de biens
+            </div> -->
             <div class="col-lg-6 col-md-4"
               *ngFor="let BienImo of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut | paginate:{itemsPerPage :4, currentPage:p}">
               <div class="card">

@@ -1,0 +1,9 @@
+.commune-image {
+    width: 100%;
+    height: 100%; /* Pour conserver le rapport hauteur/largeur de l'image */
+    object-fit: fill; /* ou 'cover' selon l'effet souhaité */
+}
+
+.car-location-img-container {
+    height: 60%;
+}
