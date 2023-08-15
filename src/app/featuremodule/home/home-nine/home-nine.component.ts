@@ -27,6 +27,16 @@ export class HomeNineComponent {
   public ourtestimonials: any = [];
   public recentarticle: any = [];
 
+  currentImageIndex = 0;
+   carouselImages = [
+    './assets/img/banner/bamako-slider.jpg',
+    './assets/img/banner/immo.jpg',
+    './assets/img/banner/maison.jpg'
+];
+
+  changeImage() {
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
+  }
 
   commodite: any
   agence: any
@@ -44,6 +54,7 @@ export class HomeNineComponent {
   nombreZone: number = 0
   nombreBienLoue: number = 0
   nombreBienVendre: number = 0
+  valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
   imagesCommunes = ['commune1.jpeg', 'commune2.png', 'commune3.jpg', 'commune4.jpg', 'commune5.jpeg', 'commune6.jpeg'];
 
@@ -256,6 +267,11 @@ export class HomeNineComponent {
   };
 
   ngOnInit(): void {
+    setInterval(() => {
+      this.changeImage();
+    }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)
+
+
     AOS.init({ disable: 'mobile' }
     );
     //AFFICHER LA LISTE DES COMMODITES
