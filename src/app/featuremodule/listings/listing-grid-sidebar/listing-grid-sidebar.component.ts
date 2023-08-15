@@ -52,6 +52,10 @@ export class ListingGridSidebarComponent {
       (el: any) => el.region.nom == newValue.value
     );
   }
+    //FORMATER LE PRIX
+    formatPrice(price: number): string {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
 
   //RECHERCHER PAR REGION
   onRegionSelectionChange(event: any) {

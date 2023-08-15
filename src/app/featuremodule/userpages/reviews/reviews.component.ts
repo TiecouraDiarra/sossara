@@ -253,4 +253,9 @@ export class ReviewsComponent implements OnInit {
     })
 
   }
+
+  //FORMATER LE PRIX
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 }
