@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { DataService } from 'src/app/service/data.service';
+import { MercureService } from 'src/app/service/mercure/mercure.service';
 import { MessageService } from 'src/app/service/message/message.service';
 import Swal from 'sweetalert2';
 
@@ -55,9 +56,14 @@ export class MessagesComponent implements OnInit{
     private storageService: StorageService,
     private serviceMessage: MessageService,
     private serviceUser: UserService,
+    private mercureService: MercureService,
     private router: Router,
     ){}
   ngOnInit(): void {
+
+    this.mercureService.subscribeToTopic('conversation').subscribe((message: any) => {
+      this.conversation.push(message);
+    });
 
     //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
     this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
@@ -165,5 +171,10 @@ export class MessagesComponent implements OnInit{
     //  this.serviceCommentaire.FaireCommentaire(this.CommentaireForm.contenu, this.id).subscribe(data=>{
     //   console.log(data);
     // });
+  }
+
+  ngOnDestroy() {
+    // N'oubliez pas de vous désabonner lorsque le composant est détruit
+    this.mercureService.unsubscribeFromTopic('messages');
   }
 }

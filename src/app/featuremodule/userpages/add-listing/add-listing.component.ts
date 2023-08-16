@@ -24,6 +24,7 @@ interface price {
 })
 export class AddListingComponent {
   requiredFileType: any;
+  les_commodite: any[] = [];
   commodite: any;
   adresse: any;
   region: any;
@@ -38,6 +39,9 @@ export class AddListingComponent {
   commodite3: any;
   regions: any = [];
   communes: any = [];
+  photo: File[] = [];
+  image: File[] = [];
+  images: File[] = [];
   fileName: any;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   status: any = ['A louer', 'A vendre'];
@@ -59,37 +63,48 @@ export class AddListingComponent {
   errorMessage: any = '';
   isSuccess: any = false;
   files: any = [];
-  photo: any;
+  // photo: any;
   selectedFiles : any;
   imagesArray: string[] = []; // Array to store URLs of selected images
 
   //CHARGER L'IMAGE
-  // chargeImg(event: any) {
-  //   this.photo = event.target["files"][0]
-  //   console.log(this.photo);
-  // }
   // chargeImg(event: any): void {
-  //   const selectedFile = event.target.files[0];
-  //   console.log(selectedFile);
-  //   if (selectedFile) {
-  //     const reader = new FileReader();
+  //   this.photo = event.target.files;
+  //   const reader = new FileReader();
+  //   console.log(this.photo);
+  //   for (const file of this.photo) {
   //     reader.onload = (e: any) => {
-  //       this.valuesFileCurrent = e.target.result;
+  //       this.imagesArray.push(e.target.result);
   //     };
-  //     reader.readAsDataURL(selectedFile);
+  //     reader.readAsDataURL(file);
+      
   //   }
   // }
-  chargeImg(event: any): void {
-    this.photo = event.target.files;
+
+  onFileSelected(event: any): void {
+    this.selectedFiles = event.target.files;
     const reader = new FileReader();
-    // this.imagesArray =  [];
-    console.log(this.photo);
-    for (const file of this.photo) {
+    for (const file of this.selectedFiles) {
       reader.onload = (e: any) => {
-        this.imagesArray.push(e.target.result);
+        this.image.push(e.target.result);
+        console.log(this.image);
       };
+      this.images.push(file);
       reader.readAsDataURL(file);
-      
+      this.form.photo = this.images;
+    }
+  }
+
+  onChangeCommodite(){
+    if (this.les_commodite) {
+      const commoditeArray = [];
+      for (const item of this.les_commodite) {
+        if (item.selected) {
+          commoditeArray.push(item.id);
+        }
+      }
+      this.form.commodite = commoditeArray;
+      console.log(this.form.commodite);
     }
   }
 
@@ -109,6 +124,7 @@ export class AddListingComponent {
     quartier: null,
     rue: null,
     porte: null,
+    photo:null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
@@ -120,7 +136,7 @@ export class AddListingComponent {
 
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-      this.commodite = data.commodite;
+      this.les_commodite = data.commodite;
       this.adresse = data;
       this.pays = data.pays;
       this.region = data.region;
@@ -156,13 +172,17 @@ export class AddListingComponent {
 
   
 
-  onFileSelected(newValue: any) {
-    this.files.push(newValue.target.files[0]);
-    this.valuesFileCurrent = newValue.target.value;
-  }
+  // onFileSelected(newValue: any) {
+  //   this.files.push(newValue.target.files[0]);
+  //   this.valuesFileCurrent = newValue.target.value;
+  // }
   onSubmit(form: NgForm): void {
-    if (this.photo === null) {
+    if (this.form.photo === null) {
       console.error('La photo est manquante.');
+      return;
+    }
+    if (this.form.commodite === null) {
+      console.error('Commodites est manquante.');
       return;
     }
     const {
@@ -181,6 +201,7 @@ export class AddListingComponent {
       quartier,
       rue,
       porte,
+      photo
     } = this.form;
     console.log(this.form);
     const user = this.storageService.getUser();
@@ -203,7 +224,7 @@ export class AddListingComponent {
           quartier,
           rue,
           porte,
-          this.photo
+          photo
         )
         .subscribe({
           next: (data) => {

@@ -73,24 +73,26 @@ export class BienimmoService {
 
   //AJOUTER UN BIEN
   registerBien(
-    commodite: Array<any>,
-    type: any,
-    commune: any,
-    nb_piece: any,
-    nom: any,
-    chambre: any,
-    cuisine: any,
-    toilette: any,
-    surface: any,
-    prix: any,
-    statut: any,
-    description: any,
-    quartier: any,
-    rue: any,
-    porte: any,
-    photo: File // Liste de photos
+    commodite: [],
+    type:number,
+    commune:number,
+    nb_piece: number,
+    nom: string,
+    chambre: number,
+    cuisine: number,
+    toilette: number,
+    surface: number,
+    prix: number,
+    statut: string,
+    description: string,
+    quartier: string,
+    rue: string,
+    porte: number,
+    photos: File[],
+    // photo: File // Liste de photos
   ): Observable<any> {
     const headers = this.getHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
     console.log(headers);
     console.log('commo', commodite);
     console.log('commune', commune);
@@ -106,37 +108,32 @@ export class BienimmoService {
     console.log('quart', quartier);
     console.log('rue', rue);
     console.log('porte', porte);
-    console.log('Photo', photo);
+    console.log('photo', photos);
     const formData = new FormData();
-    for (const c of commodite) {
-      formData.append('commodite[]', c);
-    }
-    formData.append('type', type);
-    formData.append('commune', commune);
-    formData.append('nb_piece', nb_piece);
+
+    commodite.forEach(i=>{formData.append('commodite[]', i)});
+    formData.append('type', type.toString());
+    formData.append('commune', commune.toString());
+    formData.append('nb_piece', nb_piece.toString());
     formData.append('nom', nom);
-    formData.append('chambre', chambre);
-    formData.append('cuisine', cuisine);
-    formData.append('toilette', toilette);
-    formData.append('surface', surface);
-    formData.append('prix', prix);
+    formData.append('chambre', chambre.toString());
+    formData.append('cuisine', cuisine.toString());
+    formData.append('toilette', toilette.toString());
+    formData.append('surface', surface.toString());
+    formData.append('prix', prix.toString());
     formData.append('statut', statut);
     formData.append('description', description);
     formData.append('quartier', quartier);
     formData.append('rue', rue);
-    formData.append('porte', porte);
-    formData.append('photo', photo);
-    
-    // for (const image of photo) {
-    //   formData.append('photo[]', image, image.name);
-    // }
+    formData.append('porte', porte.toString());
+    photos.forEach(p=>{formData.append('photo[]', p)});
+
     return this.http.post(
       URL_BASE + '/bien/immo/new',
       formData,
       { headers }
     );
   }
-
   //CANDIDATER UN BIEN 
   CandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();

@@ -44,21 +44,30 @@ export class SignupComponent {
     dateNaissance: null,
     nom_doc : "Type de pieces",
     num_doc : null,
-    roles : "Type d'Utilisateur"
+    roles : "Type d'Utilisateur",
+    photo:null,
   };
-  photo: any
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
   message: string | undefined;
+  selectedFiles : any;
+  image: File[] = [];
+  images: File[] = [];
+
 
   //CHARGER L'IMAGE
-  chargeImg(event: any) {
-    const file = event.target["files"][0]; // Récupérer le fichier sélectionné
-    
-    if (file) {
-      this.photo = file; // Mettre à jour la propriété photo du formulaire avec le fichier
-      console.log(this.photo);
+  onFileSelected(event: any): void {
+    this.selectedFiles = event.target.files;
+    const reader = new FileReader();
+    for (const file of this.selectedFiles) {
+      reader.onload = (e: any) => {
+        this.image.push(e.target.result);
+        console.log(this.image);
+      };
+      this.images.push(file);
+      reader.readAsDataURL(file);
+      this.form.photo = this.images;
     }
   }
 
@@ -88,7 +97,11 @@ export class SignupComponent {
   }
 
   onSubmit(): void {
-    const { nom, email, password, telephone, dateNaissance,  nom_doc,num_doc, roles} = this.form;
+    if (this.form.photo === null) {
+      console.error('La photo est manquante.');
+      return;
+    }
+    const { nom, email, password, telephone, dateNaissance,  nom_doc,num_doc, roles,photo} = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -105,7 +118,7 @@ export class SignupComponent {
       || this.form.num_doc == ""
       || this.form.confirmPassword == ""
       || this.form.roles == ""
-      || this.photo == null) {
+      || this.form.photo === null) {
       swalWithBootstrapButtons.fire(
         this.message = " Tous les champs sont obligatoires !",
       )
@@ -119,7 +132,7 @@ export class SignupComponent {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-          this.authService.register(nom, email, password, telephone, dateNaissance, nom_doc,num_doc,roles, this.photo).subscribe({
+          this.authService.register(nom, email, password, telephone, dateNaissance, nom_doc,num_doc,roles,photo).subscribe({
             next: (data) => {
               console.log(data);
               this.isSuccessful = true;

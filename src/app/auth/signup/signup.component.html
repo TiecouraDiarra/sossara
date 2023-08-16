@@ -139,7 +139,7 @@
               </div>
             </div>
             <!-- Debut Visiteur et proprietaire -->
-            <div class="row" *ngIf="selectedTypePiece === 'NINA'">
+            <!-- <div class="row" *ngIf="selectedTypePiece === 'NINA'">
               <div class="col">
                 <div class="form-group group-img">
                   <div class="group-img">
@@ -161,14 +161,14 @@
                     <input
                       type="file"
                       id="photo" name="photo"
-                      (change)="chargeImg($event)"
+                      (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                     />
                     <label for="file" class="file-upload">Photo de la carte</label>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="row" *ngIf="selectedTypePiece === 'CarteIN'">
               <div class="col">
                 <div class="form-group group-img">
@@ -192,7 +192,7 @@
                     <input
                       type="file"
                       id="photo" name="photo"
-                      (change)="chargeImg($event)"
+                      (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                     />
                     <label for="file" class="file-upload">Photo de la carte</label>
@@ -223,7 +223,7 @@
                     <input
                       type="file"
                       id="photo" name="photo"
-                      (change)="chargeImg($event)"
+                      (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                     />
                     <label for="file" class="file-upload">Photo du Passport</label>
@@ -255,7 +255,7 @@
                     <input
                       type="file"
                       id="photo" name="photo"
-                      (change)="chargeImg($event)"
+                      (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                     />
                     <label for="file" class="file-upload">Photo de RCCM</label>
@@ -284,7 +284,7 @@
                     <input
                       type="file"
                       id="photo" name="photo"
-                      (change)="chargeImg($event)"
+                      (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                     />
                     <label for="file" class="file-upload">Photo du NIF</label>

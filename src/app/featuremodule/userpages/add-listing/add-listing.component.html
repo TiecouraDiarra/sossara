@@ -204,16 +204,21 @@
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Commodites <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.commodite"
-                      name="commodite"
-                      class="form-control selectpicker"
-                      id=""
-                    >
-                      <option *ngFor="let item of commodite" [value]="item.id">
-                        {{ item.nom }}
-                      </option>
-                    </select>
+                    <div *ngFor="let item of les_commodite">
+                      <ul>
+                        <li>
+                            <label class="custom_check">
+                              <input
+                              type="checkbox"
+                              [(ngModel)]="item.selected"
+                              [value]="item.id"
+                              (change)="onChangeCommodite()"
+                              name="commodite"/>
+                                <span class="checkmark"></span> {{ item.nom }}
+                            </label>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -688,7 +693,7 @@
               <div class="settings-upload-btn">
                 <input
                   type="file"
-                  id="photo" name="photo" (change)="chargeImg($event)" multiple
+                  id="photo" name="photo" (change)="onFileSelected($event)" multiple
                   class="hide-input image-upload"
                 />
                 <label for="file" class="file-upload">Ajouter l'image</label>
