@@ -25,10 +25,10 @@
 <div class="bannergallery-section">
     <div class="gallery-slider d-flex">
 
-        <ng-container *ngFor="let image of albumsTwo; let i = index">
+        <ng-container *ngFor="let photo of photos; let i = index">
             <div class="col-lg-3 col-md-3 col-sm-3">
                 <div class="gallery-widget" *ngIf="i<5">
-                    <img class="img-fluid" [src]="image.src" (click)="open(i, albumsOne)" />
+                    <img [src]="getFullImagePath(photo.nom)" alt="Photo {{ i }}" (click)="open(i, photo)" />
                 </div>
 
             </div>

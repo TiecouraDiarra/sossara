@@ -200,11 +200,11 @@
           <div class="card-body">
             <br />
             <div class="row social-info">
-              <div class="col-lg-6 col-md-6">
+              <!-- <div class="col-lg-6 col-md-6"> -->
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Commodites <span>*</span></label>
                   <div class="pass-group group-img">
-                    <div *ngFor="let item of les_commodite">
+                    <div class="col-lg-4 col-md-6" *ngFor="let item of les_commodite">
                       <ul>
                         <li>
                             <label class="custom_check">
@@ -221,9 +221,20 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              <!-- </div> -->
+              
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h4>Basic information</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <!-- statut -->
               <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
+                <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
@@ -239,30 +250,45 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h4>Basic information</h4>
-          </div>
-          <div class="card-body">
-            <div class="row">
+              <!-- Type -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                  <label class="col-form-label">Pix du bien <span>*</span></label>
-                  <input
-                    type="number"
-                    pattern="[0-9]"
-                    name="prix"
-                    [(ngModel)]="form.prix"
-                    class="form-control pass-input"
-                    required
-                    aria-required="true"
-                    placeholder="FCFA"
-                  />
+                  <label class="col-form-label">Type <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <select
+                      [(ngModel)]="form.type"
+                      name="type"
+                      class="form-control"
+                      id=""
+                    >
+                      <option *ngFor="let item of typebien" [value]="item.id">
+                        {{ item.nom }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <!-- prix du bien -->
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-form-label">Prix du bien <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <input
+                      type="number"
+                      pattern="[0-9]"
+                      name="prix"
+                      [(ngModel)]="form.prix"
+                      class="form-control pass-input"
+                      required
+                      aria-required="true"
+                      placeholder="FCFA"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Nombre de salon -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label">Nombre de salon <span>*</span></label>
@@ -282,7 +308,8 @@
               </div>
             </div>
             
-            <div class="row social-info">
+            <div class="row">
+              <!-- Nombre de cuisine -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
@@ -300,6 +327,7 @@
                   </div>
                 </div>
               </div>
+              <!-- Nombre de chambre -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Chambres <span>*</span></label>
@@ -319,26 +347,10 @@
               </div>
             </div>
             <br />
-            <div class="row social-info">
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input lat-input">
-                  <label class="col-form-label">Type <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.type"
-                      name="type"
-                      class="form-control"
-                      id=""
-                    >
-                      <option *ngFor="let item of typebien" [value]="item.id">
-                        {{ item.nom }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6 col-md-6">
+            
+            <div class="row">
+               <!-- Nombre de toilette -->
+               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Toilette <span>*</span></label>
                   <div class="pass-group group-img">
@@ -355,8 +367,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
+              <!-- Nombre de surface -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label">Surface du bien <span>*</span></label>
@@ -372,9 +383,7 @@
                   />
                 </div>
               </div>
-              <div class="col-lg-6 col-md-6">
-                
-              </div>
+              
             </div>
             <!-- <div class="row">
               <div class="col-lg-6 col-md-6">
@@ -423,53 +432,10 @@
             <h4>Location information</h4>
           </div>
           <div class="card-body">
-            <div class="row social-info">
+            <div class="row">
+              <!-- Pays  -->
               <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input lat-input">
-                  <div class="pass-group group-img">
-                    <label class="col-form-label">Quartier <span>*</span></label>
-                    <input
-                      type="text"
-                      name="quartier"
-                      [(ngModel)]="form.quartier"
-                      class="form-control pass-input"
-                      placeholder="Yirimadio"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
-                  <label class="col-form-label">Porte <span>*</span></label>
-                  <input
-                  type="number"
-                    pattern="[0-9]"
-                    name="porte"
-                    [(ngModel)]="form.porte"
-                    class="form-control pass-input"
-                    placeholder="9999"
-                  />
-                </div>
-              </div>
-            </div>
-            <br />
-            <div class="row social-info">
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input lat-input">
-                  <div class="pass-group group-img">
-                    <label class="col-form-label">Rue <span>*</span></label>
-                    <input
-                      name="rue"
-                      [(ngModel)]="form.rue"
-                      type="text"
-                      class="form-control pass-input"
-                      placeholder="Rue"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
+                <div class="form-group">
                   <label class="col-form-label">Pays <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
@@ -486,10 +452,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row social-info">
+              <!-- Region  -->
               <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
+                <div class="form-group">
                   <label class="col-form-label">Region <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
@@ -506,8 +471,11 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <!-- Commune  -->
               <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
+                <div class="form-group">
                   <label class="col-form-label">Commune <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
@@ -523,7 +491,54 @@
                   </div>
                 </div>
               </div>
+              <!-- Quartier  -->
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <div class="pass-group group-img">
+                    <label class="col-form-label">Quartier <span>*</span></label>
+                    <input
+                      type="text"
+                      name="quartier"
+                      [(ngModel)]="form.quartier"
+                      class="form-control pass-input"
+                      placeholder="Yirimadio"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="row">
+               <!-- Rue  -->
+               <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <div class="pass-group group-img">
+                    <label class="col-form-label">Rue <span>*</span></label>
+                    <input
+                      name="rue"
+                      [(ngModel)]="form.rue"
+                      type="text"
+                      class="form-control pass-input"
+                      placeholder="Rue"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Porte  -->
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group formlast-input">
+                  <label class="col-form-label">Porte <span>*</span></label>
+                  <input
+                  type="number"
+                    pattern="[0-9]"
+                    name="porte"
+                    [(ngModel)]="form.porte"
+                    class="form-control pass-input"
+                    placeholder="9999"
+                  />
+                </div>
+              </div>
+            </div>
+           
             <!-- <div class="form-group">
               <label class="col-form-label">Map Address</label>
               <input
@@ -680,21 +695,19 @@
               <div class=" featured-img1">
                 <h6 class="media-title">Images biens <span>*</span></h6>
                 <div class="media-image">
-                  <div *ngFor="let imageUrl of imagesArray; let i = index" class="image-container m-3">
-                    <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
+                  <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                    <img class="m-3" [src]="imageUrl" alt="Image {{ i }}"/>
                     <button class="close-button" (click)="removeImage(i)">
-                      <!-- Icône de fermeture (à remplacer par l'icône de votre choix) -->
                       <i class="fas fa-times close-icon"></i>
                     </button>
                   </div>
-                  <!-- <img *ngFor="let imageUrl of imagesArray; let i = index" class="m-3" [src]="imageUrl" alt="Image {{ i }}" /> -->
                 </div>
               </div>
               <div class="settings-upload-btn">
                 <input
                   type="file"
                   id="photo" name="photo" (change)="onFileSelected($event)" multiple
-                  class="hide-input image-upload"
+                  class="hide-input image-upload" [disabled]="maxImageCount >=3"
                 />
                 <label for="file" class="file-upload">Ajouter l'image</label>
               </div>

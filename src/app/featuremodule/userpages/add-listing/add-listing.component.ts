@@ -24,6 +24,8 @@ interface price {
 })
 export class AddListingComponent {
   requiredFileType: any;
+  maxImageCount: number = 0; // Limite maximale d'images
+  isButtonDisabled: boolean = false; // Variable pour désactiver le bouton si la limite est atteinte
   les_commodite: any[] = [];
   commodite: any;
   adresse: any;
@@ -84,16 +86,31 @@ export class AddListingComponent {
   onFileSelected(event: any): void {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
+    
     for (const file of this.selectedFiles) {
-      reader.onload = (e: any) => {
-        this.image.push(e.target.result);
-        console.log(this.image);
-      };
-      this.images.push(file);
-      reader.readAsDataURL(file);
-      this.form.photo = this.images;
+      if (this.images.length < 3) {
+        reader.onload = (e: any) => {
+          this.images.push(file);
+          this.image.push(e.target.result);
+          this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
+          console.log(this.image);
+          this.maxImageCount = this.image.length
+        };
+        reader.readAsDataURL(file);
+      } // Vérifiez si la limite n'a pas été atteinte
     }
+    this.form.photo = this.images;
+    this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
+
+  // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
+checkImageCount(): void {
+  if (this.images.length >= 8) {
+    this.isButtonDisabled = true;
+  } else {
+    this.isButtonDisabled = false;
+  }
+}
 
   onChangeCommodite(){
     if (this.les_commodite) {
@@ -242,8 +259,12 @@ export class AddListingComponent {
     }
   }
 
+  
+
   removeImage(index: number) {
-    this.imagesArray.splice(index, 1); // Supprime l'image du tableau
+    this.image.splice(index, 1); // Supprime l'image du tableau
+    this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
+    this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
   }
 
   // onPhotosSelected(event: any): void {

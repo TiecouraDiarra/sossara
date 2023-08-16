@@ -36,6 +36,14 @@ export class ServiceDetailsComponent {
     contenu: null,
   }
 
+  getFullImagePath(imageName: string): string {
+    // Assurez-vous que le chemin de base est correctement configuré
+    const basePath = 'https://chemin-vers-votre-serveur/';
+    return basePath + imageName;
+  }
+
+  photos: any;
+
   RdvForm: any = {
     date: null,
     heure: null
@@ -86,12 +94,10 @@ export class ServiceDetailsComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data.biens[0];
-      // this.typeImmo=data.typeImmo;
-      // this.adresse=data.adresse;
-      // this.createdAt=data.createdAt;
-      // this.User=data.utilisateur;
+      this.photos = this.bien.photos;
       this.commodite = data.commodite
       console.log(this.bien);
+      console.log(this.photos);
       // console.log(this.bien.nb_piece);
     });
 

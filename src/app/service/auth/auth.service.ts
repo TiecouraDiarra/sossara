@@ -51,14 +51,22 @@ export class AuthService {
     photos: File[]
   ): Observable<any> {
     const formData = new FormData();
-    formData.append('nom', nom.toString());
-    formData.append('email', email.toString());
-    formData.append('password', password.toString());
-    formData.append('telephone', telephone.toString());
-    formData.append('dateNaissance', dateNaissance.toString());
-    formData.append('nom_doc', nom_doc.toString());
-    formData.append('num_doc', num_doc.toString());
-    formData.append('roles', roles.toString());
+    console.log('nom: ', nom);
+      console.log('email: ', email);
+      console.log('password: ', password);
+      console.log('telephone: ', telephone);
+      console.log('dateNaissance: ', dateNaissance);
+      console.log('nom_doc: ', nom_doc);
+      console.log('num_doc: ', num_doc);
+      console.log('roles: ', roles);
+    formData.append('nom', nom);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('telephone', telephone);
+    formData.append('dateNaissance', dateNaissance);
+    formData.append('nom_doc', nom_doc);
+    formData.append('num_doc', num_doc);
+    formData.append('roles', roles);
     photos.forEach(p=>{formData.append('photo[]', p)});
 
      // Définition du header Content-Type
@@ -72,7 +80,7 @@ export class AuthService {
     return this.http.post(
       this.URL_BASE + '/register',
         formData,
-        options
+        // options
     );
   }
 

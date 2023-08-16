@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { StorageService } from 'src/app/service/auth/storage.service';
 import Swal from 'sweetalert2';
 
 
@@ -91,9 +92,13 @@ export class SignupComponent {
   public typepiciesAgence = ['Type de pieces', 'RCCM', 'NIF'];
 
   constructor(public router: Router, 
-    private authService: AuthService) {}
+    private authService: AuthService,private storageService: StorageService) {}
   path() {
     this.router.navigate([routes.login]);
+  }
+
+  pathSignup() {
+    this.router.navigate([routes.signup]);
   }
 
   onSubmit(): void {
@@ -135,6 +140,7 @@ export class SignupComponent {
           this.authService.register(nom, email, password, telephone, dateNaissance, nom_doc,num_doc,roles,photo).subscribe({
             next: (data) => {
               console.log(data);
+              this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
               this.popUpConfirmation();
@@ -148,14 +154,14 @@ export class SignupComponent {
         }
       })
   
-      console.log('nom: ', nom);
-      console.log('email: ', email);
-      console.log('password: ', password);
-      console.log('telephone: ', telephone);
-      console.log('dateNaissance: ', dateNaissance);
-      console.log('nom_doc: ', nom_doc);
-      console.log('num_doc: ', num_doc);
-      console.log('roles: ', roles);
+      // console.log('nom: ', nom);
+      // console.log('email: ', email);
+      // console.log('password: ', password);
+      // console.log('telephone: ', telephone);
+      // console.log('dateNaissance: ', dateNaissance);
+      // console.log('nom_doc: ', nom_doc);
+      // console.log('num_doc: ', num_doc);
+      // console.log('roles: ', roles);
     }
   }
   onChange(typeUser: any) {
@@ -196,7 +202,7 @@ export class SignupComponent {
   let timerInterval = 2000;
   Swal.fire({
     position: 'center',
-    text: 'La compte a été envoyé avec succès.',
+    text: 'Le compte a été envoyé avec succès.',
     title: 'Creation de compte',
     icon: 'success',
     heightAuto: false,

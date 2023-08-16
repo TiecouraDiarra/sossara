@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { UserService } from 'src/app/service/auth/user.service';
+import { MessageService } from 'src/app/service/message/message.service';
 export type ChartOptions = {
   series: ApexAxisChartSeries | any;
   chart: ApexChart | any;
@@ -40,6 +41,7 @@ export class DashboardComponent implements OnInit {
   bienImmo: any;
   rdv: any;
   nombrebien: number = 0
+  nombreconversation: number = 0
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
   nombreRdvUser: number = 0
@@ -54,6 +56,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
+    private serviceMessage: MessageService,
     private storageService: StorageService
   ) {
     this.chartOptions = {
@@ -159,6 +162,13 @@ export class DashboardComponent implements OnInit {
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser;
       // console.log( "Somme =",this.somme);
 
+    }
+    );
+
+    //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
+    this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
+      this.nombreconversation = data.conversation.length;
+      console.log(this.nombreconversation);
     }
     );
   }
