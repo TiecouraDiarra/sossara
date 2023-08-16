@@ -28,6 +28,8 @@ export class MessagesComponent implements OnInit{
   public routes=routes;
   messages: any
   conversation : any
+  searchText: any;
+
   selectedConversationId!: number;
   
   IdConver : any
@@ -39,7 +41,10 @@ export class MessagesComponent implements OnInit{
 
 
   selectedConversation: Conversation | null = null;
+  nomConversation : any
   newMessage: string = '';
+  filteredMessages: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
+  filteredMessagesUserCurrent: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
 
   selectConversation(conversation: Conversation) {
     this.selectedConversation = conversation;
@@ -112,8 +117,17 @@ export class MessagesComponent implements OnInit{
       // Appel au service pour récupérer les détails de la conversation sélectionnée
       this.serviceMessage.AfficherUneConversation(this.selectedConversationId).subscribe(data => {
         this.conversation = data.reverse();
+        this.filteredMessagesUserCurrent = this.conversation.filter((message: { mine: boolean; }) => message.mine === true);
+        this.filteredMessages = this.conversation.filter((message: { mine: boolean; }) => message.mine === false);
         this.nombreconversation = data.length;
         console.log(this.conversation);
+
+         // Mettre à jour le nom de la conversation sélectionnée
+         this.nomConversation = this.messages[0].nom; // Remplacez par le nom de la conversation issu des données
+        //  const nomConversationDiv = document.getElementById('nom-conversation');
+        //  nomConversationDiv.textContent = nomConversation;
+ 
+         console.log(this.nomConversation);
       });
     }
 
@@ -135,11 +149,8 @@ export class MessagesComponent implements OnInit{
           console.log("Message envoyé avec succès:", data);
           // this.isSuccess = false;
 
-          //AFFICHER LA LISTE DES MESSAGES
-          // this.serviceCommentaire.AfficherCommentaireParBien(this.id).subscribe(data => {
-          //   this.commentaire = data.reverse();
-          //   console.log(this.commentaire);
-          // });
+          // Appel au service pour récupérer les détails de la conversation sélectionnée
+     this.onConversationSelected(this.selectedConversationId)
         },
         error => {
           console.error("Erreur lors de l'envoi du message :", error);
