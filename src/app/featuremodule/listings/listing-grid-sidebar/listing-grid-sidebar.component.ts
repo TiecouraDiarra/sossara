@@ -28,6 +28,8 @@ export class ListingGridSidebarComponent {
   selectedType: any;
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];
+  valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
 
   regions: any = [];
   communes: any = [];

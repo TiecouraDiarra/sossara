@@ -30,6 +30,8 @@ export class ListingmapGridComponent implements OnInit {
   selectedCommune: any;
   selectedType: any;
   p:number=1;
+  valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
 
 
 

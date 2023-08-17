@@ -48,3 +48,68 @@
     background-color: #f0f0f0;
   }
   
+
+  .custom-tab-link {
+    font-weight: 600;
+    color: #333; /* Couleur du texte non sélectionné */
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    padding: 10px 15px;
+    transition: background-color 0.3s, border-bottom 0.3s;
+}
+
+.custom-tab-link.active,
+.custom-tab-link:hover {
+    color: #fff; /* Couleur du texte sélectionné */
+    border-radius: 10px;
+    background-color: #e98b11; /* Couleur de l'onglet sélectionné */
+    border-bottom-color: #fff; /* Couleur de la bordure du bas de l'onglet sélectionné */
+}
+
+.nav {
+  background-color: #293d4a; /* Couleur de fond de la barre de navigation */
+  padding: 10px 0;
+  border-bottom: 2px solid #1b2b34; /* Bordure inférieure */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  border-radius: 6px;
+
+}
+
+.nav-item {
+  margin: 0 10px;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: #fff; /* Couleur du texte non sélectionné */
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: #fff; /* Couleur du texte sélectionné et en survol */
+  background-color: #e98b11; /* Couleur de fond en survol */
+}
+
+.nav-justified {
+  justify-content: space-between;
+}
+
+.review-gallery li {
+  margin-right: 10px; /* Ajustez la valeur selon votre préférence */
+}
+
+.ligne{
+  overflow-y: scroll; 
+  height: 390px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+      display: none;
+  }
+}

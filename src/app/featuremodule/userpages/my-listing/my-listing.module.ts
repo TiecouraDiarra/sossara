@@ -6,11 +6,13 @@ import { MyListingComponent } from './my-listing.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SegmentedControlComponent } from 'src/app/segmented-control/segmented-control.component';
 
 
 @NgModule({
   declarations: [
-    MyListingComponent
+    MyListingComponent,
+    // SegmentedControlComponent,
   ],
   imports: [
     CommonModule,

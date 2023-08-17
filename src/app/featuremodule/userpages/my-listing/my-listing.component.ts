@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -17,10 +17,29 @@ export class MyListingComponent implements OnInit {
   public routes=routes;
   User : any;
   searchText: any;
+  searchTextBienLoue: any;
+  searchTextBienVendu: any;
   bienImmo : any;
-  p:number=1;
+  bienImmoDejaLoue : any;
+  bienImmoDejaVendu : any;
+  p1:number=1;
+  p2:number=1;
+  p3:number=1;
+  p4:number=1;
 
   public electronics:any=[]
+
+  selectedTab: string = 'home'; // Onglet sélectionné par défaut
+
+  // Méthode pour changer l'onglet sélectionné
+  changeTab(tab: string) {
+      this.selectedTab = tab;
+  }
+
+  // Méthode pour vérifier si un onglet est actif
+  isTabActive(tab: string): boolean {
+      return this.selectedTab === tab;
+  }
 
   constructor(
     private DataService:DataService,
@@ -42,6 +61,18 @@ export class MyListingComponent implements OnInit {
       this.bienImmo = data.biens;
       console.log(this.bienImmo);
     });
+
+  //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR
+  this.serviceBienImmo.AfficherBienImmoDejaLoueParUser().subscribe(data => {
+    this.bienImmoDejaLoue = data.biens;
+    console.log(this.bienImmoDejaLoue);
+  });
+
+   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
+   this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
+    this.bienImmoDejaVendu = data.biens;
+    console.log(this.bienImmoDejaVendu);
+  });
 
   }
     
@@ -102,4 +133,43 @@ export class MyListingComponent implements OnInit {
   formatPrice(price: number): string {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
+
+  //SEGMENTED CONTROLE
+  isListeBienTabActive = true; // Définir le tab "Pays" comme actif par défaut
+  isBienLoueTabActive = false;
+  isBienVenduTabActive = false;
+  isReclamationTabActive = false;
+
+  showLIsteBienTab() {
+    this.isListeBienTabActive = true;
+    this.isBienLoueTabActive = false;
+  this.isBienVenduTabActive = false;
+  this.isReclamationTabActive = false;
+
+
+  }
+
+  showBienLoueTab() {
+    this.isListeBienTabActive = false;
+    this.isBienLoueTabActive = true;
+  this.isBienVenduTabActive = false;
+  this.isReclamationTabActive = false;
+
+
+  }
+
+  showBienVenduTab() {
+  this.isBienVenduTabActive = true;
+    this.isListeBienTabActive = false;
+    this.isBienLoueTabActive = false;
+  this.isReclamationTabActive = false;
+
+  }
+
+  showReclamationTab() {
+  this.isReclamationTabActive = true;
+    this.isBienVenduTabActive = false;
+      this.isListeBienTabActive = false;
+      this.isBienLoueTabActive = false;
+    }
 }

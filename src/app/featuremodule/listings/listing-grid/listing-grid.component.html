@@ -49,7 +49,7 @@
                                             <span> <i class="feather-eye"></i>400</span>
                                         </div>
                                     </div> 
-                                    <h6><a (click)="goToDettailBien(BienImo.id)">Nom bien</a></h6>																	 
+                                    <h6><a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a></h6>																	 
                                     <div class="blog-location-details">
                                         <div class="location-info">
                                            <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}

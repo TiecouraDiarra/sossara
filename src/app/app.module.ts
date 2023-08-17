@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import { SegmentedControlComponent } from './segmented-control/segmented-control.component';
 // import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
@@ -19,6 +20,7 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
+    // SegmentedControlComponent,
     
     
   ],

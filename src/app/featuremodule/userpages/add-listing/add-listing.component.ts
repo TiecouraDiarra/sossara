@@ -8,6 +8,7 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
+import Swal from 'sweetalert2';
 interface Food {
   value: string | any;
   viewValue: string;
@@ -66,6 +67,7 @@ export class AddListingComponent {
   isSuccess: any = false;
   files: any = [];
   // photo: any;
+  message: string | undefined;
   selectedFiles : any;
   imagesArray: string[] = []; // Array to store URLs of selected images
 
@@ -88,7 +90,7 @@ export class AddListingComponent {
     const reader = new FileReader();
     
     for (const file of this.selectedFiles) {
-      if (this.images.length < 3) {
+      if (this.images.length < 8) {
         reader.onload = (e: any) => {
           this.images.push(file);
           this.image.push(e.target.result);
@@ -194,14 +196,14 @@ checkImageCount(): void {
   //   this.valuesFileCurrent = newValue.target.value;
   // }
   onSubmit(form: NgForm): void {
-    if (this.form.photo === null) {
-      console.error('La photo est manquante.');
-      return;
-    }
-    if (this.form.commodite === null) {
-      console.error('Commodites est manquante.');
-      return;
-    }
+    // if (this.form.photo === null) {
+    //   console.error('La photo est manquante.');
+    //   return;
+    // }
+    // if (this.form.commodite === null) {
+    //   console.error('Commodites est manquante.');
+    //   return;
+    // }
     const {
       commodite,
       type,
@@ -220,46 +222,116 @@ checkImageCount(): void {
       porte,
       photo
     } = this.form;
-    console.log(this.form);
-    const user = this.storageService.getUser();
-    if (user && user.token) {
-      this.serviceBienImmo.setAccessToken(user.token);
-      this.serviceBienImmo
-        .registerBien(
-          commodite,
-          type,
-          commune,
-          nb_piece,
-          nom,
-          chambre,
-          cuisine,
-          toilette,
-          surface,
-          prix,
-          statut,
-          description,
-          quartier,
-          rue,
-          porte,
-          photo
-        )
-        .subscribe({
-          next: (data) => {
-            console.log(data);
-            this.isSuccess = false;
-          },
-          error: (err) => {
-            console.log(err);
-            this.errorMessage = err.error.message;
-            this.isSuccess = true;
-          },
-        });
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+
+    if (this.form.commodite === null
+      || this.form.type === null
+      || this.form.commune === null
+      || this.form.nb_piece === null
+      || this.form.nom === null
+      || this.form.chambre === null
+      || this.form.cuisine === null
+      || this.form.toilette === null
+      || this.form.surface === null
+      || this.form.prix === null
+      || this.form.statut === null
+      || this.form.description === null
+      || this.form.quartier === null
+      || this.form.rue === null
+      || this.form.porte === null
+      || this.form.photo === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = " Tous les champs sont obligatoires !",
+      )
+      // console.error('Tous les champs sont obligatoires !');
+
     } else {
-      console.error('Token JWT manquant');
+      swalWithBootstrapButtons.fire({
+        text: "Etes-vous sûre de bien vouloir creer ce bien ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            this.serviceBienImmo.setAccessToken(user.token);
+            this.serviceBienImmo
+              .registerBien(
+                commodite,
+                type,
+                commune,
+                nb_piece,
+                nom,
+                chambre,
+                cuisine,
+                toilette,
+                surface,
+                prix,
+                statut,
+                description,
+                quartier,
+                rue,
+                porte,
+                photo
+              )
+              .subscribe({
+                next: (data) => {
+                  console.log(data);
+                  this.isSuccess = false;
+                  console.log(this.form);
+                  this.popUpConfirmation();
+                },
+                error: (err) => {
+                  console.log(err);
+                  this.errorMessage = err.error.message;
+                  this.isSuccess = true;
+                },
+              });
+          } else {
+            console.error('Token JWT manquant');
+          }
+        }
+      })
     }
+    
   }
 
-  
+   //POPUP APRES CONFIRMATION
+ popUpConfirmation() {
+  let timerInterval = 2000;
+  Swal.fire({
+    position: 'center',
+    text: 'Bien cree avec succès.',
+    title: 'Creation de bien',
+    icon: 'success',
+    heightAuto: false,
+    showConfirmButton: false,
+    // confirmButtonText: "OK",
+    confirmButtonColor: '#0857b5',
+    showDenyButton: false,
+    showCancelButton: false,
+    allowOutsideClick: false,
+    timer: timerInterval, // ajouter le temps d'attente
+    timerProgressBar: true // ajouter la barre de progression du temps
+
+  }).then((result) => {
+    this.path();
+     // Après avoir réussi à candidater, mettez à jour l'état de la candidature
+     
+  })
+}
+path() {
+  this.router.navigate([routes.mylisting]);
+}
 
   removeImage(index: number) {
     this.image.splice(index, 1); // Supprime l'image du tableau

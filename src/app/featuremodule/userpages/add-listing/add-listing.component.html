@@ -204,20 +204,23 @@
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Commodites <span>*</span></label>
                   <div class="pass-group group-img">
-                    <div class="col-lg-4 col-md-6" *ngFor="let item of les_commodite">
-                      <ul>
-                        <li>
-                            <label class="custom_check">
-                              <input
-                              type="checkbox"
-                              [(ngModel)]="item.selected"
-                              [value]="item.id"
-                              (change)="onChangeCommodite()"
-                              name="commodite"/>
-                                <span class="checkmark"></span> {{ item.nom }}
-                            </label>
-                        </li>
-                      </ul>
+                    <div class="row">
+                      <div class="col-lg-4 col-md-6" *ngFor="let item of les_commodite">
+                          <ul>
+                            <li>
+                                <label class="custom_check">
+                                  <input
+                                  type="checkbox"
+                                  [(ngModel)]="item.selected"
+                                  [value]="item.id"
+                                  (change)="onChangeCommodite()"
+                                  name="commodite"/>
+                                    <span class="checkmark"></span> {{ item.nom }}
+                                </label>
+                            </li>
+                          </ul>
+                        </div>
+                      
                     </div>
                   </div>
                 </div>

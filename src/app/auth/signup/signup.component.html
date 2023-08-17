@@ -140,7 +140,7 @@
             </div>
             <!-- Debut Visiteur et proprietaire -->
             <div class="row" *ngIf="selectedTypePiece === 'NINA'">
-              <div class="col">
+              <div class="col-4">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -155,7 +155,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col-6">
                 <div class="form-group group-img">
                   <div class="settings-upload-btn">
                     <input
@@ -163,14 +163,23 @@
                       id="photo" name="photo"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
+                      [disabled]="isButtonDisabled"
                     />
                     <label for="file" class="file-upload">Photo de la carte</label>
                   </div>
                 </div>
               </div>
+              <div class="col">
+                <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                  <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                  <button class="close-button" (click)="removeImage(i)">
+                    <i class="fas fa-times close-icon"></i>
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="row" *ngIf="selectedTypePiece === 'CarteIN'">
-              <div class="col">
+              <div class="col-4">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -186,7 +195,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col-6">
                 <div class="form-group group-img">
                   <div class="settings-upload-btn">
                     <input
@@ -194,14 +203,23 @@
                       id="photo" name="photo"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
+                      [disabled]="isButtonDisabled"
                     />
                     <label for="file" class="file-upload">Photo de la carte</label>
                   </div>
                 </div>
               </div>
+              <div class="col">
+                <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                  <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                  <button class="close-button" (click)="removeImage(i)">
+                    <i class="fas fa-times close-icon"></i>
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="row" *ngIf="selectedTypePiece === 'Passport'">
-              <div class="col">
+              <div class="col-4">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -217,7 +235,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col-6">
                 <div class="form-group group-img">
                   <div class="settings-upload-btn">
                     <input
@@ -225,9 +243,18 @@
                       id="photo" name="photo"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
+                      [disabled]="isButtonDisabled"
                     />
                     <label for="file" class="file-upload">Photo du Passport</label>
                   </div>
+                </div>
+              </div>
+              <div class="col">
+                <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                  <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                  <button class="close-button" (click)="removeImage(i)">
+                    <i class="fas fa-times close-icon"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -235,7 +262,7 @@
 
             <!-- Debut Agence -->
             <div class="row" *ngIf="selectedTypePiece === 'RCCM'">
-              <div class="col">
+              <div class="col-4">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -249,7 +276,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col-6">
                 <div class="form-group group-img">
                   <div class="settings-upload-btn">
                     <input
@@ -257,14 +284,23 @@
                       id="photo" name="photo"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
+                      [disabled]="isButtonDisabled"
                     />
                     <label for="file" class="file-upload">Photo de RCCM</label>
                   </div>
                 </div>
               </div>
+              <div class="col">
+                <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                  <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                  <button class="close-button" (click)="removeImage(i)">
+                    <i class="fas fa-times close-icon"></i>
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="row" *ngIf="selectedTypePiece === 'NIF'">
-              <div class="col">
+              <div class="col-4">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -278,7 +314,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col-6">
                 <div class="form-group group-img">
                   <div class="settings-upload-btn">
                     <input
@@ -286,9 +322,18 @@
                       id="photo" name="photo"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
+                      [disabled]="isButtonDisabled"
                     />
                     <label for="file" class="file-upload">Photo du NIF</label>
                   </div>
+                </div>
+              </div>
+              <div class="col">
+                <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                  <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                  <button class="close-button" (click)="removeImage(i)">
+                    <i class="fas fa-times close-icon"></i>
+                  </button>
                 </div>
               </div>
             </div>

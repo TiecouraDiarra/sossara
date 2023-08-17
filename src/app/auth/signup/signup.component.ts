@@ -55,6 +55,9 @@ export class SignupComponent {
   selectedFiles : any;
   image: File[] = [];
   images: File[] = [];
+  maxImageCount: number = 0; // Limite maximale d'images
+  isButtonDisabled: boolean = false; // Variable pour désactiver le bouton si la limite est atteinte
+
 
 
   //CHARGER L'IMAGE
@@ -62,14 +65,21 @@ export class SignupComponent {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
     for (const file of this.selectedFiles) {
-      reader.onload = (e: any) => {
-        this.image.push(e.target.result);
-        console.log(this.image);
-      };
-      this.images.push(file);
-      reader.readAsDataURL(file);
-      this.form.photo = this.images;
+      if (this.images.length < 2) {
+        reader.onload = (e: any) => {
+          this.images.push(file);
+          this.image.push(e.target.result);
+          console.log(this.image);
+          
+
+        };
+        this.maxImageCount =file.length
+        reader.readAsDataURL(file);
+      }
     }
+    this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
+    this.form.photo = this.images;
+
   }
 
   public typepiciesUser = [
@@ -102,10 +112,10 @@ export class SignupComponent {
   }
 
   onSubmit(): void {
-    if (this.form.photo === null) {
-      console.error('La photo est manquante.');
-      return;
-    }
+    // if (this.form.photo === null) {
+    //   console.error('La photo est manquante.');
+    //   return;
+    // }
     const { nom, email, password, telephone, dateNaissance,  nom_doc,num_doc, roles,photo} = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -114,15 +124,15 @@ export class SignupComponent {
       },
       heightAuto: false
     })
-    if (this.form.nom == ""
-      || this.form.email == ""
-      || this.form.password == ""
-      || this.form.telephone == ""
-      || this.form.dateNaissance == ""
-      || this.form.nom_doc == ""
-      || this.form.num_doc == ""
-      || this.form.confirmPassword == ""
-      || this.form.roles == ""
+    if (this.form.nom === null
+      || this.form.email === null
+      || this.form.password === null
+      || this.form.telephone === null
+      || this.form.dateNaissance === null
+      || this.form.nom_doc == "Type de pieces"
+      || this.form.num_doc === null
+      || this.form.confirmPassword === null
+      || this.form.roles == "Type d'Utilisateur"
       || this.form.photo === null) {
       swalWithBootstrapButtons.fire(
         this.message = " Tous les champs sont obligatoires !",
@@ -226,5 +236,19 @@ export class SignupComponent {
     this.ToggledataC = !this.ToggledataC;
   }
 
+  removeImage(index: number) {
+    this.image.splice(index, 1); // Supprime l'image du tableau
+    this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
+    this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
+  }
   
+    // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
+checkImageCount(): void {
+  if (this.images.length >= 3) {
+    this.isButtonDisabled = true;
+  } else {
+    this.isButtonDisabled = false;
+  }
+}
+
 }

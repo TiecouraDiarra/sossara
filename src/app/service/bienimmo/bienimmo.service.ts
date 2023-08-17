@@ -71,6 +71,21 @@ export class BienimmoService {
     { headers });
   }
 
+  //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR
+  AfficherBienImmoDejaLoueParUser(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/get/rent` ,
+    { headers });
+  }
+
+  //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
+  AfficherBienImmoDejaVenduParUser(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/get/sell` ,
+    { headers });
+  }
   //AJOUTER UN BIEN
   registerBien(
     commodite: [],

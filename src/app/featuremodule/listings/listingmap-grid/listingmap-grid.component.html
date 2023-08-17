@@ -85,24 +85,6 @@
                 </div>
               </div>
               <div class="row">
-                <!-- <div class="col-lg-6 col-md-4">
-                  <div class="filter-content form-group">
-                    <mat-form-field class="mat-custom-select">
-                      <mat-label *ngIf="selectedCategory == ''">
-                        Statut</mat-label>
-                      <mat-select [(ngModel)]="selectedCategory">
-                        <mat-option disabled class="search-input-option">
-                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
-                              searchCategory(searchInputCategory)
-                            " class="search-input" type="text" />
-                        </mat-option>
-                        <mat-option>A louer</mat-option>
-                        <mat-option>A vendre</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-
-                  </div>
-                </div> -->
                 <div class="col-lg-6 col-md-4">
                   <div class="filter-content form-group">
                     <mat-form-field class="mat-custom-select">
@@ -118,9 +100,81 @@
                           }}</mat-option>
                       </mat-select>
                     </mat-form-field>
-
                   </div>
                 </div>
+                <div class="col-lg-6 col-md-4">
+                  <div class="filter-content form-group">
+                    <mat-form-field class="mat-custom-select">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Nombre de chambre</mat-label>
+                      <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                        <mat-option disabled class="search-input-option">
+                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                              searchCategory(searchInputCategory)
+                            " class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                          }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-md-4">
+                  <div class="filter-content form-group">
+                    <mat-form-field class="mat-custom-select">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Nombre de salon</mat-label>
+                      <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                        <mat-option disabled class="search-input-option">
+                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                              searchCategory(searchInputCategory)
+                            " class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                          }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-4">
+                  <div class="filter-content form-group">
+                    <mat-form-field class="mat-custom-select">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Nombre de cuisine</mat-label>
+                      <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                        <mat-option disabled class="search-input-option">
+                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                              searchCategory(searchInputCategory)
+                            " class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                          }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-md-4">
+                  <div class="filter-content form-group">
+                    <mat-form-field class="mat-custom-select">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Nombre de toilette</mat-label>
+                      <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                        <mat-option disabled class="search-input-option">
+                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                              searchCategory(searchInputCategory)
+                            " class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                          }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-4"></div>
               </div>
               <div class="filter-content form-group amenities">
                 <h5 class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
@@ -198,7 +252,7 @@
                           </div>
                         </div>
                         <h6>
-                          <a (click)="goToDettailBien(slide.id)">Nom bien</a>
+                          <a (click)="goToDettailBien(slide.id)">{{ slide.nom ? slide.nom : slide.typeImmo.nom }}</a>
                         </h6>
                         <div class="blog-location-details">
                           <div class="location-info">

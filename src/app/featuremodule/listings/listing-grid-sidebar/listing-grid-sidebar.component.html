@@ -109,7 +109,66 @@
                         }}</mat-option>
                     </mat-select>
                   </mat-form-field>
-
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de chambre</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de salon</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de cuisine</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de toilette</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
                 <div class="filter-content form-group amenities">
                   <h4 class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
@@ -205,7 +264,7 @@
               Pas de biens
             </div> -->
             <div class="col-lg-6 col-md-4"
-              *ngFor="let BienImo of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut | paginate:{itemsPerPage :4, currentPage:p}">
+              *ngFor="let BienImo of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut | paginate:{itemsPerPage :8, currentPage:p}">
               <div class="card">
                 <div class="blog-widget">
                   <div class="blog-img">
@@ -241,7 +300,7 @@
                         </div>
                       </div>
                       <h6>
-                        <a (click)="goToDettailBien(BienImo.id)">Nom bien</a>
+                        <a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a>
                       </h6>
                       <div class="blog-location-details">
                         <div class="location-info">
