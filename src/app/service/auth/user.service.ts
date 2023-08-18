@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
+import { StorageService } from './storage.service';
 
 const API_URL = 'http://localhost:8080/api/test/';
 const URL_BASE: string = environment.Url_BASE
@@ -21,15 +22,16 @@ export class UserService {
       'Authorization': 'Bearer ' + sessionStorage.getItem(USER_KEY) // Remplacez par votre token JWT valide
     })
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private storageService: StorageService) {}
 
   setAccessToken(token: string) {
     this.accessToken = token;
   }
    // Méthode pour ajouter le token JWT aux en-têtes
    getHeaders(): HttpHeaders {
+    const token = this.storageService.getUser().token;
     return new HttpHeaders({
-      'Authorization': `Bearer ${this.accessToken}`
+      'Authorization': `Bearer ${token}`
     });
   }
 
@@ -89,4 +91,20 @@ export class UserService {
     console.log(headers)
     return this.http.get(`${URL_BASE}/candidature/get`, { headers });
   }
+
+    //CHANGER MOT DE PASSE
+    ChangerMotDePasse(old_password: string, password: string): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers)
+    console.log('Ancien mdp', old_password)
+    console.log('nouveau mdp', password)
+      return this.http.post(
+        URL_BASE + '/user/password_reset',
+        {
+          old_password,
+          password,
+        },
+        { headers }
+      );
+    }
 }

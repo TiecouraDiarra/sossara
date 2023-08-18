@@ -72,19 +72,6 @@ export class AddListingComponent {
   imagesArray: string[] = []; // Array to store URLs of selected images
 
   //CHARGER L'IMAGE
-  // chargeImg(event: any): void {
-  //   this.photo = event.target.files;
-  //   const reader = new FileReader();
-  //   console.log(this.photo);
-  //   for (const file of this.photo) {
-  //     reader.onload = (e: any) => {
-  //       this.imagesArray.push(e.target.result);
-  //     };
-  //     reader.readAsDataURL(file);
-      
-  //   }
-  // }
-
   onFileSelected(event: any): void {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
@@ -189,21 +176,13 @@ checkImageCount(): void {
     );
   }
 
-  
+
 
   // onFileSelected(newValue: any) {
   //   this.files.push(newValue.target.files[0]);
   //   this.valuesFileCurrent = newValue.target.value;
   // }
   onSubmit(form: NgForm): void {
-    // if (this.form.photo === null) {
-    //   console.error('La photo est manquante.');
-    //   return;
-    // }
-    // if (this.form.commodite === null) {
-    //   console.error('Commodites est manquante.');
-    //   return;
-    // }
     const {
       commodite,
       type,

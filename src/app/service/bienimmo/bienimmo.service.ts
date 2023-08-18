@@ -86,6 +86,16 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/immo/get/sell` ,
     { headers });
   }
+
+  //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
+  AfficherListeReclamationParUser(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/signal/get` ,
+    { headers });
+  }
+
+
   //AJOUTER UN BIEN
   registerBien(
     commodite: [],

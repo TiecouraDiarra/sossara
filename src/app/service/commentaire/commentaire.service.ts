@@ -23,8 +23,9 @@ export class CommentaireService {
   }
    // Méthode pour ajouter le token JWT aux en-têtes
    getHeaders(): HttpHeaders {
+    const token = this.storageService.getUser().token;
     return new HttpHeaders({
-      'Authorization': `Bearer ${this.accessToken}`
+      'Authorization': `Bearer ${token}`
     });
   }
 

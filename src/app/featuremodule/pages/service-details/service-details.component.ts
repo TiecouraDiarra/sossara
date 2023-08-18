@@ -42,6 +42,11 @@ export class ServiceDetailsComponent {
     return basePath + imageName;
   }
 
+    // IMAGE PAR DEFAUT USER
+    handleAuthorImageError(event: any) {
+      event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+    }
+
   photos: any;
 
   RdvForm: any = {
@@ -276,8 +281,8 @@ export class ServiceDetailsComponent {
 
     }).then((result) => {
       this.reloadPage();
-       // Après avoir réussi à candidater, mettez à jour l'état de la candidature
-       
+      // Après avoir réussi à candidater, mettez à jour l'état de la candidature
+
     })
   }
 
@@ -285,4 +290,10 @@ export class ServiceDetailsComponent {
   reloadPage(): void {
     window.location.reload();
   }
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
+    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    return baseUrl + photoFileName;
+  }
+
 }

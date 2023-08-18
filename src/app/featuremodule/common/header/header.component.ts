@@ -28,6 +28,15 @@ export class HeaderComponent implements OnInit {
   header: Array<any> = [];
   sidebar: Array<any> = [];
 
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  }
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
+    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    return baseUrl + photoFileName;
+  }
 
   constructor(
     private data: DataService,
@@ -50,7 +59,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      
+
       // this.roles = this.storageService.getUser().roles;
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;

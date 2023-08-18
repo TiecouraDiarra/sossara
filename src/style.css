@@ -3341,9 +3341,9 @@ a:focus {
   font-size: 20px;
   color: #0d233e;
 }
-.review-details {
+/* .review-details {
   margin-left: 18px;
-}
+} */
 .review-details .rating {
   display: inline-flex;
 }
@@ -18123,6 +18123,7 @@ section.advertisement {
   .review-details {
     margin-left: 0;
   }
+
   .error-wrap h2 {
     font-size: 38px;
   }

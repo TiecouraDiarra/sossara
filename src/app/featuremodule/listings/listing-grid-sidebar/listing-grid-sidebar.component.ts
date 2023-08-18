@@ -24,7 +24,7 @@ export class ListingGridSidebarComponent {
   searchText: any;
   selectedRegion: any;
   selectedCommune: any;
-  p:number=1;
+  p: number = 1;
   selectedType: any;
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];
@@ -40,6 +40,19 @@ export class ListingGridSidebarComponent {
   commune: any
   typebien: any
 
+  // IMAGE PAR DEFAUT DES BIENS
+  DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
+
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  }
+
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
+    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    return baseUrl + photoFileName;
+  }
 
   //AFFICHER REGION EN FONCTION DU PAYS
   onChange(newValue: any) {
@@ -54,10 +67,10 @@ export class ListingGridSidebarComponent {
       (el: any) => el.region.nom == newValue.value
     );
   }
-    //FORMATER LE PRIX
-    formatPrice(price: number): string {
-      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
+  //FORMATER LE PRIX
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 
   //RECHERCHER PAR REGION
   onRegionSelectionChange(event: any) {
@@ -75,13 +88,13 @@ export class ListingGridSidebarComponent {
     this.selectedType = event.value;
   }
 
-    //RECHERCHER PAR COMMODITE
-    onCommoditeSelectionChange(event: any) {
-      this.selectedStatut = event.value;
-    }
+  //RECHERCHER PAR COMMODITE
+  onCommoditeSelectionChange(event: any) {
+    this.selectedStatut = event.value;
+  }
 
-    
-   
+
+
 
   slidevalue: number = 55;
   options: Options = {

@@ -3233,9 +3233,9 @@ a:hover, a:focus {
     font-size: 20px;
     color: #0D233E;
 }
-.review-details {
+/* .review-details {
     margin-left: 18px;
-}
+} */
 .review-details .rating {
     display: inline-flex;
 }

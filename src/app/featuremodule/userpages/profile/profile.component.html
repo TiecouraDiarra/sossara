@@ -68,8 +68,8 @@
                         <div class="card-body">
                             <div class="profile-photo">
                                 <div class="profile-img">
-                                    <div class="settings-upload-img">
-                                        <img src="assets/img/profile-img.jpg" alt="profile">
+                                    <div class="settings-upload-img"  *ngIf="User.user && User.user.photo">
+                                        <img src="{{ generateImageUrl(User.user.photo) }}" alt="profile" (error)="handleAuthorImageError($event)">
                                     </div>
                                     <div class="settings-upload-btn">
                                         <input type="file" accept="image/*" name="image" class="hide-input image-upload"
@@ -78,7 +78,7 @@
                                     </div>
                                     <span>Taille Max: 5MB</span>
                                 </div>
-                                <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>
+                                <!-- <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a> -->
                             </div>
                             <div class="profile-form">
                                 <form>
@@ -173,17 +173,17 @@
                                         <label class="col-form-label">Ancien mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" class="form-control pass-input"
-                                                placeholder="Password">
+                                            <input name="old_password" [(ngModel)]="ChangeMdpForm.old_password" type="password" class="form-control pass-input"
+                                                placeholder="Ancien mot de passe">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Nouveau mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" [type]="Toggledata ? 'password' : 'text'"
-                                                class="form-control pass-input" value="..............">
-
+                                            <input name="password" [(ngModel)]="ChangeMdpForm.password" type="password" [type]="Toggledata ? 'password' : 'text'"
+                                                class="form-control pass-input" placeholder="Nouveau mot de passe">
+                                                
                                             <span
                                                 [ngClass]="Toggledata == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
                                                 (click)="iconLogle()"></span>
@@ -193,14 +193,14 @@
                                         <label class="col-form-label">Confirmer Nouveau MDP</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" name="password" [type]="Toggle ? 'password' : 'text'"
-                                                class="form-control pass-input" value="..............">
+                                            <input name="password" [(ngModel)]="ChangeMdpForm.confirmPassword" type="password" name="password" [type]="Toggle ? 'password' : 'text'"
+                                                class="form-control pass-input" placeholder="Confirmation">
                                             <span
                                                 [ngClass]="Toggle == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
                                                 (click)="icon()"></span>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary" type="submit"> Changer mot de passe</button>
+                                    <button class="btn btn-primary" [disabled]="!ChangeMdpForm.old_password || ChangeMdpForm.old_password.trim() === '' || !ChangeMdpForm.password || ChangeMdpForm.password.trim() === '' || !ChangeMdpForm.confirmPassword || ChangeMdpForm.confirmPassword.trim() === '' " (click)="ChangerMotDePasse()" type="submit"> Changer mot de passe</button>
                                 </form>
                             </div>
                         </div>

@@ -58,6 +58,12 @@ export class HomeNineComponent {
 
   imagesCommunes = ['commune1.jpeg', 'commune2.png', 'commune3.jpg', 'commune4.jpg', 'commune5.jpeg', 'commune6.jpeg'];
 
+   //IMAGE
+   generateImageUrl(photoFileName: string): string {
+    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    return baseUrl + photoFileName;
+  }
+
   constructor(
     private DataService: DataService,
     private router: Router,
@@ -266,6 +272,14 @@ export class HomeNineComponent {
     nav: false,
   };
 
+  // IMAGE PAR DEFAUT DES BIENS
+DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
+
+// IMAGE PAR DEFAUT USER
+handleAuthorImageError(event: any) {
+  event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+}
+
   ngOnInit(): void {
     setInterval(() => {
       this.changeImage();
@@ -284,6 +298,7 @@ export class HomeNineComponent {
       this.typebien = data.type;
       console.log(this.commodite);
     });
+
 
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
