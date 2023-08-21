@@ -2,11 +2,16 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lightbox } from 'ngx-lightbox';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommentaireService } from 'src/app/service/commentaire/commentaire.service';
+import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import Swal from 'sweetalert2';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-service-details',
@@ -18,6 +23,13 @@ export class ServiceDetailsComponent {
   public albumsOne: any = [];
   public albumsTwo: any = [];
   bien: any
+  les_commodite: any[] = [];
+  pays: any;
+  commune: any;
+  typebien: any;
+  bienImmo: any;
+  region: any;
+  adresse: any;
   id: any
   commodite: any
   errorMessage: any = '';
@@ -31,21 +43,105 @@ export class ServiceDetailsComponent {
   // createdAt : any
   // User : any
   commentaire: any
+  regions: any = [];
+  communes: any = [];
+  selectedValue: string | any = 'pays';
+  selectedValueR: string | any = 'region';
+  image: File[] = [];
+  images: File[] = [];
+
+
+
+  nombien: any
+  description: any
+  status: any = ['A louer', 'A vendre'];
+  type: any
+  valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  selectedFiles: any;
+  isButtonDisabled: boolean = false;
+  maxImageCount: number = 0;
+  message: string | undefined;
+
+
+
 
   CommentaireForm: any = {
     contenu: null,
   }
+  currentUser: any = false;
+  ModifBien: any = false;
+
+  onChange(newValue: any) {
+    this.regions = this.region.filter(
+      (el: any) => el.pays.nom == newValue.value
+    );
+  }
+
+  onChangeRegion(newValue: any) {
+    this.communes = this.commune.filter(
+      (el: any) => el.region.nom == newValue.value
+    );
+  }
+
+  //CHARGER L'IMAGE
+  onFileSelected(event: any): void {
+    this.selectedFiles = event.target.files;
+    const reader = new FileReader();
+
+    for (const file of this.selectedFiles) {
+      if (this.images.length < 8) {
+        reader.onload = (e: any) => {
+          this.images.push(file);
+          this.image.push(e.target.result);
+          this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
+          console.log(this.image);
+          this.maxImageCount = this.image.length
+        };
+        reader.readAsDataURL(file);
+      } // Vérifiez si la limite n'a pas été atteinte
+    }
+    this.form.photo = this.images;
+    this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
+  }
+
+  removeImage(index: number) {
+    this.image.splice(index, 1); // Supprime l'image du tableau
+    this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
+    this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
+  }
+
 
   getFullImagePath(imageName: string): string {
     // Assurez-vous que le chemin de base est correctement configuré
     const basePath = 'https://chemin-vers-votre-serveur/';
     return basePath + imageName;
   }
-
-    // IMAGE PAR DEFAUT USER
-    handleAuthorImageError(event: any) {
-      event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
+  checkImageCount(): void {
+    if (this.images.length >= 8) {
+      this.isButtonDisabled = true;
+    } else {
+      this.isButtonDisabled = false;
     }
+  }
+
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  }
+
+  onChangeCommodite() {
+    if (this.les_commodite) {
+      const commoditeArray = [];
+      for (const item of this.les_commodite) {
+        if (item.selected) {
+          commoditeArray.push(item.id);
+        }
+      }
+      this.form.commodite = commoditeArray;
+      console.log(this.form.commodite);
+    }
+  }
 
   photos: any;
 
@@ -54,24 +150,37 @@ export class ServiceDetailsComponent {
     heure: null
   }
 
+  form: any = {
+    commodite: null,
+    type: null,
+    commune: null,
+    nb_piece: null,
+    nom: null,
+    chambre: null,
+    cuisine: null,
+    toilette: null,
+    surface: null,
+    prix: null,
+    statut: null,
+    description: null,
+    quartier: null,
+    rue: null,
+    porte: null,
+    photo: null,
+    commoditeChecked: false,
+    selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
+  };
+
   constructor(
     private _lightbox: Lightbox,
     public router: Router,
+    private serviceCommodite: CommoditeService,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
     private storageService: StorageService,
     private serviceCommentaire: CommentaireService,
     private route: ActivatedRoute,
   ) {
-    for (let i = 5; i <= 12; i++) {
-      const src = 'assets/img/gallery/gallery1/gallery-' + i + '.jpg';
-      const caption = 'Image ' + i + ' caption here';
-
-      this.albumsOne.push({ src: src });
-      this.albumsTwo.push({ src: src });
-
-
-    }
 
   }
   open(index: number, albumArray: Array<any>): void {
@@ -96,13 +205,35 @@ export class ServiceDetailsComponent {
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params["id"]
 
+
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data.biens[0];
       this.photos = this.bien.photos;
+      // this.nombien = this.bien.nom;
+      // this.description = this.bien.description;
+      // this.status = this.bien.statut;
+      // this.type = this.bien.statut;
       this.commodite = data.commodite
       console.log(this.bien);
       console.log(this.photos);
+      console.log(this.storageService.getUser().user.id);
+      console.log(this.bien.utilisateur.id);
+
+      const currentUser = this.storageService.getUser();
+
+      if (currentUser && this.bien && currentUser.user.id === this.bien.utilisateur.id) {
+        this.currentUser = true;
+        this.ModifBien = true;
+      }
+
+      for (const photo of this.photos) {
+        const src = this.generateImageUrl(photo.nom); // Utilisez 'this.generateImageUrl'
+        const caption = 'Caption for ' + photo.nom;
+
+        this.albumsOne.push({ src: src, caption: caption });
+        this.albumsTwo.push({ src: src, caption: caption });
+      }
       // console.log(this.bien.nb_piece);
     });
 
@@ -118,11 +249,25 @@ export class ServiceDetailsComponent {
       console.log(this.commentaire);
     });
 
+    //AFFICHER LA LISTE DES COMMODITES
+    this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
+      this.les_commodite = data.commodite;
+      this.adresse = data;
+      this.pays = data.pays;
+      this.region = data.region.reverse();
+      this.commune = data.commune;
+      this.typebien = data.type;
+      console.log(data);
+    });
+
+
 
   }
   direction() {
     this.router.navigate([routes.servicedetails])
   }
+
+  // FORMATER LE PRIX 
   formatPrice(price: number): string {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
@@ -209,10 +354,12 @@ export class ServiceDetailsComponent {
     }
   }
 
+
   //METHODE PERMETTANT DE CANDIDATER UN BIEN
   CandidaterBien(): void {
     this.id = this.route.snapshot.params["id"]
     // const user = this.storageService.getUser();
+    const currentUser = this.getCurrentUser();
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -242,7 +389,7 @@ export class ServiceDetailsComponent {
               console.log("Candidature envoyée avec succès:", data);
               this.isSuccess = true;
               this.errorMessage = 'Candidature envoyée avec succès';
-              this.isCandidatureSent = true;
+              // this.isCandidatureSent = true;
               // Afficher le premier popup de succès
               this.popUpConfirmation();
             },
@@ -260,6 +407,13 @@ export class ServiceDetailsComponent {
       }
     })
   }
+
+  // Méthode pour obtenir les informations de l'utilisateur connecté
+  getCurrentUser(): any {
+    const user = this.storageService.getUser();
+    return user ? user.userData : null;
+  }
+
 
   //POPUP APRES CONFIRMATION DE CANDIDATURE
   popUpConfirmation() {
@@ -292,8 +446,222 @@ export class ServiceDetailsComponent {
   }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
+  }
+
+
+  //OUVRIR UNE CONVERSATION EN FONCTION DE L'UTILISATEUR
+  OuvrirConversation(id: any): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+    swalWithBootstrapButtons.fire({
+      // title: 'Etes-vous sûre de vous déconnecter?',
+      text: "Etes-vous sûre d'ouvrir une conversation ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const user = this.storageService.getUser();
+        if (user && user.token) {
+          // Définissez le token dans le service serviceUser
+          this.serviceUser.setAccessToken(user.token);
+
+
+
+          // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
+          this.serviceBienImmo.OuvrirConversation(id).subscribe({
+            next: (data) => {
+              console.log("Conversation ouverte avec succès:", data);
+              this.isSuccess = true;
+              // this.errorMessage = 'Conversation ouverte avec succès';
+              this.pathConversation();
+            },
+            error: (err) => {
+              console.error("Erreur lors de l'ouverture de la conversation:", err);
+              this.errorMessage = err.error.message;
+              this.isError = true
+              // Gérez les erreurs ici
+            }
+          }
+          );
+        } else {
+          console.error("Token JWT manquant");
+        }
+      }
+    })
+  }
+
+  pathConversation() {
+    this.router.navigate([routes.messages]);
+  }
+
+  //MODIFIER UN BIEN 
+  ModifierBien(): void {
+    //RECUPERER L'ID D'UN BIEN
+    this.id = this.route.snapshot.params["id"]
+    const {
+      commodite,
+      type,
+      commune,
+      nb_piece,
+      nom,
+      chambre,
+      cuisine,
+      toilette,
+      surface,
+      prix,
+      statut,
+      description,
+      quartier,
+      rue,
+      porte,
+      photo
+    } = this.form;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+
+    if (this.form.commodite === null
+      || this.form.type === null
+      || this.form.commune === null
+      || this.form.nb_piece === null
+      || this.form.nom === null
+      || this.form.chambre === null
+      || this.form.cuisine === null
+      || this.form.toilette === null
+      || this.form.surface === null
+      || this.form.prix === null
+      || this.form.statut === null
+      || this.form.description === null
+      || this.form.quartier === null
+      || this.form.rue === null
+      || this.form.porte === null
+      || this.form.photo === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = " Tous les champs sont obligatoires !",
+      )
+      // console.error('Tous les champs sont obligatoires !');
+
+    } else {
+      swalWithBootstrapButtons.fire({
+        text: "Etes-vous sûre de bien vouloir modifier ce bien ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            this.serviceBienImmo.setAccessToken(user.token);
+            this.serviceBienImmo
+              .ModifierBien(
+                commodite,
+                type,
+                commune,
+                nb_piece,
+                nom,
+                chambre,
+                cuisine,
+                toilette,
+                surface,
+                prix,
+                statut,
+                description,
+                quartier,
+                rue,
+                porte,
+                photo,
+                this.id
+              )
+              .subscribe({
+                next: (data) => {
+                  console.log(data);
+                  this.isSuccess = false;
+                  console.log(this.form);
+                  this.popUpConfirmationModification();
+                },
+                error: (err) => {
+                  console.log(err);
+                  this.errorMessage = err.error.message;
+                  this.isSuccess = true;
+                },
+              });
+          } else {
+            console.error('Token JWT manquant');
+          }
+        }
+      })
+    }
+
+  }
+
+  //POPUP APRES CONFIRMATION
+  popUpConfirmationModification() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Bien modifie avec succès.',
+      title: 'Modification de bien',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
+
+    }).then((result) => {
+      // Après avoir réussi à candidater, mettez à jour l'état de la candidature
+      //RECUPERER L'ID D'UN BIEN
+      this.id = this.route.snapshot.params["id"]
+
+      //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+        this.bien = data.biens[0];
+        this.photos = this.bien.photos;
+        this.commodite = data.commodite
+        console.log(this.bien);
+        console.log(this.photos);
+        console.log(this.storageService.getUser().user.id);
+        console.log(this.bien.utilisateur.id);
+
+        const currentUser = this.storageService.getUser();
+
+        if (currentUser && this.bien && currentUser.user.id === this.bien.utilisateur.id) {
+          this.currentUser = true;
+          this.ModifBien = true;
+        }
+
+        for (const photo of this.photos) {
+          const src = this.generateImageUrl(photo.nom); // Utilisez 'this.generateImageUrl'
+          const caption = 'Caption for ' + photo.nom;
+
+          this.albumsOne.push({ src: src, caption: caption });
+          this.albumsTwo.push({ src: src, caption: caption });
+        }
+        // console.log(this.bien.nb_piece);
+      });
+      return this.router.navigate(['pages/service-details', this.id])
+
+    })
   }
 
 }

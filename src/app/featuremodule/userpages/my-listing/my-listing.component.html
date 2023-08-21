@@ -60,22 +60,22 @@
         <!-- Debut Segmented control  -->
         <div class="container card shadow d-flex justify-content-center mt-5">
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                <li class="nav-item">
+                <li class="nav-item crd">
                     <a class="nav-link custom-tab-link" [class.active]="isTabActive('home')" (click)="changeTab('home')"
                         id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Liste
                         biens</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item crd">
                     <a class="nav-link custom-tab-link" [class.active]="isTabActive('loue')" (click)="changeTab('loue')"
                         id="loue-tab" data-toggle="tab" role="tab" aria-controls="loue" aria-selected="false">Biens
                         loues</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item crd">
                     <a class="nav-link custom-tab-link" id="vendu-tab" data-toggle="tab"
                         [class.active]="isTabActive('vendu')" (click)="changeTab('vendu')" role="tab"
                         aria-controls="vendu" aria-selected="false">Biens vendus</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item crd">
                     <a class="nav-link custom-tab-link" id="reclamation-tab" data-toggle="tab"
                         [class.active]="isTabActive('reclamation')" (click)="changeTab('reclamation')" role="tab"
                         aria-controls="reclamation" aria-selected="false">Reclamation</a>
@@ -89,6 +89,7 @@
                         <div class="dash-cards card">
                             <div class="card-header">
                                 <h4>Mes biens</h4>
+                                <!-- <h4 *ngIf="bienImmo && bienImmo.length == 0">Pas de biens</h4> -->
                                 <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
                                     <i class="fa-solid fa-plus"></i> Ajouter un bien</a>
                             </div>

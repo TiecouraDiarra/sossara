@@ -112,10 +112,14 @@ export class SignupComponent {
   }
 
   onSubmit(): void {
-    // if (this.form.photo === null) {
-    //   console.error('La photo est manquante.');
-    //   return;
-    // }
+    if (this.form.password !== this.form.confirmPassword) {
+      Swal.fire({
+        text: "La confirmation du mot de passe ne correspond pas au nouveau mot de passe.",
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+      return; // Sortir de la fonction si les mots de passe ne correspondent pas
+    }
     const { nom, email, password, telephone, dateNaissance,  nom_doc,num_doc, roles,photo} = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {

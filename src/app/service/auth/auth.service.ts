@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from './storage.service';
+// import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 // const AUTH_API: String = 'http://192.168.1.6:8000/api/';
@@ -19,6 +20,8 @@ export class AuthService {
 
   URL_BASE: string = environment.Url_BASE
   constructor(private http: HttpClient, private storageService: StorageService) {}
+  // private jwtHelper: JwtHelperService = new JwtHelperService();
+  // private token!: string;
 
    // Méthode pour ajouter le token JWT aux en-têtes
    getHeaders(): HttpHeaders {
@@ -83,6 +86,16 @@ export class AuthService {
         // options
     );
   }
+
+  // isTokenExpired(): boolean {
+  //   // Vérifiez si le token est défini
+  //   if (!this.token) {
+  //     return true;
+  //   }
+
+  //   // Utilisez le JwtHelperService pour vérifier si le token est expiré
+  //   return this.jwtHelper.isTokenExpired(this.token);
+  // }
 
   logout(): Observable<any> {
     //return this.http.post(AUTH_API + 'signout', {}, httpOptions);

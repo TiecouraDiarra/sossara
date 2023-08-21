@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { environment } from 'src/app/environments/environment';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-listing-grid',
@@ -53,7 +57,7 @@ export class ListingGridComponent {
   
     //IMAGE
     generateImageUrl(photoFileName: string): string {
-      const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+      const baseUrl = URL_PHOTO + '/uploads/images/';
       return baseUrl + photoFileName;
     }
 }

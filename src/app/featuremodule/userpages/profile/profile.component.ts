@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import Swal from 'sweetalert2';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +40,7 @@ export class ProfileComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
 

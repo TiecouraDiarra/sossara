@@ -10,12 +10,16 @@ import { BienImmo } from 'src/app/modele/bien-immo';
 import { MatTableDataSource } from '@angular/material/table';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
+import { environment } from 'src/app/environments/environment';
 
+const URL_PHOTO: string = environment.Url_PHOTO;
+ 
 @Component({
   selector: 'app-home-nine',
   templateUrl: './home-nine.component.html',
   styleUrls: ['./home-nine.component.scss']
 })
+
 export class HomeNineComponent {
   public routes = routes;
   public listing: any = [];
@@ -60,7 +64,7 @@ export class HomeNineComponent {
 
    //IMAGE
    generateImageUrl(photoFileName: string): string {
-    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
 

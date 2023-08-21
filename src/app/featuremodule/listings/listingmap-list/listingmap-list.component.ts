@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { environment } from 'src/app/environments/environment';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 declare var google: any;
 @Component({

@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-reviews',
@@ -257,5 +261,16 @@ export class ReviewsComponent implements OnInit {
   //FORMATER LE PRIX
   formatPrice(price: number): string {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
+    const baseUrl = URL_PHOTO + '/uploads/images/';
+    return baseUrl + photoFileName;
+  }
+
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 }

@@ -7,6 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/app/environments/environment';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-listing-grid-sidebar',
@@ -50,7 +54,7 @@ export class ListingGridSidebarComponent {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
 

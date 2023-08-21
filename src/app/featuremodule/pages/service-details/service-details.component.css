@@ -1,5 +1,5 @@
-.ligne{
-    overflow-y: scroll; 
+.ligne {
+    overflow-y: scroll;
     height: 350px;
     --overflow: hidden;
     overflow: auto;
@@ -8,3 +8,53 @@
         display: none;
     }
 }
+
+.disabled-button {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
+
+
+/* Ajuster la position du modal par rapport à la barre de navigation */
+.modal-dialog {
+    margin-top: 75px;
+    /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
+}
+
+
+  
+.media-image {
+    position: relative;
+  }
+  
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+  }
+  
+  .close-icon {
+    font-size: 1.5em;
+    color: red;
+  }
+  .image-container img {
+    max-width: 100%; /* Redimensionne l'image pour qu'elle s'adapte à la largeur du conteneur */
+    height: auto; /* Maintient le rapport d'aspect de l'image */
+  }

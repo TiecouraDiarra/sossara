@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/service/data.service';
 import { Options } from '@angular-slider/ngx-slider';
+import { environment } from 'src/app/environments/environment';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-listing-list-sidebar',

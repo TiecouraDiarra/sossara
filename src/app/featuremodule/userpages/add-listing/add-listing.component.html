@@ -74,29 +74,14 @@
           </div>
           <div class="card-body">
             <div class="form-group">
-              <label class="col-form-label"
-                >Nom du bien <span>*</span></label
-              >
-              <input
-                type="text"
-                class="form-control pass-input"
-                name="nom"
-                [(ngModel)]="form.nom"
-                placeholder="Nom"
-              />
+              <label class="col-form-label">Nom du bien <span>*</span></label>
+              <input type="text" class="form-control pass-input" name="nom" [(ngModel)]="form.nom" placeholder="Nom" />
             </div>
 
             <div class="form-group">
-              <label class="col-form-label"
-                >Description du bien <span>*</span></label
-              >
-              <textarea
-                rows="6"
-                name="description"
-                [(ngModel)]="form.description"
-                class="form-control listingdescription"
-                placeholder="Description"
-              ></textarea>
+              <label class="col-form-label">Description du bien <span>*</span></label>
+              <textarea rows="6" name="description" [(ngModel)]="form.description"
+                class="form-control listingdescription" placeholder="Description"></textarea>
             </div>
             <!--<div class="form-group">
                             <label class="col-form-label label-heading">Category</label>
@@ -201,31 +186,27 @@
             <br />
             <div class="row social-info">
               <!-- <div class="col-lg-6 col-md-6"> -->
-                <div class="form-group formlast-input lat-input">
-                  <label class="col-form-label">Commodites <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <div class="row">
-                      <div class="col-lg-4 col-md-6" *ngFor="let item of les_commodite">
-                          <ul>
-                            <li>
-                                <label class="custom_check">
-                                  <input
-                                  type="checkbox"
-                                  [(ngModel)]="item.selected"
-                                  [value]="item.id"
-                                  (change)="onChangeCommodite()"
-                                  name="commodite"/>
-                                    <span class="checkmark"></span> {{ item.nom }}
-                                </label>
-                            </li>
-                          </ul>
-                        </div>
-                      
+              <div class="form-group formlast-input lat-input">
+                <label class="col-form-label">Commodites <span>*</span></label>
+                <div class="pass-group group-img">
+                  <div class="row">
+                    <div class="col-lg-4 col-md-6" *ngFor="let item of les_commodite">
+                      <ul>
+                        <li>
+                          <label class="custom_check">
+                            <input type="checkbox" [(ngModel)]="item.selected" [value]="item.id"
+                              (change)="onChangeCommodite()" name="commodite" />
+                            <span class="checkmark"></span> {{ item.nom }}
+                          </label>
+                        </li>
+                      </ul>
                     </div>
+
                   </div>
                 </div>
+              </div>
               <!-- </div> -->
-              
+
             </div>
           </div>
         </div>
@@ -240,12 +221,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.statut"
-                      name="statut"
-                      class="form-control"
-                      id=""
-                    >
+                    <select [(ngModel)]="form.statut" name="statut" class="form-control" id="">
                       <option *ngFor="let item of status" [value]="item">
                         {{ item }}
                       </option>
@@ -258,12 +234,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Type <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.type"
-                      name="type"
-                      class="form-control"
-                      id=""
-                    >
+                    <select [(ngModel)]="form.type" name="type" class="form-control" id="">
                       <option *ngFor="let item of typebien" [value]="item.id">
                         {{ item.nom }}
                       </option>
@@ -278,16 +249,8 @@
                 <div class="form-group">
                   <label class="col-form-label">Prix du bien <span>*</span></label>
                   <div class="pass-group group-img">
-                    <input
-                      type="number"
-                      pattern="[0-9]"
-                      name="prix"
-                      [(ngModel)]="form.prix"
-                      class="form-control pass-input"
-                      required
-                      aria-required="true"
-                      placeholder="FCFA"
-                    />
+                    <input type="number" pattern="[0-9]" name="prix" [(ngModel)]="form.prix"
+                      class="form-control pass-input" required aria-required="true" placeholder="FCFA" />
                   </div>
                 </div>
               </div>
@@ -295,34 +258,24 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label">Nombre de salon <span>*</span></label>
-                      <div class="pass-group group-img">
-                        <select
-                          [(ngModel)]="form.nb_piece"
-                          name="nb_piece"
-                          class="form-control"
-                          id=""
-                        >
-                          <option *ngFor="let item of valuesSelect" [value]="item">
-                            {{ item }}
-                          </option>
-                        </select>
-                      </div>
+                  <div class="pass-group group-img">
+                    <select [(ngModel)]="form.nb_piece" name="nb_piece" class="form-control" id="">
+                      <option *ngFor="let item of valuesSelect" [value]="item">
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
-            
+
             <div class="row">
               <!-- Nombre de cuisine -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.cuisine"
-                      name="cuisine"
-                      class="form-control"
-                      id=""
-                    >
+                    <select [(ngModel)]="form.cuisine" name="cuisine" class="form-control" id="">
                       <option *ngFor="let item of valuesSelect" [value]="item">
                         {{ item }}
                       </option>
@@ -335,12 +288,7 @@
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Chambres <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.chambre"
-                      name="chambre"
-                      class="form-control"
-                      id=""
-                    >
+                    <select [(ngModel)]="form.chambre" name="chambre" class="form-control" id="">
                       <option *ngFor="let item of valuesSelect" [value]="item">
                         {{ item }}
                       </option>
@@ -350,19 +298,14 @@
               </div>
             </div>
             <br />
-            
+
             <div class="row">
-               <!-- Nombre de toilette -->
-               <div class="col-lg-6 col-md-6">
+              <!-- Nombre de toilette -->
+              <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Toilette <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.toilette"
-                      name="toilette"
-                      class="form-control"
-                      id=""
-                    >
+                    <select [(ngModel)]="form.toilette" name="toilette" class="form-control" id="">
                       <option *ngFor="let item of valuesSelect" [value]="item">
                         {{ item }}
                       </option>
@@ -374,19 +317,11 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label">Surface du bien <span>*</span></label>
-                  <input
-                    type="number"
-                    pattern="[0-9]"
-                    name="surface"
-                    [(ngModel)]="form.surface"
-                    class="form-control pass-input"
-                    required
-                    aria-required="true"
-                    placeholder="000000"
-                  />
+                  <input type="number" pattern="[0-9]" name="surface" [(ngModel)]="form.surface"
+                    class="form-control pass-input" required aria-required="true" placeholder="000000" />
                 </div>
               </div>
-              
+
             </div>
             <!-- <div class="row">
               <div class="col-lg-6 col-md-6">
@@ -441,12 +376,8 @@
                 <div class="form-group">
                   <label class="col-form-label">Pays <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      class="form-control"
-                      [ngModel]="selectedValue"
-                      name="pays"
-                      (change)="onChange($event.target)"
-                    >
+                    <select class="form-control" [ngModel]="selectedValue" name="pays"
+                      (change)="onChange($event.target)">
                       <option value="pays" selected>pays</option>
                       <option *ngFor="let item of pays" [value]="item.nom">
                         {{ item.nom }}
@@ -460,13 +391,8 @@
                 <div class="form-group">
                   <label class="col-form-label">Region <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      name="region"
-                      class="form-control"
-                      id=""
-                      [ngModel]="selectedValueR"
-                      (change)="onChangeRegion($event.target)"
-                    >
+                    <select name="region" class="form-control" id="" [ngModel]="selectedValueR"
+                      (change)="onChangeRegion($event.target)">
                       <option *ngFor="let item of regions" [value]="item.nom">
                         {{ item.nom }}
                       </option>
@@ -481,12 +407,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Commune <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select
-                      [(ngModel)]="form.commune"
-                      name="commune"
-                      class="form-control"
-                      id=""
-                    >
+                    <select [(ngModel)]="form.commune" name="commune" class="form-control" id="">
                       <option *ngFor="let item of communes" [value]="item.id">
                         {{ item.nom }}
                       </option>
@@ -499,30 +420,20 @@
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Quartier <span>*</span></label>
-                    <input
-                      type="text"
-                      name="quartier"
-                      [(ngModel)]="form.quartier"
-                      class="form-control pass-input"
-                      placeholder="Yirimadio"
-                    />
+                    <input type="text" name="quartier" [(ngModel)]="form.quartier" class="form-control pass-input"
+                      placeholder="Yirimadio" />
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-               <!-- Rue  -->
-               <div class="col-lg-6 col-md-6">
+              <!-- Rue  -->
+              <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Rue <span>*</span></label>
-                    <input
-                      name="rue"
-                      [(ngModel)]="form.rue"
-                      type="text"
-                      class="form-control pass-input"
-                      placeholder="Rue"
-                    />
+                    <input name="rue" [(ngModel)]="form.rue" type="text" class="form-control pass-input"
+                      placeholder="Rue" />
                   </div>
                 </div>
               </div>
@@ -530,18 +441,12 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Porte <span>*</span></label>
-                  <input
-                  type="number"
-                    pattern="[0-9]"
-                    name="porte"
-                    [(ngModel)]="form.porte"
-                    class="form-control pass-input"
-                    placeholder="9999"
-                  />
+                  <input type="number" pattern="[0-9]" name="porte" [(ngModel)]="form.porte"
+                    class="form-control pass-input" placeholder="9999" />
                 </div>
               </div>
             </div>
-           
+
             <!-- <div class="form-group">
               <label class="col-form-label">Map Address</label>
               <input
@@ -553,13 +458,8 @@
             <div class="listing-map">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.6461688381!2d-80.26548188573862!3d26.045130803169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9a862f9831459%3A0xafcb9384c02e8b75!2s8697%20Stirling%20Rd%2C%20Cooper%20City%2C%20FL%2033328%2C%20USA!5e0!3m2!1sen!2sin!4v1671519522101!5m2!1sen!2sin"
-                width="100"
-                height="430"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+                width="100" height="430" style="border: 0" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <!-- <div class="row">
               <div class="col-lg-6 col-md-6">
@@ -699,7 +599,7 @@
                 <h6 class="media-title">Images biens <span>*</span></h6>
                 <div class="media-image">
                   <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
-                    <img class="m-3" [src]="imageUrl" alt="Image {{ i }}"/>
+                    <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
                     <button class="close-button" (click)="removeImage(i)">
                       <i class="fas fa-times close-icon"></i>
                     </button>
@@ -707,11 +607,8 @@
                 </div>
               </div>
               <div class="settings-upload-btn">
-                <input
-                  type="file"
-                  id="photo" name="photo" (change)="onFileSelected($event)" multiple
-                  class="hide-input image-upload" [disabled]="maxImageCount >=3"
-                />
+                <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
+                  class="hide-input image-upload" [disabled]="maxImageCount >=3" />
                 <label for="file" class="file-upload">Ajouter l'image</label>
               </div>
             </div>

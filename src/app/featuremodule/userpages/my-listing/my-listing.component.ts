@@ -2,11 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-my-listing',
@@ -27,6 +31,8 @@ export class MyListingComponent implements OnInit {
   p2: number = 1;
   p3: number = 1;
   p4: number = 1;
+  public albumsOne: any = [];
+
 
   public electronics: any = []
 
@@ -43,7 +49,7 @@ export class MyListingComponent implements OnInit {
   }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
 

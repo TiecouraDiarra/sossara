@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { MessageService } from 'src/app/service/message/message.service';
+import { environment } from 'src/app/environments/environment';
 export type ChartOptions = {
   series: ApexAxisChartSeries | any;
   chart: ApexChart | any;
@@ -29,6 +30,7 @@ export type ChartOptions = {
   stroke: | any;
 };
 
+const URL_PHOTO: string = environment.Url_PHOTO;
 
 @Component({
   selector: 'app-dashboard',
@@ -175,7 +177,7 @@ export class DashboardComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
 

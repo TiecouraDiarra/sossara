@@ -67,40 +67,40 @@ export class BienimmoService {
   AfficherBienImmoParUser(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
-    return this.http.get(`${URL_BASE}/bien/immo/user` ,
-    { headers });
+    return this.http.get(`${URL_BASE}/bien/immo/user`,
+      { headers });
   }
 
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoDejaLoueParUser(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
-    return this.http.get(`${URL_BASE}/bien/immo/get/rent` ,
-    { headers });
+    return this.http.get(`${URL_BASE}/bien/immo/get/rent`,
+      { headers });
   }
 
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoDejaVenduParUser(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
-    return this.http.get(`${URL_BASE}/bien/immo/get/sell` ,
-    { headers });
+    return this.http.get(`${URL_BASE}/bien/immo/get/sell`,
+      { headers });
   }
 
   //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
   AfficherListeReclamationParUser(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
-    return this.http.get(`${URL_BASE}/signal/get` ,
-    { headers });
+    return this.http.get(`${URL_BASE}/signal/get`,
+      { headers });
   }
 
 
   //AJOUTER UN BIEN
   registerBien(
     commodite: [],
-    type:number,
-    commune:number,
+    type: number,
+    commune: number,
     nb_piece: number,
     nom: string,
     chambre: number,
@@ -136,7 +136,7 @@ export class BienimmoService {
     console.log('photo', photos);
     const formData = new FormData();
 
-    commodite.forEach(i=>{formData.append('commodite[]', i)});
+    commodite.forEach(i => { formData.append('commodite[]', i) });
     formData.append('type', type.toString());
     formData.append('commune', commune.toString());
     formData.append('nb_piece', nb_piece.toString());
@@ -151,7 +151,7 @@ export class BienimmoService {
     formData.append('quartier', quartier);
     formData.append('rue', rue);
     formData.append('porte', porte.toString());
-    photos.forEach(p=>{formData.append('photo[]', p)});
+    photos.forEach(p => { formData.append('photo[]', p) });
 
     return this.http.post(
       URL_BASE + '/bien/immo/new',
@@ -175,11 +175,86 @@ export class BienimmoService {
     return this.http.post(`${URL_BASE}/candidature/accept/${id}`, null, { headers });
   }
 
-   //ANNULER CANDIDATURE BIEN 
-   AnnulerCandidaterBien(id: any): Observable<any> {
+  //OUVRIR UNE CONVERSATION EN FONCTION DE L'UTILISATEUR
+  OuvrirConversation(id: any): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(id)
+    console.log(headers)
+    return this.http.post(`${URL_BASE}/conversation/new/${id}`, null, { headers });
+  }
+
+
+  //ANNULER CANDIDATURE BIEN 
+  AnnulerCandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
     console.log(id)
     console.log(headers)
     return this.http.post(`${URL_BASE}/candidature/refuse/${id}`, null, { headers });
+  }
+
+  //AJOUTER UN BIEN
+  ModifierBien(
+    commodite: [],
+    type: number,
+    commune: number,
+    nb_piece: number,
+    nom: string,
+    chambre: number,
+    cuisine: number,
+    toilette: number,
+    surface: number,
+    prix: number,
+    statut: string,
+    description: string,
+    quartier: string,
+    rue: string,
+    porte: number,
+    photos: File[], //Liste de photos
+    id: any
+  ): Observable<any> {
+    const headers = this.getHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    console.log(headers);
+    console.log('commo', commodite);
+    console.log('commune', commune);
+    console.log('piece', nb_piece);
+    console.log('nom', nom);
+    console.log('chamb', chambre);
+    console.log('cuis', cuisine);
+    console.log('toil', toilette);
+    console.log('sur', surface);
+    console.log('prix', prix);
+    console.log('stat', statut);
+    console.log('descr', description);
+    console.log('quart', quartier);
+    console.log('rue', rue);
+    console.log('porte', porte);
+    console.log('photo', photos);
+    console.log('id', id);
+    const formData = new FormData();
+
+    commodite.forEach(i => { formData.append('commodite[]', i) });
+    formData.append('type', type.toString());
+    formData.append('commune', commune.toString());
+    formData.append('nb_piece', nb_piece.toString());
+    formData.append('nom', nom);
+    formData.append('chambre', chambre.toString());
+    formData.append('cuisine', cuisine.toString());
+    formData.append('toilette', toilette.toString());
+    formData.append('surface', surface.toString());
+    formData.append('prix', prix.toString());
+    formData.append('statut', statut);
+    formData.append('description', description);
+    formData.append('quartier', quartier);
+    formData.append('rue', rue);
+    formData.append('porte', porte.toString());
+    photos.forEach(p => { formData.append('photo[]', p) });
+    formData.append('id', id);
+
+    return this.http.post(
+      URL_BASE + '/bien/immo/update/' + `${id}`,
+      formData,
+      { headers }
+    );
   }
 }

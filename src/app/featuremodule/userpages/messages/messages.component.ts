@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
@@ -20,20 +21,23 @@ interface Conversation {
   messages: Message[];
 }
 
+const URL_PHOTO: string = environment.Url_PHOTO;
+
+
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit{
-  public routes=routes;
+export class MessagesComponent implements OnInit {
+  public routes = routes;
   messages: any
-  conversation : any
+  conversation: any
   searchText: any;
 
   selectedConversationId!: number;
-  
-  IdConver : any
+
+  IdConver: any
   nombreconversation: number = 0
 
   MessageForm: any = {
@@ -42,7 +46,7 @@ export class MessagesComponent implements OnInit{
 
 
   selectedConversation: Conversation | null = null;
-  nomConversation : any
+  nomConversation: any
   newMessage: string = '';
   filteredMessages: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
   filteredMessagesUserCurrent: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
@@ -51,14 +55,14 @@ export class MessagesComponent implements OnInit{
     this.selectedConversation = conversation;
   }
   constructor(
-    private dataservice:DataService,
+    private dataservice: DataService,
     private authService: AuthService,
     private storageService: StorageService,
     private serviceMessage: MessageService,
     private serviceUser: UserService,
     private mercureService: MercureService,
     private router: Router,
-    ){}
+  ) { }
   ngOnInit(): void {
 
     this.mercureService.subscribeToTopic('conversation').subscribe((message: any) => {
@@ -82,67 +86,67 @@ export class MessagesComponent implements OnInit{
     // );
   }
 
-     //METHODE PERMETTANT DE SE DECONNECTER
-     logout(): void {
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn',
-          cancelButton: 'btn btn-danger',
-        },
-        heightAuto: false
-      })
-      swalWithBootstrapButtons.fire({
-        // title: 'Etes-vous sûre de vous déconnecter?',
-        text: "Etes-vous sûre de vous déconnecter?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Confirmer',
-        cancelButtonText: 'Annuler',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.authService.logout().subscribe({
-            next: res => {
-              console.log(res);
-              this.storageService.clean();
-              this.router.navigateByUrl("/auth/connexion")
-            },
-            error: err => {
-              console.log(err);
-            }
-          });
-        }
-      })
-  
-    }
+  //METHODE PERMETTANT DE SE DECONNECTER
+  logout(): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+    swalWithBootstrapButtons.fire({
+      // title: 'Etes-vous sûre de vous déconnecter?',
+      text: "Etes-vous sûre de vous déconnecter?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.logout().subscribe({
+          next: res => {
+            console.log(res);
+            this.storageService.clean();
+            this.router.navigateByUrl("/auth/connexion")
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+      }
+    })
+
+  }
 
 
-    onConversationSelected(conversationId: number) {
-      this.selectedConversationId = conversationId;
-    
-      // Appel au service pour récupérer les détails de la conversation sélectionnée
-      this.serviceMessage.AfficherUneConversation(this.selectedConversationId).subscribe(data => {
-        this.conversation = data.reverse();
-        this.filteredMessagesUserCurrent = this.conversation.filter((message: { mine: boolean; }) => message.mine === true);
-        this.filteredMessages = this.conversation.filter((message: { mine: boolean; }) => message.mine === false);
-        this.nombreconversation = data.length;
-        console.log(this.conversation);
+  onConversationSelected(conversationId: number) {
+    this.selectedConversationId = conversationId;
 
-         // Mettre à jour le nom de la conversation sélectionnée
-         this.nomConversation = this.messages[0].nom; // Remplacez par le nom de la conversation issu des données
-        //  const nomConversationDiv = document.getElementById('nom-conversation');
-        //  nomConversationDiv.textContent = nomConversation;
- 
-         console.log(this.nomConversation);
-      });
-    }
+    // Appel au service pour récupérer les détails de la conversation sélectionnée
+    this.serviceMessage.AfficherUneConversation(this.selectedConversationId).subscribe(data => {
+      this.conversation = data.reverse();
+      this.filteredMessagesUserCurrent = this.conversation.filter((message: { mine: boolean; }) => message.mine === true);
+      this.filteredMessages = this.conversation.filter((message: { mine: boolean; }) => message.mine === false);
+      this.nombreconversation = data.length;
+      console.log(this.conversation);
 
-      //METHODE PERMETTANT D'ENVOYER UN MESSAGE
+      // Mettre à jour le nom de la conversation sélectionnée
+      this.nomConversation = this.messages[0].nom; // Remplacez par le nom de la conversation issu des données
+      //  const nomConversationDiv = document.getElementById('nom-conversation');
+      //  nomConversationDiv.textContent = nomConversation;
+
+      console.log(this.nomConversation);
+    });
+  }
+
+  //METHODE PERMETTANT D'ENVOYER UN MESSAGE
   EnvoyerMessage(conversationId: number): void {
 
     const user = this.storageService.getUser();
     this.selectedConversationId = conversationId;
-    
+
     if (user && user.token) {
       // Définissez le token dans le service CommentaireService
       this.serviceUser.setAccessToken(user.token);
@@ -156,7 +160,7 @@ export class MessagesComponent implements OnInit{
           // this.isSuccess = false;
 
           // Appel au service pour récupérer les détails de la conversation sélectionnée
-     this.onConversationSelected(this.selectedConversationId)
+          this.onConversationSelected(this.selectedConversationId)
         },
         error => {
           console.error("Erreur lors de l'envoi du message :", error);
@@ -176,5 +180,15 @@ export class MessagesComponent implements OnInit{
   ngOnDestroy() {
     // N'oubliez pas de vous désabonner lorsque le composant est détruit
     this.mercureService.unsubscribeFromTopic('messages');
+  }
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
+    const baseUrl = URL_PHOTO + '/uploads/images/';
+    return baseUrl + photoFileName;
+  }
+
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 }

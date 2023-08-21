@@ -10,9 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { HttpClientModule } from '@angular/common/http';
-import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SegmentedControlComponent } from './segmented-control/segmented-control.component';
+import { HttpRequestInterceptor } from './_helpers/http.interceptor';
 // import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
@@ -42,7 +42,9 @@ import { SegmentedControlComponent } from './segmented-control/segmented-control
     //   provide: PERFECT_SCROLLBAR_CONFIG,
     //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     // },
-    httpInterceptorProviders
+    // httpInterceptorProviders
+    // Ajoutez l'intercepteur à la liste des fournisseurs
+    // { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

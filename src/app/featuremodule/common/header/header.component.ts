@@ -7,6 +7,9 @@ import { CommonService } from 'src/app/service/common.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { environment } from 'src/app/environments/environment';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
 
 @Component({
   selector: 'app-header',
@@ -34,7 +37,7 @@ export class HeaderComponent implements OnInit {
   }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = 'http://192.168.1.6:8000/uploads/images/';
+    const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
 
