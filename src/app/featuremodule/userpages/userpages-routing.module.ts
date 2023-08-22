@@ -32,7 +32,7 @@ const routes: Routes = [
           // canActivate: [AuthGuard]
       },
       {
-        path: 'mes-proprietes',
+        path: 'mes-biens',
         loadChildren: () =>
           import('./my-listing/my-listing.module').then((m) => m.MyListingModule),
           // canActivate: [AuthGuard]
@@ -44,7 +44,7 @@ const routes: Routes = [
           // canActivate: [AuthGuard]
       },
       {
-        path: 'commentaire',
+        path: 'notification',
         loadChildren: () =>
           import('./reviews/reviews.module').then((m) => m.ReviewsModule),
           // canActivate: [AuthGuard]

@@ -8,3 +8,71 @@
         display: none;
     }
 }
+
+/* Style de la liste des avis */
+.review-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Style de chaque élément d'avis */
+.review-box {
+    display: flex;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style de l'image de profil */
+.review-img img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* Style des détails de l'avis */
+.review-details {
+    flex-grow: 1;
+}
+
+/* Style du nom de l'auteur */
+.review-details h6 {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+}
+
+/* Style de l'icône d'évaluation */
+.rating {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    color: #f2b600;
+}
+
+/* Style des étoiles d'évaluation */
+.rating-star {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+/* Style de l'icône de la date et de l'heure */
+.rating i {
+    margin-right: 5px;
+}
+
+/* Style de la date */
+.rating-date {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Style de l'heure */
+.rating-time {
+    font-size: 14px;
+    color: #777;
+}

@@ -33,6 +33,7 @@ export class MessagesComponent implements OnInit {
   public routes = routes;
   messages: any
   conversation: any
+  conversations: any
   searchText: any;
 
   selectedConversationId!: number;
@@ -47,6 +48,8 @@ export class MessagesComponent implements OnInit {
 
   selectedConversation: Conversation | null = null;
   nomConversation: any
+   // Déclarez la variable firstConversation
+   firstConversation: any; // Vous pouvez remplacer 'any' par le type de données approprié pour vos conversations
   newMessage: string = '';
   filteredMessages: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
   filteredMessagesUserCurrent: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
@@ -71,9 +74,15 @@ export class MessagesComponent implements OnInit {
 
     //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
     this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
-      this.messages = data.conversation;
-      this.IdConver = this.messages.id
-      console.log(this.messages);
+      this.conversations = data.conversation;
+      this.IdConver = this.conversations.id
+      console.log(this.conversations);
+      console.log(this.conversations[2].photo);
+
+       // Initialisation de la première conversation ici, par exemple :
+    if (this.conversations && this.conversations.length > 0) {
+      this.firstConversation = this.conversations[0]; // Supposons que conversations soit votre tableau de conversations
+    }
     }
     );
 
@@ -126,16 +135,15 @@ export class MessagesComponent implements OnInit {
 
     // Appel au service pour récupérer les détails de la conversation sélectionnée
     this.serviceMessage.AfficherUneConversation(this.selectedConversationId).subscribe(data => {
-      this.conversation = data.reverse();
-      this.filteredMessagesUserCurrent = this.conversation.filter((message: { mine: boolean; }) => message.mine === true);
-      this.filteredMessages = this.conversation.filter((message: { mine: boolean; }) => message.mine === false);
+      this.messages = data.reverse();
+      this.filteredMessagesUserCurrent = this.messages.filter((message: { mine: boolean; }) => message.mine === true);
+      this.filteredMessages = this.messages.filter((message: { mine: boolean; }) => message.mine === false);
       this.nombreconversation = data.length;
-      console.log(this.conversation);
-
-      // Mettre à jour le nom de la conversation sélectionnée
-      this.nomConversation = this.messages[0].nom; // Remplacez par le nom de la conversation issu des données
-      //  const nomConversationDiv = document.getElementById('nom-conversation');
-      //  nomConversationDiv.textContent = nomConversation;
+      console.log(this.messages);
+      // Stockez le nom de la conversation dans this.nomConversation
+      this.nomConversation = data[0].nomConversation; // Supposons que le nom de la conversation est dans data[0]
+      
+      console.log(this.messages);
 
       console.log(this.nomConversation);
     });
@@ -148,12 +156,12 @@ export class MessagesComponent implements OnInit {
     this.selectedConversationId = conversationId;
 
     if (user && user.token) {
-      // Définissez le token dans le service CommentaireService
+      // Définissez le token dans le service notificationService
       this.serviceUser.setAccessToken(user.token);
 
 
 
-      // Appelez la méthode FaireCommentaire() avec le contenu et l'ID
+      // Appelez la méthode Fairenotification() avec le contenu et l'ID
       this.serviceMessage.EnvoyerMessage(this.MessageForm.content, this.selectedConversationId).subscribe(
         data => {
           console.log("Message envoyé avec succès:", data);
@@ -171,8 +179,8 @@ export class MessagesComponent implements OnInit {
       console.error("Token JWT manquant");
     }
 
-    //Faire un Commentaire
-    //  this.serviceCommentaire.FaireCommentaire(this.CommentaireForm.contenu, this.id).subscribe(data=>{
+    //Faire un notification
+    //  this.servicenotification.Fairenotification(this.notificationForm.contenu, this.id).subscribe(data=>{
     //   console.log(data);
     // });
   }

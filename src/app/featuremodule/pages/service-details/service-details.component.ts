@@ -6,7 +6,9 @@ import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
-import { CommentaireService } from 'src/app/service/commentaire/commentaire.service';
+import { commentaireService } from 'src/app/service/commentaire/commentaire.service';
+
+
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import Swal from 'sweetalert2';
 
@@ -65,7 +67,7 @@ export class ServiceDetailsComponent {
 
 
 
-  CommentaireForm: any = {
+  commentaireForm: any = {
     contenu: null,
   }
   currentUser: any = false;
@@ -178,7 +180,7 @@ export class ServiceDetailsComponent {
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
     private storageService: StorageService,
-    private serviceCommentaire: CommentaireService,
+    private servicecommentaire: commentaireService,
     private route: ActivatedRoute,
   ) {
 
@@ -243,8 +245,8 @@ export class ServiceDetailsComponent {
     // console.log(token);
     this.serviceUser.setAccessToken(token);
 
-    //AFFICHER LA LISTE DES COMMENTAIRES EN FONCTION D'UN BIEN
-    this.serviceCommentaire.AfficherCommentaireParBien(this.id).subscribe(data => {
+    //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+    this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
       this.commentaire = data.reverse();
       console.log(this.commentaire);
     });
@@ -279,8 +281,8 @@ export class ServiceDetailsComponent {
     return `${year}-${month}-${day}`;
   }
 
-  //METHODE PERMETTANT DE FAIRE UN COMMENTAIRE 
-  FaireCommentaire(): void {
+  //METHODE PERMETTANT DE FAIRE UN commentaire 
+  Fairecommentaire(): void {
     this.id = this.route.snapshot.params["id"]
     // const Users = this.storageService.getUser();
     // console.log(Users);
@@ -289,19 +291,19 @@ export class ServiceDetailsComponent {
 
     const user = this.storageService.getUser();
     if (user && user.token) {
-      // Définissez le token dans le service CommentaireService
+      // Définissez le token dans le service commentaireService
       this.serviceUser.setAccessToken(user.token);
 
 
 
-      // Appelez la méthode FaireCommentaire() avec le contenu et l'ID
-      this.serviceCommentaire.FaireCommentaire(this.CommentaireForm.contenu, this.id).subscribe(
+      // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
+      this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(
         data => {
-          console.log("Commentaire envoyé avec succès:", data);
+          console.log("commentaire envoyé avec succès:", data);
           // this.isSuccess = false;
 
-          //AFFICHER LA LISTE DES COMMENTAIRES EN FONCTION D'UN BIEN
-          this.serviceCommentaire.AfficherCommentaireParBien(this.id).subscribe(data => {
+          //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+          this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
             this.commentaire = data.reverse();
             console.log(this.commentaire);
           });
@@ -315,8 +317,8 @@ export class ServiceDetailsComponent {
       console.error("Token JWT manquant");
     }
 
-    //Faire un Commentaire
-    //  this.serviceCommentaire.FaireCommentaire(this.CommentaireForm.contenu, this.id).subscribe(data=>{
+    //Faire un commentaire
+    //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
     //   console.log(data);
     // });
   }

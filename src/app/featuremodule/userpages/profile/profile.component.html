@@ -48,7 +48,7 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
+                        <i class="fas fa-solid fa-star"></i> <span>notifications</span>
                     </a>
                 </li>
                 <li>
@@ -68,12 +68,13 @@
                         <div class="card-body">
                             <div class="profile-photo">
                                 <div class="profile-img">
-                                    <div class="settings-upload-img"  *ngIf="User.user && User.user.photo">
-                                        <img src="{{ generateImageUrl(User.user.photo) }}" alt="profile" (error)="handleAuthorImageError($event)">
+                                    <div class="settings-upload-img" *ngIf="User.user && User.user.photo">
+                                        <img src="{{ generateImageUrl(User.user.photo) }}" alt="profile"
+                                            (error)="handleAuthorImageError($event)">
                                     </div>
                                     <div class="settings-upload-btn">
-                                        <input type="file" accept="image/*" name="image" class="hide-input image-upload"
-                                            id="file">
+                                        <input type="file" accept="image/*" name="photo" class="hide-input image-upload"
+                                            id="photo" (change)="onPhotoChange($event)">
                                         <label for="file" class="file-upload">Changer Photo profil</label>
                                     </div>
                                     <span>Taille Max: 5MB</span>
@@ -110,52 +111,79 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row socialmedia-info">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Date de naissance</label>
+                                                <div class="pass-group group-img">
+                                                    <span class="lock-icon"><i
+                                                            class="fa-sharp fa-solid fa-calendar-days"></i></span>
+                                                    <input type="text" class="form-control" value="{{User.user.email}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Statut</label>
+                                                <div class="pass-group group-img">
+                                                    <span class="lock-icon"><i class="fab fa-twitter"></i></span>
+                                                    <input type="text" class="form-control" value="PROPRIETAIRE">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row socialmedia-info">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Type de piece</label>
+                                                <div class="pass-group group-img">
+                                                    <span class="lock-icon"><i
+                                                            class="fa-sharp fa-solid fa-calendar-days"></i></span>
+                                                    <input type="text" class="form-control" value="Carte d'identite">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Numero de la carte</label>
+                                                <div class="pass-group group-img">
+                                                    <span class="lock-icon"><i class="fab fa-twitter"></i></span>
+                                                    <input type="text" class="form-control" value="0045126">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row socialmedia-info">
+                                        <div class="form-group">
+                                            <!-- <label class="col-form-label">Photos de la carte</label> -->
+                                            <div class="pass-group group-img">
+                                                <div class="card media-section">
+                                                    <div class="card-header">
+                                                      <h4>Photos de la carte</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                      <div class="row">
+                                                        <div class=" featured-img1">
+                                                          <!-- <h6 class="media-title">Images biens <span>*</span></h6> -->
+                                                          <div class="media-image">
+                                                            <!-- <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                                                              <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
+                                                            </div> -->
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- <div class="form-group">
                                         <label class="col-form-label">Notes</label>
                                         <div class="pass-group group-img">
                                             <textarea rows="4" class="form-control">Mauris vestibulum lorem a condimentum vulputate. Integer vitae turpis turpis. Cras at tincidunt urna. Aenean leo justo, congue et felis a, elementum rutrum felis. Fusce rutrum ipsum eu pretium faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean leo justo, congue et felis a.  Aenean leo justo, congue et felis a.	</textarea>												
                                         </div>
-                                    </div>
-                                    <div class="row socialmedia-info">
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Facebook</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fab fa-facebook-f"></i></span>
-                                                    <input type="text" class="form-control" value="https://www.facebook.com/">												
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Twitter</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fab fa-twitter"></i></span>
-                                                    <input type="text" class="form-control" value="https://twitter.com/">												
-                                                </div>
-                                            </div>
-                                         </div>											
-                                    </div>
-                                    <div class="row socialmedia-info">
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group formlast-input">
-                                                <label class="col-form-label">Google+</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fa-brands fa-google-plus-g"></i></span>
-                                                    <input type="text" class="form-control" value="https://www.google.com/">												
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group formlast-input">
-                                                <label class="col-form-label">Instagram</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fab fa-instagram"></i></span>
-                                                    <input type="text" class="form-control" value="https://www.instagram.com/">												
-                                                </div>
-                                            </div>
-                                         </div>											
-                                    </div>										  -->
+                                    </div> -->
+
                                 </form>
                             </div>
                         </div>
@@ -165,7 +193,7 @@
                     <div class="profile-sidebar">
                         <div class="card">
                             <div class="card-header">
-                                <h6>Changer Mot de passe</h6>
+                                <h6 style="margin-left: auto; margin-right: auto;">Changer Mot de passe</h6>
                             </div>
                             <div class="card-body">
                                 <form>
@@ -173,7 +201,8 @@
                                         <label class="col-form-label">Ancien mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input name="old_password" [(ngModel)]="ChangeMdpForm.old_password" type="password" class="form-control pass-input"
+                                            <input name="old_password" [(ngModel)]="ChangeMdpForm.old_password"
+                                                type="password" class="form-control pass-input"
                                                 placeholder="Ancien mot de passe">
                                         </div>
                                     </div>
@@ -181,9 +210,10 @@
                                         <label class="col-form-label">Nouveau mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input name="password" [(ngModel)]="ChangeMdpForm.password" type="password" [type]="Toggledata ? 'password' : 'text'"
+                                            <input name="password" [(ngModel)]="ChangeMdpForm.password" type="password"
+                                                [type]="Toggledata ? 'password' : 'text'"
                                                 class="form-control pass-input" placeholder="Nouveau mot de passe">
-                                                
+
                                             <span
                                                 [ngClass]="Toggledata == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
                                                 (click)="iconLogle()"></span>
@@ -193,14 +223,68 @@
                                         <label class="col-form-label">Confirmer Nouveau MDP</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input name="password" [(ngModel)]="ChangeMdpForm.confirmPassword" type="password" name="password" [type]="Toggle ? 'password' : 'text'"
+                                            <input name="password" [(ngModel)]="ChangeMdpForm.confirmPassword"
+                                                type="password" name="password" [type]="Toggle ? 'password' : 'text'"
                                                 class="form-control pass-input" placeholder="Confirmation">
                                             <span
                                                 [ngClass]="Toggle == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
                                                 (click)="icon()"></span>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary" [disabled]="!ChangeMdpForm.old_password || ChangeMdpForm.old_password.trim() === '' || !ChangeMdpForm.password || ChangeMdpForm.password.trim() === '' || !ChangeMdpForm.confirmPassword || ChangeMdpForm.confirmPassword.trim() === '' " (click)="ChangerMotDePasse()" type="submit"> Changer mot de passe</button>
+                                    <button class="btn btn-primary"
+                                        [disabled]="!ChangeMdpForm.old_password || ChangeMdpForm.old_password.trim() === '' || !ChangeMdpForm.password || ChangeMdpForm.password.trim() === '' || !ChangeMdpForm.confirmPassword || ChangeMdpForm.confirmPassword.trim() === '' "
+                                        (click)="ChangerMotDePasse()" type="submit"> Changer mot de passe</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-sidebar  mt-3">
+                        <div class="card">
+                            <div class="card-header" >
+                                <h6 style="margin-left: auto; margin-right: auto;">Reseaux sociaux</h6>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row socialmedia-info">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Facebook</label>
+                                            <div class="pass-group group-img">
+                                                <span class="lock-icon"><i class="fab fa-facebook-f"></i></span>
+                                                <input type="text" class="form-control"
+                                                    value="https://www.facebook.com/">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row socialmedia-info">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Twitter</label>
+                                            <div class="pass-group group-img">
+                                                <span class="lock-icon"><i class="fab fa-twitter"></i></span>
+                                                <input type="text" class="form-control" value="https://twitter.com/">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row socialmedia-info">
+                                        <div class="form-group formlast-input">
+                                            <label class="col-form-label">Google+</label>
+                                            <div class="pass-group group-img">
+                                                <span class="lock-icon"><i
+                                                        class="fa-brands fa-google-plus-g"></i></span>
+                                                <input type="text" class="form-control" value="https://www.google.com/">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row socialmedia-info">
+                                        <div class="form-group formlast-input">
+                                            <label class="col-form-label">Instagram</label>
+                                            <div class="pass-group group-img">
+                                                <span class="lock-icon"><i class="fab fa-instagram"></i></span>
+                                                <input type="text" class="form-control"
+                                                    value="https://www.instagram.com/">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>

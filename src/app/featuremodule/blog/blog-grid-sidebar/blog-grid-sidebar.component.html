@@ -25,7 +25,7 @@
                     <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  gridBlog | filter:searchText">
                         <div class="blog grid-blog">
                             <div class="blog-image">
-                                <a [routerLink]="routes.blogdetails"><img class="img-fluid" [src]="slide.img"
+                                <a [routerLink]="routes.blogdetails"><img class="img-fluid image-size" [src]="slide.img2"
                                         alt="Post Image"></a>
                             </div>
                             <div class="blog-content">
@@ -44,9 +44,9 @@
                                     </li>
                                     <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{slide.date}}</li>
                                 </ul>
-                                <h3 class="blog-title"><a [routerLink]="routes.blogdetails">{{slide.content}}</a></h3>
+                                <h3 class="blog-title"><a (click)="goToDettailBlog(slide.id)">{{slide.content}}</a></h3>
                                 <p class="blog-description">{{slide. description}} </p>
-                                <div class="viewlink"><a [routerLink]="routes.blogdetails">Voir plus <i
+                                <div class="viewlink"><a (click)="goToDettailBlog(slide.id)">Voir plus <i
                                             class="feather-arrow-right"></i></a></div>
                             </div>
                         </div>

@@ -210,6 +210,8 @@ export class DashboardComponent implements OnInit {
             console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
+            // Actualise la page de connexion
+            // window.location.reload();
           },
           error: err => {
             console.log(err);

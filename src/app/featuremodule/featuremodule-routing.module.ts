@@ -74,6 +74,20 @@ const routes: Routes = [
           ),
           // canActivate: [AuthGuard]
       },
+      {
+        path: 'blog-details/:id',
+        loadChildren: () =>
+          import('./blog/blog-details/blog-details.module').then(
+            (m) => m.BlogDetailsModule
+          ),
+      },
+      // {
+      //   path: 'blog-details',
+      //   loadChildren: () =>
+      //     import('./blog/blog-details/blog-details-routing.module').then(
+      //       (m) => m.BlogDetailsRoutingModule
+      //     ),
+      // },
       // {
       //   path: 'commune',
       //   loadChildren: () =>

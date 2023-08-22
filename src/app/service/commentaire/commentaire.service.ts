@@ -13,7 +13,7 @@ const httpOptions: any = {
 @Injectable({
   providedIn: 'root'
 })
-export class CommentaireService {
+export class commentaireService {
 
   private accessToken!: string; // Ajoutez cette ligne
 
@@ -34,8 +34,8 @@ export class CommentaireService {
     private storageService: StorageService,
     private http: HttpClient,) { }
 
-  //FAIRE UN COMMENTAIRE
-  FaireCommentaire(contenu: any, id: any): Observable<any> {
+  //FAIRE UNE commentaire
+  Fairecommentaire(contenu: any, id: any): Observable<any> {
     const headers = this.getHeaders();
     // const data = new FormData();
     // data.append("contenu", contenu)
@@ -47,8 +47,8 @@ export class CommentaireService {
     }, { headers });
   }
 
-  //AFFICHER LA LISTE DES COMMENTAIRES EN FONCTION D'UN BIEN
-  AfficherCommentaireParBien(id: number):Observable<any>{
+  //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+  AffichercommentaireParBien(id: number):Observable<any>{
     return this.http.get(`${URL_BASE}/commentaire/get/${id}`);
   }
 }

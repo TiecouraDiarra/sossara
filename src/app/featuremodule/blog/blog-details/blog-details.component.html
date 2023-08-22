@@ -1,19 +1,19 @@
 <!--Blog Banner-->
-<div class="blogbanner">
+<div class="blogbanner" style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url({{gridBlog.img2}})">
 
     <div class="blogbanner-content">
-        <span class="blog-hint">Health</span>
-        <h1>The Top 25 Bike Stores in Toronto by Neighbourhood</h1>
+        <span class="blog-hint">{{gridBlog.pays}}</span>
+        <h1>{{gridBlog.content}}</h1>
         <ul class="entry-meta meta-item">
             <li>
                 <div class="post-author">
                     <div class="post-author-img">
-                        <img src="assets/img/profiles/avatar-01.jpg" alt="author">
+                        <img src="{{gridBlog.img1}}" alt="author">
                     </div>
-                    <a href="javascript:void(0)"><span> John Doe </span></a>
+                    <a href="javascript:void(0)"><span> {{gridBlog.name}} </span></a>
                 </div>
             </li>
-            <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> October 6, 2022</li>
+            <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{gridBlog.date}}</li>
         </ul>
     </div>
 </div>
@@ -22,44 +22,34 @@
 <!--Blog Content-->
 <div class="blogdetail-content">
     <div class="container">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula sapien nec nisi aliquam, vitae
-            finibus purus sodales. Mauris at turpis nulla. Curabitur nec tellus est. Class aptent taciti sociosqu ad
-            litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum pharetra arcu ac arcu varius, non
-            congue neque aliquet. Pellentesque at feugiat purus. Aenean faucibus vehicula eros.</p>
-        <p>varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fermentum malesuada
-            pulvinar. Vestibulum laoreet rutrum semper. Vivamus malesuada, nisl in consectetur semper, mauris nulla
-            aliquam risus, nec ultricies sapien elit sed ante. Aenean luctus felis in sem consequat auctor. Nulla turpis
-            enim, scelerisque sit amet consectetur vel, lacinia sed augue. Proin ultricies dui id ex fringilla porta.
-            Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus,
-            magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum
-            euismod, lacinia ultricies leo.</p>
-        <blockquote class="blog-quotes">
+        <p>{{gridBlog.description}}</p>
+        <!-- <blockquote class="blog-quotes">
             <img src="assets/img/blogquote.jpg" alt="quotes">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula sapien nec nisi aliquam, vitae
                 finibus purus sodales. Mauris at turpis nulla. Curabitur nec tellus est. Class aptent taciti sociosqu ad
                 litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum pharetra arcu</p>
             <h6>Luis Pickford</h6>
-        </blockquote>
-        <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fermentum
+        </blockquote> -->
+        <!-- <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fermentum
             malesuada pulvinar. Vestibulum laoreet rutrum semper. Vivamus malesuada, nisl in consectetur semper, mauris
             nulla aliquam risus, nec ultricies sapien elit sed ante. Aenean luctus felis in sem consequat auctor. Nulla
             turpis enim, scelerisque sit amet consectetur vel, lacinia sed augue. Proin ultricies dui id ex fringilla
             porta. Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue
             tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec
-            condimentum euismod, lacinia ultricies leo. </p>
+            condimentum euismod, lacinia ultricies leo. </p> -->
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="bloginner-img">
-                    <img src="assets/img/blog/blogdetailimg-1.jpg" class="img-fluid" alt="">
+                    <img src="{{gridBlog.img3}}" class="img-fluid" alt="">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="bloginner-img">
-                    <img src="assets/img/blog/blogdetailimg-2.jpg" class="img-fluid" alt="">
+                    <img src="{{gridBlog.img4}}" class="img-fluid" alt="">
                 </div>
             </div>
         </div>
-        <div class="requiremnts-info">
+        <!-- <div class="requiremnts-info">
             <h5>Requirements</h5>
             <ul>
                 <li>We do not require any previous experience or pre-defined skills to take this course. A Great
@@ -73,30 +63,30 @@
                 <li>Vestibulum laoreet rutrum semper. Vivamus malesuada, nisl in consectetur semper, mauris nulla
                     aliquam risus, nec ultricies sapien elit sed ante. Aenean luctus felis in sem consequat auctor.</li>
             </ul>
-        </div>
+        </div> -->
         <div class="share-postsection">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="sharelink">
+                    <!-- <div class="sharelink">
                         <a href="javasvript:void();" class="share-img"><i class="fas fa-light fa-share-nodes"></i></a>
                         <a href="javasvript:void();" class="share-text">Share</a>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-8">
                     <div class="tag-list">
                         <ul class="tags">
-                            <li>Travelling </li>
-                            <li>Art </li>
-                            <li>Vacation </li>
-                            <li>Tourism </li>
+                            <li>Appartement </li>
+                            <li>Villa </li>
+                            <li>Terrain </li>
+                            <!-- <li>Tourism </li>
                             <li>Culture </li>
-                            <li>LSifestyle </li>
+                            <li>LSifestyle </li> -->
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="blogdetails-pagination">
+        <!-- <div class="blogdetails-pagination">
             <ul>
                 <li>
                     <a [routerLink]="routes.blogdetails" class="prev-link"><i class="fas fa-regular fa-arrow-left"></i>
@@ -161,7 +151,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <!--/Blog Content-->

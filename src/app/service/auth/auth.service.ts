@@ -103,5 +103,8 @@ export class AuthService {
     return this.http.request(req);
   }
 
+  reloadPage(): void {
+    window.location.reload();
+  }
   
 }

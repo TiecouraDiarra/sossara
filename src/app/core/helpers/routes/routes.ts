@@ -32,7 +32,7 @@ export class routes {
     return this.baseUrl + '/userpages';
   }
   public static get blogdetails(): string {
-    return this.baseUrl + '/blog/blog-details';
+    return this.baseUrl + '/blog-details';
   }
   public static get bloggrid(): string {
     return this.baseUrl + '/blog/blog-grid';
@@ -128,13 +128,13 @@ export class routes {
     return this.baseUrl + '/userpages/messages';
   }
   public static get mylisting(): string {
-    return this.baseUrl + '/userpages/mes-proprietes';
+    return this.baseUrl + '/userpages/mes-biens';
   }
   public static get profile(): string {
     return this.baseUrl + '/userpages/profile';
   }
   public static get reviews(): string {
-    return this.baseUrl + '/userpages/commentaire';
+    return this.baseUrl + '/userpages/notification';
   }
   public static get error(): string {
     return this.baseUrl + '/error';

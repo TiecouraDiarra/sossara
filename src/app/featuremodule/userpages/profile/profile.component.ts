@@ -27,6 +27,11 @@ export class ProfileComponent implements OnInit {
     confirmPassword: null,
   }
 
+  form: any = {
+    photo : null,
+  }
+  
+
 
   constructor(
     private storageService: StorageService,
@@ -113,7 +118,7 @@ export class ProfileComponent implements OnInit {
       if (result.isConfirmed) {
         const user = this.storageService.getUser();
         if (user && user.token) {
-          // Définissez le token dans le service CommentaireService
+          // Définissez le token dans le service notificationService
           this.serviceUser.setAccessToken(user.token);
 
           // Appelez la méthode ChangerMotDePasse() avec le old_password et password
@@ -135,51 +140,88 @@ export class ProfileComponent implements OnInit {
       }
     })
 
-    //Faire un Commentaire
-    //  this.serviceCommentaire.FaireCommentaire(this.CommentaireForm.contenu, this.id).subscribe(data=>{
+    //Faire un notification
+    //  this.servicenotification.Fairenotification(this.notificationForm.contenu, this.id).subscribe(data=>{
     //   console.log(data);
     // });
   }
 
 
-    //POPUP APRES CHANGEMENT DE MOT DE PASSE
-    popUpConfirmation() {
-      let timerInterval = 2000;
-      Swal.fire({
-        position: 'center',
-        text: 'Le mot de passe a été modifié avec succès.',
-        title: 'Mot de passe modifié',
-        icon: 'success',
-        heightAuto: false,
-        showConfirmButton: false,
-        // confirmButtonText: "OK",
-        confirmButtonColor: '#0857b5',
-        showDenyButton: false,
-        showCancelButton: false,
-        allowOutsideClick: false,
-        timer: timerInterval, // ajouter le temps d'attente
-        timerProgressBar: true // ajouter la barre de progression du temps
-  
-      }).then((result) => {
-        //REDIRECTION ET DECONNECTION APRES LE CHANGEMENT DE MOT DE PASSE
-        this.authService.logout().subscribe({
-          next: res => {
-            console.log(res);
-            this.storageService.clean();
-            this.router.navigateByUrl("/auth/connexion")
-          },
-          error: err => {
-            console.log(err);
-          }
-        });
-      })
-  
-    }
+  //POPUP APRES CHANGEMENT DE MOT DE PASSE
+  popUpConfirmation() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Le mot de passe a été modifié avec succès.',
+      title: 'Mot de passe modifié',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
 
-    path() {
-      this.router.navigate([routes.login]);
+    }).then((result) => {
+      //REDIRECTION ET DECONNECTION APRES LE CHANGEMENT DE MOT DE PASSE
+      this.authService.logout().subscribe({
+        next: res => {
+          console.log(res);
+          this.storageService.clean();
+          this.router.navigateByUrl("/auth/connexion")
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+    })
+
+  }
+
+  //METHODE PERMETTANT DE REDIRIGER VERS LA PAGE LOGIN
+  path() {
+    this.router.navigate([routes.login]);
+  }
+
+  //CHANGER LA PHOTO DE PROFIL
+  onPhotoChange(event: any): void {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      this.form.photo = selectedFile;
+      // const imageUrl = this.generateImageUrl(selectedFile.name);
+      console.log(this.form.photo);
+      this.onAdd();
     }
-  
+  }
+
+  //AJOUTER LA PHOTO DE PROFIL
+  onAdd(): void {
+    console.log('Add button clicked');
+    const { photo } = this.form;
+    const user = this.storageService.getUser();
+    if (user && user.token && photo) {
+      this.serviceUser.changerPhoto(photo).subscribe(
+        successResponse => {
+          console.log('Photo changed successfully', successResponse);
+          this.User.user.photo = photo.name;
+          user.user.photo = this.User.user.photo;
+          this.storageService.setUser(user);
+          console.log(this.User.user.photo);
+        },
+        error => {
+          console.error('Error while changing photo', error);
+        }
+      );
+    } else {
+      console.error('Token JWT missing or no photo selected');
+    }
+  }
+
+
 
   iconLogle() {
     this.Toggledata = !this.Toggledata;

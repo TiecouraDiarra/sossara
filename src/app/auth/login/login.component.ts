@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
       console.log(this.storageService.getUser().roles);
     }
     // console.log(this.storageService.getUser());
+   
   }
   path() {
     this.router.navigate([routes.dashboard]);

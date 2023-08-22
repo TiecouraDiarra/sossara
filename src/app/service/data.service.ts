@@ -9,7 +9,7 @@ export class DataService {
   API_URL = 'http://192.168.1.108:8000/api/bien/immo';
   categories: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   public header: any = [
     {
       tittle: 'Accueil',
@@ -319,85 +319,85 @@ export class DataService {
 
       route: '/trouverbien',
     },
-   /* {
-      tittle: 'User Pages',
-      base: 'userpages',
-      showAsTab: false,
-      separateRoute: false,
-      menu: [
-        {
-          menuValue: 'Dashboard',
-          route: '/userpages/dashboard',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'dashboard',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Profile',
-          route: '/userpages/profile',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'profile',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'My Listing',
-          route: '/userpages/my-listing',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'my-listing',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Bookmarks',
-          route: '/userpages/bookmarks',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'bookmarks',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Messages',
-          route: '/userpages/messages',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'messages',
-          last: '',
-          subMenus: [],
-        },
-
-        {
-          menuValue: 'Reviews',
-          route: '/userpages/reviews',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'reviews',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Add Listing',
-          route: '/userpages/add-listing',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'add-listing',
-          last: '',
-          subMenus: [],
-        },
-      ],
-    },*/
+    /* {
+       tittle: 'User Pages',
+       base: 'userpages',
+       showAsTab: false,
+       separateRoute: false,
+       menu: [
+         {
+           menuValue: 'Dashboard',
+           route: '/userpages/dashboard',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'dashboard',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Profile',
+           route: '/userpages/profile',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'profile',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'My Listing',
+           route: '/userpages/my-listing',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'my-listing',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Bookmarks',
+           route: '/userpages/bookmarks',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'bookmarks',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Messages',
+           route: '/userpages/messages',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'messages',
+           last: '',
+           subMenus: [],
+         },
+ 
+         {
+           menuValue: 'Reviews',
+           route: '/userpages/reviews',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'reviews',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Add Listing',
+           route: '/userpages/add-listing',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'add-listing',
+           last: '',
+           subMenus: [],
+         },
+       ],
+     },*/
     {
       tittle: 'Blog',
       base: 'blog',
@@ -535,24 +535,24 @@ export class DataService {
       img: 'assets/img/icons/category-12.svg',
     },
   ];
-  public categorieslocation=[
+  public categorieslocation = [
     {
       categoryName: 'USA',
       count: '09 Ads',
       img: 'assets/img/icons/category-1.svg',
-     },
-     {
+    },
+    {
       categoryName: 'UK',
       count: '09 Ads',
       img: 'assets/img/icons/category-1.svg',
-     },
-     {
+    },
+    {
       categoryName: 'UAE',
       count: '09 Ads',
       img: 'assets/img/icons/category-1.svg',
-     }
-]
- 
+    }
+  ]
+
   public featuredadsList = [
     {
       img1: 'assets/img/featured/feature-9.jpg',
@@ -1733,9 +1733,13 @@ export class DataService {
   ];
   public gridBlog = [
     {
-      img: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      id: 1,
+      img2: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      img3: 'assets/img/banner/maison.jpg',
+      img4: 'assets/img/banner/immo.jpg',
       category1: 'Louer',
       category2: 'Vendre',
+      pays : 'Mali',
       img1: 'data:image/jpeg;base64,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',
       name: 'Admin',
       date: '01 Juin 2023',
@@ -1745,9 +1749,13 @@ export class DataService {
       details: 'ViewDetails',
     },
     {
-      img: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      id: 2,
+      img2: 'assets/img/banner/immo.jpg',
+      img3: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      img4: 'assets/img/banner/maison.jpg',
       category1: 'Vendre',
       category2: 'Louer',
+      pays : 'Mali',
       img1: 'data:image/jpeg;base64,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',
       name: 'Admin ',
       date: '12 Juin 2023',
@@ -1756,10 +1764,14 @@ export class DataService {
         'le bail est une location de bien immobilier, du domaine privé de l’état, dûment immatriculé ou transféré au nom de celui-ci. Le bail se présente sous deux formes : Bail emphytéotique et Bail avec promesse de vente. Bail emphytéotique : c’est celui par lequel l’Etat, le bailleur, confère au preneur, l’emphytéote, moyennant le versement d’une redevance annuelle, un droit réel...',
       details: 'ViewDetails',
     },
-   {
-      img: 'assets/img/gallery/gallery1/gallery-1.jpg',
+    {
+      id: 3,
+      img2: 'assets/img/banner/maison.jpg',
+      img3: 'assets/img/banner/immo.jpg',
+      img4: 'assets/img/gallery/gallery1/gallery-1.jpg',
       category1: 'Vendre',
       category2: 'Louer',
+      pays : 'Mali',
       img1: 'data:image/jpeg;base64,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',
       name: 'Admin ',
       date: '24 Janvier 2023',
@@ -1769,9 +1781,13 @@ export class DataService {
       details: 'ViewDetails',
     },
     {
-      img: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      id: 4,
+      img2: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      img3: 'assets/img/banner/immo.jpg',
+      img4: 'assets/img/banner/maison.jpg',
       category1: 'Louer',
       category2: 'Vendre',
+      pays : 'Mali',
       img1: 'data:image/jpeg;base64,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',
       name: ' Admin',
       date: '13 Fevrier 2023',
@@ -2112,7 +2128,7 @@ export class DataService {
       rating: ' 4.9',
       review: '(2,612 Reviews)',
     },
-   
+
   ];
   public tripdata = [
     {
@@ -2664,19 +2680,19 @@ export class DataService {
       rating1: '(50)',
     },
     {
-      img1:"assets/img/list/listgrid-7.jpg"  ,
-      headline:"Featured",
-      img2:"assets/img/profiles/avatar-07.jpg" ,
+      img1: "assets/img/list/listgrid-7.jpg",
+      headline: "Featured",
+      img2: "assets/img/profiles/avatar-07.jpg",
       eye: 'assets/img/eye.svg',
-      search:"4000 ",
-      select:"   Vehicles",
-      details:"HP Gaming 15.6 Touchscren 12G",
-      map:"Los Angeles",
+      search: "4000 ",
+      select: "   Vehicles",
+      details: "HP Gaming 15.6 Touchscren 12G",
+      map: "Los Angeles",
       date: " 02 Oct, 2022",
-      amount:"$450",
-      oldamount:"$350",
-      rating:"4.7",
-      rating1:"(50)"
+      amount: "$450",
+      oldamount: "$350",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
       img1: 'assets/img/list/listgrid-1.jpg',
@@ -2692,121 +2708,121 @@ export class DataService {
       oldamount: '$450',
       rating: '4.7',
       rating1: '(50)',
-    },   
+    },
   ]
 
- 
-  public reviewdata=[
+
+  public reviewdata = [
     {
-      reviewType:"Visitor Review",
-      dropdown:"All Listing",
-      menu:"Next Week",
-      menu1:"Last Month",
-      menu2:"Next Month",
-      reviewimg1:"assets/img/profiles/avatar-11.jpg",
-      reviewername1:"Joseph",
-      reviewedby:"by: Joseph",
-      month:"4 months ago",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery:"assets/img/gallery/review-1.jpg",
-      gallery2:"assets/img/gallery/review-2.jpg",
-      gallery3:"assets/img/gallery/review-3.jpg",
-      gallery:"assets/img/gallery/review-4.jpg",
-      reviewimg2:"assets/img/profiles/avatar-01.jpg",
-      reviewername2:"Dev",
-      month2:"6 months ago",
-      reviewedby1:"by: Joseph",
-      feedback2:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewimg3:"assets/img/profiles/avatar-01.jpg",
-      reviewername3:"Jonson",
-      month3:"8 months ago",
-      reviewedby2:"by: Joseph",
-      feedback3:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery2:"assets/img/gallery/review-1.jpg",
-      gallery4:"assets/img/gallery/review-2.jpg",
-      gallery5:"assets/img/gallery/review-3.jpg",
-      gallery6:"assets/img/gallery/review-4.jpg",
-     
+      reviewType: "Visitor Review",
+      dropdown: "All Listing",
+      menu: "Next Week",
+      menu1: "Last Month",
+      menu2: "Next Month",
+      reviewimg1: "assets/img/profiles/avatar-11.jpg",
+      reviewername1: "Joseph",
+      reviewedby: "by: Joseph",
+      month: "4 months ago",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery: "assets/img/gallery/review-1.jpg",
+      gallery2: "assets/img/gallery/review-2.jpg",
+      gallery3: "assets/img/gallery/review-3.jpg",
+      gallery: "assets/img/gallery/review-4.jpg",
+      reviewimg2: "assets/img/profiles/avatar-01.jpg",
+      reviewername2: "Dev",
+      month2: "6 months ago",
+      reviewedby1: "by: Joseph",
+      feedback2: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewimg3: "assets/img/profiles/avatar-01.jpg",
+      reviewername3: "Jonson",
+      month3: "8 months ago",
+      reviewedby2: "by: Joseph",
+      feedback3: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery2: "assets/img/gallery/review-1.jpg",
+      gallery4: "assets/img/gallery/review-2.jpg",
+      gallery5: "assets/img/gallery/review-3.jpg",
+      gallery6: "assets/img/gallery/review-4.jpg",
+
     },
     {
-      reviewType:"Your Review",
-      dropdown:"All Listing",
-      menu:"Next Week",
-      menu1:"Last Month",
-      menu2:"Next Month",
-      reviewimg1:"assets/img/profile-img.jpg",
-      reviewername1:"John Doe",
-      reviewedby:"by: John Doe",
-      month:"4 months ago",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery:"assets/img/gallery/review-1.jpg",
-      gallery2:"assets/img/gallery/review-2.jpg",
-      gallery3:"assets/img/gallery/review-3.jpg",
-      gallery:"assets/img/gallery/review-4.jpg",
-      reviewimg2:"assets/img/profile-img.jpg",
-      reviewername:"John Doe",
-      month2:"6 months ago",
-      reviewedby1:"by: John Doe",
-      feedback2:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewimg3:"assets/img/profiles/avatar-01.jpg",
-      reviewername3:"Jonson",
-      month3:" 11 months ago",
-      reviewedby2:"by: John Doe",
-      feedback3:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery2:"assets/img/gallery/review-1.jpg",
-      gallery4:"assets/img/gallery/review-2.jpg",
-      gallery5:"assets/img/gallery/review-3.jpg",
-      gallery6:"assets/img/gallery/review-4.jpg",
-      
+      reviewType: "Your Review",
+      dropdown: "All Listing",
+      menu: "Next Week",
+      menu1: "Last Month",
+      menu2: "Next Month",
+      reviewimg1: "assets/img/profile-img.jpg",
+      reviewername1: "John Doe",
+      reviewedby: "by: John Doe",
+      month: "4 months ago",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery: "assets/img/gallery/review-1.jpg",
+      gallery2: "assets/img/gallery/review-2.jpg",
+      gallery3: "assets/img/gallery/review-3.jpg",
+      gallery: "assets/img/gallery/review-4.jpg",
+      reviewimg2: "assets/img/profile-img.jpg",
+      reviewername: "John Doe",
+      month2: "6 months ago",
+      reviewedby1: "by: John Doe",
+      feedback2: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewimg3: "assets/img/profiles/avatar-01.jpg",
+      reviewername3: "Jonson",
+      month3: " 11 months ago",
+      reviewedby2: "by: John Doe",
+      feedback3: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery2: "assets/img/gallery/review-1.jpg",
+      gallery4: "assets/img/gallery/review-2.jpg",
+      gallery5: "assets/img/gallery/review-3.jpg",
+      gallery6: "assets/img/gallery/review-4.jpg",
+
     }
   ]
-  public dashboardreview=[
+  public dashboardreview = [
     {
-      img:"assets/img/profiles/avatar-11.jpg",
-      name:"Joseph",
-      month:"4 months ago",
-      reviewdby:"by: Demo Test",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      img: "assets/img/profiles/avatar-11.jpg",
+      name: "Joseph",
+      month: "4 months ago",
+      reviewdby: "by: Demo Test",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
     {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Dev",
-      month:"4 months ago",
-      reviewdby:"by: Demo Test",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Dev",
+      month: "4 months ago",
+      reviewdby: "by: Demo Test",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     }
 
-    
+
   ]
-  public accountcreation=[
+  public accountcreation = [
     {
-      number:"01",
-      process:"Create Account",
-      details:"Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      number: "01",
+      process: "Create Account",
+      details: "Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
     },
     {
-      number:"02",
-      process:"Post An Ad",
-      details:"Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      number: "02",
+      process: "Post An Ad",
+      details: "Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
     },
     {
-      number:"03",
-      process:"Find,Buy & Own Dreams",
-      details:"Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      number: "03",
+      process: "Find,Buy & Own Dreams",
+      details: "Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
     }
   ]
-  
-  public lovedata=[
+
+  public lovedata = [
     {
-      img :"assets/img/celebrate.jpg",
+      img: "assets/img/celebrate.jpg",
     },
     {
-      img:"assets/img/celebrate-01.jpg"
+      img: "assets/img/celebrate-01.jpg"
     }
   ]
-  public shops=[
+  public shops = [
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'America – Grand canyon, Golden Gate',
       mappin: 'Westminster , London',
@@ -2816,7 +2832,7 @@ export class DataService {
       review: '(2,312 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-2.jpg",
+      img: "assets/img/recommended/gallery-2.jpg",
       title: 'top rated',
       servicedetails: 'Argentina – Great Diving Trip',
       mappin: 'Westminster , London',
@@ -2826,7 +2842,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-3.jpg",
+      img: "assets/img/recommended/gallery-3.jpg",
       title: 'best seller',
       servicedetails: 'Brazil – Rio de Janeiro',
       mappin: 'Westminster , London',
@@ -2836,7 +2852,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-4.jpg",
+      img: "assets/img/recommended/gallery-4.jpg",
       title: 'Break Fast Included',
       servicedetails: 'India – Mumbai, New Delhi',
       mappin: 'Westminster , London',
@@ -2846,7 +2862,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'Lorem Ipsum is simply dummy text of the printing',
       mappin: 'Westminster , London',
@@ -2856,9 +2872,9 @@ export class DataService {
       review: '(2,612 Reviews)',
     }
   ]
-  public business=[
+  public business = [
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'America – Grand canyon, Golden Gate',
       mappin: 'Westminster , London',
@@ -2868,7 +2884,7 @@ export class DataService {
       review: '(2,312 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-2.jpg",
+      img: "assets/img/recommended/gallery-2.jpg",
       title: 'top rated',
       servicedetails: 'Argentina – Great Diving Trip',
       mappin: 'Westminster , London',
@@ -2878,7 +2894,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-3.jpg",
+      img: "assets/img/recommended/gallery-3.jpg",
       title: 'best seller',
       servicedetails: 'Brazil – Rio de Janeiro',
       mappin: 'Westminster , London',
@@ -2888,7 +2904,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-4.jpg",
+      img: "assets/img/recommended/gallery-4.jpg",
       title: 'Break Fast Included',
       servicedetails: 'India – Mumbai, New Delhi',
       mappin: 'Westminster , London',
@@ -2898,7 +2914,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'Lorem Ipsum is simply dummy text of the printing',
       mappin: 'Westminster , London',
@@ -2908,9 +2924,9 @@ export class DataService {
       review: '(2,612 Reviews)',
     }
   ]
-  public lifestyle=[
+  public lifestyle = [
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'America – Grand canyon, Golden Gate',
       mappin: 'Westminster , London',
@@ -2920,7 +2936,7 @@ export class DataService {
       review: '(2,312 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-2.jpg",
+      img: "assets/img/recommended/gallery-2.jpg",
       title: 'top rated',
       servicedetails: 'Argentina – Great Diving Trip',
       mappin: 'Westminster , London',
@@ -2930,7 +2946,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-3.jpg",
+      img: "assets/img/recommended/gallery-3.jpg",
       title: 'best seller',
       servicedetails: 'Brazil – Rio de Janeiro',
       mappin: 'Westminster , London',
@@ -2940,7 +2956,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-4.jpg",
+      img: "assets/img/recommended/gallery-4.jpg",
       title: 'Break Fast Included',
       servicedetails: 'India – Mumbai, New Delhi',
       mappin: 'Westminster , London',
@@ -2950,7 +2966,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'Lorem Ipsum is simply dummy text of the printing',
       mappin: 'Westminster , London',
@@ -2960,957 +2976,954 @@ export class DataService {
       review: '(2,612 Reviews)',
     }
   ]
-  public amazingwork=[
+  public amazingwork = [
     {
-      img:"assets/img/gallery/gallery-01.jpg",
-      overlay1:"Wedding Venues",
-      overlay2:"15 Photos and 5 Videos",
-      img2:"assets/img/gallery/gallery-02.jpg",
-      overlay3:"Wedding Venues",
-      overlay4:"55 Photos and 5 Videos",
-      img3:"assets/img/gallery/gallery-03.jpg",
-      overlay5:"Wedding Venues",
-      overlay6:"135 Photos and 5 Videos",
-      img4:"assets/img/gallery/gallery-04.jpg",
-      overlay7:"Wedding Venues",
-      overlay8:"115 Photos and 5 Videos",
-      img5:"assets/img/gallery/gallery-05.jpg",
-      overlay9:"Wedding Venues",
-      overlay10:"155 Photos and 5 Videos",
-      img6:"assets/img/gallery/gallery-06.jpg",
-      overlay11:"Wedding Venues",
-      overlay12:"155 Photos and 5 Videos",
-     
+      img: "assets/img/gallery/gallery-01.jpg",
+      overlay1: "Wedding Venues",
+      overlay2: "15 Photos and 5 Videos",
+      img2: "assets/img/gallery/gallery-02.jpg",
+      overlay3: "Wedding Venues",
+      overlay4: "55 Photos and 5 Videos",
+      img3: "assets/img/gallery/gallery-03.jpg",
+      overlay5: "Wedding Venues",
+      overlay6: "135 Photos and 5 Videos",
+      img4: "assets/img/gallery/gallery-04.jpg",
+      overlay7: "Wedding Venues",
+      overlay8: "115 Photos and 5 Videos",
+      img5: "assets/img/gallery/gallery-05.jpg",
+      overlay9: "Wedding Venues",
+      overlay10: "155 Photos and 5 Videos",
+      img6: "assets/img/gallery/gallery-06.jpg",
+      overlay11: "Wedding Venues",
+      overlay12: "155 Photos and 5 Videos",
+
     },
     {
-      img:"assets/img/gallery/gallery-02.jpg",
-      overlay1:"Wedding Venues",
-      overlay2:"155 Photos and 5 Videos",
-      img2:"assets/img/gallery/gallery-01.jpg",
-      overlay3:"Wedding Venues",
-      overlay4:"155 Photos and 5 Videos",
-      img3:"assets/img/gallery/gallery-03.jpg",
-      overlay5:"Wedding Venues",
-      overlay6:"155 Photos and 5 Videos",
-      img4:"assets/img/gallery/gallery-04.jpg",
-      overlay7:"Wedding Venues",
-      overlay8:"155 Photos and 5 Videos",
-      img5:"assets/img/gallery/gallery-05.jpg",
-      overlay9:"Wedding Venues",
-      overlay10:"155 Photos and 5 Videos",
-      img6:"assets/img/gallery/gallery-06.jpg",
-      overlay11:"Wedding Venues",
-      overlay12:"155 Photos and 5 Videos",
-      
+      img: "assets/img/gallery/gallery-02.jpg",
+      overlay1: "Wedding Venues",
+      overlay2: "155 Photos and 5 Videos",
+      img2: "assets/img/gallery/gallery-01.jpg",
+      overlay3: "Wedding Venues",
+      overlay4: "155 Photos and 5 Videos",
+      img3: "assets/img/gallery/gallery-03.jpg",
+      overlay5: "Wedding Venues",
+      overlay6: "155 Photos and 5 Videos",
+      img4: "assets/img/gallery/gallery-04.jpg",
+      overlay7: "Wedding Venues",
+      overlay8: "155 Photos and 5 Videos",
+      img5: "assets/img/gallery/gallery-05.jpg",
+      overlay9: "Wedding Venues",
+      overlay10: "155 Photos and 5 Videos",
+      img6: "assets/img/gallery/gallery-06.jpg",
+      overlay11: "Wedding Venues",
+      overlay12: "155 Photos and 5 Videos",
+
     }
   ]
-  public trendingplace=[
+  public trendingplace = [
     {
-      img:"assets/img/business/business-01.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-03.jpg",
-      subtitle1:"Restaurant",
-      subtitle2:"Paris",
-      place:"Mattone Restaurant",
-      currentamount:"$350",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-01.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-03.jpg",
+      subtitle1: "Restaurant",
+      subtitle2: "Paris",
+      place: "Mattone Restaurant",
+      currentamount: "$350",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-03.jpg",
-      subtitle1:"Fitness",
-      subtitle2:"New York",
-      place:"Gym Equipment",
-      currentamount:"$370",
-      oldamount:"$470",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-03.jpg",
+      subtitle1: "Fitness",
+      subtitle2: "New York",
+      place: "Gym Equipment",
+      currentamount: "$370",
+      oldamount: "$470",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-03.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-04.jpg",
-      subtitle1:"Beauty Care",
-      subtitle2:"Australia",
-      place:"Beauty Parlour",
-      currentamount:"$300",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-03.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-04.jpg",
+      subtitle1: "Beauty Care",
+      subtitle2: "Australia",
+      place: "Beauty Parlour",
+      currentamount: "$300",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-04.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-05.jpg",
-      subtitle1:" Shopping",
-      subtitle2:" Texas",
-      place:"Shop Mall",
-      currentamount:"$250",
-      oldamount:"$370",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-04.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-05.jpg",
+      subtitle1: " Shopping",
+      subtitle2: " Texas",
+      place: "Shop Mall",
+      currentamount: "$250",
+      oldamount: "$370",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-06.jpg",
-      subtitle1:" Gym",
-      subtitle2:"  Florida",
-      place:"Gym Equipment",
-      currentamount:"$330",
-      oldamount:"$350",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-06.jpg",
+      subtitle1: " Gym",
+      subtitle2: "  Florida",
+      place: "Gym Equipment",
+      currentamount: "$330",
+      oldamount: "$350",
+      rating: "4.7",
+      rating1: "(50)"
     },
-    
-   
+
+
   ]
-  public businessslider=[
+  public businessslider = [
     {
-      img:"assets/img/latest/latest-01.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-03.jpg",
-      subtitle1:"Restaurant",
-      subtitle2:"Paris",
-      place:"Mattone Restaurant",
-      currentamount:"$350",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-01.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-03.jpg",
+      subtitle1: "Restaurant",
+      subtitle2: "Paris",
+      place: "Mattone Restaurant",
+      currentamount: "$350",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/latest/latest-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-02.jpg",
-      subtitle1:" Lodging",
-      subtitle2:" New York",
-      place:"Lodging",
-      currentamount:"$370",
-      oldamount:"$470",
-      rating:"4.7",
-      rating1:"(50)"
-    },
-     {
-      img:"assets/img/latest/latest-03.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-04.jpg",
-      subtitle1:" Outdoors",
-      subtitle2:"  Australia",
-      place:"Outdoors",
-      currentamount:"$300",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-02.jpg",
+      subtitle1: " Lodging",
+      subtitle2: " New York",
+      place: "Lodging",
+      currentamount: "$370",
+      oldamount: "$470",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/latest/latest-04.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-05.jpg",
-      subtitle1:"Automotive",
-      subtitle2:"Texas",
-      place:"Automotive",
-      currentamount:"$250",
-      oldamount:"$370",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-03.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-04.jpg",
+      subtitle1: " Outdoors",
+      subtitle2: "  Australia",
+      place: "Outdoors",
+      currentamount: "$300",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/latest/latest-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-06.jpg",
-      subtitle1:"  Lodging",
-      subtitle2:" Florida",
-      place:"Lodging",
-      currentamount:"$330",
-      oldamount:"$350",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-04.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-05.jpg",
+      subtitle1: "Automotive",
+      subtitle2: "Texas",
+      place: "Automotive",
+      currentamount: "$250",
+      oldamount: "$370",
+      rating: "4.7",
+      rating1: "(50)"
+    },
+    {
+      img: "assets/img/latest/latest-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-06.jpg",
+      subtitle1: "  Lodging",
+      subtitle2: " Florida",
+      place: "Lodging",
+      currentamount: "$330",
+      oldamount: "$350",
+      rating: "4.7",
+      rating1: "(50)"
     },
   ]
-  public customersays=[
+  public customersays = [
     {
-      heading:"It was a wonderful experience",
-      para:"Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
-      img:"assets/img/testimonial-1.jpg",
-      name:"Dev"
+      heading: "It was a wonderful experience",
+      para: "Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
+      img: "assets/img/testimonial-1.jpg",
+      name: "Dev"
     },
     {
-      heading:"It was a very good experience",
-      para:"Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem volupta",
-      img:"assets/img/testimonial-2.jpg",
-      name:"Esther Hills"
+      heading: "It was a very good experience",
+      para: "Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem volupta",
+      img: "assets/img/testimonial-2.jpg",
+      name: "Esther Hills"
     },
     {
-      heading:"It was a good experience",
-      para:"Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
-      img:"assets/img/testimonial-3.jpg",
-      name:"Hannah Schmitt"
+      heading: "It was a good experience",
+      para: "Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
+      img: "assets/img/testimonial-3.jpg",
+      name: "Hannah Schmitt"
     }
   ]
-  public trendingsearch=[
-  {
-   img:"./assets/img/work/trending-car-1.jpg",
-   sentance:"Used Cars price from $20,000"
-  },
-  {
-    img:"./assets/img/work/trending-car-2.jpg",
-    sentance:"Low Mileage Pickup Trucks"
-  },
-  {
-    img:"./assets/img/work/trending-car-3.jpg",
-    sentance:"Family Cars from $10,000"
-   },
-   {
-    img:"./assets/img/work/trending-car-4.jpg",
-    sentance:"Cars price more than $5,000"
-   },
-   {
-    img:"./assets/img/work/trending-car-5.jpg",
-    sentance:"Family Cars from $10,000"
-   },
-   {
-    img:"./assets/img/work/trending-car-2.jpg",
-    sentance:"Low Mileage Pickup Trucks"
-   }
-  ]
-  public choosecar=[
+  public trendingsearch = [
     {
-      name:"Suv",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-1.png",
-     
+      img: "./assets/img/work/trending-car-1.jpg",
+      sentance: "Used Cars price from $20,000"
     },
     {
-      name:"Sports",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-4.png",
+      img: "./assets/img/work/trending-car-2.jpg",
+      sentance: "Low Mileage Pickup Trucks"
     },
     {
-      name:"Coupe",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-2.png",
+      img: "./assets/img/work/trending-car-3.jpg",
+      sentance: "Family Cars from $10,000"
     },
     {
-      name:"Sedan",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-5.png",
+      img: "./assets/img/work/trending-car-4.jpg",
+      sentance: "Cars price more than $5,000"
     },
     {
-      name:"Luxury",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-3.png",
+      img: "./assets/img/work/trending-car-5.jpg",
+      sentance: "Family Cars from $10,000"
     },
     {
-      name:"Vip Cars",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-6.png",
-    },
-    {
-      name:"Suv",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-1.png",
-     
-    },
-    {
-      name:"Sports",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-4.png",
-    },
-    {
-      name:"Coupe",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-2.png",
-    },
-  ]
-  public Makecar=[
-    {
-      name:"Audi",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-1.png",
-     
-    },
-    {
-      name:"KIA",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-2.png",
-    },
-    {
-      name:"Honda",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-3.png",
-    },
-    {
-      name:"Chevorlet",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-4.png",
-    },
-    {
-      name:"Nissan",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-5.png",
-    },
-    {
-      name:"Bently ",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-6.png",
-    },
-    {
-      name:"Audi ",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-1.png",
-    }
-   
-  ]
-  public Topbrand=[
-    {
-      img:"./assets/img/featured/feature-car-1.jpg",
-      centerlisth:"Manufactured",
-      centerlistp:"2010",
-      centerlisth1:"Total",
-      centerlistp1:"20000 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Petrol",
-      centerlist3:"Car Type",
-      centerlistp3:"Automatic",
-      brand:"Coupe",
-      name:"AG MC Ford Raptor",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-02.jpg",
-      dealer:"Dealer :",
-      dealername:"Mic Harzdeni",
-      amount:"$25000"
-    },
-    {
-      img:"./assets/img/featured/feature-car-2.jpg",
-      centerlisth:"Manufactured",
-      centerlistp:"2000",
-      centerlisth1:"Total",
-      centerlistp1:"2040 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Desiel",
-      centerlist3:"Car Type",
-      centerlistp3:"Manual",
-      brand:"Coupe",
-      name:"Benz G-Class",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-04.jpg",
-      dealer:"Dealer :",
-      dealername:"Rebecca",
-      amount:"$25000"
-    },
-    {
-      img:"./assets/img/featured/feature-car-3.jpg",
-      centerlisth:"Manufactured",
-      centerlistp:"2020",
-      centerlisth1:"Total",
-      centerlistp1:"5000 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Hybrid",
-      centerlist3:"Car Type",
-      centerlistp3:"Automatic",
-      brand:"Coupe",
-      name:"Toyota Camry",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-05.jpg",
-      dealer:"Dealer :",
-      dealername:"Fernanderz",
-      amount:"$81000"
-    },
-    {
-      img:"./assets/img/featured/feature-car-4.png",
-      centerlisth:"Manufactured",
-      centerlistp:"2000",
-      centerlisth1:"Total",
-      centerlistp1:"2040 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Desiel",
-      centerlist3:"Car Type",
-      centerlistp3:"Manual",
-      brand:"Coupe",
-      name:"Benz G-Class",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-08.jpg",
-      dealer:"Dealer :",
-      dealername:"Rebecca",
-      amount:"$43000"
-    },
-  ]
-  public Rentcar=[
-    {
-      img:"./assets/img/car-rental-slider-img.jpg",
-      Edition:"Limited Edition",
-      name:"2021 Jaguar XF facelift",
-      rentamount:"$400",
-      month:"/ Month",
-      para:"$0 First payment paid by jaquar up to $325",
-      para1:"taxes, title and fees extra",
-    },
-    {
-      img:"./assets/img/car-rental-slider-img-2.jpg",
-      Edition:"Limited Edition",
-      name:"2021 Audi RS7",
-      rentamount:"$450",
-      month:"/ Month",
-      para:"$0 First payment paid by jaquar up to $453",
-      para1:"taxes, title and fees extra",
+      img: "./assets/img/work/trending-car-2.jpg",
+      sentance: "Low Mileage Pickup Trucks"
     }
   ]
-  public Teammembers=[
+  public choosecar = [
     {
-      img:"./assets/img/business/team-1.jpg",
-      name:"Joana Dewel",
-      position:"Car Dealer"
+      name: "Suv",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-1.png",
+
     },
     {
-      img:"./assets/img/business/team-2.jpg",
-      name:"Mark Antonio",
-      position:"Car Dealer"
+      name: "Sports",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-4.png",
     },
     {
-      img:"./assets/img/business/team-3.jpg",
-      name:"Alexander Rebel",
-      position:"Car Dealer"
+      name: "Coupe",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-2.png",
     },
     {
-      img:"./assets/img/business/team-4.jpg",
-      name:"Richerd Dewel",
-      position:"Car Dealer"
+      name: "Sedan",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-5.png",
     },
     {
-      img:"./assets/img/business/team-5.jpg",
-      name:"John Dew",
-      position:"Car Dealer"
+      name: "Luxury",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-3.png",
+    },
+    {
+      name: "Vip Cars",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-6.png",
+    },
+    {
+      name: "Suv",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-1.png",
+
+    },
+    {
+      name: "Sports",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-4.png",
+    },
+    {
+      name: "Coupe",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-2.png",
+    },
+  ]
+  public Makecar = [
+    {
+      name: "Audi",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-1.png",
+
+    },
+    {
+      name: "KIA",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-2.png",
+    },
+    {
+      name: "Honda",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-3.png",
+    },
+    {
+      name: "Chevorlet",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-4.png",
+    },
+    {
+      name: "Nissan",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-5.png",
+    },
+    {
+      name: "Bently ",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-6.png",
+    },
+    {
+      name: "Audi ",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-1.png",
+    }
+
+  ]
+  public Topbrand = [
+    {
+      img: "./assets/img/featured/feature-car-1.jpg",
+      centerlisth: "Manufactured",
+      centerlistp: "2010",
+      centerlisth1: "Total",
+      centerlistp1: "20000 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Petrol",
+      centerlist3: "Car Type",
+      centerlistp3: "Automatic",
+      brand: "Coupe",
+      name: "AG MC Ford Raptor",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-02.jpg",
+      dealer: "Dealer :",
+      dealername: "Mic Harzdeni",
+      amount: "$25000"
+    },
+    {
+      img: "./assets/img/featured/feature-car-2.jpg",
+      centerlisth: "Manufactured",
+      centerlistp: "2000",
+      centerlisth1: "Total",
+      centerlistp1: "2040 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Desiel",
+      centerlist3: "Car Type",
+      centerlistp3: "Manual",
+      brand: "Coupe",
+      name: "Benz G-Class",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-04.jpg",
+      dealer: "Dealer :",
+      dealername: "Rebecca",
+      amount: "$25000"
+    },
+    {
+      img: "./assets/img/featured/feature-car-3.jpg",
+      centerlisth: "Manufactured",
+      centerlistp: "2020",
+      centerlisth1: "Total",
+      centerlistp1: "5000 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Hybrid",
+      centerlist3: "Car Type",
+      centerlistp3: "Automatic",
+      brand: "Coupe",
+      name: "Toyota Camry",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-05.jpg",
+      dealer: "Dealer :",
+      dealername: "Fernanderz",
+      amount: "$81000"
+    },
+    {
+      img: "./assets/img/featured/feature-car-4.png",
+      centerlisth: "Manufactured",
+      centerlistp: "2000",
+      centerlisth1: "Total",
+      centerlistp1: "2040 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Desiel",
+      centerlist3: "Car Type",
+      centerlistp3: "Manual",
+      brand: "Coupe",
+      name: "Benz G-Class",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-08.jpg",
+      dealer: "Dealer :",
+      dealername: "Rebecca",
+      amount: "$43000"
+    },
+  ]
+  public Rentcar = [
+    {
+      img: "./assets/img/car-rental-slider-img.jpg",
+      Edition: "Limited Edition",
+      name: "2021 Jaguar XF facelift",
+      rentamount: "$400",
+      month: "/ Month",
+      para: "$0 First payment paid by jaquar up to $325",
+      para1: "taxes, title and fees extra",
+    },
+    {
+      img: "./assets/img/car-rental-slider-img-2.jpg",
+      Edition: "Limited Edition",
+      name: "2021 Audi RS7",
+      rentamount: "$450",
+      month: "/ Month",
+      para: "$0 First payment paid by jaquar up to $453",
+      para1: "taxes, title and fees extra",
     }
   ]
-  public clienttestimonials=[
+  public Teammembers = [
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Daniela Fransis",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-12.jpg"
+      img: "./assets/img/business/team-1.jpg",
+      name: "Joana Dewel",
+      position: "Car Dealer"
     },
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Alexander Rebel",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-13.jpg"
+      img: "./assets/img/business/team-2.jpg",
+      name: "Mark Antonio",
+      position: "Car Dealer"
     },
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Mark Antonio",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-14.jpg"
+      img: "./assets/img/business/team-3.jpg",
+      name: "Alexander Rebel",
+      position: "Car Dealer"
     },
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Daniela Fransis",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-12.jpg"
+      img: "./assets/img/business/team-4.jpg",
+      name: "Richerd Dewel",
+      position: "Car Dealer"
+    },
+    {
+      img: "./assets/img/business/team-5.jpg",
+      name: "John Dew",
+      position: "Car Dealer"
     }
   ]
-  public peopleFeedback=[
+  public clienttestimonials = [
     {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Lisa",
-      head:"Great Services!!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Radon Restaurant",
-      city:"London"
+      img: "./assets/img/Polygon.svg",
+      name: "Daniela Fransis",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-12.jpg"
     },
     {
-      img:"assets/img/profiles/avatar-02.jpg",
-      name:"John Doe",
-      head:"Good !!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Food Trucks",
-      city:"Mexico"
+      img: "./assets/img/Polygon.svg",
+      name: "Alexander Rebel",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-13.jpg"
     },
     {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"William",
-      head:"Nice !!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Pop-up Restaurants",
-      city:"Canada"
+      img: "./assets/img/Polygon.svg",
+      name: "Mark Antonio",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-14.jpg"
     },
     {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Lisa",
-      head:"Wonderful!!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Fine Dining Restaurant",
-      city:"Australia"
+      img: "./assets/img/Polygon.svg",
+      name: "Daniela Fransis",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-12.jpg"
     }
   ]
-  public jobholder=[
+  public peopleFeedback = [
     {
-      img:"assets/img/profiles/avatar-02.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Lisa",
+      head: "Great Services!!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Radon Restaurant",
+      city: "London"
     },
     {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"Alfred",
-      position:"Graphic Designer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      
+      img: "assets/img/profiles/avatar-02.jpg",
+      name: "John Doe",
+      head: "Good !!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Food Trucks",
+      city: "Mexico"
     },
     {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-     
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "William",
+      head: "Nice !!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Pop-up Restaurants",
+      city: "Canada"
     },
     {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Mike Torello",
-      head:"Mexico",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"Alfred",
-      position:"Graphic Designer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Mike Torello",
-      position:"Mexico",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    },
-    {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"Alfred",
-      position:"Graphic Designer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-  ]
-  
-  public listing= 
-  [
-    {
-      img:"assets/img/featured/property-feature-1.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"./assets/img/profiles/avatar-01.jpg",
-      location:"$700/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"MS Northbound, Peachfield Road, Uk",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:".assets/img/icons/bath-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/featured/property-feature-2.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"/assets/img/profiles/avatar-02.jpg",
-      location:"$510/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"Iris Watson, Frederick Nebraska 20620",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Condos"
-    },
-    {
-      img:"assets/img/featured/property-feature-3.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"./assets/img/profiles/avatar-03.jpg",
-      location:"$600/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"Store in Woodside Park, New York",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/featured/property-feature-2.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"/assets/img/profiles/avatar-04.jpg",
-      location:"$510/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"Iris Watson, Frederick Nebraska 20620",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Condos"
-    },
-    {
-      img:"assets/img/featured/property-feature-3.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"./assets/img/profiles/avatar-03.jpg",
-      location:"$600/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"MS Northbound, Peachfield Road, Uk",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Apartments"
-    },
-  ]
-  public managementcomponies=[
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"121",
-      content:"Properties",
-      propertyname:"Elite Poperty",
-      companiescount:"45",
-      companiescount2:"45",
-      companiescount3:"45",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"671",
-      content:"Properties",
-      propertyname:"Tangible Property",
-      companiescount1:"05",
-      companiescount2:"99",
-      companiescount3:"76",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"165",
-      content:"Personal Property",
-      propertyname:"Tangible Property",
-      companiescount1:"77",
-      companiescount2:"22",
-      companiescount3:"06",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"991",
-      content:" Property",
-      propertyname:"Public Property",
-      companiescount1:"87",
-      companiescount2:"32",
-      companiescount3:"64",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"101",
-      content:" Property",
-      propertyname:"Personal Property",
-      companiescount1:"45",
-      companiescount2:"98",
-      companiescount3:"32",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"165",
-      content:"Personal Property",
-      propertyname:"Tangible Property",
-      companiescount1:"77",
-      companiescount2:"22",
-      companiescount3:"06",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"991",
-      content:" Property",
-      propertyname:"Public Property",
-      companiescount1:"87",
-      companiescount2:"32",
-      companiescount3:"64",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"121",
-      content:"Properties",
-      propertyname:"Elite Poperty",
-      companiescount:"45",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"101",
-      content:" Property",
-      propertyname:"Personal Property",
-      companiescount1:"45",
-      companiescount2:"98",
-      companiescount3:"32",
-      name:"Listing",
-    },
-  ]
-  public hoildayCabin=[
-    {
-      img:"assets/img/bg/holiday-cabin-slider-img-1.jpg",
-      rate:"$64",
-      per:"Per night",
-      head:"Perfect Holiday Cabin",
-      para:"Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/bg/holiday-cabin-slider-img-2.jpg",
-      rate:"$64",
-      per:"Per night",
-      head:"Perfect Holiday Cabin",
-      para:"Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/bg/holiday-cabin-slider-img-1.jpg",
-      rate:"$64",
-      per:"Per night",
-      head:"Perfect Holiday Cabin",
-      para:"Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
-    },
-  ]
-  public bestrooms=[
-    {
-      img:"assets/img/featured/best-room-img-1.jpg",
-      roomtype:"Shared Rooms",
-      listing:"40 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-2.jpg",
-      roomtype:"Bed Room",
-      listing:"30 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-3.jpg",
-      roomtype:"Villas",
-      listing:"50 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-4.jpg",
-      roomtype:"Condos",
-      listing:"45 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-1.jpg",
-      roomtype:"Shared Rooms",
-      listing:"40 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-2.jpg",
-      roomtype:"Bed Room",
-      listing:"30 Listings"
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Lisa",
+      head: "Wonderful!!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Fine Dining Restaurant",
+      city: "Australia"
     }
   ]
-  public recentproperties=[
+  public jobholder = [
     {
-      img:"assets/img/gallery/top-rent-room-img-1.jpg",
-      userimg:"./assets/img/profiles/avatar-01.jpg",
-      typehouse:"Pent house",
-      location:"Mattapan, Boston",
-      head:"South King Royal Palace ",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-02.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
     },
     {
-      img:"assets/img/gallery/top-rent-room-img-2.jpg",
-      userimg:"./assets/img/profiles/avatar-02.jpg",
-      typehouse:"Pent house",
-      location:"East Side, New York",
-      head:"Victorian Bed & Breakfast",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "Alfred",
+      position: "Graphic Designer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
     },
     {
-      img:"assets/img/gallery/top-rent-room-img-1.jpg",
-      userimg:"./assets/img/profiles/avatar-05.jpg",
-      typehouse:"Mattapan, Boston",
-      location:"South King Royal Palace",
-      head:"Victorian Bed & Breakfast",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
     },
     {
-      img:"assets/img/gallery/top-rent-room-img-2.jpg",
-      userimg:"./assets/img/profiles/avatar-06.jpg",
-      typehouse:"Pent house",
-      location:"South King Royal Palace",
-      head:"Victorian Bed & Breakfast",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Mike Torello",
+      head: "Mexico",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "Alfred",
+      position: "Graphic Designer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Mike Torello",
+      position: "Mexico",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+    },
+    {
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "Alfred",
+      position: "Graphic Designer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+  ]
+
+  public listing =
+    [
+      {
+        img: "assets/img/featured/property-feature-1.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "./assets/img/profiles/avatar-01.jpg",
+        location: "$700/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "MS Northbound, Peachfield Road, Uk",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: ".assets/img/icons/bath-icon.svg",
+        type: "Apartments"
+      },
+      {
+        img: "assets/img/featured/property-feature-2.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "/assets/img/profiles/avatar-02.jpg",
+        location: "$510/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "Iris Watson, Frederick Nebraska 20620",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Condos"
+      },
+      {
+        img: "assets/img/featured/property-feature-3.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "./assets/img/profiles/avatar-03.jpg",
+        location: "$600/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "Store in Woodside Park, New York",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Apartments"
+      },
+      {
+        img: "assets/img/featured/property-feature-2.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "/assets/img/profiles/avatar-04.jpg",
+        location: "$510/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "Iris Watson, Frederick Nebraska 20620",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Condos"
+      },
+      {
+        img: "assets/img/featured/property-feature-3.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "./assets/img/profiles/avatar-03.jpg",
+        location: "$600/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "MS Northbound, Peachfield Road, Uk",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Apartments"
+      },
+    ]
+  public managementcomponies = [
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "121",
+      content: "Properties",
+      propertyname: "Elite Poperty",
+      companiescount: "45",
+      companiescount2: "45",
+      companiescount3: "45",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "671",
+      content: "Properties",
+      propertyname: "Tangible Property",
+      companiescount1: "05",
+      companiescount2: "99",
+      companiescount3: "76",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "165",
+      content: "Personal Property",
+      propertyname: "Tangible Property",
+      companiescount1: "77",
+      companiescount2: "22",
+      companiescount3: "06",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "991",
+      content: " Property",
+      propertyname: "Public Property",
+      companiescount1: "87",
+      companiescount2: "32",
+      companiescount3: "64",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "101",
+      content: " Property",
+      propertyname: "Personal Property",
+      companiescount1: "45",
+      companiescount2: "98",
+      companiescount3: "32",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "165",
+      content: "Personal Property",
+      propertyname: "Tangible Property",
+      companiescount1: "77",
+      companiescount2: "22",
+      companiescount3: "06",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "991",
+      content: " Property",
+      propertyname: "Public Property",
+      companiescount1: "87",
+      companiescount2: "32",
+      companiescount3: "64",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "121",
+      content: "Properties",
+      propertyname: "Elite Poperty",
+      companiescount: "45",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "101",
+      content: " Property",
+      propertyname: "Personal Property",
+      companiescount1: "45",
+      companiescount2: "98",
+      companiescount3: "32",
+      name: "Listing",
+    },
+  ]
+  public hoildayCabin = [
+    {
+      img: "assets/img/bg/holiday-cabin-slider-img-1.jpg",
+      rate: "$64",
+      per: "Per night",
+      head: "Perfect Holiday Cabin",
+      para: "Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
+    },
+    {
+      img: "assets/img/bg/holiday-cabin-slider-img-2.jpg",
+      rate: "$64",
+      per: "Per night",
+      head: "Perfect Holiday Cabin",
+      para: "Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
+    },
+    {
+      img: "assets/img/bg/holiday-cabin-slider-img-1.jpg",
+      rate: "$64",
+      per: "Per night",
+      head: "Perfect Holiday Cabin",
+      para: "Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
+    },
+  ]
+  public bestrooms = [
+    {
+      img: "assets/img/featured/best-room-img-1.jpg",
+      roomtype: "Shared Rooms",
+      listing: "40 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-2.jpg",
+      roomtype: "Bed Room",
+      listing: "30 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-3.jpg",
+      roomtype: "Villas",
+      listing: "50 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-4.jpg",
+      roomtype: "Condos",
+      listing: "45 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-1.jpg",
+      roomtype: "Shared Rooms",
+      listing: "40 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-2.jpg",
+      roomtype: "Bed Room",
+      listing: "30 Listings"
     }
   ]
-  public ourtestimonials=[
-  {
-   head:"Really Awesome",
-   para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-   img:"./assets/img/profiles/avatar-01.jpg",
-   name:"Thompson Greig",
-   job:"Agent"
-  },
-  {
-    head:"Really Awesome",
-    para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-    img:"./assets/img/profiles/avatar-02.jpg",
-    name:"Lori triump",
-    job:"Agent"
-   },
-   {
-    head:"Really Awesome",
-    para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-    img:"./assets/img/profiles/avatar-03.jpg",
-    name:"Angela Mathew",
-    job:"Agent"
-   },
-   {
-    head:"Really Awesome",
-    para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-    img:"./assets/img/profiles/avatar-03.jpg",
-    name:"Angela Mathew",
-    job:"Agent"
-   }
-  ]
-  public recentarticle=[
+  public recentproperties = [
     {
-      img:"assets/img/blog/property-blog-1.jpg",
-      head:"Skills That You Can Learn In The Real Estate Market",
-      calendar:"7 Jan 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-1.jpg",
+      userimg: "./assets/img/profiles/avatar-01.jpg",
+      typehouse: "Pent house",
+      location: "Mattapan, Boston",
+      head: "South King Royal Palace ",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     },
     {
-      img:"assets/img/blog/property-blog-2.jpg",
-      head:"5 Essential Steps for Buying an Investment",
-      calendar:"15 Jan 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-2.jpg",
+      userimg: "./assets/img/profiles/avatar-02.jpg",
+      typehouse: "Pent house",
+      location: "East Side, New York",
+      head: "Victorian Bed & Breakfast",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     },
     {
-      img:"assets/img/blog/property-blog-3.jpg",
-      head:"Bedroom Colors You’ll Never Regret",
-      calendar:"27 Feb 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-1.jpg",
+      userimg: "./assets/img/profiles/avatar-05.jpg",
+      typehouse: "Mattapan, Boston",
+      location: "South King Royal Palace",
+      head: "Victorian Bed & Breakfast",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     },
     {
-      img:"assets/img/blog/property-blog-1.jpg",
-      head:"Skills That You Can Learn In The Real Estate Market",
-      calendar:" 28 Mar 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-2.jpg",
+      userimg: "./assets/img/profiles/avatar-06.jpg",
+      typehouse: "Pent house",
+      location: "South King Royal Palace",
+      head: "Victorian Bed & Breakfast",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     }
   ]
- 
-  
- 
+  public ourtestimonials = [
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-01.jpg",
+      name: "Thompson Greig",
+      job: "Agent"
+    },
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-02.jpg",
+      name: "Lori triump",
+      job: "Agent"
+    },
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-03.jpg",
+      name: "Angela Mathew",
+      job: "Agent"
+    },
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-03.jpg",
+      name: "Angela Mathew",
+      job: "Agent"
+    }
+  ]
+  public recentarticle = [
+    {
+      img: "assets/img/blog/property-blog-1.jpg",
+      head: "Skills That You Can Learn In The Real Estate Market",
+      calendar: "7 Jan 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    },
+    {
+      img: "assets/img/blog/property-blog-2.jpg",
+      head: "5 Essential Steps for Buying an Investment",
+      calendar: "15 Jan 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    },
+    {
+      img: "assets/img/blog/property-blog-3.jpg",
+      head: "Bedroom Colors You’ll Never Regret",
+      calendar: "27 Feb 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    },
+    {
+      img: "assets/img/blog/property-blog-1.jpg",
+      head: "Skills That You Can Learn In The Real Estate Market",
+      calendar: " 28 Mar 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    }
+  ]
 
 
 
@@ -3919,15 +3932,18 @@ export class DataService {
 
 
 
-    
-  
-  
-  
-
-  
 
 
 
-    
-  
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
@@ -21,6 +22,7 @@ export class BlogGridSidebarComponent {
 
   constructor(
     private Dataservice:DataService,
+    private router: Router,
     private serviceCommodite: CommoditeService,
     ){
     this.gridBlog=this.Dataservice.gridBlog;
@@ -40,6 +42,10 @@ export class BlogGridSidebarComponent {
      console.log(this.typebien);
    });
  }
-
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS D'UN BLOG
+  goToDettailBlog(id: number) {
+    console.log(id);
+    return this.router.navigate(['blog-details', id])
+  }
 
 }
