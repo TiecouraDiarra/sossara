@@ -79,6 +79,14 @@ export class BienimmoService {
       { headers });
   }
 
+  //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE LE LOCATAIRE
+  AfficherBienImmoDejaLoueParLocataire(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/get/rent/mine`,
+      { headers });
+  }
+
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoDejaVenduParUser(): Observable<any> {
     const headers = this.getHeaders();
@@ -257,4 +265,43 @@ export class BienimmoService {
       { headers }
     );
   }
+
+  //AFFICHER LA LISTE DES PROBLEMES
+  AfficherLIsteProbleme(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/probleme/get`,
+      { headers });
+  }
+
+
+  //FAIRE UNE RECLAMATION
+  FaireReclamation(
+    contenu: string,
+    type_probleme_id: string,
+    idbien: number,
+    photos: File[],
+    // photo: File // Liste de photos
+  ): Observable<any> {
+    const headers = this.getHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    console.log(headers);
+    console.log('contenu', contenu);
+    console.log('type_probleme_id', type_probleme_id);
+    console.log('idbien', idbien);
+    console.log('photo', photos);
+    const formData = new FormData();
+
+    formData.append('contenu', contenu);
+    formData.append('type_probleme_id', type_probleme_id);
+    formData.append('idbien', idbien.toString());
+    photos.forEach(p => { formData.append('photo[]', p) });
+
+    return this.http.post(
+      URL_BASE + '/signal/' + `${idbien}`,
+      formData,
+      { headers }
+    );
+  }
+
 }

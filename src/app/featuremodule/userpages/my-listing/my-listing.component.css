@@ -1,78 +1,85 @@
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .pagination__container {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .pagination__page {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .pagination__page--active {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
-  
-  .pagination__page--disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  .pagination__previous,
-  .pagination__next {
-    margin: 0 10px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .pagination__previous:hover,
-  .pagination__next:hover,
-  .pagination__page:hover {
-    background-color: #f0f0f0;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 
-  .custom-tab-link {
-    font-weight: 600;
-    color: #333; /* Couleur du texte non sélectionné */
-    background-color: transparent;
-    border: none;
-    border-bottom: 3px solid transparent;
-    border-radius: 0;
-    padding: 10px 15px;
-    transition: background-color 0.3s, border-bottom 0.3s;
+.pagination__container {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination__page {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__page--active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination__page--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pagination__previous,
+.pagination__next {
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__previous:hover,
+.pagination__next:hover,
+.pagination__page:hover {
+  background-color: #f0f0f0;
+}
+
+
+.custom-tab-link {
+  font-weight: 600;
+  color: #333;
+  /* Couleur du texte non sélectionné */
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 10px 15px;
+  transition: background-color 0.3s, border-bottom 0.3s;
 }
 
 .custom-tab-link.active,
 .custom-tab-link:hover {
-    color: #fff; /* Couleur du texte sélectionné */
-    border-radius: 10px;
-    background-color: #e98b11; /* Couleur de l'onglet sélectionné */
-    border-bottom-color: #fff; /* Couleur de la bordure du bas de l'onglet sélectionné */
+  color: #fff;
+  /* Couleur du texte sélectionné */
+  border-radius: 10px;
+  background-color: #e98b11;
+  /* Couleur de l'onglet sélectionné */
+  border-bottom-color: #fff;
+  /* Couleur de la bordure du bas de l'onglet sélectionné */
 }
 
 .nav {
-  background-color: #293d4a; /* Couleur de fond de la barre de navigation */
+  background-color: #293d4a;
+  /* Couleur de fond de la barre de navigation */
   padding: 10px 0;
-  border-bottom: 2px solid #1b2b34; /* Bordure inférieure */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  border-bottom: 2px solid #1b2b34;
+  /* Bordure inférieure */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Ombre légère */
   border-radius: 6px;
 
 }
@@ -83,7 +90,8 @@
 
 .nav-link {
   font-weight: 500;
-  color: #fff; /* Couleur du texte non sélectionné */
+  color: #fff;
+  /* Couleur du texte non sélectionné */
   padding: 10px 15px;
   border-radius: 4px;
   transition: background-color 0.3s;
@@ -91,8 +99,10 @@
 
 .nav-link.active,
 .nav-link:hover {
-  color: #fff; /* Couleur du texte sélectionné et en survol */
-  background-color: #e98b11; /* Couleur de fond en survol */
+  color: #fff;
+  /* Couleur du texte sélectionné et en survol */
+  background-color: #e98b11;
+  /* Couleur de fond en survol */
 }
 
 .nav-justified {
@@ -100,42 +110,47 @@
 }
 
 .review-gallery li {
-  margin-right: 10px; /* Ajustez la valeur selon votre préférence */
+  margin-right: 10px;
+  /* Ajustez la valeur selon votre préférence */
 }
 
-.ligne{
-  overflow-y: scroll; 
+.ligne {
+  overflow-y: scroll;
   height: 390px;
   --overflow: hidden;
   overflow: auto;
 
   &::-webkit-scrollbar {
-      display: none;
+    display: none;
   }
 }
 
 .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-     height: 100%; /*Ajustez cette valeur selon vos besoins */
-    overflow: hidden; /* Pour éviter le débordement */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /*Ajustez cette valeur selon vos besoins */
+  overflow: hidden;
+  /* Pour éviter le débordement */
 }
 
 .avatar-img {
-    width: 100%; /* Pour que l'image occupe toute la largeur du conteneur */
-    height: auto; /* Pour conserver les proportions de l'image */
+  width: 100%;
+  /* Pour que l'image occupe toute la largeur du conteneur */
+  height: auto;
+  /* Pour conserver les proportions de l'image */
 }
 
 
-.ligne{
-  overflow-y: scroll; 
+.ligne {
+  overflow-y: scroll;
   height: 390px;
   --overflow: hidden;
   overflow: auto;
 
   &::-webkit-scrollbar {
-      display: none;
+    display: none;
   }
 }
 
@@ -153,4 +168,111 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 20px;
+}
+
+/* Style de la liste des avis */
+.review-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style de chaque élément d'avis */
+.review-box {
+  display: flex;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style de l'image de profil */
+.review-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+/* Style des détails de l'avis */
+.review-details {
+  flex-grow: 1;
+}
+
+/* Style du nom de l'auteur */
+.review-details h6 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+/* Style de l'icône d'évaluation */
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  color: #f2b600;
+}
+
+/* Style des étoiles d'évaluation */
+.rating-star {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+/* Style de l'icône de la date et de l'heure */
+.rating i {
+  margin-right: 5px;
+}
+
+/* Style de la date */
+.rating-date {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Style de l'heure */
+.rating-time {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Ajuster la position du modal par rapport à la barre de navigation */
+.modal-dialog {
+  margin-top: 90px;
+  /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
+}
+
+.media-image {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+}
+
+.close-icon {
+  font-size: 1.5em;
+  color: red;
+}
+.image-container img {
+  max-width: 100%; /* Redimensionne l'image pour qu'elle s'adapte à la largeur du conteneur */
+  height: auto; /* Maintient le rapport d'aspect de l'image */
+}
+
+.image-size {
+  width: 200px; /* Spécifiez la largeur souhaitée en pixels */
+  height: 200px; /* Spécifiez la hauteur souhaitée en pixels */
 }

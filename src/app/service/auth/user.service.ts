@@ -111,6 +111,7 @@ export class UserService {
   //CHANGER PHOTO PROFILE
   changerPhoto(photo: File): Observable<any> {
     const headers = this.getHeaders();
+    headers.set('Cache-Control', 'no-cache'); // Désactive le cache pour cette requête
     const formData = new FormData();
     formData.append('photo', photo);
     return this.http.post(`${URL_BASE}/user/update/photo`, formData, { headers });

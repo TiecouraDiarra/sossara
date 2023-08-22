@@ -57,8 +57,8 @@
                 </li>
             </ul>
         </div>
-        <!-- Debut Segmented control  -->
-        <div class="container card shadow d-flex justify-content-center mt-5">
+        <!-- Debut AGENCE ET PROPRIETAIRE  -->
+        <div class="container card shadow d-flex justify-content-center mt-5" *ngIf="isLocataire==false">
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                 <li class="nav-item crd">
                     <a class="nav-link custom-tab-link" [class.active]="isTabActive('home')" (click)="changeTab('home')"
@@ -74,6 +74,11 @@
                     <a class="nav-link custom-tab-link" id="vendu-tab" data-toggle="tab"
                         [class.active]="isTabActive('vendu')" (click)="changeTab('vendu')" role="tab"
                         aria-controls="vendu" aria-selected="false">Biens vendus</a>
+                </li>
+                <li class="nav-item crd">
+                    <a class="nav-link custom-tab-link" id="location-tab" data-toggle="tab"
+                        [class.active]="isTabActive('location')" (click)="changeTab('location')" role="tab"
+                        aria-controls="location" aria-selected="false">Mes locations</a>
                 </li>
                 <li class="nav-item crd">
                     <a class="nav-link custom-tab-link" id="reclamation-tab" data-toggle="tab"
@@ -132,7 +137,7 @@
                                                 *ngFor="let BienImmo of bienImmo | filter:searchText | paginate:{itemsPerPage :4, currentPage:p1}">
                                                 <td>
                                                     <div class="listingtable-img">
-                                                        <a (click)="goToDettailBien(BienImmo.id)">
+                                                        <a (click)="goToDettailBien(BienImmo.id)" class="crd">
                                                             <div
                                                                 *ngIf="BienImmo.photos && BienImmo.photos.length > 0; else noImages">
                                                                 <img src="{{ generateImageUrl(BienImmo.photos[0].nom) }}"
@@ -170,7 +175,8 @@
                                                 <td>
                                                     <div class="action">
                                                         <a (click)="goToDettailBien(BienImmo.id)"
-                                                            class="action-btn btn-view"><i class="feather-eye"></i></a>
+                                                            class="action-btn btn-view crd"><i
+                                                                class="feather-eye"></i></a>
                                                         <a href="javascript:void(0)" class="action-btn btn-edit"><i
                                                                 class="feather-edit-3"></i></a>
                                                         <a href="javascript:void(0)" class="action-btn btn-trash"><i
@@ -458,13 +464,511 @@
                     </div>
                 </div>
                 <!-- Fin des biens vendus  -->
+                <!-- Debut de mes locations  -->
+                <div class="tab-pane fade show" [class.active]="isTabActive('location')" id="location" role="tabpanel"
+                    aria-labelledby="location-tab">
+                    <div class="dash-listingcontent dashboard-info">
+                        <div class="dash-cards card">
+                            <div class="card-body" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                                <div class="listing-search">
+                                    <h4>Mes biens que j'ai loue</h4>
+                                    <div class="filter-content form-group">
+                                        <div class="group-img">
+                                            <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
+                                                placeholder="Recherche...">
+                                            <i class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
+                                        id="listdata-table">
+                                        <thead>
+                                            <tr>
+                                                <th mat-sort-header="img" class="no-sort">Image</th>
+                                                <th mat-sort-header="details" class="no-sort">Details</th>
+                                                <th mat-sort-header="view">Date</th>
+                                                <th mat-sort-header="Action">Proprietaires</th>
+                                                <th mat-sort-header="status">Statut</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let BienImmo of bienImmoDejaLoueLocataire | filter:searchTextBienVendu | paginate:{itemsPerPage :4, currentPage:p5,  id: 'bienLocataire'}">
+                                                <td>
+                                                    <div class="listingtable-img">
+                                                        <a (click)="goToDettailBien(BienImmo.id)">
+                                                            <div
+                                                                *ngIf="BienImmo.photos && BienImmo.photos.length > 0; else noImages">
+                                                                <img src="{{ generateImageUrl(BienImmo.photos[0].nom) }}"
+                                                                    class="img-fluid image-size" alt="blog-img">
+                                                            </div>
+                                                            <ng-template #noImages>
+                                                                <img src="{{ DEFAULT_IMAGE_URL }}"
+                                                                    class="img-fluid image-size" alt="default-img">
+                                                            </ng-template>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
+                                                            (click)="goToDettailBien(BienImmo.id)">
+                                                            {{ BienImmo.bien.nom ? BienImmo.bien.nom :
+                                                            BienImmo.bien.typeImmo.nom }}
+                                                        </a>
+                                                    </h6>
+                                                    <div class="listingtable-rate">
+                                                        <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                                                            href="javascript:void(0)" class="cat-icon">
+                                                            <i class="fa-regular fa-circle-stop"></i>
+                                                            {{BienImmo.bien.typeImmo.nom}}
+                                                        </a> <span class="discount-amt"
+                                                            *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
+                                                            formatPrice(BienImmo.bien.prix) }}
+                                                            FCFA</span>
+
+                                                    </div>
+                                                    <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.nom}} -
+                                                        {{BienImmo.bien.adresse.quartier}}
+                                                    </p>
+                                                </td>
+                                                <td><span class="views-count"
+                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        |
+                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                <td>
+                                                    <ul class="review-list">
+                                                        <li class="review-box">
+                                                            <div class="review-profile">
+                                                                <div class="review-img">
+                                                                    <img src="{{generateImageUrl(BienImmo.bien.utilisateur.photo)}}"
+                                                                        class="img-fluid" alt="img"
+                                                                        (error)="handleAuthorImageError($event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="review-details">
+                                                                <div class="tes">
+                                                                    <div class="views-count">
+                                                                        {{BienImmo.bien.utilisateur.nom}}</div>
+                                                                </div>
+                                                                <div>Tel : {{BienImmo.bien.utilisateur.telephone}}</div>
+                                                                <!-- <p>ffff</p>																	 -->
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </td>
+                                                <td><span class="status-text">
+                                                    <button type="button" class="btn btn-primary" (click)="openReclamationModal(BienImmo.id)" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Reclamation</button> 
+                                                </span></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <!-- Modal pour faire une reclamation  -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLabel">Faire une reclamation</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <form>
+                                                <input type="hidden" [(ngModel)]="selectedBienImmoId" name="selectedBienImmoId">
+                                                <div class="mb-3">
+                                                  <label for="recipient-name" class="col-form-label">Type de probleme <span style="color: red;">*</span></label>
+                                                  <div class="pass-group group-img">
+                                                    <select class="form-control" id="">
+                                                      <option *ngFor="let item of probleme" [value]="item">
+                                                        {{ item.nom}}
+                                                      </option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                  <label for="message-text" class="col-form-label">Description de la reclamation <span style="color: red;">*</span></label>
+                                                  <textarea class="form-control" id="message-text" placeholder="Description"></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <div class="row">
+                                                        <div class=" featured-img1">
+                                                          <h6 class="media-title">Images biens <span>*</span></h6>
+                                                          <div class="media-image">
+                                                            <div class="row">
+                                                                <div *ngFor="let imageUrl of image; let i = index" class="col-lg-3 col-md-6 image-container m-1">
+                                                                  <img class=" image-size m-3" [src]="imageUrl" alt="Image {{ i }}" />
+                                                                  <button class="close-button" (click)="removeImage(i)">
+                                                                    <i class="fas fa-times close-icon"></i>
+                                                                  </button>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="settings-upload-btn">
+                                                          <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
+                                                            class="hide-input image-upload" [disabled]="maxImageCount >=4" />
+                                                          <label for="file" class="file-upload" (click)="FaireReclamation()">Ajouter l'image</label>
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                              </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                              <button type="button" class="btn btn-primary">Envoyer</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                </div>
+                                <pagination-controls *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0" (pageChange)="p5 = $event"
+                                    previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                                    previousClass="pagination__previous" nextClass="pagination__next"
+                                    containerClass="pagination__container" pageClass="pagination__page"
+                                    activeClassName="pagination__page--active"
+                                    disabledClass="pagination__page--disabled" id="bienLocataire"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de mes locations  -->
                 <!-- Debut des reclamations  -->
                 <div class="tab-pane fade show" [class.active]="isTabActive('reclamation')" id="reclamation"
                     role="tabpanel" aria-labelledby="reclamation-tab">
                     <div class="dashboard-content">
                         <div class="container">
                             <div class="row dashboard-info reviewpage-content">
+                                <div class="col-lg-6 d-flex" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                                    <div class="card dash-cards w-100">
+                                        <div class="card-header">
+                                            <h4>Faire une reclamation</h4>
+                                            <div class="card-dropdown">
+                                                <ul>
+                                                    <li class="nav-item dropdown has-arrow logged-item">
+                                                        <a href="#" class="dropdown-toggle pageviews-link"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <span>Tout</span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="javascript:void();">Semaine
+                                                                passee</a>
+                                                            <a class="dropdown-item" href="javascript:void()">Cette
+                                                                senaine</a>
+                                                            <a class="dropdown-item" href="javascript:void()">Semaine
+                                                                prochaine</a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="review-chart">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6 d-flex">
+                                    <div class="card dash-cards w-100">
+                                        <div class="card-header">
+                                            <h4>Mes reclamations</h4>
+                                            <div class="card-dropdown">
+                                                <ul>
+                                                    <li class="nav-item dropdown has-arrow logged-item">
+                                                        <a href="#" class="dropdown-toggle pageviews-link"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <span>Tout</span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" href="javascript:void();">Semaine
+                                                                passee</a>
+                                                            <a class="dropdown-item" href="javascript:void()">Cette
+                                                                senaine</a>
+                                                            <a class="dropdown-item" href="javascript:void()">Semaine
+                                                                prochaine</a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="ligne">
+                                            <div class="card-body">
+                                                <div id="review-chart">
+                                                    <ul class="review-list">
+                                                        <li class="review-box" *ngFor="let Reclamation of reclamation">
+                                                            <div class="review-profile">
+                                                                <div class="review-img">
+                                                                    <img src="{{generateImageUrl(Reclamation.utilisateur.photo)}}"
+                                                                        class="img-fluid" alt="img"
+                                                                        (error)="handleAuthorImageError($event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="review-details">
+                                                                <h6>{{Reclamation.utilisateur.nom}}</h6>
+                                                                <div class="rating">
+                                                                    <div class="rating-star">
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                    </div>
+                                                                    <div *ngIf="Reclamation && Reclamation.createdAt"><i
+                                                                            style="color: #e98b11; font-weight: bold;"
+                                                                            class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                                        {{Reclamation.createdAt.date
+                                                                        |
+                                                                        date:"dd/MM/yyyy"}}</div>
+                                                                    <div *ngIf="Reclamation && Reclamation.createdAt"><i
+                                                                            class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt.date
+                                                                        |
+                                                                        date:"HH:mm"}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col"
+                                                                        *ngIf="Reclamation && Reclamation.bien">
+                                                                        {{Reclamation.bien.nom}}
+                                                                    </div>
+                                                                    <div class="col"
+                                                                        style="color: #e98b11; font-weight: bold;"
+                                                                        *ngIf="Reclamation && Reclamation.bien">
+                                                                        {{ formatPrice(Reclamation.bien.prix) }} FCFA
+                                                                    </div>
+                                                                </div>
+                                                                <ul class="review-gallery">
+                                                                    <li
+                                                                        *ngFor="let photo of Reclamation.bien.photos.slice(0, 4); let i = index">
+                                                                        <img class="img-fluid" alt="Image"
+                                                                            [src]="generateImageUrl(photo.nom)">
+                                                                    </li>
+                                                                    <ng-container
+                                                                        *ngIf="Reclamation.bien.photos.length === 0">
+                                                                        <li *ngFor="let _ of [1, 2, 3, 4]">
+                                                                            <!-- Répéter 4 fois -->
+                                                                            <img class="img-fluid"
+                                                                                alt="Image par défaut"
+                                                                                src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                                                        </li>
+                                                                    </ng-container>
+                                                                </ul>
+                                                                <div class="m-3"
+                                                                    *ngIf="Reclamation && Reclamation.contenu">
+                                                                    <i style="color: #e98b11; font-weight: bold;"
+                                                                        class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                                    motif : {{Reclamation.contenu}}
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <p class="blog-category">
+                                                                            <a data-bs-toggle="collapse"
+                                                                                href="#quelquesimages" role="button"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="collapseExample"><span>Quelques
+                                                                                    images</span></a>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="collapse" id="quelquesimages">
+                                                                    <ul class="review-gallery">
+                                                                        <li
+                                                                            *ngFor="let photo of Reclamation.photoReclamations.slice(0, 4); let i = index">
+                                                                            <img class="img-fluid" alt="Image"
+                                                                                [src]="generateImageUrl(photo.nom)">
+                                                                        </li>
+                                                                        <ng-container
+                                                                            *ngIf="Reclamation.photoReclamations.length === 0">
+                                                                            <li *ngFor="let _ of [1, 2, 3, 4]">
+                                                                                <!-- Répéter 4 fois -->
+                                                                                <img class="img-fluid"
+                                                                                    alt="Image par défaut"
+                                                                                    src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                                                            </li>
+                                                                        </ng-container>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="row mt-3">
+                                                                    <div class="col">
+                                                                        <button type="button"
+                                                                            class="btn btn-outline-danger"><i
+                                                                                class="fas fa-times"></i>
+                                                                            Annuler</button>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <button type="button"
+                                                                            class="btn btn-outline-success"><i
+                                                                                class="fas fa-check"></i>
+                                                                            Accepter</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin des reclamations  -->
+            </div>
+        </div>
+        <!-- Fin AGENCE ET PROPRIETAIRE  -->
+        <!-- Debut LOCATAIRE  -->
+        <div class="container card shadow d-flex justify-content-center mt-5" *ngIf="isLocataire==true">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item crd">
+                    <a class="nav-link custom-tab-link" [class.active]="isTabActive('home')" (click)="changeTab('home')"
+                        id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Mes locations</a>
+                </li>
+                <li class="nav-item crd">
+                    <a class="nav-link custom-tab-link" id="reclamation-tab" data-toggle="tab"
+                        [class.active]="isTabActive('reclamation')" (click)="changeTab('reclamation')" role="tab"
+                        aria-controls="reclamation" aria-selected="false">Mes reclamations</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <!-- Debut de mes locations  -->
+                <div class="tab-pane fade show" [class.active]="isTabActive('home')" id="home" role="tabpanel"
+                    aria-labelledby="location-tab">
+                    <div class="dash-listingcontent dashboard-info">
+                        <div class="dash-cards card">
+                            <div class="card-body" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                                <div class="listing-search">
+                                    <h4>Mes biens que j'ai loue</h4>
+                                    <div class="filter-content form-group">
+                                        <div class="group-img">
+                                            <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
+                                                placeholder="Recherche...">
+                                            <i class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="sorting-div">
+                                        <div class="sortbyset">
+                                            <span class="sortbytitle">Trier par</span>
+                                            <div class="sorting-select">
+                                                <select class="form-control select" [(ngModel)]="searchText">
+                                                    <option value="" selected>Tout</option>
+                                                    <option>A louer</option>
+                                                    <option>A vendre</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="table-responsive">
+                                    <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
+                                        id="listdata-table">
+                                        <thead>
+                                            <tr>
+                                                <th mat-sort-header="img" class="no-sort">Image</th>
+                                                <th mat-sort-header="details" class="no-sort">Details</th>
+                                                <th mat-sort-header="status">Statut</th>
+                                                <th mat-sort-header="view">Date</th>
+                                                <th mat-sort-header="Action">Acheteurs</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let BienImmo of bienImmoDejaLoueLocataire | filter:searchTextBienVendu | paginate:{itemsPerPage :4, currentPage:p5,  id: 'bienLocataire'}">
+                                                <td>
+                                                    <div class="listingtable-img">
+                                                        <a (click)="goToDettailBien(BienImmo.id)">
+                                                            <div
+                                                                *ngIf="BienImmo.photos && BienImmo.photos.length > 0; else noImages">
+                                                                <img src="{{ generateImageUrl(BienImmo.photos[0].nom) }}"
+                                                                    class="img-fluid image-size" alt="blog-img">
+                                                            </div>
+                                                            <ng-template #noImages>
+                                                                <img src="{{ DEFAULT_IMAGE_URL }}"
+                                                                    class="img-fluid image-size" alt="default-img">
+                                                            </ng-template>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
+                                                            (click)="goToDettailBien(BienImmo.id)">
+                                                            {{ BienImmo.bien.nom ? BienImmo.bien.nom :
+                                                            BienImmo.bien.typeImmo.nom }}
+                                                        </a>
+                                                    </h6>
+                                                    <div class="listingtable-rate">
+                                                        <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                                                            href="javascript:void(0)" class="cat-icon">
+                                                            <i class="fa-regular fa-circle-stop"></i>
+                                                            {{BienImmo.bien.typeImmo.nom}}
+                                                        </a> <span class="discount-amt"
+                                                            *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
+                                                            formatPrice(BienImmo.bien.prix) }}
+                                                            FCFA</span>
+
+                                                    </div>
+                                                    <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.nom}} -
+                                                        {{BienImmo.bien.adresse.quartier}}
+                                                    </p>
+                                                </td>
+                                                <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
+                                                        class="status-text">{{BienImmo.statut}}</span></td>
+                                                <td><span class="views-count"
+                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        |
+                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                <td>
+                                                    <ul class="review-list">
+                                                        <li class="review-box">
+                                                            <div class="review-profile">
+                                                                <div class="review-img">
+                                                                    <img src="{{generateImageUrl(BienImmo.bien.utilisateur.photo)}}"
+                                                                        class="img-fluid" alt="img"
+                                                                        (error)="handleAuthorImageError($event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="review-details">
+                                                                <div class="tes">
+                                                                    <div class="views-count">
+                                                                        {{BienImmo.bien.utilisateur.nom}}</div>
+                                                                </div>
+                                                                <div>Tel : {{BienImmo.bien.utilisateur.telephone}}</div>
+                                                                <!-- <p>ffff</p>																	 -->
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <pagination-controls *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0" (pageChange)="p5 = $event"
+                                    previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                                    previousClass="pagination__previous" nextClass="pagination__next"
+                                    containerClass="pagination__container" pageClass="pagination__page"
+                                    activeClassName="pagination__page--active"
+                                    disabledClass="pagination__page--disabled" id="bienLocataire"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fin de mes locations -->
+                <!-- Debut des reclamations  -->
+                <div class="tab-pane fade show" [class.active]="isTabActive('reclamation')" id="reclamation"
+                    role="tabpanel" aria-labelledby="reclamation-tab">
+                    <div class="dashboard-content">
+                        <div class="container">
+                            <div class="row dashboard-info reviewpage-content">
+                                <div class="col-lg-6 d-flex" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
                                     <div class="card dash-cards w-100">
                                         <div class="card-header">
                                             <h4>Faire une reclamation</h4>
@@ -642,7 +1146,7 @@
                 <!-- Fin des reclamations  -->
             </div>
         </div>
-        <!-- Fin Segmented control  -->
+        <!-- Fin LOCATAIRE  -->
         <!-- <div class="dash-listingcontent dashboard-info">
             <div class="dash-cards card">
                 <div class="card-header">

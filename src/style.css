@@ -3506,7 +3506,7 @@ a:focus {
   margin: 0 5px 0 0;
 }
 .review-list li:nth-child(2) {
-  margin-left: 60px;
+  /* margin-left: 60px; */
 }
 .review-list .review-gallery li:nth-child(2) {
   margin-left: 0;

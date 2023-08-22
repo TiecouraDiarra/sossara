@@ -118,7 +118,7 @@
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i
                                                             class="fa-sharp fa-solid fa-calendar-days"></i></span>
-                                                    <input type="text" class="form-control" value="{{User.user.email}}">
+                                                    <input type="text" class="form-control" value="{{User.user.date_de_naissance | date:'dd/MM/yyyy'}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -133,22 +133,22 @@
                                         </div>
                                     </div>
                                     <div class="row socialmedia-info">
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" *ngIf="User.user.documents && User.user.documents[0]">
                                             <div class="form-group">
                                                 <label class="col-form-label">Type de piece</label>
-                                                <div class="pass-group group-img">
+                                                <div class="pass-group group-img" >
                                                     <span class="lock-icon"><i
                                                             class="fa-sharp fa-solid fa-calendar-days"></i></span>
-                                                    <input type="text" class="form-control" value="Carte d'identite">
+                                                    <input type="text" class="form-control" value="{{User.user.documents[0].nom}}">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" *ngIf="User.user.documents && User.user.documents[0]">
                                             <div class="form-group">
                                                 <label class="col-form-label">Numero de la carte</label>
-                                                <div class="pass-group group-img">
+                                                <div class="pass-group group-img" >
                                                     <span class="lock-icon"><i class="fab fa-twitter"></i></span>
-                                                    <input type="text" class="form-control" value="0045126">
+                                                    <input type="text" class="form-control" value="{{User.user.documents[0].num_doc}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -162,15 +162,29 @@
                                                       <h4>Photos de la carte</h4>
                                                     </div>
                                                     <div class="card-body">
-                                                      <div class="row">
-                                                        <div class=" featured-img1">
-                                                          <!-- <h6 class="media-title">Images biens <span>*</span></h6> -->
-                                                          <div class="media-image">
-                                                            <!-- <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
-                                                              <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
-                                                            </div> -->
-                                                          </div>
-                                                        </div>
+                                                      <div class="row" *ngIf="User.user.documents && User.user.documents[0]">
+                                                        <ng-container *ngFor="let photo of User.user.documents[0].photos; let i = index">
+                                                            <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="i<12">
+                                                                <div class="gallery-widget">
+                                                                    <ul class="review-gallery">
+                                                                        <!-- <li
+                                                                            *ngFor="let photo of User.user.documents[0].photo; let i = index">
+                                                                            <img class="img-fluid" alt="Image"
+                                                                                [src]="generateImageUrl(photo.nom)">
+                                                                        </li>
+                                                                        <ng-container
+                                                                            *ngIf="User.user.documents[0].photo.length === 0">
+                                                                            <li *ngFor="let _ of [1, 2, 3, 4]">
+                                                                                <img class="img-fluid"
+                                                                                    alt="Image par défaut"
+                                                                                    src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                                                            </li>
+                                                                        </ng-container> -->
+                                                                    </ul>
+                                                                </div>
+                        
+                                                            </div>
+                                                        </ng-container>
                                                       </div>
                                                     </div>
                                                   </div>

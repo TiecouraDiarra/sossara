@@ -532,8 +532,10 @@
                                         <a [routerLink]="routes.categories">
                                             <div class="companies-set mb-4">
                                                 <div class="companies-set-head">
-                                                    <div class="companies-set-logo">
-                                                        <span><img src="assets/img/icons/property.svg" alt="img"></span>
+                                                    <div class="companies-set-logo" *ngIf="Agence && Agence.photo">
+                                                        <span>
+                                                            <img src="{{generateImageUrl(Agence.photo)}}" alt="img" (error)="handleAuthorImageError($event)">
+                                                        </span>
                                                     </div>
                                                     <div class="companies-set-content">
                                                         <h5><span>10</span>Biens</h5>

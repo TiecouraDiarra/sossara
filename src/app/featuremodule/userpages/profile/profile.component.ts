@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   public Toggledata = true;
   public Toggle = true;
   User: any
+  documents: any
 
   ChangeMdpForm: any = {
     old_password: null,
@@ -28,9 +29,9 @@ export class ProfileComponent implements OnInit {
   }
 
   form: any = {
-    photo : null,
+    photo: null,
   }
-  
+
 
 
   constructor(
@@ -41,6 +42,8 @@ export class ProfileComponent implements OnInit {
   ) {
     this.User = this.storageService.getUser();
     console.log(this.User);
+  //   this.documents = this.User.user.documents
+  //   console.log(this.documents[0].photo[0].nom);
   }
 
   //IMAGE
@@ -186,6 +189,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate([routes.login]);
   }
 
+
   //CHANGER LA PHOTO DE PROFIL
   onPhotoChange(event: any): void {
     const selectedFile = event.target.files[0];
@@ -211,6 +215,13 @@ export class ProfileComponent implements OnInit {
           user.user.photo = this.User.user.photo;
           this.storageService.setUser(user);
           console.log(this.User.user.photo);
+          this.User.user.photo = photo.name;
+          const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
+          this.User.user.photo = uniqueFileName;
+          this.generateImageUrl(photo.name);
+
+          // Actualisez automatiquement la page après avoir changé la photo
+          location.reload();
         },
         error => {
           console.error('Error while changing photo', error);
