@@ -59,58 +59,6 @@
             </ul>
         </div>
         <div class="row dashboard-info reviewpage-content">
-            <div class="col-lg-6 d-flex" *ngIf="rdv && rdv.length > 0">
-                <div class="card dash-cards">
-                    <div class="card-header">
-                        <h4>Mes Rendez-vous</h4>
-                        <div class="card-dropdown">
-                            <ul>
-                                <li class="nav-item dropdown has-arrow logged-item">
-                                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <span>Tout</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ligne">
-                        <div class="card-body">
-                            <ul class="review-list">
-                                <li class="review-box" *ngFor="let Rdv of rdv">
-                                    <div class="review-profile">
-                                        <div class="review-img">
-                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo)}}"
-                                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                                        </div>
-                                    </div>
-                                    <div class="review-details">
-                                        <h6>{{Rdv.utilisateur.nom}}</h6>
-                                        <div class="rating">
-                                            <div class="rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                            </div>
-                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv.date |
-                                                date:"dd/MM/yyyy"}}</div>
-                                            <div><i class="fa-sharp fa-solid fa-clock"></i>{{Rdv.heure}}</div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="col-lg-6 d-flex" *ngIf="candidature && candidature.length > 0">
                 <div class="card dash-cards">
                     <div class="card-header">
@@ -138,8 +86,8 @@
 
                                     <div class="review-profile">
                                         <div class="review-img">
-                                                <img src="{{generateImageUrl(Candidature.utilisateur.photo)}}"
-                                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
+                                            <img src="{{generateImageUrl(Candidature.utilisateur.photo)}}"
+                                                class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
                                         </div>
                                     </div>
                                     <div class="review-details">
@@ -165,11 +113,13 @@
                                         <div class="row">
                                             <div class="col">
                                                 <p class="blog-category">
-                                                    <a href="javascript:void(0)"><span>{{Candidature.bien.statut}}</span></a>
+                                                    <a
+                                                        href="javascript:void(0)"><span>{{Candidature.bien.statut}}</span></a>
                                                 </p>
                                             </div>
                                             <div class="col">
-                                                <p style="color: #e98b11; font-weight: bold;">{{ formatPrice(Candidature.bien.prix) }} FCFA</p>
+                                                <p style="color: #e98b11; font-weight: bold;">{{
+                                                    formatPrice(Candidature.bien.prix) }} FCFA</p>
                                             </div>
 
                                         </div>
@@ -177,27 +127,315 @@
                                         <ul class="review-gallery">
                                             <li
                                                 *ngFor="let photo of Candidature.bien.photos.slice(0, 4); let i = index">
-                                                <img class="img-fluid" alt="Image"
-                                                    [src]="generateImageUrl(photo.nom)">
+                                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo.nom)">
                                             </li>
-                                            <ng-container
-                                                *ngIf="Candidature.bien.photos.length === 0">
+                                            <ng-container *ngIf="Candidature.bien.photos.length === 0">
                                                 <li *ngFor="let _ of [1, 2, 3, 4]">
                                                     <!-- Répéter 4 fois -->
-                                                    <img class="img-fluid"
-                                                        alt="Image par défaut"
+                                                    <img class="img-fluid" alt="Image par défaut"
                                                         src="assets/img/gallery/gallery1/gallery-1.jpg">
                                                 </li>
                                             </ng-container>
                                         </ul>
                                         <div class="row mt-3">
                                             <div class="col">
-                                                <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button" class="btn btn-outline-danger"><i
-                                                        class="fas fa-times"></i> Annuler</button>
+                                                <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
+                                                    class="btn btn-outline-danger"><i class="fas fa-times"></i>
+                                                    Annuler</button>
                                             </div>
                                             <div class="col">
-                                                <button (click)="AccepterCandidaterBien(Candidature.id)" type="button" class="btn btn-outline-success"><i
-                                                        class="fas fa-check"></i> Valider</button>
+                                                <button (click)="AccepterCandidaterBien(Candidature.id)" type="button"
+                                                    class="btn btn-outline-success"><i class="fas fa-check"></i>
+                                                    Valider</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 d-flex"
+                *ngIf="bienImmoLoueCandidatureAccepter && bienImmoLoueCandidatureAccepter.length > 0">
+                <div class="card dash-cards">
+                    <div class="card-header">
+                        <h4>Les candidatures acceptees</h4>
+                        <div class="card-dropdown">
+                            <ul>
+                                <li class="nav-item dropdown has-arrow logged-item">
+                                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <span>Tout</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
+                                        <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
+                                        <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ligne">
+                        <div class="card-body">
+                            <ul class="review-list">
+                                <li class="review-box" *ngFor="let Candidature of bienImmoLoueCandidatureAccepter">
+
+                                    <div class="review-profile">
+                                        <div class="review-img">
+                                            <img src="{{generateImageUrl(Candidature.bien.utilisateur.photo)}}"
+                                                class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
+                                        </div>
+                                    </div>
+                                    <div class="review-details">
+                                        <h6>{{Candidature.bien.utilisateur.nom}}</h6>
+                                        <div class="rating">
+                                            <div class="rating-star">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                            </div>
+                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                {{Candidature.createdAt.date |
+                                                date:"dd/MM/yyyy"}}</div>
+                                            <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature.createdAt.date
+                                                |
+                                                date:"HH:mm"}}</div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            {{Candidature.bien.nom}}
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="blog-category">
+                                                    <a
+                                                        href="javascript:void(0)"><span>{{Candidature.bien.statut}}</span></a>
+                                                </p>
+                                            </div>
+                                            <div class="col">
+                                                <p style="color: #e98b11; font-weight: bold;">{{
+                                                    formatPrice(Candidature.bien.prix) }} FCFA</p>
+                                            </div>
+
+                                        </div>
+
+                                        <ul class="review-gallery">
+                                            <li
+                                                *ngFor="let photo of Candidature.bien.photos.slice(0, 4); let i = index">
+                                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo.nom)">
+                                            </li>
+                                            <ng-container *ngIf="Candidature.bien.photos.length === 0">
+                                                <li *ngFor="let _ of [1, 2, 3, 4]">
+                                                    <!-- Répéter 4 fois -->
+                                                    <img class="img-fluid" alt="Image par défaut"
+                                                        src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                        <div class="row mt-3">
+                                            <!-- <div class="col">
+                                                <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
+                                                    class="btn btn-outline-danger"><i class="fas fa-times"></i>
+                                                    Annuler</button>
+                                            </div> -->
+                                            <div class="col">
+                                                <button data-bs-toggle="modal"
+                                                    (click)="openFactureModal(Candidature.bien.utilisateur.id)"
+                                                    data-bs-target="#staticBackdrop" type="button"
+                                                    class="btn btn-outline-success"><i class="fas fa-check"></i>
+                                                    Payer</button>
+                                            </div>
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Facture du bien
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- <div class="col-md-12"> -->
+                                                        <div class="row">
+
+                                                            <div class="receipt-main ">
+                                                                <div class="row">
+                                                                    <!-- <div class="receipt-header"> -->
+                                                                    <div class="col-xs-7 col-sm-7 col-md-7">
+                                                                        <div class="receipt-left"
+                                                                            *ngIf="transaction && transaction.utilisateur">
+                                                                            <img class="img-responsive"
+                                                                                alt="iamgurdeeposahan"
+                                                                                src="{{generateImageUrl(transaction.utilisateur.photo)}}"
+                                                                                style="width: 71px; border-radius: 43px;"
+                                                                                (error)="handleAuthorImageError($event)">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-5 col-sm-5 col-md-5 text-right">
+                                                                        <div class="receipt-right">
+                                                                            <h5
+                                                                                *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
+                                                                                {{transaction.bien.utilisateur.nom}}
+                                                                            </h5>
+                                                                            <p
+                                                                                *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
+                                                                                <b>Mobile :</b>
+                                                                                {{transaction.bien.utilisateur.telephone}}
+                                                                            </p>
+                                                                            <p
+                                                                                *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
+                                                                                <b>Email :</b>
+                                                                                {{transaction.bien.utilisateur.email}}
+                                                                            </p>
+                                                                            <p><b>Address :</b> New York, USA</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- </div> -->
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <!-- <div class="receipt-header receipt-header-mid"> -->
+                                                                    <div class="col-xs-7 col-sm-7 col-md-7 text-left">
+                                                                        <div class="receipt-right">
+                                                                            <h5
+                                                                                *ngIf="transaction && transaction.utilisateur">
+                                                                                {{transaction.utilisateur.nom}} </h5>
+                                                                            <p
+                                                                                *ngIf="transaction && transaction.utilisateur">
+                                                                                <b>Mobile :</b>
+                                                                                {{transaction.utilisateur.telephone}}
+                                                                            </p>
+                                                                            <p
+                                                                                *ngIf="transaction && transaction.utilisateur">
+                                                                                <b>Email :</b>
+                                                                                {{transaction.utilisateur.email}}
+                                                                            </p>
+                                                                            <p><b>Address :</b> New York, USA</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-5 col-sm-5 col-md-5 mt-3">
+                                                                        <div class="receipt-left">
+                                                                            <h5 style="font-size: 15px;"
+                                                                                *ngIf="transaction">FACTURE N 00{{
+                                                                                transaction.id }}</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- </div> -->
+                                                                </div>
+
+                                                                <div>
+                                                                    <table class="table table-bordered mt-3">
+                                                                        <thead class="text-center">
+                                                                            <tr>
+                                                                                <th>Description</th>
+                                                                                <th>Prix</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="col-md-7"
+                                                                                    *ngIf="transaction && transaction.bien && transaction.bien.typeImmo">
+                                                                                    {{ transaction.bien.nom ?
+                                                                                    transaction.bien.nom :
+                                                                                    transaction.bien.typeImmo.nom }}
+                                                                                </td>
+                                                                                <td class="col-md-5 text-center"
+                                                                                    *ngIf="transaction"> {{
+                                                                                    formatPrice(transaction.somme) }}
+                                                                                    FCFA
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="col-md-7">Prix du bien</td>
+                                                                                <td class="col-md-5 text-center"> 0000
+                                                                                    FCFA
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="col-md-7">Prix du bien</td>
+                                                                                <td class="col-md-5 text-center">0000
+                                                                                    FCFA
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="text-right">
+                                                                                    <p>
+                                                                                        <strong>Total prix: </strong>
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        <strong>Montant paye:
+                                                                                        </strong>
+                                                                                    </p>
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    <p *ngIf="transaction">
+                                                                                        <strong>
+                                                                                            {{
+                                                                                            formatPrice(transaction.somme)
+                                                                                            }} FCFA</strong>
+                                                                                    </p>
+                                                                                    <p *ngIf="transaction">
+                                                                                        <strong>
+                                                                                            {{
+                                                                                            formatPrice(transaction.somme)
+                                                                                            }} FCFA</strong>
+                                                                                    </p>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+
+                                                                                <td class="text-right">
+                                                                                    <h2><strong>Total: </strong></h2>
+                                                                                </td>
+                                                                                <td
+                                                                                    class="text-left text-danger text-center">
+                                                                                    <h2 *ngIf="transaction"><strong>
+                                                                                            {{
+                                                                                            formatPrice(transaction.somme)
+                                                                                            }} FCFA</strong></h2>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                                <div class="row text-center">
+                                                                    <div
+                                                                        class="receipt-header receipt-header-mid receipt-footer">
+                                                                        <div>
+                                                                            <div class="receipt-right">
+                                                                                <p><b>Date :</b> {{ today | date: 'dd
+                                                                                    MMMM yyyy' }}</p>
+                                                                                <h5 style="color: rgb(140, 140, 140);">
+                                                                                    Merci pour la confiance.!</h5>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-4 col-sm-4 col-md-4">
+                                                                            <!-- <div class="receipt-left">
+                                                                            <h1>Stamp</h1>
+                                                                        </div> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- </div> -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Retour</button>
+                                                        <button type="button" class="btn btn-primary">Generer la
+                                                            facture</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

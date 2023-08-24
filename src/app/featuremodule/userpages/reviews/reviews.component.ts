@@ -25,6 +25,31 @@ export class ReviewsComponent implements OnInit {
   errorMessage: any = '';
   isSuccess: any = false;
   isError: any = false;
+  bienImmoLoueCandidatureAccepter: any
+  // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
+  selectedBienImmoId: any;
+  // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
+  selectedFactureId: any;
+  factureNumber: number = 1; // Numéro de facture initial
+  transaction:any
+  today: Date;
+
+  // Fonction pour ouvrir le modal avec l'ID de la transaction
+  openFactureModal(bienImmoId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedFactureId = bienImmoId;
+    console.log(this.selectedFactureId);
+    // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
+    // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
+    // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
+    this.factureNumber++;
+    //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
+    this.serviceBienImmo.AfficherTransactionParId(this.selectedFactureId).subscribe(data => {
+      this.transaction = data.biens[0];
+      console.log(this.transaction);
+    });
+
+  }
 
 
   public reviewdata: any = []
@@ -36,7 +61,9 @@ export class ReviewsComponent implements OnInit {
     private serviceUser: UserService,
     private router: Router,
   ) {
-    this.reviewdata = this.dataservice.reviewdata
+    this.reviewdata = this.dataservice.reviewdata;
+    this.today = new Date();
+
   }
   ngOnInit(): void {
     console.log(this.storageService.getUser());
@@ -61,6 +88,12 @@ export class ReviewsComponent implements OnInit {
       console.log(this.candidature);
     }
     );
+
+    //AFFICHER LA LISTE DES BIENS LOUESDONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+    this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
+      this.bienImmoLoueCandidatureAccepter = data.biens.reverse();
+      console.log(this.bienImmoLoueCandidatureAccepter);
+    });
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER

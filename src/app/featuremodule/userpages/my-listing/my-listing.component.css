@@ -154,6 +154,17 @@
   }
 }
 
+.ligneL {
+  overflow-y: scroll;
+  height: 420px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .crd:hover {
   cursor: pointer;
 }
@@ -267,12 +278,149 @@
   font-size: 1.5em;
   color: red;
 }
+
 .image-container img {
-  max-width: 100%; /* Redimensionne l'image pour qu'elle s'adapte à la largeur du conteneur */
-  height: auto; /* Maintient le rapport d'aspect de l'image */
+  max-width: 100%;
+  /* Redimensionne l'image pour qu'elle s'adapte à la largeur du conteneur */
+  height: auto;
+  /* Maintient le rapport d'aspect de l'image */
 }
 
-.image-size {
-  width: 200px; /* Spécifiez la largeur souhaitée en pixels */
-  height: 200px; /* Spécifiez la hauteur souhaitée en pixels */
+/* Annuler la transition sombre du modal Bootstrap */
+.my-custom-modal.show {
+  background-color: rgba(0, 0, 0, 0);
+  /* Arrière-plan transparent */
+  transition: none;
+  /* Désactiver la transition */
+}
+
+
+.action-btn {
+  position: relative;
+  /* display: inline-block; */
+  text-decoration: none;
+}
+
+.hover-text {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  background-color: #e98b11;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.action-btn:hover .hover-text {
+  opacity: 1;
+}
+
+
+/* CSS FACTURE  */
+.text-danger strong {
+  color: #e98b11;
+}
+
+.receipt-main {
+  background: #ffffff none repeat scroll 0 0;
+  border-bottom: 12px solid #e98b11;
+  border-top: 12px solid #e98b11;
+  /* margin-top: 50px; */
+  /* margin-bottom: 50px; */
+  padding: 40px 30px !important;
+  position: relative;
+  box-shadow: 0 1px 21px #acacac;
+  color: #e98b11;
+  font-family: open sans;
+}
+
+.receipt-main p {
+  color: #333333;
+  font-family: open sans;
+  line-height: 1.42857;
+}
+
+.receipt-footer h1 {
+  font-size: 15px;
+  font-weight: 400 !important;
+  margin: 0 !important;
+}
+
+.receipt-main::after {
+  background: #374b5c none repeat scroll 0 0;
+  content: "";
+  height: 5px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -13px;
+}
+
+.receipt-main thead {
+  background: #e98b11 none repeat scroll 0 0;
+}
+
+.receipt-main thead th {
+  color: #fff;
+}
+
+.receipt-right h5 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 7px 0;
+}
+
+.receipt-right p {
+  font-size: 12px;
+  margin: 0px;
+}
+
+.receipt-right p i {
+  text-align: center;
+  width: 18px;
+}
+
+.receipt-main td {
+  padding: 9px 20px !important;
+}
+
+.receipt-main th {
+  padding: 13px 20px !important;
+}
+
+.receipt-main td {
+  font-size: 13px;
+  font-weight: initial !important;
+}
+
+.receipt-main td p:last-child {
+  margin: 0;
+  padding: 0;
+}
+
+.receipt-main td h2 {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.receipt-header-mid .receipt-left h1 {
+  font-weight: 100;
+  margin: 34px 0 0;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.receipt-header-mid {
+  margin: 24px 0;
+  overflow: hidden;
+}
+
+#container {
+  background-color: #dcdcdc;
 }

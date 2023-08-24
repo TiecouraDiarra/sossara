@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -9,6 +10,8 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -34,6 +37,9 @@ export class MyListingComponent implements OnInit {
   p3: number = 1;
   p4: number = 1;
   p5: number = 1;
+  p6: number = 1;
+  p7: number = 1;
+  p8: number = 1;
   public albumsOne: any = [];
   isLocataire = false;
   roles: string[] = [];
@@ -46,6 +52,7 @@ export class MyListingComponent implements OnInit {
   public electronics: any = []
 
   selectedTab: string = 'home'; // Onglet sélectionné par défaut
+  today: Date;
 
   // Méthode pour changer l'onglet sélectionné
   changeTab(tab: string) {
@@ -61,19 +68,24 @@ export class MyListingComponent implements OnInit {
     const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
-
+  reclamationUser: any
+  transactionVendue: any
   photos: any;
   maxImageCount: number = 0; // Limite maximale d'images
   selectedFiles: any;
   image: File[] = [];
   images: File[] = [];
   isButtonDisabled: boolean = false; // Variable pour désactiver le bouton si la limite est atteinte
-
+  // @ViewChild('exampleModal') modal: any; // Ajoutez cette ligne pour obtenir une référence au modal
   form: any = {
     contenu: null,
-    type_probleme_id: null,
+    type: null,
     photos: null,
   };
+
+  factureNumber: number = 1; // Numéro de facture initial
+
+
 
 
   // IMAGE PAR DEFAUT DES BIENS
@@ -85,14 +97,32 @@ export class MyListingComponent implements OnInit {
   }
   // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
   selectedBienImmoId: any;
+  // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
+  selectedBienImmoVenduId: any;
 
-  // Fonction pour ouvrir le modal avec l'ID du BienImmo
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openReclamationModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
     console.log(this.selectedBienImmoId);
-    
+
+  }
+
+  // Fonction pour ouvrir le modal avec l'ID de la vente
+  openFactureModalVente(bienImmoVenteId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedBienImmoVenduId = bienImmoVenteId;
+    console.log(this.selectedBienImmoVenduId);
+    // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
+    // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
+    // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
+    this.factureNumber++;
+    //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
+    this.serviceBienImmo.AfficherTransactionParId(this.selectedBienImmoVenduId).subscribe(data => {
+      this.transactionVendue = data.biens[0];
+      console.log(this.transactionVendue);
+    });
+
   }
 
   constructor(
@@ -101,11 +131,15 @@ export class MyListingComponent implements OnInit {
     public router: Router,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
+    @Inject(LOCALE_ID) public locale: string,
+    private renderer: Renderer2,
     private authService: AuthService,
   ) {
     this.electronics = this.DataService.electronicsList,
       this.User = this.storageService.getUser();
     console.log(this.User);
+    this.today = new Date();
+    // egisterLocaleData(localeFr); // Enregistrez la locale française
   }
 
   //CHARGER L'IMAGE
@@ -177,9 +211,17 @@ export class MyListingComponent implements OnInit {
 
     //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
-      this.reclamation = data.attributes;
+      this.reclamation = data.attributes.reverse();
       // this.photos = this.reclamation.bien;
       console.log(this.reclamation);
+      // console.log(this.photos);
+    });
+
+    //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
+    this.serviceBienImmo.AfficherListeReclamationFaitesParUser().subscribe(data => {
+      this.reclamationUser = data.mes_reclamations.reverse();
+      // this.photos = this.reclamation.bien;
+      console.log(this.reclamationUser);
       // console.log(this.photos);
     });
 
@@ -257,27 +299,47 @@ export class MyListingComponent implements OnInit {
 
   //FAIRE RECLAMATION
   FaireReclamation(): void {
-    const user = this.storageService.getUser();
-    if (user && user.token) {
-      // Définissez le token dans le service commentaireService
-      this.serviceUser.setAccessToken(user.token);
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      text: "Etes-vous sûre de bien vouloir faire une reclamation ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const user = this.storageService.getUser();
+        if (user && user.token) {
+          // Définissez le token dans le service commentaireService
+          this.serviceUser.setAccessToken(user.token);
 
 
 
-      // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-      this.serviceBienImmo.FaireReclamation(this.form.contenu,this.form.type_probleme_id, this.selectedBienImmoId, this.form.photo).subscribe(
-        data => {
-          console.log("Reclamation envoyée avec succès:", data);
-          // this.isSuccess = false;
-        },
-        error => {
-          console.error("Erreur lors de l'envoi de la reclamation :", error);
-          // Gérez les erreurs ici
+          // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
+          this.serviceBienImmo.FaireReclamation(this.form.contenu, this.form.type, this.selectedBienImmoId, this.form.photo).subscribe(
+            data => {
+              console.log("Reclamation envoyée avec succès:", data);
+              // this.isSuccess = false;
+              this.popUpConfirmation();
+            },
+            error => {
+              console.error("Erreur lors de l'envoi de la reclamation :", error);
+              // Gérez les erreurs ici
+            }
+          );
+        } else {
+          console.error("Token JWT manquant");
         }
-      );
-    } else {
-      console.error("Token JWT manquant");
-    }
+      }
+    })
 
     //Faire un commentaire
     //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
@@ -285,4 +347,39 @@ export class MyListingComponent implements OnInit {
     // });
   }
 
+  //POPUP APRES CONFIRMATION
+  popUpConfirmation() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Reclamation envoyée avec succès.',
+      title: 'Envoie de réclamation',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
+
+    }).then(() => {
+      // Fermez le modal après avoir envoyé la réclamation
+      // Fermez le modal sans utiliser jQuery
+      // const modalElement = document.getElementById('exampleModal');
+      // const modalContentElement = document.getElementById('modalContent');
+      // if (modalElement && modalContentElement) {
+      //   modalContentElement.style.display = 'none'; // Cacher le contenu du modal
+      //   modalElement.classList.remove('show');
+      //   modalElement.style.display = 'none';
+      // }
+      // Après avoir envoyé les données, réinitialisez les champs du formulaire.
+      // this.selectedBienImmoId = null; // Réinitialisez la valeur de selectedBienImmoId
+      this.form.type = null; // Réinitialisez la valeur de form.type
+      this.form.contenu = ''; // Réinitialisez la valeur de form.contenu
+      this.image = []; // Réinitialisez le tableau d'images
+    })
+  }
 }

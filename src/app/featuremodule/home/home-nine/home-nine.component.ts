@@ -43,6 +43,8 @@ export class HomeNineComponent {
   }
 
   commodite: any
+  isLocataire = false;
+  roles: string[] = [];
   agence: any
   adresse: any
   region: any
@@ -56,6 +58,8 @@ export class HomeNineComponent {
   selectedCategory: any = '';
   nombreAgence: number = 0
   nombreZone: number = 0
+  isLoggedIn = false;
+  isLoginFailed = true;
   nombreBienLoue: number = 0
   nombreBienVendre: number = 0
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -289,6 +293,17 @@ handleAuthorImageError(event: any) {
       this.changeImage();
     }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)
 
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }
+      // this.roles = this.storageService.getUser().roles;
+    } else if (!this.storageService.isLoggedIn()) {
+      this.isLoginFailed = false;
+    }
 
     AOS.init({ disable: 'mobile' }
     );
@@ -306,9 +321,6 @@ handleAuthorImageError(event: any) {
 
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      // for (let index = 0; index < 7; index++) {
-      //   this.bienImmo.push(data.biens.reverse()[index])
-      // }
        this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3],data.biens.reverse()[4],data.biens.reverse()[5]];
       console.log(this.bienImmo);
       console.log(data);

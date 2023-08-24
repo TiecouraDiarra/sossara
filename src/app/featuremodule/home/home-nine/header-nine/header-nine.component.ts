@@ -26,7 +26,8 @@ export class HeaderNineComponent {
   isLoginFailed = true;
   errorMessage = '';
   User: any
-
+  isLocataire = false;
+  roles: string[] = [];
 
   public tittle: string = 'Home';
   public nav: boolean = false;
@@ -62,6 +63,11 @@ export class HeaderNineComponent {
     if (this.storageService.isLoggedIn()) {
         this.isLoggedIn = true;
         // this.roles = this.storageService.getUser().roles;
+        this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }
       }else if (!this.storageService.isLoggedIn()) {
         this.isLoginFailed = false;
       }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { ReviewsRoutingModule } from './reviews-routing.module';
 import { ReviewsComponent } from './reviews.component';
@@ -12,6 +12,8 @@ import { ReviewsComponent } from './reviews.component';
   imports: [
     CommonModule,
     ReviewsRoutingModule
-  ]
+  ],
+  providers: [
+    DatePipe],
 })
 export class ReviewsModule { }

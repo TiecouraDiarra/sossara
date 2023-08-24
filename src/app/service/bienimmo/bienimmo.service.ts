@@ -63,6 +63,16 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/immo/commune/${id}`);
   }
 
+  //AFFICHER UNE TRANSACTION EN FONCTION DE SON ID
+  AfficherTransactionParId(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    console.log(id);
+    return this.http.get(`${URL_BASE}/bien/immo/get/sell/invoyce/${id}`,
+      { headers });
+  }
+
+
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoParUser(): Observable<any> {
     const headers = this.getHeaders();
@@ -87,6 +97,14 @@ export class BienimmoService {
       { headers });
   }
 
+  //AFFICHER LA LISTE DES BIENS LOUESDONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+  AfficherBienImmoLoueCandidatureAccepter(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/get/rent/mine`,
+      { headers });
+  }
+
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoDejaVenduParUser(): Observable<any> {
     const headers = this.getHeaders();
@@ -100,6 +118,14 @@ export class BienimmoService {
     const headers = this.getHeaders();
     console.log(headers);
     return this.http.get(`${URL_BASE}/signal/get`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
+  AfficherListeReclamationFaitesParUser(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/signal/get/mine`,
       { headers });
   }
 
@@ -278,7 +304,7 @@ export class BienimmoService {
   //FAIRE UNE RECLAMATION
   FaireReclamation(
     contenu: string,
-    type_probleme_id: string,
+    type: number,
     idbien: number,
     photos: File[],
     // photo: File // Liste de photos
@@ -287,13 +313,13 @@ export class BienimmoService {
     headers.append('Content-Type', 'multipart/form-data');
     console.log(headers);
     console.log('contenu', contenu);
-    console.log('type_probleme_id', type_probleme_id);
+    console.log('type', type);
     console.log('idbien', idbien);
     console.log('photo', photos);
     const formData = new FormData();
 
     formData.append('contenu', contenu);
-    formData.append('type_probleme_id', type_probleme_id);
+    formData.append('type', type.toString());
     formData.append('idbien', idbien.toString());
     photos.forEach(p => { formData.append('photo[]', p) });
 

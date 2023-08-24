@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
   page: string = '';
   last: string = '';
   User: any
+  isLocataire = false;
+  roles: string[] = [];
 
   isLoggedIn = false;
   isLoginFailed = true;
@@ -62,7 +64,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-
+      this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }
       // this.roles = this.storageService.getUser().roles;
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;

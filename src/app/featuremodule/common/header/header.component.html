@@ -115,7 +115,7 @@
         <li class="nav-item" *ngIf="isLoginFailed == false">
           <a class="nav-link header-login" [routerLink]="routes.login"> Connexion</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!isLocataire">
           <a class="nav-link header-login add-listing" (click)="AjouterBienOrLogin()"><i class="fa-solid fa-plus"></i>
             Ajouter un bien</a>
         </li>
@@ -137,7 +137,7 @@
       </ul>
 
       <ul class="nav header-navbar-rht" *ngIf="nav == false">
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!isLocataire">
           <a class="nav-link header-login add-listing crd" (click)="AjouterBienOrLogin()"><i class="fa-solid fa-plus"></i>
             Ajouter un bien</a>
         </li>
@@ -153,8 +153,6 @@
             <a class="dropdown-item crd" (click)="logout()">Déconnexion</a>
           </div>
         </li>
-
-        
       </ul>
 
 
