@@ -83,6 +83,11 @@ export class MyListingComponent implements OnInit {
     photos: null,
   };
 
+  formProcessus: any = {
+    somme: null,
+    type: null,
+  };
+
   factureNumber: number = 1; // Numéro de facture initial
 
 
@@ -97,14 +102,27 @@ export class MyListingComponent implements OnInit {
   }
   // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
   selectedBienImmoId: any;
+  selectedBienImmoProcessusId: any;
   // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
   selectedBienImmoVenduId: any;
+
+  selectedFactureId: any;
+  transaction: any
+  bienImmoUserAAcheter: any
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openReclamationModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
     console.log(this.selectedBienImmoId);
+
+  }
+
+  // Fonction pour ouvrir le modal avec l'ID du BienImmo
+  openProcessusModal(bienImmoId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedBienImmoProcessusId = bienImmoId;
+    console.log(this.selectedBienImmoProcessusId);
 
   }
 
@@ -124,6 +142,24 @@ export class MyListingComponent implements OnInit {
     });
 
   }
+
+  // Fonction pour ouvrir le modal avec l'ID de la transaction
+  openFactureModalLouer(bienImmoId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedFactureId = bienImmoId;
+    console.log(this.selectedFactureId);
+    // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
+    // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
+    // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
+    this.factureNumber++;
+    //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
+    this.serviceBienImmo.AfficherCandidatureAccepter(this.selectedFactureId).subscribe(data => {
+      this.transaction = data.biens[0];
+      console.log(this.transaction);
+    });
+
+  }
+
 
   constructor(
     private DataService: DataService,
@@ -202,10 +238,16 @@ export class MyListingComponent implements OnInit {
       console.log(this.bienImmoDejaLoue);
     });
 
-    //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE LE LOCATAIRE
+    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
       this.bienImmoDejaLoueLocataire = data.biens.reverse();
       console.log(this.bienImmoDejaLoueLocataire);
+    });
+
+    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
+    this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
+      this.bienImmoUserAAcheter = data.biens.reverse();
+      console.log(this.bienImmoUserAAcheter);
     });
 
 
@@ -380,6 +422,80 @@ export class MyListingComponent implements OnInit {
       this.form.type = null; // Réinitialisez la valeur de form.type
       this.form.contenu = ''; // Réinitialisez la valeur de form.contenu
       this.image = []; // Réinitialisez le tableau d'images
+    })
+  }
+
+  //LANCER LE PROCESSUS DE REPARATION
+  LancerProcessusReparation(): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      text: "Etes-vous sûre de bien vouloir lancer le processus de reclamation ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const user = this.storageService.getUser();
+        if (user && user.token) {
+          // Définissez le token dans le service commentaireService
+          this.serviceUser.setAccessToken(user.token);
+
+
+
+          // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
+          this.serviceBienImmo.LancerProcessusReparation(this.formProcessus.somme, this.formProcessus.type, this.selectedBienImmoProcessusId).subscribe(
+            data => {
+              console.log("Processus lancé avec succès:", data);
+              // this.isSuccess = false;
+              this.popUpConfirmationProcessus();
+            },
+            error => {
+              console.error("Erreur lors du lamcement du processus :", error);
+              // Gérez les erreurs ici
+            }
+          );
+        } else {
+          console.error("Token JWT manquant");
+        }
+      }
+    })
+
+    //Faire un commentaire
+    //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
+    //   console.log(data);
+    // });
+  }
+
+  //POPUP APRES CONFIRMATION
+  popUpConfirmationProcessus() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Processus lancé avec succès.',
+      title: 'Processus lancé ',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
+
+    }).then(() => {
+      this.formProcessus.type = null; // Réinitialisez la valeur de form.type
+      this.formProcessus.somme = ''; // Réinitialisez la valeur de form.contenu
     })
   }
 }

@@ -73,10 +73,10 @@
             <h4>Basic information</h4>
           </div>
           <div class="card-body">
-            <div class="form-group">
-              <label class="col-form-label">Nom du bien <span>*</span></label>
-              <input type="text" class="form-control pass-input" name="nom" [(ngModel)]="form.nom" placeholder="Nom" />
-            </div>
+                <div class="form-group">
+                  <label class="col-form-label">Nom du bien <span>*</span></label>
+                  <input type="text" class="form-control pass-input" name="nom" [(ngModel)]="form.nom" placeholder="Nom" />
+                </div>
 
             <div class="form-group">
               <label class="col-form-label">Description du bien <span>*</span></label>
@@ -221,7 +221,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select [(ngModel)]="form.statut" name="statut" class="form-control" id="">
+                    <select (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut" class="form-control" id="">
                       <option *ngFor="let item of status" [value]="item">
                         {{ item }}
                       </option>
@@ -322,6 +322,20 @@
                 </div>
               </div>
 
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group" *ngIf="selectedStatut === 'A louer'">
+                  <label class="col-form-label">Periode <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <select [(ngModel)]="form.periode" name="periode" class="form-control" id="">
+                      <option *ngFor="let item of periode" [value]="item.ID">
+                        {{ item.nom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- <div class="row">
               <div class="col-lg-6 col-md-6">
@@ -608,7 +622,7 @@
               </div>
               <div class="settings-upload-btn">
                 <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
-                  class="hide-input image-upload" [disabled]="maxImageCount >=3" />
+                  class="hide-input image-upload" [disabled]="maxImageCount >=8" />
                 <label for="file" class="file-upload">Ajouter l'image</label>
               </div>
             </div>

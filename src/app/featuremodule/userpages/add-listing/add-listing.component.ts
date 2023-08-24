@@ -35,6 +35,7 @@ export class AddListingComponent {
   pays: any;
   commune: any;
   typebien: any;
+  periode: any;
   bienImmo: any;
   BienLoueRecens: any;
   commodite1: any;
@@ -68,14 +69,14 @@ export class AddListingComponent {
   files: any = [];
   // photo: any;
   message: string | undefined;
-  selectedFiles : any;
+  selectedFiles: any;
   imagesArray: string[] = []; // Array to store URLs of selected images
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
-    
+
     for (const file of this.selectedFiles) {
       if (this.images.length < 8) {
         reader.onload = (e: any) => {
@@ -93,15 +94,15 @@ export class AddListingComponent {
   }
 
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
-checkImageCount(): void {
-  if (this.images.length >= 8) {
-    this.isButtonDisabled = true;
-  } else {
-    this.isButtonDisabled = false;
+  checkImageCount(): void {
+    if (this.images.length >= 8) {
+      this.isButtonDisabled = true;
+    } else {
+      this.isButtonDisabled = false;
+    }
   }
-}
 
-  onChangeCommodite(){
+  onChangeCommodite() {
     if (this.les_commodite) {
       const commoditeArray = [];
       for (const item of this.les_commodite) {
@@ -128,14 +129,15 @@ checkImageCount(): void {
     statut: null,
     description: null,
     quartier: null,
+    periode: null,
     rue: null,
     porte: null,
-    photo:null,
+    photo: null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
 
-  
+
 
   ngOnInit(): void {
     Aos.init({ disable: 'mobile' });
@@ -148,6 +150,7 @@ checkImageCount(): void {
       this.region = data.region;
       this.commune = data.commune;
       this.typebien = data.type;
+      this.periode = data.periode;
       console.log(data);
     });
 
@@ -163,7 +166,7 @@ checkImageCount(): void {
     //   console.log(this.BienLoueRecens);
     // });
   }
-  
+
   onChange(newValue: any) {
     this.regions = this.region.filter(
       (el: any) => el.pays.nom == newValue.value
@@ -176,6 +179,14 @@ checkImageCount(): void {
     );
   }
 
+  selectedStatut: string | null = null;
+  //METHODE PERMETTANT DE CHANGER LES STATUTS
+  onStatutChange(event: any) {
+    this.selectedStatut = event.target.value;
+    if (this.selectedStatut === 'A vendre') {
+      this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
+    }
+  }
 
 
   // onFileSelected(newValue: any) {
@@ -199,6 +210,7 @@ checkImageCount(): void {
       quartier,
       rue,
       porte,
+      periode,
       photo
     } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -260,6 +272,7 @@ checkImageCount(): void {
                 quartier,
                 rue,
                 porte,
+                this.form.periode,
                 photo
               )
               .subscribe({
@@ -281,36 +294,36 @@ checkImageCount(): void {
         }
       })
     }
-    
+
   }
 
-   //POPUP APRES CONFIRMATION
- popUpConfirmation() {
-  let timerInterval = 2000;
-  Swal.fire({
-    position: 'center',
-    text: 'Bien cree avec succès.',
-    title: 'Creation de bien',
-    icon: 'success',
-    heightAuto: false,
-    showConfirmButton: false,
-    // confirmButtonText: "OK",
-    confirmButtonColor: '#0857b5',
-    showDenyButton: false,
-    showCancelButton: false,
-    allowOutsideClick: false,
-    timer: timerInterval, // ajouter le temps d'attente
-    timerProgressBar: true // ajouter la barre de progression du temps
+  //POPUP APRES CONFIRMATION
+  popUpConfirmation() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Bien cree avec succès.',
+      title: 'Creation de bien',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
 
-  }).then((result) => {
-    this.path();
-     // Après avoir réussi à candidater, mettez à jour l'état de la candidature
-     
-  })
-}
-path() {
-  this.router.navigate([routes.mylisting]);
-}
+    }).then((result) => {
+      this.path();
+      // Après avoir réussi à candidater, mettez à jour l'état de la candidature
+
+    })
+  }
+  path() {
+    this.router.navigate([routes.mylisting]);
+  }
 
   removeImage(index: number) {
     this.image.splice(index, 1); // Supprime l'image du tableau

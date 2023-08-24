@@ -377,9 +377,9 @@
                                             <tr>
                                                 <th mat-sort-header="img" class="no-sort">Image</th>
                                                 <th mat-sort-header="details" class="no-sort">Details</th>
+                                                <th mat-sort-header="status">Statut</th>
                                                 <th mat-sort-header="view">Date</th>
                                                 <th mat-sort-header="Action">Acheteurs</th>
-                                                <th mat-sort-header="status">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -425,6 +425,8 @@
                                                         {{BienImmo.bien.adresse.quartier}}
                                                     </p>
                                                 </td>
+                                                <td><span
+                                                    class="status-text" style="color: red;">{{BienImmo.statut}}</span></td>
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
                                                         |
@@ -451,210 +453,11 @@
 
                                                     </ul>
                                                 </td>
-                                                <td>
-                                                    <div class="action">
-                                                        <a (click)="goToDettailBien(BienImmo.id)"
-                                                            class="action-btn btn-view crd"><i
-                                                                class="feather-eye"></i></a>
-                                                        <a data-bs-toggle="modal"
-                                                            (click)="openFactureModalVente(BienImmo.id)"
-                                                            data-bs-target="#staticBackdrop"
-                                                            class="action-btn btn-edit crd"><i
-                                                                class="feather-edit-3"></i>
-                                                            <span class="hover-text">Facture</span>
-                                                        </a>
-                                                        <!-- <a href="javascript:void(0)" class="action-btn btn-trash"><i
-                                                                class="feather-trash-2"></i></a> -->
-
-                                                    </div>
-                                                </td>
                                             </tr>
 
                                         </tbody>
                                     </table>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Facture du bien
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- <div class="col-md-12"> -->
-                                                    <div class="row">
-
-                                                        <div class="receipt-main ">
-                                                            <div class="row">
-                                                                <!-- <div class="receipt-header"> -->
-                                                                <div class="col-xs-7 col-sm-7 col-md-7">
-                                                                    <div class="receipt-left" *ngIf="transactionVendue && transactionVendue.utilisateur">
-                                                                        <img class="img-responsive"
-                                                                            alt="iamgurdeeposahan"
-                                                                            src="{{generateImageUrl(transactionVendue.utilisateur.photo)}}"
-                                                                            style="width: 71px; border-radius: 43px;" (error)="handleAuthorImageError($event)">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xs-5 col-sm-5 col-md-5 text-right">
-                                                                    <div class="receipt-right">
-                                                                        <h5
-                                                                            *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.utilisateur">
-                                                                            {{transactionVendue.bien.utilisateur.nom}}
-                                                                        </h5>
-                                                                        <p
-                                                                            *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.utilisateur">
-                                                                            <b>Mobile :</b>
-                                                                            {{transactionVendue.bien.utilisateur.telephone}}
-                                                                        </p>
-                                                                        <p
-                                                                            *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.utilisateur">
-                                                                            <b>Email :</b>
-                                                                            {{transactionVendue.bien.utilisateur.email}}
-                                                                        </p>
-                                                                        <p><b>Address :</b> New York, USA</p>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- </div> -->
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <!-- <div class="receipt-header receipt-header-mid"> -->
-                                                                <div class="col-xs-7 col-sm-7 col-md-7 text-left">
-                                                                    <div class="receipt-right">
-                                                                        <h5
-                                                                            *ngIf="transactionVendue && transactionVendue.utilisateur">
-                                                                            {{transactionVendue.utilisateur.nom}} </h5>
-                                                                        <p
-                                                                            *ngIf="transactionVendue && transactionVendue.utilisateur">
-                                                                            <b>Mobile :</b>
-                                                                            {{transactionVendue.utilisateur.telephone}}
-                                                                        </p>
-                                                                        <p
-                                                                            *ngIf="transactionVendue && transactionVendue.utilisateur">
-                                                                            <b>Email :</b>
-                                                                            {{transactionVendue.utilisateur.email}}</p>
-                                                                        <p><b>Address :</b> New York, USA</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xs-5 col-sm-5 col-md-5 mt-3">
-                                                                    <div class="receipt-left">
-                                                                        <h5 style="font-size: 15px;"
-                                                                            *ngIf="transactionVendue">FACTURE N 00{{
-                                                                            transactionVendue.id }}</h5>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- </div> -->
-                                                            </div>
-
-                                                            <div>
-                                                                <table class="table table-bordered mt-3">
-                                                                    <thead class="text-center">
-                                                                        <tr>
-                                                                            <th>Description</th>
-                                                                            <th>Prix</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="col-md-7"
-                                                                                *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.typeImmo">
-                                                                                {{ transactionVendue.bien.nom ?
-                                                                                transactionVendue.bien.nom :
-                                                                                transactionVendue.bien.typeImmo.nom }}
-                                                                            </td>
-                                                                            <td class="col-md-5 text-center"
-                                                                                *ngIf="transactionVendue"> {{
-                                                                                formatPrice(transactionVendue.somme) }}
-                                                                                FCFA
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="col-md-7">Prix du bien</td>
-                                                                            <td class="col-md-5 text-center"> 0000 FCFA
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="col-md-7">Prix du bien</td>
-                                                                            <td class="col-md-5 text-center">0000 FCFA
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-right">
-                                                                                <p>
-                                                                                    <strong>Total prix: </strong>
-                                                                                </p>
-                                                                                <p>
-                                                                                    <strong>Montant paye:
-                                                                                    </strong>
-                                                                                </p>
-                                                                            </td>
-                                                                            <td class="text-center">
-                                                                                <p *ngIf="transactionVendue">
-                                                                                    <strong>
-                                                                                        {{
-                                                                                        formatPrice(transactionVendue.somme)
-                                                                                        }} FCFA</strong>
-                                                                                </p>
-                                                                                <p *ngIf="transactionVendue">
-                                                                                    <strong>
-                                                                                        {{
-                                                                                        formatPrice(transactionVendue.somme)
-                                                                                        }} FCFA</strong>
-                                                                                </p>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-
-                                                                            <td class="text-right">
-                                                                                <h2><strong>Total: </strong></h2>
-                                                                            </td>
-                                                                            <td
-                                                                                class="text-left text-danger text-center">
-                                                                                <h2 *ngIf="transactionVendue"><strong>
-                                                                                        {{
-                                                                                        formatPrice(transactionVendue.somme)
-                                                                                        }} FCFA</strong></h2>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-
-                                                            <div class="row text-center">
-                                                                <div
-                                                                    class="receipt-header receipt-header-mid receipt-footer">
-                                                                    <div>
-                                                                        <div class="receipt-right">
-                                                                            <p><b>Date :</b> {{ today | date: 'dd MMMM yyyy' }}</p>
-                                                                            <h5 style="color: rgb(140, 140, 140);">
-                                                                                Merci pour la confiance.!</h5>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xs-4 col-sm-4 col-md-4">
-                                                                        <!-- <div class="receipt-left">
-                                                                                <h1>Stamp</h1>
-                                                                            </div> -->
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <!-- </div> -->
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Retour</button>
-                                                    <button type="button" class="btn btn-primary">Generer la
-                                                        facture</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p3 = $event"
                                     previousLabel="Précédent" nextLabel="Suivant" class="pagination"
@@ -765,12 +568,28 @@
 
                                                     </ul>
                                                 </td>
-                                                <td><span class="status-text">
+                                                <td>
+                                                    <!-- <span class="status-text">
                                                         <button type="button" class="btn btn-primary"
                                                             (click)="openReclamationModal(BienImmo.bien.id)"
                                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                             data-bs-whatever="@fat">Reclamation</button>
-                                                    </span></td>
+                                                    </span> -->
+                                                    <div class="action">
+                                                        <a (click)="openReclamationModal(BienImmo.bien.id)"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                            class="action-btn btn-view crd"><i class="feather-eye"></i>
+                                                            <span class="hover-text">Faire une reclamation</span>
+                                                        </a>
+                                                        <a data-bs-toggle="modal"
+                                                            (click)="openFactureModalLouer(BienImmo.id)"
+                                                            data-bs-target="#staticBackdrop1"
+                                                            class="action-btn btn-edit crd"><i
+                                                                class="feather-edit-3"></i>
+                                                            <span class="hover-text">Facture</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
                                             </tr>
 
                                         </tbody>
@@ -854,6 +673,196 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Modal pour la facture  -->
+                                    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Facture du bien
+                                                        <span style="color: #e98b11;" *ngIf="transaction">{{
+                                                            transaction.statut}}</span>
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+
+                                                        <div class="receipt-main ">
+                                                            <div class="row">
+
+                                                                <div class="col-xs-7 col-sm-7 col-md-7">
+                                                                    <div class="receipt-left"
+                                                                        *ngIf="transaction && transaction.utilisateur">
+                                                                        <img class="img-responsive"
+                                                                            alt="iamgurdeeposahan"
+                                                                            src="{{generateImageUrl(transaction.utilisateur.photo)}}"
+                                                                            style="width: 71px; border-radius: 43px;"
+                                                                            (error)="handleAuthorImageError($event)">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-5 col-sm-5 col-md-5 text-right">
+                                                                    <div class="receipt-right">
+                                                                        <h5
+                                                                            *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
+                                                                            {{transaction.bien.utilisateur.nom}}
+                                                                        </h5>
+                                                                        <p
+                                                                            *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
+                                                                            <b>Mobile :</b>
+                                                                            {{transaction.bien.utilisateur.telephone}}
+                                                                        </p>
+                                                                        <p
+                                                                            *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
+                                                                            <b>Email :</b>
+                                                                            {{transaction.bien.utilisateur.email}}
+                                                                        </p>
+                                                                        <p><b>Address :</b> New York, USA</p>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row">
+
+                                                                <div class="col-xs-7 col-sm-7 col-md-7 text-left">
+                                                                    <div class="receipt-right">
+                                                                        <h5
+                                                                            *ngIf="transaction && transaction.utilisateur">
+                                                                            {{transaction.utilisateur.nom}} </h5>
+                                                                        <p
+                                                                            *ngIf="transaction && transaction.utilisateur">
+                                                                            <b>Mobile :</b>
+                                                                            {{transaction.utilisateur.telephone}}
+                                                                        </p>
+                                                                        <p
+                                                                            *ngIf="transaction && transaction.utilisateur">
+                                                                            <b>Email :</b>
+                                                                            {{transaction.utilisateur.email}}
+                                                                        </p>
+                                                                        <p><b>Address :</b> New York, USA</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-5 col-sm-5 col-md-5 mt-3">
+                                                                    <div class="receipt-left">
+                                                                        <h5 style="font-size: 15px;"
+                                                                            *ngIf="transaction">FACTURE N 00{{
+                                                                            transaction.id }}</h5>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div>
+                                                                <table class="table table-bordered mt-3">
+                                                                    <thead class="text-center">
+                                                                        <tr>
+                                                                            <th>Description</th>
+                                                                            <th>Prix</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="col-md-7"
+                                                                                *ngIf="transaction && transaction.bien && transaction.bien.typeImmo">
+                                                                                {{ transaction.bien.nom ?
+                                                                                transaction.bien.nom :
+                                                                                transaction.bien.typeImmo.nom }}
+                                                                            </td>
+                                                                            <td class="col-md-5 text-center"
+                                                                                *ngIf="transaction"> {{
+                                                                                formatPrice(transaction.somme) }}
+                                                                                FCFA
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="col-md-7">Prix du bien</td>
+                                                                            <td class="col-md-5 text-center"> 0000
+                                                                                FCFA
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="col-md-7">Prix du bien</td>
+                                                                            <td class="col-md-5 text-center">0000
+                                                                                FCFA
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-right">
+                                                                                <p>
+                                                                                    <strong>Total prix: </strong>
+                                                                                </p>
+                                                                                <p>
+                                                                                    <strong>Montant paye:
+                                                                                    </strong>
+                                                                                </p>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <p *ngIf="transaction">
+                                                                                    <strong>
+                                                                                        {{
+                                                                                        formatPrice(transaction.somme)
+                                                                                        }} FCFA</strong>
+                                                                                </p>
+                                                                                <p *ngIf="transaction">
+                                                                                    <strong>
+                                                                                        {{
+                                                                                        formatPrice(transaction.somme)
+                                                                                        }} FCFA</strong>
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+
+                                                                            <td class="text-right">
+                                                                                <h2><strong>Total: </strong></h2>
+                                                                            </td>
+                                                                            <td
+                                                                                class="text-left text-danger text-center">
+                                                                                <h2 *ngIf="transaction"><strong>
+                                                                                        {{
+                                                                                        formatPrice(transaction.somme)
+                                                                                        }} FCFA</strong></h2>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                            <div class="row text-center">
+                                                                <div
+                                                                    class="receipt-header receipt-header-mid receipt-footer">
+                                                                    <div>
+                                                                        <div class="receipt-right">
+                                                                            <p><b>Date :</b> {{ today | date: 'dd
+                                                                                MMMM yyyy' }}</p>
+                                                                            <h5 style="color: rgb(140, 140, 140);">
+                                                                                Merci pour la confiance.!</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-4 col-sm-4 col-md-4">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Retour</button>
+                                                    <button type="button" class="btn btn-primary">Generer la
+                                                        facture</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                 </div>
                                 <pagination-controls
@@ -1122,7 +1131,7 @@
                                                                         <button type="button"
                                                                             class="btn btn-outline-success"><i
                                                                                 class="fas fa-check"></i>
-                                                                            Accepter</button>
+                                                                            Confirmer</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1261,9 +1270,98 @@
                                                                     </div>
                                                                     <div class="col">
                                                                         <button type="button"
-                                                                            class="btn btn-outline-success"><i
+                                                                            class="btn btn-outline-success"
+                                                                            (click)="openProcessusModal(Reclamation.bien.id)"
+                                                                            data-bs-toggle="modal"
+                                                                            href="#exampleModalToggle"><i
                                                                                 class="fas fa-check"></i>
                                                                             Accepter</button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal fade" id="exampleModalToggle"
+                                                                    aria-hidden="true"
+                                                                    aria-labelledby="exampleModalToggleLabel"
+                                                                    tabindex="-1">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title"
+                                                                                    id="exampleModalToggleLabel">
+                                                                                    Processus de reparation
+                                                                                </h5>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form>
+                                                                                    <input type="hidden"
+                                                                                        [(ngModel)]="selectedBienImmoProcessusId"
+                                                                                        name="selectedBienImmoProcessusId">
+                                                                                    <div class="row">
+                                                                                        <div class="col">
+                                                                                            <div class="mb-3">
+                                                                                                <label
+                                                                                                    for="recipient-name"
+                                                                                                    class="col-form-label">Type
+                                                                                                    de
+                                                                                                    problemes <span
+                                                                                                        style="color: red;">*</span></label>
+                                                                                                <div
+                                                                                                    class="pass-group group-img">
+                                                                                                    <select
+                                                                                                        [(ngModel)]="formProcessus.type"
+                                                                                                        name="type"
+                                                                                                        class="form-control"
+                                                                                                        id="">
+                                                                                                        <option
+                                                                                                            *ngFor="let item of probleme"
+                                                                                                            [value]="item.id">
+                                                                                                            {{
+                                                                                                            item.nom}}
+                                                                                                        </option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col">
+                                                                                            <div class="mb-3">
+                                                                                                <label
+                                                                                                    for="recipient-name"
+                                                                                                    class="col-form-label">Prix
+                                                                                                    de la reparation
+                                                                                                    <span
+                                                                                                        style="color: red;">*</span></label>
+                                                                                                <div
+                                                                                                    class="pass-group group-img">
+                                                                                                    <div
+                                                                                                        class="pass-group group-img">
+                                                                                                        <input
+                                                                                                            type="number"
+                                                                                                            pattern="[0-9]"
+                                                                                                            name="somme"
+                                                                                                            [(ngModel)]="formProcessus.somme"
+                                                                                                            class="form-control pass-input"
+                                                                                                            required
+                                                                                                            aria-required="true"
+                                                                                                            placeholder="FCFA" />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Retour</button>
+                                                                                <button class="btn btn-primary"
+                                                                                    (click)="LancerProcessusReparation()">Lancer
+                                                                                    le processus de reparation</button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1762,7 +1860,7 @@
                                                                             <button type="button"
                                                                                 class="btn btn-outline-success"><i
                                                                                     class="fas fa-check"></i>
-                                                                                Valider</button>
+                                                                                Confirmer</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -63,7 +63,7 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/immo/commune/${id}`);
   }
 
-  //AFFICHER UNE TRANSACTION EN FONCTION DE SON ID
+  //AFFICHER UNE TRANSACTION POUR LES  VENTE EN FONCTION DE SON ID
   AfficherTransactionParId(id: number): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
@@ -72,6 +72,21 @@ export class BienimmoService {
       { headers });
   }
 
+  //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+  AfficherCandidatureAccepter(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    console.log(id);
+    return this.http.get(`${URL_BASE}/bien/immo/get/rent/invoyce/${id}`,
+      { headers });
+  }
+  //AFFICHER LA LISTE DES BIENS LOUESDONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+  AfficherBienImmoLoueCandidatureAccepter(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/get/rent/mine`,
+      { headers });
+  }
 
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoParUser(): Observable<any> {
@@ -89,7 +104,7 @@ export class BienimmoService {
       { headers });
   }
 
-  //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE LE LOCATAIRE
+  //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
   AfficherBienImmoDejaLoueParLocataire(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
@@ -97,13 +112,15 @@ export class BienimmoService {
       { headers });
   }
 
-  //AFFICHER LA LISTE DES BIENS LOUESDONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
-  AfficherBienImmoLoueCandidatureAccepter(): Observable<any> {
+  //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
+  AfficherBienImmoUserAcheter(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
-    return this.http.get(`${URL_BASE}/bien/immo/get/rent/mine`,
+    return this.http.get(`${URL_BASE}/bien/immo/get/sell/mine`,
       { headers });
   }
+
+
 
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoDejaVenduParUser(): Observable<any> {
@@ -147,6 +164,7 @@ export class BienimmoService {
     quartier: string,
     rue: string,
     porte: number,
+    periode: number,
     photos: File[],
     // photo: File // Liste de photos
   ): Observable<any> {
@@ -167,6 +185,7 @@ export class BienimmoService {
     console.log('quart', quartier);
     console.log('rue', rue);
     console.log('porte', porte);
+    console.log('periode', periode);
     console.log('photo', photos);
     const formData = new FormData();
 
@@ -185,6 +204,12 @@ export class BienimmoService {
     formData.append('quartier', quartier);
     formData.append('rue', rue);
     formData.append('porte', porte.toString());
+    // Si le statut est "A vendre", définissez la période sur 6
+    if (statut === "A vendre") {
+      formData.append('periode', '6');
+    } else {
+      formData.append('periode', periode.toString());
+    }
     photos.forEach(p => { formData.append('photo[]', p) });
 
     return this.http.post(
@@ -330,4 +355,18 @@ export class BienimmoService {
     );
   }
 
+  //LANCER LE PROCESSUS DE REPARATION
+  LancerProcessusReparation(somme: any, type: any, id: any): Observable<any> {
+    const headers = this.getHeaders();
+    // const data = new FormData();
+    // data.append("contenu", contenu)
+    console.log(id)
+    console.log(headers)
+    console.log(somme)
+    console.log(type)
+    return this.http.post(`${URL_BASE}/reparation/${id}`, {
+      somme,
+      type,
+    }, { headers });
+  }
 }

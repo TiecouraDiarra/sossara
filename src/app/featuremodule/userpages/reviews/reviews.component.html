@@ -243,14 +243,241 @@
                                             </div> -->
                                             <div class="col">
                                                 <button data-bs-toggle="modal"
-                                                    (click)="openFactureModal(Candidature.bien.utilisateur.id)"
-                                                    data-bs-target="#staticBackdrop" type="button"
+                                                    (click)="openFactureModal(Candidature.id)"
+                                                    data-bs-target="#exampleModalToggle2" type="button"
                                                     class="btn btn-outline-success"><i class="fas fa-check"></i>
                                                     Payer</button>
                                             </div>
                                         </div>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                        <!-- <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
+                                            aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <section style="background-color: #eee;">
+                                                            <div class="container py-5">
+                                                                <div class="row d-flex justify-content-center">
+                                                                    <div class="col-md-8 col-lg-6 col-xl-4">
+                                                                        <div class="card rounded-3">
+                                                                            <div class="card-body mx-1 my-2">
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <div>
+                                                                                        <i
+                                                                                            class="fab fa-cc-visa fa-4x text-black pe-3"></i>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <p
+                                                                                            class="d-flex flex-column mb-0">
+                                                                                            <b>Martina Thomas</b><span
+                                                                                                class="small text-muted">****
+                                                                                                8880</span>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="pt-3">
+                                                                                    <div class="d-flex flex-row pb-3">
+                                                                                        <div class="rounded border border-primary border-2 d-flex w-100 p-3 align-items-center"
+                                                                                            style="background-color: rgba(18, 101, 241, 0.07);">
+                                                                                            <div
+                                                                                                class="d-flex align-items-center pe-3">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    name="radioNoLabelX"
+                                                                                                    id="radioNoLabel11"
+                                                                                                    value=""
+                                                                                                    aria-label="..."
+                                                                                                    checked />
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="d-flex flex-column">
+                                                                                                <p
+                                                                                                    class="mb-1 small text-primary">
+                                                                                                    Total amount due</p>
+                                                                                                <h6
+                                                                                                    class="mb-0 text-primary">
+                                                                                                    $8245</h6>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="d-flex flex-row pb-3">
+                                                                                        <div
+                                                                                            class="rounded border d-flex w-100 px-3 py-2 align-items-center">
+                                                                                            <div
+                                                                                                class="d-flex align-items-center pe-3">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    name="radioNoLabelX"
+                                                                                                    id="radioNoLabel22"
+                                                                                                    value=""
+                                                                                                    aria-label="..." />
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="d-flex flex-column py-1">
+                                                                                                <p
+                                                                                                    class="mb-1 small text-primary">
+                                                                                                    Other amount</p>
+                                                                                                <div
+                                                                                                    class="d-flex flex-row align-items-center">
+                                                                                                    <h6
+                                                                                                        class="mb-0 text-primary pe-1">
+                                                                                                        $</h6>
+                                                                                                    <input type="text"
+                                                                                                        class="form-control form-control-sm"
+                                                                                                        id="numberExample"
+                                                                                                        style="width: 55px;" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div
+                                                                                    class="d-flex justify-content-between align-items-center pb-1">
+                                                                                    <a href="#!" class="text-muted">Go
+                                                                                        back</a>
+                                                                                    <button type="button"
+                                                                                        class="btn btn-primary btn-lg">Pay
+                                                                                        amount</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary"
+                                                            data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+                                                            data-bs-dismiss="modal">Open second modal</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <section class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+                                            aria-labelledby="exampleModalToggleLabel2" tabindex="-1"
+                                            style="background-color: #eee;">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="container py-5  ">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class="col-md-8 col-lg-6 col-xl-6">
+                                                            <div class="card rounded-3">
+                                                                <div class="card-body mx-1 my-2">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div>
+                                                                            <i
+                                                                                class="fab fa-cc-visa fa-4x text-black pe-3"></i>
+                                                                        </div>
+                                                                        <div>
+                                                                            <p class="d-flex flex-column mb-0">
+                                                                                <b *ngIf="transaction && transaction.utilisateur">{{transaction.utilisateur.nom}}</b>
+                                                                                <span *ngIf="transaction && transaction.utilisateur"
+                                                                                    class="small text-muted">****
+                                                                                    {{transaction.utilisateur.telephone.slice(-4)}}</span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="pt-3">
+                                                                        <div class="d-flex flex-row pb-3">
+                                                                            <div class="rounded border border-primary border-2 d-flex w-100 p-3 align-items-center"
+                                                                                style="background-color: rgba(18, 101, 241, 0.07);">
+                                                                                <div
+                                                                                    class="d-flex align-items-center pe-3">
+                                                                                    <input class="form-check-input"
+                                                                                        type="radio"
+                                                                                        name="radioNoLabelX"
+                                                                                        id="radioNoLabel11" value=""
+                                                                                        aria-label="..." checked />
+                                                                                </div>
+                                                                                <div class="d-flex flex-column">
+                                                                                    <p class="mb-1 small text-primary">
+                                                                                        Montant du bien : </p>
+                                                                                    <h6 *ngIf="transaction" class="mb-0 text-primary">{{
+                                                                                        formatPrice(transaction.somme) }}
+                                                                                        FCFA
+                                                                                    </h6>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!-- <div class="d-flex flex-row pb-3">
+                                                                            <div
+                                                                                class="rounded border d-flex w-100 px-3 py-2 align-items-center">
+                                                                                <div
+                                                                                    class="d-flex align-items-center pe-3">
+                                                                                    <input class="form-check-input"
+                                                                                        type="radio"
+                                                                                        name="radioNoLabelX"
+                                                                                        id="radioNoLabel22" value=""
+                                                                                        aria-label="..." />
+                                                                                </div>
+                                                                                <div class="d-flex flex-column py-1">
+                                                                                    <p class="mb-1 small text-primary">
+                                                                                        Other amount</p>
+                                                                                    <div
+                                                                                        class="d-flex flex-row align-items-center">
+                                                                                        <h6
+                                                                                            class="mb-0 text-primary pe-1">
+                                                                                            $</h6>
+                                                                                        <input type="text"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="numberExample"
+                                                                                            style="width: 55px;" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div> -->
+                                                                    </div>
+
+                                                                    <div
+                                                                        class="d-flex justify-content-between align-items-center pb-1">
+                                                                        <a href="#!" class="text-muted">Retour</a>
+                                                                        <button type="button"
+                                                                            class="btn btn-primary btn-lg">Payer</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+                                            aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalToggleLabel2">Modal 2
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Hide this modal and show the first with the button below.
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary"
+                                                            data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                                                            data-bs-dismiss="modal">Back to first</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <!-- <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle"
+                                            role="button">Open first modal</a> -->
+                                        <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
                                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                             aria-hidden="true">
                                             <div class="modal-dialog">
@@ -262,12 +489,11 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <!-- <div class="col-md-12"> -->
                                                         <div class="row">
 
                                                             <div class="receipt-main ">
                                                                 <div class="row">
-                                                                    <!-- <div class="receipt-header"> -->
+                                                                    
                                                                     <div class="col-xs-7 col-sm-7 col-md-7">
                                                                         <div class="receipt-left"
                                                                             *ngIf="transaction && transaction.utilisateur">
@@ -297,11 +523,11 @@
                                                                             <p><b>Address :</b> New York, USA</p>
                                                                         </div>
                                                                     </div>
-                                                                    <!-- </div> -->
+                                                                    
                                                                 </div>
 
                                                                 <div class="row">
-                                                                    <!-- <div class="receipt-header receipt-header-mid"> -->
+                                                                  
                                                                     <div class="col-xs-7 col-sm-7 col-md-7 text-left">
                                                                         <div class="receipt-right">
                                                                             <h5
@@ -327,7 +553,7 @@
                                                                                 transaction.id }}</h5>
                                                                         </div>
                                                                     </div>
-                                                                    <!-- </div> -->
+                                                                    
                                                                 </div>
 
                                                                 <div>
@@ -418,16 +644,14 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-xs-4 col-sm-4 col-md-4">
-                                                                            <!-- <div class="receipt-left">
-                                                                            <h1>Stamp</h1>
-                                                                        </div> -->
+                                                                           
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
                                                             </div>
                                                         </div>
-                                                        <!-- </div> -->
+                                                        
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -437,7 +661,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </li>
                             </ul>

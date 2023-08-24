@@ -2418,7 +2418,7 @@ a:hover, a:focus {
 }
 .cta-section {
     padding: 100px 0;
-    background-image: url(../img/whitebg.png);
+    /* background-image: url('../img/whitebg.png'); */
     background-repeat: no-repeat;
     background-position: right center;
 }

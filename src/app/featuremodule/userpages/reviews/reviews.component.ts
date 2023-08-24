@@ -44,7 +44,7 @@ export class ReviewsComponent implements OnInit {
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
     this.factureNumber++;
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    this.serviceBienImmo.AfficherTransactionParId(this.selectedFactureId).subscribe(data => {
+    this.serviceBienImmo.AfficherCandidatureAccepter(this.selectedFactureId).subscribe(data => {
       this.transaction = data.biens[0];
       console.log(this.transaction);
     });
