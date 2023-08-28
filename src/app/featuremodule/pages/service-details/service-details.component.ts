@@ -306,6 +306,7 @@ export class ServiceDetailsComponent {
           this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
             this.commentaire = data.reverse();
             console.log(this.commentaire);
+            this.commentaireForm.contenu= '';
           });
         },
         error => {

@@ -85,7 +85,7 @@ export class SignupComponent {
   public typepiciesUser = [
     'Type de pieces',
     "CarteIN",
-    'NINA',
+    'NINA', 
     'Passport',
   ];
 

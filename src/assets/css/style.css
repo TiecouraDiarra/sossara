@@ -2454,7 +2454,8 @@ a:hover, a:focus {
     position: relative;
 }
 .testimonials-section .rightimg {
-    background-image: url(../img/testi-bg.png);
+    /* background-color: url(../img/testi-bg.png); */
+    background-color: #e98b11;
     min-height: 600px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -5034,7 +5035,7 @@ ul.tags {
 }
 .aboutbanner {
     position: relative;
-	background: url('../img/banner/aboutbanner.jpg');
+	background: url('../img/banner/apropos.jpeg');
 	background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

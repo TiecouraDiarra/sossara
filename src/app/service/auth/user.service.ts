@@ -57,11 +57,18 @@ export class UserService {
     return this.http.get(`${URL_BASE}/user/agence/get`);
   }
 
-  //AFFICHER LA LISTE DES RDV EN FONCTION DE USER
+  //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
   AfficherLaListeRdv(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers)
     return this.http.get(`${URL_BASE}/rdv/get/mine`, { headers });
+  }
+
+  //AFFICHER LA LISTE DES RDV ENVOYER PAR USER CONNECTE
+  AfficherLaListeRdvUserConnecte(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers)
+    return this.http.get(`${URL_BASE}/rdv/get`, { headers });
   }
 
   //AFFICHER LA PHOTO DE USER CONNECTER
@@ -115,5 +122,25 @@ export class UserService {
     const formData = new FormData();
     formData.append('photo', photo);
     return this.http.post(`${URL_BASE}/user/update/photo`, formData, { headers });
+  }
+
+  //MODIFIER PROFIL USER
+  modifierProfil(nom: string, telephone: string, email: string, dateNaissance:string): Observable<any> {
+    const headers = this.getHeaders();
+    console.log("username de user : " + nom);
+    console.log("telephone de user : " + telephone);
+    console.log("email de user : " + email);
+    console.log("dateNaissance de user : " + dateNaissance);
+    console.log(headers)
+    return this.http.post(
+      URL_BASE + '/user/update',
+      {
+        nom,
+        telephone,
+        email,
+        dateNaissance
+      },
+      { headers }
+    );
   }
 }

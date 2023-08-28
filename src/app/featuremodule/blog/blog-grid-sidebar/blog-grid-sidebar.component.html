@@ -141,12 +141,12 @@
                         <div class="card">
                             <h4><i class="feather-tag"></i> Biens recents</h4>
                             <div class="article" *ngFor="let BienImo of bienImmo">
-                                <a (click)="goToDettailBien(BienImo.id)" class="articleimg-1 crd" style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url({{generateImageUrl(BienImo.photos[0].nom)}})">
+                                <a  *ngIf="BienImo && BienImo.photos && BienImo.photos.length > 0" (click)="goToDettailBien(BienImo.id)" class="articleimg-1 crd" style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url({{generateImageUrl(BienImo.photos[0].nom)}})">
                                     <ul>
-                                        <li>
+                                        <li *ngIf="BienImo && BienImo.typeImmo">
                                             <h6>{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</h6>
                                         </li>
-                                        <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date | date:"dd/MM/yyyy"}}
+                                        <li *ngIf="BienImo && BienImo.createdAt" class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date | date:"dd/MM/yyyy"}}
                                         </li>
                                     </ul>
                                 </a>

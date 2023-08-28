@@ -89,7 +89,7 @@ export class ReviewsComponent implements OnInit {
     }
     );
 
-    //AFFICHER LA LISTE DES BIENS LOUESDONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+    //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.biens.reverse();
       console.log(this.bienImmoLoueCandidatureAccepter);
@@ -138,7 +138,7 @@ export class ReviewsComponent implements OnInit {
         cancelButton: 'btn btn-danger',
       },
       heightAuto: false
-    })
+    }) 
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
       text: "Etes-vous sûre de valider cette candidature?",

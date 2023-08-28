@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -12,6 +12,10 @@ import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
+// import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -22,6 +26,67 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   styleUrls: ['./my-listing.component.css']
 })
 export class MyListingComponent implements OnInit {
+  // Référence au modal que vous souhaitez convertir en PDF
+  @ViewChild('facturelocation')
+  facturelocation!: ElementRef;
+
+  loading = false;
+
+  @ViewChild('factureachat')
+  factureachat!: ElementRef;
+
+  //GENERER FACTURE DU MOIS (LOCATION)
+  genererPDFLocation() {
+    this.loading = true; // Affiche l'indicateur de chargement
+    // Obtenir le contenu du modal sous forme d'élément HTML
+    const modalElement = this.facturelocation.nativeElement;
+
+    // Créer une instance de jsPDF
+    const pdf = new jsPDF();
+
+    //Convertir le contenu HTML du modal en une image (utilisation de html2canvas)
+    html2canvas(modalElement).then((canvas) => {
+      // Obtenir les dimensions de l'image
+      const imgWidth = 210; // Largeur de l'image (en mm)
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculer la hauteur en préservant le ratio
+
+      // Ajouter l'image convertie au PDF
+      const imgData = canvas.toDataURL('image/png');
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight); // Ajouter l'image avec les dimensions calculées
+
+      // Télécharger le PDF
+      pdf.save('facture.pdf');
+      // Une fois la génération terminée, masquez l'indicateur de chargement
+      this.loading = false;
+    });
+  }
+
+  //GENERER FACTURE ACHAT
+  genererPDFAchat() {
+    this.loading = true; // Affiche l'indicateur de chargement
+    // Obtenir le contenu du modal sous forme d'élément HTML
+    const modalElement = this.factureachat.nativeElement;
+
+    // Créer une instance de jsPDF
+    const pdf = new jsPDF();
+
+    //Convertir le contenu HTML du modal en une image (utilisation de html2canvas)
+    html2canvas(modalElement).then((canvas) => {
+      // Obtenir les dimensions de l'image
+      const imgWidth = 210; // Largeur de l'image (en mm)
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculer la hauteur en préservant le ratio
+
+      // Ajouter l'image convertie au PDF
+      const imgData = canvas.toDataURL('image/png');
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight); // Ajouter l'image avec les dimensions calculées
+
+      // Télécharger le PDF
+      pdf.save('facture.pdf');
+      // Une fois la génération terminée, masquez l'indicateur de chargement
+      this.loading = false;
+    });
+  }
+
   public routes = routes;
   User: any;
   searchText: any;
@@ -85,7 +150,6 @@ export class MyListingComponent implements OnInit {
 
   formProcessus: any = {
     somme: null,
-    type: null,
   };
 
   factureNumber: number = 1; // Numéro de facture initial
@@ -107,8 +171,10 @@ export class MyListingComponent implements OnInit {
   selectedBienImmoVenduId: any;
 
   selectedFactureId: any;
+  reclamationProcessusLance: any;
   transaction: any
   bienImmoUserAAcheter: any
+
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openReclamationModal(bienImmoId: number) {
@@ -230,6 +296,12 @@ export class MyListingComponent implements OnInit {
     this.serviceBienImmo.AfficherLIsteProbleme().subscribe(data => {
       this.probleme = data.type_problemes;
       console.log(this.probleme);
+    });
+
+    //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
+    this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
+      this.reclamationProcessusLance = data.reparations.reverse();
+      console.log(this.reclamationProcessusLance);
     });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR
@@ -452,7 +524,7 @@ export class MyListingComponent implements OnInit {
 
 
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-          this.serviceBienImmo.LancerProcessusReparation(this.formProcessus.somme, this.formProcessus.type, this.selectedBienImmoProcessusId).subscribe(
+          this.serviceBienImmo.LancerProcessusReparation(this.formProcessus.somme, this.selectedBienImmoProcessusId).subscribe(
             data => {
               console.log("Processus lancé avec succès:", data);
               // this.isSuccess = false;
@@ -475,7 +547,7 @@ export class MyListingComponent implements OnInit {
     // });
   }
 
-  //POPUP APRES CONFIRMATION
+  //POPUP APRES CONFIRMATION PROCESSUS
   popUpConfirmationProcessus() {
     let timerInterval = 2000;
     Swal.fire({
@@ -494,8 +566,79 @@ export class MyListingComponent implements OnInit {
       timerProgressBar: true // ajouter la barre de progression du temps
 
     }).then(() => {
-      this.formProcessus.type = null; // Réinitialisez la valeur de form.type
       this.formProcessus.somme = ''; // Réinitialisez la valeur de form.contenu
+    })
+  }
+
+  //POPUP APRES CONFIRMATION ARRET PROCESSUS
+  popUpConfirmationArreteProcessus() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Processus arreté avec succès.',
+      title: 'Processus arreté ',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
+
+    }).then(() => {
+      //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
+    this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
+      this.reclamationProcessusLance = data.reparations.reverse();
+      console.log(this.reclamationProcessusLance);
+    });
+    })
+  }
+
+  //METHODE PERMETTANT D'ARRETER LE PROCESSUS DE REPARATION
+  ArreterProcessus(id: any): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      text: "Etes-vous sûre de bien vouloir arreter le processus de reclamation ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const user = this.storageService.getUser();
+        if (user && user.token) {
+          // Définissez le token dans le service commentaireService
+          this.serviceUser.setAccessToken(user.token);
+
+
+
+          // Appelez la méthode ArreterProcessus() avec le contenu et l'ID
+          this.serviceBienImmo.ArreterProcessus(id).subscribe(
+            data => {
+              console.log("Processus arreté avec succès:", data);
+              // this.isSuccess = false;
+              this.popUpConfirmationArreteProcessus();
+            },
+            error => {
+              console.error("Erreur lors de l'arret du processus :", error);
+              // Gérez les erreurs ici
+            }
+          );
+        } else {
+          console.error("Token JWT manquant");
+        }
+      }
     })
   }
 }

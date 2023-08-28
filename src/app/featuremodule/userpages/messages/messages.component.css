@@ -5,3 +5,10 @@
 .other-message {
     background-color: #f5f5f5; /* Exemple de couleur pour les autres messages */
 }
+.crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}

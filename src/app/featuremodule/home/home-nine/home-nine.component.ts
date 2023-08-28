@@ -31,7 +31,7 @@ export class HomeNineComponent {
   public ourtestimonials: any = [];
   public recentarticle: any = [];
 
-  currentImageIndex = 0;
+  currentImageIndex = 0; 
    carouselImages = [
     './assets/img/banner/bamako-slider.jpg',
     './assets/img/banner/immo.jpg',
@@ -319,7 +319,7 @@ handleAuthorImageError(event: any) {
     });
 
 
-    //AFFICHER LA LISTE DES BIENS IMMO
+    //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
        this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3],data.biens.reverse()[4],data.biens.reverse()[5]];
       console.log(this.bienImmo);

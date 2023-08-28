@@ -10,7 +10,12 @@ import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 })
 export class ContactComponent {
   public routes = routes;
-
+  currentImageIndex = 0; 
+   carouselImages = [
+    './assets/img/banner/bamako-slider.jpg',
+    './assets/img/banner/immo.jpg',
+    './assets/img/banner/maison.jpg'
+];
   form: any = {
     nom: null,
     email: null,

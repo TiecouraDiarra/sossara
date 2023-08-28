@@ -42,11 +42,14 @@ export class DashboardComponent implements OnInit {
   User: any
   bienImmo: any;
   rdv: any;
+  rdvUserConnect: any;
   nombrebien: number = 0
   nombreconversation: number = 0
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
+  nombreCandidatureAccepter: number = 0
   nombreRdvUser: number = 0
+  nombreRdvUserConnect: number = 0
   nombreMessageUser: number = 0
   public dashboarddata: any = []
   public dashboardreview: any = []
@@ -146,13 +149,27 @@ export class DashboardComponent implements OnInit {
       console.log(this.bienImmo);
     });
 
-    //AFFICHER LA LISTE DES RDV
+    //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       this.nombreRdvUser = data.length;
       console.log(this.rdv);
     }
     );
+
+    //AFFICHER LA LISTE DES RDV ENVOYER PAR USER CONNECTE
+    this.serviceUser.AfficherLaListeRdvUserConnecte().subscribe(data => {
+      this.rdvUserConnect = data.reverse();
+      this.nombreRdvUserConnect = data.length;
+      console.log(this.rdvUserConnect);
+    }
+    );
+
+    //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+    this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
+      this.nombreCandidatureAccepter = data.biens.length;
+      console.log(this.nombreCandidatureAccepter);
+    });
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
@@ -161,7 +178,7 @@ export class DashboardComponent implements OnInit {
       console.log(this.nombreCandidatureBienUser);
 
       // Calculer la somme des candidatures et des rendez-vous
-      this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser;
+      this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
       // console.log( "Somme =",this.somme);
 
     }

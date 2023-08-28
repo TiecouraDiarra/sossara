@@ -8,6 +8,13 @@
         display: none;
     }
 }
+.crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
 
 /* Style de la liste des avis */
 .review-list {

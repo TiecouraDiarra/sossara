@@ -28,10 +28,64 @@ export class ProfileComponent implements OnInit {
     confirmPassword: null,
   }
 
+  formModif: any
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+
+
+
   form: any = {
     photo: null,
   }
+  public currentUser = 'Utilisateur';
+  public typePieces: any = [];
+  public currentType = 'Type';
+  public TYpePie = 'TypePiece';
+  public typeUser = [
+    "Type d'Utilisateur",
+    'LOCATAIRE OU ACHETEUR',
+    'PROPRIETAIRE',
+    'AGENCE',
+  ];
 
+  public typepiciesUser = [
+    'Type de pieces',
+    "CarteIN",
+    'NINA',
+    'Passport',
+  ];
+
+  onChange(typeUser: any) {
+    if (typeUser.value === "LOCATAIRE OU ACHETEUR" || typeUser.value === 'PROPRIETAIRE') {
+      this.typePieces = this.typepiciesUser;
+      this.currentUser = typeUser.value;
+      // this.currentType = typeUser.value
+    } else if (typeUser.value === 'AGENCE') {
+      this.typePieces = this.typepiciesAgence;
+      this.currentUser = typeUser.value;
+      // this.NINABio = true
+    } else {
+      this.typePieces = [];
+      this.currentUser = 'Utilisateur';
+      // this.currentType = 'Type';
+    }
+  }
+
+
+  onChangeTypeUser(typePiece: any) {
+    if (typePiece.value === "Carte d'identite") {
+      this.typePieces = this.typepiciesUser;
+      this.currentType = typePiece.value;
+    } else if (typePiece.value === 'NINA ou Biometrique') {
+      this.typePieces = this.typepiciesUser;
+      this.currentUser = typePiece.value;
+    } else {
+      // this.typePieces = [];
+      this.currentType = 'Type';
+    }
+  }
+  public typepiciesAgence = ['Type de pieces', 'RCCM', 'NIF'];
 
 
   constructor(
@@ -42,14 +96,18 @@ export class ProfileComponent implements OnInit {
   ) {
     this.User = this.storageService.getUser();
     console.log(this.User);
-  //   this.documents = this.User.user.documents
-  //   console.log(this.documents[0].photo[0].nom);
+    this.formModif = {
+      username: this.User.user.username,
+      telephone: this.User.user.telephone,
+      email: this.User.user.email,
+      date_de_naissance: this.User.user.date_de_naissance,
+    };
   }
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO + '/uploads/images/';
-    return baseUrl + photoFileName;
+    return baseUrl + photoFileName ;
   }
 
   // IMAGE PAR DEFAUT USER
@@ -230,6 +288,79 @@ export class ProfileComponent implements OnInit {
     } else {
       console.error('Token JWT missing or no photo selected');
     }
+  }
+
+  //METHODE PERMETTANT DE MODIFIER LE PROFIL D'UN UTILISATEUR
+  ModifierProfilUser() {
+    const { username,
+      telephone,
+      email,
+      dateNaissance } = this.formModif;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+    swalWithBootstrapButtons.fire({
+      // title: 'Etes-vous sûre de vous déconnecter?',
+      text: "Etes-vous sûre de modifier votre profil?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const user = this.storageService.getUser();
+        if (user && user.token) {
+          // Définissez le token dans le service serviceUser
+          this.serviceUser.setAccessToken(user.token);
+          this.serviceUser.modifierProfil(username, telephone, email, dateNaissance).subscribe({
+            next: data => {
+              console.log(data);
+              this.isSuccessful = true;
+              this.isSignUpFailed = false;
+              this.popUpModification();
+            },
+            error: err => {
+              this.errorMessage = err.error.message;
+              this.isSignUpFailed = true;
+            }
+          })
+        } else {
+          console.error("Token JWT manquant");
+        }
+      }
+    })
+
+  }
+
+  //POPUP APRES MODIFICATION PROFIL
+  popUpModification() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Profil modifié avec succès.',
+      title: 'Modification de profil',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
+
+    }).then(() => {
+      this.formModif.username; // Réinitialisez la valeur de formModif.username
+      this.formModif.telephone; // Réinitialisez la valeur de formModif.telephone
+      this.formModif.email; // Réinitialisez la valeur de formModif.email
+      this.formModif.date_de_naissance; // Réinitialisez la valeur de formModif.date_de_naissance
+    })
   }
 
 

@@ -627,16 +627,28 @@ export class DataService {
   ];
   public testimonialList = [
     {
-      img: 'assets/img/testimonial-1.jpg',
-      posting: 'Dev',
-      position: 'Lead Intranet Technician',
-      para: 'Omnis totam molestiae delectus nemo alias nesciunt harum et Nobis dolorum excepturi quod vel Sunt est qui ab non dolores repellat rem impedit dolores Ut ea rerum cum eum Alias dolores tempore illo accusantium est et voluptatem voluptas',
+      img: 'assets/img/testimonial-1.png',
+      posting: 'Tiecoura DIARRA',
+      position: 'Proprietaire',
+      para: "Sossara a complètement transformé la façon dont je gère mes investissements immobiliers. La simplicité d'utilisation, l'automatisation des tâches et les rapports détaillés m'ont permis de maximiser mes rendements tout en réduisant considérablement mon temps de gestion. C'est un outil indispensable pour tout propriétaire immobilier.",
     },
     {
-      img: 'assets/img/testimonial-2.jpg',
-      posting: 'Esther Hills',
-      position: 'Lead Intranet Technician',
-      para: 'Omnis totam molestiae delectus nemo alias nesciunt harum et Nobis dolorum excepturi quod vel Sunt est qui ab non dolores repellat rem impedit dolores Ut ea rerum cum eum Alias dolores tempore illo accusantium est et voluptatem voluptas',
+      img: 'assets/img/testimonial-2.png',
+      posting: 'Boubacar KONE',
+      position: 'Acheteur',
+      para: "Sossara a rendu mon expérience d'achat immobilier fluide et sans stress. Je recommande cette plateforme à tous ceux qui recherchent une solution conviviale pour trouver et acheter leur prochaine propriété. Merci Sossara pour avoir fait de mon rêve une réalité.",
+    },
+    {
+      img: 'assets/img/testimonial-3.png',
+      posting: 'Moustapha NIMAGA',
+      position: 'Locataire',
+      para: "En tant que locataire, j'apprécie la transparence et la communication facilitée que Sossara offre. Je peux payer mon loyer en ligne, soumettre des demandes de réparation en quelques clics et suivre l'état de ma location. Cela rend la vie locative beaucoup plus simple et agréable.",
+    },
+    {
+      img: 'assets/img/testimonial-4.png',
+      posting: 'Oumou NIMAGA',
+      position: 'Locataire',
+      para: "En tant que locataire, je peux dire avec certitude que Sossara a amélioré considérablement ma vie. Avant de découvrir cette plateforme, j'avais toujours des inquiétudes et des tracas liés à la location, mais Sossara a changé la donne. La possibilité de payer mon loyer en ligne est un énorme avantage pour moi, car cela simplifie grandement mes finances. ",
     },
   ];
   public blogList = [
@@ -2773,18 +2785,19 @@ export class DataService {
   public accountcreation = [
     {
       number: "01",
-      process: "Create Account",
-      details: "Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      process: "Achat",
+      details: "Vous avez un projet d'investissement immobilier ? Alors, Sossara vous propose des biens immobiliers classés par types et catégories par zones géographiques."
     },
     {
       number: "02",
-      process: "Post An Ad",
-      details: "Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      process: "Vente",
+      details: "Sossara se positionne comme un canal supplémentaire pour optimiser le processus de vente des biens immobiliers des particuliers et des programmes immo de professionnels."
     },
     {
       number: "03",
-      process: "Find,Buy & Own Dreams",
-      details: "Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      // process: "Trouver, Louer, Acheter et Vendre un bien",
+      process: "Location",
+      details: "Vous avez besoin d'une location longue durée, d'une location saisonnière ou de toutes autres locations ? les filtres de critères de Sossara vous permettrons d'affiner encore plus vos choix."
     }
   ]
 

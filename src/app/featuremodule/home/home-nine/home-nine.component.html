@@ -263,7 +263,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-2 real-search-bar">
-                                            <button class="btn car-search-icon" type="submit">Rechercher</button>
+                                            <button class="btn car-search-icon" [routerLink]="routes.listingmapgrid" type="submit">Rechercher</button>
                                         </div>
                                     </div>
                                 </form>
@@ -948,7 +948,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4" *ngFor="let Commune of commune ; let i = index">
+            <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
                 <a (click)="goToDettailCommune(Commune.id)">
                     <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
                         <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;" class="commune-image img-fluid" alt="">

@@ -424,3 +424,17 @@
 #container {
   background-color: #dcdcdc;
 }
+
+/* Style to display name and image inline */
+.name-and-image {
+  display: inline-flex; /* Display as inline flex container */
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Adjust the gap between the name and image */
+}
+.crd:hover {
+  cursor: pointer;
+}
+
+.crd {
+  cursor: pointer;
+}

@@ -1,22 +1,22 @@
 <!--Inner Banner-->
 <div class="aboutbanner innerbanner">
     <div class="inner-breadcrumb">
-          <div class="container">
+        <div class="container">
             <div class="row align-items-center text-center">
                 <div class="col-md-12 col-12 ">
-                   <h2 class="breadcrumb-title">About Us</h2>
+                    <h2 class="breadcrumb-title">A propos de nous</h2>
                     <nav aria-label="breadcrumb" class="page-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a [routerLink]="routes.home1">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">About us</li>
+                            <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">A propos de nous</li>
                         </ol>
-                    </nav>							
+                    </nav>
                 </div>
             </div>
-          </div>		            
-    </div>		            
-</div>	
-<!--/Inner Banner-->		
+        </div>
+    </div>
+</div>
+<!--/Inner Banner-->
 
 <!--About Content-->
 <section class="about-content">
@@ -24,94 +24,81 @@
         <div class="about-listee">
             <div class="about-img">
                 <img src="assets/img/about-img.jpg" class="img-fluid" alt="">
-            </div>	
-            <div class="about-info">
-                <h4> <span>About</span> Listee</h4>  
-                <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fermentum malesuada pulvinar. Vestibulum laoreet rutrum semper. Vivamus malesuada, nisl in consectetur semper, mauris nulla aliquam risus, nec ultricies sapien elit sed ante. Aenean luctus felis in sem</p>
-                <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fermentum malesuada pulvinar. Vestibulum laoreet rutrum semper. Vivamus malesuada, </p>
             </div>
-        </div>		
-    </div>		
+            <div class="about-info">
+                <h4> A propos de <span>Sossara</span> </h4>
+                <p><span style="color: #e98b11;">Sossara</span> est une plateforme de gestion immobilière innovante conçue pour simplifier et optimiser la gestion de biens immobiliers de toutes tailles. Avec Sossara, vous bénéficiez d'une solution tout-en-un qui centralise toutes les tâches liées à la gestion immobilière, de la location à la maintenance, en passant par la comptabilité.</p>
+                <p>Avec <span style="color: #e98b11;">Sossara</span>, gérez vos biens immobiliers en toute confiance et libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.</p>
+            </div>
+        </div>
+    </div>
 </section>
 <!--/About Content-->
 
 <!--How It Works-->
 <section class="howitworks">
     <div class="container">
-      <h3>How It Work</h3>
-      <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla fermentum malesuada pulvinar. Vestibulum laoreet rutrum semper. Vivamus malesuada, nisl in consectetur semper, mauris nulla aliquam risus, nec ultricies sapien elit sed ante. Aenean luctus felis in sem consequat auctor. Nulla turpis enim, scelerisque sit amet consectetur vel, lacinia sed augue. Proin ultricies dui id ex fringilla porta.</p>
-      <p>Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo.</p>
-      <div class="row">
+        <h3>Nos services</h3>
+        <p>Notre plateforme offre une interface conviviale et intuitive, permettant aux propriétaires, aux gestionnaires immobiliers et aux locataires d'accéder facilement aux informations essentielles, de suivre les paiements, de gérer les contrats de location et de planifier la maintenance. Grâce à des outils de reporting avancés, vous pouvez également obtenir une vue d'ensemble complète de la performance de vos investissements immobiliers.</p>
+      <p><span style="color: #e98b11;">Sossara</span> repose sur des technologies de pointe telles que l'automatisation des tâches répétitives, l'intelligence artificielle et la sécurité renforcée pour garantir une gestion immobilière efficace et sécurisée. Notre objectif est de simplifier votre expérience de gestion immobilière, d'optimiser vos processus et de maximiser vos rendements, tout en offrant une transparence totale à toutes les parties impliquées.</p>
+        <div class="row">
             <div class="col-lg-4 col-md-4 d-flex" *ngFor="let data of accountcreation">
                 <div class="howitwork-info">
-                    <h5>{{data. number}}</h5>
-                    <h6>{{data.process}}</h6>
-                    <p>{{data.details}}</p>
-                </div>					  
+                    <h5>{{data.number}}</h5>
+                    <h6 class="text-center">{{data.process}}</h6>
+                    <p class="text-center">{{data.details}}</p>
+                </div>
             </div>
-           					
-          </div>
-    </div>	
+
+        </div>
+    </div>
 </section>
 <!--/How It Works-->
 
 <!--Popular Location-->
-<div class="aboutpopular-locations">
+<div class="aboutpopular-locations" *ngIf="commune && commune.length > 0">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-4">
+            <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
                 <div class="aboutlocation-details usa">
-                <div class="aboutloc-img">
-                    <img src="assets/img/locations/london-1.jpg" alt="">
+                    <div class="aboutloc-img">
+                        <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;" class="commune-image img-fluid" alt="">
+                    </div>
+                    <a (click)="goToDettailCommune(Commune.id)">
+                        <div class="aboutlocations-info">
+                            <h3>{{Commune.nom}}</h3>
+                            <!-- <span>{{ nombreDeBiensParCommune[Commune.id] || 0 }} bien(s)</span> -->
+                        </div>
+                    </a>
                 </div>
-                <a [routerLink]="routes.listinggridsidebar">					   				    
-                    <div class="aboutlocations-info">
-                        <h3>London</h3>
-                        <span>20+ Ads Posted</span>
-                    </div> 
-                </a> 						
-                </div>				
             </div>
-            <div class="col-lg-3 col-md-4">
+            <!-- <div class="col-lg-4 col-md-4">
                 <div class="aboutlocation-details usa">
-                <div class="aboutloc-img">
-                    <img src="assets/img/locations/usa-1.jpg" alt="">
+                    <div class="aboutloc-img">
+                        <img src="assets/img/locations/usa-1.jpg" alt="">
+                    </div>
+                    <a [routerLink]="routes.listinggridsidebar">
+                        <div class="aboutlocations-info">
+                            <h3>USA</h3>
+                            <span>15+ Ads Posted</span>
+                        </div>
+                    </a>
                 </div>
-                <a [routerLink]="routes.listinggridsidebar">					   				    
-                    <div class="aboutlocations-info">
-                        <h3>USA</h3>
-                        <span>15+ Ads Posted</span>
-                    </div> 
-                </a> 						
-                </div>				
             </div>
-            <div class="col-lg-3 col-md-4">
+            <div class="col-lg-4 col-md-4">
                 <div class="aboutlocation-details canada">
                     <div class="aboutloc-img">
                         <img src="assets/img/locations/canada-1.jpg" alt="">
                     </div>
-                    <a [routerLink]="routes.listinggridsidebar">												    
+                    <a [routerLink]="routes.listinggridsidebar">
                         <div class="aboutlocations-info">
                             <h3>Canada</h3>
                             <span>25+ Ads Posted</span>
-                        </div> 
-                    </a> 						
-                </div>	
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="aboutlocation-details china">
-                    <div class="aboutloc-img">
-                        <img src="assets/img/locations/china-1.jpg" alt="">
-                    </div>
-                    <a [routerLink]="routes.listinggridsidebar">
-                        <div class="aboutlocations-info">
-                            <h3>China</h3>
-                            <span>17+ Ads Posted</span>
-                        </div> 
-                    </a> 						
-                </div>	 
-            </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="aboutlocation-details uk">
                     <div class="aboutloc-img">
                         <img src="assets/img/locations/uk-1.jpg" alt="">
@@ -120,24 +107,24 @@
                         <div class="aboutlocations-info">
                             <h3>United Kingdom</h3>
                             <span>12+ Ads Posted</span>
-                        </div> 
-                    </a> 						
-                </div>	 
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="aboutlocation-details australi-loc">
                     <div class="aboutloc-img">
                         <img src="assets/img/locations/australia-1.jpg" alt="">
                     </div>
-                    <a [routerLink]="routes.listinggridsidebar">												    
+                    <a [routerLink]="routes.listinggridsidebar">
                         <div class="aboutlocations-info">
                             <h3>Australia</h3>
                             <span>25+ Ads Posted</span>
-                        </div> 
-                    </a> 						
-                </div>	 
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="aboutlocation-details france">
                     <div class="aboutloc-img">
                         <img src="assets/img/locations/france-1.jpg" alt="">
@@ -146,17 +133,17 @@
                         <div class="aboutlocations-info">
                             <h3>France</h3>
                             <span>14+ Ads Posted</span>
-                        </div> 
-                    </a> 						
-                </div>	 
-            </div>
+                        </div>
+                    </a>
+                </div>
+            </div> -->
         </div>
-   </div>
+    </div>
 </div>
 <!--/Popular location-->
 
 <!-- CTA Section -->
-<section class="cta-section">
+<!-- <section class="cta-section">
     <div class="container">
         <div class="row align-items-center">
              <div class="col-lg-7">
@@ -178,70 +165,71 @@
              </div>
         </div>
     </div>
-</section>		
+</section>		 -->
 <!-- /CTA Section -->
 
 <!-- Client Testimonilas Section -->
-<section class="testimonials-section">    
+<section class="testimonials-section">
     <div class="row">
-        <div class="col-lg-5">			
-           <div class="testimonial-heading d-flex">
-               <h4> Client <br> Testimonials</h4>
-               <img src="assets/img/quotes.png" alt="quotes">
-           </div>
+        <div class="col-lg-5">
+            <div class="testimonial-heading d-flex">
+                <h4> Temoignage <br>Client</h4>
+                <!-- <img src="assets/img/quotes.png" alt="quotes"> -->
+            </div>
         </div>
-        <div class="col-lg-7">			
-           <div class="rightimg"></div>
+        <div class="col-lg-7">
+            <div class="rightimg"></div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="testimonials-slidersection">
-            <div class="owl-nav mynav1"></div>
-            <owl-carousel-o [options]="testimonialOwlOptions">
-                <ng-container *ngFor="let slide of testimonial">
-                    <ng-template carouselSlide>
-            <div class="testi-slider">
-                <div class="testimonial-info">
-                    <div class="testimonialslider-heading d-flex">
-                        <div class="testi-img">
-                            <img [src]="slide.img" class="img-fluid" alt="testi-img">
-                         </div>
-                         <div class="testi-author">
-                              <h6>{{slide.posting}}</h6>
-                              <p>{{slide.position}}</p>
-                         </div>
-                        
-                    </div>
-                     <div class="testimonialslider-content">
-                         <p>{{slide.para}}</p>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </ng-container>
+                <div class="owl-nav mynav1"></div>
+                <owl-carousel-o [options]="testimonialOwlOptions">
+                    <ng-container *ngFor="let slide of testimonial">
+                        <ng-template carouselSlide>
+                            <div class="testi-slider">
+                                <div class="testimonial-info">
+                                    <div class="testimonialslider-heading d-flex">
+                                        <div class="testi-img">
+                                            <img style="width: 100%; height: 100%; object-fit: cover;" [src]="slide.img" class="img-fluid" alt="testi-img">
+                                        </div>
+                                        <div class="testi-author">
+                                            <h6>{{slide.posting}}</h6>
+                                            <p>{{slide.position}}</p>
+                                        </div>
 
-</owl-carousel-o>
+                                    </div>
+                                    <div class="testimonialslider-content">
+                                        <p>{{slide.para}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+
+                </owl-carousel-o>
             </div>
         </div>
-    </div>		   
-</section>		
+    </div>
+</section>
 <!-- /Client Testimonilas Section -->
 
 <!-- Partners Section -->
 <div class="partners-section">
     <div class="container">
-        <p class="partners-heading">Over 5,26,000+ Sponsers being contact with us</p>	
+        <p class="partners-heading">Nos partenaires</p>
         <owl-carousel-o [options]="universitiesCompaniesOwlOptions">
             <ng-container *ngFor="let slide of universitiesCompanies">
                 <ng-template carouselSlide>
-        
-                <ul class="partnerslist d-flex">
-           <li><a href="javascript:void(0);"><img class="img-fluid" [src]="slide.img" alt="partners"></a></li>
-        </ul>
-    </ng-template>
-</ng-container>
-</owl-carousel-o>
+
+                    <ul class="partnerslist d-flex">
+                        <li><a href="javascript:void(0);"><img class="img-fluid" [src]="slide.img" alt="partners"></a>
+                        </li>
+                    </ul>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
     </div>
-</div>			
-<!-- /Partners Section -->		
+</div>
+<!-- /Partners Section -->

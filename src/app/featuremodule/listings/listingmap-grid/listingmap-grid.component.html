@@ -48,6 +48,58 @@
 
             <form class="collapse" id="collapseExample">
               <div class="row">
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Région</mat-label>
+                    <mat-select (selectionChange)="onRegionSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Region.nom" *ngFor="let Region of region">{{ Region.nom
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Commune</mat-label>
+                    <mat-select (selectionChange)="onCommuneSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Type</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- <div class="row">
                 <div class="col-lg-6 col-md-4">
                   <div class="filter-content form-group">
                     <mat-form-field class="mat-custom-select">
@@ -175,7 +227,7 @@
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-4"></div>
-              </div>
+              </div> -->
               <div class="filter-content form-group amenities">
                 <h5 class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
                   aria-expanded="false" aria-controls="collapseExample">Autres commodités</h5>

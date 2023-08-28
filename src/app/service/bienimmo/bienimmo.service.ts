@@ -226,6 +226,15 @@ export class BienimmoService {
     return this.http.post(`${URL_BASE}/candidature/${id}`, null, { headers });
   }
 
+  //ARRETER LE PROCESSUS
+  ArreterProcessus(id: any): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(id)
+    console.log(headers)
+    return this.http.post(`${URL_BASE}/reparation/confirmer/list/${id}`, null, { headers });
+  }
+
+
   //ACCEPTER CANDIDATURE BIEN 
   AccepterCandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
@@ -325,6 +334,14 @@ export class BienimmoService {
       { headers });
   }
 
+  //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
+  AfficherLIsteReclamationProcessusLance(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/reparation/confirm/list`,
+      { headers });
+  }
+
 
   //FAIRE UNE RECLAMATION
   FaireReclamation(
@@ -356,17 +373,15 @@ export class BienimmoService {
   }
 
   //LANCER LE PROCESSUS DE REPARATION
-  LancerProcessusReparation(somme: any, type: any, id: any): Observable<any> {
+  LancerProcessusReparation(somme: any, id: any): Observable<any> {
     const headers = this.getHeaders();
     // const data = new FormData();
     // data.append("contenu", contenu)
     console.log(id)
     console.log(headers)
     console.log(somme)
-    console.log(type)
     return this.http.post(`${URL_BASE}/reparation/${id}`, {
       somme,
-      type,
     }, { headers });
   }
 }

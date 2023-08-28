@@ -5,3 +5,26 @@
 .crd {
     cursor: pointer;
 }
+
+/* .span.notification-badge {
+    position: relative;
+    top: -10px;
+    right: 10px;
+    border: $white 1px solid;
+  } */
+
+  .notification-icon {
+    position: relative;
+    display: inline-block;
+}
+
+
+/* Masquez la flèche de dropdown pour l'élément <a> */
+.nav-item.has-arrow .dropdown-toggle::after {
+    content: none;
+}
+
+/* Facultatif : redimensionnez l'icône pour qu'elle soit plus visible */
+.nav-item.has-arrow .dropdown-toggle .fas {
+    font-size: 20px; /* Ajustez la taille en fonction de vos besoins */
+}
