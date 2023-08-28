@@ -20,7 +20,7 @@
 
 
 /* Masquez la flèche de dropdown pour l'élément <a> */
-.nav-item.has-arrow .dropdown-toggle::after {
+.nav-item.has-arrow .notif::after {
     content: none;
 }
 

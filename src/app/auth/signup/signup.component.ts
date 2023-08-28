@@ -213,24 +213,32 @@ export class SignupComponent {
 
  //POPUP APRES CONFIRMATION
  popUpConfirmation() {
-  let timerInterval = 2000;
+  // let timerInterval = 2000;
+  // Messages à afficher dans la boîte de dialogue
+  const messages = [
+    'Le compte a été envoyé avec succès.',
+    'Pour vous connecter, allez-y confirmer dans votre mail'
+  ];
+  // Créez un seul texte en concaténant les messages avec des sauts de ligne
+  const messageText = messages.join('\n');
+  
   Swal.fire({
     position: 'center',
-    text: 'Le compte a été envoyé avec succès.',
+    text: messageText,
     title: 'Creation de compte',
     icon: 'success',
     heightAuto: false,
-    showConfirmButton: false,
-    // confirmButtonText: "OK",
+    showConfirmButton: true,
+    confirmButtonText: "OK",
     confirmButtonColor: '#0857b5',
     showDenyButton: false,
     showCancelButton: false,
     allowOutsideClick: false,
-    timer: timerInterval, // ajouter le temps d'attente
-    timerProgressBar: true // ajouter la barre de progression du temps
+    // timer: timerInterval, // ajouter le temps d'attente
+    // timerProgressBar: true // ajouter la barre de progression du temps
 
   }).then((result) => {
-    this.path();
+    // this.path();
      // Après avoir réussi à candidater, mettez à jour l'état de la candidature
      
   })

@@ -99,6 +99,8 @@ export class HeaderComponent implements OnInit {
     this.sidebarService.closeSidebar();
   }
 
+  
+
   //METHODE PERMETTANT DE SE DECONNECTER
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({
