@@ -2883,7 +2883,7 @@
                     <div class="dashboard-content">
                         <div class="container">
                             <div class="row dashboard-info reviewpage-content">
-                                <div class="col-lg-6 d-flex">
+                                <div class="col-lg-6 d-flex" *ngIf="reclamationUser && reclamationUser.length > 0">
                                     <div class="card dash-cards w-100">
                                         <div class="card-header">
                                             <h4>Les reclamations que j'ai fait</h4>

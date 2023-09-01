@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '', component: UserpagesComponent, children: [
       {
-        path: 'ajouter-propriete',
+        path: 'ajouter-bien',
         loadChildren: () =>
           import('./add-listing/add-listing.module').then(
             (m) => m.AddListingModule

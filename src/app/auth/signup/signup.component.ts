@@ -154,7 +154,7 @@ export class SignupComponent {
           this.authService.register(nom, email, password, telephone, dateNaissance, nom_doc,num_doc,roles,photo).subscribe({
             next: (data) => {
               console.log(data);
-              this.storageService.saveUser(data);
+              // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
               this.popUpConfirmation();
@@ -238,9 +238,16 @@ export class SignupComponent {
     // timerProgressBar: true // ajouter la barre de progression du temps
 
   }).then((result) => {
-    // this.path();
-     // Après avoir réussi à candidater, mettez à jour l'état de la candidature
-     
+    this.form.nom = '',
+    this.form.email ='',
+    this.form.password ='',
+    this.form.telephone ='',
+    this.form.dateNaissance ='',
+    this.form.nom_doc = "Type de pieces",
+    this.form.num_doc ='',
+    this.form.confirmPassword ='',
+    this.form.roles = "Type d'Utilisateur",
+    this.form.photo = null
   })
 }
 

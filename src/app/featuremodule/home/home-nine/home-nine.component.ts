@@ -13,7 +13,7 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { environment } from 'src/app/environments/environment';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
- 
+
 @Component({
   selector: 'app-home-nine',
   templateUrl: './home-nine.component.html',
@@ -31,12 +31,12 @@ export class HomeNineComponent {
   public ourtestimonials: any = [];
   public recentarticle: any = [];
 
-  currentImageIndex = 0; 
-   carouselImages = [
+  currentImageIndex = 0;
+  carouselImages = [
     './assets/img/banner/bamako-slider.jpg',
     './assets/img/banner/immo.jpg',
     './assets/img/banner/maison.jpg'
-];
+  ];
 
   changeImage() {
     this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -60,14 +60,15 @@ export class HomeNineComponent {
   nombreZone: number = 0
   isLoggedIn = false;
   isLoginFailed = true;
+  errorMessage: any = '';
   nombreBienLoue: number = 0
   nombreBienVendre: number = 0
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
   imagesCommunes = ['commune1.jpeg', 'commune2.png', 'commune3.jpg', 'commune4.jpg', 'commune5.jpeg', 'commune6.jpeg'];
 
-   //IMAGE
-   generateImageUrl(photoFileName: string): string {
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
   }
@@ -78,7 +79,7 @@ export class HomeNineComponent {
     private storageService: StorageService,
     private serviceCommodite: CommoditeService,
     private serviceBienImmo: BienimmoService,
-    private serviceUser : UserService
+    private serviceUser: UserService
   ) {
 
     (this.listing = this.DataService.listing),
@@ -281,12 +282,12 @@ export class HomeNineComponent {
   };
 
   // IMAGE PAR DEFAUT DES BIENS
-DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
+  DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
 
-// IMAGE PAR DEFAUT USER
-handleAuthorImageError(event: any) {
-  event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
-}
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  }
 
   ngOnInit(): void {
     setInterval(() => {
@@ -321,16 +322,18 @@ handleAuthorImageError(event: any) {
 
     //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-       this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3],data.biens.reverse()[4],data.biens.reverse()[5]];
+      this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3], data.biens.reverse()[4], data.biens.reverse()[5]];
       console.log(this.bienImmo);
+      // Suppose que BienImo est un élément de votre bienImmo
+      
       console.log(data);
       console.log(data.biens.length);
     }
     );
-     //AFFICHER LA LISTE DES AGENCES
-     this.serviceUser.AfficherLaListeAgence().subscribe(data => {
-       this.agence = data.agences.reverse();
-       this.nombreAgence = data.agences.length;
+    //AFFICHER LA LISTE DES AGENCES
+    this.serviceUser.AfficherLaListeAgence().subscribe(data => {
+      this.agence = data.agences.reverse();
+      this.nombreAgence = data.agences.length;
       console.log(this.nombreAgence);
       console.log(this.agence);
     }
@@ -343,14 +346,14 @@ handleAuthorImageError(event: any) {
       // }
       //this.BienLoueRecens.push(data.biens.reverse()[index])
       this.nombreBienLoue = data.biens.length;
-      this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1],data.biens.reverse()[2],data.biens.reverse()[3]]
+      this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
       console.log(this.BienLoueRecens);
       console.log(data.biens);
       console.log(this.nombreBienLoue);
     }
     );
-     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-     this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
+    //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
+    this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
       this.nombreBienVendre = data.biens.length;
       console.log(this.nombreBienVendre);
       console.log(data.biens);
@@ -360,8 +363,8 @@ handleAuthorImageError(event: any) {
     )
   }
 
-   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
-   goToDettailBien(id: number) {
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
+  goToDettailBien(id: number) {
     console.log(id);
     return this.router.navigate(['pages/service-details', id])
   }
@@ -375,12 +378,48 @@ handleAuthorImageError(event: any) {
   formatPrice(price: number): string {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
+
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
-  AjouterBienOrLogin(){
-    if(this.storageService.isLoggedIn()){
+  AjouterBienOrLogin() {
+    if (this.storageService.isLoggedIn()) {
       this.router.navigateByUrl("/userpages/ajouter-propriete")
-    }else{
+    } else {
       this.router.navigateByUrl("/auth/connexion")
     }
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE CONVERSATION SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
+  ContacterAgenceOrLogin(id: any) {
+    const user = this.storageService.getUser();
+    if (user && user.token) {
+      // Définissez le token dans le service serviceUser
+      this.serviceUser.setAccessToken(user.token);
+
+      // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
+      this.serviceBienImmo.OuvrirConversation(id).subscribe({
+        next: (data) => {
+          console.log("Conversation ouverte avec succès:", data);
+          this.router.navigate([routes.messages]);
+          // this.isSuccess = true;
+          // this.errorMessage = 'Conversation ouverte avec succès';
+          // this.pathConversation();
+        },
+        error: (err) => {
+          console.error("Erreur lors de l'ouverture de la conversation:", err);
+          this.errorMessage = err.error.message;
+          // this.isError = true
+          // Gérez les erreurs ici
+        }
+      }
+      );
+    } else {
+      console.error("Token JWT manquant");
+      this.router.navigateByUrl("/auth/connexion")
+    }
+    // if (this.storageService.isLoggedIn()) {
+    //   this.router.navigate([routes.messages]);
+    // } else {
+    //   this.router.navigateByUrl("/auth/connexion")
+    // }
   }
 }

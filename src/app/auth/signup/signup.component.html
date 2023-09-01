@@ -148,7 +148,7 @@
                       type="number"
                       [(ngModel)]="form.num_doc"
                       name="num_doc"
-                      pattern="[0-9]{14}"
+                      pattern="[0-9]+"
                       class="form-control"
                       placeholder="N du NINA"
                     />
@@ -161,9 +161,11 @@
                     <input
                       type="file"
                       id="photo" name="photo"
+                      [disabled]="maxImageCount >=1"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                       [disabled]="isButtonDisabled"
+                      accept=".png, .jpeg, .jpg, application/pdf"
                     />
                     <label for="file" class="file-upload">Photo de la carte</label>
                   </div>
@@ -201,9 +203,11 @@
                     <input
                       type="file"
                       id="photo" name="photo"
+                      [disabled]="maxImageCount >=1"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                       [disabled]="isButtonDisabled"
+                      accept=".png, .jpeg, .jpg, application/pdf"
                     />
                     <label for="file" class="file-upload">Photo de la carte</label>
                   </div>
@@ -227,7 +231,7 @@
                       type="text"
                       [(ngModel)]="form.num_doc"
                       name="num_doc"
-                      pattern="[A-Za-z]{2}[0-9]+"
+                      pattern="[0-9]+"
                       maxlength="9"
                       class="form-control"
                       placeholder="N du Passport"
@@ -241,9 +245,11 @@
                     <input
                       type="file"
                       id="photo" name="photo"
+                      [disabled]="maxImageCount >=1"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                       [disabled]="isButtonDisabled"
+                      accept=".png, .jpeg, .jpg, application/pdf"
                     />
                     <label for="file" class="file-upload">Photo du Passport</label>
                   </div>
@@ -282,9 +288,11 @@
                     <input
                       type="file"
                       id="photo" name="photo"
+                      [disabled]="maxImageCount >=1"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                       [disabled]="isButtonDisabled"
+                      accept=".png, .jpeg, .jpg, application/pdf"
                     />
                     <label for="file" class="file-upload">Photo de RCCM</label>
                   </div>
@@ -320,9 +328,11 @@
                     <input
                       type="file"
                       id="photo" name="photo"
+                      [disabled]="maxImageCount >=1"
                       (change)="onFileSelected($event)"
                       class="hide-input image-upload"
                       [disabled]="isButtonDisabled"
+                      accept=".png, .jpeg, .jpg, application/pdf"
                     />
                     <label for="file" class="file-upload">Photo du NIF</label>
                   </div>

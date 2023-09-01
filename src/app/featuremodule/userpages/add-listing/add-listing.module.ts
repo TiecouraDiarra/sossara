@@ -8,9 +8,10 @@ import { FormsModule } from '@angular/forms';
 
 
 
+
 @NgModule({
   declarations: [
-    AddListingComponent
+    AddListingComponent,
   ],
   imports: [
     FormsModule,

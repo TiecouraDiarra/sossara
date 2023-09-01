@@ -62,3 +62,11 @@
   width: 100%; /* Remplacez cette valeur par la taille souhaitée */
   height: 180px; /* Remplacez cette valeur par la taille souhaitée */
 }
+
+.favorite-icon {
+  color: black; /* Couleur par défaut */
+}
+
+.favorite-icon-active {
+  color: #e98b11; /* Couleur active */
+}

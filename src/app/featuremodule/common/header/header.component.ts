@@ -8,6 +8,8 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { environment } from 'src/app/environments/environment';
+import { UserService } from 'src/app/service/auth/user.service';
+import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -24,6 +26,11 @@ export class HeaderComponent implements OnInit {
   User: any
   isLocataire = false;
   roles: string[] = [];
+
+  public somme: number = 0
+  nombreCandidatureBienUser: number = 0
+  nombreCandidatureAccepter: number = 0
+  nombreRdvUser: number = 0
 
   isLoggedIn = false;
   isLoginFailed = true;
@@ -47,7 +54,9 @@ export class HeaderComponent implements OnInit {
     private data: DataService,
     private router: Router,
     private common: CommonService,
+    private serviceUser: UserService,
     private sidebarService: SidebarService,
+    private serviceBienImmo: BienimmoService,
     private authService: AuthService,
     private storageService: StorageService
   ) {
@@ -73,6 +82,31 @@ export class HeaderComponent implements OnInit {
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
     }
+
+    //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
+    this.serviceUser.AfficherLaListeRdv().subscribe(data => {
+      this.nombreRdvUser = data.length;
+      console.log(this.nombreRdvUser);
+    }
+    );
+
+    //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+    this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
+      this.nombreCandidatureAccepter = data.biens.length;
+      console.log(this.nombreCandidatureAccepter);
+    });
+
+    //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+      this.nombreCandidatureBienUser = data.candidature.length;
+      console.log(this.nombreCandidatureBienUser);
+
+      // Calculer la somme des candidatures et des rendez-vous
+      this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
+      console.log( "Somme =",this.somme);
+
+    }
+    );
   }
   private getroutes(route: any): void {
     let splitVal = route.url.split('/');

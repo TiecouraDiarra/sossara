@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, NgZone } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Aos from 'aos';
@@ -9,6 +9,9 @@ import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
+declare var google: any;
+
+
 interface Food {
   value: string | any;
   viewValue: string;
@@ -50,12 +53,16 @@ export class AddListingComponent {
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   status: any = ['A louer', 'A vendre'];
 
+  
+
   constructor(
     private DataService: DataService,
     public router: Router,
     private serviceCommodite: CommoditeService,
     private storageService: StorageService,
     private userService: UserService,
+    private elRef: ElementRef,
+    private ngZone: NgZone,
     private serviceBienImmo: BienimmoService
   ) { }
 
@@ -132,14 +139,34 @@ export class AddListingComponent {
     periode: null,
     rue: null,
     porte: null,
+    longitude: null,
+    latitude: null,
     photo: null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
 
+  initMap() {
+    const mapOptions = {
+      center: { lat: 12.639231999999997, lng: -7.998184000000001 }, // Coordonnées initiales de la carte
+      zoom: 15 // Niveau de zoom initial
+    };
+
+    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    // Attacher un gestionnaire d'événements au clic sur la carte
+    google.maps.event.addListener(map, 'click', (event: { latLng: { lat: () => any; lng: () => any; }; }) => {
+      this.form.latitude = event.latLng.lat();
+      this.form.longitude = event.latLng.lng();
+
+      console.log('Latitude :', this.form.latitude);
+      console.log('Longitude :', this.form.longitude);
+    });
+  }
 
 
   ngOnInit(): void {
+    this.initMap();
     Aos.init({ disable: 'mobile' });
 
     //AFFICHER LA LISTE DES COMMODITES
@@ -211,6 +238,8 @@ export class AddListingComponent {
       rue,
       porte,
       periode,
+      longitude,
+      latitude,
       photo
     } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -272,7 +301,9 @@ export class AddListingComponent {
                 quartier,
                 rue,
                 porte,
-                this.form.periode,
+                periode,
+                longitude,
+                latitude,
                 photo
               )
               .subscribe({
@@ -338,4 +369,5 @@ export class AddListingComponent {
   //     this.photo = [];
   //   }
   // }
+  
 }

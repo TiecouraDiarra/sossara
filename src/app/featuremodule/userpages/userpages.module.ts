@@ -7,7 +7,7 @@ import { UserpagesComponent } from './userpages.component';
 
 @NgModule({
   declarations: [
-    UserpagesComponent
+    UserpagesComponent,
   ],
   imports: [
     CommonModule,

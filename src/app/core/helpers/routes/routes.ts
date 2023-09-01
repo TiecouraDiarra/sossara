@@ -116,7 +116,7 @@ export class routes {
     return this.baseUrl + '/pages/terms-condition';
   }
   public static get addlisting(): string {
-    return this.baseUrl + '/userpages/ajouter-propriete';
+    return this.baseUrl + '/userpages/ajouter-bien';
   }
   public static get bookmarks(): string {
     return this.baseUrl + '/userpages/bookmarks';

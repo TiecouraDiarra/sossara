@@ -65,7 +65,7 @@
             </div>
             <div class="rate-details" *ngIf="bien && bien.prix">
                 <h4>{{ formatPrice(bien.prix) }} FCFA</h4>
-                <p>Fixe</p>
+                <!-- <p>Fixe</p> -->
             </div>
         </div>
         <div class="descriptionlinks">
@@ -172,7 +172,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Statut <span>*</span></label>
                                         <div class="pass-group group-img">
-                                            <select [(ngModel)]="form.statut" name="statut" class="form-control" id="">
+                                            <select (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut" class="form-control" id="">
                                                 <option *ngFor="let item of status" [value]="item">
                                                     {{item}}
                                                 </option>
@@ -280,6 +280,20 @@
                                 </div>
 
                             </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                  <div class="form-group" *ngIf="selectedStatut === 'A louer'">
+                                    <label class="col-form-label">Periode <span>*</span></label>
+                                    <div class="pass-group group-img">
+                                      <select [(ngModel)]="form.periode" name="periode" class="form-control" id="">
+                                        <option *ngFor="let item of periode" [value]="item.ID">
+                                          {{ item.nom }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </div>
                     </div>
 
@@ -374,7 +388,7 @@
                             </div>
                             <!-- Image  -->
                             <div class="card media-section">
-                                <div class="card-header">
+                                <!-- <div class="card-header">
                                     <h4>Media Information</h4>
                                 </div>
                                 <div class="card-body">
@@ -398,7 +412,7 @@
                                             <label for="file" class="file-upload">Ajouter l'image</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
                                     {{ errorMessage }}
                                 </div>
@@ -517,7 +531,7 @@
                 <!--Gallery Section-->
                 <div class="card gallery-section ">
                     <div class="card-header ">
-                        <img src="assets/img/galleryicon.svg" alt="gallery">
+                        <img width="5%" src="assets/img/galerie.png" alt="gallery">
                         <h4>Galerie</h4>
                     </div>
                     <div class="card-body">

@@ -6,9 +6,10 @@ import { ListingmapGridComponent } from './listingmap-grid.component';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterMarkersPipe } from './filter-markers.pipe';
 
 @NgModule({
-  declarations: [ListingmapGridComponent],
+  declarations: [ListingmapGridComponent, FilterMarkersPipe ],
   imports: [
     CommonModule, 
     ListingmapGridRoutingModule, 

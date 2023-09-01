@@ -73,10 +73,10 @@
             <h4>Basic information</h4>
           </div>
           <div class="card-body">
-                <div class="form-group">
-                  <label class="col-form-label">Nom du bien <span>*</span></label>
-                  <input type="text" class="form-control pass-input" name="nom" [(ngModel)]="form.nom" placeholder="Nom" />
-                </div>
+            <div class="form-group">
+              <label class="col-form-label">Nom du bien <span>*</span></label>
+              <input type="text" class="form-control pass-input" name="nom" [(ngModel)]="form.nom" placeholder="Nom" />
+            </div>
 
             <div class="form-group">
               <label class="col-form-label">Description du bien <span>*</span></label>
@@ -221,7 +221,8 @@
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
-                    <select (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut" class="form-control" id="">
+                    <select (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut"
+                      class="form-control" id="">
                       <option *ngFor="let item of status" [value]="item">
                         {{ item }}
                       </option>
@@ -435,7 +436,7 @@
                   <div class="pass-group group-img">
                     <label class="col-form-label">Quartier <span>*</span></label>
                     <input type="text" name="quartier" [(ngModel)]="form.quartier" class="form-control pass-input"
-                      placeholder="Yirimadio" />
+                      placeholder="Quartier" />
                   </div>
                 </div>
               </div>
@@ -461,20 +462,8 @@
               </div>
             </div>
 
-            <!-- <div class="form-group">
-              <label class="col-form-label">Map Address</label>
-              <input
-                type="text"
-                class="form-control"
-                value="8697-8747 Stirling Rd, Florida"
-              />
-            </div> -->
-            <div class="listing-map">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.6461688381!2d-80.26548188573862!3d26.045130803169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9a862f9831459%3A0xafcb9384c02e8b75!2s8697%20Stirling%20Rd%2C%20Cooper%20City%2C%20FL%2033328%2C%20USA!5e0!3m2!1sen!2sin!4v1671519522101!5m2!1sen!2sin"
-                width="100" height="430" style="border: 0" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+            
+            
             <!-- <div class="row">
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
@@ -499,6 +488,33 @@
                 </div>
               </div>
             </div> -->
+          </div>
+        </div>
+        <!-- LA PARTIE MAP  -->
+        <div class="card">
+          <div class="card-header">
+            <h4>Choisir l'emplacement du bien sur la map</h4>
+          </div>
+          
+          <div class="listing-map" >
+            <input id="search-box" type="text" placeholder="Rechercher un lieu">
+              <div id="map" style="width: 100%; height: 60vw;"></div>
+          </div>
+
+          <!-- MAP ADRESSE  -->
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Latitude</label>
+                <input type="text" class="form-control" readonly placeholder="Latitude" name="latitude" [(ngModel)]="form.latitude"/>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Longitude</label>
+                <input type="text" class="form-control" readonly placeholder="Longitude" name="longitude" [(ngModel)]="form.longitude"/>
+              </div>
+            </div>
           </div>
         </div>
         <!-- <div class="card">
@@ -622,7 +638,7 @@
               </div>
               <div class="settings-upload-btn">
                 <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
-                  class="hide-input image-upload" [disabled]="maxImageCount >=8" />
+                  class="hide-input image-upload" [disabled]="maxImageCount >=8" accept=".png, .jpeg, .jpg, .svg" />
                 <label for="file" class="file-upload">Ajouter l'image</label>
               </div>
             </div>

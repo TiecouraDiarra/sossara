@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -92,16 +92,17 @@ export class ProfileComponent implements OnInit {
     private storageService: StorageService,
     private authService: AuthService,
     private router: Router,
+    private renderer: Renderer2,
     private serviceUser: UserService
   ) {
     this.User = this.storageService.getUser();
     console.log(this.User);
-    this.formModif = {
-      username: this.User.user.username,
+   this.formModif = {
+      nom: this.User.user.username,
       telephone: this.User.user.telephone,
       email: this.User.user.email,
       date_de_naissance: this.User.user.date_de_naissance,
-    };
+    }; 
   }
 
   //IMAGE
@@ -249,17 +250,38 @@ export class ProfileComponent implements OnInit {
 
 
   //CHANGER LA PHOTO DE PROFIL
+  // onPhotoChange(event: any): void {
+  //   const selectedFile = event.target.files[0];
+
+  //   if (selectedFile) {
+  //     this.form.photo = selectedFile;
+  //     console.log(this.form.photo);
+  //     this.onAdd();
+  //   }
+  // }
   onPhotoChange(event: any): void {
     const selectedFile = event.target.files[0];
-
+  
     if (selectedFile) {
-      this.form.photo = selectedFile;
-      // const imageUrl = this.generateImageUrl(selectedFile.name);
-      console.log(this.form.photo);
-      this.onAdd();
+      const maxSize = 5 * 1024 * 1024; // Taille maximale en octets (5 Mo)
+  
+      if (selectedFile.size <= maxSize) {
+        // Vous pouvez également afficher des informations sur le fichier si nécessaire
+        console.log(`Nom du fichier: ${selectedFile.name}`);
+        console.log(`Type de fichier: ${selectedFile.type}`);
+        console.log(`Taille du fichier: ${selectedFile.size} octets`);
+        
+        // Ajoutez le fichier au formulaire et exécutez votre logique d'ajout ici
+        this.form.photo = selectedFile;
+        this.onAdd();
+      } else {
+        alert("La taille du fichier est supérieure à 5 Mo. Veuillez choisir un fichier plus petit.");
+        // Réinitialiser la sélection de fichier
+        event.target.value = '';
+      }
     }
   }
-
+  
   //AJOUTER LA PHOTO DE PROFIL
   onAdd(): void {
     console.log('Add button clicked');
@@ -292,7 +314,7 @@ export class ProfileComponent implements OnInit {
 
   //METHODE PERMETTANT DE MODIFIER LE PROFIL D'UN UTILISATEUR
   ModifierProfilUser() {
-    const { username,
+    const { nom,
       telephone,
       email,
       dateNaissance } = this.formModif;
@@ -317,15 +339,21 @@ export class ProfileComponent implements OnInit {
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
-          this.serviceUser.modifierProfil(username, telephone, email, dateNaissance).subscribe({
+          this.serviceUser.modifierProfil(nom, telephone, email, dateNaissance).subscribe({
             next: data => {
               console.log(data);
+              this.storageService.setUser(user);
+              user.user.username = this.User.user.username;
+              user.user.email = this.User.user.email;
+              user.user.telephone = this.User.user.telephone;
+              user.user.date_de_naissance = this.User.user.date_de_naissance;
               this.isSuccessful = true;
               this.isSignUpFailed = false;
               this.popUpModification();
             },
             error: err => {
               this.errorMessage = err.error.message;
+              console.log(this.errorMessage);
               this.isSignUpFailed = true;
             }
           })
@@ -356,13 +384,27 @@ export class ProfileComponent implements OnInit {
       timerProgressBar: true // ajouter la barre de progression du temps
 
     }).then(() => {
-      this.formModif.username; // Réinitialisez la valeur de formModif.username
+      this.formModif.nom; // Réinitialisez la valeur de formModif.username
       this.formModif.telephone; // Réinitialisez la valeur de formModif.telephone
       this.formModif.email; // Réinitialisez la valeur de formModif.email
       this.formModif.date_de_naissance; // Réinitialisez la valeur de formModif.date_de_naissance
     })
   }
 
+  //TAILLE MAXIMUM DE LA PHOTO DE PROFIL
+  onFileSelected(event: any): void {
+    const inputElement = event.target as HTMLInputElement;
+
+    if (inputElement.files && inputElement.files[0]) {
+      const file = inputElement.files[0];
+      const maxSize = 5 * 1024 * 1024; // Taille maximale en octets (5 Mo)
+
+      if (file.size > maxSize) {
+        alert("La taille du fichier est supérieure à 5 Mo. Veuillez choisir un fichier plus petit.");
+        this.renderer.setProperty(inputElement, 'value', ''); // Réinitialiser la sélection de fichier
+      }
+    }
+  }
 
 
   iconLogle() {

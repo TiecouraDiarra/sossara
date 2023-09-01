@@ -125,22 +125,30 @@ export class UserService {
   }
 
   //MODIFIER PROFIL USER
-  modifierProfil(nom: string, telephone: string, email: string, dateNaissance:string): Observable<any> {
+  modifierProfil(
+    nom: string, 
+    telephone: string, 
+    email: string, 
+    dateNaissance:string
+    ): Observable<any> {
+    const formData = new FormData();
     const headers = this.getHeaders();
-    console.log("username de user : " + nom);
+    console.log("Nom de user : " + nom);
     console.log("telephone de user : " + telephone);
     console.log("email de user : " + email);
     console.log("dateNaissance de user : " + dateNaissance);
     console.log(headers)
+    formData.append('nom', nom);
+    formData.append('email', email);
+    formData.append('telephone', telephone);
+    formData.append('dateNaissance', dateNaissance);
     return this.http.post(
       URL_BASE + '/user/update',
-      {
-        nom,
-        telephone,
-        email,
-        dateNaissance
-      },
+        formData,
       { headers }
     );
   }
+
+
+
 }

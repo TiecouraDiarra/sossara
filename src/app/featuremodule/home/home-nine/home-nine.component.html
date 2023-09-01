@@ -12,7 +12,7 @@
                     <p class="aos" data-aos="fade-up" data-aos-delay="200">Optimiser le processus de vente des biens 
                         immobiliers des particuliers et des programmes immo de professionnels.</p>
                     <div class="banner-nine-btn-group">
-                        <a *ngIf="!isLocataire" (click)="AjouterBienOrLogin()" class="aos crd" data-aos="fade-up" data-aos-delay="300">
+                        <a (click)="AjouterBienOrLogin()" class="aos crd" data-aos="fade-up" data-aos-delay="300">
                             <span>Ajouter un bien</span>
                         </a>
                         <a [routerLink]="routes.listingmapgrid" class="aos" data-aos="fade-up" data-aos-delay="300">
@@ -457,12 +457,12 @@
     <div class="container">
         <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
             <div class="row align-items-center">
-                <div class="col-md-4"></div>
-                <div class="col-md-4 aos aos-init aos-animate text-center" data-aos="fade-up">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
                     <h2>Pourquoi nous choisir ?</h2>
                     <p>Nous fournissons un service complet à chaque étape.</p>
                 </div>
-                <div class="col-md-4 text-md-end aos aos-init aos-animate" data-aos="fade-up">
+                <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
                 </div>
             </div>
         </div>
@@ -511,14 +511,14 @@
     <div class="container">
         <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
             <div class="row align-items-center">
-                <div class="col-md-3"></div>
-                <div class="col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
+                <!-- <div class="col-md-1"></div> -->
+                <!-- <div class="col-md-9 aos aos-init aos-animate text-center" data-aos="fade-up"> -->
                     <h2>Sociétés de Gestion de Propriétés(Agences)</h2>
                     <!-- <p>The most trendy accommodations available</p> -->
-                </div>
-                <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
+                <!-- </div> -->
+                <!-- <div class="col-md-2 text-md-end aos aos-init aos-animate" data-aos="fade-up">
                     <a [routerLink]="routes.categories" class="btn  btn-view">Voir toutes les agences</a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row aos" data-aos="fade-up" data-aos-delay="200">
@@ -529,7 +529,7 @@
                             <ng-container *ngFor="let Agence of agence">
                                 <ng-template carouselSlide>
                                     <div class="property-item">
-                                        <a [routerLink]="routes.categories">
+                                        <a (click)="ContacterAgenceOrLogin(Agence.id)">
                                             <div class="companies-set mb-4">
                                                 <div class="companies-set-head">
                                                     <div class="companies-set-logo" *ngIf="Agence && Agence.photo">
@@ -543,7 +543,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="companies-set-count">
-                                                    <ul>
+                                                    <!-- <ul>
                                                         <li>
                                                             <h6>10</h6>
                                                             <span>test</span>
@@ -556,10 +556,10 @@
                                                             <h6>10</h6>
                                                             <span>test</span>
                                                         </li>
-                                                    </ul>
+                                                    </ul> -->
                                                     <div class="companies-set-btn">
-                                                        <a [routerLink]="routes.listinglistsidebar"
-                                                            class="btn btn-linebtn">Voir plus<i
+                                                        <a (click)="ContacterAgenceOrLogin(Agence.id)"
+                                                            class="btn btn-linebtn">Contacter<i
                                                                 class="fa fa-arrow-right ms-3"
                                                                 aria-hidden="true"></i></a>
                                                     </div>

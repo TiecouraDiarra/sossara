@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="settings-upload-btn">
                                         <input type="file" accept="image/*" name="photo" class="hide-input image-upload"
-                                            id="photo" (change)="onPhotoChange($event)">
+                                            id="photo" (change)="onPhotoChange($event)" accept=".png, .jpeg, .jpg, .svg">
                                         <label for="file" class="file-upload">Changer Photo profil</label>
                                     </div>
                                     <span>Taille Max: 5MB</span>
@@ -159,46 +159,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row socialmedia-info">
-                                        <div class="form-group">
-                                            <!-- <label class="col-form-label">Photos de la carte</label> -->
-                                            <div class="pass-group group-img">
-                                                <div class="card media-section">
-                                                    <div class="card-header">
-                                                        <h4>Photos de la carte</h4>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="row"
-                                                            *ngIf="User.user.documents && User.user.documents[0]">
-                                                            <ng-container
-                                                                *ngFor="let photo of User.user.documents[0].photos; let i = index">
-                                                                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="i<12">
-                                                                    <div class="gallery-widget">
-                                                                        <ul class="review-gallery">
-                                                                            <!-- <li
-                                                                            *ngFor="let photo of User.user.documents[0].photo; let i = index">
-                                                                            <img class="img-fluid" alt="Image"
-                                                                                [src]="generateImageUrl(photo.nom)">
-                                                                        </li>
-                                                                        <ng-container
-                                                                            *ngIf="User.user.documents[0].photo.length === 0">
-                                                                            <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                                                <img class="img-fluid"
-                                                                                    alt="Image par défaut"
-                                                                                    src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                                            </li>
-                                                                        </ng-container> -->
-                                                                        </ul>
-                                                                    </div>
-
-                                                                </div>
-                                                            </ng-container>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <!-- <div class="form-group">
                                         <label class="col-form-label">Notes</label>
                                         <div class="pass-group group-img">
@@ -228,8 +188,8 @@
                                                         <div class="form-group group-img">
                                                             <div class="group-img" id="datepicker">
                                                                 <i class="feather-user"></i>
-                                                                <input placeholder="Prenom et Nom" name="username" type="text"
-                                                                    class="form-control" [(ngModel)]="formModif.username" required />
+                                                                <input placeholder="Prenom et Nom" name="nom" type="text"
+                                                                    class="form-control" [(ngModel)]="formModif.nom" required />
                                                             </div>
                                                         </div>
                                                         <!-- email  -->

@@ -2232,6 +2232,11 @@ p:last-child {
 	border-radius: 5px;
 	color: #fff;
 	padding: 5px;
+} 
+
+.pro-content .Featured-text .status-a-vendre {
+    background-color:#e98b11;
+
 }
 .service-content a {
 	font-size: 16px;
@@ -4431,8 +4436,8 @@ a:hover, a:focus {
 	align-items: center;
 }
 .available-info li.mapaddress {
-    margin: 0 0 65px;
-    font-size: 14px;
+    margin: 0 0 40px;
+    font-size: 14px;  
 }
 .available-info .map-amount {
     font-size: 20px;

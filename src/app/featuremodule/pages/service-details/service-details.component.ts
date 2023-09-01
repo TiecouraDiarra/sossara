@@ -63,6 +63,7 @@ export class ServiceDetailsComponent {
   isButtonDisabled: boolean = false;
   maxImageCount: number = 0;
   message: string | undefined;
+  periode : any
 
 
 
@@ -168,10 +169,20 @@ export class ServiceDetailsComponent {
     quartier: null,
     rue: null,
     porte: null,
+    periode : null,
     photo: null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
+
+  selectedStatut: string | null = null;
+  //METHODE PERMETTANT DE CHANGER LES STATUTS
+  onStatutChange(event: any) {
+    this.selectedStatut = event.target.value;
+    if (this.selectedStatut === 'A vendre') {
+      this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
+    }
+  }
 
   constructor(
     private _lightbox: Lightbox,
@@ -183,7 +194,29 @@ export class ServiceDetailsComponent {
     private servicecommentaire: commentaireService,
     private route: ActivatedRoute,
   ) {
-
+    //RECUPERER L'ID D'UN BIEN
+    this.id = this.route.snapshot.params["id"];
+    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+      this.bien = data.biens[0];
+      console.log(this.bien); 
+      this.form = {
+        nom: this.bien.nom,
+        description: this.bien.description,
+        type: this.bien.typeImmo.nom,
+        surface: this.bien.surface,
+        periode: this.bien.periode.nom,
+        porte: this.bien.adresse.porte,
+        rue: this.bien.adresse.rue,
+        quartier: this.bien.adresse.quartier,
+        // statut: this.bien.statut,
+        prix: this.bien.prix,
+        toilette: this.bien.toilette,
+        cuisine: this.bien.cuisine,
+        chambre: this.bien.chambre,
+        commodite: this.bien.commodite.nom,
+      };  
+    });
   }
   open(index: number, albumArray: Array<any>): void {
     this._lightbox.open(albumArray, index);
@@ -258,6 +291,7 @@ export class ServiceDetailsComponent {
       this.pays = data.pays;
       this.region = data.region.reverse();
       this.commune = data.commune;
+      this.periode = data.periode;
       this.typebien = data.type;
       console.log(data);
     });
@@ -527,6 +561,7 @@ export class ServiceDetailsComponent {
       quartier,
       rue,
       porte,
+      periode,
       photo
     } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -588,6 +623,7 @@ export class ServiceDetailsComponent {
                 quartier,
                 rue,
                 porte,
+                periode,
                 photo,
                 this.id
               )

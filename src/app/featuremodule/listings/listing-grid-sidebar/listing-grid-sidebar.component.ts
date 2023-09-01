@@ -38,6 +38,21 @@ export class ListingGridSidebarComponent {
   regions: any = [];
   communes: any = [];
 
+  favoritedPropertiesCount: number = 0;
+
+
+  isFavorite: boolean = false;
+  favoriteStatus: { [key: number]: boolean } = {};
+  toggleFavorite(bienId: number) {
+    this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
+      // Comptez le nombre de biens immobiliers favoris actifs
+  this.favoritedPropertiesCount = Object.values(this.favoriteStatus).filter(status => status).length;
+    // Vous pouvez également ajouter ici la logique pour enregistrer l'état du favori côté serveur si nécessaire.
+    console.log(this.favoritedPropertiesCount);
+    
+  }
+  
+
   commodite: any
   adresse: any
   region: any

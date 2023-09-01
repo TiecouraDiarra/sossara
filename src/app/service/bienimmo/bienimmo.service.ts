@@ -165,6 +165,8 @@ export class BienimmoService {
     rue: string,
     porte: number,
     periode: number,
+    longitude: number,
+    latitude: number,
     photos: File[],
     // photo: File // Liste de photos
   ): Observable<any> {
@@ -186,6 +188,8 @@ export class BienimmoService {
     console.log('rue', rue);
     console.log('porte', porte);
     console.log('periode', periode);
+    console.log('longitude', longitude);
+    console.log('latitude', latitude);
     console.log('photo', photos);
     const formData = new FormData();
 
@@ -210,6 +214,8 @@ export class BienimmoService {
     } else {
       formData.append('periode', periode.toString());
     }
+    formData.append('longitude', longitude.toString());
+    formData.append('latitude', latitude.toString());
     photos.forEach(p => { formData.append('photo[]', p) });
 
     return this.http.post(
@@ -277,6 +283,7 @@ export class BienimmoService {
     quartier: string,
     rue: string,
     porte: number,
+    periode: number,
     photos: File[], //Liste de photos
     id: any
   ): Observable<any> {
@@ -297,6 +304,7 @@ export class BienimmoService {
     console.log('quart', quartier);
     console.log('rue', rue);
     console.log('porte', porte);
+    console.log('periode', periode);
     console.log('photo', photos);
     console.log('id', id);
     const formData = new FormData();
@@ -316,6 +324,12 @@ export class BienimmoService {
     formData.append('quartier', quartier);
     formData.append('rue', rue);
     formData.append('porte', porte.toString());
+    // Si le statut est "A vendre", définissez la période sur 6
+    if (statut === "A vendre") {
+      formData.append('periode', '6');
+    } else {
+      formData.append('periode', periode.toString());
+    }
     photos.forEach(p => { formData.append('photo[]', p) });
     formData.append('id', id);
 
