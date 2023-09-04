@@ -126,3 +126,14 @@
   font-size: 14px;
   color: #777;
 }
+
+.image-gallery {
+  width: 100%; /* Ajustez la largeur souhaitée */
+  height: 50%; /* Laissez la hauteur s'ajuster automatiquement pour maintenir les proportions */
+  /* Autres styles si nécessaire */
+}
+
+.image-size {
+  width: 100%; /* Remplacez cette valeur par la taille souhaitée */
+  height: 180px; /* Remplacez cette valeur par la taille souhaitée */
+}

@@ -43,15 +43,21 @@ export class ListingGridSidebarComponent {
 
   isFavorite: boolean = false;
   favoriteStatus: { [key: number]: boolean } = {};
+  favoritedPropertiesCount1: { [bienId: number]: number } = {};
   toggleFavorite(bienId: number) {
     this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
-      // Comptez le nombre de biens immobiliers favoris actifs
-  this.favoritedPropertiesCount = Object.values(this.favoriteStatus).filter(status => status).length;
+
+    // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+    if (this.favoriteStatus[bienId]) {
+      this.favoritedPropertiesCount1[bienId]++;
+    } else {
+      this.favoritedPropertiesCount1[bienId]--;
+    }
+
     // Vous pouvez également ajouter ici la logique pour enregistrer l'état du favori côté serveur si nécessaire.
-    console.log(this.favoritedPropertiesCount);
-    
   }
-  
+
+
 
   commodite: any
   adresse: any
@@ -140,6 +146,12 @@ export class ListingGridSidebarComponent {
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.biens.reverse();
+      // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+      this.bienImmo.forEach((bien: { id: string | number; }) => {
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = 0;
+        }
+      });
       console.log(this.bienImmo);
     }
     );

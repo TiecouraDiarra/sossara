@@ -31,10 +31,10 @@ export class ContactComponent {
     e.preventDefault();
     emailjs
       .sendForm(
-        'service_jwdiwpt',
-        'template_mqzsvla',
+        'service_dybse2w',
+        'template_z2uzkbj',
         e.target as HTMLFormElement,
-        'Y3qbk-_U6k8PqhbOR'
+        'mS5zAXiTGMU-FNe5g'
       )
       .then(
         (result: EmailJSResponseStatus) => {

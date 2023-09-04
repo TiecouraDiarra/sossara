@@ -60,3 +60,8 @@
   .crd {
     cursor: pointer;
   }
+
+  /* styles.css (ou votre fichier de style personnalisé) */
+.custom-narrow-form-field {
+  width: 165px; /* Personnalisez la largeur selon vos besoins */
+}

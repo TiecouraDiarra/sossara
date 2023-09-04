@@ -20,6 +20,28 @@ export class ListingGridComponent {
   commune : any
   p:number=1;
   id:any
+  searchText: any;
+
+
+  favoriteStatus: { [key: number]: boolean } = {};
+  favoritedPropertiesCount1: { [bienId: number]: number } = {};
+  toggleFavorite(bienId: number) {
+    this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
+
+    // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+    if (this.favoriteStatus[bienId]) {
+      this.favoritedPropertiesCount1[bienId]++;
+    } else {
+      this.favoritedPropertiesCount1[bienId]--;
+    }
+
+    // Vous pouvez également ajouter ici la logique pour enregistrer l'état du favori côté serveur si nécessaire.
+  }
+
+    //FORMATER LE PRIX
+    formatPrice(price: number): string {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
 
   constructor(
     private Dataservice:DataService,
@@ -35,6 +57,12 @@ export class ListingGridComponent {
     this.id=this.route.snapshot.params["id"]
     this.serviceBienImmo.AfficherBienImmoParCommune(this.id).subscribe(data=>{
       this.bienImmo=data.biens.reverse();
+       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+       this.bienImmo.forEach((bien: { id: string | number; }) => {
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = 0;
+        }
+      });
       console.log(this.bienImmo);
       this.commune = this.bienImmo[0].adresse.commune.nom;
       console.log(this.bienImmo);

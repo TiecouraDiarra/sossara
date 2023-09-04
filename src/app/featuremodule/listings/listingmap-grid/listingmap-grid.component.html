@@ -54,55 +54,57 @@
 
             <form class="collapse" id="collapseFilter">
               <div class="row">
-                <div class="filter-content form-group">
-                  <mat-form-field class="mat-custom-select">
-                    <mat-label *ngIf="selectedCategory == ''">
-                      Région</mat-label>
-                    <mat-select (selectionChange)="onRegionSelectionChange($event)" [(ngModel)]="selectedRegion" name="selectedRegion">
-                      <mat-option disabled class="search-input-option">
-                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
-                            searchCategory(searchInputCategory)
-                          " class="search-input" type="text" />
-                      </mat-option>
-                      <mat-option [value]="Region.nom" *ngFor="let Region of region">{{ Region.nom
-                        }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                  <div class="filter-content form-group">
+                    <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Région</mat-label>
+                      <mat-select (selectionChange)="onRegionSelectionChange($event)" [(ngModel)]="selectedRegion" name="selectedRegion">
+                        <mat-option disabled class="search-input-option">
+                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                              searchCategory(searchInputCategory)
+                            " class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option [value]="Region.nom" *ngFor="let Region of region">{{ Region.nom
+                          }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+  
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="filter-content form-group">
-                  <mat-form-field class="mat-custom-select">
-                    <mat-label *ngIf="selectedCategory == ''">
-                      Commune</mat-label>
-                    <mat-select (selectionChange)="onCommuneSelectionChange($event)" [(ngModel)]="selectedCommune" name="selectedCommune">
-                      <mat-option disabled class="search-input-option">
-                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
-                            searchCategory(searchInputCategory)
-                          " class="search-input" type="text" />
-                      </mat-option>
-                      <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                  <div class="filter-content form-group">
+                    <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Commune</mat-label>
+                      <mat-select (selectionChange)="onCommuneSelectionChange($event)" [(ngModel)]="selectedCommune" name="selectedCommune">
+                        <mat-option disabled class="search-input-option">
+                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                              searchCategory(searchInputCategory)
+                            " class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+  
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="filter-content form-group">
-                  <mat-form-field class="mat-custom-select">
-                    <mat-label *ngIf="selectedCategory == ''">
-                      Type</mat-label>
-                    <mat-select (selectionChange)="onTypeSelectionChange($event)" [(ngModel)]="selectedType" name="selectedType">
-                      <mat-option disabled class="search-input-option">
-                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
-                            searchCategory(searchInputCategory)
-                          " class="search-input" type="text" />
-                      </mat-option>
-                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
-                        }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                  <div class="filter-content form-group">
+                    <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Type</mat-label>
+                      <mat-select (selectionChange)="onTypeSelectionChange($event)" [(ngModel)]="selectedType" name="selectedType">
+                        <mat-option disabled class="search-input-option">
+                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                              searchCategory(searchInputCategory)
+                            " class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                          }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
               <!-- TEST  -->
@@ -293,9 +295,9 @@
                       <div class="fav-item">
                         <span [ngClass]="{'statutbien': slide.statut === 'A vendre' }" class="Featured-text">{{
                           slide.statut }}</span>
-                        <a href="javascript:void(0)" class="fav-icon">
-                          <i class="feather-heart"></i>
-                        </a>
+                          <a href="javascript:void(0)" class="fav-icon" (click)="toggleFavorite(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : ''">
+                            <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
+                          </a> 
                       </div>
                     </div>
                     <div class="bloglist-content">
@@ -312,7 +314,7 @@
                           </div>
                           <div class="blog-author text-end">
                             <span>
-                              <i class="feather-eye"></i>400
+                              <i class="feather-eye"></i>{{ favoritedPropertiesCount1[slide.id] }}
                             </span>
                           </div>
                         </div>

@@ -130,6 +130,20 @@ export class ListingmapGridComponent implements OnInit {
     (this.categoriesDataSource = new MatTableDataSource(this.categories));
   }
 
+  favoriteStatus: { [key: number]: boolean } = {};
+  favoritedPropertiesCount1: { [bienId: number]: number } = {};
+  toggleFavorite(bienId: number) {
+    this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
+
+    // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+    if (this.favoriteStatus[bienId]) {
+      this.favoritedPropertiesCount1[bienId]++;
+    } else {
+      this.favoritedPropertiesCount1[bienId]--;
+    }
+
+    // Vous pouvez également ajouter ici la logique pour enregistrer l'état du favori côté serveur si nécessaire.
+  }
   searchCategory(value: any): void {
     const filterValue = value;
     this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
@@ -162,6 +176,12 @@ export class ListingmapGridComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.biens.reverse();
+       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+      this.bienImmo.forEach((bien: { id: string | number; }) => {
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = 0;
+        }
+      });
       console.log(this.bienImmo);
     }
     );
@@ -311,10 +331,14 @@ export class ListingmapGridComponent implements OnInit {
       content += 
       '<div class="row">' +
       '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">'+marker.statut +'</span></div>' +
+      `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>`
+       + marker.types + '</span></a></p></div>';
+    } else if (marker.statut === 'A louer') {
+      content += 
+      '<div class="row">' +
+      '<div class="col"><span class="Featured-text" style="font-weight: bold;">'+marker.statut +'</span></div>' +
       '<div class="col"><p class="blog-category"><a href="javascript:void(0)"><span>' +
       marker.types + '</span></a></p></div>';
-    } else if (marker.statut === 'A louer') {
-      content += '<span class="Featured-text" style="font-weight: bold;">' + marker.statut + '</span>';
     }
 
     content +=

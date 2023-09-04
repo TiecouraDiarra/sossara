@@ -2985,8 +2985,9 @@ a:hover, a:focus {
     margin-bottom: 0.5rem;
 	color: #374B5C;
 }
-.details-description {
-    padding: 30px 0;
+.details-description { 
+    /* padding: 30px 0; */
+    padding-top: 30px;
 	background: #fff;
 	box-shadow: 3px 5px 13px rgb(222 226 231 / 44%);
 }
@@ -3014,11 +3015,11 @@ a:hover, a:focus {
     font-size: 14px;
 }
 .about-headings {
-    width: 80%;
+    width: 70%;
 	display: flex;
 }
 .rate-details {
-    width: 20%;
+    width: 30%;
 	text-align: right;
 }
 .average-rating {
@@ -3068,7 +3069,7 @@ a:hover, a:focus {
 }
 .details-main-wrapper {
     background: #f9fafc;
-    padding: 70px 0;
+    /* padding: 10px 0; */
 }
 .card {
     background: #fff;
@@ -6077,6 +6078,9 @@ body table.listing-table.datatable {
 }
 .listgrid-sidebar .Featured-text.statutbien {
     background-color:#e98b11;
+}
+.blog-category .Featured-text.statut {
+    background-color: #e98b11;
 }
 .grid-view .Featured-text.statutbien {
     background-color:#e98b11;

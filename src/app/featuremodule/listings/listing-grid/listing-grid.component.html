@@ -21,8 +21,31 @@
 <div class="dashboard-content">		
     <div class="container">			
         <div class="bookmarks-content grid-view featured-slider">
+            <div class="row sorting-div mt-3">
+                <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
+                  <div class="sortbyset">
+                    <span class="sortbytitle">Trier</span>
+                    <div class="sorting-select">
+                      <select class="form-control form-select" [(ngModel)]="searchText">
+                        <option value="" selected>Tout</option>
+                        <option>A louer</option>
+                        <option>A vendre</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="grid-listview">
+                    <ul>
+                      <li>
+                        <a [routerLink]="routes.listinggrid" class="active">
+                          <i class="feather-grid"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6 " *ngFor="let BienImo of bienImmo | paginate:{itemsPerPage :3, currentPage:p}">
+                <div class="col-lg-4 col-md-4 col-sm-6 " *ngFor="let BienImo of bienImmo | filter : searchText | paginate:{itemsPerPage :3, currentPage:p}">
                     <div class="card aos aos-init aos-animate" data-aos="fade-up">
                         <div class="blog-widget">
                             <div class="blog-img">
@@ -37,9 +60,9 @@
                                   </a>
                                 <div class="fav-item">
                                     <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }" class="Featured-text">{{ BienImo.statut }}</span>
-                                        <a href="javascript:void(0)" class="fav-icon">
-                                            <i class="feather-heart"></i>
-                                        </a>										
+                                    <a href="javascript:void(0)" class="fav-icon" (click)="toggleFavorite(BienImo.id)" [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+                                        <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
+                                      </a> 										
                                 </div>	
                             </div>
                             <div class="bloglist-content">
@@ -54,7 +77,7 @@
                                            <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ BienImo.typeImmo.nom }}</span></a>
                                         </div>																	  
                                         <div class="blog-author text-end"> 
-                                            <span> <i class="feather-eye"></i>400</span>
+                                            <span> <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}</span>
                                         </div>
                                     </div> 
                                     <h6><a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a></h6>																	 
@@ -68,7 +91,7 @@
                                     </div>
                                     <div class="amount-details">
                                         <div class="amount">
-                                            <span class="validrate">{{ BienImo.prix }} FCFA</span>
+                                            <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
                                             <!-- <span>{{slide.oldamount}}</span> -->
                                         </div>
                                         <div class="ratings">

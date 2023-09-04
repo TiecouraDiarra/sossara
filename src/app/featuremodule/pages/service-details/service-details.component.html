@@ -49,46 +49,65 @@
                     <img *ngIf="isFirst" src="{{ generateImageUrl(photo.nom) }}" alt="authorimg">
                 </div>
                 <div class="authordetails">
-                    <h5 *ngIf="bien && bien.typeImmo">{{bien.typeImmo.nom}} {{bien.statut}}</h5>
-                    <p *ngIf="bien && bien.adresse">{{bien.adresse.commune.region.pays.nom}} -
-                        {{bien.adresse.commune.region.nom}} - {{bien.adresse.commune.nom}} - {{bien.adresse.quartier}} ,
-                        Rue : {{bien.adresse.rue}}, Porte : {{bien.adresse.porte}}</p>
+                    
+                    <h5 *ngIf="bien && bien.typeImmo">{{ bien.nom ? bien.nom : bien.typeImmo.nom }}</h5>
                     <div class="rating">
-                        <i class="fas fa-star filled"></i>
+                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
+                            <a href="javascript:void(0)"><span>{{bien.adresse.commune.region.pays.nom}} -
+                                {{bien.adresse.commune.region.nom}} </span></a>
+                        </p>
+                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
+                            <a href="javascript:void(0)"><span>{{bien.adresse.commune.nom}} - {{bien.adresse.quartier}}</span></a>
+                        </p>
+                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
+                            <a href="javascript:void(0)"><span>Rue : {{bien.adresse.rue}}</span></a>
+                        </p>
+                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
+                            <a href="javascript:void(0)"><span> Porte : {{bien.adresse.porte}}</span></a>
+                        </p>
+                    </div>
+                    <div class="rating">
+                        <!-- <i class="fas fa-star filled"></i>
                         <i class="fas fa-star filled"></i>
                         <i class="fas fa-star filled"></i>
                         <i class="fas fa-star filled"></i>
                         <i class="fa-regular fa-star rating-color"></i>
-                        <span class="d-inline-block average-rating"> 4.5 </span>
+                        <span class="d-inline-block average-rating"> 4.5 </span> -->
+                        <div class="blog-category" *ngIf="bien && bien.typeImmo"  style="margin-right: 10px;">
+                            <span 
+                            class="Featured-text" style="background-color: #374b5c;">{{bien.typeImmo.nom}}</span>									
+                        </div>
+                        <div class="blog-category" *ngIf="bien">
+                            <span [ngClass]="{'statut': bien.statut === 'A vendre' }" 
+                            class="Featured-text">{{bien.statut}}</span>									
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="rate-details" *ngIf="bien && bien.prix">
                 <h4>{{ formatPrice(bien.prix) }} FCFA</h4>
-                <!-- <p>Fixe</p> -->
+                <!-- CANDIDATER UN BIEN   -->
+                <div class="callnow crd mt-5" *ngIf="isLoggedIn == true && currentUser == false">
+                    <a (click)="CandidaterBien()" class="action-btn btn-edit"> <i
+                            class="feather-edit-3"></i>Candidater pour ce bien</a>
+                </div>
+                <!-- BOUTON MODIFIER UN BIEN -->
+                <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="isLoggedIn == true && currentUser == true">
+                    <a class="action-btn btn-edit"> <i
+                            class="feather-edit-3"></i>Modifier ce bien</a>
+                </div>
             </div>
         </div>
-        <div class="descriptionlinks">
+        <!-- <div class="descriptionlinks">
             <div class="row">
                 <div class="col-lg-7">
-                    <!-- <ul>
-                        <li><a href="javascript:void(0);"><i class="feather-map"></i> Get Directions</a></li>
-                        <li><a href="javascript:void(0);"><img src="assets/img/website.svg" alt="website">Website</a>
-                        </li>
-                        <li><a href="javascript:void(0);"><i class="feather-share-2"></i> share</a></li>
-                         <li><a href="javascript:void(0);"><i class="fa-regular fa-comment-dots"></i> Write a review</a></li>
-                        <li><a href="javascript:void(0);"><i class="feather-flag"></i> report</a></li>
-                        <li><a href="javascript:void(0);"><i class="feather-heart"></i> Save</a></li>
-                    </ul> -->
                 </div>
-                <!-- CANDIDATER UN BIEN   -->
                 <div class="col-lg-5" *ngIf="isLoggedIn == true && currentUser == false">
                     <div class="callnow crd">
                         <a (click)="CandidaterBien()" class="action-btn btn-edit"> <i
                                 class="feather-edit-3"></i>Candidater pour ce bien</a>
                     </div>
                 </div>
-                <!-- BOUTON MODIFIER UN BIEN -->
                 <div class="col-lg-5" *ngIf="isLoggedIn == true && currentUser == true">
                     <div class="callnow crd" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <a class="action-btn btn-edit"> <i
@@ -96,7 +115,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 <!--/Details Description  Section-->
@@ -540,15 +559,13 @@
                                 <ng-container *ngFor="let photo of photos; let i = index">
                                     <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="i<12">
                                         <div class="gallery-widget">
-                                            <img class="img-fluid" [src]="generateImageUrl(photo.nom)"
+                                            <img class="img-fluid image-size" [src]="generateImageUrl(photo.nom)"
                                                 (click)="open(i, albumsOne)" />
                                         </div>
 
                                     </div>
                                 </ng-container>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -641,7 +658,7 @@
                     <div class="card-body">
                         <div class="review-list">
                             <ul class="">
-                                <div class="ligne">
+                                <div class="ligne" *ngIf="commentaire && commentaire.length > 0">
                                     <li class="review-box" *ngFor="let commentaire of commentaire">
                                         <div class="review-profile">
                                             <div class="review-img">
@@ -802,7 +819,7 @@
                             <h4><img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon"> Details
                                 du bien</h4>
                             <ul>
-                                <li *ngIf="bien && bien.typeImmo">Statut <span>{{bien.typeImmo.nom}}</span></li>
+                                <li *ngIf="bien && bien.typeImmo">Type du bien <span>{{bien.typeImmo.nom}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Quartier <span>{{bien.adresse.quartier}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Rue <span>{{bien.adresse.rue}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Porte <span>{{bien.adresse.porte}}</span></li>
@@ -831,7 +848,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="submit-section mb-3" style="text-align: center;">
+                        <div class="submit-section mb-3" style="text-align: center;" *ngIf="isLoggedIn == true && currentUser == false">
                             <button (click)="OuvrirConversation(bien.utilisateur.id)" class="btn btn-primary submit-btn"
                                 type="submit">Envoyer un message</button>
                         </div>
@@ -875,7 +892,7 @@
                         </ul>
                     </div>-->
 
-                        <div class="card mb-0">
+                        <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false">
                             <h6> <i class="feather-phone-call"></i> Prendre Rendez-vous </h6>
                             <form class="contactbusinessform">
                                 <div class="form-group">

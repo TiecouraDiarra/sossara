@@ -2319,7 +2319,6 @@ p:last-child {
 }
 .pro-content .Featured-text .status-a-vendre {
   background-color:#e98b11;
-
 }
 .service-content a {
   font-size: 16px;
@@ -3092,7 +3091,8 @@ a:focus {
   color: #374b5c;
 }
 .details-description {
-  padding: 30px 0;
+  /* padding: 30px 0; */
+  padding-top: 30px;
   background: #fff;
   box-shadow: 3px 5px 13px rgb(222 226 231 / 44%);
 }
@@ -3120,11 +3120,11 @@ a:focus {
   font-size: 14px;
 }
 .about-headings {
-  width: 80%;
+  width: 70%;
   display: flex;
 }
 .rate-details {
-  width: 20%;
+  width: 30%;
   text-align: right;
 }
 .average-rating {
@@ -3174,7 +3174,7 @@ a:focus {
 }
 .details-main-wrapper {
   background: #f9fafc;
-  padding: 70px 0;
+  /* padding: 10px 0; */
 }
 .card {
   background: #fff;
@@ -6286,6 +6286,9 @@ body table.listing-table.datatable {
   border: 1px solid #dee2e7;
   border-radius: 10px;
   border-top: none;
+}
+.about-details.blog-category .status-text.unpublish {
+  color: #e98b11;
 }
 .listing-table.datatable .status-text.unpublish {
   color: #e98b11;

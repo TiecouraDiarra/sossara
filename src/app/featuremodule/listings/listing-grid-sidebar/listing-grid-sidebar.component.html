@@ -170,7 +170,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div> -->
-                <div class="filter-content form-group amenities">
+                <!-- <div class="filter-content form-group amenities">
                   <h4 class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
                     aria-expanded="false" aria-controls="collapseExample">Autres commodités</h4>
                   <div class="collapse" id="cautrecomm">
@@ -185,15 +185,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <ul>
-                    <li *ngFor="let Commodite of commodite">
-                      <label class="custom_check">
-                        <input type="checkbox" name="wireless-internet" />
-                        <span class="checkmark"></span> {{Commodite.nom}}
-                      </label>
-                    </li>
-                  </ul> -->
-                </div>
+                </div> -->
                 <!--<div class="filter-content form-group amenities radius">
                   <div class="slidecontainer">
                     <div class="slider-info">
@@ -272,7 +264,7 @@
                       <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
                         <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size"
                           alt="blog-img">
-                      </div>
+                      </div> 
                       <ng-template #noImages>
                         <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
                       </ng-template>
@@ -300,7 +292,7 @@
                         </div>
                         <div class="blog-author text-end">
                           <span>
-                            <i class="feather-eye"></i>400
+                            <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}
                           </span>
                         </div>
                       </div>
