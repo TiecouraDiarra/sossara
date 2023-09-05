@@ -10,6 +10,9 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { environment } from 'src/app/environments/environment';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
+import { TranslationService } from 'src/app/service/translation/translation.service';
+
+
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -36,6 +39,17 @@ export class HeaderComponent implements OnInit {
   isLoginFailed = true;
   errorMessage = '';
 
+  languages = [
+    { code: 'en', iconUrl: 'path/to/english-flag.png' },
+    { code: 'fr', iconUrl: 'path/to/french-flag.png' },
+    // Ajoutez d'autres langues ici
+  ];
+
+  changeLanguage(langCode: string) {
+    // Utilisez un service de traduction pour changer la langue
+    this.translationService.setLanguage(langCode);
+  }
+  
   public nav: boolean = false;
   header: Array<any> = [];
   sidebar: Array<any> = [];
@@ -57,6 +71,7 @@ export class HeaderComponent implements OnInit {
     private serviceUser: UserService,
     private sidebarService: SidebarService,
     private serviceBienImmo: BienimmoService,
+    private translationService: TranslationService,
     private authService: AuthService,
     private storageService: StorageService
   ) {

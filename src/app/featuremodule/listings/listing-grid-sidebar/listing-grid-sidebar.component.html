@@ -38,12 +38,17 @@
                   <mat-form-field class="mat-custom-select">
                     <mat-label *ngIf="selectedCategory == ''">
                       Statut</mat-label>
-                    <mat-select (change)="onChangeRegion($event.target)">
-                      <mat-option>A louer</mat-option>
-                        <mat-option>A vendre</mat-option>
+                    <mat-select (change)="onChangeRegion($event.target)" (selectionChange)="onStatutSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="status" *ngFor="let Statut of status">{{Statut}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
+                
                 <div class="filter-content form-group">
                   <mat-form-field class="mat-custom-select">
                     <mat-label *ngIf="selectedCategory == ''">
@@ -233,7 +238,7 @@
             </div>
           </div>-->
           <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
-            <div class="sortbyset">
+            <!-- <div class="sortbyset">
               <span class="sortbytitle">Trier</span>
               <div class="sorting-select">
                 <select class="form-control form-select" [(ngModel)]="searchText">
@@ -242,7 +247,7 @@
                   <option>A vendre</option>
                 </select>
               </div>
-            </div>
+            </div> -->
             <div class="grid-listview">
               <ul>
                 <!--<li>
@@ -250,11 +255,11 @@
                     <i class="feather-list"></i>
                   </a>
                 </li>-->
-                <li>
+                <!-- <li>
                   <a [routerLink]="routes.listinggridsidebar" class="active">
                     <i class="feather-grid"></i>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>

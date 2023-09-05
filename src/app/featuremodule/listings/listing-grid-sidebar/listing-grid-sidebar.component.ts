@@ -33,6 +33,8 @@ export class ListingGridSidebarComponent {
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  status: any = ['A louer', 'A vendre'];
+
 
 
   regions: any = [];
@@ -100,6 +102,11 @@ export class ListingGridSidebarComponent {
   //RECHERCHER PAR REGION
   onRegionSelectionChange(event: any) {
     this.selectedRegion = event.value;
+  }
+
+  //RECHERCHER PAR STATUT
+  onStatutSelectionChange(event: any) {
+    this.selectedStatut = event.value;
   }
 
 

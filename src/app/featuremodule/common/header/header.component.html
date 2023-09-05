@@ -149,6 +149,15 @@
             </div>
           </div> -->
         </li>
+        <!-- <li class="nav-item">
+          <div class="language-selector">
+            <ng-container *ngFor="let lang of languages">
+              <button (click)="changeLanguage(lang.code)">
+                <img [src]="lang.iconUrl" alt="{{ lang.code }} flag">
+              </button>
+            </ng-container>
+          </div>
+        </li> -->
 
         <li class="nav-item dropdown has-arrow logged-item">
           <a href="javascript:void(0);" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown"
@@ -195,7 +204,7 @@
             aria-expanded="false" *ngIf="User.user && User.user.username">
             <img src="{{generateImageUrl(User.user.photo)}}" (error)="handleAuthorImageError($event)" alt="">
             <span>{{User.user.username}}</span>
-          </a> 
+          </a>
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" [routerLink]='routes.dashboard'>Dashboard</a>
             <a class="dropdown-item" [routerLink]='routes.profile'>Profil</a>
