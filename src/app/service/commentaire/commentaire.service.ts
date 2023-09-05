@@ -21,7 +21,7 @@ export class commentaireService {
   setAccessToken(token: string) {
     this.accessToken = token;
   }
-   // Méthode pour ajouter le token JWT aux en-têtes
+   // Méthode pour ajouter le token JWT aux en-têtes 
    getHeaders(): HttpHeaders {
     const token = this.storageService.getUser().token;
     return new HttpHeaders({

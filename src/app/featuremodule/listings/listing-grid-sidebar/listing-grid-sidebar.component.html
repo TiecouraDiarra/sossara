@@ -37,6 +37,16 @@
                 <div class="filter-content form-group">
                   <mat-form-field class="mat-custom-select">
                     <mat-label *ngIf="selectedCategory == ''">
+                      Statut</mat-label>
+                    <mat-select (change)="onChangeRegion($event.target)">
+                      <mat-option>A louer</mat-option>
+                        <mat-option>A vendre</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
                       Région</mat-label>
                     <mat-select (change)="onChangeRegion($event.target)" (selectionChange)="onRegionSelectionChange($event)">
                       <mat-option disabled class="search-input-option">

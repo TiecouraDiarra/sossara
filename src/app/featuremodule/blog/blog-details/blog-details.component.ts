@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes'
+import { environment } from 'src/app/environments/environment';
+import { BlogService } from 'src/app/service/blog/blog.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
+
+
+
 @Component({
   selector: 'app-blog-details',
   templateUrl: './blog-details.component.html',
@@ -11,11 +18,13 @@ import { DataService } from 'src/app/service/data.service';
 export class BlogDetailsComponent {
   public routes = routes;
   typebien: any
+  blog: any
   id: any
   public gridBlog: any = [];
 
   constructor(
     private serviceCommodite: CommoditeService,
+    private serviceBlog: BlogService,
     private route: ActivatedRoute,
     private Dataservice: DataService,
 
@@ -23,25 +32,25 @@ export class BlogDetailsComponent {
     this.gridBlog = this.Dataservice.gridBlog
   }
 
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'assets/img/gallery/gallery1/gallery-1.jpg';
+  }
+  handleAuthorImageError1(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  }
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
+    const baseUrl = URL_PHOTO + '/uploads/images/';
+    return baseUrl + photoFileName;
+  }
   ngOnInit(): void {
     //RECUPERER L'ID D'UN BLOG 
     this.id = this.route.snapshot.params["id"]
-
-    // Assurez-vous que l'ID est un nombre valide (parse si nécessaire)
-    const blogId = parseInt(this.id);
-    // Vérifiez si l'ID est valide et dans la plage de l'array gridBlog
-    if (!isNaN(blogId) && blogId >= 0 && blogId < this.Dataservice.gridBlog.length) {
-      // Attribuez le blog correspondant à gridBlog[id]
-      this.gridBlog = this.Dataservice.gridBlog[blogId];
-      console.log(this.gridBlog);
-    } else {
-      // Gérez le cas où l'ID n'est pas valide ou n'existe pas dans gridBlog
-      console.log("ID de blog invalide ou introuvable.");
-    }
-
-    // this.gridBlog=this.Dataservice.gridBlog[0]
-    // console.log(this.gridBlog);
-
+    this.serviceBlog.AfficherBlogParId(this.id).subscribe(data => {
+      this.blog = data.blogs;
+      console.log(this.blog);
+    })
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.typebien = data.type;

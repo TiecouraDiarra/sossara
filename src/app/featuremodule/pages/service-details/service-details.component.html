@@ -49,20 +49,21 @@
                     <img *ngIf="isFirst" src="{{ generateImageUrl(photo.nom) }}" alt="authorimg">
                 </div>
                 <div class="authordetails">
-                    
+
                     <h5 *ngIf="bien && bien.typeImmo">{{ bien.nom ? bien.nom : bien.typeImmo.nom }}</h5>
                     <div class="rating">
-                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
+                        <p class="blog-category" *ngIf="bien && bien.adresse">
                             <a href="javascript:void(0)"><span>{{bien.adresse.commune.region.pays.nom}} -
-                                {{bien.adresse.commune.region.nom}} </span></a>
+                                    {{bien.adresse.commune.region.nom}} </span></a>
                         </p>
-                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
-                            <a href="javascript:void(0)"><span>{{bien.adresse.commune.nom}} - {{bien.adresse.quartier}}</span></a>
+                        <p class="blog-category" *ngIf="bien && bien.adresse">
+                            <a href="javascript:void(0)"><span>{{bien.adresse.commune.nom}} -
+                                    {{bien.adresse.quartier}}</span></a>
                         </p>
-                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
+                        <p class="blog-category" *ngIf="bien && bien.adresse">
                             <a href="javascript:void(0)"><span>Rue : {{bien.adresse.rue}}</span></a>
                         </p>
-                        <p class="blog-category" *ngIf="bien && bien.adresse"> 
+                        <p class="blog-category" *ngIf="bien && bien.adresse">
                             <a href="javascript:void(0)"><span> Porte : {{bien.adresse.porte}}</span></a>
                         </p>
                     </div>
@@ -73,13 +74,12 @@
                         <i class="fas fa-star filled"></i>
                         <i class="fa-regular fa-star rating-color"></i>
                         <span class="d-inline-block average-rating"> 4.5 </span> -->
-                        <div class="blog-category" *ngIf="bien && bien.typeImmo"  style="margin-right: 10px;">
-                            <span 
-                            class="Featured-text" style="background-color: #374b5c;">{{bien.typeImmo.nom}}</span>									
+                        <div class="blog-category" *ngIf="bien && bien.typeImmo" style="margin-right: 10px;">
+                            <span class="Featured-text" style="background-color: #374b5c;">{{bien.typeImmo.nom}}</span>
                         </div>
                         <div class="blog-category" *ngIf="bien">
-                            <span [ngClass]="{'statut': bien.statut === 'A vendre' }" 
-                            class="Featured-text">{{bien.statut}}</span>									
+                            <span [ngClass]="{'statut': bien.statut === 'A vendre' }"
+                                class="Featured-text">{{bien.statut}}</span>
                         </div>
                     </div>
                 </div>
@@ -88,13 +88,13 @@
                 <h4>{{ formatPrice(bien.prix) }} FCFA</h4>
                 <!-- CANDIDATER UN BIEN   -->
                 <div class="callnow crd mt-5" *ngIf="isLoggedIn == true && currentUser == false">
-                    <a (click)="CandidaterBien()" class="action-btn btn-edit"> <i
-                            class="feather-edit-3"></i>Candidater pour ce bien</a>
+                    <a (click)="CandidaterBien()" class="action-btn btn-edit"> <i class="feather-edit-3"></i>Candidater
+                        pour ce bien</a>
                 </div>
                 <!-- BOUTON MODIFIER UN BIEN -->
-                <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop" *ngIf="isLoggedIn == true && currentUser == true">
-                    <a class="action-btn btn-edit"> <i
-                            class="feather-edit-3"></i>Modifier ce bien</a>
+                <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    *ngIf="isLoggedIn == true && currentUser == true">
+                    <a class="action-btn btn-edit"> <i class="feather-edit-3"></i>Modifier ce bien</a>
                 </div>
             </div>
         </div>
@@ -191,7 +191,8 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Statut <span>*</span></label>
                                         <div class="pass-group group-img">
-                                            <select (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut" class="form-control" id="">
+                                            <select (change)="onStatutChange($event)" [(ngModel)]="form.statut"
+                                                name="statut" class="form-control" id="">
                                                 <option *ngFor="let item of status" [value]="item">
                                                     {{item}}
                                                 </option>
@@ -301,18 +302,19 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
-                                  <div class="form-group" *ngIf="selectedStatut === 'A louer'">
-                                    <label class="col-form-label">Periode <span>*</span></label>
-                                    <div class="pass-group group-img">
-                                      <select [(ngModel)]="form.periode" name="periode" class="form-control" id="">
-                                        <option *ngFor="let item of periode" [value]="item.ID">
-                                          {{ item.nom }}
-                                        </option>
-                                      </select>
+                                    <div class="form-group" *ngIf="selectedStatut === 'A louer'">
+                                        <label class="col-form-label">Periode <span>*</span></label>
+                                        <div class="pass-group group-img">
+                                            <select [(ngModel)]="form.periode" name="periode" class="form-control"
+                                                id="">
+                                                <option *ngFor="let item of periode" [value]="item.ID">
+                                                    {{ item.nom }}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                  </div>
                                 </div>
-                              </div>
+                            </div>
                         </div>
                     </div>
 
@@ -399,11 +401,26 @@
                                 </div>
                             </div>
                             <!-- map  -->
-                            <div class="listing-map">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.6461688381!2d-80.26548188573862!3d26.045130803169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9a862f9831459%3A0xafcb9384c02e8b75!2s8697%20Stirling%20Rd%2C%20Cooper%20City%2C%20FL%2033328%2C%20USA!5e0!3m2!1sen!2sin!4v1671519522101!5m2!1sen!2sin"
-                                    width="100" height="430" style="border: 0" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <div class="listing-map" >
+                                <!-- <input id="search-box" type="text" placeholder="Rechercher un lieu"> -->
+                                  <div id="map" style="width: 100%; height: 60vw;"></div>
+                              </div>
+                            <!-- MAP ADRESSE  -->
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Latitude</label>
+                                        <input type="text" class="form-control" readonly placeholder="Latitude"
+                                            name="latitude" [(ngModel)]="form.latitude" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Longitude</label>
+                                        <input type="text" class="form-control" readonly placeholder="Longitude"
+                                            name="longitude" [(ngModel)]="form.longitude" />
+                                    </div>
+                                </div>
                             </div>
                             <!-- Image  -->
                             <div class="card media-section">
@@ -570,6 +587,24 @@
                     </div>
                 </div>
                 <!--/Gallery Section-->
+
+                <!--Map Section-->
+                <div class="card" *ngIf="latitude !== null && longitude !== null">
+                    <div class="card-header ">
+                        <img width="5%" src="assets/img/orange-location-icon-png-18.png" alt="gallery">
+                        <h4>Emplacement du bien </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- <div class="test"> -->
+                        <div class="google-maps">
+                            <div id="map" style="width: 100%; height: 25vw;"></div>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <!--/Map Section-->
+
+
 
                 <!--Ratings Section-->
                 <!--<div class="card ">
@@ -835,7 +870,7 @@
                                 <li class="p-0">Lot Area <span>50 ft</span></li> -->
                             </ul>
                         </div>
-                        <div class="card">
+                        <div class="card" *ngIf="isLoggedIn == true && currentUser == false">
                             <h4> <i class="feather-user"></i> Auteur</h4>
                             <div class="sidebarauthor-details align-items-center">
                                 <div class="sideauthor-img" *ngIf="bien && bien.utilisateur">
@@ -848,11 +883,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="submit-section mb-3" style="text-align: center;" *ngIf="isLoggedIn == true && currentUser == false">
+                        <div class="submit-section mb-3" style="text-align: center;"
+                            *ngIf="isLoggedIn == true && currentUser == false">
                             <button (click)="OuvrirConversation(bien.utilisateur.id)" class="btn btn-primary submit-btn"
                                 type="submit">Envoyer un message</button>
                         </div>
-                        <div class="card">
+                        <div class="card" *ngIf="isLoggedIn == true && currentUser == false">
                             <h4><img src="assets/img/breifcase.svg" alt="">Info Entreprise</h4>
                             <div class="map-details">
                                 <div class="map-frame">

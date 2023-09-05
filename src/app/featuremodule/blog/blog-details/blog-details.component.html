@@ -1,19 +1,20 @@
 <!--Blog Banner-->
-<div class="blogbanner" style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url({{gridBlog.img2}})">
+<div class="blogbanner"  *ngIf="blog" style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url({{generateImageUrl(blog.photo)}})">
 
     <div class="blogbanner-content">
-        <span class="blog-hint">{{gridBlog.pays}}</span>
-        <h1>{{gridBlog.content}}</h1>
+        <span class="blog-hint">Mali</span>
+        <h1 *ngIf="blog">{{blog.titre}}</h1>
         <ul class="entry-meta meta-item">
             <li>
                 <div class="post-author">
-                    <div class="post-author-img">
-                        <img src="{{gridBlog.img1}}" alt="author">
+                    <div class="post-author-img"  *ngIf="blog && blog.utilisateur">
+                        <img src="{{generateImageUrl(blog.utilisateur.photo)}}"
+                        (error)="handleAuthorImageError1($event)" alt="author">
                     </div>
-                    <a href="javascript:void(0)"><span> {{gridBlog.name}} </span></a>
+                    <a href="javascript:void(0)" *ngIf="blog && blog.utilisateur"><span> {{blog.utilisateur.nom}} </span></a>
                 </div>
             </li>
-            <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{gridBlog.date}}</li>
+            <li class="date-icon" *ngIf="blog && blog.createdAt"><i class="fa-solid fa-calendar-days"></i> {{blog.createdAt.date | date:"dd/MM/yyyy"}}</li>
         </ul>
     </div>
 </div>
@@ -21,8 +22,8 @@
 
 <!--Blog Content-->
 <div class="blogdetail-content">
-    <div class="container">
-        <p>{{gridBlog.description}}</p>
+    <div class="container" *ngIf="blog">
+        <p>{{blog.description}}</p>
         <!-- <blockquote class="blog-quotes">
             <img src="assets/img/blogquote.jpg" alt="quotes">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula sapien nec nisi aliquam, vitae
@@ -37,7 +38,7 @@
             porta. Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue
             tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec
             condimentum euismod, lacinia ultricies leo. </p> -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="bloginner-img">
                     <img src="{{gridBlog.img3}}" class="img-fluid" alt="">
@@ -48,7 +49,7 @@
                     <img src="{{gridBlog.img4}}" class="img-fluid" alt="">
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="requiremnts-info">
             <h5>Requirements</h5>
             <ul>
@@ -72,18 +73,18 @@
                         <a href="javasvript:void();" class="share-text">Share</a>
                     </div> -->
                 </div>
-                <div class="col-lg-8">
+                <!-- <div class="col-lg-8">
                     <div class="tag-list">
                         <ul class="tags">
                             <li>Appartement </li>
                             <li>Villa </li>
                             <li>Terrain </li>
-                            <!-- <li>Tourism </li>
+                            <li>Tourism </li>
                             <li>Culture </li>
-                            <li>LSifestyle </li> -->
+                            <li>LSifestyle </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- <div class="blogdetails-pagination">

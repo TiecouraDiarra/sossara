@@ -54,7 +54,7 @@ export class ListingGridComponent {
   }
   ngOnInit(): void {
     //RECUPERER L'ID D'UNE COMMUNE
-    this.id=this.route.snapshot.params["id"]
+    this.id=this.route.snapshot.params["id"] 
     this.serviceBienImmo.AfficherBienImmoParCommune(this.id).subscribe(data=>{
       this.bienImmo=data.biens.reverse();
        // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.

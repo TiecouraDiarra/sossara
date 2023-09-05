@@ -1,0 +1,370 @@
+<!-- Main Content Section -->
+<div class="list-content listmap-grid">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 listingmappage-content">
+          <div class="listmapgrid-content">
+            <div class="row sorting-div" style="margin-top: 100px;">
+              <!-- <div class="col-lg-4 col-md-4 col-sm-4 align-items-center d-flex">
+                <div class="count-search">
+                  <p>Showing <span>1-8</span> of 10 Results</p>
+                </div>
+              </div> -->
+              <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
+                <div class="sortbyset">
+                  <span class="sortbytitle">Filtrer par</span>
+                  <div class="sorting-select">
+                    <select class="form-control select" [(ngModel)]="searchText">
+                      <option value="" selected>Tout</option>
+                      <option>A louer</option>
+                      <option>A vendre</option>
+                    </select>
+                    <!-- <select [(ngModel)]="selectedType1" class="form-control select">
+                      <option value="" selected>Tout</option>
+                      <option>Appartement</option>
+                      <option>Villa</option>
+                      <option>Terrain</option>
+                    </select> -->
+                  </div>
+                </div>
+                <div class="grid-listview">
+                  <ul>
+                    <!-- <li>
+                      <a [routerLink]="routes.listingmaplist">
+                        <i class="feather-list"></i>
+                      </a>
+                    </li> -->
+                    <li>
+                      <a [routerLink]="routes.listingmapgrid" class="active">
+                        <i class="feather-grid"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse" href="#collapseFilter"
+                role="button" aria-expanded="false" aria-controls="collapseExample">
+                <h5>
+                  <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
+                  Filtrer
+                </h5>
+              </a>
+  
+              <form class="collapse" id="collapseFilter">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Région</mat-label>
+                        <mat-select (selectionChange)="onRegionSelectionChange($event)" [(ngModel)]="selectedRegion" name="selectedRegion">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Region.nom" *ngFor="let Region of region">{{ Region.nom
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+    
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Commune</mat-label>
+                        <mat-select (selectionChange)="onCommuneSelectionChange($event)" [(ngModel)]="selectedCommune" name="selectedCommune">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+    
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Type</mat-label>
+                        <mat-select (selectionChange)="onTypeSelectionChange($event)" [(ngModel)]="selectedType" name="selectedType">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <!-- TEST  -->
+                <!-- <div class="row">
+                  <select [(ngModel)]="selectedType1" class="form-control select">
+                    <option value="" selected>Type</option>
+                    <option>Appartement</option>
+                    <option>Villa</option>
+                    <option>Terrain</option>
+                  </select>
+                </div> -->
+                <!-- <div class="row">
+                  <div class="col-lg-6 col-md-4">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Région</mat-label>
+                        <mat-select (selectionChange)="onRegionSelectionChange($event)">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Region.nom" *ngFor="let Region of region">{{ Region.nom
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+  
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-4">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Commune</mat-label>
+                        <mat-select (selectionChange)="onCommuneSelectionChange($event)">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+  
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-4">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Type</mat-label>
+                        <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-4">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Nombre de chambre</mat-label>
+                        <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-4">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Nombre de salon</mat-label>
+                        <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-4">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Nombre de cuisine</mat-label>
+                        <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-4">
+                    <div class="filter-content form-group">
+                      <mat-form-field class="mat-custom-select">
+                        <mat-label *ngIf="selectedCategory == ''">
+                          Nombre de toilette</mat-label>
+                        <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                          <mat-option disabled class="search-input-option">
+                            <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                searchCategory(searchInputCategory)
+                              " class="search-input" type="text" />
+                          </mat-option>
+                          <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-4"></div>
+                </div> -->
+                
+                <!-- PARTIE COMMODITE  -->
+                <!-- <div class="filter-content form-group amenities">
+                  <h5 class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">Autres commodités</h5>
+                  <div class="collapse" id="cautrecomm">
+                    <div class="row">
+                      <div class="col-4" *ngFor="let Commodite of commodite">
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            {{Commodite.nom}}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+  
+                <!-- <div class="filter-content amenities mb-0">
+                  <div class="search-btn">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fa fa-search" aria-hidden="true"></i> Rechercher
+                    </button>
+                    <button class="btn btn-reset mb-0" type="submit">
+                      <i class="fas fa-light fa-arrow-rotate-right"></i> Actualiser
+                    </button>
+                  </div>
+                </div> -->
+              </form>
+            </div>
+            <div class="grid-view">
+              <div class="row">
+                <div class="col-lg-6 col-md-4"
+                  *ngFor="let slide of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | paginate:{itemsPerPage :4, currentPage:p}">
+                  <div class="card">
+                    <div class="blog-widget">
+                      <div class="blog-img">
+                        <a (click)="goToDettailBien(slide.id)">
+                          <div *ngIf="slide.photos && slide.photos.length > 0; else noImages">
+                            <img src="{{ generateImageUrl(slide.photos[0].nom) }}" class="img-fluid image-size"
+                              alt="blog-img">
+                          </div>
+                          <ng-template #noImages>
+                            <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
+                          </ng-template>
+                        </a>
+                        <div class="fav-item">
+                          <span [ngClass]="{'statutbien': slide.statut === 'A vendre' }" class="Featured-text">{{
+                            slide.statut }}</span>
+                            <a href="javascript:void(0)" class="fav-icon" (click)="toggleFavorite(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : ''">
+                              <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
+                            </a> 
+                        </div>
+                      </div>
+                      <div class="bloglist-content">
+                        <div class="card-body">
+                          <div class="blogfeaturelink">
+                            <div class="grid-author">
+                              <img src="{{generateImageUrl(slide.utilisateur.photo)}}" alt="author"
+                                (error)="handleAuthorImageError($event)" />
+                            </div>
+                            <div class="blog-features">
+                              <a href="javascript:void(0)"><span>
+                                  <i class="fa-regular fa-circle-stop"></i>
+                                  {{ slide.typeImmo.nom }}</span></a>
+                            </div>
+                            <div class="blog-author text-end">
+                              <span>
+                                <i class="feather-eye"></i>{{ favoritedPropertiesCount1[slide.id] }}
+                              </span>
+                            </div>
+                          </div>
+                          <h6>
+                            <a (click)="goToDettailBien(slide.id)">{{ slide.nom ? slide.nom : slide.typeImmo.nom }}</a>
+                          </h6>
+                          <div class="blog-location-details">
+                            <div class="location-info">
+                              <i class="feather-map-pin"></i> {{ slide.adresse.quartier }}
+                            </div>
+                            <div class="location-info">
+                              <i class="fa-solid fa-calendar-days"></i>{{slide.createdAt.date | date:"dd/MM/yyyy"}}
+  
+                            </div>
+                          </div>
+                          <div class="amount-details">
+                            <div class="amount">
+                              <span class="validrate">{{ formatPrice(slide.prix) }} FCFA</span>
+                              <!-- <span>{{ slide.oldamount }}</span> -->
+                            </div>
+                            <div class="ratings">
+                              <!-- <span>{{ slide.rating }}</span> {{ slide.rating1 }} -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!--Pagination-->
+            <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event"
+              previousLabel="Précédent" nextLabel="Suivant" class="pagination" previousClass="pagination__previous"
+              nextClass="pagination__next" containerClass="pagination__container" pageClass="pagination__page"
+              activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"></pagination-controls>
+            <!--/Pagination-->
+          </div>
+        </div>
+        <div class="col-lg-6 map-right">
+          <!-- <app-list-map></app-list-map> -->
+          <div id="map" class="map-listing" *ngIf="userPosition">
+            <p-gmap [options]="options"
+              [overlays]="overlays | filterMarkersByCriteria: searchText:selectedRegion:selectedCommune:selectedType"
+              (onOverlayClick)="setInfo($event)" [style]="{ width: '100%', height: '100%' }"></p-gmap>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Main Content Section -->
+  

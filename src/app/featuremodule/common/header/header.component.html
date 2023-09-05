@@ -10,9 +10,9 @@
             <span></span>
           </span>
         </a>
-        <a [routerLink]="routes.home9" class="navbar-brand logo" style="color: #e98b11; font-weight: bold;">
-          <!--<img src="assets/img/logo.png" class="img-fluid" alt="Logo" />-->
-          Sossara
+        <a [routerLink]="routes.home9" class="navbar-brand logo">
+          <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+          <!-- Sossara -->
         </a>
         <!-- <li class="nav-item dropdown has-arrow logged-item">
           <a href="javascript:void(0);" class="dropdown-toggle profile-userlink test" data-bs-toggle="dropdown"
@@ -28,9 +28,9 @@
       </div>
       <div class="main-menu-wrapper">
         <div class="menu-header">
-          <a [routerLink]="routes.home9" class="menu-logo" style="color: #e98b11; font-weight: bold;">
-            <!-- <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />-->
-            Sossara
+          <a [routerLink]="routes.home9" class="menu-logo">
+            <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+            <!-- Sossara -->
           </a>
           <a id="menu_close" (click)="hideSidebar()" class="menu-close" href="javascript:void(0);">
             <i class="fas fa-times"></i></a>
@@ -195,7 +195,7 @@
             aria-expanded="false" *ngIf="User.user && User.user.username">
             <img src="{{generateImageUrl(User.user.photo)}}" (error)="handleAuthorImageError($event)" alt="">
             <span>{{User.user.username}}</span>
-          </a>
+          </a> 
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" [routerLink]='routes.dashboard'>Dashboard</a>
             <a class="dropdown-item" [routerLink]='routes.profile'>Profil</a>

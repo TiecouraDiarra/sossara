@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lightbox } from 'ngx-lightbox';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -11,6 +11,7 @@ import { commentaireService } from 'src/app/service/commentaire/commentaire.serv
 
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import Swal from 'sweetalert2';
+declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -20,7 +21,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   templateUrl: './service-details.component.html',
   styleUrls: ['./service-details.component.css']
 })
-export class ServiceDetailsComponent {
+export class ServiceDetailsComponent implements AfterViewInit {
   public routes = routes;
   public albumsOne: any = [];
   public albumsTwo: any = [];
@@ -28,6 +29,7 @@ export class ServiceDetailsComponent {
   les_commodite: any[] = [];
   pays: any;
   commune: any;
+  nombien: any;
   typebien: any;
   bienImmo: any;
   region: any;
@@ -54,7 +56,52 @@ export class ServiceDetailsComponent {
 
 
 
-  nombien: any
+  ngAfterViewInit() {
+    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+      this.bien = data.biens[0];
+      this.photos = this.bien.photos;
+      this.latitude = this.bien.adresse.latitude || null;
+      this.longitude = this.bien.adresse.longitude || null;
+      this.nombien = this.bien.nom;
+
+      // Reste du code pour récupérer d'autres données...
+
+      // Options de la carte
+      const mapOptions = {
+        center: { lat: this.latitude, lng: this.longitude },
+        zoom: 15,
+      };
+
+      // Attendre que le DOM soit chargé pour initialiser la carte
+      setTimeout(() => {
+        const mapElement = document.getElementById("map");
+        const map = new google.maps.Map(mapElement, mapOptions);
+
+        // URL de l'image de l'icône personnalisée
+        const customIconUrl = 'assets/img/icons/marker7.png';
+
+        // Options de l'icône du marqueur
+        const markerIcon = {
+          url: customIconUrl, // URL de l'image
+          scaledSize: new google.maps.Size(50, 50), // Taille de l'image (largeur x hauteur)
+          origin: new google.maps.Point(0, 0), // Point d'origine de l'image
+          anchor: new google.maps.Point(20, 40), // Point d'ancrage de l'image par rapport au marqueur
+        };
+
+        // Créer un marqueur pour l'emplacement
+        const marker = new google.maps.Marker({
+          position: { lat: this.latitude, lng: this.longitude },
+          map: map,
+          title: this.nombien,
+          icon: markerIcon, // Utilisation de l'icône personnalisée
+        });
+      }, 0); // Utilisation d'un délai de 0 millisecondes pour s'assurer que le DOM est prêt
+    });
+  }
+
+  latitude: any
+  longitude: any
   description: any
   status: any = ['A louer', 'A vendre'];
   type: any
@@ -63,7 +110,7 @@ export class ServiceDetailsComponent {
   isButtonDisabled: boolean = false;
   maxImageCount: number = 0;
   message: string | undefined;
-  periode : any
+  periode: any
 
 
 
@@ -169,7 +216,9 @@ export class ServiceDetailsComponent {
     quartier: null,
     rue: null,
     porte: null,
-    periode : null,
+    periode: null,
+    longitude: null,
+    latitude: null,
     photo: null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
@@ -199,7 +248,7 @@ export class ServiceDetailsComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data.biens[0];
-      console.log(this.bien); 
+      console.log(this.bien);
       this.form = {
         nom: this.bien.nom,
         description: this.bien.description,
@@ -215,7 +264,7 @@ export class ServiceDetailsComponent {
         cuisine: this.bien.cuisine,
         chambre: this.bien.chambre,
         commodite: this.bien.commodite.nom,
-      };  
+      };
     });
   }
   open(index: number, albumArray: Array<any>): void {
@@ -225,12 +274,19 @@ export class ServiceDetailsComponent {
     this._lightbox.open(albumArray);
   }
 
+  initMap() {
+    const mapOptions = {
+      center: { lat: 12.639231999999997, lng: -7.998184000000001 }, // Coordonnées initiales de la carte
+      zoom: 15 // Niveau de zoom initial
+    };
 
+    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  }
   close(): void {
     this._lightbox.close();
   }
   ngOnInit(): void {
-
+    // this.initMap();
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       // this.roles = this.storageService.getUser().roles;
@@ -245,17 +301,23 @@ export class ServiceDetailsComponent {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data.biens[0];
       this.photos = this.bien.photos;
+      this.latitude = this.bien.adresse.latitude;
+      this.longitude = this.bien.adresse.longitude;
       // this.nombien = this.bien.nom;
       // this.description = this.bien.description;
       // this.status = this.bien.statut;
       // this.type = this.bien.statut;
       this.commodite = data.commodite
       console.log(this.bien);
+      console.log(this.latitude);
+      console.log(this.longitude);
       console.log(this.photos);
-      console.log(this.storageService.getUser().user.id);
-      console.log(this.bien.utilisateur.id);
+      // console.log(this.storageService.getUser().user.id);
+      // console.log(this.bien.utilisateur.id);
 
       const currentUser = this.storageService.getUser();
+
+  
 
       if (currentUser && this.bien && currentUser.user.id === this.bien.utilisateur.id) {
         this.currentUser = true;
@@ -269,7 +331,22 @@ export class ServiceDetailsComponent {
         this.albumsOne.push({ src: src, caption: caption });
         this.albumsTwo.push({ src: src, caption: caption });
       }
-      // console.log(this.bien.nb_piece);
+      // Options de la carte
+      const mapOptions = {
+        center: { lat: this.latitude, lng: this.longitude }, // Coordonnées du centre de la carte
+        zoom: 15, // Niveau de zoom initial
+      };
+      // Initialiser la carte dans l'élément avec l'ID "map"
+      const mapElement = document.getElementById("map");
+      const map = new google.maps.Map(mapElement, mapOptions);
+
+      // Créer un marqueur pour l'emplacement
+      const marker = new google.maps.Marker({
+        position: { lat: this.latitude, lng: this.longitude },
+        map: map,
+        title: "Adresse", // Titre du marqueur (optionnel)
+      });
+
     });
 
     const Users = this.storageService.getUser();
@@ -340,7 +417,7 @@ export class ServiceDetailsComponent {
           this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
             this.commentaire = data.reverse();
             console.log(this.commentaire);
-            this.commentaireForm.contenu= '';
+            this.commentaireForm.contenu = '';
           });
         },
         error => {
@@ -562,6 +639,8 @@ export class ServiceDetailsComponent {
       rue,
       porte,
       periode,
+      longitude,
+      latitude,
       photo
     } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -624,6 +703,8 @@ export class ServiceDetailsComponent {
                 rue,
                 porte,
                 periode,
+                longitude,
+                latitude,
                 photo,
                 this.id
               )

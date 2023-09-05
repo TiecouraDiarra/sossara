@@ -22,31 +22,32 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  gridBlog | filter:searchText">
+                    <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  blog | filter:searchText">
                         <div class="blog grid-blog">
                             <div class="blog-image">
-                                <a (click)="goToDettailBlog(slide.id)"><img class="img-fluid image-size crd" [src]="slide.img2"
-                                        alt="Post Image"></a>
+                                <a (click)="goToDettailBlog(slide.id)"><img class="img-fluid image-size crd" src="{{generateImageUrl(slide.photo)}}"
+                                    (error)="handleAuthorImageError($event)" alt="Post Image"></a>
                             </div>
                             <div class="blog-content">
-                                <p class="blog-category">
-                                    <a href="javascript:void(0)"><span>{{slide.category1}}</span></a><a
-                                        href="javascript:void(0)"><span>{{slide.category2}}</span></a>
-                                </p>
+                                <!-- <p class="blog-category">
+                                    <a href="javascript:void(0)"><span>test1</span></a><a
+                                        href="javascript:void(0)"><span>test2</span></a>
+                                </p> -->
                                 <ul class="entry-meta meta-item">
                                     <li>
                                         <div class="post-author">
                                             <div class="post-author-img">
-                                                <img [src]="slide.img1" alt="author">
+                                                <img src="{{generateImageUrl(slide.utilisateur.photo)}}"
+                                                (error)="handleAuthorImageError1($event)" alt="author">
                                             </div>
-                                            <a href="javascript:void(0)"> <span> {{slide.name}} </span></a>
+                                            <a href="javascript:void(0)"> <span> {{slide.utilisateur.nom}} </span></a>
                                         </div>
                                     </li>
-                                    <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{slide.date}}</li>
+                                    <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{slide.createdAt.date | date:"dd/MM/yyyy"}}</li>
                                 </ul>
-                                <h3 class="blog-title"><a (click)="goToDettailBlog(slide.id)">{{slide.content}}</a></h3>
-                                <p class="blog-description">{{slide. description}} </p>
-                                <div class="viewlink"><a (click)="goToDettailBlog(slide.id)">Voir plus <i
+                                <h3 class="blog-title"><a (click)="goToDettailBlog(slide.id)">{{slide.titre}}</a></h3>
+                                <p class="blog-description">{{slide.description}} </p>
+                                <div class="viewlink crd"><a (click)="goToDettailBlog(slide.id)">Voir plus <i
                                             class="feather-arrow-right"></i></a></div>
                             </div>
                         </div>
