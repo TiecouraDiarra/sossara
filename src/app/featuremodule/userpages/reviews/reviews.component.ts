@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -22,6 +22,11 @@ export class ReviewsComponent implements OnInit {
   rdv: any;
   User: any;
   candidature: any;
+  locale!: string;
+  isLocataire = false;
+  isAgence = false;
+  roles: string[] = [];
+
   errorMessage: any = '';
   isSuccess: any = false;
   isError: any = false;
@@ -57,15 +62,27 @@ export class ReviewsComponent implements OnInit {
     private dataservice: DataService,
     private authService: AuthService,
     private storageService: StorageService,
+    @Inject(LOCALE_ID) private localeId: string,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
     private router: Router,
   ) {
+    this.locale = localeId;
     this.reviewdata = this.dataservice.reviewdata;
     this.today = new Date();
 
   }
   ngOnInit(): void {
+    if (this.storageService.isLoggedIn()) {
+      // this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }else if(this.roles[0] == "ROLE_AGENCE") {
+        this.isAgence = true
+      }
+    }
     console.log(this.storageService.getUser());
     this.User = this.storageService.getUser().user.id;
     const Users = this.storageService.getUser();

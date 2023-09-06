@@ -295,7 +295,7 @@
                       <div class="fav-item">
                         <span [ngClass]="{'statutbien': slide.statut === 'A vendre' }" class="Featured-text">{{
                           slide.statut }}</span>
-                          <a href="javascript:void(0)" class="fav-icon" (click)="toggleFavorite(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : ''">
+                          <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon" (click)="AimerBien(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : ''">
                             <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
                           </a> 
                       </div>
@@ -326,7 +326,7 @@
                             <i class="feather-map-pin"></i> {{ slide.adresse.quartier }}
                           </div>
                           <div class="location-info">
-                            <i class="fa-solid fa-calendar-days"></i>{{slide.createdAt.date | date:"dd/MM/yyyy"}}
+                            <i class="fa-solid fa-calendar-days"></i>{{slide.createdAt.date | date:"dd MMM yyyy":locale}}
 
                           </div>
                         </div>

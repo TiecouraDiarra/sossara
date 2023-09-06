@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -32,7 +32,10 @@ export class ProfileComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
-
+  locale!: string;
+  isLocataire = false;
+  isAgence = false;
+  roles: string[] = [];
 
 
   form: any = {
@@ -93,8 +96,10 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private renderer: Renderer2,
+    @Inject(LOCALE_ID) private localeId: string,
     private serviceUser: UserService
   ) {
+    this.locale = localeId;
     this.User = this.storageService.getUser();
     console.log(this.User);
    this.formModif = {
@@ -116,7 +121,18 @@ export class ProfileComponent implements OnInit {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    if (this.storageService.isLoggedIn()) {
+      // this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }else if(this.roles[0] == "ROLE_AGENCE") {
+        this.isAgence = true
+      }
+    }
+  }
 
   //METHODE PERMETTANT DE SE DECONNECTER
   logout(): void {

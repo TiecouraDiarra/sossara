@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -26,6 +26,7 @@ export class BlogGridSidebarComponent {
   typebien: any;
   blog: any;
   searchText: any;
+  locale!: string;
   bienImmo: any
 
   constructor(
@@ -33,8 +34,10 @@ export class BlogGridSidebarComponent {
     private router: Router,
     private serviceBienImmo: BienimmoService,
     private serviceBlog: BlogService,
+    @Inject(LOCALE_ID) private localeId: string,
     private serviceCommodite: CommoditeService,
   ) {
+    this.locale = localeId;
     this.gridBlog = this.Dataservice.gridBlog;
     this.categories = this.Dataservice.categoriesList;
     (this.categoriesDataSource = new MatTableDataSource(this.categories));

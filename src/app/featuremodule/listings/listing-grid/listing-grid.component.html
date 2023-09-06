@@ -60,7 +60,7 @@
                                   </a>
                                 <div class="fav-item">
                                     <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }" class="Featured-text">{{ BienImo.statut }}</span>
-                                    <a href="javascript:void(0)" class="fav-icon" (click)="toggleFavorite(BienImo.id)" [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+                                    <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon" (click)="AimerBien(BienImo.id)" [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
                                         <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
                                       </a> 										
                                 </div>	

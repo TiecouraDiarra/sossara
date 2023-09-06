@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 
 import { Options } from '@angular-slider/ngx-slider';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -8,6 +8,8 @@ import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
+import { StorageService } from 'src/app/service/auth/storage.service';
+import { UserService } from 'src/app/service/auth/user.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -44,7 +46,7 @@ export class ListingGridSidebarComponent {
 
 
   isFavorite: boolean = false;
-  favoriteStatus: { [key: number]: boolean } = {};
+  favoriteStatus: { [key: string]: boolean } = {};
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   toggleFavorite(bienId: number) {
     this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
@@ -66,6 +68,7 @@ export class ListingGridSidebarComponent {
   region: any
   commune: any
   typebien: any
+  NombreJaime: number = 0
 
   // IMAGE PAR DEFAUT DES BIENS
   DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
@@ -121,11 +124,13 @@ export class ListingGridSidebarComponent {
   }
 
   //RECHERCHER PAR COMMODITE
-  onCommoditeSelectionChange(event: any) {
-    this.selectedStatut = event.value;
-  }
+  // onCommoditeSelectionChange(event: any) {
+  //   this.selectedStatut = event.value;
+  // }
 
-
+  isLoggedIn = false;
+  isLoginFailed = true;
+  errorMessage = '';
 
 
   slidevalue: number = 55;
@@ -133,16 +138,21 @@ export class ListingGridSidebarComponent {
     floor: 0,
     ceil: 100,
   };
+  locale!: string;
 
   constructor
     (private Dataservice: DataService,
       private serviceBienImmo: BienimmoService,
       private serviceCommodite: CommoditeService,
-      private routerr: Router
+      private routerr: Router,
+      private serviceUser: UserService,
+      @Inject(LOCALE_ID) private localeId: string,
+      private storageService: StorageService
     ) {
     this.listsidebar = this.Dataservice.listsidebarList,
       this.categories = this.Dataservice.categoriesList;
     (this.categoriesDataSource = new MatTableDataSource(this.categories));
+    this.locale = localeId;
   }
   searchCategory(value: any): void {
     const filterValue = value;
@@ -150,18 +160,39 @@ export class ListingGridSidebarComponent {
     this.categories = this.categoriesDataSource.filteredData;
   }
   ngOnInit(): void {
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+    } else if (!this.storageService.isLoggedIn()) {
+      this.isLoginFailed = false;
+    }
+
+
+
     //AFFICHER LA LISTE DES BIENS IMMO
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.bienImmo = data.biens.reverse();
-      // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
+    
+  // Charger la liste des biens immobiliers
+  this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+    this.bienImmo = data.biens.reverse();
+
+    // Parcourir la liste des biens immobiliers
+    this.bienImmo.forEach((bien: { id: string | number; }) => {
+      // Charger le nombre de "J'aime" pour chaque bien
+      this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+        this.NombreJaime = data.vues;
         if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = 0;
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        }
+
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        if (isFavorite === 'true') {
+          this.favoriteStatus[bien.id] = true;
+        } else {
+          this.favoriteStatus[bien.id] = false;
         }
       });
-      console.log(this.bienImmo);
-    }
-    );
+    });
+  });
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.commodite = data.commodite;
@@ -178,4 +209,38 @@ export class ListingGridSidebarComponent {
     console.log(id);
     return this.routerr.navigate(['pages/service-details', id])
   }
+
+  //METHODE PERMETTANT D'AIMER UN BIEN 
+  AimerBien(id: any): void {
+    const user = this.storageService.getUser();
+    if (user && user.token) {
+      // Définissez le token dans le service commentaireService
+      this.serviceUser.setAccessToken(user.token);
+  
+      // Appelez la méthode AimerBien() avec l'ID
+      this.serviceBienImmo.AimerBien(id).subscribe(
+        data => {
+          console.log("Bien aimé avec succès:", data);
+  
+          // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+          if (this.favoriteStatus[id]) {
+            this.favoriteStatus[id] = false; // Désaimé
+            localStorage.removeItem(`favoriteStatus_${id}`);
+            this.favoritedPropertiesCount1[id]--;
+          } else {
+            this.favoriteStatus[id] = true; // Aimé
+            localStorage.setItem(`favoriteStatus_${id}`, 'true');
+            this.favoritedPropertiesCount1[id]++;
+          }
+        },
+        error => {
+          console.error("Erreur lors du like :", error);
+          // Gérez les erreurs ici
+        }
+      );
+    } else {
+      console.error("Token JWT manquant");
+    }
+  }
+  
 }

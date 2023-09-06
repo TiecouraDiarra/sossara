@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -59,12 +59,13 @@ export class HomeNineComponent {
   nombreAgence: number = 0
   nombreZone: number = 0
   isLoggedIn = false;
+  NombreJaime: number = 0
   isLoginFailed = true;
   errorMessage: any = '';
   nombreBienLoue: number = 0
   nombreBienVendre: number = 0
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-
+  locale!: string;
   imagesCommunes = ['commune1.jpeg', 'commune2.png', 'commune3.jpg', 'commune4.jpg', 'commune5.jpeg', 'commune6.jpeg'];
 
   //IMAGE
@@ -78,9 +79,11 @@ export class HomeNineComponent {
     private router: Router,
     private storageService: StorageService,
     private serviceCommodite: CommoditeService,
+    @Inject(LOCALE_ID) private localeId: string,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService
   ) {
+    this.locale = localeId;
 
     (this.listing = this.DataService.listing),
       (this.managementcomponies = this.DataService.managementcomponies),
@@ -90,8 +93,6 @@ export class HomeNineComponent {
       (this.ourtestimonials = this.DataService.ourtestimonials),
       (this.Bookmark = this.DataService.bookmarkList),
       (this.recentarticle = this.DataService.recentarticle)
-
-
   }
   searchCategory(value: any): void {
     const filterValue = value;
@@ -289,6 +290,23 @@ export class HomeNineComponent {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
+  favoriteStatus: { [key: number]: boolean } = {};
+  favoritedPropertiesCount1: { [bienId: number]: number } = {};
+  toggleFavorite(bienId: number) {
+    this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
+
+    // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+    if (this.favoriteStatus[bienId]) {
+      this.favoritedPropertiesCount1[bienId]++;
+    } else {
+      this.favoritedPropertiesCount1[bienId]--;
+    }
+
+    // Vous pouvez également ajouter ici la logique pour enregistrer l'état du favori côté serveur si nécessaire.
+  }
+
+
+
   ngOnInit(): void {
     setInterval(() => {
       this.changeImage();
@@ -325,6 +343,16 @@ export class HomeNineComponent {
       this.bienImmo = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3], data.biens.reverse()[4], data.biens.reverse()[5]];
       console.log(this.bienImmo);
       // Suppose que BienImo est un élément de votre bienImmo
+      // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+      this.bienImmo.forEach((bien: { id: string | number; }) => {
+        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = data.vues;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          }
+          console.log(this.NombreJaime)
+        })
+      });
       
       console.log(data);
       console.log(data.biens.length);
@@ -362,7 +390,35 @@ export class HomeNineComponent {
     }
     )
   }
+  //METHODE PERMETTANT D'AIMER UN BIEN 
+  AimerBien(id: any): void {
+    const user = this.storageService.getUser();
+    if (user && user.token) {
+      // Définissez le token dans le service commentaireService
+      this.serviceUser.setAccessToken(user.token);
 
+      // Appelez la méthode AimerBien() avec l'ID
+      this.serviceBienImmo.AimerBien(id).subscribe(
+        data => {
+          console.log("Bien aimé avec succès:", data);
+          this.favoriteStatus[id] = !this.favoriteStatus[id];
+
+          // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+          if (this.favoriteStatus[id]) {
+            this.favoritedPropertiesCount1[id]++;
+          } else {
+            this.favoritedPropertiesCount1[id]--;
+          }
+        },
+        error => {
+          console.error("Erreur lors du like :", error);
+          // Gérez les erreurs ici
+        }
+      );
+    } else {
+      console.error("Token JWT manquant");
+    }
+  }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
     console.log(id);

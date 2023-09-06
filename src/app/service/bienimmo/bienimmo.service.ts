@@ -146,6 +146,14 @@ export class BienimmoService {
       { headers });
   }
 
+  //AFFICHER LA LISTE DES BIENS AIMES PAR UTILISATEUR
+  ListeBiensAimesParUtilisateur(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/views/user/get`,
+      { headers });
+  }
+
 
   //AJOUTER UN BIEN
   registerBien(
@@ -231,6 +239,20 @@ export class BienimmoService {
     console.log(headers)
     return this.http.post(`${URL_BASE}/candidature/${id}`, null, { headers });
   }
+
+  //AIMER UN BIEN 
+  AimerBien(id: any): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(id)
+    console.log(headers)
+    return this.http.post(`${URL_BASE}/bien/immo/view/${id}`, null, { headers });
+  }
+
+  //LA LISTE DES AIMES EN FONCTION DE L'ID DU BIEN 
+  ListeAimerBienParId(id: any): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/immo/views/get/${id}`);
+  }
+
 
   //ARRETER LE PROCESSUS
   ArreterProcessus(id: any): Observable<any> {

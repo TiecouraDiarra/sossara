@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/service/data.service';
 import {
@@ -39,11 +39,16 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 })
 export class DashboardComponent implements OnInit {
   public routes = routes;
+  locale!: string;
+
   User: any
   bienImmo: any;
   rdv: any;
   rdvUserConnect: any;
   nombrebien: number = 0
+  isLocataire = false;
+  isAgence = false;
+  roles: string[] = [];
   nombreconversation: number = 0
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
@@ -61,9 +66,11 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
+    @Inject(LOCALE_ID) private localeId: string,
     private serviceMessage: MessageService,
     private storageService: StorageService
   ) {
+    this.locale = localeId;
     this.chartOptions = {
       series: [
         {
@@ -134,6 +141,16 @@ export class DashboardComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    if (this.storageService.isLoggedIn()) {
+      // this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }else if(this.roles[0] == "ROLE_AGENCE") {
+        this.isAgence = true
+      }
+    }
     console.log(this.storageService.getUser());
     this.User = this.storageService.getUser().user.id;
     const Users = this.storageService.getUser();

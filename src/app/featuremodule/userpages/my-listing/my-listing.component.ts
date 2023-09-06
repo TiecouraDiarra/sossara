@@ -31,6 +31,8 @@ export class MyListingComponent implements OnInit {
   facturelocation!: ElementRef;
 
   loading = false;
+  locale!: string;
+
 
   @ViewChild('factureachat')
   factureachat!: ElementRef;
@@ -107,6 +109,7 @@ export class MyListingComponent implements OnInit {
   p8: number = 1;
   public albumsOne: any = [];
   isLocataire = false;
+  isAgence = false;
   roles: string[] = [];
   bienImmoDejaLoueLocataire: any
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -233,10 +236,11 @@ export class MyListingComponent implements OnInit {
     public router: Router,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
-    @Inject(LOCALE_ID) public locale: string,
+    @Inject(LOCALE_ID) private localeId: string,
     private renderer: Renderer2,
     private authService: AuthService,
   ) {
+    this.locale = localeId;
     this.electronics = this.DataService.electronicsList,
       this.User = this.storageService.getUser();
     console.log(this.User);
@@ -281,6 +285,8 @@ export class MyListingComponent implements OnInit {
       console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
+      }else if(this.roles[0] == "ROLE_AGENCE") {
+        this.isAgence = true
       }
     }
     this.User = this.storageService.getUser().user.id;

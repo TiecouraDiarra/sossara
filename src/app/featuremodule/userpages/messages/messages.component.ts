@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -34,6 +34,11 @@ export class MessagesComponent implements OnInit {
   messages: any
   conversation: any
   conversations: any
+  locale!: string;
+  isLocataire = false;
+  isAgence = false;
+  roles: string[] = [];
+
   searchText: any;
 
   selectedConversationId!: number;
@@ -63,10 +68,23 @@ export class MessagesComponent implements OnInit {
     private storageService: StorageService,
     private serviceMessage: MessageService,
     private serviceUser: UserService,
+    @Inject(LOCALE_ID) private localeId: string,
     private mercureService: MercureService,
     private router: Router,
-  ) { }
+  ) { 
+    this.locale = localeId;
+  }
   ngOnInit(): void {
+    if (this.storageService.isLoggedIn()) {
+      // this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }else if(this.roles[0] == "ROLE_AGENCE") {
+        this.isAgence = true
+      }
+    }
 
     this.mercureService.subscribeToTopic('conversation').subscribe((message: any) => {
       this.conversation.push(message);

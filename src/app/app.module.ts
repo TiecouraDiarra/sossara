@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +13,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SegmentedControlComponent } from './segmented-control/segmented-control.component';
 import { HttpRequestInterceptor } from './_helpers/http.interceptor';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 // import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
@@ -34,6 +36,9 @@ import { HttpRequestInterceptor } from './_helpers/http.interceptor';
     
   ],
   providers: [
+
+     // Injectez LOCALE_ID et définissez la locale en français
+     { provide: LOCALE_ID, useValue: 'fr-FR' },
     // {
     //   provide: LocationStrategy,
     //   useClass: HashLocationStrategy,  
@@ -48,4 +53,9 @@ import { HttpRequestInterceptor } from './_helpers/http.interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    // Enregistrez les données de la locale en français
+    registerLocaleData(localeFr, 'fr');
+  }
+}

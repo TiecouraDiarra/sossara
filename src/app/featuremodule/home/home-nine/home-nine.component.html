@@ -392,9 +392,9 @@
                                                     <div class="fav-item">
                                                         <span [ngClass]="{'statut': BienImo.statut === 'A vendre' }" 
                                                         class="Featured-text">{{BienImo.statut}}</span>
-                                                            <a href="javascript:void(0)" class="fav-icon">
-                                                                <i class="feather-heart"></i>
-                                                            </a>										
+                                                        <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon" (click)="AimerBien(BienImo.id)" [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+                                                            <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
+                                                          </a> 											
                                                     </div>	
                                                 </div>
                                                 <div class="bloglist-content">
@@ -407,7 +407,7 @@
                                                                <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{BienImo.typeImmo.nom }}</span></a>
                                                             </div>																	  
                                                             <div class="blog-author text-end"> 
-                                                                <span> <i class="feather-eye"></i>400</span>
+                                                                <span> <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}</span>
                                                             </div>
                                                         </div> 
                                                         <h6><a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a></h6>																	 
@@ -416,7 +416,7 @@
                                                                <i class="feather-map-pin"></i> {{BienImo.adresse.quartier}}
                                                             </div>
                                                             <div class="location-info">
-                                                                <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date | date:"dd/MM/yyyy"}}
+                                                                <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date | date:"dd MMM yyyy":locale}}
                                                             </div>
                                                         </div>
                                                         <div class="amount-details">
@@ -1186,4 +1186,5 @@
 </section>-->
 <!-- /Become Agent -->
 <!--<app-footer-nine></app-footer-nine>-->
+
 

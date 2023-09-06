@@ -43,6 +43,9 @@ export class AddListingComponent {
   BienLoueRecens: any;
   commodite1: any;
   commodite2: any;
+  isLocataire = false;
+  isAgence = false;
+  roles: string[] = [];
   commodite3: any;
   regions: any = [];
   communes: any = [];
@@ -168,6 +171,16 @@ export class AddListingComponent {
   ngOnInit(): void {
     this.initMap();
     Aos.init({ disable: 'mobile' });
+    if (this.storageService.isLoggedIn()) {
+      // this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().user.role;
+      console.log(this.roles);
+      if (this.roles[0] == "ROLE_LOCATAIRE") {
+        this.isLocataire = true
+      }else if(this.roles[0] == "ROLE_AGENCE") {
+        this.isAgence = true
+      }
+    }
 
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {

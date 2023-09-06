@@ -35,11 +35,11 @@
                         <i class="feather-list"></i> <span>Mes biens</span>
                     </a>
                 </li>
-                <!--<li>
+                <li *ngIf="isAgence">
                     <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Bookmarks</span>
+                        <i class="fas fa-solid fa-heart"></i> <span>Mes agents</span>
                     </a>
-                </li>-->
+                </li>
                 <li>
                     <a [routerLink]="routes.messages">
                         <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -47,14 +47,14 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>notifications</span>
+                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
                     </a>
                 </li>
-                <li class="crd">
+                <!-- <li class="crd">
                     <a (click)="logout()">
                         <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
         <!-- Debut AGENCE ET PROPRIETAIRE  -->
@@ -186,7 +186,6 @@
                                                                 class="feather-edit-3"></i></a>
                                                         <a href="javascript:void(0)" class="action-btn btn-trash"><i
                                                                 class="feather-trash-2"></i></a>
-
                                                     </div>
                                                 </td>
                                             </tr>
@@ -297,7 +296,7 @@
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
                                                         |
-                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                        date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
@@ -430,7 +429,7 @@
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
                                                         |
-                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                        date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
@@ -544,8 +543,7 @@
                                                 </td>
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
-                                                        |
-                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                          |  date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
@@ -965,7 +963,7 @@
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
                                                         |
-                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                        date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
@@ -1291,7 +1289,7 @@
                                                                             class="fa-sharp fa-solid fa-calendar-days"></i>
                                                                         {{Reclamation.createdAt.date
                                                                         |
-                                                                        date:"dd/MM/yyyy"}}</div>
+                                                                        date:"dd MMM yyyy":locale}}</div>
                                                                     <div *ngIf="Reclamation && Reclamation.createdAt"><i
                                                                             class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt.date
                                                                         |
@@ -1424,7 +1422,7 @@
                                                                             class="fa-sharp fa-solid fa-calendar-days"></i>
                                                                         {{Reclamation.createdAt.date
                                                                         |
-                                                                        date:"dd/MM/yyyy"}}</div>
+                                                                        date:"dd MMM yyyy":locale}}</div>
                                                                     <div *ngIf="Reclamation && Reclamation.createdAt"><i
                                                                             class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt.date
                                                                         |
@@ -1637,7 +1635,7 @@
                                                                             class="fa-sharp fa-solid fa-calendar-days"></i>
                                                                         {{Reclamation.createdAt.date
                                                                         |
-                                                                        date:"dd/MM/yyyy"}}</div>
+                                                                        date:"dd MMM yyyy":locale}}</div>
                                                                     <div *ngIf="Reclamation && Reclamation.createdAt"><i
                                                                             class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt.date
                                                                         |
@@ -2190,7 +2188,7 @@
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
                                                         |
-                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                        date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
@@ -2608,7 +2606,7 @@
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
                                                         |
-                                                        date:"dd/MM/yyyy"}}</span></td>
+                                                        date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
@@ -2916,7 +2914,7 @@
                                                                             class="fa-sharp fa-solid fa-calendar-days"></i>
                                                                         {{Reclamation.createdAt.date
                                                                         |
-                                                                        date:"dd/MM/yyyy"}}
+                                                                        date:"dd MMM yyyy":locale}}
                                                                     </div>
                                                                     <div *ngIf="Reclamation && Reclamation.createdAt">
                                                                         <i
@@ -3060,7 +3058,7 @@
                                                                             class="fa-sharp fa-solid fa-calendar-days"></i>
                                                                         {{Reclamation.createdAt.date
                                                                         |
-                                                                        date:"dd/MM/yyyy"}}</div>
+                                                                        date:"dd MMM yyyy":locale}}</div>
                                                                     <div *ngIf="Reclamation && Reclamation.createdAt"><i
                                                                             class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt.date
                                                                         |

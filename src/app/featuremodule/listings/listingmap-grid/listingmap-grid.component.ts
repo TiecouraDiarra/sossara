@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/service/data.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
@@ -6,6 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
+import { StorageService } from 'src/app/service/auth/storage.service';
+import { UserService } from 'src/app/service/auth/user.service';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -118,13 +120,24 @@ export class ListingmapGridComponent implements OnInit {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
+  isLoggedIn = false;
+  isLoginFailed = true;
+  errorMessage = '';
+  locale!: string;
+  NombreJaime: number = 0
+
+
 
   constructor(
     private Dataservice: DataService,
     private serviceBienImmo: BienimmoService,
     private router: Router,
+    @Inject(LOCALE_ID) private localeId: string,
+    private serviceUser: UserService,
+    private storageService: StorageService,
     private serviceCommodite: CommoditeService
   ) {
+    this.locale = localeId;
     this.mapgrid = this.Dataservice.mapgridList;
     this.categories = this.Dataservice.categoriesList;
     (this.categoriesDataSource = new MatTableDataSource(this.categories));
@@ -151,9 +164,14 @@ export class ListingmapGridComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-     // Récupérer la position actuelle de l'utilisateur
-     navigator.geolocation.getCurrentPosition((position) => {
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+    } else if (!this.storageService.isLoggedIn()) {
+      this.isLoginFailed = false;
+    }
+
+    // Récupérer la position actuelle de l'utilisateur
+    navigator.geolocation.getCurrentPosition((position) => {
       this.userPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
@@ -166,21 +184,25 @@ export class ListingmapGridComponent implements OnInit {
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       };
-       // Ajouter un marqueur pour la position de l'utilisateur
+      // Ajouter un marqueur pour la position de l'utilisateur
       this.overlays.push(new google.maps.Marker({
         position: this.userPosition,
         title: 'Votre position actuelle'
       }));
-      
+
     });
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.biens.reverse();
-       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+      // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: { id: string | number; }) => {
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = 0;
-        }
+        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = data.vues;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          }
+          console.log(this.NombreJaime)
+        })
       });
       console.log(this.bienImmo);
     }
@@ -220,11 +242,11 @@ export class ListingmapGridComponent implements OnInit {
             id: bien.id
           });
         });
-          // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays
-          this.overlays.unshift(new google.maps.Marker({
-            position: this.userPosition,
-            title: 'Votre position actuelle'
-          }));
+        // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays
+        this.overlays.unshift(new google.maps.Marker({
+          position: this.userPosition,
+          title: 'Votre position actuelle'
+        }));
       } else {
         console.error('Les données de biens immobiliers ne sont pas au format attendu (tableau).');
       }
@@ -328,17 +350,17 @@ export class ListingmapGridComponent implements OnInit {
 
     // Utilisation de *ngIf pour conditionner l'affichage en fonction du statut
     if (marker.statut === 'A vendre') {
-      content += 
-      '<div class="row">' +
-      '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">'+marker.statut +'</span></div>' +
-      `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>`
-       + marker.types + '</span></a></p></div>';
+      content +=
+        '<div class="row">' +
+        '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">' + marker.statut + '</span></div>' +
+        `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>`
+        + marker.types + '</span></a></p></div>';
     } else if (marker.statut === 'A louer') {
-      content += 
-      '<div class="row">' +
-      '<div class="col"><span class="Featured-text" style="font-weight: bold;">'+marker.statut +'</span></div>' +
-      '<div class="col"><p class="blog-category"><a href="javascript:void(0)"><span>' +
-      marker.types + '</span></a></p></div>';
+      content +=
+        '<div class="row">' +
+        '<div class="col"><span class="Featured-text" style="font-weight: bold;">' + marker.statut + '</span></div>' +
+        '<div class="col"><p class="blog-category"><a href="javascript:void(0)"><span>' +
+        marker.types + '</span></a></p></div>';
     }
 
     content +=
@@ -364,5 +386,35 @@ export class ListingmapGridComponent implements OnInit {
       '</div>';
     this.infoWindow.setContent(content);
     this.infoWindow.open(event.map, event.overlay);
+  }
+
+  //METHODE PERMETTANT D'AIMER UN BIEN 
+  AimerBien(id: any): void {
+    const user = this.storageService.getUser();
+    if (user && user.token) {
+      // Définissez le token dans le service commentaireService
+      this.serviceUser.setAccessToken(user.token);
+
+      // Appelez la méthode AimerBien() avec l'ID
+      this.serviceBienImmo.AimerBien(id).subscribe(
+        data => {
+          console.log("Bien aimé avec succès:", data);
+          this.favoriteStatus[id] = !this.favoriteStatus[id];
+
+          // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+          if (this.favoriteStatus[id]) {
+            this.favoritedPropertiesCount1[id]++;
+          } else {
+            this.favoritedPropertiesCount1[id]--;
+          }
+        },
+        error => {
+          console.error("Erreur lors du like :", error);
+          // Gérez les erreurs ici
+        }
+      );
+    } else {
+      console.error("Token JWT manquant");
+    }
   }
 }

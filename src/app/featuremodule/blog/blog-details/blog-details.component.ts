@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes'
 import { environment } from 'src/app/environments/environment';
@@ -20,15 +20,18 @@ export class BlogDetailsComponent {
   typebien: any
   blog: any
   id: any
+  locale!: string;
   public gridBlog: any = [];
 
   constructor(
     private serviceCommodite: CommoditeService,
     private serviceBlog: BlogService,
+    @Inject(LOCALE_ID) private localeId: string,
     private route: ActivatedRoute,
     private Dataservice: DataService,
 
   ) {
+    this.locale = localeId;
     this.gridBlog = this.Dataservice.gridBlog
   }
 
