@@ -6079,6 +6079,10 @@ body table.listing-table.datatable {
 .listgrid-sidebar .Featured-text.statutbien {
     background-color:#e98b11;
 }
+
+.blog-listview .Featured-text.statutbien {
+    background-color:#e98b11;
+}
 .blog-category .Featured-text.statut {
     background-color: #e98b11;
 }

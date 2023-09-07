@@ -51,6 +51,13 @@ const routes: Routes = [
           // canActivate: [AuthGuard]
       },
       {
+        path: 'detailsagence',
+        loadChildren: () =>
+          import('./listings/listing-list-sidebar/listing-list-sidebar.module').then(
+            (m) => m.ListingListSidebarModule
+          ),
+      },
+      {
         path: 'biens',
         loadChildren: () =>
           import('./listings/listing-grid-sidebar/listing-grid-sidebar.module').then(

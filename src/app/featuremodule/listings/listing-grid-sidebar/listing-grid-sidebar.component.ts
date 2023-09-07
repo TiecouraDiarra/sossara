@@ -166,33 +166,30 @@ export class ListingGridSidebarComponent {
       this.isLoginFailed = false;
     }
 
-
-
     //AFFICHER LA LISTE DES BIENS IMMO
-    
-  // Charger la liste des biens immobiliers
-  this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-    this.bienImmo = data.biens.reverse();
+    // Charger la liste des biens immobiliers
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+      this.bienImmo = data.biens.reverse();
 
-    // Parcourir la liste des biens immobiliers
-    this.bienImmo.forEach((bien: { id: string | number; }) => {
-      // Charger le nombre de "J'aime" pour chaque bien
-      this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-        this.NombreJaime = data.vues;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-        }
+      // Parcourir la liste des biens immobiliers
+      this.bienImmo.forEach((bien: { id: string | number; }) => {
+        // Charger le nombre de "J'aime" pour chaque bien
+        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = data.vues;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          }
 
-        // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-        if (isFavorite === 'true') {
-          this.favoriteStatus[bien.id] = true;
-        } else {
-          this.favoriteStatus[bien.id] = false;
-        }
+          // Charger l'état de favori depuis localStorage
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          if (isFavorite === 'true') {
+            this.favoriteStatus[bien.id] = true;
+          } else {
+            this.favoriteStatus[bien.id] = false;
+          }
+        });
       });
     });
-  });
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.commodite = data.commodite;
@@ -216,12 +213,12 @@ export class ListingGridSidebarComponent {
     if (user && user.token) {
       // Définissez le token dans le service commentaireService
       this.serviceUser.setAccessToken(user.token);
-  
+
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
           console.log("Bien aimé avec succès:", data);
-  
+
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
             this.favoriteStatus[id] = false; // Désaimé
@@ -242,5 +239,5 @@ export class ListingGridSidebarComponent {
       console.error("Token JWT manquant");
     }
   }
-  
+
 }

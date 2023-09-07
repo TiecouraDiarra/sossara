@@ -526,7 +526,7 @@
                             <ng-container *ngFor="let Agence of agence">
                                 <ng-template carouselSlide>
                                     <div class="property-item">
-                                        <a (click)="ContacterAgenceOrLogin(Agence.id)">
+                                        <a [routerLink]="routes.listinglistsidebar">
                                             <div class="companies-set mb-4">
                                                 <div class="companies-set-head">
                                                     <div class="companies-set-logo" *ngIf="Agence && Agence.photo">
@@ -555,8 +555,8 @@
                                                         </li>
                                                     </ul> -->
                                                     <div class="companies-set-btn">
-                                                        <a (click)="ContacterAgenceOrLogin(Agence.id)"
-                                                            class="btn btn-linebtn">Contacter<i
+                                                        <a [routerLink]="routes.listinglistsidebar"
+                                                            class="btn btn-linebtn">Savoir plus<i
                                                                 class="fa fa-arrow-right ms-3"
                                                                 aria-hidden="true"></i></a>
                                                     </div>

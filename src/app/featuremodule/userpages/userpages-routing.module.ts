@@ -15,9 +15,10 @@ const routes: Routes = [
           // canActivate: [AuthGuard]
       },
       {
-        path: 'bookmarks',
+        path: 'mes-agents',
         loadChildren: () =>
           import('./bookmarks/bookmarks.module').then((m) => m.BookmarksModule),
+          // canActivate: [AuthGuard]
       },
       {
         path: 'dashboard',

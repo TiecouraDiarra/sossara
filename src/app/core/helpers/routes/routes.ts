@@ -80,7 +80,7 @@ export class routes {
     return this.baseUrl + '/biens';
   }
   public static get listinglistsidebar(): string {
-    return this.baseUrl + '/listings/listing-list-sidebar';
+    return this.baseUrl + '/detailsagence';
   }
   public static get listingmapgrid(): string {
     return this.baseUrl + '/trouverbien';
@@ -119,7 +119,7 @@ export class routes {
     return this.baseUrl + '/userpages/ajouter-bien';
   }
   public static get bookmarks(): string {
-    return this.baseUrl + '/userpages/bookmarks';
+    return this.baseUrl + '/userpages/mes-agents';
   }
   public static get dashboard(): string {
     return this.baseUrl + '/userpages/dashboard';

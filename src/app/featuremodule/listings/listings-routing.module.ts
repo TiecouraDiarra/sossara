@@ -22,7 +22,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'listing-list-sidebar',
+        path: 'detailsagence',
         loadChildren: () =>
           import('./listing-list-sidebar/listing-list-sidebar.module').then(
             (m) => m.ListingListSidebarModule

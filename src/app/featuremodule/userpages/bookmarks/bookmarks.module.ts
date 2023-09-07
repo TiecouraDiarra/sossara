@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BookmarksRoutingModule } from './bookmarks-routing.module';
 import { BookmarksComponent } from './bookmarks.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { BookmarksComponent } from './bookmarks.component';
   ],
   imports: [
     CommonModule,
-    BookmarksRoutingModule
+    BookmarksRoutingModule,
+    FormsModule
   ]
 })
 export class BookmarksModule { }
