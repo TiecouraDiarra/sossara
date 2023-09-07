@@ -30,7 +30,7 @@ export class ListingGridComponent {
   isLoginFailed = true;
   errorMessage = '';
 
-  favoriteStatus: { [key: number]: boolean } = {};
+  favoriteStatus: { [key: string]: boolean } = {};
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   toggleFavorite(bienId: number) {
     this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
@@ -83,6 +83,13 @@ export class ListingGridComponent {
             // this.favoriteStatus[bien.id] = true
           }
           console.log(this.NombreJaime)
+          // Charger l'état de favori depuis localStorage
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          if (isFavorite === 'true') {
+            this.favoriteStatus[bien.id] = true;
+          } else {
+            this.favoriteStatus[bien.id] = false;
+          }
         })
       });
       console.log(this.bienImmo);
@@ -112,6 +119,7 @@ export class ListingGridComponent {
   }
 
   //METHODE PERMETTANT D'AIMER UN BIEN 
+  //METHODE PERMETTANT D'AIMER UN BIEN 
   AimerBien(id: any): void {
     const user = this.storageService.getUser();
     if (user && user.token) {
@@ -122,13 +130,16 @@ export class ListingGridComponent {
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
           console.log("Bien aimé avec succès:", data);
-          this.favoriteStatus[id] = !this.favoriteStatus[id];
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
-            this.favoritedPropertiesCount1[id]++;
-          } else {
+            this.favoriteStatus[id] = false; // Désaimé
+            localStorage.removeItem(`favoriteStatus_${id}`);
             this.favoritedPropertiesCount1[id]--;
+          } else {
+            this.favoriteStatus[id] = true; // Aimé
+            localStorage.setItem(`favoriteStatus_${id}`, 'true');
+            this.favoritedPropertiesCount1[id]++;
           }
         },
         error => {
