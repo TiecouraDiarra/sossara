@@ -176,6 +176,7 @@ export class MyListingComponent implements OnInit {
   selectedFactureId: any;
   reclamationProcessusLance: any;
   transaction: any
+  favoritedPropertiesCount1: { [bienId: number]: number } = {};
   bienImmoUserAAcheter: any
 
 
@@ -228,6 +229,7 @@ export class MyListingComponent implements OnInit {
     });
 
   }
+  NombreJaime: number = 0
 
 
   constructor(
@@ -296,6 +298,24 @@ export class MyListingComponent implements OnInit {
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.biens.reverse();
       console.log(this.bienImmo);
+       // Parcourir la liste des biens immobiliers
+    this.bienImmo.forEach((bien: { id: string | number; }) => {
+      // Charger le nombre de "J'aime" pour chaque bien
+      this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+        this.NombreJaime = data.vues;
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        }
+
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        // if (isFavorite === 'true') {
+        //   this.favoriteStatus[bien.id] = true;
+        // } else {
+        //   this.favoriteStatus[bien.id] = false;
+        // }
+      });
+    });
     });
 
     //AFFICHER LA LISTE DES PROBLEMES

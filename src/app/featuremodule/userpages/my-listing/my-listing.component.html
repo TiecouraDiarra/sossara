@@ -176,7 +176,7 @@
                                                 </td>
                                                 <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
                                                         class="status-text">{{BienImmo.statut}}</span></td>
-                                                <td><span class="views-count">200</span></td>
+                                                <td><span class="views-count">{{ favoritedPropertiesCount1[BienImmo.id] }}</span></td>
                                                 <td>
                                                     <div class="action">
                                                         <a (click)="goToDettailBien(BienImmo.id)"
