@@ -37,14 +37,14 @@ export class AgenceService {
     email: string,
     telephone: string,
     adresse: string,
-    ): Observable<any> {
+  ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
     console.log("nom " + nom)
     console.log(headers)
-    console.log("email " +email)
-    console.log("telephone " +telephone)
-    console.log("adresse " +adresse)
+    console.log("email " + email)
+    console.log("telephone " + telephone)
+    console.log("adresse " + adresse)
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
@@ -52,6 +52,29 @@ export class AgenceService {
     return this.http.post(`${URL_BASE}/user/child/create`, {
       formData,
     }, { headers });
+  }
+
+  //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'AGENCE CONNECTEE
+  ListeAgentParAgence(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/user/child/get`,
+      { headers });
+  }
+
+  //AFFICHER UN AGENT EN FONCTION DE SON ID
+  AfficherAgentParId(id: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/immo/user/agent/get/${id}`);
+  }
+
+  //AFFICHER UNE AGENCE EN FONCTION DE SON ID
+  AfficherAgenceParId(id: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/immo/user/child/get/${id}`);
+  }
+
+  //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'ID DE AGENCE
+  AfficherListeAgentParAgence(id: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/user/child/get/${id}`);
   }
 
 }

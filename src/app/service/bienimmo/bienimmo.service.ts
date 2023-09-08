@@ -43,6 +43,16 @@ export class BienimmoService {
   AfficherLaListeBienImmo(): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/immo`);
   }
+
+  //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
+  AfficherLaListeBienImmoPlusVue(): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/immo/most/views/get`);
+  }
+
+  //AFFICHER LA LISTE DE TOUS LES BIENS IMMO AIMES
+  AfficherLaListeBienImmoAimer(): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/immo/favoris/get`);
+  }
   //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
   AfficherLaListeBienImmoRecentAlouer(): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/immo/statut/A louer`);
@@ -253,6 +263,15 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/immo/views/get/${id}`);
   }
 
+  //LE NOMBRE DE BIENS LOUES
+  NombreBienLouer(): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/immo/get/rent/all`);
+  }
+
+  //LE NOMBRE DE BIENS VENDUES
+  NombreBienVendu(): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/immo/get/sell/all`);
+  }
 
   //ARRETER LE PROCESSUS
   ArreterProcessus(id: any): Observable<any> {

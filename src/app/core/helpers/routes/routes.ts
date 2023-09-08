@@ -86,7 +86,7 @@ export class routes {
     return this.baseUrl + '/trouverbien';
   }
   public static get listingmaplist(): string {
-    return this.baseUrl + '/listings/listingmap-list';
+    return this.baseUrl + '/details-agent';
   }
   public static get about(): string {
     return this.baseUrl + '/pages/about';
@@ -110,7 +110,7 @@ export class routes {
     return this.baseUrl + '/pages/privacy-policy';
   }
   public static get servicedetails(): string {
-    return this.baseUrl + '/pages/service-details';
+    return this.baseUrl + '/details-bien';
   }
   public static get termscondition(): string {
     return this.baseUrl + '/pages/terms-condition';
@@ -131,7 +131,7 @@ export class routes {
     return this.baseUrl + '/userpages/mes-biens';
   }
   public static get profile(): string {
-    return this.baseUrl + '/userpages/profile';
+    return this.baseUrl + '/userpages/profil';
   }
   public static get reviews(): string {
     return this.baseUrl + '/userpages/notification';

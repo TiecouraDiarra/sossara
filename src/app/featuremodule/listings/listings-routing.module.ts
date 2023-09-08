@@ -10,35 +10,35 @@ const routes: Routes = [
       {
         path: 'bienparcommune',
         loadChildren: () =>
-          import('./listing-grid/listing-grid.module').then(
+          import('./bienparcommune/listing-grid.module').then(
             (m) => m.ListingGridModule
           ),
       },
       {
         path: 'biens',
         loadChildren: () =>
-          import('./listing-grid-sidebar/listing-grid-sidebar.module').then(
+          import('./biens/listing-grid-sidebar.module').then(
             (m) => m.ListingGridSidebarModule
           ),
       },
       {
         path: 'detailsagence',
         loadChildren: () =>
-          import('./listing-list-sidebar/listing-list-sidebar.module').then(
+          import('./detailsagence/listing-list-sidebar.module').then(
             (m) => m.ListingListSidebarModule
           ),
       },
       {
         path: 'trouverbien',
         loadChildren: () =>
-          import('./listingmap-grid/listingmap-grid.module').then(
+          import('./trouverbien/listingmap-grid.module').then(
             (m) => m.ListingmapGridModule
           ),
       },
       {
-        path: 'listingmap-list',
+        path: 'details-agent',
         loadChildren: () =>
-          import('./listingmap-list/listingmap-list.module').then(
+          import('./detailsagent/listingmap-list.module').then(
             (m) => m.ListingmapListModule
           ),
       },

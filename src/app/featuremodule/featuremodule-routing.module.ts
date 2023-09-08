@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./home/home.module').then((m) => m.HomeModule),
+          import('./accueil/home.module').then((m) => m.HomeModule),
       },
       {
         path: 'auth',
@@ -45,22 +45,36 @@ const routes: Routes = [
       {
         path: 'trouverbien',
         loadChildren: () =>
-          import('./listings/listingmap-grid/listingmap-grid.module').then(
+          import('./listings/trouverbien/listingmap-grid.module').then(
             (m) => m.ListingmapGridModule
           ),
           // canActivate: [AuthGuard]
       },
       {
-        path: 'detailsagence',
+        path: 'detailsagence/:id',
         loadChildren: () =>
-          import('./listings/listing-list-sidebar/listing-list-sidebar.module').then(
+          import('./listings/detailsagence/listing-list-sidebar.module').then(
             (m) => m.ListingListSidebarModule
+          ),
+      },
+      {
+        path: 'details-bien/:id',
+        loadChildren: () =>
+          import('./pages/detailsbien/service-details.module').then(
+            (m) => m.ServiceDetailsModule
+          ),
+      },
+      {
+        path: 'details-agent/:id',
+        loadChildren: () =>
+          import('./listings/detailsagent/listingmap-list.module').then(
+            (m) => m.ListingmapListModule
           ),
       },
       {
         path: 'biens',
         loadChildren: () =>
-          import('./listings/listing-grid-sidebar/listing-grid-sidebar.module').then(
+          import('./listings/biens/listing-grid-sidebar.module').then(
             (m) => m.ListingGridSidebarModule
           ),
           // canActivate: [AuthGuard]
@@ -68,7 +82,7 @@ const routes: Routes = [
       {
         path: 'bienparcommune/:id',
         loadChildren: () =>
-          import('./listings/listing-grid/listing-grid.module').then(
+          import('./listings/bienparcommune/listing-grid.module').then(
             (m) => m.ListingGridModule
           ),
           // canActivate: [AuthGuard]
@@ -76,7 +90,7 @@ const routes: Routes = [
       {
         path: 'blog',
         loadChildren: () =>
-          import('./blog/blog-grid-sidebar/blog-grid-sidebar.module').then(
+          import('./blog/blog/blog-grid-sidebar.module').then(
             (m) => m.BlogGridSidebarModule
           ),
           // canActivate: [AuthGuard]

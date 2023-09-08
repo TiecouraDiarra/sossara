@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'blog',
     loadChildren: () =>
-      import('./blog-grid-sidebar/blog-grid-sidebar.module').then(
+      import('./blog/blog-grid-sidebar.module').then(
         (m) => m.BlogGridSidebarModule
       ),
   },

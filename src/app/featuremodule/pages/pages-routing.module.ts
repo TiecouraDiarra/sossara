@@ -7,7 +7,7 @@ const routes: Routes = [
     {
     path: 'about',
     loadChildren: () =>
-      import('./about/about.module').then((m) => m.AboutModule),
+      import('./apropos/about.module').then((m) => m.AboutModule),
   },
   {
     path: 'categories',
@@ -39,7 +39,7 @@ const routes: Routes = [
   {
     path: 'service-details/:id',
     loadChildren: () =>
-      import('./service-details/service-details.module').then(
+      import('./detailsbien/service-details.module').then(
         (m) => m.ServiceDetailsModule
       ),
   },
