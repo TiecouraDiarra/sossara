@@ -10,7 +10,7 @@
                         <li class="breadcrumb-item"><a [routerLink]="routes.listinggridsidebar">Biens</a></li>
                         <!-- <li class="breadcrumb-item active" aria-current="page">Grid</li> -->
                     </ol>
-                </nav>							
+                </nav>
             </div>
         </div>
     </div>
@@ -18,135 +18,287 @@
 <!-- /Breadscrumb Section -->
 
 <!-- Bookmark Content -->
-<div class="dashboard-content">		
-    <div class="container">			
-        <div class="bookmarks-content grid-view featured-slider">
-            <div class="row sorting-div mt-3">
-                <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
-                  <div class="sortbyset">
-                    <span class="sortbytitle">Trier</span>
-                    <div class="sorting-select">
-                      <select class="form-control form-select" [(ngModel)]="searchText">
-                        <option value="" selected>Tout</option>
-                        <option>A louer</option>
-                        <option>A vendre</option>
-                      </select>
+<div class="list-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 theiaStickySidebar">
+                <div class="stickybar">
+                    <div class="listings-sidebar">
+                        <div class="card">
+                            <h4>
+                                <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
+                                Filtrer
+                            </h4>
+                            <form>
+                                <div class="filter-content form-group maforme">
+                                    <mat-form-field class="mat-custom-select" style="width: 100%;">
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                            Statut</mat-label>
+                                        <mat-select (selectionChange)="onStatutSelectionChange($event)">
+                                            <mat-option disabled class="search-input-option">
+                                                <input name="searchInputCategory" [(ngModel)]="searchInputCategory"
+                                                    (ngModelChange)="
+                                            searchCategory(searchInputCategory)
+                                          " class="search-input" type="text" />
+                                            </mat-option>
+                                            <mat-option [value]="Statut"
+                                                *ngFor="let Statut of status">{{Statut}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="filter-content form-group maforme">
+                                    <mat-form-field class="mat-custom-select" style="width: 100%;">
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                            Type</mat-label>
+                                        <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                                            <mat-option disabled class="search-input-option">
+                                                <input name="searchInputCategory" [(ngModel)]="searchInputCategory"
+                                                    (ngModelChange)="
+                                            searchCategory(searchInputCategory)
+                                          " class="search-input" type="text" />
+                                            </mat-option>
+                                            <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                                                }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                  </div>
-                  <div class="grid-listview">
-                    <ul>
-                      <li>
-                        <a [routerLink]="routes.listinggrid" class="active">
-                          <i class="feather-grid"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
-              </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6 " *ngFor="let BienImo of bienImmo | filter : searchText | paginate:{itemsPerPage :3, currentPage:p}">
-                    <div class="card aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="blog-widget">
-                            <div class="blog-img">
-                                <a (click)="goToDettailBien(BienImo.id)">
-                                    <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
-                                      <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size"
-                                        alt="blog-img">
+            </div>
+            <div class="col-lg-8">
+                <div class="bookmarks-content grid-view featured-slider">
+                    <div class="row sorting-div mt-3">
+                    <div class="row">
+                        <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
+                            <div class="col-lg-6 col-md-4 col-sm-6 "
+                                *ngFor="let BienImo of bienImmo  | filter : selectedType | filter : selectedStatut | paginate:{itemsPerPage :2, currentPage:p}">
+                                <div class="card aos aos-init aos-animate" data-aos="fade-up">
+                                    <div class="blog-widget">
+                                        <div class="blog-img">
+                                            <a (click)="goToDettailBien(BienImo.id)">
+                                                <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
+                                                    <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}"
+                                                        class="img-fluid image-size" alt="blog-img">
+                                                </div>
+                                                <ng-template #noImages>
+                                                    <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size"
+                                                        alt="default-img">
+                                                </ng-template>
+                                            </a>
+                                            <div class="fav-item">
+                                                <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }"
+                                                    class="Featured-text">{{ BienImo.statut }}</span>
+                                                <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
+                                                    (click)="AimerBien(BienImo.id)"
+                                                    [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+                                                    <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'"
+                                                        class="feather-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="bloglist-content">
+                                            <div class="card-body">
+                                                <div class="blogfeaturelink">
+                                                    <div class="grid-author">
+                                                        <img src="{{generateImageUrl(BienImo.utilisateur.photo)}}" alt="author"
+                                                            (error)="handleAuthorImageError($event)" />
+                                                    </div>
+                                                    <div class="blog-features">
+                                                        <a href="javascript:void(0)"><span> <i
+                                                                    class="fa-regular fa-circle-stop"></i> {{
+                                                                BienImo.typeImmo.nom }}</span></a>
+                                                    </div>
+                                                    <div class="blog-author text-end">
+                                                        <span> <i class="feather-eye"></i>{{
+                                                            favoritedPropertiesCount1[BienImo.id] }}</span>
+                                                    </div>
+                                                </div>
+                                                <h6><a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom :
+                                                        BienImo.typeImmo.nom }}</a></h6>
+                                                <div class="blog-location-details">
+                                                    <div class="location-info">
+                                                        <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
+                                                    </div>
+                                                    <div class="location-info">
+                                                        <i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date |
+                                                        date:"dd/MM/yyyy"}}
+                                                    </div>
+                                                </div>
+                                                <div class="amount-details">
+                                                    <div class="amount">
+                                                        <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
+                                                        <!-- <span>{{slide.oldamount}}</span> -->
+                                                    </div>
+                                                    <div class="ratings">
+                                                        <!-- <span>{{slide.rating}}</span> {{slide.rating1}} -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <ng-template #noImages>
-                                      <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
-                                    </ng-template>
-                                  </a>
-                                <div class="fav-item">
-                                    <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }" class="Featured-text">{{ BienImo.statut }}</span>
-                                    <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon" (click)="AimerBien(BienImo.id)" [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
-                                        <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
-                                      </a> 										
-                                </div>	
+                                </div>
                             </div>
-                            <div class="bloglist-content">
-                                <div class="card-body">
-                                    <div class="blogfeaturelink">
-                                        <div class="grid-author">
-                                            <img
-                                              src="{{generateImageUrl(BienImo.utilisateur.photo)}}"
-                                              alt="author" (error)="handleAuthorImageError($event)" />
-                                          </div>
-                                        <div class="blog-features">
-                                           <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{ BienImo.typeImmo.nom }}</span></a>
-                                        </div>																	  
-                                        <div class="blog-author text-end"> 
-                                            <span> <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}</span>
+                        </ng-container>
+                        <ng-template #noBiens>
+                            <div class="row Pblog" style="margin-left: auto !important;
+                            margin-right: auto !important;">
+                              <div class="col-lg-6 col-md-4" aria-hidden="true">
+                                <div class="card">
+                                  <div class="blog-widget placeholder-glow">
+                                    <div class="blog-img">
+                                      <a>
+                                        <div>
+                                          <img src="assets/img/test.jpg" class="img-fluid image-size"
+                                            alt="blog-img">
                                         </div>
-                                    </div> 
-                                    <h6><a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a></h6>																	 
-                                    <div class="blog-location-details">
-                                        <div class="location-info">
-                                           <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
-                                        </div>
-                                        <div class="location-info">
-                                            <i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date | date:"dd/MM/yyyy"}}
-                                        </div>
+                                      </a>
+                                      <div class="fav-item placeholder-glow">
+                                        <span class="placeholder">hhhhhh</span>
+                                        <a href="javascript:void(0)" class="fav-icon placeholder">
+                                        </a>
+                                      </div>
                                     </div>
-                                    <div class="amount-details">
-                                        <div class="amount">
-                                            <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
-                                            <!-- <span>{{slide.oldamount}}</span> -->
+                                    <div class="bloglist-content placeholder-glow">
+                                      <div class="card-body">
+                                        <div class="blogfeaturelink">
+                                          <div class="grid-author placeholder">
+                                            <img class="placeholder" alt="author" />
+                                          </div>
+                                          <div class="blog-features placeholder-glow">
+                                            <a href="javascript:void(0)"><span class="placeholder">
+                                                jjjjjjjjjjjjjjj</span></a>
+                                          </div>
+                                          <div class="blog-author text-end placeholder-glow">
+                                            <span class="placeholder">jjjjljjjjjjjjjjjl
+                                            </span>
+                                          </div>
                                         </div>
-                                        <div class="ratings">
-                                            <!-- <span>{{slide.rating}}</span> {{slide.rating1}} -->
-                                        </div>												
-                                    </div>	
-                                </div>	
-                            </div>			 
-                        </div> 
+                                        <div class="blog-location-details placeholder-glow">
+                                          <div class="location-info placeholder">aaaaaaaaaaaa
+                                          </div>
+                                        </div>
+                                        <div class="blog-location-details placeholder-glow">
+                                          <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                                          </div>
+                                          <div class="location-info placeholder">aaaaaaaaaaaaaa
+                                          </div>
+                                        </div>
+                                        <div class="amount-details placeholder-glow">
+                                          <div class="amount">
+                                            <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                                          </div>
+                                          <div class="ratings">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6 col-md-4" aria-hidden="true">
+                                <div class="card">
+                                  <div class="blog-widget placeholder-glow">
+                                    <div class="blog-img">
+                                      <a>
+                                        <div>
+                                          <img src="assets/img/test.jpg" class="img-fluid image-size"
+                                            alt="blog-img">
+                                        </div>
+                                      </a>
+                                      <div class="fav-item placeholder-glow">
+                                        <span class="placeholder">hhhhhh</span>
+                                        <a href="javascript:void(0)" class="fav-icon placeholder">
+                                        </a>
+                                      </div>
+                                    </div>
+                                    <div class="bloglist-content placeholder-glow">
+                                      <div class="card-body">
+                                        <div class="blogfeaturelink">
+                                          <div class="grid-author placeholder">
+                                            <img class="placeholder" alt="author" />
+                                          </div>
+                                          <div class="blog-features placeholder-glow">
+                                            <a href="javascript:void(0)"><span class="placeholder">
+                                                jjjjjjjjjjjjjjj</span></a>
+                                          </div>
+                                          <div class="blog-author text-end placeholder-glow">
+                                            <span class="placeholder">jjjjljjjjjjjjjjjl
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div class="blog-location-details placeholder-glow">
+                                          <div class="location-info placeholder">aaaaaaaaaaaa
+                                          </div>
+                                        </div>
+                                        <div class="blog-location-details placeholder-glow">
+                                          <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                                          </div>
+                                          <div class="location-info placeholder">aaaaaaaaaaaaaa
+                                          </div>
+                                        </div>
+                                        <div class="amount-details placeholder-glow">
+                                          <div class="amount">
+                                            <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                                          </div>
+                                          <div class="ratings">
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-template>
+        
+                        <!--Pagination-->
+                        <!-- <div class="blog-pagination">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item previtem">
+                                        <a class="page-link" href="javascript:void(0)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+                                    </li>
+                                    <li class="justify-content-center pagination-center"> 
+                                        <div class="pagelink">
+                                            <ul>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0)">1</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="javascript:void(0)">2 <span class="visually-hidden">(current)</span></a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0)">3</a>
+                                               </li>
+                                               <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0)">...</a>
+                                               </li>
+                                               <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0)">14</a>
+                                               </li>
+                                           </ul>
+                                        </div>													
+                                    </li>													
+                                    <li class="page-item nextlink">
+                                        <a class="page-link" href="javascript:void(0)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div> -->
+                        <!--/Pagination-->
+                        <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event"
+                            previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                            previousClass="pagination__previous" nextClass="pagination__next"
+                            containerClass="pagination__container" pageClass="pagination__page"
+                            activeClassName="pagination__page--active"
+                            disabledClass="pagination__page--disabled"></pagination-controls>
+        
                     </div>
                 </div>
-                
-                
-                 <!--Pagination--> 
-                <!-- <div class="blog-pagination">
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item previtem">
-                                <a class="page-link" href="javascript:void(0)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
-                            </li>
-                            <li class="justify-content-center pagination-center"> 
-                                <div class="pagelink">
-                                    <ul>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">1</a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" href="javascript:void(0)">2 <span class="visually-hidden">(current)</span></a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">3</a>
-                                       </li>
-                                       <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">...</a>
-                                       </li>
-                                       <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">14</a>
-                                       </li>
-                                   </ul>
-                                </div>													
-                            </li>													
-                            <li class="page-item nextlink">
-                                <a class="page-link" href="javascript:void(0)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div> -->
-                <!--/Pagination-->	
-                <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event" previousLabel="Précédent" nextLabel="Suivant" class="pagination"
-                    previousClass="pagination__previous" nextClass="pagination__next" containerClass="pagination__container"
-                    pageClass="pagination__page" activeClassName="pagination__page--active"
-                    disabledClass="pagination__page--disabled"></pagination-controls>
-                
-            </div>						
+            </div>
         </div>
-    </div>		
-</div>		
+    </div>
+</div>
 <!-- /Bookmark Content -->

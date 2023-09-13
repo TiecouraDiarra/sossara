@@ -59,14 +59,35 @@
 }
 
 .image-size {
-  width: 100%; /* Remplacez cette valeur par la taille souhaitée */
-  height: 180px; /* Remplacez cette valeur par la taille souhaitée */
+  width: 100%;
+  /* Remplacez cette valeur par la taille souhaitée */
+  height: 180px;
+  /* Remplacez cette valeur par la taille souhaitée */
 }
 
 .favorite-icon {
-  color: black; /* Couleur par défaut */
+  color: black;
+  /* Couleur par défaut */
 }
 
 .favorite-icon-active {
-  color: #e98b11; /* Couleur active */
+  color: #e98b11;
+  /* Couleur active */
+}
+
+.Pblog {
+  font-size: 25px;
+  font-weight: 700;
+  color: #131212;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.crd:hover {
+  cursor: pointer;
+}
+
+.crd {
+  cursor: pointer;
 }

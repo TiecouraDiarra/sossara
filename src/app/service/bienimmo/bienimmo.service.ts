@@ -90,7 +90,7 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/immo/get/rent/invoyce/${id}`,
       { headers });
   }
-  //AFFICHER LA LISTE DES BIENS LOUESDONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+  //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
   AfficherBienImmoLoueCandidatureAccepter(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
@@ -98,11 +98,19 @@ export class BienimmoService {
       { headers });
   }
 
-  //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR
+  //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoParUser(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
     return this.http.get(`${URL_BASE}/bien/immo/user`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+  AfficherBienImmoParUserConnecte(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/user/agence/get`,
       { headers });
   }
 
@@ -327,7 +335,6 @@ export class BienimmoService {
     periode: number,
     longitude: number,
     latitude: number,
-    photos: File[], //Liste de photos
     id: any
   ): Observable<any> {
     const headers = this.getHeaders();
@@ -350,7 +357,6 @@ export class BienimmoService {
     console.log('periode', periode);
     console.log('longitude', longitude);
     console.log('latitude', latitude);
-    console.log('photo', photos);
     console.log('id', id);
     const formData = new FormData();
 
@@ -372,12 +378,11 @@ export class BienimmoService {
     // Si le statut est "A vendre", définissez la période sur 6
     if (statut === "A vendre") {
       formData.append('periode', '6');
-    } else {
+    } else if (statut === "A louer") {
       formData.append('periode', periode.toString());
     }
     formData.append('longitude', longitude.toString());
     formData.append('latitude', latitude.toString());
-    photos.forEach(p => { formData.append('photo[]', p) });
     formData.append('id', id);
 
     return this.http.post(

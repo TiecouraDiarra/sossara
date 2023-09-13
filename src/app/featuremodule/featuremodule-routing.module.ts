@@ -102,6 +102,11 @@ const routes: Routes = [
             (m) => m.BlogDetailsModule
           ),
       },
+      {
+        path: 'apropos',
+        loadChildren: () =>
+          import('./pages/apropos/about.module').then((m) => m.AboutModule),
+      },
       // {
       //   path: 'blog-details',
       //   loadChildren: () =>

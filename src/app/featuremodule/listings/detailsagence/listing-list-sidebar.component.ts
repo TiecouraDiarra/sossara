@@ -38,6 +38,7 @@ export class ListingListSidebarComponent implements OnInit {
   p: number = 1;
   errorMessage = '';
   NombreJaime: number = 0
+  totalLikes: number = 0
   locale!: string;
   favoriteStatus: { [key: string]: boolean } = {};
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
@@ -66,6 +67,34 @@ export class ListingListSidebarComponent implements OnInit {
       },
       1170: {
         items: 5,
+        loop: true
+      }
+    },
+    nav: false,
+  };
+
+
+  public recentarticleOwlOptions: OwlOptions = {
+    margin: 24,
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: [
+      "<i class='fa-solid fa-angle-left'></i>",
+      "<i class='fa-solid fa-angle-right'></i>",
+    ],
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 4
+      },
+      1170: {
+        items: 1,
         loop: true
       }
     },
@@ -105,28 +134,40 @@ export class ListingListSidebarComponent implements OnInit {
       this.bienImmoAgence = data.biens_agence;
       this.bienImmoAgent = data.biens_agents;
       this.bienImmo = [...this.bienImmoAgence, ...this.bienImmoAgent];
-      this.NombreBienAgence = this.bienImmo.length
-      // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+      this.NombreBienAgence = this.bienImmo.length;
+    
+      // Initialisez une variable pour stocker le nombre total de "J'aime".
+      // let totalLikes = 0;
+    
       this.bienImmo.forEach((bien: { id: string | number; }) => {
         this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
           this.NombreJaime = data.vues;
           if (typeof bien.id === 'number') {
             this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+            // Ajoutez le nombre de "J'aime" au total.
+            this.totalLikes += this.NombreJaime;
           }
-          console.log(this.NombreJaime)
+          console.log(this.NombreJaime);
           const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
           if (isFavorite === 'true') {
             this.favoriteStatus[bien.id] = true;
           } else {
             this.favoriteStatus[bien.id] = false;
           }
-        })
+    
+          // Vérifiez si toutes les requêtes sont terminées.
+          // if (this.favoritedPropertiesCount1.length === this.bienImmo.length) {
+            console.log('Total Likes:', this.totalLikes);
+            console.log(this.bienImmo);
+            console.log(this.agence);
+            console.log(this.bienImmoAgence);
+            console.log(this.NombreBienAgence);
+            console.log(this.bienImmoAgent);
+          // }
+        });
       });
-      console.log(this.bienImmo);
-      console.log(this.agence);
-      console.log(this.bienImmoAgence);
-      console.log(this.bienImmoAgent);
-    })
+    });
+    
 
     //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'ID DE AGENCE
     this.serviceAgence.AfficherListeAgentParAgence(this.id).subscribe(data => {

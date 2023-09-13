@@ -38,7 +38,7 @@
                 </li>
                 <li *ngIf="isAgence">
                     <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Mes agents</span>
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
                 <li>
@@ -48,7 +48,7 @@
                 </li>
                 <li class="active">
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
+                        <i class="fas fa-bell"></i><span>Notifications</span>
                     </a>
                 </li>
                 <!-- <li class="crd">
@@ -102,7 +102,7 @@
                                             </div>
                                             <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
                                                 {{Candidature.createdAt.date |
-                                                    date:"dd MMM yyyy":locale}}</div>
+                                                date:"dd MMM yyyy":locale}}</div>
                                             <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature.createdAt.date
                                                 |
                                                 date:"HH:mm"}}</div>
@@ -200,7 +200,7 @@
                                             </div>
                                             <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
                                                 {{Candidature.createdAt.date |
-                                                    date:"dd MMM yyyy":locale}}</div>
+                                                date:"dd MMM yyyy":locale}}</div>
                                             <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature.createdAt.date
                                                 |
                                                 date:"HH:mm"}}</div>
@@ -210,8 +210,9 @@
                                         </div>
                                         <div class="row">
                                             <div class="col">
-                                                <p class="blog-category"> 
-                                                    <a href="javascript:void(0)"><span>{{Candidature.bien.statut}}</span></a>
+                                                <p class="blog-category">
+                                                    <a
+                                                        href="javascript:void(0)"><span>{{Candidature.bien.statut}}</span></a>
                                                 </p>
                                             </div>
                                             <div class="col">
@@ -248,7 +249,8 @@
                                                     Payer</button>
                                             </div> -->
                                             <!-- Button trigger modal -->
-                                            <button (click)="openFactureModal(Candidature.id)" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            <button (click)="openFactureModal(Candidature.id)" type="button"
+                                                class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
                                                 Payer
                                             </button>
@@ -268,7 +270,8 @@
                                                             <div class="row">
                                                                 <div class="paymentCont">
                                                                     <div class="headingWrap">
-                                                                        <h3 class="headingTop text-center">Selectionner le mode de paiement</h3>
+                                                                        <h3 class="headingTop text-center">Selectionner
+                                                                            le mode de paiement</h3>
                                                                         <!-- <p class="text-center">Created with bootsrap
                                                                             button and using radio button</p> -->
                                                                     </div>
@@ -325,6 +328,61 @@
                                         </div>
                                     </div>
                                 </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row dashboard-info reviewpage-content mt-4" *ngIf="!isLocataire">
+            <div class="col-lg-6 d-flex" *ngIf="rdv && rdv.length > 0">
+                <div class="card dash-cards w-100">
+                    <div class="card-header">
+                        <h4>Rendez-vous</h4>
+                        <div class="card-dropdown">
+                            <ul>
+                                <li class="nav-item dropdown has-arrow logged-item">
+                                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <span>Tout</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
+                                        <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
+                                        <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ligne">
+                        <div class="card-body">
+                            <ul class="review-list">
+                                <li class="review-box" *ngFor="let Rdv of rdv">
+                                    <div class="review-profile">
+                                        <div class="review-img">
+                                            <img src="{{generateImageUrl(Rdv.utilisateur.photo)}}" class="img-fluid"
+                                                alt="img" (error)="handleAuthorImageError($event)">
+                                        </div>
+                                    </div>
+                                    <div class="review-details">
+                                        <h6>{{Rdv.utilisateur.nom}}</h6>
+                                        <div class="rating">
+                                            <div class="rating-star">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                            </div>
+                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv.date |
+                                                date:"dd MMM yyyy":locale}}</div>
+                                            <div>{{Rdv.heure}}</div>
+                                        </div>
+                                        <!-- <p>{{data.feedback}}</p>																	 -->
+                                    </div>
+                                </li>
+
                             </ul>
                         </div>
                     </div>

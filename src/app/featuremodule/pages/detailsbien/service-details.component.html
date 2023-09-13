@@ -307,7 +307,7 @@
                                         <div class="pass-group group-img">
                                             <select [(ngModel)]="form.periode" name="periode" class="form-control"
                                                 id="">
-                                                <option *ngFor="let item of periode" [value]="item.ID">
+                                                <option *ngFor="let item of periode" [value]="item.id">
                                                     {{ item.nom }}
                                                 </option>
                                             </select>
@@ -402,7 +402,6 @@
                             </div>
                             <!-- map  -->
                             <div class="listing-map" >
-                                <!-- <input id="search-box" type="text" placeholder="Rechercher un lieu"> -->
                                   <div id="map" style="width: 100%; height: 60vw;"></div>
                               </div>
                             <!-- MAP ADRESSE  -->
@@ -424,31 +423,7 @@
                             </div>
                             <!-- Image  -->
                             <div class="card media-section">
-                                <!-- <div class="card-header">
-                                    <h4>Media Information</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class=" featured-img1">
-                                            <h6 class="media-title">Images biens <span>*</span></h6>
-                                            <div class="media-image">
-                                                <div *ngFor="let imageUrl of image; let i = index"
-                                                    class="image-container m-1">
-                                                    <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
-                                                    <button class="close-button" (click)="removeImage(i)">
-                                                        <i class="fas fa-times close-icon"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="settings-upload-btn">
-                                            <input type="file" id="photo" name="photo" (change)="onFileSelected($event)"
-                                                multiple class="hide-input image-upload"
-                                                [disabled]="maxImageCount >=3" />
-                                            <label for="file" class="file-upload">Ajouter l'image</label>
-                                        </div>
-                                    </div>
-                                </div> -->
+                                
                                 <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
                                     {{ errorMessage }}
                                 </div>
@@ -565,7 +540,7 @@
                 <!--/Listing Features Section-->
 
                 <!--Gallery Section-->
-                <div class="card gallery-section ">
+                <div class="card gallery-section " *ngIf="photos && photos.length > 0">
                     <div class="card-header ">
                         <img width="5%" src="assets/img/galerie.png" alt="gallery">
                         <h4>Galerie</h4>
@@ -595,11 +570,9 @@
                         <h4>Emplacement du bien </h4>
                     </div>
                     <div class="card-body">
-                        <!-- <div class="test"> -->
                         <div class="google-maps">
-                            <div id="map" style="width: 100%; height: 25vw;"></div>
+                            <div id="mape" style="width: 100%; height: 25vw;"></div>
                         </div>
-                        <!-- </div> -->
                     </div>
                 </div>
                 <!--/Map Section-->
@@ -855,6 +828,7 @@
                                 du bien</h4>
                             <ul>
                                 <li *ngIf="bien && bien.typeImmo">Type du bien <span>{{bien.typeImmo.nom}}</span></li>
+                                <li *ngIf="bien && bien.typeImmo">Periode <span>{{bien.periode.nom}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Quartier <span>{{bien.adresse.quartier}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Rue <span>{{bien.adresse.rue}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Porte <span>{{bien.adresse.porte}}</span></li>

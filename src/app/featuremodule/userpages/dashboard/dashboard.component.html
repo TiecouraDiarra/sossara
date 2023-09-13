@@ -38,7 +38,7 @@
                 </li>
                 <li *ngIf="isAgence">
                     <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Mes agents</span>
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
                 <li>
@@ -48,7 +48,7 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
+                        <i class="fas fa-bell"></i><span>Notifications</span>
                     </a>
                 </li>
                 <!-- <li class="crd">
@@ -60,8 +60,40 @@
         </div>
         <div class="dashboard-details">
             <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <div class="card dash-cards">
+                <div class="col-lg-3 col-md-3" *ngIf="isLocataire">
+                    <div class="card dash-cards cad">
+                        <div class="card-body">
+                            <div class="dash-top-content">
+                                <div class="dashcard-img">
+                                    <!-- <img src="assets/img/icons/verified.svg" class="img-fluid" alt=""> -->
+                                    <img src="assets/img/icons/category-7.svg" class="img-fluid" alt="">
+                                </div>
+                            </div>
+                            <div class="dash-widget-info">
+                                <h6>Nombre de biens loues</h6>
+                                <h3 class="counter">{{nombreBienLoue}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3" *ngIf="isLocataire">
+                    <div class="card dash-cards cad">
+                        <div class="card-body">
+                            <div class="dash-top-content">
+                                <div class="dashcard-img">
+                                    <!-- <img src="assets/img/icons/verified.svg" class="img-fluid" alt=""> -->
+                                    <img src="assets/img/icons/category-7.svg" class="img-fluid" alt="">
+                                </div>
+                            </div>
+                            <div class="dash-widget-info">
+                                <h6>Nombre de biens achetes</h6>
+                                <h3 class="counter">{{nombreBienAchete}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire">
+                    <div class="card dash-cards cad">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -76,8 +108,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="card dash-cards">
+                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire">
+                    <div class="card dash-cards cad">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -92,7 +124,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3">
-                    <div class="card dash-cards">
+                    <div class="card dash-cards cad">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -100,14 +132,14 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6>Messages</h6>
+                                <h6>Conversations</h6>
                                 <h3 class="counter">{{nombreconversation}}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="card dash-cards">
+                <div class="col-lg-3 col-md-3" *ngIf="isAgence">
+                    <div class="card dash-cards cad">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -116,6 +148,22 @@
                             </div>
                             <div class="dash-widget-info">
                                 <h6>Nombre d'agents</h6>
+                                <h3 class="counter">{{somme}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3" *ngIf="!isAgence">
+                    <div class="card dash-cards cad">
+                        <div class="card-body">
+                            <div class="dash-top-content">
+                                <div class="dashcard-img">
+                                    <img src="assets/img/icons/bookmark.svg" class="img-fluid" alt="">
+                                </div>
+                            </div>
+                            <div class="dash-widget-info">
+                                <h6>Nombre de Notifications</h6>
                                 <h3 class="counter">{{somme}}</h3>
                             </div>
                         </div>

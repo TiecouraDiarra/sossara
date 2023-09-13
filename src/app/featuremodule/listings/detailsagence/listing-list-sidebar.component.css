@@ -304,3 +304,10 @@
     z-index: 10;
 }
 
+.image-sizeagent {
+    width: 70px; 
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+

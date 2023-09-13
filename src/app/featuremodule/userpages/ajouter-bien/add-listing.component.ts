@@ -56,7 +56,7 @@ export class AddListingComponent {
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   status: any = ['A louer', 'A vendre'];
 
-  
+
 
   constructor(
     private DataService: DataService,
@@ -154,18 +154,43 @@ export class AddListingComponent {
       center: { lat: 12.639231999999997, lng: -7.998184000000001 }, // Coordonnées initiales de la carte
       zoom: 15 // Niveau de zoom initial
     };
-
+  
     const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    // Attacher un gestionnaire d'événements au clic sur la carte
-    google.maps.event.addListener(map, 'click', (event: { latLng: { lat: () => any; lng: () => any; }; }) => {
-      this.form.latitude = event.latLng.lat();
-      this.form.longitude = event.latLng.lng();
-
+  
+    // Créer un marqueur initial au centre de la carte
+    const initialMarker = new google.maps.Marker({
+      position: mapOptions.center,
+      map: map,
+      draggable: true // Rend le marqueur draggable
+    });
+  
+    // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
+    google.maps.event.addListener(initialMarker, 'dragend', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
+      this.form.latitude = markerEvent.latLng.lat();
+      this.form.longitude = markerEvent.latLng.lng();
+  
+      console.log('Latitude :', this.form.latitude);
+      console.log('Longitude :', this.form.longitude);
+    });
+  
+    // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
+    google.maps.event.addListener(initialMarker, 'click', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
+      const newLatLng = new google.maps.LatLng(
+        initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
+        initialMarker.getPosition().lng() + 0.001  // Déplacez le marqueur d'une petite quantité en longitude
+      );
+  
+      initialMarker.setPosition(newLatLng);
+  
+      // Mettez à jour les coordonnées dans votre formulaire
+      this.form.latitude = newLatLng.lat();
+      this.form.longitude = newLatLng.lng();
+  
       console.log('Latitude :', this.form.latitude);
       console.log('Longitude :', this.form.longitude);
     });
   }
+  
 
 
   ngOnInit(): void {
@@ -177,7 +202,7 @@ export class AddListingComponent {
       console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
-      }else if(this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
     }
@@ -382,5 +407,5 @@ export class AddListingComponent {
   //     this.photo = [];
   //   }
   // }
-  
+
 }

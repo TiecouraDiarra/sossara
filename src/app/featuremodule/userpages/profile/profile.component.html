@@ -38,7 +38,7 @@
                 </li>
                 <li *ngIf="isAgence">
                     <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Mes agents</span>
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
                 <li>
@@ -48,7 +48,7 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
                     </a>
                 </li>
                 <!-- <li class="crd">
@@ -112,7 +112,7 @@
                                         </div>
                                     </div>
                                     <div class="row socialmedia-info">
-                                        <div class="col-lg-6 col-md-6">
+                                        <div class="col-lg-6 col-md-6" *ngIf="User.user.date_de_naissance">
                                             <div class="form-group">
                                                 <label class="col-form-label">Date de naissance</label>
                                                 <div class="pass-group group-img">
@@ -128,8 +128,7 @@
                                                 <label class="col-form-label">Statut</label>
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i class="fas fa-info-circle"></i></span>
-                                                    <input type="text" class="form-control"
-                                                        value="{{User.user.role[0] === 'ROLE_LOCATAIRE' ? 'LOCATAIRE' : (User.user.role[0] === 'ROLE_AGENCE' ? 'AGENCE' : '')}}">
+                                                    <input type="text" class="form-control" [value]="getRoleLabel()">
                                                 </div>
                                             </div>
                                         </div>

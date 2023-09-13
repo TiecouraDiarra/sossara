@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
+import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -19,16 +21,43 @@ export class ListingGridComponent {
   public routes = routes;
   public Bookmark: any = [];
   bienImmo: any
+  categoriesDataSource = new MatTableDataSource();
   commune: any
   p: number = 1;
   id: any
+  searchInputCategory: any;
   searchText: any;
   NombreJaime: number = 0
+
+  commodite: any
+  adresse: any
+  region: any
+  public categories: any = [];
+  typebien: any
+  selectedCategory: any = '';
+  status: any = ['A louer', 'A vendre'];
+
+
 
 
   isLoggedIn = false;
   isLoginFailed = true;
   errorMessage = '';
+  selectedStatut: any;
+
+  selectedType: any;
+
+
+
+  //RECHERCHER PAR TYPE
+  onTypeSelectionChange(event: any) {
+    this.selectedType = event.value;
+  }
+
+   //RECHERCHER PAR STATUT
+   onStatutSelectionChange(event: any) {
+    this.selectedStatut = event.value;
+  }
 
   favoriteStatus: { [key: string]: boolean } = {};
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
@@ -50,14 +79,23 @@ export class ListingGridComponent {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
+  searchCategory(value: any): void {
+    const filterValue = value;
+    this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
+    this.categories = this.categoriesDataSource.filteredData;
+  }
+
   constructor(
     private Dataservice: DataService,
     private router: Router,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
+    private serviceCommodite: CommoditeService,
     private storageService: StorageService,
     private route: ActivatedRoute,
   ) {
+    this.categories = this.Dataservice.categoriesList;
+    (this.categoriesDataSource = new MatTableDataSource(this.categories));
     this.Bookmark = this.Dataservice.bookmarkList
 
   }
@@ -69,6 +107,16 @@ export class ListingGridComponent {
     }
     // Récupérez l'utilisateur connecté et ses biens aimés lorsqu'il se connecte
     this.onUserLoginSuccess();
+
+    //AFFICHER LA LISTE DES COMMODITES
+    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+      this.commodite = data.commodite;
+      this.adresse = data;
+      this.region = data.region.reverse();
+      // this.commune = data.commune;
+      this.typebien = data.type;
+      console.log(this.adresse);
+    });
 
     //RECUPERER L'ID D'UNE COMMUNE
     this.id = this.route.snapshot.params["id"]

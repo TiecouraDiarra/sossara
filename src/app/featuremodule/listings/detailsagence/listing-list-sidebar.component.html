@@ -65,16 +65,16 @@
                 <div class="bg-c-green counter-block m-t-10 p-20">
                   <div class="row">
                     <div class="col-4">
-                      <i class="fa fa-comment"></i>
-                      <p>1256</p>
+                      <i class="feather-home"></i>
+                      <p>{{NombreBienAgence}}</p>
                     </div>
                     <div class="col-4">
-                      <i class="fa fa-user"></i>
+                      <i class="feather-user"></i>
                       <p>{{NombreAgent}}</p>
                     </div>
                     <div class="col-4">
-                      <i class="fa fa-home"></i>
-                      <p>{{NombreBienAgence}}</p>
+                      <i class="fas fa-thumbs-up"></i>
+                      <p>{{totalLikes}}</p>
                     </div>
                   </div>
                 </div>
@@ -87,7 +87,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-8" *ngIf="bienImmo && bienImmo.length > 0">
         <div class="row sorting-div">
           <!-- <div class="col-lg-4 col-sm-4 align-items-center d-flex">
             <div class="count-search">
@@ -200,7 +200,7 @@
         </div>
       </div>
     </div>
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5" *ngIf="agent && agent.length > 0">
       <h5 class="section-title h1">Ses agents</h5>
       <div class="listing-search">
         <div class="filter-content form-group">
@@ -215,8 +215,12 @@
             <div class="sorting-select">
               <select class="form-control select" [(ngModel)]="searchTextAgent">
                 <option value="" selected>Tout</option>
-                <option>A louer</option>
-                <option>A vendre</option>
+                <option>Commune 1</option>
+                <option>Commune 2</option>
+                <option>Commune 3</option>
+                <option>Commune 4</option>
+                <option>Commune 5</option>
+                <option>Commune 6</option>
               </select>
             </div>
           </div>
@@ -263,17 +267,19 @@
           </ng-template>
         </ng-container>
       </owl-carousel-o> -->
-      <div class="row g-2">
+
+      <!-- <div class="row g-2">
         <div class="col-md-3" *ngFor="let Agent of agent | filter : searchTextAgent">
           <div class="card p-2 py-3 text-center card1">
-            <div class="img mb-2" *ngIf="Agent"> <img src="{{generateImageUrl(Agent.photo)}}" (error)="handleAuthorImageError($event)"
-                width="70" class="rounded-circle"> </div>
-            <h5 class="mb-0">{{Agent.nom}}</h5>
-            <small *ngIf="Agent.adresse && Agent.adresse.length > 0; else noAddress">
+            <div class="img mb-2" *ngIf="Agent"> <img src="{{generateImageUrl(Agent.photo)}}"
+                (error)="handleAuthorImageError($event)" width="70" class="rounded-circle"> </div>
+            <h5 class="mb-0">{{Agent.username}}</h5>
+            <small style="margin-top: 8px !important;"
+              *ngIf="Agent.adresse && Agent.adresse.length > 0; else noAddress">
               {{ Agent.adresse[0]?.nom }}
             </small>
             <ng-template #noAddress>
-              <small>Pas d'adresse</small>
+              <small style="margin-top: 8px !important;">Pas d'adresse</small>
             </ng-template>
 
             <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -283,12 +289,54 @@
               <div (click)="goToDettailAgent(Agent.id)">
                 <a class="btn btn-primartd"><i class="uil uil-filter"></i>
                   Savoir plus</a>
-                <!-- <button (click)="goToDettailAgent(Agent.id)" class="btn btn-success">Savoir plus</button> -->
+               
               </div>
             </div>
           </div>
 
         </div>
+      </div> -->
+
+      <div class="row g-2">
+        <div class="col-lg-12 aos" data-aos="fade-up">
+          <div class="car-class-carousel">
+            <div class=" blog-slider">
+              <owl-carousel-o [options]="recentarticleOwlOptions">
+                <ng-container *ngFor="let Agent of agent | filter : searchTextAgent">
+                  <ng-template carouselSlide>
+                    <div class="card p-2 py-3 text-center card1">
+                      <div class=" mb-2 image-sizeagent" *ngIf="Agent">
+                        <img src="{{generateImageUrl(Agent.photo)}}" (error)="handleAuthorImageError($event)" width="70"
+                          class="">
+                      </div>
+                      <h5 class="mb-0">{{Agent.username}}</h5>
+                      <small style="margin-top: 8px !important;"
+                        *ngIf="Agent.adresse && Agent.adresse.length > 0; else noAddress">
+                        {{ Agent.adresse[0]?.nom }}
+                      </small>
+                      <ng-template #noAddress>
+                        <small style="margin-top: 8px !important;">Pas d'adresse</small>
+                      </ng-template>
+
+                      <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                          class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <div class="mt-4 apointment">
+                        <div (click)="goToDettailAgent(Agent.id)">
+                          <a class="btn btn-primartd"><i class="uil uil-filter"></i>
+                            Savoir plus</a>
+
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </owl-carousel-o>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

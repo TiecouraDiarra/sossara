@@ -406,6 +406,15 @@ export class DataService {
 
       route: '/blog',
     },
+
+    // {
+    //   tittle: 'A propos',
+    //   base: 'apropos',
+    //   showAsTab: false,
+    //   separateRoute: true,
+
+    //   route: '/apropos',
+    // },
     /*{
       tittle: 'Blog',
       base: 'blog',
@@ -1453,41 +1462,53 @@ export class DataService {
   ];
   public universitiesCompanies = [
     {
-      img: 'assets/img/partners/partners-1.svg',
+      img: 'assets/img/partners/logo.png',
     },
     {
-      img: 'assets/img/partners/partners-2.svg',
+      img: 'assets/img/partners/awd-logo.png',
     },
     {
-      img: 'assets/img/partners/partners-3.svg',
+      img: 'assets/img/partners/orange.png',
     },
     {
-      img: 'assets/img/partners/partners-4.svg',
+      img: 'assets/img/partners/avitweb.jpeg',
     },
-    {
-      img: 'assets/img/partners/partners-5.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-6.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-1.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-2.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-3.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-4.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-5.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-6.svg',
-    },
+    // {
+    //   img: 'assets/img/partners/logo.png',
+    // },
+    // {
+    //   img: 'assets/img/partners/awd-logo.png',
+    // },
+    // {
+    //   img: 'assets/img/partners/orange.png',
+    // },
+    // {
+    //   img: 'assets/img/partners/avitweb.jpeg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-5.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-6.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-1.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-2.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-3.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-4.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-5.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-6.svg',
+    // },
   ];
   public popularList = [
     {

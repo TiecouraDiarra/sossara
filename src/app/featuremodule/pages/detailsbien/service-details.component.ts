@@ -75,26 +75,16 @@ export class ServiceDetailsComponent implements AfterViewInit {
 
       // Attendre que le DOM soit chargé pour initialiser la carte
       setTimeout(() => {
-        const mapElement = document.getElementById("map");
+        const mapElement = document.getElementById("mape");
         const map = new google.maps.Map(mapElement, mapOptions);
 
-        // URL de l'image de l'icône personnalisée
-        const customIconUrl = 'assets/img/icons/marker7.png';
 
-        // Options de l'icône du marqueur
-        const markerIcon = {
-          url: customIconUrl, // URL de l'image
-          scaledSize: new google.maps.Size(50, 50), // Taille de l'image (largeur x hauteur)
-          origin: new google.maps.Point(0, 0), // Point d'origine de l'image
-          anchor: new google.maps.Point(20, 40), // Point d'ancrage de l'image par rapport au marqueur
-        };
 
         // Créer un marqueur pour l'emplacement
         const marker = new google.maps.Marker({
           position: { lat: this.latitude, lng: this.longitude },
           map: map,
           title: this.nombien,
-          icon: markerIcon, // Utilisation de l'icône personnalisée
         });
       }, 0); // Utilisation d'un délai de 0 millisecondes pour s'assurer que le DOM est prêt
     });
@@ -317,7 +307,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
 
       const currentUser = this.storageService.getUser();
 
-  
+
 
       if (currentUser && this.bien && currentUser.user.id === this.bien.utilisateur.id) {
         this.currentUser = true;
@@ -331,6 +321,17 @@ export class ServiceDetailsComponent implements AfterViewInit {
         this.albumsOne.push({ src: src, caption: caption });
         this.albumsTwo.push({ src: src, caption: caption });
       }
+
+      // Vérifiez si la latitude est null, si c'est le cas, utilisez une valeur par défaut
+      if (this.latitude == null) {
+        this.latitude = 12.639231999999997;
+      }
+
+      // Vérifiez si la longitude est null, si c'est le cas, utilisez une valeur par défaut
+      if (this.longitude == null) {
+        this.longitude = -7.998184000000001;
+      }
+
       // Options de la carte
       const mapOptions = {
         center: { lat: this.latitude, lng: this.longitude }, // Coordonnées du centre de la carte
@@ -339,12 +340,36 @@ export class ServiceDetailsComponent implements AfterViewInit {
       // Initialiser la carte dans l'élément avec l'ID "map"
       const mapElement = document.getElementById("map");
       const map = new google.maps.Map(mapElement, mapOptions);
-
-      // Créer un marqueur pour l'emplacement
-      const marker = new google.maps.Marker({
-        position: { lat: this.latitude, lng: this.longitude },
+      // Créer un marqueur initial au centre de la carte
+      const initialMarker = new google.maps.Marker({
+        position: mapOptions.center,
         map: map,
-        title: "Adresse", // Titre du marqueur (optionnel)
+        draggable: true // Rend le marqueur draggable
+      });
+      // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
+      google.maps.event.addListener(initialMarker, 'dragend', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
+        this.form.latitude = markerEvent.latLng.lat();
+        this.form.longitude = markerEvent.latLng.lng();
+
+        console.log('Latitude :', this.form.latitude);
+        console.log('Longitude :', this.form.longitude);
+      });
+
+      // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
+      google.maps.event.addListener(initialMarker, 'click', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
+        const newLatLng = new google.maps.LatLng(
+          initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
+          initialMarker.getPosition().lng() + 0.001  // Déplacez le marqueur d'une petite quantité en longitude
+        );
+
+        initialMarker.setPosition(newLatLng);
+
+        // Mettez à jour les coordonnées dans votre formulaire
+        this.form.latitude = newLatLng.lat();
+        this.form.longitude = newLatLng.lng();
+
+        console.log('Latitude :', this.form.latitude);
+        console.log('Longitude :', this.form.longitude);
       });
 
     });
@@ -665,8 +690,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
       || this.form.description === null
       || this.form.quartier === null
       || this.form.rue === null
-      || this.form.porte === null
-      || this.form.photo === null) {
+      || this.form.porte === null) {
       swalWithBootstrapButtons.fire(
         this.message = " Tous les champs sont obligatoires !",
       )
@@ -705,7 +729,6 @@ export class ServiceDetailsComponent implements AfterViewInit {
                 periode,
                 longitude,
                 latitude,
-                photo,
                 this.id
               )
               .subscribe({

@@ -1,114 +1,153 @@
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .pagination__container {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .pagination__page {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .pagination__page--active {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
-  
-  .pagination__page--disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  .pagination__previous,
-  .pagination__next {
-    margin: 0 10px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .pagination__previous:hover,
-  .pagination__next:hover,
-  .pagination__page:hover {
-    background-color: #f0f0f0;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination__container {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination__page {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__page--active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination__page--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pagination__previous,
+.pagination__next {
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__previous:hover,
+.pagination__next:hover,
+.pagination__page:hover {
+  background-color: #f0f0f0;
+}
+
 .avatar-md {
-    height: 5rem;
-    width: 5rem;
+  height: 5rem;
+  width: 5rem;
 }
 
 .fs-19 {
-    font-size: 19px;
+  font-size: 19px;
 }
 
 .primary-link {
-    color: #314047;
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
+  color: #314047;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
 }
 
 a {
-     /* color: #02af74; */
-    text-decoration: none;
+  /* color: #02af74; */
+  text-decoration: none;
 }
 
-.bookmark-post .favorite-icon a, .job-box.bookmark-post .favorite-icon a {
-    background-color: #da3746;
-    color: #fff;
-    border-color: danger;
+.bookmark-post .favorite-icon a,
+.job-box.bookmark-post .favorite-icon a {
+  background-color: #da3746;
+  color: #fff;
+  border-color: danger;
 }
+
 .favorite-icon a {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    line-height: 30px;
-    text-align: center;
-    border: 1px solid #eff0f2;
-    border-radius: 6px;
-    color: rgba(173,181,189,.55);
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #eff0f2;
+  border-radius: 6px;
+  color: rgba(173, 181, 189, .55);
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
 }
 
 
 .candidate-list-box .favorite-icon {
-    position: absolute;
-    right: 22px;
-    top: 22px;
+  position: absolute;
+  right: 22px;
+  top: 22px;
 }
+
 .fs-14 {
-    font-size: 14px;
+  font-size: 14px;
 }
+
 .bg-soft-secondary {
-    background-color: rgba(116,120,141,.15)!important;
-    color: #74788d!important;
+  background-color: rgba(116, 120, 141, .15) !important;
+  color: #74788d !important;
 }
 
 .mt-1 {
-    margin-top: 0.25rem!important;
+  margin-top: 0.25rem !important;
 }
 
 /* Ajuster la position du modal par rapport à la barre de navigation */
 .modal-dialog {
-    margin-top: 90px;
-    /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
+  margin-top: 90px;
+  /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
+}
+
+
+
+/* .scroll-text {
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+.scroll-text .scroll-textl {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  animation: scroll-text 20s linear infinite;
+  margin-top: 5px;
+}
+@keyframes scroll-text {
+  from {
+    transform: translateX(100%);
   }
-  
-  
+
+  to {
+    transform: translateX(-100%);
+  }
+} */
+
+.crd:hover {
+  cursor: pointer;
+}
+
+.crd {
+  cursor: pointer;
+}

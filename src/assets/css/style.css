@@ -6406,10 +6406,10 @@ body table.listing-table.datatable {
 }
 .profile-form  .group-img input {
     padding: 6px 15px 6px 40px;
-}
+} 
 textarea.form-control {
     background: #f9fafc;
-    color: #717171;
+    color: #717171; 
     font-size: 15px;
     padding: 10px;
 }
@@ -10494,12 +10494,12 @@ textarea.form-control {
 /*-----------------.
 	33. Footer
 -----------------------*/
-
+ 
 .footer {
     background-color: #1A1A1A;
-    margin-top: 230px;
+    margin-top: 30px;
 	border-top: 1px solid transparent;
-}
+} 
 .footer-content {
 	max-width: 304px;
 }

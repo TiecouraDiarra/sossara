@@ -1,15 +1,17 @@
 <app-header-accueil></app-header-accueil>
 <!-- Banner -->
-<section class="banner-section banner-nine" [ngStyle]="{'background-image': 'url(' + carouselImages[currentImageIndex] + ')'}">
+<section class="banner-section banner-nine"
+    [ngStyle]="{'background-image': 'url(' + carouselImages[currentImageIndex] + ')'}">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <div class="banner-contents">
-                    <h2 style="color: #e98b11;" class="aos" data-aos="fade-up" data-aos-duration="1200" data-aos-anchor-placement="top-bottom">
+                    <h2 style="color: #e98b11;" class="aos" data-aos="fade-up" data-aos-duration="1200"
+                        data-aos-anchor-placement="top-bottom">
                         Trouvez la maison de vos rêves</h2>
                     <h6 class="mb-0 aos" data-aos="fade-up" data-aos-anchor-placement="top-bottom">Seule plateforme
                         immobilière avec plus de 10 000 vendeurs hautement cotés</h6>
-                    <p class="aos" data-aos="fade-up" data-aos-delay="200">Optimiser le processus de vente des biens 
+                    <p class="aos" data-aos="fade-up" data-aos-delay="200">Optimiser le processus de vente des biens
                         immobiliers des particuliers et des programmes immo de professionnels.</p>
                     <div class="banner-nine-btn-group">
                         <a (click)="AjouterBienOrLogin()" class="aos crd" data-aos="fade-up" data-aos-delay="300">
@@ -51,7 +53,7 @@
                         </li>-->
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
-                        
+
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab" tabindex="0">
                             <div class="search-tab-col">
@@ -72,7 +74,8 @@
                                                         <div class="flex-grow-1 ms-3">
                                                             <select class="form-control select category-select">
                                                                 <option selected>Region</option>
-                                                                <option *ngFor="let Region of region" >{{Region.nom}}</option>
+                                                                <option *ngFor="let Region of region">{{Region.nom}}
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -90,7 +93,8 @@
                                                         <div class="flex-grow-1 ms-3">
                                                             <select class="form-control select category-select">
                                                                 <option selected>Commune</option>
-                                                                <option *ngFor="let Commune of commune">{{Commune.nom}}</option>
+                                                                <option *ngFor="let Commune of commune">{{Commune.nom}}
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -114,9 +118,9 @@
                                                     <div class="d-flex real-estate-search">
                                                         <div class="flex-grow-1 ms-3">
                                                             <p>
-                                                                <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse"
-                                                                    href="#collapseExample" role="button"
-                                                                    aria-expanded="false"
+                                                                <a class="flex-shrink-0 d-flex align-items-center"
+                                                                    data-bs-toggle="collapse" href="#collapseExample"
+                                                                    role="button" aria-expanded="false"
                                                                     aria-controls="collapseExample">
                                                                     Plus de recherche
                                                                 </a>
@@ -124,7 +128,7 @@
                                                         </div>
                                                     </div>
 
-                                                </div> 
+                                                </div>
                                             </div>
                                             <div class="collapse" id="collapseExample">
                                                 <div class="card card-body">
@@ -142,7 +146,8 @@
                                                                 <div class="flex-grow-1 ms-3">
                                                                     <select class="form-control select category-select">
                                                                         <option selected>Type</option>
-                                                                        <option *ngFor="let Type of typebien">{{Type.nom}}</option>
+                                                                        <option *ngFor="let Type of typebien">
+                                                                            {{Type.nom}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -151,7 +156,9 @@
                                                             <div class="d-flex real-estate-search real-select">
                                                                 <div class="flex-shrink-0 d-flex align-items-center">
                                                                     <div class="icon-blk rounded-circle">
-                                                                        <img style="width: 20px;" src="./assets/img/icons/fax-icon.png" alt="">
+                                                                        <img style="width: 20px;"
+                                                                            src="./assets/img/icons/fax-icon.png"
+                                                                            alt="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
@@ -167,13 +174,15 @@
                                                             <div class="d-flex real-estate-search real-select">
                                                                 <div class="flex-shrink-0 d-flex align-items-center">
                                                                     <div class="icon-blk rounded-circle">
-                                                                        <img src="./assets/img/icons/bath-icon.svg" alt="">
+                                                                        <img src="./assets/img/icons/bath-icon.svg"
+                                                                            alt="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
                                                                     <select class="form-control select category-select">
                                                                         <option selected>Nombre de Toilette</option>
-                                                                        <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
+                                                                        <option *ngFor="let item of valuesSelect"
+                                                                            [value]="item">{{item}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -184,13 +193,15 @@
                                                             <div class="d-flex real-estate-search">
                                                                 <div class="flex-shrink-0 d-flex align-items-center">
                                                                     <div class="icon-blk rounded-circle">
-                                                                        <img src="./assets/img/icons/bed-icon.svg" alt="">
+                                                                        <img src="./assets/img/icons/bed-icon.svg"
+                                                                            alt="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
                                                                     <select class="form-control select category-select">
                                                                         <option selected>Nombre de chambre</option>
-                                                                        <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
+                                                                        <option *ngFor="let item of valuesSelect"
+                                                                            [value]="item">{{item}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -199,14 +210,16 @@
                                                             <div class="d-flex real-estate-search real-select">
                                                                 <div class="flex-shrink-0 d-flex align-items-center">
                                                                     <div class="icon-blk rounded-circle">
-                                                                        <img src="./assets/img/icons/area-icon.svg" alt="">
+                                                                        <img src="./assets/img/icons/area-icon.svg"
+                                                                            alt="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
                                                                     <select class="form-control select category-select">
                                                                         <option selected>Nomre de salon</option>
-                                                                        <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
-                                                                        
+                                                                        <option *ngFor="let item of valuesSelect"
+                                                                            [value]="item">{{item}}</option>
+
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -215,13 +228,15 @@
                                                             <div class="d-flex real-estate-search real-select">
                                                                 <div class="flex-shrink-0 d-flex align-items-center">
                                                                     <div class="icon-blk rounded-circle">
-                                                                        <img style="width: 20px;" src="./assets/img/icons/649395.png" alt="">
+                                                                        <img style="width: 20px;"
+                                                                            src="./assets/img/icons/649395.png" alt="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
                                                                     <select class="form-control select category-select">
                                                                         <option selected>Nombre de cuisine</option>
-                                                                        <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
+                                                                        <option *ngFor="let item of valuesSelect"
+                                                                            [value]="item">{{item}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -234,8 +249,7 @@
                                                     <div class="flex-grow-1 ms-3">
                                                         <p>
                                                             <a class="row mt-3 fw-bold" data-bs-toggle="collapse"
-                                                                href="#cautrecomm" role="button"
-                                                                aria-expanded="false"
+                                                                href="#cautrecomm" role="button" aria-expanded="false"
                                                                 aria-controls="collapseExample">
                                                                 Autres commodites
                                                             </a>
@@ -246,21 +260,24 @@
                                                             <div class="row">
                                                                 <div class="col-3" *ngFor="let Commodite of commodite">
                                                                     <div class="form-check mb-2">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            value="" id="flexCheckDefault">
+                                                                        <label class="form-check-label"
+                                                                            for="flexCheckDefault">
                                                                             {{Commodite.nom}}
                                                                         </label>
-                                                                      </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-2 real-search-bar">
-                                            <button class="btn car-search-icon" [routerLink]="routes.listingmapgrid" type="submit">Rechercher</button>
+                                            <button class="btn car-search-icon" [routerLink]="routes.listingmapgrid"
+                                                type="submit">Rechercher</button>
                                         </div>
                                     </div>
                                 </form>
@@ -377,67 +394,84 @@
                         <owl-carousel-o [options]="listingOwlOptions">
                             <ng-container *ngFor="let BienImo of bienImmoPlusVue">
                                 <ng-template carouselSlide>
-                                    <div class=" " >
+                                    <div class=" ">
                                         <div class="card aos aos-init aos-animate" data-aos="fade-up">
                                             <div class="blog-widget">
                                                 <div class="blog-img">
-                                                    <a (click)="goToDettailBien(BienImo.id)">
-                                                        <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
-                                                            <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size" alt="blog-img">
+                                                    <a (click)="goToDettailBien(BienImo.id)" class="crd">
+                                                        <div
+                                                            *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
+                                                            <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}"
+                                                                class="img-fluid image-size" alt="blog-img">
                                                         </div>
                                                         <ng-template #noImages>
-                                                            <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
+                                                            <img src="{{ DEFAULT_IMAGE_URL }}"
+                                                                class="img-fluid image-size" alt="default-img">
                                                         </ng-template>
                                                     </a>
                                                     <div class="fav-item">
-                                                        <span [ngClass]="{'statut': BienImo.statut === 'A vendre' }" 
-                                                        class="Featured-text">{{BienImo.statut}}</span>
-                                                        <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon" (click)="AimerBien(BienImo.id)" [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
-                                                            <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
-                                                          </a> 											
-                                                    </div>	
+                                                        <span [ngClass]="{'statut': BienImo.statut === 'A vendre' }"
+                                                            class="Featured-text">{{BienImo.statut}}</span>
+                                                        <a href="javascript:void(0)" *ngIf="isLoggedIn == true"
+                                                            class="fav-icon" (click)="AimerBien(BienImo.id)"
+                                                            [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+                                                            <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'"
+                                                                class="feather-heart"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                                 <div class="bloglist-content">
                                                     <div class="card-body">
                                                         <div class="blogfeaturelink">
                                                             <div class="grid-author">
-                                                                <img  src="{{generateImageUrl(BienImo.utilisateur.photo)}}" alt="author" (error)="handleAuthorImageError($event)">
+                                                                <img src="{{generateImageUrl(BienImo.utilisateur.photo)}}"
+                                                                    alt="author"
+                                                                    (error)="handleAuthorImageError($event)">
                                                             </div>
                                                             <div class="blog-features">
-                                                               <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{BienImo.typeImmo.nom }}</span></a>
-                                                            </div>																	  
-                                                            <div class="blog-author text-end"> 
-                                                                <span> <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}</span>
+                                                                <a href="javascript:void(0)"><span> <i
+                                                                            class="fa-regular fa-circle-stop"></i>
+                                                                        {{BienImo.typeImmo.nom }}</span></a>
                                                             </div>
-                                                        </div> 
-                                                        <h6><a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a></h6>																	 
+                                                            <div class="blog-author text-end">
+                                                                <span> <i class="feather-eye"></i>{{
+                                                                    favoritedPropertiesCount1[BienImo.id] }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <h6 class="crd"><a (click)="goToDettailBien(BienImo.id)">{{
+                                                                BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a>
+                                                        </h6>
                                                         <div class="blog-location-details">
                                                             <div class="location-info">
-                                                               <i class="feather-map-pin"></i> {{BienImo.adresse.quartier}}
+                                                                <i class="feather-map-pin"></i>
+                                                                {{BienImo.adresse.quartier}}
                                                             </div>
                                                             <div class="location-info">
-                                                                <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date | date:"dd MMM yyyy":locale}}
+                                                                <i
+                                                                    class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date
+                                                                | date:"dd MMM yyyy":locale}}
                                                             </div>
                                                         </div>
                                                         <div class="amount-details">
                                                             <div class="amount">
-                                                                <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
+                                                                <span class="validrate">{{ formatPrice(BienImo.prix) }}
+                                                                    FCFA</span>
                                                                 <!--<span>{{slide.oldamount}}</span>-->
                                                             </div>
                                                             <div class="ratings">
                                                                 <!--<span>{{slide.rating}}</span> {{slide.rating1}}-->
-                                                            </div>												
-                                                        </div>	
-                                                    </div>	
-                                                </div>			 
-                                            </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </ng-template>
                             </ng-container>
                         </owl-carousel-o>
-                        
-                    </div>						
+
+                    </div>
                 </div>
             </div>
 
@@ -468,7 +502,8 @@
                 <div class="choose-set">
                     <span><img src="assets/img/icons/achat.svg" alt="img"></span>
                     <h6>Achat</h6>
-                    <p>Vous avez un projet d'investissement immobilier ? Alors, <span style="color: #e98b11;font-weight: bold;">Sossara</span> vous propose des biens 
+                    <p>Vous avez un projet d'investissement immobilier ? Alors, <span
+                            style="color: #e98b11;font-weight: bold;">Sossara</span> vous propose des biens
                         immobiliers classés par types et catégories par zones géographiques</p>
                 </div>
             </div>
@@ -476,7 +511,8 @@
                 <div class="choose-set">
                     <span><img src="assets/img/icons/vendre.svg" alt="img"></span>
                     <h6>Vente</h6>
-                    <p><span style="color: #e98b11;font-weight: bold;">Sossara</span> se positionne comme un canal supplémentaire pour optimiser le processus 
+                    <p><span style="color: #e98b11;font-weight: bold;">Sossara</span> se positionne comme un canal
+                        supplémentaire pour optimiser le processus
                         de vente des biens immobiliers des particuliers et des programmes immo de professionnels.</p>
                 </div>
             </div>
@@ -484,8 +520,9 @@
                 <div class="choose-set">
                     <span><img src="assets/img/icons/location.svg" alt="img"></span>
                     <h6>Location</h6>
-                    <p>Vous avez besoin d'une location longue durée, d'une location saisonnière 
-                        ou de toutes autres locations ? les filtres de critères de <span style="color: #e98b11;font-weight: bold;">Sossara</span> vous 
+                    <p>Vous avez besoin d'une location longue durée, d'une location saisonnière
+                        ou de toutes autres locations ? les filtres de critères de <span
+                            style="color: #e98b11;font-weight: bold;">Sossara</span> vous
                         permettrons d'affiner encore plus vos choix.</p>
                 </div>
             </div>
@@ -493,8 +530,8 @@
                 <div class="choose-set">
                     <span><img src="assets/img/icons/agence.svg" alt="img"></span>
                     <h6>Gestion Agence</h6>
-                    <p>Le terme « gestion immobilière » est utilisé pour parler de la gestion 
-                        appliquée aux meubles (location, gérance et vente de biens), qu'ils 
+                    <p>Le terme « gestion immobilière » est utilisé pour parler de la gestion
+                        appliquée aux meubles (location, gérance et vente de biens), qu'ils
                         soient résidentiels, commerciaux ou industriels.</p>
                 </div>
             </div>
@@ -510,8 +547,8 @@
             <div class="row align-items-center">
                 <!-- <div class="col-md-1"></div> -->
                 <!-- <div class="col-md-9 aos aos-init aos-animate text-center" data-aos="fade-up"> -->
-                    <h2>Sociétés de Gestion de Propriétés(Agences)</h2>
-                    <!-- <p>The most trendy accommodations available</p> -->
+                <h2>Sociétés de Gestion de Propriétés(Agences)</h2>
+                <!-- <p>The most trendy accommodations available</p> -->
                 <!-- </div> -->
                 <!-- <div class="col-md-2 text-md-end aos aos-init aos-animate" data-aos="fade-up">
                     <a [routerLink]="routes.categories" class="btn  btn-view">Voir toutes les agences</a>
@@ -531,7 +568,8 @@
                                                 <div class="companies-set-head">
                                                     <div class="companies-set-logo" *ngIf="Agence && Agence.photo">
                                                         <span>
-                                                            <img src="{{generateImageUrl(Agence.photo)}}" alt="img" (error)="handleAuthorImageError($event)">
+                                                            <img src="{{generateImageUrl(Agence.photo)}}" alt="img"
+                                                                (error)="handleAuthorImageError($event)">
                                                         </span>
                                                     </div>
                                                     <div class="companies-set-content">
@@ -710,14 +748,16 @@
                 <div class="property-counter-list text-center">
                     <!-- <h4 class="counterUp " [countUp]="66180" [options]="{ duration: 30 }">{{nombreBienLoue}}</h4> -->
                     <!-- <h4 class="counterUp " >{{nombreBienLoue}}</h4> -->
-                    <h4 class="counterUp" [countUp]="nombreBienLoue" [options]="{ duration: 50 }">{{ nombreBienLoue }}</h4>
+                    <h4 class="counterUp" [countUp]="nombreBienLoue" [options]="{ duration: 50 }">{{ nombreBienLoue }}
+                    </h4>
                     <p>Nombre de Biens a louer</p>
                 </div>
 
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="property-counter-list text-center">
-                    <h4 class="counterUp" [countUp]="nombreBienVendre" [options]="{ duration: 50 }">{{nombreBienVendre}}</h4>
+                    <h4 class="counterUp" [countUp]="nombreBienVendre" [options]="{ duration: 50 }">{{nombreBienVendre}}
+                    </h4>
                     <!-- <h4 class="counterUp" >{{nombreBienVendre}}</h4> -->
                     <p>Nombre de Biens a vendre</p>
                 </div>
@@ -754,7 +794,7 @@
                     <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
                 </div>
                 <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
-                    <a [routerLink]="routes.categories" class="btn  btn-view">Voir tous les biens</a>
+                    <a [routerLink]="routes.listinggridsidebar" class="btn  btn-view">Voir tous les biens</a>
                 </div>
             </div>
         </div>
@@ -767,18 +807,23 @@
                                 <ng-template carouselSlide>
                                     <div class="top-rent-room">
                                         <div class="top-room-img">
-                                            <a (click)="goToDettailBien(bienRecent.id)">
-                                                <div *ngIf="bienRecent.photos && bienRecent.photos.length > 0; else noImages">
-                                                    <img src="{{ generateImageUrl(bienRecent.photos[0].nom) }}" class="img-fluid image-sizeresents" alt="blog-img">
+                                            <a (click)="goToDettailBien(bienRecent.id)" class="crd">
+                                                <div
+                                                    *ngIf="bienRecent.photos && bienRecent.photos.length > 0; else noImages">
+                                                    <img src="{{ generateImageUrl(bienRecent.photos[0].nom) }}"
+                                                        class="img-fluid image-sizeresents" alt="blog-img">
                                                 </div>
                                                 <ng-template #noImages>
-                                                    <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
+                                                    <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size"
+                                                        alt="default-img">
                                                 </ng-template>
                                             </a>
                                         </div>
                                         <div class="top-listing-rounded-img">
                                             <div class="favourite-small-user">
-                                                <img class="img-fluid"  src="{{generateImageUrl(bienRecent.utilisateur.photo)}}" alt="" (error)="handleAuthorImageError($event)">
+                                                <img class="img-fluid"
+                                                    src="{{generateImageUrl(bienRecent.utilisateur.photo)}}" alt=""
+                                                    (error)="handleAuthorImageError($event)">
                                             </div>
                                         </div>
                                         <div class="pent-house">
@@ -789,16 +834,17 @@
                                                 <div class="room-address">
                                                     <span><i
                                                             class="fa-solid fa-location-dot"></i>{{bienRecent.adresse.quartier}}</span>
-                                                    <a (click)="goToDettailBien(bienRecent.id)">
-                                                        <h5>{{ bienRecent.nom ? bienRecent.nom : bienRecent.typeImmo.nom }}</h5>
+                                                    <a (click)="goToDettailBien(bienRecent.id)" class="crd">
+                                                        <h5>{{ bienRecent.nom ? bienRecent.nom : bienRecent.typeImmo.nom
+                                                            }}</h5>
                                                     </a>
                                                 </div>
                                                 <div class="star-rated">
-                                                    <span><i class="fa-solid fa-star"></i>
+                                                    <!-- <span><i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i></span>
+                                                        <i class="fa-solid fa-star"></i></span> -->
                                                     <p><span>{{ formatPrice(bienRecent.prix) }} FCFA</span></p>
                                                 </div>
                                             </div>
@@ -808,14 +854,16 @@
                                                             alt="">{{bienRecent.typeImmo.nom}}</span>
                                                 </div>
                                                 <div class="area">
-                                                    <span><img src="assets/img/icons/area-icon.svg" class="img-fluid" alt="">Surface:{{bienRecent.surface}}/m2</span>
+                                                    <span><img src="assets/img/icons/area-icon.svg" class="img-fluid"
+                                                            alt="">Surface:{{bienRecent.surface}}/m2</span>
                                                 </div>
                                                 <!--<div class="area">
                                                     <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
                                                             alt="">{{slide.nb_piece}}</span>
                                                 </div>-->
                                                 <div class="area">
-                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid" alt="">Chambre:{{bienRecent.
+                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
+                                                            alt="">Chambre:{{bienRecent.
                                                         nb_piece}}</span>
                                                 </div>
                                                 <!--<div class="area">
@@ -931,7 +979,7 @@
 </section> -->
 <!-- /Make It Easy -->
 
-<!-- Location -->
+<!-- COMMUNES -->
 <section class="car-location common-padding" *ngIf="commune && commune.length > 0">
     <div class="container">
         <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
@@ -942,15 +990,16 @@
                     <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
                 </div>
                 <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
-                    <a [routerLink]="routes.categories" class="btn  btn-view">Voir tous les biens</a>
+                    <a [routerLink]="routes.listinggridsidebar" class="btn  btn-view">Voir tous les biens</a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
-                <a (click)="goToDettailCommune(Commune.id)">
+                <a (click)="goToDettailCommune(Commune.id)" class="crd">
                     <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
-                        <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;" class="commune-image img-fluid" alt="">
+                        <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
+                            class="commune-image img-fluid" alt="">
                         <span>{{Commune.nom}}</span>
                     </div>
                 </a>
@@ -958,7 +1007,7 @@
         </div>
     </div>
 </section>
-<!-- /Location -->
+<!-- /COMMUNES -->
 
 <!-- Verified Owners -->
 <!--<section class="verified-owner-section">
@@ -1113,57 +1162,62 @@
 <!-- /Join Us -->
 
 <!-- Recent Articles -->
-<!--<section class="property-articles common-padding">
+<section class="property-articles common-padding" *ngIf="blog && blog.length > 0">
     <div class="container">
         <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
             <div class="row align-items-center">
-                <div class="col-md-9 aos aos-init aos-animate" data-aos="fade-up">
-                    <h2>Recent Articles</h2>
-                    <p>The most trendy accommodations available</p>
+                <div class="col-md-7 aos aos-init aos-animate" data-aos="fade-up">
+                    <h4>Articles recents</h4>
+                    <!-- <p>The most trendy accommodations available</p> -->
                 </div>
-                <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
-                    <a [routerLink]="routes.categories" class="btn  btn-view">View all Properties</a>
+                <div class="col-md-5 text-md-end aos aos-init aos-animate" data-aos="fade-up">
+                    <a [routerLink]="routes.blog" class="btn  btn-view">Voir tous les articles</a>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 aos" data-aos="fade-up">
-                <div class="car-class-carousel">
-                    <div class=" blog-slider">
-                        <owl-carousel-o [options]="recentarticleOwlOptions">
-                            <ng-container *ngFor="let slide of recentarticle">
-                                <ng-template carouselSlide>
-                                    <div class="blog grid-blog blog-two aos" data-aos="fade-up">
-                                        <div class="blog-image">
-                                            <a [routerLink]="routes.blogdetails"><img class="img-fluid"
-                                                    [src]="slide.img" alt="Post Image"></a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3 class="blog-title"><a
-                                                    [routerLink]="routes.blogdetails">{{slide.head}}</a></h3>
-                                            <ul class="entry-meta meta-item">
-                                                <li class="date-icon"><i class="feather-calendar"></i>
-                                                    {{slide.calendar}}</li>
-                                            </ul>
-                                            <p class="blog-description">{{slide.para}}</p>
-                                            <div class="viewlink">
-                                                <a [routerLink]="routes.blogdetails">Read More</a>
+        <div class="bloglist-section bloggrid-sidebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 aos" data-aos="fade-up">
+                        <div class="car-class-carousel">
+                            <div class=" blog-slider">
+                                <owl-carousel-o [options]="recentarticleOwlOptions">
+                                    <ng-container *ngFor="let Blog of blog">
+                                        <ng-template carouselSlide>
+                                            <div class="blog grid-blog aos" data-aos="fade-up">
+                                                <div class="blog-image">
+                                                    <a (click)="goToDettailBlog(Blog.id)"><img class="img-fluid image-sizeblog crd"
+                                                            src="{{generateImageUrl(Blog.photo)}}"
+                                                            (error)="handleAuthorImageError($event)" alt="Post Image"></a>
+                                                </div>
+                                                <div class="blog-content">
+                                                    <h3 class="blog-title"><a
+                                                            [routerLink]="routes.blogdetails">{{Blog.titre}}</a></h3>
+                                                    <ul class="entry-meta meta-item">
+                                                        <li class="date-icon"><i class="feather-calendar"></i>
+                                                            {{Blog.createdAt.date | date:"dd MMM yyyy":locale}}</li>
+                                                    </ul>
+                                                    <p class="blog-description">{{Blog.description}}</p>
+                                                    <div class="viewlink crd">
+                                                        <a (click)="goToDettailBlog(Blog.id)">Voir plus</a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </ng-container>
-                        </owl-carousel-o>
-
-
+                                        </ng-template>
+                                    </ng-container>
+                                </owl-carousel-o>
+        
+        
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-</section>-->
+</section>
 <!-- /Recent Articles -->
+
 
 <!-- Become Agent -->
 <!--<section class="join-us-dealer common-padding">
@@ -1187,6 +1241,23 @@
     </div>
 </section>-->
 <!-- /Become Agent -->
+
+<!-- Partners Section -->
+<div class="partners-section">
+    <div class="container">
+        <p class="partners-heading">Nos partenaires</p>
+        <owl-carousel-o [options]="universitiesCompaniesOwlOptions">
+            <ng-container *ngFor="let slide of universitiesCompanies">
+                <ng-template carouselSlide>
+
+                    <ul class="partnerslist d-flex">
+                        <li><a href="javascript:void(0);"><img class="img-fluid image-sizeparter" [src]="slide.img" alt="partners"></a>
+                        </li>
+                    </ul>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</div>
+<!-- /Partners Section -->
 <!--<app-footer-nine></app-footer-nine>-->
-
-

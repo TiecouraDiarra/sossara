@@ -37,7 +37,7 @@
                 </li>
                 <li *ngIf="isAgence">
                     <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Mes agents</span>
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
                 <li>
@@ -47,7 +47,7 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
                     </a>
                 </li>
                 <!-- <li class="crd">
@@ -92,14 +92,135 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <!-- Debut La liste des biens  -->
+                <!-- Debut La liste des biens Agence -->
                 <div class="tab-pane fade show" [class.active]="isTabActive('home')" id="home" role="tabpanel"
+                    aria-labelledby="homeAgence-tab">
+                    <div class="dash-listingcontent dashboard-info">
+                        <div class="dash-cards card">
+                            <div class="card-header">
+                                <ng-container *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0; else noBiensAgence">
+                                    <h4>Mes biens</h4>
+                                </ng-container>
+                                <ng-template #noBiensAgence>
+                                    <h4>Pas de biens</h4>
+                                </ng-template>
+                                <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
+                                    <i class="fa-solid fa-plus"></i> Ajouter un bien</a>
+                            </div>
+                            <div class="card-body" *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0">
+                                <div class="listing-search">
+                                    <div class="filter-content form-group">
+                                        <div class="group-img">
+                                            <input [(ngModel)]="searchText" type="text" class="form-control"
+                                                placeholder="Recherche...">
+                                            <i class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sorting-div">
+                                        <div class="sortbyset">
+                                            <span class="sortbytitle">Trier par</span>
+                                            <div class="sorting-select">
+                                                <select class="form-control select" [(ngModel)]="searchText">
+                                                    <option value="" selected>Tout</option>
+                                                    <option>A louer</option>
+                                                    <option>A vendre</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
+                                        id="listdata-table">
+                                        <thead>
+                                            <tr>
+                                                <th mat-sort-header="img" class="no-sort">Image</th>
+                                                <th mat-sort-header="details" class="no-sort">Details</th>
+                                                <th mat-sort-header="status">Statut</th>
+                                                <th mat-sort-header="view">Vues</th>
+                                                <th mat-sort-header="Action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let BienImmo of bienImmoAgenceTotal | filter:searchText | paginate:{itemsPerPage :4, currentPage:p1}">
+                                                <td>
+                                                    <div class="listingtable-img">
+                                                        <a (click)="goToDettailBien(BienImmo.id)" class="crd">
+                                                            <div
+                                                                *ngIf="BienImmo.photos && BienImmo.photos.length > 0; else noImages">
+                                                                <img src="{{ generateImageUrl(BienImmo.photos[0].nom) }}"
+                                                                    class="img-fluid image-size" alt="blog-img">
+                                                            </div>
+                                                            <ng-template #noImages>
+                                                                <img src="{{ DEFAULT_IMAGE_URL }}"
+                                                                    class="img-fluid image-size" alt="default-img">
+                                                            </ng-template>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h6 *ngIf="BienImmo && BienImmo.typeImmo"><a
+                                                            (click)="goToDettailBien(BienImmo.id)">
+                                                            {{ BienImmo.nom ? BienImmo.nom : BienImmo.typeImmo.nom }}
+                                                        </a>
+                                                    </h6>
+                                                    <div class="listingtable-rate">
+                                                        <a href="javascript:void(0)" class="cat-icon">
+                                                            <i class="fa-regular fa-circle-stop"></i>
+                                                            {{BienImmo.typeImmo.nom}}
+                                                        </a> <span class="discount-amt">{{ formatPrice(BienImmo.prix) }}
+                                                            FCFA</span>
+
+                                                    </div>
+                                                    <p>{{BienImmo.adresse.commune.region.pays.nom}} -
+                                                        {{BienImmo.adresse.commune.region.nom}} -
+                                                        {{BienImmo.adresse.commune.nom}} - {{BienImmo.adresse.quartier}}
+                                                    </p>
+                                                </td>
+                                                <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
+                                                        class="status-text">{{BienImmo.statut}}</span></td>
+                                                <td><span class="views-count">{{ favoritedPropertiesCountAgence[BienImmo.id]
+                                                        }}</span></td>
+                                                <td>
+                                                    <div class="action">
+                                                        <a (click)="goToDettailBien(BienImmo.id)"
+                                                            class="action-btn btn-view crd"><i
+                                                                class="feather-eye"></i></a>
+                                                        <a href="javascript:void(0)" class="action-btn btn-edit"><i
+                                                                class="feather-edit-3"></i></a>
+                                                        <a href="javascript:void(0)" class="action-btn btn-trash"><i
+                                                                class="feather-trash-2"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <pagination-controls *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0" (pageChange)="p1 = $event"
+                                    previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                                    previousClass="pagination__previous" nextClass="pagination__next"
+                                    containerClass="pagination__container" pageClass="pagination__page"
+                                    activeClassName="pagination__page--active"
+                                    disabledClass="pagination__page--disabled"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fin La liste des biens Agence -->
+                <!-- Debut La liste des biens  -->
+                <!-- <div class="tab-pane fade show" [class.active]="isTabActive('home')" id="home" role="tabpanel"
                     aria-labelledby="home-tab">
                     <div class="dash-listingcontent dashboard-info">
                         <div class="dash-cards card">
                             <div class="card-header">
-                                <h4>Mes biens</h4>
-                                <!-- <h4 *ngIf="bienImmo && bienImmo.length == 0">Pas de biens</h4> -->
+                                <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
+                                    <h4>Mes biens</h4>
+                                </ng-container>
+                                <ng-template #noBiens>
+                                    <h4>Pas de biens</h4>
+                                </ng-template>
                                 <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
                                     <i class="fa-solid fa-plus"></i> Ajouter un bien</a>
                             </div>
@@ -176,7 +297,8 @@
                                                 </td>
                                                 <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
                                                         class="status-text">{{BienImmo.statut}}</span></td>
-                                                <td><span class="views-count">{{ favoritedPropertiesCount1[BienImmo.id] }}</span></td>
+                                                <td><span class="views-count">{{ favoritedPropertiesCount1[BienImmo.id]
+                                                        }}</span></td>
                                                 <td>
                                                     <div class="action">
                                                         <a (click)="goToDettailBien(BienImmo.id)"
@@ -202,8 +324,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- fin La liste des biens  -->
+                </div> -->
+                <!-- fin La liste des biens   -->
                 <!-- Debut des biens loues  -->
                 <div class="tab-pane fade show" [class.active]="isTabActive('loue')" id="loue" role="tabpanel"
                     aria-labelledby="loue-tab">
@@ -214,10 +336,15 @@
                             <!-- <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
                                     <i class="fa-solid fa-plus"></i> Ajouter un bien</a> -->
                             <!-- </div> -->
-                            <div class="card-body" *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0">
+                            <div class="card-body" >
                                 <div class="listing-search">
-                                    <h4>Mes biens qui sont loues</h4>
-                                    <div class="filter-content form-group">
+                                    <ng-container *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0; else noBiensLocatiom">
+                                        <h5>Mes biens qui sont loues</h5>
+                                    </ng-container>
+                                    <ng-template #noBiensLocatiom>
+                                        <h5>Pas de biens en location</h5>
+                                    </ng-template>
+                                    <div class="filter-content form-group" *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienLoue" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -237,7 +364,7 @@
                                         </div>
                                     </div> -->
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0">
                                     <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                         id="listdata-table">
                                         <thead>
@@ -324,7 +451,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p2 = $event"
+                                <pagination-controls *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0" (pageChange)="p2 = $event"
                                     previousLabel="Précédent" nextLabel="Suivant" class="pagination"
                                     previousClass="pagination__previous" nextClass="pagination__next"
                                     containerClass="pagination__container" pageClass="pagination__page"
@@ -346,10 +473,15 @@
                             <!-- <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
                                     <i class="fa-solid fa-plus"></i> Ajouter un bien</a> -->
                             <!-- </div> -->
-                            <div class="card-body" *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0">
+                            <div class="card-body">
                                 <div class="listing-search">
-                                    <h4>Mes biens qui sont vendus</h4>
-                                    <div class="filter-content form-group">
+                                    <ng-container *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0; else noBiensVendu">
+                                        <h5>Mes biens qui sont vendus</h5>
+                                    </ng-container>
+                                    <ng-template #noBiensVendu>
+                                        <h5>Pas de biens vendus</h5>
+                                    </ng-template>
+                                    <div class="filter-content form-group" *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -369,7 +501,7 @@
                                         </div>
                                     </div> -->
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0">
                                     <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                         id="listdata-table">
                                         <thead>
@@ -458,7 +590,7 @@
                                     </table>
 
                                 </div>
-                                <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p3 = $event"
+                                <pagination-controls *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0" (pageChange)="p3 = $event"
                                     previousLabel="Précédent" nextLabel="Suivant" class="pagination"
                                     previousClass="pagination__previous" nextClass="pagination__next"
                                     containerClass="pagination__container" pageClass="pagination__page"
@@ -474,11 +606,15 @@
                     aria-labelledby="location-tab">
                     <div class="dash-listingcontent dashboard-info">
                         <div class="dash-cards card">
-                            <div class="card-body"
-                                *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                            <div class="card-body">
                                 <div class="listing-search">
-                                    <h4>Mes biens que j'ai loue</h4>
-                                    <div class="filter-content form-group">
+                                    <ng-container *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0; else noBiensLoue">
+                                        <h5>Mes biens que j'ai loue</h5>
+                                    </ng-container>
+                                    <ng-template #noBiensLoue>
+                                        <h5>Pas de biens loues</h5>
+                                    </ng-template>
+                                    <div class="filter-content form-group"  *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -486,7 +622,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
                                     <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                         id="listdata-table">
                                         <thead>
@@ -543,7 +679,7 @@
                                                 </td>
                                                 <td><span class="views-count"
                                                         *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
-                                                          |  date:"dd MMM yyyy":locale}}</span></td>
+                                                        | date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
@@ -893,10 +1029,15 @@
                     aria-labelledby="achete-tab">
                     <div class="dash-listingcontent dashboard-info">
                         <div class="dash-cards card">
-                            <div class="card-body" *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
+                            <div class="card-body" >
                                 <div class="listing-search">
-                                    <h4>Les biens que j'ai achete</h4>
-                                    <div class="filter-content form-group">
+                                    <ng-container *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0; else noBiensAchete">
+                                        <h5>Les biens que j'ai achete</h5>
+                                    </ng-container>
+                                    <ng-template #noBiensAchete>
+                                        <h5>Pas de biens achetes</h5>
+                                    </ng-template>
+                                    <div class="filter-content form-group" *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -905,7 +1046,7 @@
                                     </div>
 
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
                                     <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                         id="listdata-table">
                                         <thead>
@@ -1297,9 +1438,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row mb-3">
-                                                                    <div class="col" *ngIf="Reclamation && Reclamation.bien && Reclamation.bien.typeImmo">
+                                                                    <div class="col"
+                                                                        *ngIf="Reclamation && Reclamation.bien && Reclamation.bien.typeImmo">
                                                                         {{Reclamation.bien.nom ? Reclamation.bien.nom :
-                                                                            Reclamation.bien.typeImmo.nom}}
+                                                                        Reclamation.bien.typeImmo.nom}}
                                                                     </div>
                                                                     <div class="col"
                                                                         style="color: #e98b11; font-weight: bold;"
@@ -1430,9 +1572,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="row mb-3">
-                                                                    <div class="col" *ngIf="Reclamation && Reclamation.bien && Reclamation.bien.typeImmo">
+                                                                    <div class="col"
+                                                                        *ngIf="Reclamation && Reclamation.bien && Reclamation.bien.typeImmo">
                                                                         {{Reclamation.bien.nom ? Reclamation.bien.nom :
-                                                                            Reclamation.bien.typeImmo.nom}}
+                                                                        Reclamation.bien.typeImmo.nom}}
                                                                     </div>
                                                                     <div class="col"
                                                                         style="color: #e98b11; font-weight: bold;"
@@ -1642,10 +1785,11 @@
                                                                         date:"HH:mm"}}
                                                                     </div>
                                                                 </div>
-                                                                <div class="row mb-3" *ngIf="Reclamation && Reclamation.bien && Reclamation.bien.typeImmo">
-                        
-                                                                        {{Reclamation.bien.nom ? Reclamation.bien.nom :
-                                                                        Reclamation.bien.typeImmo.nom}}
+                                                                <div class="row mb-3"
+                                                                    *ngIf="Reclamation && Reclamation.bien && Reclamation.bien.typeImmo">
+
+                                                                    {{Reclamation.bien.nom ? Reclamation.bien.nom :
+                                                                    Reclamation.bien.typeImmo.nom}}
 
                                                                 </div>
                                                                 <ul class="review-gallery">
@@ -1713,7 +1857,8 @@
                                                                     </ul>
                                                                 </div>
                                                                 <div class="row mt-3">
-                                                                    <button type="button" (click)="ArreterProcessus(Reclamation.id)"
+                                                                    <button type="button"
+                                                                        (click)="ArreterProcessus(Reclamation.id)"
                                                                         class="btn btn-outline-success"><i
                                                                             class="fas fa-check"></i>
                                                                         Arreter le processus</button>
@@ -3065,8 +3210,9 @@
                                                                         date:"HH:mm"}}
                                                                     </div>
                                                                 </div>
-                                                                <div class="row mb-3" *ngIf="Reclamation && Reclamation.bien">
-                                                                        {{Reclamation.bien.nom}}
+                                                                <div class="row mb-3"
+                                                                    *ngIf="Reclamation && Reclamation.bien">
+                                                                    {{Reclamation.bien.nom}}
                                                                 </div>
                                                                 <ul class="review-gallery">
                                                                     <li
@@ -3133,7 +3279,8 @@
                                                                     </ul>
                                                                 </div>
                                                                 <div class="row mt-3">
-                                                                    <button type="button" (click)="ArreterProcessus(Reclamation.id)"
+                                                                    <button type="button"
+                                                                        (click)="ArreterProcessus(Reclamation.id)"
                                                                         class="btn btn-outline-success"><i
                                                                             class="fas fa-check"></i>
                                                                         Arreter le processus</button>

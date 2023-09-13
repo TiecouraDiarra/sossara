@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { environment } from 'src/app/environments/environment';
 import { AgenceService } from 'src/app/service/agence/agence.service';
+import { BlogService } from 'src/app/service/blog/blog.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -69,6 +70,7 @@ export class HomeNineComponent {
   bienImmoAgent: any;
   bienImmoAgence: any;
   NombreBienParAgence: number = 0
+  blog: any;
   isLoginFailed = true;
   errorMessage: any = '';
   nombreBienLoue: number = 0
@@ -76,11 +78,17 @@ export class HomeNineComponent {
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   locale!: string;
   imagesCommunes = ['commune1.jpeg', 'commune2.png', 'commune3.jpg', 'commune4.jpg', 'commune5.jpeg', 'commune6.jpeg'];
+  public universitiesCompanies: any = []
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO + '/uploads/images/';
     return baseUrl + photoFileName;
+  }
+
+
+  handleAuthorImageError1(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
   constructor(
@@ -91,6 +99,7 @@ export class HomeNineComponent {
     private serviceAgence: AgenceService,
     @Inject(LOCALE_ID) private localeId: string,
     private serviceBienImmo: BienimmoService,
+    private serviceBlog: BlogService,
     private serviceUser: UserService
   ) {
     this.locale = localeId;
@@ -103,6 +112,8 @@ export class HomeNineComponent {
       (this.ourtestimonials = this.DataService.ourtestimonials),
       (this.Bookmark = this.DataService.bookmarkList),
       (this.recentarticle = this.DataService.recentarticle)
+
+    this.universitiesCompanies = this.DataService.universitiesCompanies
   }
   searchCategory(value: any): void {
     const filterValue = value;
@@ -317,7 +328,30 @@ export class HomeNineComponent {
     // Vous pouvez également ajouter ici la logique pour enregistrer l'état du favori côté serveur si nécessaire.
   }
 
+  public universitiesCompaniesOwlOptions: OwlOptions = {
+    loop: true,
+    margin: 24,
+    nav: false,
+    autoplay: true,
+    smartSpeed: 2000,
 
+    navText: ["<i class='fa-solid fa-angle-left'></i>", "<i class='fa-solid fa-angle-right'></i>"],
+    responsive: {
+      0: {
+        items: 1
+      },
+
+      550: {
+        items: 2
+      },
+      700: {
+        items: 4
+      },
+      1000: {
+        items: 6
+      }
+    }
+  };
 
   ngOnInit(): void {
     setInterval(() => {
@@ -429,6 +463,12 @@ export class HomeNineComponent {
       console.log(data.biens);
     }
     )
+
+    //AFFICHER LA LISTE DES BLOGS
+    this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
+      this.blog = data.blogs;
+      console.log(this.blog);
+    });
   }
   //METHODE PERMETTANT D'AIMER UN BIEN 
   AimerBien(id: any): void {
@@ -555,6 +595,12 @@ export class HomeNineComponent {
   goToDettailAgence(id: number) {
     console.log(id);
     return this.router.navigate(['detailsagence', id])
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS D'UN BLOG
+  goToDettailBlog(id: number) {
+    console.log(id);
+    return this.router.navigate(['blog-details', id])
   }
 
 }

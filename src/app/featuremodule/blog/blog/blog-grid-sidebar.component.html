@@ -22,39 +22,122 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  blog | filter:searchText">
-                        <div class="blog grid-blog">
-                            <div class="blog-image">
-                                <a (click)="goToDettailBlog(slide.id)"><img class="img-fluid image-size crd" src="{{generateImageUrl(slide.photo)}}"
-                                    (error)="handleAuthorImageError($event)" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content">
-                                <!-- <p class="blog-category">
-                                    <a href="javascript:void(0)"><span>test1</span></a><a
-                                        href="javascript:void(0)"><span>test2</span></a>
-                                </p> -->
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                        <div class="post-author">
-                                            <div class="post-author-img">
-                                                <img src="{{generateImageUrl(slide.utilisateur.photo)}}"
-                                                (error)="handleAuthorImageError1($event)" alt="author">
+                    <!-- Vérifiez s'il y a des blogs à afficher -->
+                    <ng-container *ngIf="blog && blog.length > 0; else noBlogs">
+                        <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  blog | filter:searchText">
+                            <div class="blog grid-blog">
+                                <div class="blog-image">
+                                    <a (click)="goToDettailBlog(slide.id)"><img class="img-fluid image-size crd"
+                                            src="{{generateImageUrl(slide.photo)}}"
+                                            (error)="handleAuthorImageError($event)" alt="Post Image"></a>
+                                </div>
+                                <div class="blog-content">
+                                    <!-- <p class="blog-category">
+                                        <a href="javascript:void(0)"><span>test1</span></a><a
+                                            href="javascript:void(0)"><span>test2</span></a>
+                                    </p> -->
+                                    <ul class="entry-meta meta-item">
+                                        <li>
+                                            <div class="post-author">
+                                                <div class="post-author-img">
+                                                    <img src="{{generateImageUrl(slide.utilisateur.photo)}}"
+                                                        (error)="handleAuthorImageError1($event)" alt="author">
+                                                </div>
+                                                <a href="javascript:void(0)"> <span> {{slide.utilisateur.nom}}
+                                                    </span></a>
                                             </div>
-                                            <a href="javascript:void(0)"> <span> {{slide.utilisateur.nom}} </span></a>
-                                        </div>
-                                    </li>
-                                    <li class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{slide.createdAt.date | date:"dd MMM yyyy":locale}}</li>
-                                </ul>
-                                <h3 class="blog-title"><a (click)="goToDettailBlog(slide.id)">{{slide.titre}}</a></h3>
-                                <p class="blog-description">{{slide.description}} </p>
-                                <div class="viewlink crd"><a (click)="goToDettailBlog(slide.id)">Voir plus <i
-                                            class="feather-arrow-right"></i></a></div>
+                                        </li>
+                                        <li class="date-icon"><i class="fa-solid fa-calendar-days"></i>
+                                            {{slide.createdAt.date | date:"dd MMM yyyy":locale}}</li>
+                                    </ul>
+                                    <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide.id)">{{slide.titre}}</a>
+                                    </h3>
+                                    <p class="blog-description">{{slide.description}} </p>
+                                    <div class="viewlink crd"><a (click)="goToDettailBlog(slide.id)">Voir plus <i
+                                                class="feather-arrow-right"></i></a></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ng-container>
+                    <!-- Si la liste des blogs est vide, affichez "Pas de blog" -->
+                    <ng-template #noBlogs>
+                        <!-- Spinner  -->
+                        <div class="row">
+                            <ng-container>
+                                <div class="col-lg-6 col-md-6 d-lg-flex" aria-hidden="true">
+                                    <div class="blog grid-blog">
+                                        <div class="blog-image">
+                                            <a><img class="img-fluid image-size crd"
+                                                    src="assets/img/test.jpg" alt="Post Image"></a>
+                                        </div>
+                                        <div class="blog-content placeholder-glow">
+                                            <ul class="entry-meta meta-item">
+                                                <li>
+                                                    <div class="post-author">
+                                                        <div class="post-author-img placeholder">
+                                                            <img src="" alt="author">
+                                                        </div>
+                                                        <a> <span class="placeholder"> ttthhfhfhhf
+                                                            </span></a>
+                                                    </div>
+                                                </li>
+                                                <li class="date-icon placeholder">
+                                                    gggfffff</li>
+                                            </ul>
+                                            <h3 class="blog-title placeholder-glow">
+                                                <span class="placeholder col-6"></span>
+                                            </h3>
+                                            <p class="card-text placeholder-glow">
+                                                <span class="placeholder col-7"></span>
+                                                <span class="placeholder col-4"></span>
+                                                <span class="placeholder col-4"></span>
+                                                <span class="placeholder col-6"></span>
+                                                <span class="placeholder col-8"></span>
+                                            </p>
+                                            <div class="btn btn-primary disabled placeholder col-6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 d-lg-flex" aria-hidden="true">
+                                    <div class="blog grid-blog">
+                                        <div class="blog-image">
+                                            <a><img class="img-fluid image-size crd"
+                                                    src="assets/img/test.jpg" alt="Post Image"></a>
+                                        </div>
+                                        <div class="blog-content placeholder-glow">
+                                            <ul class="entry-meta meta-item">
+                                                <li>
+                                                    <div class="post-author">
+                                                        <div class="post-author-img placeholder">
+                                                            <img src="" alt="author">
+                                                        </div>
+                                                        <a> <span class="placeholder"> ttthhfhfhhf
+                                                            </span></a>
+                                                    </div>
+                                                </li>
+                                                <li class="date-icon placeholder">
+                                                    gggfffff</li>
+                                            </ul>
+                                            <h3 class="blog-title placeholder-glow">
+                                                <span class="placeholder col-6"></span>
+                                            </h3>
+                                            <p class="card-text placeholder-glow">
+                                                <span class="placeholder col-7"></span>
+                                                <span class="placeholder col-4"></span>
+                                                <span class="placeholder col-4"></span>
+                                                <span class="placeholder col-6"></span>
+                                                <span class="placeholder col-8"></span>
+                                            </p>
+                                            <div class="btn btn-primary disabled placeholder col-6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </ng-template>
 
                 </div>
-
                 <!--Pagination-->
                 <!-- <div class="blog-pagination">
                     <nav>
@@ -109,7 +192,8 @@
                             <h4><img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon"> Filtrer
                             </h4>
                             <div class="filter-content looking-input form-group mb-0">
-                                <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Rechercher" >
+                                <input [(ngModel)]="searchText" type="text" class="form-control"
+                                    placeholder="Rechercher">
                             </div>
                         </div>
                         <!--<div class="card">
@@ -139,15 +223,19 @@
                                 <li>Culture </li>
                             </ul>
                         </div>-->
-                        <div class="card">
+                        <div class="card" *ngIf="bienImmo && bienImmo.length > 0">
                             <h4><i class="feather-tag"></i> Biens recents</h4>
                             <div class="article" *ngFor="let BienImo of bienImmo">
-                                <a  *ngIf="BienImo && BienImo.photos && BienImo.photos.length > 0" (click)="goToDettailBien(BienImo.id)" class="articleimg-1 crd" style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url({{generateImageUrl(BienImo.photos[0].nom)}})">
+                                <a *ngIf="BienImo && BienImo.photos && BienImo.photos.length > 0"
+                                    (click)="goToDettailBien(BienImo.id)" class="articleimg-1 crd"
+                                    style="background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url({{generateImageUrl(BienImo.photos[0].nom)}})">
                                     <ul>
                                         <li *ngIf="BienImo && BienImo.typeImmo">
                                             <h6>{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</h6>
                                         </li>
-                                        <li *ngIf="BienImo && BienImo.createdAt" class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date | date:"dd MMM yyyy":locale}}
+                                        <li *ngIf="BienImo && BienImo.createdAt" class="date-icon"><i
+                                                class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date |
+                                            date:"dd MMM yyyy":locale}}
                                         </li>
                                     </ul>
                                 </a>
@@ -180,6 +268,8 @@
 
             </div>
         </div>
+
+
     </div>
 </div>
 <!-- /Blog List -->

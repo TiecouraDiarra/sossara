@@ -89,7 +89,7 @@ export class routes {
     return this.baseUrl + '/details-agent';
   }
   public static get about(): string {
-    return this.baseUrl + '/pages/about';
+    return this.baseUrl + '/apropos';
   }
   public static get categories(): string {
     return this.baseUrl + '/pages/categories';

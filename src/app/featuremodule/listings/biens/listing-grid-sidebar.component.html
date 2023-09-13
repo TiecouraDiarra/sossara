@@ -30,15 +30,16 @@
                 <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
                 Filtrer
               </h4>
-              <form>
+              <form >
                 <!--<div class="filter-content looking-input form-group">
                   <input type="text" class="form-control" placeholder="What are you looking for?" />
                 </div>-->
-                <div class="filter-content form-group">
-                  <mat-form-field class="mat-custom-select">
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
                       Statut</mat-label>
-                    <mat-select (change)="onChangeRegion($event.target)" (selectionChange)="onStatutSelectionChange($event)">
+                    <mat-select (change)="onChangeRegion($event.target)"
+                      (selectionChange)="onStatutSelectionChange($event)">
                       <mat-option disabled class="search-input-option">
                         <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
                             searchCategory(searchInputCategory)
@@ -48,12 +49,13 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                
-                <div class="filter-content form-group">
-                  <mat-form-field class="mat-custom-select">
+
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
                       Région</mat-label>
-                    <mat-select (change)="onChangeRegion($event.target)" (selectionChange)="onRegionSelectionChange($event)">
+                    <mat-select (change)="onChangeRegion($event.target)"
+                      (selectionChange)="onRegionSelectionChange($event)">
                       <mat-option disabled class="search-input-option">
                         <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
                             searchCategory(searchInputCategory)
@@ -65,8 +67,8 @@
                   </mat-form-field>
 
                 </div>
-                <div class="filter-content form-group">
-                  <mat-form-field class="mat-custom-select">
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
                       Commune</mat-label>
                     <mat-select (selectionChange)="onCommuneSelectionChange($event)">
@@ -110,8 +112,8 @@
                     <option>A vendre</option>
                   </select>
                 </div>-->
-                <div class="filter-content form-group">
-                  <mat-form-field class="mat-custom-select">
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
                       Type</mat-label>
                     <mat-select (selectionChange)="onTypeSelectionChange($event)">
@@ -267,77 +269,190 @@
 
         <div class="grid-view listgrid-sidebar">
           <div class="row">
-            <!-- <div class="dd" *ngIf="bienImmo && bienImmo.length == 0">
-              Pas de biens
-            </div> -->
-            <div class="col-lg-6 col-md-4"
-              *ngFor="let BienImo of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut | paginate:{itemsPerPage :8, currentPage:p}">
-              <div class="card">
-                <div class="blog-widget">
-                  <div class="blog-img">
-                    <a (click)="goToDettailBien(BienImo.id)">
-                      <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
-                        <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size"
-                          alt="blog-img">
-                      </div> 
-                      <ng-template #noImages>
-                        <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
-                      </ng-template>
-                    </a>
-                    <div class="fav-item">
-                      <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }" class="Featured-text">{{
-                        BienImo.statut }}</span>
-                        <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon" (click)="AimerBien(BienImo.id)" [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+            <!-- <ng-template #loadedContent> -->
+            <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
+              <div class="col-lg-6 col-md-4"
+                *ngFor="let BienImo of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut | paginate:{itemsPerPage :8, currentPage:p}">
+                <div class="card">
+                  <div class="blog-widget">
+                    <div class="blog-img">
+                      <a (click)="goToDettailBien(BienImo.id)" class="crd">
+                        <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
+                          <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size"
+                            alt="blog-img">
+                        </div>
+                        <ng-template #noImages>
+                          <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
+                        </ng-template>
+                      </a>
+                      <div class="fav-item">
+                        <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }" class="Featured-text">{{
+                          BienImo.statut }}</span>
+                        <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
+                          (click)="AimerBien(BienImo.id)"
+                          [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
                           <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
-                        </a>                                            
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div class="bloglist-content">
-                    <div class="card-body">
-                      <div class="blogfeaturelink">
-                        <div class="grid-author">
-                          <!--<img [src]="slide.img2" alt="author" />-->
-                          <img src="{{generateImageUrl(BienImo.utilisateur.photo)}}" alt="author"
-                            (error)="handleAuthorImageError($event)" />
+                    <div class="bloglist-content">
+                      <div class="card-body">
+                        <div class="blogfeaturelink">
+                          <div class="grid-author">
+                            <img src="{{generateImageUrl(BienImo.utilisateur.photo)}}" alt="author"
+                              (error)="handleAuthorImageError($event)" />
+                          </div>
+                          <div class="blog-features">
+                            <a href="javascript:void(0)"><span>
+                                <i class="fa-regular fa-circle-stop"></i>
+                                {{ BienImo.typeImmo.nom }}</span></a>
+                          </div>
+                          <div class="blog-author text-end">
+                            <span>
+                              <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}
+                            </span>
+                          </div>
                         </div>
-                        <div class="blog-features">
-                          <a href="javascript:void(0)"><span>
-                              <i class="fa-regular fa-circle-stop"></i>
-                              {{ BienImo.typeImmo.nom }}</span></a>
-                        </div>
-                        <div class="blog-author text-end">
-                          <span>
-                            <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}
-                          </span>
-                        </div>
-                      </div>
-                      <h6>
-                        <a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom
-                          }}</a>
-                      </h6>
-                      <div class="blog-location-details">
-                        <div class="location-info">
-                          <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
-                        </div>
-                        <div class="location-info">
-                          <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date | date:"dd MMM yyyy":locale}}
+                        <h6 class="crd">
+                          <a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom
+                            }}</a>
+                        </h6>
+                        <div class="blog-location-details">
+                          <div class="location-info">
+                            <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
+                          </div>
+                          <div class="location-info">
+                            <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date | date:"dd MMM
+                            yyyy":locale}}
 
+                          </div>
                         </div>
-                      </div>
-                      <div class="amount-details">
-                        <div class="amount">
-                          <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
-                          <!--<span>{{ slide.oldamount }}</span>-->
-                        </div>
-                        <div class="ratings">
-                          <!--<span>{{ slide.rating }}</span> {{ slide.rating1 }}-->
+                        <div class="amount-details">
+                          <div class="amount">
+                            <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
+                            <!--<span>{{ slide.oldamount }}</span>-->
+                          </div>
+                          <div class="ratings">
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
+            <ng-template #noBiens>
+              <div class="row Pblog" style="margin-left: auto !important;
+              margin-right: auto !important;">
+                <div class="col-lg-6 col-md-4" aria-hidden="true">
+                  <div class="card">
+                    <div class="blog-widget placeholder-glow">
+                      <div class="blog-img">
+                        <a>
+                          <div>
+                            <img src="assets/img/test.jpg" class="img-fluid image-size"
+                              alt="blog-img">
+                          </div>
+                        </a>
+                        <div class="fav-item placeholder-glow">
+                          <span class="placeholder">hhhhhh</span>
+                          <a href="javascript:void(0)" class="fav-icon placeholder">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="bloglist-content placeholder-glow">
+                        <div class="card-body">
+                          <div class="blogfeaturelink">
+                            <div class="grid-author placeholder">
+                              <img class="placeholder" alt="author" />
+                            </div>
+                            <div class="blog-features placeholder-glow">
+                              <a href="javascript:void(0)"><span class="placeholder">
+                                  jjjjjjjjjjjjjjj</span></a>
+                            </div>
+                            <div class="blog-author text-end placeholder-glow">
+                              <span class="placeholder">jjjjljjjjjjjjjjjl
+                              </span>
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                            </div>
+                            <div class="location-info placeholder">aaaaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="amount-details placeholder-glow">
+                            <div class="amount">
+                              <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                            </div>
+                            <div class="ratings">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-4" aria-hidden="true">
+                  <div class="card">
+                    <div class="blog-widget placeholder-glow">
+                      <div class="blog-img">
+                        <a>
+                          <div>
+                            <img src="assets/img/test.jpg" class="img-fluid image-size"
+                              alt="blog-img">
+                          </div>
+                        </a>
+                        <div class="fav-item placeholder-glow">
+                          <span class="placeholder">hhhhhh</span>
+                          <a href="javascript:void(0)" class="fav-icon placeholder">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="bloglist-content placeholder-glow">
+                        <div class="card-body">
+                          <div class="blogfeaturelink">
+                            <div class="grid-author placeholder">
+                              <img class="placeholder" alt="author" />
+                            </div>
+                            <div class="blog-features placeholder-glow">
+                              <a href="javascript:void(0)"><span class="placeholder">
+                                  jjjjjjjjjjjjjjj</span></a>
+                            </div>
+                            <div class="blog-author text-end placeholder-glow">
+                              <span class="placeholder">jjjjljjjjjjjjjjjl
+                              </span>
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                            </div>
+                            <div class="location-info placeholder">aaaaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="amount-details placeholder-glow">
+                            <div class="amount">
+                              <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                            </div>
+                            <div class="ratings">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <!-- </ng-template> -->
           </div>
         </div>
 

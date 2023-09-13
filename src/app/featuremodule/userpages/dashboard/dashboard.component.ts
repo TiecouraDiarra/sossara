@@ -49,7 +49,12 @@ export class DashboardComponent implements OnInit {
   isLocataire = false;
   isAgence = false;
   roles: string[] = [];
+  bienImmoAgence: any
+  bienImmoAgent: any
+  bienImmoAgenceTotal: any
   nombreconversation: number = 0
+  nombreBienLoue: number = 0
+  nombreBienAchete: number = 0
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
   nombreCandidatureAccepter: number = 0
@@ -147,7 +152,7 @@ export class DashboardComponent implements OnInit {
       console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
-      }else if(this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
     }
@@ -159,11 +164,27 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.setAccessToken(token);
 
 
-    //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
-      this.bienImmo = data.biens.reverse();
-      this.nombrebien = data.biens.length;
-      console.log(this.bienImmo);
+    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
+    this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
+      this.nombreBienLoue = data.biens.length;
+      console.log(this.nombreBienLoue);
+    });
+
+    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
+    this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
+      this.nombreBienAchete = data.biens.length;
+      console.log(this.nombreBienAchete);
+    });
+
+
+    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+    this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
+      // this.bienImmo = data.biens.reverse();
+      this.bienImmoAgence = data.biens_agences;
+      this.bienImmoAgent = data.biens_agents;
+      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
+      this.nombrebien = this.bienImmoAgenceTotal.length;
+      console.log(this.nombrebien);
     });
 
     //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
@@ -193,10 +214,12 @@ export class DashboardComponent implements OnInit {
       this.nombreCandidatureBienUser = data.candidature.length;
       // this.nombreRdvUser = data.length;
       console.log(this.nombreCandidatureBienUser);
+      console.log(this.nombreRdvUser);
+      console.log(this.nombreCandidatureAccepter);
 
       // Calculer la somme des candidatures et des rendez-vous
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
-      // console.log( "Somme =",this.somme);
+      console.log("SommeTout =", this.somme);
 
     }
     );

@@ -177,7 +177,9 @@ export class MyListingComponent implements OnInit {
   reclamationProcessusLance: any;
   transaction: any
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
+  favoritedPropertiesCountAgence: { [bienId: number]: number } = {};
   bienImmoUserAAcheter: any
+  bienImmoAgenceTotal : any
 
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
@@ -230,7 +232,9 @@ export class MyListingComponent implements OnInit {
 
   }
   NombreJaime: number = 0
-
+  NombreJaimeAgence: number = 0
+  bienImmoAgence : any
+  bienImmoAgent:any
 
   constructor(
     private DataService: DataService,
@@ -287,7 +291,7 @@ export class MyListingComponent implements OnInit {
       console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
-      }else if(this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
     }
@@ -298,24 +302,42 @@ export class MyListingComponent implements OnInit {
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.biens.reverse();
       console.log(this.bienImmo);
-       // Parcourir la liste des biens immobiliers
-    this.bienImmo.forEach((bien: { id: string | number; }) => {
-      // Charger le nombre de "J'aime" pour chaque bien
-      this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-        this.NombreJaime = data.vues;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-        }
+      // Parcourir la liste des biens immobiliers
+      this.bienImmo.forEach((bien: { id: string | number; }) => {
+        // Charger le nombre de "J'aime" pour chaque bien
+        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = data.vues;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          }
 
-        // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-        // if (isFavorite === 'true') {
-        //   this.favoriteStatus[bien.id] = true;
-        // } else {
-        //   this.favoriteStatus[bien.id] = false;
-        // }
+          // Charger l'état de favori depuis localStorage
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          // if (isFavorite === 'true') {
+          //   this.favoriteStatus[bien.id] = true;
+          // } else {
+          //   this.favoriteStatus[bien.id] = false;
+          // }
+        });
       });
     });
+
+      //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+    this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
+      this.bienImmoAgence = data.biens_agences;
+      this.bienImmoAgent = data.biens_agents;
+      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
+      console.log(this.bienImmoAgenceTotal);
+      // Parcourir la liste des biens immobiliers
+      this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
+        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaimeAgence = data.vues;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
+          }
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        });
+      });
     });
 
     //AFFICHER LA LISTE DES PROBLEMES
@@ -616,10 +638,10 @@ export class MyListingComponent implements OnInit {
 
     }).then(() => {
       //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
-    this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
-      this.reclamationProcessusLance = data.reparations.reverse();
-      console.log(this.reclamationProcessusLance);
-    });
+      this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
+        this.reclamationProcessusLance = data.reparations.reverse();
+        console.log(this.reclamationProcessusLance);
+      });
     })
   }
 

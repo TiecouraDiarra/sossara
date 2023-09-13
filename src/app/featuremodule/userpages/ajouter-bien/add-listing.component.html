@@ -45,7 +45,7 @@
         </li>
         <li *ngIf="isAgence">
           <a [routerLink]="routes.bookmarks">
-            <i class="fas fa-solid fa-heart"></i> <span>Mes agents</span>
+            <i class="fas fa-users"></i> <span>Mes agents</span>
           </a>
         </li>
         <li>
@@ -55,7 +55,7 @@
         </li>
         <li>
           <a [routerLink]="routes.reviews">
-            <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
+            <i class="fas fa-bell"></i> <span>Notifications</span>
           </a>
         </li>
         <!-- <li>
@@ -330,7 +330,7 @@
                   <label class="col-form-label">Periode <span>*</span></label>
                   <div class="pass-group group-img">
                     <select [(ngModel)]="form.periode" name="periode" class="form-control" id="">
-                      <option *ngFor="let item of periode" [value]="item.ID">
+                      <option *ngFor="let item of periode" [value]="item.id">
                         {{ item.nom }}
                       </option>
                     </select>
@@ -495,14 +495,29 @@
           <div class="card-header">
             <h4>Choisir l'emplacement du bien sur la map</h4>
           </div>
-
-          <div class="listing-map">
-            <!-- <input id="search-box" type="text" placeholder="Rechercher un lieu"> -->
-            <div id="map" style="width: 100%; height: 60vw;"></div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="listing-map">
+                <div id="map" style="width: 100%; height: 32vw;"></div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Latitude</label>
+                <input type="text" class="form-control" readonly placeholder="Latitude" name="latitude"
+                  [(ngModel)]="form.latitude" />
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Longitude</label>
+                <input type="text" class="form-control" readonly placeholder="Longitude" name="longitude"
+                  [(ngModel)]="form.longitude" />
+              </div>
+            </div>
           </div>
+          
 
           <!-- MAP ADRESSE  -->
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-6 col-md-6">
               <div class="form-group">
                 <label class="col-form-label">Latitude</label>
@@ -517,7 +532,7 @@
                   [(ngModel)]="form.longitude" />
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- <div class="card">
           <div class="card-header">

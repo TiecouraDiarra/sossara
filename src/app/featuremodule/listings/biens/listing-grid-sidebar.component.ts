@@ -131,6 +131,8 @@ export class ListingGridSidebarComponent {
   isLoggedIn = false;
   isLoginFailed = true;
   errorMessage = '';
+  // Dans votre composant, déclarez la variable isLoading
+  isLoading: boolean = true;
 
 
   slidevalue: number = 55;
@@ -170,7 +172,7 @@ export class ListingGridSidebarComponent {
     // Charger la liste des biens immobiliers
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.biens.reverse();
-
+      this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: { id: string | number; }) => {
         // Charger le nombre de "J'aime" pour chaque bien

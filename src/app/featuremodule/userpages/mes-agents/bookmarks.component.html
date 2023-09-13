@@ -38,7 +38,7 @@
                 </li>
                 <li class="active" *ngIf="isAgence">
                     <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Mes agents</span>
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
                 <li>
@@ -48,7 +48,7 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Notifications</span>
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
                     </a>
                 </li>
                 <!-- <li>
@@ -61,6 +61,10 @@
         <!-- <div class="bookmarks-content grid-view featured-slider"> -->
         <div class="container">
             <div class="dash-cards card">
+                <!-- <div class="row scroll-text">
+                    <div class="scroll-textl">Mot de passe par defaut d'un agent : 
+                        <span style="font-size: 15px; font-weight: bold; color: #e98b11;" #motDePasseSpan></span></div>
+                </div> -->
                 <!-- <div class="card-header">
                     </div> -->
                 <div class="card-body">
@@ -92,16 +96,16 @@
                                         <div class="col-lg-3">
                                             <div class="filler-job-form">
                                                 <i class="uil uil-location-point"></i>
-                                                <select class="form-select selectForm__inner" data-trigger="true"
+                                                <select class="form-select selectForm__inner" [(ngModel)]="searchText" data-trigger="true"
                                                     name="choices-single-location" id="choices-single-location"
                                                     aria-label="Default select example">
-                                                    <option value="AF">Commune</option>
-                                                    <option value="AF">Commune 1</option>
-                                                    <option value="AX">Commune 2</option>
-                                                    <option value="AL">Commune 3</option>
-                                                    <option value="AL">Commune 4</option>
-                                                    <option value="AL">Commune 5</option>
-                                                    <option value="AL">Commune 6</option>
+                                                    <option value="" selected>Tout</option>
+                                                    <option>Commune 1</option>
+                                                    <option>Commune 2</option>
+                                                    <option>Commune 3</option>
+                                                    <option>Commune 4</option>
+                                                    <option>Commune 5</option>
+                                                    <option>Commune 6</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -151,9 +155,9 @@
                                                 </div>
                                                 <div class="form-group group-img">
                                                     <div class="group-img" id="datepicker">
-                                                        <i class="feather-user"></i>
-                                                        <input placeholder="Adresse" name="adresse"
-                                                            [(ngModel)]="agentForm.adresse" type="text"
+                                                        <i class="feather-map-pin"></i>
+                                                        <input placeholder="Quartier" name="quartier"
+                                                            [(ngModel)]="agentForm.quartier" type="text"
                                                             class="form-control" required />
                                                     </div>
                                                 </div>
@@ -169,18 +173,20 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
 
         </div>
-        <table matSort class="listing-table datatable" id="listdata-table">
+        <table matSort class="listing-table datatable" id="listdata-table" *ngIf="agent && agent.length > 0">
             <thead>
                 <tr>
                     <th mat-sort-header="img" class="no-sort">Image</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="adresse">Adresse</th>
+                    <!-- <th mat-sort-header="nombrebien">Adresse</th> -->
                     <th mat-sort-header="Action">Action</th>
                 </tr>
             </thead>
@@ -196,7 +202,7 @@
                     <td>
                         <div class="candidate-list-content mt-3 mt-lg-0">
                             <h5 class="fs-19 mb-0">
-                                <a class="primary-link" href="#">{{Agent.nom}}</a><span class="badge bg-success ms-1"><i
+                                <a class="primary-link" href="#">{{Agent.username}}</a><span class="badge bg-success ms-1"><i
                                         class="mdi mdi-star align-middle"></i>4.8</span>
                             </h5>
                             <p class="text-muted mb-2">{{Agent.email}}</p>
@@ -209,7 +215,7 @@
                     </td>
                     <td>
                         <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
-                            <span class="badge bg-soft-secondary fs-14 mt-1">{{Agent.roles[0] === 'ROLE_AGENT' ? 'AGENT'
+                            <span class="badge bg-soft-secondary fs-14 mt-1">{{Agent.role[0] === 'ROLE_AGENT' ? 'AGENT'
                                 : ''}}</span>
                         </div>
                     </td>
@@ -219,11 +225,16 @@
                                 adresse disponible' }}</span>
                         </span>
                     </td>
+                    <!-- <td>
+                        <span>
+                            <span class="status-text" style="color: #374b5c;">{{ favoritedPropertiesCount1[Agent.id]
+                            }}</span>
+                        </span>
+                    </td> -->
                     <td>
                         <div class="action">
-                            <a href="javascript:void(0)" class="action-btn btn-view crd"><i class="feather-eye"></i></a>
-                            <a href="javascript:void(0)" class="action-btn btn-edit"><i class="feather-edit-3"></i></a>
-                            <a href="javascript:void(0)" class="action-btn btn-trash"><i
+                            <a (click)="goToDettailAgent(Agent.id)" class="action-btn btn-view crd"><i class="feather-eye"></i></a>
+                            <a (click)="SupprimerAgent(Agent.id)" class="action-btn btn-trash crd"><i
                                     class="feather-trash-2"></i></a>
                         </div>
                     </td>

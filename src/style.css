@@ -6385,7 +6385,7 @@ body table.listing-table.datatable {
   color: #fff;
 }
 .listing-table .btn-trash {
-  background: #e98b11;
+  background: red;
   color: #fff;
   margin: 0;
 }
@@ -6402,6 +6402,10 @@ body table.listing-table.datatable {
 }
 .listing-table tr td:nth-child(4),
 .listing-table tr th:nth-child(4) {
+  text-align: center;
+}
+.listing-table tr td:nth-child(5),
+.listing-table tr th:nth-child(5) {
   text-align: center;
 }
 .dash-listingcontent .blog-pagination {
@@ -12898,7 +12902,7 @@ button.btn.car-search-icon:hover {
 .top-rent-room .pent-house {
   width: 115px;
   height: 36px;
-  background: #e98b11;
+  background: #4c82f7;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -15922,7 +15926,7 @@ section.advertisement {
 
 .footer {
   background-color: #1a1a1a;
-  margin-top: 230px;
+  margin-top: 30px;
   border-top: 1px solid transparent;
 }
 .footer-content {

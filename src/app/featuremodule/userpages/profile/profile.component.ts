@@ -102,18 +102,33 @@ export class ProfileComponent implements OnInit {
     this.locale = localeId;
     this.User = this.storageService.getUser();
     console.log(this.User);
-   this.formModif = {
+    this.formModif = {
       nom: this.User.user.username,
       telephone: this.User.user.telephone,
       email: this.User.user.email,
       date_de_naissance: this.User.user.date_de_naissance,
-    }; 
+    };
   }
+
+  getRoleLabel(): string {
+    if (this.User.user.role[0] === 'ROLE_LOCATAIRE') {
+      return 'LOCATAIRE';
+    } else if (this.User.user.role[0] === 'ROLE_PROPRIETAIRE') {
+      return 'AGENCE';
+    } else if (this.User.user.role[0] === 'ROLE_AGENCE') {
+      return 'AGENCE';
+    } else if (this.User.user.role[0] === 'ROLE_AGENT') {
+      return 'AGENT';
+    } else {
+      return '';
+    }
+  }
+
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO + '/uploads/images/';
-    return baseUrl + photoFileName ;
+    return baseUrl + photoFileName;
   }
 
   // IMAGE PAR DEFAUT USER
@@ -121,14 +136,14 @@ export class ProfileComponent implements OnInit {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
       console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
-      }else if(this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
     }
@@ -277,16 +292,16 @@ export class ProfileComponent implements OnInit {
   // }
   onPhotoChange(event: any): void {
     const selectedFile = event.target.files[0];
-  
+
     if (selectedFile) {
       const maxSize = 5 * 1024 * 1024; // Taille maximale en octets (5 Mo)
-  
+
       if (selectedFile.size <= maxSize) {
         // Vous pouvez également afficher des informations sur le fichier si nécessaire
         console.log(`Nom du fichier: ${selectedFile.name}`);
         console.log(`Type de fichier: ${selectedFile.type}`);
         console.log(`Taille du fichier: ${selectedFile.size} octets`);
-        
+
         // Ajoutez le fichier au formulaire et exécutez votre logique d'ajout ici
         this.form.photo = selectedFile;
         this.onAdd();
@@ -297,7 +312,7 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
-  
+
   //AJOUTER LA PHOTO DE PROFIL
   onAdd(): void {
     console.log('Add button clicked');

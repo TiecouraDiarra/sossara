@@ -34,8 +34,14 @@ export class ListingmapListComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = true;
   errorMessage = '';
+  totalLikes: number = 0
 
-
+  bienImmoAgent: any;
+  bienImmoAgence: any;
+  test: any;
+  bienImmoA: any;
+  NombreBienAgence: number = 0;
+  TauxActivite: number = 0
 
 
 
@@ -62,19 +68,20 @@ export class ListingmapListComponent implements OnInit {
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
     }
-    //RECUPERER L'ID D'UNE AGENCE
+    //RECUPERER L'ID D'UNE AGENT
     this.id = this.route.snapshot.params["id"]
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceAgence.AfficherAgentParId(this.id).subscribe(data => {
       this.bienImmo = data.biens_agence;
       this.NombreBienAgent = data.biens_agence.length;
-      this.agent = data.biens_agence[0].utilisateur
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: { id: string | number; }) => {
         this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
           this.NombreJaime = data.vues;
           if (typeof bien.id === 'number') {
             this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+            // Ajoutez le nombre de "J'aime" au total.
+            this.totalLikes += this.NombreJaime;
           }
           console.log(this.NombreJaime)
           const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
@@ -86,8 +93,21 @@ export class ListingmapListComponent implements OnInit {
         })
       });
       console.log(this.bienImmo);
+      console.log('Total Likes:', this.totalLikes);
       console.log(this.agent);
     })
+
+
+
+    //AFFICHER UN AGENT EN FONCTION DE SON ID
+    this.serviceAgence.AfficherUserParId(this.id).subscribe(data => {
+      this.agent = data.Utilisateurs
+      console.log(this.agent);
+    })
+
+
+
+
   }
 
   // IMAGE PAR DEFAUT DES BIENS
