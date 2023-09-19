@@ -2264,6 +2264,7 @@ p:last-child {
     background-color:#e98b11;
 
 }
+
 .service-content a {
 	font-size: 16px;
 	color: #0D233E;
@@ -5640,10 +5641,17 @@ ul.tags {
 .login-wrap p, .login-wrap {
     color: #666;
    	background: #fff;
-	max-width: 20px;
-	margin: 0 auto;
-    width: 585px;
+	/* max-width: 20px; */
+	/* margin: 0 auto; */  
+    width: 75% !important; 
+    margin-left: auto; 
+    margin-right: auto;
 }
+@media (max-width: 767px) {
+    .login-wrap p, .login-wrap {
+        width: 100% !important; 
+    }
+}  
 .login-wrap .group-img input {
     padding: 6px 15px 6px 38px;
     min-height: 52px;
@@ -5783,7 +5791,7 @@ ul.tags {
 }
 .login-wrap .group-img i {
     color: #e98b11;
-}
+} 
 .register-form .login-btn {
     margin-top: 0px;
 	font-weight: 400;
@@ -6102,7 +6110,11 @@ body table.listing-table.datatable {
 .listing-table.datatable .status-text.unpublish {
     color: #e98b11;
 }
-.listgrid-sidebar .Featured-text.statutbien {
+.listgrid-sidebar .tets.statutcontent {
+    background-color:#e98b11;
+}
+
+.media-body .Featured-text.statutbien {
     background-color:#e98b11;
 }
 
@@ -6581,7 +6593,7 @@ textarea.form-control {
     font-weight: 600;
 }
 .chat-body .msg-box > div {
-    background: #f9fafc;
+    /* background: #374b5c; */
     padding: 15px;
     border-radius: 10px 10px 0 0;
     margin: 0 0 20px 12px;
@@ -6589,7 +6601,7 @@ textarea.form-control {
     position: relative;
 }
 .chat-body .msg-box p {
-    color: #0D233E;
+    color: white;
     margin: 0;
 }
 .chat-msg-attachments {
@@ -6606,7 +6618,7 @@ textarea.form-control {
 .chat-body .msg-box .chat-msg-info {
     margin: 12px 0 0 0;
     font-size: 12px;
-    color: #646464;
+    color: white;
 }
 .chat-attachment {
     position: relative;
@@ -13296,7 +13308,7 @@ textarea.form-control {
     }
 	.navbar-brand.logo {
 		width: 100%;
-		text-align: center;
+		/* text-align: center; */
 		display: block;
 		margin: 0;
     }

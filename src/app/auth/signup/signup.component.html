@@ -17,10 +17,10 @@
 <!-- /Breadscrumb Section -->
 
 <!-- Login Section -->
-<div class="login-content" style="margin-top: 40px">
+<div class="login-content tts" style="margin-top: 40px;">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-lg-5 mx-auto">
+    <div class="row mb-5">
+      <div class="col-md-9 col-lg-9 mx-auto">
         <div class="login-wrap register-form">
           <div class="login-header">
             <h3>Creation d'un compte</h3>
@@ -51,96 +51,127 @@
                 </div>
               </div>
             </div> -->
-            <div class="form-group group-img">
-              <div class="group-img" id="datepicker">
-                <i class="feather-user"></i>
-                <input
-                  placeholder="Prenom et Nom"
-                  name="nom"
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="form.nom"
-                  required
-                />
+            <div class="row">
+              <div class="col-md-6 form-group group-img">
+                <div class="group-img" id="datepicker">
+                  <i class="feather-user"></i>
+                  <input
+                    placeholder="Prenom et Nom"
+                    name="nom"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="form.nom"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div class="form-group group-img">
-              <div class="group-img">
-                <i class="feather-mail"></i>
-                <input
-                  type="email"
-                  placeholder="Adresse Email"
-                  name="email"
-                  required
-                  class="form-control"
-                  [(ngModel)]="form.email"
-                />
+              <div class="col-md-6 form-group group-img">
+                <div class="group-img">
+                  <i class="feather-mail"></i>
+                  <input
+                    type="email"
+                    placeholder="Adresse Email"
+                    name="email"
+                    required
+                    class="form-control"
+                    [(ngModel)]="form.email"
+                  />
+                </div>
               </div>
-            </div>
-            <!-- <div class="form-group group-img">
-              <div class="group-img">
-                <i class="feather-user"></i>
-                <input
-                  [(ngModel)]="form.password"
-                  type="password"
-                  class="form-control"
-                  placeholder="Mot de passe"
-                  required
-                  name="password"
-                />
+              <div class="col-md-6 form-group group-img">
+                <div class="group-img">
+                  <i class="feather-phone"></i>
+                  <input
+                    [(ngModel)]="form.telephone"
+                    type="text"
+                    required
+                    name="telephone"
+                    class="form-control"
+                    placeholder="Numero de Telephone"
+                  />
+                </div>
               </div>
-            </div> -->
-            <div class="form-group group-img">
-              <div class="group-img">
-                <i class="feather-phone"></i>
-                <input
-                  [(ngModel)]="form.telephone"
-                  type="text"
-                  required
-                  name="telephone"
-                  class="form-control"
-                  placeholder="Numero de Telephone"
-                />
+              <div class="col-md-6 form-group group-img">
+                <div class="group-img">
+                  <i class="feather-calendar"></i> 
+                  <input
+                    [(ngModel)]="form.dateNaissance" 
+                    type="date" 
+                    required
+                    name="dateNaissance"
+                    class="form-control"
+                    placeholder="Date de Naissance"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="form-group group-img">
-              <div class="group-img">
-                <i class="feather-calendar"></i> <!-- Utilisation d'une icône de calendrier pour représenter la date de naissance -->
-                <input
-                  [(ngModel)]="form.dateNaissance" 
-                  type="date" 
-                  required
-                  name="dateNaissance"
-                  class="form-control"
-                  placeholder="Date de Naissance"
-                />
+              <div class="col-md-6 form-group">
+                <div class="pass-group group-img">
+                  <i class="feather-lock"></i>
+                  <input
+                    type="password"
+                    [(ngModel)]="form.password"
+                    name="password"
+                    [type]="Toggledata ? 'password' : 'text'"
+                    class="form-control pass-input"
+                    placeholder="Mot de passe"
+                  />
+                  <span
+                    [ngClass]="
+                      Toggledata == true
+                        ? 'toggle-password feather-eye-off'
+                        : 'toggle-password feather-eye'
+                    "
+                    (click)="iconLogle()"
+                  ></span>
+                </div>
               </div>
-            </div>
-            <div class="form-group group-img">
-              <div class="group-img">
-                <select class="form-control" (change)="onChange($event.target)" [(ngModel)]="form.roles"
-                name="roles">
-                  <option *ngFor="let item of typeUser" [value]="item">
-                    {{ item }}
-                  </option>
-                </select>
+              <div class="col-md-6 form-group">
+                <div class="pass-group group-img">
+                  <i class="feather-lock"></i>
+                  <input
+                    type="password"
+                    name="password"
+                    [type]="ToggledataC ? 'password' : 'text'"
+                    class="form-control pass-input"
+                    [(ngModel)]="form.confirmPassword"
+                    placeholder="Confirmer Mot de passe"
+                  />
+                  <span
+                    [ngClass]="
+                      ToggledataC == true
+                        ? 'toggle-password feather-eye-off'
+                        : 'toggle-password feather-eye'
+                    "
+                    (click)="iconLogleC()"
+                  ></span>
+                </div>
               </div>
-            </div>
-            <div class="form-group group-img"
-              *ngIf="currentUser != 'Utilisateur'"
-            >
-              <div class="group-img">
-                <select class="form-control" (change)="onTypePiecesChange($event)" [(ngModel)]="form.nom_doc"
-                name="nom_doc">
-                  <option *ngFor="let item of typePieces" [value]="item">
-                    {{ item }}
-                  </option>
-                </select>
+              <div class="col-md-6 form-group group-img">
+                <div class="group-img">
+                  <select class="form-control" (change)="onChange($event.target)" [(ngModel)]="form.roles"
+                  name="roles">
+                    <option *ngFor="let item of typeUser" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 form-group group-img"
+                *ngIf="currentUser != 'Utilisateur'"
+              >
+                <div class="group-img">
+                  <select class="form-control" (change)="onTypePiecesChange($event)" [(ngModel)]="form.nom_doc"
+                  name="nom_doc">
+                    <option *ngFor="let item of typePieces" [value]="item">
+                      {{ item }}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
             <!-- Debut Visiteur et proprietaire -->
             <div class="row" *ngIf="selectedTypePiece === 'NINA'">
-              <div class="col-4">
+              <div class="col-md-6">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -155,9 +186,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="form-group group-img">
-                  <div class="settings-upload-btn">
+                  <div class="settings-upload-btn" style="margin-left: auto;">
                     <input
                       type="file"
                       id="photo" name="photo"
@@ -167,21 +198,32 @@
                       [disabled]="isButtonDisabled"
                       accept=".png, .jpeg, .jpg, application/pdf"
                     />
-                    <label for="file" class="file-upload">Photo de la carte</label>
+                    <label for="file" class="file-upload" style="font-size: 14px;">Image carte</label>
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                  <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                    <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                    <button class="close-button" (click)="removeImage(i)">
+                      <i class="fas fa-times close-icon"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col">
                 <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
                   <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
                   <button class="close-button" (click)="removeImage(i)">
                     <i class="fas fa-times close-icon"></i>
                   </button>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="row" *ngIf="selectedTypePiece === 'CarteIN'">
-              <div class="col-4">
+              <div class="col-md-6">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -197,9 +239,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="form-group group-img">
-                  <div class="settings-upload-btn">
+                  <div class="settings-upload-btn" style="margin-left: auto;">
                     <input
                       type="file"
                       id="photo" name="photo"
@@ -209,21 +251,32 @@
                       [disabled]="isButtonDisabled"
                       accept=".png, .jpeg, .jpg, application/pdf"
                     />
-                    <label for="file" class="file-upload">Photo de la carte</label>
+                    <label for="file" class="file-upload" style="font-size: 14px;">Image carte</label>
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="col text-center">
+                  <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                    <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                    <button class="close-button" (click)="removeImage(i)">
+                      <i class="fas fa-times close-icon"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col">
                 <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
                   <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
                   <button class="close-button" (click)="removeImage(i)">
                     <i class="fas fa-times close-icon"></i>
                   </button>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="row" *ngIf="selectedTypePiece === 'Passport'">
-              <div class="col-4">
+              <div class="col-md-6">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -239,9 +292,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="form-group group-img">
-                  <div class="settings-upload-btn">
+                  <div class="settings-upload-btn" style="margin-left: auto;">
                     <input
                       type="file"
                       id="photo" name="photo"
@@ -251,7 +304,18 @@
                       [disabled]="isButtonDisabled"
                       accept=".png, .jpeg, .jpg, application/pdf"
                     />
-                    <label for="file" class="file-upload">Photo du Passport</label>
+                    <label for="file" class="file-upload" style="font-size: 11px;">Image Passport</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="col text-center">
+                  <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                    <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                    <button class="close-button" (click)="removeImage(i)">
+                      <i class="fas fa-times close-icon"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -268,7 +332,7 @@
 
             <!-- Debut Agence -->
             <div class="row" *ngIf="selectedTypePiece === 'RCCM'">
-              <div class="col-4">
+              <div class="col-md-6">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -282,9 +346,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="form-group group-img">
-                  <div class="settings-upload-btn">
+                  <div class="settings-upload-btn" style="margin-left: auto;">
                     <input
                       type="file"
                       id="photo" name="photo"
@@ -294,21 +358,32 @@
                       [disabled]="isButtonDisabled"
                       accept=".png, .jpeg, .jpg, application/pdf"
                     />
-                    <label for="file" class="file-upload">Photo de RCCM</label>
+                    <label for="file" class="file-upload" style="font-size: 11px;">Image du RCCM</label>
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="col text-center">
+                  <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                    <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                    <button class="close-button" (click)="removeImage(i)">
+                      <i class="fas fa-times close-icon"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col">
                 <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
                   <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
                   <button class="close-button" (click)="removeImage(i)">
                     <i class="fas fa-times close-icon"></i>
                   </button>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="row" *ngIf="selectedTypePiece === 'NIF'">
-              <div class="col-4">
+              <div class="col-md-6">
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
@@ -322,9 +397,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="form-group group-img">
-                  <div class="settings-upload-btn">
+                  <div class="settings-upload-btn" style="margin-left: auto;">
                     <input
                       type="file"
                       id="photo" name="photo"
@@ -334,23 +409,40 @@
                       [disabled]="isButtonDisabled"
                       accept=".png, .jpeg, .jpg, application/pdf"
                     />
-                    <label for="file" class="file-upload">Photo du NIF</label>
+                    <label for="file" class="file-upload" style="font-size: 11px;">Image du NIF</label>
+                  </div>
+                </div>
+                <!-- <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
+                  <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
+                  <button class="close-button" (click)="removeImage(i)">
+                    <i class="fas fa-times close-icon"></i>
+                  </button>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-6"></div>
+                <div class="col text-center">
+                  <div *ngFor="let imageUrl of image; let i = index" class="image-container mb-1">
+                    <img class="" [src]="imageUrl" alt="Image {{ i }}"/>
+                    <button class="close-button" (click)="removeImage(i)">
+                      <i class="fas fa-times close-icon"></i>
+                    </button>
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <!-- <div class="col">
                 <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
                   <img class="m-1" [src]="imageUrl" alt="Image {{ i }}"/>
                   <button class="close-button" (click)="removeImage(i)">
                     <i class="fas fa-times close-icon"></i>
                   </button>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- Fin Agence -->
 
             <!-- Debut Mot de passe et confirmation -->
-            <div class="row">
+            <!-- <div class="row">
               <div class="col">
                 <div class="form-group">
                   <div class="pass-group group-img">
@@ -397,11 +489,9 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- Fin Mot de passe et confirmation -->
-            <!-- <div *ngIf="!passwordsMatch()" class="text-danger">
-              Les mots de passe ne correspondent pas.
             </div> -->
+            <!-- Fin Mot de passe et confirmation -->
+
             <div *ngIf="isSignUpFailed" class="alert alert-danger" role="">
               {{ errorMessage }}
             </div>

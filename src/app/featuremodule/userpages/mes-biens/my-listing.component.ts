@@ -31,7 +31,10 @@ export class MyListingComponent implements OnInit {
   facturelocation!: ElementRef;
 
   loading = false;
+  bonAccord = false;
+  prendEnCharge = false;
   locale!: string;
+  selectedTab: string = 'home'; // Déclaration de la variable selectedTab avec la valeur par défaut 'home'
 
 
   @ViewChild('factureachat')
@@ -97,6 +100,7 @@ export class MyListingComponent implements OnInit {
   bienImmo: any;
   probleme: any;
   bienImmoDejaLoue: any;
+  bienImmoDejaLoueAgence: any;
   bienImmoDejaVendu: any;
   reclamation: any;
   p1: number = 1;
@@ -110,6 +114,7 @@ export class MyListingComponent implements OnInit {
   public albumsOne: any = [];
   isLocataire = false;
   isAgence = false;
+  isAgent = false;
   roles: string[] = [];
   bienImmoDejaLoueLocataire: any
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -119,7 +124,6 @@ export class MyListingComponent implements OnInit {
 
   public electronics: any = []
 
-  selectedTab: string = 'home'; // Onglet sélectionné par défaut
   today: Date;
 
   // Méthode pour changer l'onglet sélectionné
@@ -148,6 +152,7 @@ export class MyListingComponent implements OnInit {
   form: any = {
     contenu: null,
     type: null,
+    prix_estimatif: null,
     photos: null,
   };
 
@@ -179,7 +184,13 @@ export class MyListingComponent implements OnInit {
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   favoritedPropertiesCountAgence: { [bienId: number]: number } = {};
   bienImmoUserAAcheter: any
-  bienImmoAgenceTotal : any
+  bienImmoAgenceTotal: any
+
+  bienagent: any
+  bienVenduagent: any
+  bienTotalAgence: any
+  bienVenduTotalAgence: any
+  bienImmoDejaVenduAgence: any
 
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
@@ -187,7 +198,13 @@ export class MyListingComponent implements OnInit {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
     console.log(this.selectedBienImmoId);
+  }
 
+  // Fonction pour ouvrir le modal avec l'ID du BienImmo
+  openArreterModal(bienImmoId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedBienImmoId = bienImmoId;
+    console.log(this.selectedBienImmoId);
   }
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
@@ -233,8 +250,10 @@ export class MyListingComponent implements OnInit {
   }
   NombreJaime: number = 0
   NombreJaimeAgence: number = 0
-  bienImmoAgence : any
-  bienImmoAgent:any
+  bienImmoAgence: any
+  bienImmoAgent: any
+  test: any
+  errorMessage: any = '';
 
   constructor(
     private DataService: DataService,
@@ -291,8 +310,15 @@ export class MyListingComponent implements OnInit {
       console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
+        this.selectedTab = 'home';
       } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
+        this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+      } else if (this.roles[0] == "ROLE_AGENT") {
+        this.isAgent = true
+        this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+      } else {
+        this.selectedTab = 'home';
       }
     }
     this.User = this.storageService.getUser().user.id;
@@ -322,11 +348,15 @@ export class MyListingComponent implements OnInit {
       });
     });
 
-      //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
     this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
+      this.test = data;
       this.bienImmoAgence = data.biens_agences;
       this.bienImmoAgent = data.biens_agents;
       this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
+      console.log(this.test);
+      console.log(this.bienImmoAgence);
+      console.log(this.bienImmoAgent);
       console.log(this.bienImmoAgenceTotal);
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
@@ -352,10 +382,30 @@ export class MyListingComponent implements OnInit {
       console.log(this.reclamationProcessusLance);
     });
 
-    //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR
+    //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
     this.serviceBienImmo.AfficherBienImmoDejaLoueParUser().subscribe(data => {
       this.bienImmoDejaLoue = data.biens.reverse();
       console.log(this.bienImmoDejaLoue);
+    });
+
+    //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR AVEC AGENCE
+    this.serviceBienImmo.AfficherBienImmoDejaLoueParAgence().subscribe(data => {
+      // this.bienImmoDejaLoueNew = data;
+      this.bienagent = data.agent_bien;
+      this.bienImmoDejaLoueAgence = data.biens;
+      this.bienTotalAgence = [...this.bienagent, ...this.bienImmoDejaLoueAgence];
+      console.log(this.bienTotalAgence);
+
+    });
+
+    //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR AVEC AGENCE
+    this.serviceBienImmo.AfficherBienImmoDejaVenduParAgence().subscribe(data => {
+      // this.bienImmoDejaLoueNew = data;
+      this.bienVenduagent = data.agent_bien;
+      this.bienImmoDejaVenduAgence = data.biens;
+      this.bienVenduTotalAgence = [...this.bienVenduagent, ...this.bienImmoDejaVenduAgence];
+      console.log(this.bienVenduTotalAgence);
+
     });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
@@ -374,9 +424,7 @@ export class MyListingComponent implements OnInit {
     //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.attributes.reverse();
-      // this.photos = this.reclamation.bien;
       console.log(this.reclamation);
-      // console.log(this.photos);
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
@@ -486,7 +534,7 @@ export class MyListingComponent implements OnInit {
 
 
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-          this.serviceBienImmo.FaireReclamation(this.form.contenu, this.form.type, this.selectedBienImmoId, this.form.photo).subscribe(
+          this.serviceBienImmo.FaireReclamation(this.form.contenu, this.form.type, this.form.prix_estimatif, this.selectedBienImmoId, this.form.photo).subscribe(
             data => {
               console.log("Reclamation envoyée avec succès:", data);
               // this.isSuccess = false;
@@ -541,12 +589,13 @@ export class MyListingComponent implements OnInit {
       // this.selectedBienImmoId = null; // Réinitialisez la valeur de selectedBienImmoId
       this.form.type = null; // Réinitialisez la valeur de form.type
       this.form.contenu = ''; // Réinitialisez la valeur de form.contenu
+      this.form.prix_estimatif = ''; // Réinitialisez la valeur de form.contenu
       this.image = []; // Réinitialisez le tableau d'images
     })
   }
 
   //LANCER LE PROCESSUS DE REPARATION
-  LancerProcessusReparation(): void {
+  LancerProcessusReparation(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -572,7 +621,7 @@ export class MyListingComponent implements OnInit {
 
 
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-          this.serviceBienImmo.LancerProcessusReparation(this.formProcessus.somme, this.selectedBienImmoProcessusId).subscribe(
+          this.serviceBienImmo.LancerProcessusReparation(id).subscribe(
             data => {
               console.log("Processus lancé avec succès:", data);
               // this.isSuccess = false;
@@ -646,7 +695,7 @@ export class MyListingComponent implements OnInit {
   }
 
   //METHODE PERMETTANT D'ARRETER LE PROCESSUS DE REPARATION
-  ArreterProcessus(id: any): void {
+  ArreterProcessus(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -671,8 +720,8 @@ export class MyListingComponent implements OnInit {
 
 
 
-          // Appelez la méthode ArreterProcessus() avec le contenu et l'ID
-          this.serviceBienImmo.ArreterProcessus(id).subscribe(
+          // Appelez la méthode ArreterProcessus() avec l'ID
+          this.serviceBienImmo.ArreterProcessus(this.selectedBienImmoProcessusId).subscribe(
             data => {
               console.log("Processus arreté avec succès:", data);
               // this.isSuccess = false;
@@ -687,6 +736,135 @@ export class MyListingComponent implements OnInit {
           console.error("Token JWT manquant");
         }
       }
+    })
+  }
+
+  //METHODE PERMETTANT DE SUPPRIMER UN BIEN
+  SupprimerBien(id: number): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+    swalWithBootstrapButtons.fire({
+      // title: 'Etes-vous sûre de vous déconnecter?',
+      text: "Etes-vous sûre de suppimer ce bien ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const user = this.storageService.getUser();
+        if (user && user.token) {
+          // Définissez le token dans le service serviceUser
+          this.serviceUser.setAccessToken(user.token);
+
+          // Appelez la méthode PrendreRdv() avec le contenu et l'ID
+          this.serviceBienImmo.SupprimerBien(id).subscribe({
+            next: (data) => {
+              console.log("Bien supprimé avec succès:", data);
+              // this.errorMessage = 'Candidature envoyée avec succès';
+              // this.isCandidatureSent = true;
+              // Afficher le premier popup de succès
+              this.popUpConfirmationSuppression();
+            },
+            error: (err) => {
+              console.error("Erreur lors de la suppression :", err);
+              this.errorMessage = err.error.message;
+              console.error(this.errorMessage);
+              // this.isError = true
+              // Gérez les erreurs ici
+            }
+          }
+          );
+        } else {
+          console.error("Token JWT manquant");
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // L'utilisateur a annulé l'action
+        const cancelNotification = Swal.fire({
+          title: "Action annulée",
+          text: "Vous avez annulé la suppression du bien.",
+          icon: "info",
+          showConfirmButton: false, // Supprime le bouton "OK"
+          timer: 2000, // Durée en millisecondes (par exemple, 3000 ms pour 3 secondes)
+        });
+
+        // Vous n'avez pas besoin de setTimeout pour fermer cette notification, car "timer" le fait automatiquement après la durée spécifiée.
+      }
+    })
+  }
+
+  //POPUP APRES CONFIRMATION DE SUPPRESSION
+  popUpConfirmationSuppression() {
+    let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Bien supprimé avec succès.',
+      title: 'Bien supprimé',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: false,
+      // confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      timer: timerInterval, // ajouter le temps d'attente
+      timerProgressBar: true // ajouter la barre de progression du temps
+
+    }).then((result) => {
+      // Après avoir réussi à supprimer, mettez à jour l'état de la page
+          //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
+    this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
+      this.bienImmo = data.biens.reverse();
+      console.log(this.bienImmo);
+      // Parcourir la liste des biens immobiliers
+      this.bienImmo.forEach((bien: { id: string | number; }) => {
+        // Charger le nombre de "J'aime" pour chaque bien
+        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = data.vues;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          }
+
+          // Charger l'état de favori depuis localStorage
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          // if (isFavorite === 'true') {
+          //   this.favoriteStatus[bien.id] = true;
+          // } else {
+          //   this.favoriteStatus[bien.id] = false;
+          // }
+        });
+      });
+    });
+
+    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+    this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
+      this.test = data;
+      this.bienImmoAgence = data.biens_agences;
+      this.bienImmoAgent = data.biens_agents;
+      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
+      console.log(this.test);
+      console.log(this.bienImmoAgence);
+      console.log(this.bienImmoAgent);
+      console.log(this.bienImmoAgenceTotal);
+      // Parcourir la liste des biens immobiliers
+      this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
+        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaimeAgence = data.vues;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
+          }
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        });
+      });
+    });
+
     })
   }
 }

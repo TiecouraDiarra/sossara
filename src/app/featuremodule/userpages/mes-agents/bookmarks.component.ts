@@ -241,7 +241,7 @@ export class BookmarksComponent implements OnInit {
     return this.routerr.navigate(['details-agent', id])
   }
 
-  //METHODE PERMETTANT DE CANDIDATER UN BIEN
+  //METHODE PERMETTANT DE SUPPRIMER UN AGENT
   SupprimerAgent(id: number): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {

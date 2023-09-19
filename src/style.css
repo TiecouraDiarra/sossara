@@ -5224,7 +5224,7 @@ ul.tags {
 }
 .aboutbanner {
   position: relative;
-  background: url('../img/banner/apropos.jpeg');
+  background: url('../src/assets/img/ads-banner.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -5805,9 +5805,17 @@ ul.tags {
 .login-wrap p,
 .login-wrap {
   color: #666;
-  background: #fff;
-  max-width: 1000px;
-  margin: 0 auto;
+   	background: #fff;
+	/* max-width: 20px; */
+	/* margin: 0 auto; */
+    width: 75% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (max-width: 767px) {
+  .login-wrap p, .login-wrap {
+      width: 100% !important; 
+  }
 }
 .login-wrap .group-img input {
   padding: 6px 15px 6px 38px;
@@ -6786,7 +6794,7 @@ textarea.form-control {
   font-weight: 600;
 }
 .chat-body .msg-box > div {
-  background: #f9fafc;
+  /* background: #374b5c; */
   padding: 15px;
   border-radius: 10px 10px 0 0;
   margin: 0 0 20px 12px;
@@ -6794,7 +6802,7 @@ textarea.form-control {
   position: relative;
 }
 .chat-body .msg-box p {
-  color: #0d233e;
+  color: white;
   margin: 0;
 }
 .chat-msg-attachments {
@@ -6811,7 +6819,7 @@ textarea.form-control {
 .chat-body .msg-box .chat-msg-info {
   margin: 12px 0 0 0;
   font-size: 12px;
-  color: #646464;
+  color: white;
 }
 .chat-attachment {
   position: relative;
@@ -10488,7 +10496,7 @@ textarea.form-control {
 -----------------------*/
 
 .banner-five {
-  background: url("./assets/img/banner/banner-05.png");
+  background: url("./assets/img/banner/maison.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -19765,7 +19773,7 @@ section.advertisement {
   }
   .navbar-brand.logo {
     width: 100%;
-    text-align: center;
+    /* text-align: center; */
     display: block;
     margin: 0;
   }

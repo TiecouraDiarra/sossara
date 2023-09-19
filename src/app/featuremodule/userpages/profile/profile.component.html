@@ -69,7 +69,7 @@
                             <div class="profile-photo">
                                 <div class="profile-img">
                                     <div class="settings-upload-img" *ngIf="User.user && User.user.photo">
-                                        <img src="{{ generateImageUrl(User.user.photo) }}" alt="profile"
+                                        <img [src]="profileImageUrl" alt="profile"
                                             (error)="handleAuthorImageError($event)">
                                     </div>
                                     <div class="settings-upload-btn">

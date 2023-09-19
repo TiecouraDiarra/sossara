@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
       return '';
     }
   }
-
+  profileImageUrl: string = ''; // Variable pour stocker le chemin de l'image de profil
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
@@ -146,7 +146,13 @@ export class ProfileComponent implements OnInit {
       } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
+
+      // Chargez l'image de profil actuelle depuis User.user.photo (si disponible)
+      if (this.User.user && this.User.user.photo) {
+        this.profileImageUrl = this.generateImageUrl(this.User.user.photo);
+      }
     }
+
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -323,16 +329,16 @@ export class ProfileComponent implements OnInit {
         successResponse => {
           console.log('Photo changed successfully', successResponse);
           this.User.user.photo = photo.name;
-          user.user.photo = this.User.user.photo;
+          user.user.photo = successResponse.photo.photo;
           this.storageService.setUser(user);
           console.log(this.User.user.photo);
           this.User.user.photo = photo.name;
+          // this.generateImageUrl(photo.name);
+          // Mettez à jour le chemin de l'image de profil
+          this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
           const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
           this.User.user.photo = uniqueFileName;
-          this.generateImageUrl(photo.name);
-
-          // Actualisez automatiquement la page après avoir changé la photo
-          location.reload();
+          this.reloadPage();
         },
         error => {
           console.error('Error while changing photo', error);
@@ -373,11 +379,20 @@ export class ProfileComponent implements OnInit {
           this.serviceUser.modifierProfil(nom, telephone, email, dateNaissance).subscribe({
             next: data => {
               console.log(data);
-              this.storageService.setUser(user);
-              user.user.username = this.User.user.username;
-              user.user.email = this.User.user.email;
-              user.user.telephone = this.User.user.telephone;
-              user.user.date_de_naissance = this.User.user.date_de_naissance;
+
+              // Mise à jour des données utilisateur dans le sessionStorage
+              const updatedUser = this.storageService.getUser(); // Récupérez l'utilisateur du sessionStorage
+              if (updatedUser) {
+                // Mise à jour des données de l'utilisateur avec les données mises à jour du serveur
+                updatedUser.user.username = data.user.username;
+                updatedUser.user.email = data.user.email;
+                updatedUser.user.telephone = data.user.telephone;
+                updatedUser.user.date_de_naissance = data.user.date_de_naissance;
+
+                // Mise à jour des données dans le sessionStorage avec les données mises à jour
+                this.storageService.setUser(updatedUser); // Utilisez l'utilisateur mis à jour
+              }
+
               this.isSuccessful = true;
               this.isSignUpFailed = false;
               this.popUpModification();
@@ -387,7 +402,8 @@ export class ProfileComponent implements OnInit {
               console.log(this.errorMessage);
               this.isSignUpFailed = true;
             }
-          })
+          });
+
         } else {
           console.error("Token JWT manquant");
         }
@@ -437,6 +453,9 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  reloadPage(): void {
+    window.location.reload();
+  }
 
   iconLogle() {
     this.Toggledata = !this.Toggledata;

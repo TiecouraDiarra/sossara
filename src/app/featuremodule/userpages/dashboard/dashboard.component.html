@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6>Nombre de biens loues</h6>
+                                <h6>Biens loues</h6>
                                 <h3 class="counter">{{nombreBienLoue}}</h3>
                             </div>
                         </div>
@@ -86,13 +86,13 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6>Nombre de biens achetes</h6>
+                                <h6>Biens achetes</h6>
                                 <h3 class="counter">{{nombreBienAchete}}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire">
+                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire && !isAgence && !isAgent">
                     <div class="card dash-cards cad">
                         <div class="card-body">
                             <div class="dash-top-content">
@@ -102,7 +102,23 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6>Nombre de biens</h6>
+                                <h6>Biens</h6>
+                                <h3 class="counter">{{nombreBienAutre}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3" *ngIf="isAgence">
+                    <div class="card dash-cards cad">
+                        <div class="card-body">
+                            <div class="dash-top-content">
+                                <div class="dashcard-img">
+                                    <!-- <img src="assets/img/icons/verified.svg" class="img-fluid" alt=""> -->
+                                    <img src="assets/img/icons/category-7.svg" class="img-fluid" alt="">
+                                </div>
+                            </div>
+                            <div class="dash-widget-info">
+                                <h6>Biens</h6>
                                 <h3 class="counter">{{nombrebien}}</h3>
                             </div>
                         </div>
@@ -117,7 +133,7 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6>Nombre de Rendez-vous</h6>
+                                <h6>Rendez-vous</h6>
                                 <h3 class="counter">{{nombreRdvUser}}</h3>
                             </div>
                         </div>
@@ -147,7 +163,7 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6>Nombre d'agents</h6>
+                                <h6>Agents</h6>
                                 <h3 class="counter">{{somme}}</h3>
                             </div>
                         </div>
@@ -163,7 +179,7 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6>Nombre de Notifications</h6>
+                                <h6>Notifications</h6>
                                 <h3 class="counter">{{somme}}</h3>
                             </div>
                         </div>

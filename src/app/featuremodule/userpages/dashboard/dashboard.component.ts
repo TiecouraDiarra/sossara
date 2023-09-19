@@ -48,12 +48,14 @@ export class DashboardComponent implements OnInit {
   nombrebien: number = 0
   isLocataire = false;
   isAgence = false;
+  isAgent = false;
   roles: string[] = [];
   bienImmoAgence: any
   bienImmoAgent: any
   bienImmoAgenceTotal: any
   nombreconversation: number = 0
   nombreBienLoue: number = 0
+  nombreBienAutre: number = 0
   nombreBienAchete: number = 0
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
@@ -154,6 +156,8 @@ export class DashboardComponent implements OnInit {
         this.isLocataire = true
       } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
+      }else if (this.roles[0] == "ROLE_AGENT") {
+        this.isAgent = true
       }
     }
     console.log(this.storageService.getUser());
@@ -187,6 +191,13 @@ export class DashboardComponent implements OnInit {
       console.log(this.nombrebien);
     });
 
+     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
+    this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
+      this.nombreBienAutre = data.biens.length;
+      console.log(this.nombreBienAutre);
+    }
+    );
+
     //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
@@ -207,12 +218,6 @@ export class DashboardComponent implements OnInit {
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.nombreCandidatureAccepter = data.biens.length;
       console.log(this.nombreCandidatureAccepter);
-    });
-
-    //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      this.nombreCandidatureBienUser = data.candidature.length;
-      // this.nombreRdvUser = data.length;
       console.log(this.nombreCandidatureBienUser);
       console.log(this.nombreRdvUser);
       console.log(this.nombreCandidatureAccepter);
@@ -220,6 +225,13 @@ export class DashboardComponent implements OnInit {
       // Calculer la somme des candidatures et des rendez-vous
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
       console.log("SommeTout =", this.somme);
+    });
+
+    //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+      this.nombreCandidatureBienUser = data.candidature.length;
+      // this.nombreRdvUser = data.length;
+      
 
     }
     );

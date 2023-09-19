@@ -106,7 +106,7 @@ export class BienimmoService {
       { headers });
   }
 
-  //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+  //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE  AVEC AGENCE
   AfficherBienImmoParUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
@@ -114,11 +114,27 @@ export class BienimmoService {
       { headers });
   }
 
-  //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR
+  //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoDejaLoueParUser(): Observable<any> {
     const headers = this.getHeaders();
     console.log(headers);
     return this.http.get(`${URL_BASE}/bien/immo/get/rent`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'AGENCE
+  AfficherBienImmoDejaLoueParAgence(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/agence/get/rent`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'AGENCE
+  AfficherBienImmoDejaVenduParAgence(): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(headers);
+    return this.http.get(`${URL_BASE}/bien/immo/agence/get/sell`,
       { headers });
   }
 
@@ -413,6 +429,7 @@ export class BienimmoService {
   FaireReclamation(
     contenu: string,
     type: number,
+    prix_estimatif: number,
     idbien: number,
     photos: File[],
     // photo: File // Liste de photos
@@ -421,6 +438,7 @@ export class BienimmoService {
     headers.append('Content-Type', 'multipart/form-data');
     console.log(headers);
     console.log('contenu', contenu);
+    console.log('prixestimatif', prix_estimatif);
     console.log('type', type);
     console.log('idbien', idbien);
     console.log('photo', photos);
@@ -428,6 +446,7 @@ export class BienimmoService {
 
     formData.append('contenu', contenu);
     formData.append('type', type.toString());
+    formData.append('prix_estimatif', prix_estimatif.toString());
     formData.append('idbien', idbien.toString());
     photos.forEach(p => { formData.append('photo[]', p) });
 
@@ -439,15 +458,21 @@ export class BienimmoService {
   }
 
   //LANCER LE PROCESSUS DE REPARATION
-  LancerProcessusReparation(somme: any, id: any): Observable<any> {
+  LancerProcessusReparation(id: any): Observable<any> {
     const headers = this.getHeaders();
     // const data = new FormData();
     // data.append("contenu", contenu)
     console.log(id)
     console.log(headers)
-    console.log(somme)
-    return this.http.post(`${URL_BASE}/reparation/${id}`, {
-      somme,
-    }, { headers });
+    // console.log(somme)
+    return this.http.post(`${URL_BASE}/reparation/${id}`, null, { headers });
+  }
+
+  //SUPPRIMER UN BIEN
+  SupprimerBien(id: any): Observable<any> {
+    const headers = this.getHeaders();
+    console.log(id)
+    console.log(headers)
+    return this.http.post(`${URL_BASE}/bien/immo/delete/${id}`, null, { headers });
   }
 }

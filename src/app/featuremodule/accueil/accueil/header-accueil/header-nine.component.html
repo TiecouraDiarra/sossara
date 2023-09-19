@@ -50,9 +50,9 @@
           <!-- <a [routerLink]="routes.home" class="menu-logo">
                         <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
                     </a>-->
-          <a [routerLink]="routes.home9" class="navbar-brand logo" style="color: #e98b11; font-weight: bold;">
-            <!--<img src="assets/img/logo.png" class="img-fluid" alt="Logo" />-->
-            Sossara
+          <a [routerLink]="routes.home9" class="navbar-brand logo">
+            <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+            <!-- Sossara -->
           </a>
           <a id="menu_close" (click)="hideSidebar()" class="menu-close" href="javascript:void(0);"> <i
               class="fas fa-times"></i></a>
@@ -138,7 +138,7 @@
         </ul>
       </div>
       <div class="d-flex align-items-center block-e home-nine-btn crd">
-        <a (click)="AjouterBienOrLogin()" class="car-list-btn"  *ngIf="!isLocataire">
+        <a (click)="AjouterBienOrLogin()" class="car-list-btn crd"  *ngIf="!isLocataire">
           <i class="feather-plus-circle"></i>
           <span>Ajouter un bien</span>
         </a>

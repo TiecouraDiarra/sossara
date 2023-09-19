@@ -60,27 +60,44 @@
         <!-- Debut AGENCE ET PROPRIETAIRE  -->
         <div class="container card shadow d-flex justify-content-center mt-5" *ngIf="isLocataire==false">
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                <li class="nav-item crd">
+                <li class="nav-item crd" *ngIf="!isAgence">
                     <a class="nav-link custom-tab-link" [class.active]="isTabActive('home')" (click)="changeTab('home')"
                         id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">Liste
                         biens</a>
                 </li>
-                <li class="nav-item crd">
+                <li class="nav-item crd" *ngIf="isAgence">
+                    <a class="nav-link custom-tab-link" [class.active]="isTabActive('homeagence')"
+                        (click)="changeTab('homeagence')" id="homeagence-tab" data-toggle="tab" role="tab"
+                        aria-controls="homeagence" aria-selected="true">Liste
+                        biens</a>
+                </li>
+                <li class="nav-item crd" *ngIf="!isAgence">
                     <a class="nav-link custom-tab-link" [class.active]="isTabActive('loue')" (click)="changeTab('loue')"
                         id="loue-tab" data-toggle="tab" role="tab" aria-controls="loue" aria-selected="false">Biens
                         loues</a>
                 </li>
-                <li class="nav-item crd">
+                <li class="nav-item crd" *ngIf="isAgence">
+                    <a class="nav-link custom-tab-link" [class.active]="isTabActive('loueagence')"
+                        (click)="changeTab('loueagence')" id="loueagence-tab" data-toggle="tab" role="tab"
+                        aria-controls="loueagence" aria-selected="false">Biens
+                        loues</a>
+                </li>
+                <li class="nav-item crd" *ngIf="!isAgence">
                     <a class="nav-link custom-tab-link" id="vendu-tab" data-toggle="tab"
                         [class.active]="isTabActive('vendu')" (click)="changeTab('vendu')" role="tab"
                         aria-controls="vendu" aria-selected="false">Biens vendus</a>
                 </li>
-                <li class="nav-item crd">
+                <li class="nav-item crd" *ngIf="isAgence">
+                    <a class="nav-link custom-tab-link" id="venduagence-tab" data-toggle="tab"
+                        [class.active]="isTabActive('venduagence')" (click)="changeTab('venduagence')" role="tab"
+                        aria-controls="venduagence" aria-selected="false">Biens vendus</a>
+                </li>
+                <li class="nav-item crd" *ngIf="!isAgent">
                     <a class="nav-link custom-tab-link" id="location-tab" data-toggle="tab"
                         [class.active]="isTabActive('location')" (click)="changeTab('location')" role="tab"
                         aria-controls="location" aria-selected="false">Mes locations</a>
                 </li>
-                <li class="nav-item crd">
+                <li class="nav-item crd" *ngIf="!isAgent">
                     <a class="nav-link custom-tab-link" id="achete-tab" data-toggle="tab"
                         [class.active]="isTabActive('achete')" (click)="changeTab('achete')" role="tab"
                         aria-controls="achete" aria-selected="false">Biens achetes</a>
@@ -93,12 +110,13 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <!-- Debut La liste des biens Agence -->
-                <div class="tab-pane fade show" [class.active]="isTabActive('home')" id="home" role="tabpanel"
-                    aria-labelledby="homeAgence-tab">
+                <div class="tab-pane fade show" [class.active]="isTabActive('homeagence')" id="homeagence"
+                    role="tabpanel" aria-labelledby="homeAgence-tab">
                     <div class="dash-listingcontent dashboard-info">
                         <div class="dash-cards card">
                             <div class="card-header">
-                                <ng-container *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0; else noBiensAgence">
+                                <ng-container
+                                    *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0; else noBiensAgence">
                                     <h4>Mes biens</h4>
                                 </ng-container>
                                 <ng-template #noBiensAgence>
@@ -143,7 +161,7 @@
                                         </thead>
                                         <tbody>
                                             <tr
-                                                *ngFor="let BienImmo of bienImmoAgenceTotal | filter:searchText | paginate:{itemsPerPage :4, currentPage:p1}">
+                                                *ngFor="let BienImmo of bienImmoAgenceTotal | filter:searchText | paginate:{itemsPerPage :4, currentPage:p1, id: 'bienTotalAgence'}">
                                                 <td>
                                                     <div class="listingtable-img">
                                                         <a (click)="goToDettailBien(BienImmo.id)" class="crd">
@@ -180,7 +198,8 @@
                                                 </td>
                                                 <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
                                                         class="status-text">{{BienImmo.statut}}</span></td>
-                                                <td><span class="views-count">{{ favoritedPropertiesCountAgence[BienImmo.id]
+                                                <td><span class="views-count">{{
+                                                        favoritedPropertiesCountAgence[BienImmo.id]
                                                         }}</span></td>
                                                 <td>
                                                     <div class="action">
@@ -189,7 +208,7 @@
                                                                 class="feather-eye"></i></a>
                                                         <a href="javascript:void(0)" class="action-btn btn-edit"><i
                                                                 class="feather-edit-3"></i></a>
-                                                        <a href="javascript:void(0)" class="action-btn btn-trash"><i
+                                                        <a (click)="SupprimerBien(BienImmo.id)" class="action-btn btn-trash crd"><i
                                                                 class="feather-trash-2"></i></a>
                                                     </div>
                                                 </td>
@@ -198,19 +217,21 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <pagination-controls *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0" (pageChange)="p1 = $event"
-                                    previousLabel="Précédent" nextLabel="Suivant" class="pagination"
-                                    previousClass="pagination__previous" nextClass="pagination__next"
+                                <pagination-controls *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0"
+                                    (pageChange)="p1 = $event" previousLabel="Précédent" nextLabel="Suivant"
+                                    class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
                                     containerClass="pagination__container" pageClass="pagination__page"
                                     activeClassName="pagination__page--active"
-                                    disabledClass="pagination__page--disabled"></pagination-controls>
+                                    disabledClass="pagination__page--disabled"
+                                    id="bienTotalAgence"></pagination-controls>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- fin La liste des biens Agence -->
+
                 <!-- Debut La liste des biens  -->
-                <!-- <div class="tab-pane fade show" [class.active]="isTabActive('home')" id="home" role="tabpanel"
+                <div class="tab-pane fade show" [class.active]="isTabActive('home')" id="home" role="tabpanel"
                     aria-labelledby="home-tab">
                     <div class="dash-listingcontent dashboard-info">
                         <div class="dash-cards card">
@@ -306,7 +327,7 @@
                                                                 class="feather-eye"></i></a>
                                                         <a href="javascript:void(0)" class="action-btn btn-edit"><i
                                                                 class="feather-edit-3"></i></a>
-                                                        <a href="javascript:void(0)" class="action-btn btn-trash"><i
+                                                        <a (click)="SupprimerBien(BienImmo.id)" class="action-btn btn-trash crd"><i
                                                                 class="feather-trash-2"></i></a>
                                                     </div>
                                                 </td>
@@ -324,9 +345,10 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <!-- fin La liste des biens   -->
                 <!-- Debut des biens loues  -->
+
                 <div class="tab-pane fade show" [class.active]="isTabActive('loue')" id="loue" role="tabpanel"
                     aria-labelledby="loue-tab">
                     <div class="dash-listingcontent dashboard-info">
@@ -336,15 +358,17 @@
                             <!-- <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
                                     <i class="fa-solid fa-plus"></i> Ajouter un bien</a> -->
                             <!-- </div> -->
-                            <div class="card-body" >
+                            <div class="card-body">
                                 <div class="listing-search">
-                                    <ng-container *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0; else noBiensLocatiom">
+                                    <ng-container
+                                        *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0; else noBiensLocatiom">
                                         <h5>Mes biens qui sont loues</h5>
                                     </ng-container>
                                     <ng-template #noBiensLocatiom>
                                         <h5>Pas de biens en location</h5>
                                     </ng-template>
-                                    <div class="filter-content form-group" *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0">
+                                    <div class="filter-content form-group"
+                                        *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienLoue" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -451,9 +475,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <pagination-controls *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0" (pageChange)="p2 = $event"
-                                    previousLabel="Précédent" nextLabel="Suivant" class="pagination"
-                                    previousClass="pagination__previous" nextClass="pagination__next"
+                                <pagination-controls *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0"
+                                    (pageChange)="p2 = $event" previousLabel="Précédent" nextLabel="Suivant"
+                                    class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
                                     containerClass="pagination__container" pageClass="pagination__page"
                                     activeClassName="pagination__page--active"
                                     disabledClass="pagination__page--disabled" id="bienLoue"></pagination-controls>
@@ -462,6 +486,140 @@
                     </div>
                 </div>
                 <!-- fin des biens loues  -->
+                <!-- Debut des biens loues Agence  -->
+                <div class="tab-pane fade show" [class.active]="isTabActive('loueagence')" id="loueagence"
+                    role="tabpanel" aria-labelledby="loueagence-tab">
+                    <div class="dash-listingcontent dashboard-info">
+                        <div class="dash-cards card">
+                            <div class="card-body">
+                                <div class="listing-search">
+                                    <ng-container
+                                        *ngIf="bienTotalAgence && bienTotalAgence.length > 0; else noBiensLocatiom">
+                                        <h5>Mes biens qui sont loues</h5>
+                                    </ng-container>
+                                    <ng-template #noBiensLocatiom>
+                                        <h5>Pas de biens en location</h5>
+                                    </ng-template>
+                                    <div class="filter-content form-group"
+                                        *ngIf="bienTotalAgence && bienTotalAgence.length > 0">
+                                        <div class="group-img">
+                                            <input [(ngModel)]="searchTextBienLoue" type="text" class="form-control"
+                                                placeholder="Recherche...">
+                                            <i class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="sorting-div">
+                                        <div class="sortbyset">
+                                            <span class="sortbytitle">Trier par</span>
+                                            <div class="sorting-select">
+                                                <select class="form-control select" [(ngModel)]="searchText">
+                                                    <option value="" selected>Tout</option>
+                                                    <option>A louer</option>
+                                                    <option>A vendre</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="table-responsive" *ngIf="bienTotalAgence && bienTotalAgence.length > 0">
+                                    <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
+                                        id="listdata-table">
+                                        <thead>
+                                            <tr>
+                                                <th mat-sort-header="img" class="no-sort">Image</th>
+                                                <th mat-sort-header="details" class="no-sort">Details</th>
+                                                <th mat-sort-header="status">Statut</th>
+                                                <th mat-sort-header="view">Date</th>
+                                                <th mat-sort-header="Action">Locataires</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let BienImmo of bienTotalAgence | filter:searchTextBienLoue | paginate:{itemsPerPage :4, currentPage:p2,  id: 'bienLoueAgence'}">
+                                                <td>
+                                                    <div class="listingtable-img">
+                                                        <a (click)="goToDettailBien(BienImmo.id)">
+                                                            <div
+                                                                *ngIf="BienImmo.photos && BienImmo.photos.length > 0; else noImages">
+                                                                <img src="{{ generateImageUrl(BienImmo.photos[0].nom) }}"
+                                                                    class="img-fluid image-size" alt="blog-img">
+                                                            </div>
+                                                            <ng-template #noImages>
+                                                                <img src="{{ DEFAULT_IMAGE_URL }}"
+                                                                    class="img-fluid image-size" alt="default-img">
+                                                            </ng-template>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
+                                                            (click)="goToDettailBien(BienImmo.id)">{{ BienImmo.bien.nom
+                                                            ?
+                                                            BienImmo.bien.nom : BienImmo.bien.typeImmo.nom }}</a>
+                                                    </h6>
+                                                    <div class="listingtable-rate">
+                                                        <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                                                            href="javascript:void(0)" class="cat-icon">
+                                                            <i class="fa-regular fa-circle-stop"></i>
+                                                            {{BienImmo.bien.typeImmo.nom}}
+                                                        </a> <span class="discount-amt"
+                                                            *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
+                                                            formatPrice(BienImmo.bien.prix) }}
+                                                            FCFA</span>
+
+                                                    </div>
+                                                    <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.nom}} -
+                                                        {{BienImmo.bien.adresse.quartier}}
+                                                    </p>
+                                                </td>
+                                                <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
+                                                        class="status-text">{{BienImmo.statut}}</span></td>
+                                                <td><span class="views-count"
+                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        |
+                                                        date:"dd MMM yyyy":locale}}</span></td>
+                                                <td>
+                                                    <ul class="review-list">
+                                                        <li class="review-box">
+                                                            <div class="review-profile">
+                                                                <div class="review-img">
+                                                                    <img src="{{generateImageUrl(BienImmo.utilisateur.photo)}}"
+                                                                        class="img-fluid" alt="img"
+                                                                        (error)="handleAuthorImageError($event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="review-details">
+                                                                <div class="tes">
+                                                                    <div class="views-count">
+                                                                        {{BienImmo.utilisateur.nom}}</div>
+                                                                </div>
+                                                                <div>Tel : {{BienImmo.utilisateur.telephone}}</div>
+                                                                <!-- <p>ffff</p>																	 -->
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <pagination-controls *ngIf="bienTotalAgence && bienTotalAgence.length > 0"
+                                    (pageChange)="p2 = $event" previousLabel="Précédent" nextLabel="Suivant"
+                                    class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
+                                    containerClass="pagination__container" pageClass="pagination__page"
+                                    activeClassName="pagination__page--active"
+                                    disabledClass="pagination__page--disabled"
+                                    id="bienLoueAgence"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fin des biens loues Agence -->
 
                 <!-- Debut des biens vendus  -->
                 <div class="tab-pane fade show" [class.active]="isTabActive('vendu')" id="vendu" role="tabpanel"
@@ -475,13 +633,15 @@
                             <!-- </div> -->
                             <div class="card-body">
                                 <div class="listing-search">
-                                    <ng-container *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0; else noBiensVendu">
+                                    <ng-container
+                                        *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0; else noBiensVendu">
                                         <h5>Mes biens qui sont vendus</h5>
                                     </ng-container>
                                     <ng-template #noBiensVendu>
                                         <h5>Pas de biens vendus</h5>
                                     </ng-template>
-                                    <div class="filter-content form-group" *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0">
+                                    <div class="filter-content form-group"
+                                        *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -590,9 +750,9 @@
                                     </table>
 
                                 </div>
-                                <pagination-controls *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0" (pageChange)="p3 = $event"
-                                    previousLabel="Précédent" nextLabel="Suivant" class="pagination"
-                                    previousClass="pagination__previous" nextClass="pagination__next"
+                                <pagination-controls *ngIf="bienImmoDejaVendu && bienImmoDejaVendu.length > 0"
+                                    (pageChange)="p3 = $event" previousLabel="Précédent" nextLabel="Suivant"
+                                    class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
                                     containerClass="pagination__container" pageClass="pagination__page"
                                     activeClassName="pagination__page--active"
                                     disabledClass="pagination__page--disabled" id="bienVendu"></pagination-controls>
@@ -601,20 +761,23 @@
                     </div>
                 </div>
                 <!-- Fin des biens vendus  -->
-                <!-- Debut de mes locations  -->
-                <div class="tab-pane fade show" [class.active]="isTabActive('location')" id="location" role="tabpanel"
-                    aria-labelledby="location-tab">
+
+                <!-- Debut des biens vendus AGENCE  -->
+                <div class="tab-pane fade show" [class.active]="isTabActive('venduagence')" id="vendu" role="tabpanel"
+                    aria-labelledby="venduagence-tab">
                     <div class="dash-listingcontent dashboard-info">
                         <div class="dash-cards card">
                             <div class="card-body">
                                 <div class="listing-search">
-                                    <ng-container *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0; else noBiensLoue">
-                                        <h5>Mes biens que j'ai loue</h5>
+                                    <ng-container
+                                        *ngIf="bienVenduTotalAgence && bienVenduTotalAgence.length > 0; else noBiensVenduAgence">
+                                        <h5>Mes biens qui sont vendus</h5>
                                     </ng-container>
-                                    <ng-template #noBiensLoue>
-                                        <h5>Pas de biens loues</h5>
+                                    <ng-template #noBiensVenduAgence>
+                                        <h5>Pas de biens vendus</h5>
                                     </ng-template>
-                                    <div class="filter-content form-group"  *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                                    <div class="filter-content form-group"
+                                        *ngIf="bienVenduTotalAgence && bienVenduTotalAgence.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -622,7 +785,134 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                                <div class="table-responsive"
+                                    *ngIf="bienVenduTotalAgence && bienVenduTotalAgence.length > 0">
+                                    <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
+                                        id="listdata-table">
+                                        <thead>
+                                            <tr>
+                                                <th mat-sort-header="img" class="no-sort">Image</th>
+                                                <th mat-sort-header="details" class="no-sort">Details</th>
+                                                <th mat-sort-header="status">Statut</th>
+                                                <th mat-sort-header="view">Date</th>
+                                                <th mat-sort-header="Action">Acheteurs</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let BienImmo of bienVenduTotalAgence | filter:searchTextBienVendu | paginate:{itemsPerPage :4, currentPage:p3,  id: 'bienVenduAgence'}">
+                                                <td>
+                                                    <div class="listingtable-img">
+                                                        <a (click)="goToDettailBien(BienImmo.id)">
+                                                            <div
+                                                                *ngIf="BienImmo.photos && BienImmo.photos.length > 0; else noImages">
+                                                                <img src="{{ generateImageUrl(BienImmo.photos[0].nom) }}"
+                                                                    class="img-fluid image-size" alt="blog-img">
+                                                            </div>
+                                                            <ng-template #noImages>
+                                                                <img src="{{ DEFAULT_IMAGE_URL }}"
+                                                                    class="img-fluid image-size" alt="default-img">
+                                                            </ng-template>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
+                                                            (click)="goToDettailBien(BienImmo.id)">
+                                                            {{ BienImmo.bien.nom ? BienImmo.bien.nom :
+                                                            BienImmo.bien.typeImmo.nom }}
+                                                        </a>
+                                                    </h6>
+                                                    <div class="listingtable-rate">
+                                                        <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                                                            href="javascript:void(0)" class="cat-icon">
+                                                            <i class="fa-regular fa-circle-stop"></i>
+                                                            {{BienImmo.bien.typeImmo.nom}}
+                                                        </a> <span class="discount-amt"
+                                                            *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
+                                                            formatPrice(BienImmo.bien.prix) }}
+                                                            FCFA</span>
+
+                                                    </div>
+                                                    <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.nom}} -
+                                                        {{BienImmo.bien.adresse.quartier}}
+                                                    </p>
+                                                </td>
+                                                <td><span class="status-text"
+                                                        style="color: red;">{{BienImmo.statut}}</span></td>
+                                                <td><span class="views-count"
+                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        |
+                                                        date:"dd MMM yyyy":locale}}</span></td>
+                                                <td>
+                                                    <ul class="review-list">
+                                                        <li class="review-box">
+                                                            <div class="review-profile">
+                                                                <div class="review-img">
+                                                                    <img src="{{generateImageUrl(BienImmo.utilisateur.photo)}}"
+                                                                        class="img-fluid" alt="img"
+                                                                        (error)="handleAuthorImageError($event)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="review-details">
+                                                                <div class="tes">
+                                                                    <div class="views-count">
+                                                                        {{BienImmo.utilisateur.nom}}</div>
+                                                                </div>
+                                                                <div>Tel : {{BienImmo.utilisateur.telephone}}</div>
+                                                                <!-- <p>ffff</p>																	 -->
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <pagination-controls *ngIf="bienVenduTotalAgence && bienVenduTotalAgence.length > 0"
+                                    (pageChange)="p3 = $event" previousLabel="Précédent" nextLabel="Suivant"
+                                    class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
+                                    containerClass="pagination__container" pageClass="pagination__page"
+                                    activeClassName="pagination__page--active"
+                                    disabledClass="pagination__page--disabled"
+                                    id="bienVenduAgence"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin des biens AGENCE  -->
+
+                <!-- Debut de mes locations  -->
+                <div class="tab-pane fade show" [class.active]="isTabActive('location')" id="location" role="tabpanel"
+                    aria-labelledby="location-tab">
+                    <div class="dash-listingcontent dashboard-info">
+                        <div class="dash-cards card">
+                            <div class="card-body">
+                                <div class="listing-search">
+                                    <ng-container
+                                        *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0; else noBiensLoue">
+                                        <h5>Mes biens que j'ai loue</h5>
+                                    </ng-container>
+                                    <ng-template #noBiensLoue>
+                                        <h5>Pas de biens loues</h5>
+                                    </ng-template>
+                                    <div class="filter-content form-group"
+                                        *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                                        <div class="group-img">
+                                            <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
+                                                placeholder="Recherche...">
+                                            <i class="feather-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive"
+                                    *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
                                     <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                         id="listdata-table">
                                         <thead>
@@ -763,6 +1053,13 @@
                                                             <textarea name="contenu" [(ngModel)]="form.contenu"
                                                                 class="form-control" id="message-text"
                                                                 placeholder="Description"></textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label">Prix estimatif
+                                                                <span>*</span></label>
+                                                            <input type="number" pattern="[0-9]" class="form-control pass-input"
+                                                                name="prixestimatif" [(ngModel)]="form.prixestimatif"
+                                                                placeholder="FCFA" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <div class="row">
@@ -1029,15 +1326,17 @@
                     aria-labelledby="achete-tab">
                     <div class="dash-listingcontent dashboard-info">
                         <div class="dash-cards card">
-                            <div class="card-body" >
+                            <div class="card-body">
                                 <div class="listing-search">
-                                    <ng-container *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0; else noBiensAchete">
+                                    <ng-container
+                                        *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0; else noBiensAchete">
                                         <h5>Les biens que j'ai achete</h5>
                                     </ng-container>
                                     <ng-template #noBiensAchete>
                                         <h5>Pas de biens achetes</h5>
                                     </ng-template>
-                                    <div class="filter-content form-group" *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
+                                    <div class="filter-content form-group"
+                                        *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
                                         <div class="group-img">
                                             <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
                                                 placeholder="Recherche...">
@@ -1046,7 +1345,8 @@
                                     </div>
 
                                 </div>
-                                <div class="table-responsive" *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
+                                <div class="table-responsive"
+                                    *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
                                     <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                         id="listdata-table">
                                         <thead>
@@ -1592,7 +1892,6 @@
                                                                     <ng-container
                                                                         *ngIf="Reclamation.bien.photos.length === 0">
                                                                         <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                                            <!-- Répéter 4 fois -->
                                                                             <img class="img-fluid"
                                                                                 alt="Image par défaut"
                                                                                 src="assets/img/gallery/gallery1/gallery-1.jpg">
@@ -1610,6 +1909,15 @@
                                                                     <i style="color: #e98b11; font-weight: bold;"
                                                                         class="fa-solid fa-check"></i>
                                                                     Motif : {{Reclamation.contenu}}
+                                                                </div>
+                                                                <div class="m-3"
+                                                                    *ngIf="Reclamation && Reclamation.prix_estimatif">
+                                                                    <i style="color: #e98b11; font-weight: bold;"
+                                                                        class="fa-solid fa-check"></i>
+                                                                    Cout : <span
+                                                                        style="color: #e98b11; font-weight: bold;">
+                                                                        {{formatPrice(Reclamation.prix_estimatif) }}
+                                                                        FCFA </span>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col">
@@ -1641,77 +1949,20 @@
                                                                     </ul>
                                                                 </div>
                                                                 <div class="row mt-3">
-                                                                    <div class="col">
+                                                                    <div class="col"
+                                                                        *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
                                                                         <button type="button"
                                                                             class="btn btn-outline-danger"><i
                                                                                 class="fas fa-times"></i>
-                                                                            Annuler</button>
+                                                                            D'accord</button>
                                                                     </div>
-                                                                    <div class="col">
+                                                                    <div class="col"
+                                                                        *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
                                                                         <button type="button"
                                                                             class="btn btn-outline-success"
-                                                                            (click)="openProcessusModal(Reclamation.bien.id)"
-                                                                            data-bs-toggle="modal"
-                                                                            href="#exampleModalToggle"><i
+                                                                            (click)="LancerProcessusReparation(Reclamation.bien.id)"><i
                                                                                 class="fas fa-check"></i>
-                                                                            Accepter</button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal fade" id="exampleModalToggle"
-                                                                    aria-hidden="true"
-                                                                    aria-labelledby="exampleModalToggleLabel"
-                                                                    tabindex="-1">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title"
-                                                                                    id="exampleModalToggleLabel">
-                                                                                    Processus de reparation
-                                                                                </h5>
-                                                                                <button type="button" class="btn-close"
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Close"></button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form>
-                                                                                    <input type="hidden"
-                                                                                        [(ngModel)]="selectedBienImmoProcessusId"
-                                                                                        name="selectedBienImmoProcessusId">
-                                                                                    <div class="row">
-                                                                                        <div class="mb-3">
-                                                                                            <label for="recipient-name"
-                                                                                                class="col-form-label">Prix
-                                                                                                de la reparation
-                                                                                                <span
-                                                                                                    style="color: red;">*</span></label>
-                                                                                            <div
-                                                                                                class="pass-group group-img">
-                                                                                                <div
-                                                                                                    class="pass-group group-img">
-                                                                                                    <input type="number"
-                                                                                                        pattern="[0-9]"
-                                                                                                        name="somme"
-                                                                                                        [(ngModel)]="formProcessus.somme"
-                                                                                                        class="form-control pass-input"
-                                                                                                        required
-                                                                                                        aria-required="true"
-                                                                                                        placeholder="FCFA" />
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    class="btn btn-secondary"
-                                                                                    data-bs-dismiss="modal">Retour</button>
-                                                                                <button class="btn btn-primary"
-                                                                                    (click)="LancerProcessusReparation()">Lancer
-                                                                                    le processus de reparation</button>
-                                                                            </div>
-                                                                        </div>
+                                                                            Je prend</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1857,11 +2108,82 @@
                                                                     </ul>
                                                                 </div>
                                                                 <div class="row mt-3">
-                                                                    <button type="button"
-                                                                        (click)="ArreterProcessus(Reclamation.id)"
+                                                                    <button type="button" data-bs-toggle="modal"
+                                                                        data-bs-target="#modalArreterProcessus"
+                                                                        (click)="openProcessusModal(Reclamation.bien.id)"
                                                                         class="btn btn-outline-success"><i
                                                                             class="fas fa-check"></i>
                                                                         Arreter le processus</button>
+                                                                </div>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="modalArreterProcessus"
+                                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title"
+                                                                                    id="exampleModalLabel">Fiche de
+                                                                                    justification
+                                                                                </h5>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form>
+                                                                                    <input type="hidden"
+                                                                                        [(ngModel)]="selectedBienImmoProcessusId"
+                                                                                        name="selectedBienImmoProcessusId">
+                                                                                    <div class="mb-3">
+                                                                                        <div class="row">
+                                                                                            <div class=" featured-img1">
+                                                                                                <div
+                                                                                                    class="media-image">
+                                                                                                    <div class="row">
+                                                                                                        <div *ngFor="let imageUrl of image; let i = index"
+                                                                                                            class="col-lg-3 col-md-6 image-container m-1">
+                                                                                                            <img class=" image-size m-3"
+                                                                                                                [src]="imageUrl"
+                                                                                                                alt="Image {{ i }}" />
+                                                                                                            <button
+                                                                                                                class="close-button"
+                                                                                                                (click)="removeImage(i)">
+                                                                                                                <i
+                                                                                                                    class="fas fa-times close-icon"></i>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="settings-upload-btn">
+                                                                                                <input type="file"
+                                                                                                    id="photo"
+                                                                                                    name="photo"
+                                                                                                    (change)="onFileSelected($event)"
+                                                                                                    multiple
+                                                                                                    class="hide-input image-upload"
+                                                                                                    [disabled]="maxImageCount >=1" />
+                                                                                                <label for="file"
+                                                                                                    class="file-upload">Ajouter
+                                                                                                    la fiche</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Annuler</button>
+                                                                                <button type="button"
+                                                                                    class="btn btn-primary"
+                                                                                    (click)="ArreterProcessus()">Arreter
+                                                                                    le proccessus</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -2418,6 +2740,13 @@
                                                             <textarea name="contenu" [(ngModel)]="form.contenu"
                                                                 class="form-control" id="message-text"
                                                                 placeholder="Description"></textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label">Prix estimatif
+                                                                <span>*</span></label>
+                                                            <input type="number" pattern="[0-9]" class="form-control pass-input"
+                                                                name="prix_estimatif" [(ngModel)]="form.prix_estimatif"
+                                                                placeholder="FCFA" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <div class="row">
@@ -3280,10 +3609,82 @@
                                                                 </div>
                                                                 <div class="row mt-3">
                                                                     <button type="button"
-                                                                        (click)="ArreterProcessus(Reclamation.id)"
+                                                                        (click)="openProcessusModal(Reclamation.bien.id)"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modalArreterProcessus1"
                                                                         class="btn btn-outline-success"><i
                                                                             class="fas fa-check"></i>
                                                                         Arreter le processus</button>
+                                                                </div>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="modalArreterProcessus1"
+                                                                    tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title"
+                                                                                    id="exampleModalLabel">Fiche de
+                                                                                    justification
+                                                                                </h5>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form>
+                                                                                    <input type="hidden"
+                                                                                        [(ngModel)]="selectedBienImmoProcessusId"
+                                                                                        name="selectedBienImmoProcessusId">
+                                                                                    <div class="mb-3">
+                                                                                        <div class="row">
+                                                                                            <div class=" featured-img1">
+                                                                                                <div
+                                                                                                    class="media-image">
+                                                                                                    <div class="row">
+                                                                                                        <div *ngFor="let imageUrl of image; let i = index"
+                                                                                                            class="col-lg-3 col-md-6 image-container m-1">
+                                                                                                            <img class=" image-size m-3"
+                                                                                                                [src]="imageUrl"
+                                                                                                                alt="Image {{ i }}" />
+                                                                                                            <button
+                                                                                                                class="close-button"
+                                                                                                                (click)="removeImage(i)">
+                                                                                                                <i
+                                                                                                                    class="fas fa-times close-icon"></i>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="settings-upload-btn">
+                                                                                                <input type="file"
+                                                                                                    id="photo"
+                                                                                                    name="photo"
+                                                                                                    (change)="onFileSelected($event)"
+                                                                                                    multiple
+                                                                                                    class="hide-input image-upload"
+                                                                                                    [disabled]="maxImageCount >=1" />
+                                                                                                <label for="file"
+                                                                                                    class="file-upload">Ajouter
+                                                                                                    la fiche</label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Annuler</button>
+                                                                                <button type="button"
+                                                                                    class="btn btn-primary"
+                                                                                    (click)="ArreterProcessus()">Arreter
+                                                                                    le processus</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </li>

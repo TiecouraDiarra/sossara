@@ -53,8 +53,9 @@ export class MessagesComponent implements OnInit {
 
   selectedConversation: Conversation | null = null;
   nomConversation: any
-   // Déclarez la variable firstConversation
-   firstConversation: any; // Vous pouvez remplacer 'any' par le type de données approprié pour vos conversations
+  photoUserConversation: any
+  // Déclarez la variable firstConversation
+  firstConversation: any; // Vous pouvez remplacer 'any' par le type de données approprié pour vos conversations
   newMessage: string = '';
   filteredMessages: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
   filteredMessagesUserCurrent: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
@@ -71,7 +72,7 @@ export class MessagesComponent implements OnInit {
     @Inject(LOCALE_ID) private localeId: string,
     private mercureService: MercureService,
     private router: Router,
-  ) { 
+  ) {
     this.locale = localeId;
   }
   ngOnInit(): void {
@@ -81,7 +82,7 @@ export class MessagesComponent implements OnInit {
       console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
-      }else if(this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
     }
@@ -92,15 +93,15 @@ export class MessagesComponent implements OnInit {
 
     //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
     this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
-      this.conversations = data.conversation;
+      this.conversations = data.conversation.reverse();
       this.IdConver = this.conversations.id
       console.log(this.conversations);
-      console.log(this.conversations[2].photo);
+      console.log(this.conversations.nom);
 
-       // Initialisation de la première conversation ici, par exemple :
-    if (this.conversations && this.conversations.length > 0) {
-      this.firstConversation = this.conversations[0]; // Supposons que conversations soit votre tableau de conversations
-    }
+      // Initialisation de la première conversation ici, par exemple :
+      if (this.conversations && this.conversations.length > 0) {
+        this.firstConversation = this.conversations[0]; // Supposons que conversations soit votre tableau de conversations
+      }
     }
     );
 
@@ -147,23 +148,45 @@ export class MessagesComponent implements OnInit {
 
   }
 
+  selectedUserName: string = '';
+  // Ajoutez une variable de drapeau pour suivre si une conversation est sélectionnée
+  conversationSelectionnee = false;
+
+
 
   onConversationSelected(conversationId: number) {
     this.selectedConversationId = conversationId;
+    // Marquez la conversation comme sélectionnée
+    this.conversationSelectionnee = true;
 
     // Appel au service pour récupérer les détails de la conversation sélectionnée
     this.serviceMessage.AfficherUneConversation(this.selectedConversationId).subscribe(data => {
       this.messages = data.reverse();
-      this.filteredMessagesUserCurrent = this.messages.filter((message: { mine: boolean; }) => message.mine === true);
-      this.filteredMessages = this.messages.filter((message: { mine: boolean; }) => message.mine === false);
+      // this.filteredMessagesUserCurrent = this.messages.filter((message: { mine: boolean; }) => message.mine === true);
+      // this.filteredMessages = this.messages.filter((message: { mine: boolean; }) => message.mine === false);
       this.nombreconversation = data.length;
       console.log(this.messages);
       // Stockez le nom de la conversation dans this.nomConversation
-      this.nomConversation = data[0].nomConversation; // Supposons que le nom de la conversation est dans data[0]
-      
-      console.log(this.messages);
+      // this.nomConversation = data[0].nomConversation; // Supposons que le nom de la conversation est dans data[0]
+
+      // Mettez à jour le nom de l'utilisateur sélectionné
+      // this.selectedUserName = data[0].nomUtilisateur; // Supposons que le nom de l'utilisateur est dans data[0]
+
+      // console.log(this.messages);
+      // console.log(this.conversations.nom);
+
+      // Recherchez la conversation sélectionnée dans la liste des conversations
+      const selectedConversation = this.conversations.find((conversation: { conversationId: number; }) => conversation.conversationId === conversationId);
+
+      // Vérifiez si la conversation a été trouvée
+      if (selectedConversation) {
+        this.nomConversation = selectedConversation.nom;
+        this.photoUserConversation = selectedConversation.photo;
+        // Le nom de l'utilisateur est déjà inclus dans la conversation, vous pouvez l'utiliser ici
+      }
 
       console.log(this.nomConversation);
+      console.log(this.photoUserConversation);
     });
   }
 
@@ -184,6 +207,7 @@ export class MessagesComponent implements OnInit {
         data => {
           console.log("Message envoyé avec succès:", data);
           // this.isSuccess = false;
+          this.MessageForm.content = ''
 
           // Appel au service pour récupérer les détails de la conversation sélectionnée
           this.onConversationSelected(this.selectedConversationId)

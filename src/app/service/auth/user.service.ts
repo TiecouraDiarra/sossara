@@ -126,11 +126,11 @@ export class UserService {
 
   //MODIFIER PROFIL USER
   modifierProfil(
-    nom: string, 
-    telephone: string, 
-    email: string, 
-    dateNaissance:string
-    ): Observable<any> {
+    nom: string,
+    telephone: string,
+    email: string,
+    dateNaissance: string
+  ): Observable<any> {
     const formData = new FormData();
     const headers = this.getHeaders();
     console.log("Nom de user : " + nom);
@@ -144,8 +144,25 @@ export class UserService {
     formData.append('dateNaissance', dateNaissance);
     return this.http.post(
       URL_BASE + '/user/update',
-        formData,
+      formData,
       { headers }
+    );
+  }
+
+  //ENVOIE D'EMAIL POUR CHANGER LE PASSWORD
+  forgotPassword(email: string): Observable<any> {
+    // const headers = this.getHeaders();
+    return this.http.post(`${URL_BASE}/user/reset-password`, {
+      email
+    });
+  }
+
+  //CHANGER PASSWORD APRES OUBLIE
+  ChangerPassword(token: string, password: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post(`${URL_BASE}/rdv/${token}`, {
+      password
+    }
     );
   }
 
