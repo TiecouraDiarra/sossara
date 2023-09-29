@@ -64,7 +64,7 @@ export class HeaderNineComponent {
         this.isLoggedIn = true;
         // this.roles = this.storageService.getUser().roles;
         this.roles = this.storageService.getUser().user.role;
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       }
@@ -94,12 +94,12 @@ export class HeaderNineComponent {
         if (result.isConfirmed) {
           this.authService.logout().subscribe({
             next: res => {
-              console.log(res);
+              // console.log(res);
               this.storageService.clean();
               this.router.navigateByUrl("/auth/connexion")
             },
             error: err => {
-              console.log(err);
+              // console.log(err);
             }
           });
         }

@@ -79,7 +79,7 @@ export class MessagesComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       } else if (this.roles[0] == "ROLE_AGENCE") {
@@ -95,8 +95,8 @@ export class MessagesComponent implements OnInit {
     this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
       this.conversations = data.conversation.reverse();
       this.IdConver = this.conversations.id
-      console.log(this.conversations);
-      console.log(this.conversations.nom);
+      // console.log(this.conversations);
+      // console.log(this.conversations.nom);
 
       // Initialisation de la première conversation ici, par exemple :
       if (this.conversations && this.conversations.length > 0) {
@@ -135,12 +135,12 @@ export class MessagesComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            console.log(res);
+            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            console.log(err);
+            // console.log(err);
           }
         });
       }
@@ -165,7 +165,7 @@ export class MessagesComponent implements OnInit {
       // this.filteredMessagesUserCurrent = this.messages.filter((message: { mine: boolean; }) => message.mine === true);
       // this.filteredMessages = this.messages.filter((message: { mine: boolean; }) => message.mine === false);
       this.nombreconversation = data.length;
-      console.log(this.messages);
+      // console.log(this.messages);
       // Stockez le nom de la conversation dans this.nomConversation
       // this.nomConversation = data[0].nomConversation; // Supposons que le nom de la conversation est dans data[0]
 
@@ -185,8 +185,8 @@ export class MessagesComponent implements OnInit {
         // Le nom de l'utilisateur est déjà inclus dans la conversation, vous pouvez l'utiliser ici
       }
 
-      console.log(this.nomConversation);
-      console.log(this.photoUserConversation);
+      // console.log(this.nomConversation);
+      // console.log(this.photoUserConversation);
     });
   }
 
@@ -205,7 +205,7 @@ export class MessagesComponent implements OnInit {
       // Appelez la méthode Fairenotification() avec le contenu et l'ID
       this.serviceMessage.EnvoyerMessage(this.MessageForm.content, this.selectedConversationId).subscribe(
         data => {
-          console.log("Message envoyé avec succès:", data);
+          // console.log("Message envoyé avec succès:", data);
           // this.isSuccess = false;
           this.MessageForm.content = ''
 
@@ -213,12 +213,12 @@ export class MessagesComponent implements OnInit {
           this.onConversationSelected(this.selectedConversationId)
         },
         error => {
-          console.error("Erreur lors de l'envoi du message :", error);
+          // console.error("Erreur lors de l'envoi du message :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
+      // console.error("Token JWT manquant");
     }
 
     //Faire un notification

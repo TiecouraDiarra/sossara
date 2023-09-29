@@ -197,21 +197,25 @@ export class MyListingComponent implements OnInit {
   openReclamationModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
-    console.log(this.selectedBienImmoId);
+    // console.log(this.selectedBienImmoId);
   }
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openArreterModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
-    console.log(this.selectedBienImmoId);
+    // console.log(this.selectedBienImmoId);
+  }
+
+  formFiche: any = {
+    photo: null,
   }
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openProcessusModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoProcessusId = bienImmoId;
-    console.log(this.selectedBienImmoProcessusId);
+    // console.log(this.selectedBienImmoProcessusId);
 
   }
 
@@ -219,7 +223,7 @@ export class MyListingComponent implements OnInit {
   openFactureModalVente(bienImmoVenteId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoVenduId = bienImmoVenteId;
-    console.log(this.selectedBienImmoVenduId);
+    // console.log(this.selectedBienImmoVenduId);
     // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
     // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
@@ -227,7 +231,7 @@ export class MyListingComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherTransactionParId(this.selectedBienImmoVenduId).subscribe(data => {
       this.transactionVendue = data.biens[0];
-      console.log(this.transactionVendue);
+      // console.log(this.transactionVendue);
     });
 
   }
@@ -236,7 +240,7 @@ export class MyListingComponent implements OnInit {
   openFactureModalLouer(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedFactureId = bienImmoId;
-    console.log(this.selectedFactureId);
+    // console.log(this.selectedFactureId);
     // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
     // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
@@ -244,7 +248,7 @@ export class MyListingComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherCandidatureAccepter(this.selectedFactureId).subscribe(data => {
       this.transaction = data.biens[0];
-      console.log(this.transaction);
+      // console.log(this.transaction);
     });
 
   }
@@ -268,7 +272,7 @@ export class MyListingComponent implements OnInit {
     this.locale = localeId;
     this.electronics = this.DataService.electronicsList,
       this.User = this.storageService.getUser();
-    console.log(this.User);
+    // console.log(this.User);
     this.today = new Date();
     // egisterLocaleData(localeFr); // Enregistrez la locale française
   }
@@ -284,7 +288,7 @@ export class MyListingComponent implements OnInit {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          console.log(this.image);
+          // console.log(this.image);
           this.maxImageCount = this.image.length
         };
         reader.readAsDataURL(file);
@@ -307,7 +311,7 @@ export class MyListingComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
         this.selectedTab = 'home';
@@ -322,12 +326,12 @@ export class MyListingComponent implements OnInit {
       }
     }
     this.User = this.storageService.getUser().user.id;
-    console.log(this.User);
+    // console.log(this.User);
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.biens.reverse();
-      console.log(this.bienImmo);
+      // console.log(this.bienImmo);
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: { id: string | number; }) => {
         // Charger le nombre de "J'aime" pour chaque bien
@@ -354,10 +358,10 @@ export class MyListingComponent implements OnInit {
       this.bienImmoAgence = data.biens_agences;
       this.bienImmoAgent = data.biens_agents;
       this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
-      console.log(this.test);
-      console.log(this.bienImmoAgence);
-      console.log(this.bienImmoAgent);
-      console.log(this.bienImmoAgenceTotal);
+      // console.log(this.test);
+      // console.log(this.bienImmoAgence);
+      // console.log(this.bienImmoAgent);
+      // console.log(this.bienImmoAgenceTotal);
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
         this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
@@ -373,19 +377,19 @@ export class MyListingComponent implements OnInit {
     //AFFICHER LA LISTE DES PROBLEMES
     this.serviceBienImmo.AfficherLIsteProbleme().subscribe(data => {
       this.probleme = data.type_problemes;
-      console.log(this.probleme);
+      // console.log(this.probleme);
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
     this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
       this.reclamationProcessusLance = data.reparations.reverse();
-      console.log(this.reclamationProcessusLance);
+      // console.log(this.reclamationProcessusLance);
     });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
     this.serviceBienImmo.AfficherBienImmoDejaLoueParUser().subscribe(data => {
       this.bienImmoDejaLoue = data.biens.reverse();
-      console.log(this.bienImmoDejaLoue);
+      // console.log(this.bienImmoDejaLoue);
     });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR AVEC AGENCE
@@ -394,7 +398,7 @@ export class MyListingComponent implements OnInit {
       this.bienagent = data.agent_bien;
       this.bienImmoDejaLoueAgence = data.biens;
       this.bienTotalAgence = [...this.bienagent, ...this.bienImmoDejaLoueAgence];
-      console.log(this.bienTotalAgence);
+      // console.log(this.bienTotalAgence);
 
     });
 
@@ -404,41 +408,41 @@ export class MyListingComponent implements OnInit {
       this.bienVenduagent = data.agent_bien;
       this.bienImmoDejaVenduAgence = data.biens;
       this.bienVenduTotalAgence = [...this.bienVenduagent, ...this.bienImmoDejaVenduAgence];
-      console.log(this.bienVenduTotalAgence);
+      // console.log(this.bienVenduTotalAgence);
 
     });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
       this.bienImmoDejaLoueLocataire = data.biens.reverse();
-      console.log(this.bienImmoDejaLoueLocataire);
+      // console.log(this.bienImmoDejaLoueLocataire);
     });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
     this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
       this.bienImmoUserAAcheter = data.biens.reverse();
-      console.log(this.bienImmoUserAAcheter);
+      // console.log(this.bienImmoUserAAcheter);
     });
 
 
     //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.attributes.reverse();
-      console.log(this.reclamation);
+      // console.log(this.reclamation);
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationFaitesParUser().subscribe(data => {
       this.reclamationUser = data.mes_reclamations.reverse();
       // this.photos = this.reclamation.bien;
-      console.log(this.reclamationUser);
+      // console.log(this.reclamationUser);
       // console.log(this.photos);
     });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
     this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
       this.bienImmoDejaVendu = data.biens.reverse();
-      console.log(this.bienImmoDejaVendu);
+      // console.log(this.bienImmoDejaVendu);
     });
 
   }
@@ -465,7 +469,7 @@ export class MyListingComponent implements OnInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['details-bien', id])
   }
 
@@ -490,12 +494,12 @@ export class MyListingComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            console.log(res);
+            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            console.log(err);
+            // console.log(err);
           }
         });
       }
@@ -536,17 +540,17 @@ export class MyListingComponent implements OnInit {
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
           this.serviceBienImmo.FaireReclamation(this.form.contenu, this.form.type, this.form.prix_estimatif, this.selectedBienImmoId, this.form.photo).subscribe(
             data => {
-              console.log("Reclamation envoyée avec succès:", data);
+              // console.log("Reclamation envoyée avec succès:", data);
               // this.isSuccess = false;
               this.popUpConfirmation();
             },
             error => {
-              console.error("Erreur lors de l'envoi de la reclamation :", error);
+              // console.error("Erreur lors de l'envoi de la reclamation :", error);
               // Gérez les erreurs ici
             }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -623,17 +627,17 @@ export class MyListingComponent implements OnInit {
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
           this.serviceBienImmo.LancerProcessusReparation(id).subscribe(
             data => {
-              console.log("Processus lancé avec succès:", data);
+              // console.log("Processus lancé avec succès:", data);
               // this.isSuccess = false;
               this.popUpConfirmationProcessus();
             },
             error => {
-              console.error("Erreur lors du lamcement du processus :", error);
+              // console.error("Erreur lors du lamcement du processus :", error);
               // Gérez les erreurs ici
             }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -689,13 +693,14 @@ export class MyListingComponent implements OnInit {
       //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
       this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
         this.reclamationProcessusLance = data.reparations.reverse();
-        console.log(this.reclamationProcessusLance);
+        // console.log(this.reclamationProcessusLance);
       });
     })
   }
 
   //METHODE PERMETTANT D'ARRETER LE PROCESSUS DE REPARATION
   ArreterProcessus(): void {
+    const { photo } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -721,19 +726,19 @@ export class MyListingComponent implements OnInit {
 
 
           // Appelez la méthode ArreterProcessus() avec l'ID
-          this.serviceBienImmo.ArreterProcessus(this.selectedBienImmoProcessusId).subscribe(
+          this.serviceBienImmo.ArreterProcessusNew(this.selectedBienImmoProcessusId, photo).subscribe(
             data => {
-              console.log("Processus arreté avec succès:", data);
+              // console.log("Processus arreté avec succès:", data);
               // this.isSuccess = false;
               this.popUpConfirmationArreteProcessus();
             },
             error => {
-              console.error("Erreur lors de l'arret du processus :", error);
+              // console.error("Erreur lors de l'arret du processus :", error);
               // Gérez les erreurs ici
             }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -766,23 +771,23 @@ export class MyListingComponent implements OnInit {
           // Appelez la méthode PrendreRdv() avec le contenu et l'ID
           this.serviceBienImmo.SupprimerBien(id).subscribe({
             next: (data) => {
-              console.log("Bien supprimé avec succès:", data);
+              // console.log("Bien supprimé avec succès:", data);
               // this.errorMessage = 'Candidature envoyée avec succès';
               // this.isCandidatureSent = true;
               // Afficher le premier popup de succès
               this.popUpConfirmationSuppression();
             },
             error: (err) => {
-              console.error("Erreur lors de la suppression :", err);
+              // console.error("Erreur lors de la suppression :", err);
               this.errorMessage = err.error.message;
-              console.error(this.errorMessage);
+              // console.error(this.errorMessage);
               // this.isError = true
               // Gérez les erreurs ici
             }
           }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         // L'utilisateur a annulé l'action
@@ -822,7 +827,7 @@ export class MyListingComponent implements OnInit {
           //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.biens.reverse();
-      console.log(this.bienImmo);
+      // console.log(this.bienImmo);
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: { id: string | number; }) => {
         // Charger le nombre de "J'aime" pour chaque bien
@@ -849,10 +854,10 @@ export class MyListingComponent implements OnInit {
       this.bienImmoAgence = data.biens_agences;
       this.bienImmoAgent = data.biens_agents;
       this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
-      console.log(this.test);
-      console.log(this.bienImmoAgence);
-      console.log(this.bienImmoAgent);
-      console.log(this.bienImmoAgenceTotal);
+      // console.log(this.test);
+      // console.log(this.bienImmoAgence);
+      // console.log(this.bienImmoAgent);
+      // console.log(this.bienImmoAgenceTotal);
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
         this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {

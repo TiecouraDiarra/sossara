@@ -58,13 +58,13 @@ export class BlogGridSidebarComponent {
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.typebien = data.type;
-      console.log(this.typebien);
+      // console.log(this.typebien);
     });
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
       this.blog = data.blogs;
-      console.log(this.blog);
+      // console.log(this.blog);
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO
@@ -75,21 +75,21 @@ export class BlogGridSidebarComponent {
       // Extraction des trois biens immobiliers les plus récents
       this.bienImmo = data.biens.slice(0, 3);
     
-      console.log(this.bienImmo);
-      console.log(data);
-      console.log(data.biens.length);
+      // console.log(this.bienImmo);
+      // console.log(data);
+      // console.log(data.biens.length);
     });
     
   }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS D'UN BLOG
   goToDettailBlog(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['blog-details', id])
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['details-bien', id])
   }
 

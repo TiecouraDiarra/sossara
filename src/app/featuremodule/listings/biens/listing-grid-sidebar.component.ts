@@ -199,13 +199,13 @@ export class ListingGridSidebarComponent {
       this.region = data.region.reverse();
       this.commune = data.commune;
       this.typebien = data.type;
-      console.log(this.adresse);
+      // console.log(this.adresse);
     });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.routerr.navigate(['details-bien', id])
   }
 
@@ -219,7 +219,7 @@ export class ListingGridSidebarComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log("Bien aimé avec succès:", data);
+          // console.log("Bien aimé avec succès:", data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
@@ -233,12 +233,12 @@ export class ListingGridSidebarComponent {
           }
         },
         error => {
-          console.error("Erreur lors du like :", error);
+          // console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
+      // console.error("Token JWT manquant");
     }
   }
 

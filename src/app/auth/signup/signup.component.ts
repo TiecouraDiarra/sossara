@@ -69,7 +69,7 @@ export class SignupComponent {
         reader.onload = (e: any) => {
           this.images.push(file);
           this.image.push(e.target.result);
-          console.log(this.image);
+          // console.log(this.image);
           
 
         };
@@ -153,14 +153,14 @@ export class SignupComponent {
         if (result.isConfirmed) {
           this.authService.register(nom, email, password, telephone, dateNaissance, nom_doc,num_doc,roles,photo).subscribe({
             next: (data) => {
-              console.log(data);
+              // console.log(data);
               // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
               this.popUpConfirmation();
             },
             error: (err) => {
-              console.log(err);
+              // console.log(err);
               this.errorMessage = err.error.message;
               this.isSignUpFailed = true;
             },

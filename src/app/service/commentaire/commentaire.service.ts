@@ -39,9 +39,9 @@ export class commentaireService {
     const headers = this.getHeaders();
     // const data = new FormData();
     // data.append("contenu", contenu)
-    console.log(id)
-    console.log(headers)
-    console.log(contenu)
+    // console.log(id)
+    // console.log(headers)
+    // console.log(contenu)
     return this.http.post(`${URL_BASE}/commentaire/${id}`, {
       contenu
     }, { headers });

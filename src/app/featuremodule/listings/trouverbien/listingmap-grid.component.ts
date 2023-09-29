@@ -201,7 +201,7 @@ export class ListingmapGridComponent implements OnInit {
           if (typeof bien.id === 'number') {
             this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
           }
-          console.log(this.NombreJaime)
+          // console.log(this.NombreJaime)
           // Charger l'état de favori depuis localStorage
           const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
           if (isFavorite === 'true') {
@@ -211,7 +211,7 @@ export class ListingmapGridComponent implements OnInit {
           }
         })
       });
-      console.log(this.bienImmo);
+      // console.log(this.bienImmo);
     }
     );
     //AFFICHER LA LISTE DES COMMODITES
@@ -221,7 +221,7 @@ export class ListingmapGridComponent implements OnInit {
       this.region = data.region.reverse();
       this.commune = data.commune;
       this.typebien = data.type;
-      console.log(this.adresse);
+      // console.log(this.adresse);
     });
 
     // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
@@ -229,7 +229,7 @@ export class ListingmapGridComponent implements OnInit {
       if (Array.isArray(data.biens)) {
         // Assurez-vous que data.biens est un tableau avant d'appeler map
         this.bienImmoMap = data.biens;
-        console.log(this.bienImmoMap);
+        // console.log(this.bienImmoMap);
 
         // Convertissez les données de bien immobilier en marqueurs Google Maps
         this.overlays = this.bienImmoMap.map((bien: any) => {
@@ -255,7 +255,7 @@ export class ListingmapGridComponent implements OnInit {
           title: 'Votre position actuelle'
         }));
       } else {
-        console.error('Les données de biens immobiliers ne sont pas au format attendu (tableau).');
+        // console.error('Les données de biens immobiliers ne sont pas au format attendu (tableau).');
       }
     });
 
@@ -337,7 +337,7 @@ export class ListingmapGridComponent implements OnInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['details-bien', id])
   }
 
@@ -405,7 +405,7 @@ export class ListingmapGridComponent implements OnInit {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log("Bien aimé avec succès:", data);
+          // console.log("Bien aimé avec succès:", data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
@@ -419,12 +419,12 @@ export class ListingmapGridComponent implements OnInit {
           }
         },
         error => {
-          console.error("Erreur lors du like :", error);
+          // console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
+      // console.error("Token JWT manquant");
     }
   }
 }

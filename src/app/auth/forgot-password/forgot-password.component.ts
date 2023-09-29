@@ -46,7 +46,7 @@ export class ForgotPasswordComponent {
         swalWithBootstrapButtons.fire(
           "",
           `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${data.message}</h1>`,
-          "error"
+          "success"
         );
       },(error)=>{
         const errorMessage = error.errorw && error.error.message ? error.error.message : 'Erreur inconnue';

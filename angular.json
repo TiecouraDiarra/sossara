@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/listee-angular",
+            "outputPath": "dist/sossara",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [

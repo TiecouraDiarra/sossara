@@ -362,7 +362,7 @@ export class HomeNineComponent {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       }
@@ -381,7 +381,7 @@ export class HomeNineComponent {
       this.nombreZone = data.region.length;
       this.commune = data.commune;
       this.typebien = data.type;
-      console.log(this.commodite);
+      // console.log(this.commodite);
     });
 
     //LE NOMBRE DE BIENS LOUES
@@ -400,8 +400,8 @@ export class HomeNineComponent {
     this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe(data => {
       this.bienImmoPlusVue = data.biens;
       this.NombreFavory = data.biens.favoris
-      console.log(this.bienImmoPlusVue);
-      console.log(this.NombreFavory);
+      // console.log(this.bienImmoPlusVue);
+      // console.log(this.NombreFavory);
       // Suppose que BienImo est un élément de votre bienImmo
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       // Parcourir la liste des biens immobiliers
@@ -429,8 +429,8 @@ export class HomeNineComponent {
     this.serviceUser.AfficherLaListeAgence().subscribe(data => {
       this.agence = data.agences.reverse();
       this.nombreAgence = data.agences.length;
-      console.log(this.nombreAgence);
-      console.log(this.agence);
+      // console.log(this.nombreAgence);
+      // console.log(this.agence);
       // Parcourir la liste des biens immobiliers
       this.agence.forEach((agence: { id: number; }) => {
         // Charger le nombre de "J'aime" pour chaque bien
@@ -439,7 +439,7 @@ export class HomeNineComponent {
           this.bienImmoAgent = data.biens_agents;
           this.bienImmo = [...this.bienImmoAgence, ...this.bienImmoAgent];
           this.NombreBienParAgence = this.bienImmo.len;
-          console.log(this.NombreBienParAgence);
+          // console.log(this.NombreBienParAgence);
           if (typeof agence.id === 'number') {
             this.NombreBienCount[agence.id] = this.NombreBienParAgence;
           }
@@ -452,23 +452,23 @@ export class HomeNineComponent {
     this.serviceBienImmo.AfficherLaListeBienImmoRecentAlouer().subscribe(data => {
       this.nombreBienLoue = data.biens.length;
       this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
-      console.log(this.BienLoueRecens);
-      console.log(data.biens);
-      console.log(this.nombreBienLoue);
+      // console.log(this.BienLoueRecens);
+      // console.log(data.biens);
+      // console.log(this.nombreBienLoue);
     }
     );
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
       this.nombreBienVendre = data.biens.length;
       // console.log(this.nombreBienVendre);
-      console.log(data.biens);
+      // console.log(data.biens);
     }
     )
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
       this.blog = data.blogs;
-      console.log(this.blog);
+      // console.log(this.blog);
     });
   }
   //METHODE PERMETTANT D'AIMER UN BIEN 
@@ -481,7 +481,7 @@ export class HomeNineComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log("Bien aimé avec succès:", data);
+          // console.log("Bien aimé avec succès:", data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
@@ -497,8 +497,8 @@ export class HomeNineComponent {
           this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe(data => {
             this.bienImmoPlusVue = data.biens;
             this.NombreFavory = data.biens.favoris
-            console.log(this.bienImmoPlusVue);
-            console.log(this.NombreFavory);
+            // console.log(this.bienImmoPlusVue);
+            // console.log(this.NombreFavory);
             // Suppose que BienImo est un élément de votre bienImmo
             // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
             // Parcourir la liste des biens immobiliers
@@ -524,7 +524,7 @@ export class HomeNineComponent {
           );
         },
         error => {
-          console.error("Erreur lors du like :", error);
+          // console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
@@ -534,13 +534,13 @@ export class HomeNineComponent {
   }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['details-bien', id])
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
   goToDettailCommune(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['bienparcommune', id])
   }
   //FORMATER LE PRIX
@@ -567,14 +567,14 @@ export class HomeNineComponent {
       // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
       this.serviceBienImmo.OuvrirConversation(id).subscribe({
         next: (data) => {
-          console.log("Conversation ouverte avec succès:", data);
+          // console.log("Conversation ouverte avec succès:", data);
           this.router.navigate([routes.messages]);
           // this.isSuccess = true;
           // this.errorMessage = 'Conversation ouverte avec succès';
           // this.pathConversation();
         },
         error: (err) => {
-          console.error("Erreur lors de l'ouverture de la conversation:", err);
+          // console.error("Erreur lors de l'ouverture de la conversation:", err);
           this.errorMessage = err.error.message;
           // this.isError = true
           // Gérez les erreurs ici
@@ -582,7 +582,7 @@ export class HomeNineComponent {
       }
       );
     } else {
-      console.error("Token JWT manquant");
+      // console.error("Token JWT manquant");
       this.router.navigateByUrl("/auth/connexion")
     }
     // if (this.storageService.isLoggedIn()) {
@@ -594,13 +594,13 @@ export class HomeNineComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS AGENCE
   goToDettailAgence(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['detailsagence', id])
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS D'UN BLOG
   goToDettailBlog(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['blog-details', id])
   }
 

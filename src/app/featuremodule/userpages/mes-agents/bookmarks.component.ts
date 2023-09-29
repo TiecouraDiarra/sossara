@@ -95,7 +95,7 @@ export class BookmarksComponent implements OnInit {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
       this.nomAgence = this.storageService.getUser().user.username
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       } else if (this.roles[0] == "ROLE_AGENCE") {
@@ -106,7 +106,7 @@ export class BookmarksComponent implements OnInit {
     //AFFICHER LA LISTE DES AGENTS PAR AGENCE
     this.agenceService.ListeAgentParAgence().subscribe(data => {
       this.agent = data.agents.reverse();
-      console.log(this.agent);
+      // console.log(this.agent);
     });
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
@@ -176,12 +176,12 @@ export class BookmarksComponent implements OnInit {
             ).subscribe(
               (data) => {
                 // La réponse de la requête réussie est gérée ici
-                console.log("Agent ajouté avec succès:", data);
+                // console.log("Agent ajouté avec succès:", data);
                 this.popUpConfirmationAjouter();
               },
               (error) => {
                 // Gérez les erreurs ici
-                console.error("Erreur lors de l'ajout d'un agent :", error);
+                // console.error("Erreur lors de l'ajout d'un agent :", error);
 
                 // Affichez un message d'erreur à l'utilisateur si nécessaire
                 // this.errorMessage = "Une erreur s'est produite lors de l'ajout de l'agent.";
@@ -195,7 +195,7 @@ export class BookmarksComponent implements OnInit {
         )
       }
     } else {
-      console.error("Token JWT manquant");
+      // console.error("Token JWT manquant");
     }
   }
 
@@ -228,7 +228,7 @@ export class BookmarksComponent implements OnInit {
       //AFFICHER LA LISTE DES AGENTS PAR AGENCE
       this.agenceService.ListeAgentParAgence().subscribe(data => {
         this.agent = data.agents.reverse();
-        console.log(this.agent);
+        // console.log(this.agent);
       });
 
 
@@ -237,7 +237,7 @@ export class BookmarksComponent implements OnInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS AGENT
   goToDettailAgent(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.routerr.navigate(['details-agent', id])
   }
 
@@ -268,23 +268,23 @@ export class BookmarksComponent implements OnInit {
           // Appelez la méthode PrendreRdv() avec le contenu et l'ID
           this.serviceAgence.SupprimerAgent(id).subscribe({
             next: (data) => {
-              console.log("Agent supprimé avec succès:", data);
+              // console.log("Agent supprimé avec succès:", data);
               // this.errorMessage = 'Candidature envoyée avec succès';
               // this.isCandidatureSent = true;
               // Afficher le premier popup de succès
               this.popUpConfirmation();
             },
             error: (err) => {
-              console.error("Erreur lors de la suppression :", err);
+              // console.error("Erreur lors de la suppression :", err);
               this.errorMessage = err.error.message;
-              console.error(this.errorMessage);
+              // console.error(this.errorMessage);
               // this.isError = true
               // Gérez les erreurs ici
             }
           }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         // L'utilisateur a annulé l'action
@@ -324,7 +324,7 @@ export class BookmarksComponent implements OnInit {
       //AFFICHER LA LISTE DES AGENTS PAR AGENCE
       this.agenceService.ListeAgentParAgence().subscribe(data => {
         this.agent = data.agents.reverse();
-        console.log(this.agent);
+        // console.log(this.agent);
       });
 
 

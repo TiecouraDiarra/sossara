@@ -23,14 +23,14 @@ export class FooterComponent implements OnInit {
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.commune = [data.commune.reverse()[0], data.commune.reverse()[1], data.commune.reverse()[2]];
-      console.log(this.commune);
+      // console.log(this.commune);
       
     });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
   goToDettailCommune(id: number) {
-    console.log(id);
+    // console.log(id);
     return this.router.navigate(['bienparcommune', id])
   }
   

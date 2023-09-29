@@ -19,12 +19,12 @@ const httpOptions: any = {
 export class AuthService {
 
   URL_BASE: string = environment.Url_BASE
-  constructor(private http: HttpClient, private storageService: StorageService) {}
+  constructor(private http: HttpClient, private storageService: StorageService) { }
   // private jwtHelper: JwtHelperService = new JwtHelperService();
   // private token!: string;
 
-   // Méthode pour ajouter le token JWT aux en-têtes
-   getHeaders(): HttpHeaders {
+  // Méthode pour ajouter le token JWT aux en-têtes
+  getHeaders(): HttpHeaders {
     const token = this.storageService.getUser().token;
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -54,14 +54,14 @@ export class AuthService {
     photos: File[]
   ): Observable<any> {
     const formData = new FormData();
-    console.log('nom: ', nom);
-      console.log('email: ', email);
-      console.log('password: ', password);
-      console.log('telephone: ', telephone);
-      console.log('dateNaissance: ', dateNaissance);
-      console.log('nom_doc: ', nom_doc);
-      console.log('num_doc: ', num_doc);
-      console.log('roles: ', roles);
+    // console.log('nom: ', nom);
+    //   console.log('email: ', email);
+    //   console.log('password: ', password);
+    //   console.log('telephone: ', telephone);
+    //   console.log('dateNaissance: ', dateNaissance);
+    //   console.log('nom_doc: ', nom_doc);
+    //   console.log('num_doc: ', num_doc);
+    //   console.log('roles: ', roles);
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('password', password);
@@ -70,20 +70,20 @@ export class AuthService {
     formData.append('nom_doc', nom_doc);
     formData.append('num_doc', num_doc);
     formData.append('roles', roles);
-    photos.forEach(p=>{formData.append('photo[]', p)});
+    photos.forEach(p => { formData.append('photo[]', p) });
 
-     // Définition du header Content-Type
-     const headers = new HttpHeaders({
+    // Définition du header Content-Type
+    const headers = new HttpHeaders({
       'Content-Type': 'multipart/form-data'
-  });
+    });
 
-  // Utilisation des options pour ajouter les headers
-  const options = { headers: headers };
+    // Utilisation des options pour ajouter les headers
+    const options = { headers: headers };
 
     return this.http.post(
       this.URL_BASE + '/register',
-        formData,
-        // options
+      formData,
+      // options
     );
   }
 
@@ -106,5 +106,5 @@ export class AuthService {
   reloadPage(): void {
     window.location.reload();
   }
-  
+
 }

@@ -12163,23 +12163,23 @@ button.btn.car-search-icon:hover {
 -----------------------*/
 
 .header-nine .header-top {
-  background-color: #f9fafc;
-  border-bottom: none;
+  background-color: #374b5c;
+  border-bottom: none; 
 }
 .header-nine .head-contact i,
 .header-nine .head-contact a {
-  color: #374b5c;
+  color: #ffffff;
   font-weight: 600;
   transition: all 0.5s;
 }
 .header-nine .car-top-left li a {
-  color: #e98b11;
+  color: #ffffff;
   border-bottom: 2px solid #e98b11;
   padding-bottom: 0;
 }
 .header-nine .car-top-left li a:hover {
-  color: #374b5c;
-  border-bottom: 2px solid #374b5c;
+  color: #e98b11;
+  border-bottom: 2px solid #fffff;
 }
 .home-nine .header .car-list-bt,.header .home-nine-btn .car-list-btn {
   background-color: #e98b11;
@@ -12261,8 +12261,8 @@ button.btn.car-search-icon:hover {
   /* background-image: url(./assets/img/banner/bamako-slider.jpg); */
   background-repeat: no-repeat;
   background-size: cover;
-  height: 590.76px;
-  margin-top: 130px;
+  height: 500px;
+  margin-top: 7%;
   padding: 75px 0 0; 
 }
 .banner-section.banner-nine h1 {

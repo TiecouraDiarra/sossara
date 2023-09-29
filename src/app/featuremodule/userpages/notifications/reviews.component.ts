@@ -43,7 +43,7 @@ export class ReviewsComponent implements OnInit {
   openFactureModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedFactureId = bienImmoId;
-    console.log(this.selectedFactureId);
+    // console.log(this.selectedFactureId);
     // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
     // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
@@ -51,7 +51,7 @@ export class ReviewsComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherCandidatureAccepter(this.selectedFactureId).subscribe(data => {
       this.transaction = data.biens[0];
-      console.log(this.transaction);
+      // console.log(this.transaction);
     });
 
   }
@@ -76,17 +76,17 @@ export class ReviewsComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       }else if(this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
     }
-    console.log(this.storageService.getUser());
+    // console.log(this.storageService.getUser());
     this.User = this.storageService.getUser().user.id;
     const Users = this.storageService.getUser();
-    console.log(this.User);
+    // console.log(this.User);
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
 
@@ -94,7 +94,7 @@ export class ReviewsComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       // this.nombreRdvUser = data.length;
-      console.log(this.rdv);
+      // console.log(this.rdv);
     }
     );
 
@@ -102,14 +102,14 @@ export class ReviewsComponent implements OnInit {
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
       this.candidature = data.candidature.reverse();
       // this.nombreRdvUser = data.length;
-      console.log(this.candidature);
+      // console.log(this.candidature);
     }
     );
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.biens.reverse();
-      console.log(this.bienImmoLoueCandidatureAccepter);
+      // console.log(this.bienImmoLoueCandidatureAccepter);
     });
   }
 
@@ -134,12 +134,12 @@ export class ReviewsComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            console.log(res);
+            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            console.log(err);
+            // console.log(err);
           }
         });
       }
@@ -176,7 +176,7 @@ export class ReviewsComponent implements OnInit {
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceBienImmo.AccepterCandidaterBien(id).subscribe({
             next: (data) => {
-              console.log("Candidature acceptée avec succès:", data);
+              // console.log("Candidature acceptée avec succès:", data);
               this.isSuccess = true;
               this.errorMessage = 'Candidature acceptée avec succès';
 
@@ -184,7 +184,7 @@ export class ReviewsComponent implements OnInit {
               this.popUpConfirmation();
             },
             error: (err) => {
-              console.error("Erreur lors de l'envoi de la candidature :", err);
+              // console.error("Erreur lors de l'envoi de la candidature :", err);
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -192,7 +192,7 @@ export class ReviewsComponent implements OnInit {
           }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -227,14 +227,14 @@ export class ReviewsComponent implements OnInit {
           // Appelez la méthode ANNULERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceBienImmo.AccepterCandidaterBien(id).subscribe({
             next: (data) => {
-              console.log("Candidature annulée avec succès:", data);
+              // console.log("Candidature annulée avec succès:", data);
               this.isSuccess = true;
               this.errorMessage = 'Candidature annulée avec succès';
               // Afficher le premier popup d'annulation
               this.popUpAnnulation();
             },
             error: (err) => {
-              console.error("Erreur lors de l'annulation de la candidature :", err);
+              // console.error("Erreur lors de l'annulation de la candidature :", err);
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -242,7 +242,7 @@ export class ReviewsComponent implements OnInit {
           }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -271,7 +271,7 @@ export class ReviewsComponent implements OnInit {
       this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
         this.candidature = data.candidature.reverse();
         // this.nombreRdvUser = data.length;
-        console.log(this.candidature);
+        // console.log(this.candidature);
       }
       );
     })
@@ -301,7 +301,7 @@ export class ReviewsComponent implements OnInit {
       this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
         this.candidature = data.candidature.reverse();
         // this.nombreRdvUser = data.length;
-        console.log(this.candidature);
+        // console.log(this.candidature);
       }
       );
     })

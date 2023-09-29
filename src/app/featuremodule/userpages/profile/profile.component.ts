@@ -101,7 +101,7 @@ export class ProfileComponent implements OnInit {
   ) {
     this.locale = localeId;
     this.User = this.storageService.getUser();
-    console.log(this.User);
+    // console.log(this.User);
     this.formModif = {
       nom: this.User.user.username,
       telephone: this.User.user.telephone,
@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       } else if (this.roles[0] == "ROLE_AGENCE") {
@@ -176,12 +176,12 @@ export class ProfileComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            console.log(res);
+            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            console.log(err);
+            // console.log(err);
           }
         });
       }
@@ -223,18 +223,18 @@ export class ProfileComponent implements OnInit {
           // Appelez la méthode ChangerMotDePasse() avec le old_password et password
           this.serviceUser.ChangerMotDePasse(this.ChangeMdpForm.old_password, this.ChangeMdpForm.password).subscribe(
             data => {
-              console.log("Mot de passe changé avec succès:", data);
+              // console.log("Mot de passe changé avec succès:", data);
               // this.isSuccess = false;
               // Afficher le premier popup de succès
               this.popUpConfirmation();
             },
             error => {
-              console.error("Erreur lors du changement de mot de passe :", error);
+              // console.error("Erreur lors du changement de mot de passe :", error);
               // Gérez les erreurs ici
             }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -268,12 +268,12 @@ export class ProfileComponent implements OnInit {
       //REDIRECTION ET DECONNECTION APRES LE CHANGEMENT DE MOT DE PASSE
       this.authService.logout().subscribe({
         next: res => {
-          console.log(res);
+          // console.log(res);
           this.storageService.clean();
           this.router.navigateByUrl("/auth/connexion")
         },
         error: err => {
-          console.log(err);
+          // console.log(err);
         }
       });
     })
@@ -304,9 +304,9 @@ export class ProfileComponent implements OnInit {
 
       if (selectedFile.size <= maxSize) {
         // Vous pouvez également afficher des informations sur le fichier si nécessaire
-        console.log(`Nom du fichier: ${selectedFile.name}`);
-        console.log(`Type de fichier: ${selectedFile.type}`);
-        console.log(`Taille du fichier: ${selectedFile.size} octets`);
+        // console.log(`Nom du fichier: ${selectedFile.name}`);
+        // console.log(`Type de fichier: ${selectedFile.type}`);
+        // console.log(`Taille du fichier: ${selectedFile.size} octets`);
 
         // Ajoutez le fichier au formulaire et exécutez votre logique d'ajout ici
         this.form.photo = selectedFile;
@@ -321,17 +321,17 @@ export class ProfileComponent implements OnInit {
 
   //AJOUTER LA PHOTO DE PROFIL
   onAdd(): void {
-    console.log('Add button clicked');
+    // console.log('Add button clicked');
     const { photo } = this.form;
     const user = this.storageService.getUser();
     if (user && user.token && photo) {
       this.serviceUser.changerPhoto(photo).subscribe(
         successResponse => {
-          console.log('Photo changed successfully', successResponse);
+          // console.log('Photo changed successfully', successResponse);
           this.User.user.photo = photo.name;
           user.user.photo = successResponse.photo.photo;
           this.storageService.setUser(user);
-          console.log(this.User.user.photo);
+          // console.log(this.User.user.photo);
           this.User.user.photo = photo.name;
           // this.generateImageUrl(photo.name);
           // Mettez à jour le chemin de l'image de profil
@@ -341,11 +341,11 @@ export class ProfileComponent implements OnInit {
           this.reloadPage();
         },
         error => {
-          console.error('Error while changing photo', error);
+          // console.error('Error while changing photo', error);
         }
       );
     } else {
-      console.error('Token JWT missing or no photo selected');
+      // console.error('Token JWT missing or no photo selected');
     }
   }
 
@@ -378,7 +378,7 @@ export class ProfileComponent implements OnInit {
           this.serviceUser.setAccessToken(user.token);
           this.serviceUser.modifierProfil(nom, telephone, email, dateNaissance).subscribe({
             next: data => {
-              console.log(data);
+              // console.log(data);
 
               // Mise à jour des données utilisateur dans le sessionStorage
               const updatedUser = this.storageService.getUser(); // Récupérez l'utilisateur du sessionStorage
@@ -399,13 +399,13 @@ export class ProfileComponent implements OnInit {
             },
             error: err => {
               this.errorMessage = err.error.message;
-              console.log(this.errorMessage);
+              // console.log(this.errorMessage);
               this.isSignUpFailed = true;
             }
           });
 
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })

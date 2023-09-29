@@ -134,7 +134,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          console.log(this.image);
+          // console.log(this.image);
           this.maxImageCount = this.image.length
         };
         reader.readAsDataURL(file);
@@ -179,7 +179,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
         }
       }
       this.form.commodite = commoditeArray;
-      console.log(this.form.commodite);
+      // console.log(this.form.commodite);
     }
   }
 
@@ -238,21 +238,27 @@ export class ServiceDetailsComponent implements AfterViewInit {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data.biens[0];
-      console.log(this.bien);
+      // console.log(this.bien);
       this.form = {
         nom: this.bien.nom,
         description: this.bien.description,
-        type: this.bien.typeImmo.nom,
+        type: this.bien.typeImmo.id,
         surface: this.bien.surface,
-        periode: this.bien.periode.nom,
+        periode: this.bien.periode.id,
         porte: this.bien.adresse.porte,
         rue: this.bien.adresse.rue,
         quartier: this.bien.adresse.quartier,
-        // statut: this.bien.statut,
+        statut: this.bien.statut.id,
         prix: this.bien.prix,
         toilette: this.bien.toilette,
+        nb_piece: this.bien.nb_piece,
         cuisine: this.bien.cuisine,
         chambre: this.bien.chambre,
+        longitude: this.bien.adresse.longitude,
+        latitude: this.bien.adresse.latitude,
+        commune: this.bien.adresse.commune.id,
+        pays: this.bien.adresse.commune.region.pays.id,
+        region: this.bien.adresse.commune.region.id,
         commodite: this.bien.commodite.nom,
       };
     });
@@ -298,10 +304,10 @@ export class ServiceDetailsComponent implements AfterViewInit {
       // this.status = this.bien.statut;
       // this.type = this.bien.statut;
       this.commodite = data.commodite
-      console.log(this.bien);
-      console.log(this.latitude);
-      console.log(this.longitude);
-      console.log(this.photos);
+      // console.log(this.bien);
+      // console.log(this.latitude);
+      // console.log(this.longitude);
+      // console.log(this.photos);
       // console.log(this.storageService.getUser().user.id);
       // console.log(this.bien.utilisateur.id);
 
@@ -351,8 +357,8 @@ export class ServiceDetailsComponent implements AfterViewInit {
         this.form.latitude = markerEvent.latLng.lat();
         this.form.longitude = markerEvent.latLng.lng();
 
-        console.log('Latitude :', this.form.latitude);
-        console.log('Longitude :', this.form.longitude);
+        // console.log('Latitude :', this.form.latitude);
+        // console.log('Longitude :', this.form.longitude);
       });
 
       // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
@@ -368,14 +374,14 @@ export class ServiceDetailsComponent implements AfterViewInit {
         this.form.latitude = newLatLng.lat();
         this.form.longitude = newLatLng.lng();
 
-        console.log('Latitude :', this.form.latitude);
-        console.log('Longitude :', this.form.longitude);
+        // console.log('Latitude :', this.form.latitude);
+        // console.log('Longitude :', this.form.longitude);
       });
 
     });
 
     const Users = this.storageService.getUser();
-    console.log(Users);
+    // console.log(Users);
     const token = Users.token;
     // console.log(token);
     this.serviceUser.setAccessToken(token);
@@ -383,7 +389,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
     this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
       this.commentaire = data.reverse();
-      console.log(this.commentaire);
+      // console.log(this.commentaire);
     });
 
     //AFFICHER LA LISTE DES COMMODITES
@@ -395,7 +401,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
       this.commune = data.commune;
       this.periode = data.periode;
       this.typebien = data.type;
-      console.log(data);
+      // console.log(data);
     });
 
 
@@ -435,23 +441,23 @@ export class ServiceDetailsComponent implements AfterViewInit {
       // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
       this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(
         data => {
-          console.log("commentaire envoyé avec succès:", data);
+          // console.log("commentaire envoyé avec succès:", data);
           // this.isSuccess = false;
 
           //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
           this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
             this.commentaire = data.reverse();
-            console.log(this.commentaire);
+            // console.log(this.commentaire);
             this.commentaireForm.contenu = '';
           });
         },
         error => {
-          console.error("Erreur lors de l'envoi du commentaire :", error);
+          // console.error("Erreur lors de l'envoi du commentaire :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
+      // console.error("Token JWT manquant");
     }
 
     //Faire un commentaire
@@ -473,12 +479,12 @@ export class ServiceDetailsComponent implements AfterViewInit {
       // Appelez la méthode PrendreRdv() avec le contenu et l'ID
       this.serviceUser.PrendreRdv(this.RdvForm.date, this.RdvForm.heure, this.id).subscribe({
         next: (data) => {
-          console.log("Rendez-vous envoyé avec succès:", data);
+          // console.log("Rendez-vous envoyé avec succès:", data);
           this.isSuccess = true;
           this.errorMessage = 'Rendez-vous envoyé avec succès'
         },
         error: (err) => {
-          console.error("Erreur lors de l'envoi du rdv :", err);
+          // console.error("Erreur lors de l'envoi du rdv :", err);
           this.errorMessage = err.error.message;
           this.isError = true
           // Gérez les erreurs ici
@@ -489,7 +495,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
       }
       );
     } else {
-      console.error("Token JWT manquant");
+      // console.error("Token JWT manquant");
     }
   }
 
@@ -525,7 +531,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
           // Appelez la méthode PrendreRdv() avec le contenu et l'ID
           this.serviceBienImmo.CandidaterBien(this.id).subscribe({
             next: (data) => {
-              console.log("Candidature envoyée avec succès:", data);
+              // console.log("Candidature envoyée avec succès:", data);
               this.isSuccess = true;
               this.errorMessage = 'Candidature envoyée avec succès';
               // this.isCandidatureSent = true;
@@ -533,7 +539,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
               this.popUpConfirmation();
             },
             error: (err) => {
-              console.error("Erreur lors de l'envoi du rdv :", err);
+              // console.error("Erreur lors de l'envoi du rdv :", err);
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -541,7 +547,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
           }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -619,13 +625,13 @@ export class ServiceDetailsComponent implements AfterViewInit {
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceBienImmo.OuvrirConversation(id).subscribe({
             next: (data) => {
-              console.log("Conversation ouverte avec succès:", data);
+              // console.log("Conversation ouverte avec succès:", data);
               this.isSuccess = true;
               // this.errorMessage = 'Conversation ouverte avec succès';
               this.pathConversation();
             },
             error: (err) => {
-              console.error("Erreur lors de l'ouverture de la conversation:", err);
+              // console.error("Erreur lors de l'ouverture de la conversation:", err);
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -633,7 +639,7 @@ export class ServiceDetailsComponent implements AfterViewInit {
           }
           );
         } else {
-          console.error("Token JWT manquant");
+          // console.error("Token JWT manquant");
         }
       }
     })
@@ -733,19 +739,19 @@ export class ServiceDetailsComponent implements AfterViewInit {
               )
               .subscribe({
                 next: (data) => {
-                  console.log(data);
+                  // console.log(data);
                   this.isSuccess = false;
-                  console.log(this.form);
+                  // console.log(this.form);
                   this.popUpConfirmationModification();
                 },
                 error: (err) => {
-                  console.log(err);
+                  // console.log(err);
                   this.errorMessage = err.error.message;
                   this.isSuccess = true;
                 },
               });
           } else {
-            console.error('Token JWT manquant');
+            // console.error('Token JWT manquant');
           }
         }
       })
@@ -781,10 +787,10 @@ export class ServiceDetailsComponent implements AfterViewInit {
         this.bien = data.biens[0];
         this.photos = this.bien.photos;
         this.commodite = data.commodite
-        console.log(this.bien);
-        console.log(this.photos);
-        console.log(this.storageService.getUser().user.id);
-        console.log(this.bien.utilisateur.id);
+        // console.log(this.bien);
+        // console.log(this.photos);
+        // console.log(this.storageService.getUser().user.id);
+        // console.log(this.bien.utilisateur.id);
 
         const currentUser = this.storageService.getUser();
 

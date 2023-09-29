@@ -438,3 +438,30 @@
 .crd {
   cursor: pointer;
 }
+
+.scroll-text {
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+.scroll-text .scroll-textl {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  animation: scroll-text 20s linear infinite;
+  margin-top: 5px;
+}
+@keyframes scroll-text {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}

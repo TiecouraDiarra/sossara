@@ -144,14 +144,14 @@ export class DashboardComponent implements OnInit {
     this.dashboarddata = this.DataService.dashboarddata
     this.dashboardreview = this.DataService.dashboardreview
     this.User = this.storageService.getUser();
-    console.log(this.User);
+    // console.log(this.User);
 
   }
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().user.role;
-      console.log(this.roles);
+      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       } else if (this.roles[0] == "ROLE_AGENCE") {
@@ -160,10 +160,10 @@ export class DashboardComponent implements OnInit {
         this.isAgent = true
       }
     }
-    console.log(this.storageService.getUser());
+    // console.log(this.storageService.getUser());
     this.User = this.storageService.getUser().user.id;
     const Users = this.storageService.getUser();
-    console.log(this.User);
+    // console.log(this.User);
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
 
@@ -171,13 +171,13 @@ export class DashboardComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
       this.nombreBienLoue = data.biens.length;
-      console.log(this.nombreBienLoue);
+      // console.log(this.nombreBienLoue);
     });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
     this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
       this.nombreBienAchete = data.biens.length;
-      console.log(this.nombreBienAchete);
+      // console.log(this.nombreBienAchete);
     });
 
 
@@ -188,13 +188,13 @@ export class DashboardComponent implements OnInit {
       this.bienImmoAgent = data.biens_agents;
       this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
       this.nombrebien = this.bienImmoAgenceTotal.length;
-      console.log(this.nombrebien);
+      // console.log(this.nombrebien);
     });
 
      //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.nombreBienAutre = data.biens.length;
-      console.log(this.nombreBienAutre);
+      // console.log(this.nombreBienAutre);
     }
     );
 
@@ -202,7 +202,7 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       this.nombreRdvUser = data.length;
-      console.log(this.rdv);
+      // console.log(this.rdv);
     }
     );
 
@@ -210,21 +210,21 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdvUserConnecte().subscribe(data => {
       this.rdvUserConnect = data.reverse();
       this.nombreRdvUserConnect = data.length;
-      console.log(this.rdvUserConnect);
+      // console.log(this.rdvUserConnect);
     }
     );
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.nombreCandidatureAccepter = data.biens.length;
-      console.log(this.nombreCandidatureAccepter);
-      console.log(this.nombreCandidatureBienUser);
-      console.log(this.nombreRdvUser);
-      console.log(this.nombreCandidatureAccepter);
+      // console.log(this.nombreCandidatureAccepter);
+      // console.log(this.nombreCandidatureBienUser);
+      // console.log(this.nombreRdvUser);
+      // console.log(this.nombreCandidatureAccepter);
 
       // Calculer la somme des candidatures et des rendez-vous
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
-      console.log("SommeTout =", this.somme);
+      // console.log("SommeTout =", this.somme);
     });
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
@@ -239,7 +239,7 @@ export class DashboardComponent implements OnInit {
     //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
     this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
       this.nombreconversation = data.conversation.length;
-      console.log(this.nombreconversation);
+      // console.log(this.nombreconversation);
     }
     );
   }
@@ -276,14 +276,14 @@ export class DashboardComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            console.log(res);
+            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
             // Actualise la page de connexion
             // window.location.reload();
           },
           error: err => {
-            console.log(err);
+            // console.log(err);
           }
         });
       }

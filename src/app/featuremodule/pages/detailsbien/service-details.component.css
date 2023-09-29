@@ -25,7 +25,7 @@
 
 /* Ajuster la position du modal par rapport à la barre de navigation */
 .modal-dialog {
-    margin-top: 75px;
+    margin-top: 8%;
     /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
 }
 

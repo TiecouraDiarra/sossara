@@ -60,14 +60,14 @@ export class UserService {
   //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
   AfficherLaListeRdv(): Observable<any> {
     const headers = this.getHeaders();
-    console.log(headers)
+    // console.log(headers)
     return this.http.get(`${URL_BASE}/rdv/get/mine`, { headers });
   }
 
   //AFFICHER LA LISTE DES RDV ENVOYER PAR USER CONNECTE
   AfficherLaListeRdvUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
-    console.log(headers)
+    // console.log(headers)
     return this.http.get(`${URL_BASE}/rdv/get`, { headers });
   }
 
@@ -82,10 +82,10 @@ export class UserService {
     const headers = this.getHeaders();
     // const data = new FormData();
     // data.append("contenu", contenu)
-    console.log(id)
-    console.log(headers)
-    console.log(date)
-    console.log(heure)
+    // console.log(id)
+    // console.log(headers)
+    // console.log(date)
+    // console.log(heure)
     return this.http.post(`${URL_BASE}/rdv/${id}`, {
       date,
       heure
@@ -95,16 +95,16 @@ export class UserService {
   //AFFICHER LA LISTE DES CANDIDATURES DE BIENS EN FONCTION DE USER
   AfficherLaListeCandidature(): Observable<any> {
     const headers = this.getHeaders();
-    console.log(headers)
+    // console.log(headers)
     return this.http.get(`${URL_BASE}/candidature/get`, { headers });
   }
 
   //CHANGER MOT DE PASSE
   ChangerMotDePasse(old_password: string, password: string): Observable<any> {
     const headers = this.getHeaders();
-    console.log(headers)
-    console.log('Ancien mdp', old_password)
-    console.log('nouveau mdp', password)
+    // console.log(headers)
+    // console.log('Ancien mdp', old_password)
+    // console.log('nouveau mdp', password)
     return this.http.post(
       URL_BASE + '/user/password_reset',
       {
@@ -133,11 +133,11 @@ export class UserService {
   ): Observable<any> {
     const formData = new FormData();
     const headers = this.getHeaders();
-    console.log("Nom de user : " + nom);
-    console.log("telephone de user : " + telephone);
-    console.log("email de user : " + email);
-    console.log("dateNaissance de user : " + dateNaissance);
-    console.log(headers)
+    // console.log("Nom de user : " + nom);
+    // console.log("telephone de user : " + telephone);
+    // console.log("email de user : " + email);
+    // console.log("dateNaissance de user : " + dateNaissance);
+    // console.log(headers)
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
@@ -152,7 +152,7 @@ export class UserService {
   //ENVOIE D'EMAIL POUR CHANGER LE PASSWORD
   forgotPassword(email: string): Observable<any> {
     // const headers = this.getHeaders();
-    return this.http.post(`${URL_BASE}/user/reset-password`, {
+    return this.http.post(`${URL_BASE}/reset/pass`, {
       email
     });
   }

@@ -40,11 +40,11 @@ export class AgenceService {
   ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-    console.log("nom " + nom)
-    console.log(headers)
-    console.log("email " + email)
-    console.log("telephone " + telephone)
-    console.log("quartier " + quartier)
+    // console.log("nom " + nom)
+    // console.log(headers)
+    // console.log("email " + email)
+    // console.log("telephone " + telephone)
+    // console.log("quartier " + quartier)
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
@@ -56,7 +56,7 @@ export class AgenceService {
   //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'AGENCE CONNECTEE
   ListeAgentParAgence(): Observable<any> {
     const headers = this.getHeaders();
-    console.log(headers);
+    // console.log(headers);
     return this.http.get(`${URL_BASE}/user/child/get`,
       { headers });
   }
@@ -84,8 +84,8 @@ export class AgenceService {
   //SUPPRIMER UN AGENT
   SupprimerAgent(id: any): Observable<any> {
     const headers = this.getHeaders();
-    console.log(id)
-    console.log(headers)
+    // console.log(id)
+    // console.log(headers)
     return this.http.post(`${URL_BASE}/user/child/delete/${id}`, null, { headers });
   }
 

@@ -208,7 +208,8 @@
                                                                 class="feather-eye"></i></a>
                                                         <a href="javascript:void(0)" class="action-btn btn-edit"><i
                                                                 class="feather-edit-3"></i></a>
-                                                        <a (click)="SupprimerBien(BienImmo.id)" class="action-btn btn-trash crd"><i
+                                                        <a (click)="SupprimerBien(BienImmo.id)"
+                                                            class="action-btn btn-trash crd"><i
                                                                 class="feather-trash-2"></i></a>
                                                     </div>
                                                 </td>
@@ -327,7 +328,8 @@
                                                                 class="feather-eye"></i></a>
                                                         <a href="javascript:void(0)" class="action-btn btn-edit"><i
                                                                 class="feather-edit-3"></i></a>
-                                                        <a (click)="SupprimerBien(BienImmo.id)" class="action-btn btn-trash crd"><i
+                                                        <a (click)="SupprimerBien(BienImmo.id)"
+                                                            class="action-btn btn-trash crd"><i
                                                                 class="feather-trash-2"></i></a>
                                                     </div>
                                                 </td>
@@ -1033,18 +1035,30 @@
                                                     <form>
                                                         <input type="hidden" [(ngModel)]="selectedBienImmoId"
                                                             name="selectedBienImmoId">
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Type de
-                                                                probleme <span style="color: red;">*</span></label>
-                                                            <div class="pass-group group-img">
-                                                                <select [(ngModel)]="form.type" name="type"
-                                                                    class="form-control" id="">
-                                                                    <option *ngFor="let item of probleme"
-                                                                        [value]="item.id">
-                                                                        {{ item.nom}}
-                                                                    </option>
-                                                                </select>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="recipient-name" class="col-form-label">Type
+                                                                    de
+                                                                    probleme <span style="color: red;">*</span></label>
+                                                                <div class="pass-group group-img">
+                                                                    <select [(ngModel)]="form.type" name="type"
+                                                                        class="form-control" id="">
+                                                                        <option *ngFor="let item of probleme"
+                                                                            [value]="item.id">
+                                                                            {{ item.nom}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="col-form-label">Prix estimatif
+                                                                    <span>*</span></label>
+                                                                <input type="number" pattern="[0-9]"
+                                                                    class="form-control pass-input" name="prixestimatif"
+                                                                    [(ngModel)]="form.prixestimatif"
+                                                                    placeholder="FCFA" />
+                                                            </div>
+
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="message-text" class="col-form-label">Description
@@ -1053,13 +1067,6 @@
                                                             <textarea name="contenu" [(ngModel)]="form.contenu"
                                                                 class="form-control" id="message-text"
                                                                 placeholder="Description"></textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">Prix estimatif
-                                                                <span>*</span></label>
-                                                            <input type="number" pattern="[0-9]" class="form-control pass-input"
-                                                                name="prixestimatif" [(ngModel)]="form.prixestimatif"
-                                                                placeholder="FCFA" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <div class="row">
@@ -1777,6 +1784,22 @@
                                                                         class="fa-solid fa-check"></i>
                                                                     Motif : {{Reclamation.contenu}}
                                                                 </div>
+                                                                <div class="m-3" *ngIf="Reclamation && Reclamation.prix_estimatif">
+                                                                    <i style="color: #e98b11; font-weight: bold;"
+                                                                        class="fa-solid fa-check"> </i> Cout: <span
+                                                                        style="color: #e98b11; font-weight: bold;">
+                                                                        {{ formatPrice(Reclamation.prix_estimatif) }}
+                                                                        FCFA </span>
+                                                                </div>
+                                                                <div class="row mt-1">
+                                                                    <div class="row scroll-text">
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
+                                                                            C'est en votre charge </div>
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
+                                                                            C'est le proprietaire qui paie
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="row">
                                                                     <div class="col">
                                                                         <p class="blog-category">
@@ -1948,13 +1971,23 @@
                                                                         </ng-container>
                                                                     </ul>
                                                                 </div>
+                                                                <div class="row mt-1">
+                                                                    <div class="row scroll-text">
+                                                                        <div class="scroll-textl"
+                                                                            *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
+                                                                            Confirmer, Locataire paie</div>
+                                                                        <div class="scroll-textl"
+                                                                            *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
+                                                                            Confirmer, c'est a votre charge</div>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="row mt-3">
                                                                     <div class="col"
                                                                         *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
                                                                         <button type="button"
-                                                                            class="btn btn-outline-danger"><i
+                                                                            class="btn btn-outline-success"><i
                                                                                 class="fas fa-times"></i>
-                                                                            D'accord</button>
+                                                                            Confirmer</button>
                                                                     </div>
                                                                     <div class="col"
                                                                         *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
@@ -2073,10 +2106,20 @@
                                                                     Motif : {{Reclamation.probleme.contenu}}
                                                                 </div>
                                                                 <div class="m-3"
-                                                                    *ngIf="Reclamation && Reclamation.bien">Cout : <span
+                                                                    *ngIf="Reclamation && Reclamation.bien"><i style="color: #e98b11; font-weight: bold;"
+                                                                    class="fa-solid fa-check"> </i> Cout : <span
                                                                         style="color: #e98b11; font-weight: bold;">
                                                                         {{ formatPrice(Reclamation.somme) }} FCFA
                                                                     </span>
+                                                                </div>
+                                                                <div class="row mt-1">
+                                                                    <div class="row scroll-text">
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.somme <= 10000">
+                                                                            C'est en votre charge </div>
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.somme >= 10000">
+                                                                            C'est le proprietaire qui paie
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col">
@@ -2720,18 +2763,31 @@
                                                     <form>
                                                         <input type="hidden" [(ngModel)]="selectedBienImmoId"
                                                             name="selectedBienImmoId">
-                                                        <div class="mb-3">
-                                                            <label for="recipient-name" class="col-form-label">Type de
-                                                                probleme <span style="color: red;">*</span></label>
-                                                            <div class="pass-group group-img">
-                                                                <select [(ngModel)]="form.type" name="type"
-                                                                    class="form-control" id="">
-                                                                    <option *ngFor="let item of probleme"
-                                                                        [value]="item.id">
-                                                                        {{ item.nom}}
-                                                                    </option>
-                                                                </select>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="recipient-name" class="col-form-label">Type
+                                                                    de
+                                                                    probleme <span style="color: red;">*</span></label>
+                                                                <div class="pass-group group-img">
+                                                                    <select [(ngModel)]="form.type" name="type"
+                                                                        class="form-control" id="">
+                                                                        <option *ngFor="let item of probleme"
+                                                                            [value]="item.id">
+                                                                            {{ item.nom}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="col-form-label">Prix estimatif
+                                                                    <span>*</span></label>
+                                                                <input type="number" pattern="[0-9]"
+                                                                    class="form-control pass-input"
+                                                                    name="prix_estimatif"
+                                                                    [(ngModel)]="form.prix_estimatif"
+                                                                    placeholder="FCFA" />
+                                                            </div>
+
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="message-text" class="col-form-label">Description
@@ -2740,13 +2796,6 @@
                                                             <textarea name="contenu" [(ngModel)]="form.contenu"
                                                                 class="form-control" id="message-text"
                                                                 placeholder="Description"></textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">Prix estimatif
-                                                                <span>*</span></label>
-                                                            <input type="number" pattern="[0-9]" class="form-control pass-input"
-                                                                name="prix_estimatif" [(ngModel)]="form.prix_estimatif"
-                                                                placeholder="FCFA" />
                                                         </div>
                                                         <div class="mb-3">
                                                             <div class="row">
@@ -3437,6 +3486,22 @@
                                                                         class="fa-solid fa-check"></i>
                                                                     Motif : {{Reclamation.contenu}}
                                                                 </div>
+                                                                <div class="m-3" *ngIf="Reclamation && Reclamation.prix_estimatif">
+                                                                    <i style="color: #e98b11; font-weight: bold;"
+                                                                        class="fa-solid fa-check"> </i> Cout: <span
+                                                                        style="color: #e98b11; font-weight: bold;">
+                                                                        {{ formatPrice(Reclamation.prix_estimatif) }}
+                                                                        FCFA </span>
+                                                                </div>
+                                                                <div class="row mt-1">
+                                                                    <div class="row scroll-text">
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
+                                                                            C'est en votre charge </div>
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
+                                                                            C'est le proprietaire qui paie
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="row">
                                                                     <div class="col">
                                                                         <p class="blog-category">
@@ -3573,10 +3638,20 @@
                                                                     Motif : {{Reclamation.probleme.contenu}}
                                                                 </div>
                                                                 <div class="m-3"
-                                                                    *ngIf="Reclamation && Reclamation.bien">Cout : <span
+                                                                    *ngIf="Reclamation && Reclamation.bien"><i style="color: #e98b11; font-weight: bold;"
+                                                                    class="fa-solid fa-check"> </i> Cout : <span
                                                                         style="color: #e98b11; font-weight: bold;">
                                                                         {{ formatPrice(Reclamation.somme) }} FCFA
                                                                     </span>
+                                                                </div>
+                                                                <div class="row mt-1">
+                                                                    <div class="row scroll-text">
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.somme <= 10000">
+                                                                            C'est en votre charge </div>
+                                                                        <div class="scroll-textl" *ngIf="Reclamation && Reclamation.somme >= 10000">
+                                                                            C'est le proprietaire qui paie
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col">
@@ -3609,7 +3684,7 @@
                                                                 </div>
                                                                 <div class="row mt-3">
                                                                     <button type="button"
-                                                                        (click)="openProcessusModal(Reclamation.bien.id)"
+                                                                        (click)="openProcessusModal(Reclamation.id)"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#modalArreterProcessus1"
                                                                         class="btn btn-outline-success"><i
