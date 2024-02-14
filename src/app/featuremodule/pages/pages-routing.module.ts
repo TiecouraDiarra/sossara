@@ -7,7 +7,7 @@ const routes: Routes = [
     {
     path: 'apropos',
     loadChildren: () =>
-      import('./apropos/about.module').then((m) => m.AboutModule),
+      import('./apropos/apropos.module').then((m) => m.AproposModule),
   },
   {
     path: 'categories',
@@ -39,8 +39,8 @@ const routes: Routes = [
   {
     path: 'service-details/:id',
     loadChildren: () =>
-      import('./detailsbien/service-details.module').then(
-        (m) => m.ServiceDetailsModule
+      import('./detailsbien/detailsbien.module').then(
+        (m) => m.DetailsbienModule
       ),
   },
   {

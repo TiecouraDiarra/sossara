@@ -633,7 +633,7 @@ export class DataService {
       rating: '4.5',
       rating1: '(50)',
     },
-  ];
+  ];     
   public testimonialList = [
     {
       img: 'assets/img/testimonial-1.png',

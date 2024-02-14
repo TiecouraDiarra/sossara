@@ -2569,7 +2569,7 @@ a:hover, a:focus {
     align-items: center;
 }
 .pricingplan-section {
-    background: url('../img/Rosebg.png');
+    /* background: url('../img/Rosebg.png'); */
 	padding: 100px 0;
 	background-repeat: no-repeat;
     background-size: cover;
@@ -12198,6 +12198,7 @@ textarea.form-control {
 	}
 	.navbar-brand.logo img {
 	    width: auto;
+        margin-left: 15vh;
 	}
 	.sidebar-overlay.opened {
         display: block;
@@ -13750,6 +13751,7 @@ textarea.form-control {
     }
 	.navbar-brand.logo img {
 		width: auto;
+        /* margin-left: 15vh; */
     }
 	#mobile_btn {
 		margin-right: 0px;

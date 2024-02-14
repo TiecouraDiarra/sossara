@@ -9,15 +9,15 @@ const routes: Routes = [
       {
         path: 'ajouter-bien',
         loadChildren: () =>
-          import('./ajouter-bien/add-listing.module').then(
-            (m) => m.AddListingModule
+          import('./ajouter-bien/ajouter-bien.module').then(
+            (m) => m.AjouterBienModule
           ),
           // canActivate: [AuthGuard]
       },
       {
         path: 'mes-agents',
         loadChildren: () =>
-          import('./mes-agents/bookmarks.module').then((m) => m.BookmarksModule),
+          import('./mes-agents/mes-agents.module').then((m) => m.MesAgentsModule),
           // canActivate: [AuthGuard]
       },
       {
@@ -35,7 +35,7 @@ const routes: Routes = [
       {
         path: 'mes-biens',
         loadChildren: () =>
-          import('./mes-biens/my-listing.module').then((m) => m.MyListingModule),
+          import('./mes-biens/mes-biens.module').then((m) => m.MesBiensModule),
           // canActivate: [AuthGuard]
       },
       {
@@ -47,7 +47,7 @@ const routes: Routes = [
       {
         path: 'notification',
         loadChildren: () =>
-          import('./notifications/reviews.module').then((m) => m.ReviewsModule),
+          import('./notifications/notifications.module').then((m) => m.NotificationsModule),
           // canActivate: [AuthGuard]
       },
 

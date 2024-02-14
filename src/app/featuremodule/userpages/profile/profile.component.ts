@@ -338,7 +338,7 @@ export class ProfileComponent implements OnInit {
           this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
           const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
           this.User.user.photo = uniqueFileName;
-          this.reloadPage();
+          // this.reloadPage();
         },
         error => {
           // console.error('Error while changing photo', error);

@@ -20225,6 +20225,7 @@ section.advertisement {
   }
   .navbar-brand.logo img {
     width: auto;
+    /* margin-left: 15vh; */
   }
   #mobile_btn {
     margin-right: 0px;

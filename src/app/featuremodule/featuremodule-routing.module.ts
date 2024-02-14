@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./accueil/home.module').then((m) => m.HomeModule),
+          import('./accueil/accueil.module').then((m) => m.AccueilModule),
       },
       {
         path: 'auth',
@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'listings',
         loadChildren: () =>
-          import('./listings/listings.module').then((m) => m.ListingsModule),
+          import('./gestionbiens/gestionbiens.module').then((m) => m.GestionbiensModule),
           canActivate: [AuthGuard]
       },
       {
@@ -45,36 +45,36 @@ const routes: Routes = [
       {
         path: 'trouverbien',
         loadChildren: () =>
-          import('./listings/trouverbien/listingmap-grid.module').then(
-            (m) => m.ListingmapGridModule
+          import('./gestionbiens/trouverbien/trouverbien.module').then(
+            (m) => m.TrouverbienModule
           ),
           // canActivate: [AuthGuard]
       },
       {
         path: 'detailsagence/:id',
         loadChildren: () =>
-          import('./listings/detailsagence/listing-list-sidebar.module').then(
-            (m) => m.ListingListSidebarModule
+          import('./gestionbiens/detailsagence/detailsagence.module').then(
+            (m) => m.DetailsagenceModule
           ),
       },
       {
         path: 'details-bien/:id',
         loadChildren: () =>
-          import('./pages/detailsbien/service-details.module').then(
-            (m) => m.ServiceDetailsModule
+          import('./pages/detailsbien/detailsbien.module').then(
+            (m) => m.DetailsbienModule
           ),
       },
       {
         path: 'details-agent/:id',
         loadChildren: () =>
-          import('./listings/detailsagent/listingmap-list.module').then(
+          import('./gestionbiens/detailsagent/detailsagent.module').then(
             (m) => m.ListingmapListModule
           ),
       },
       {
         path: 'biens',
         loadChildren: () =>
-          import('./listings/biens/listing-grid-sidebar.module').then(
+          import('./gestionbiens/biens/biens.module').then(
             (m) => m.ListingGridSidebarModule
           ),
           // canActivate: [AuthGuard]
@@ -82,8 +82,8 @@ const routes: Routes = [
       {
         path: 'bienparcommune/:id',
         loadChildren: () =>
-          import('./listings/bienparcommune/listing-grid.module').then(
-            (m) => m.ListingGridModule
+          import('./gestionbiens/bienparcommune/bienparcommune.module').then(
+            (m) => m.BienparcommuneModule
           ),
           // canActivate: [AuthGuard]
       },
@@ -105,7 +105,7 @@ const routes: Routes = [
       {
         path: 'apropos',
         loadChildren: () =>
-          import('./pages/apropos/about.module').then((m) => m.AboutModule),
+          import('./pages/apropos/apropos.module').then((m) => m.AproposModule),
       },
       // {
       //   path: 'blog-details',

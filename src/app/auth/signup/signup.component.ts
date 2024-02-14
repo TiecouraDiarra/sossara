@@ -43,9 +43,9 @@ export class SignupComponent {
     telephone: null,
     confirmPassword: null,
     dateNaissance: null,
-    nom_doc : "Type de pieces",
-    num_doc : null,
-    roles : "Type d'Utilisateur",
+    nomDoc : "Type de pieces",
+    numDoc : null,
+    role : "Type d'Utilisateur",
     photo:null,
   };
   isSuccessful = false;
@@ -61,7 +61,7 @@ export class SignupComponent {
 
 
   //CHARGER L'IMAGE
-  onFileSelected(event: any): void {
+  onFileSelected1(event: any): void {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
     for (const file of this.selectedFiles) {
@@ -69,7 +69,7 @@ export class SignupComponent {
         reader.onload = (e: any) => {
           this.images.push(file);
           this.image.push(e.target.result);
-          // console.log(this.image);
+          console.log(this.image);
           
 
         };
@@ -111,6 +111,41 @@ export class SignupComponent {
     this.router.navigate([routes.signup]);
   }
 
+  nomPhoto: File | null = null;
+
+
+ // Fonction pour gérer la sélection de fichiers dans votre composant
+onFileSelected(event: any): void {
+  // Mettre à jour la propriété "photo" de votre objet formulaire avec le premier fichier sélectionné
+  this.form.photo = event.target.files[0] as File;
+  // Appeler la fonction pour traiter la sélection de fichiers
+  this.handleFileSelection(event);
+}
+
+// Fonction pour traiter la sélection de fichiers
+handleFileSelection(event: any): void {
+  // Récupérer les fichiers sélectionnés
+  this.selectedFiles = event.target.files;
+  const reader = new FileReader();
+  // Parcourir chaque fichier sélectionné
+  for (const file of this.selectedFiles) {
+      // Vérifier si le nombre d'images chargées est inférieur à 2
+      if (this.images.length < 1) {
+          // Définir la fonction de rappel onload pour lire le contenu du fichier
+          reader.onload = (e: any) => {
+              // Ajouter le fichier à la liste des images
+              this.images.push(file);
+              // Ajouter les données de l'image à la liste d'URL d'image
+              this.image.push(e.target.result);
+              // Afficher les URLs des images dans la console
+              console.log(this.image);
+          };
+          // Démarrer la lecture du contenu du fichier en tant qu'URL de données
+          reader.readAsDataURL(file);
+      }
+  }
+}
+
   onSubmit(): void {
     if (this.form.password !== this.form.confirmPassword) {
       Swal.fire({
@@ -120,7 +155,9 @@ export class SignupComponent {
       });
       return; // Sortir de la fonction si les mots de passe ne correspondent pas
     }
-    const { nom, email, password, telephone, dateNaissance,  nom_doc,num_doc, roles,photo} = this.form;
+    const { nom, email, password, telephone, dateNaissance,  nomDoc,numDoc, role,photo} = this.form;
+    console.log(this.form);
+    
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -133,11 +170,13 @@ export class SignupComponent {
       || this.form.password === null
       || this.form.telephone === null
       || this.form.dateNaissance === null
-      || this.form.nom_doc == "Type de pieces"
-      || this.form.num_doc === null
+      || this.form.nomDoc == "Type de pieces"
+      || this.form.numDoc === null
       || this.form.confirmPassword === null
-      || this.form.roles == "Type d'Utilisateur"
-      || this.form.photo === null) {
+      || this.form.role == "Type d'Utilisateur"
+      || this.form.photo === null
+
+      ) {
       swalWithBootstrapButtons.fire(
         this.message = " Tous les champs sont obligatoires !",
       )
@@ -151,7 +190,7 @@ export class SignupComponent {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-          this.authService.register(nom, email, password, telephone, dateNaissance, nom_doc,num_doc,roles,photo).subscribe({
+          this.authService.register(nom, email, password, telephone, dateNaissance, nomDoc,numDoc,role,photo).subscribe({
             next: (data) => {
               // console.log(data);
               // this.storageService.saveUser(data);
@@ -173,9 +212,9 @@ export class SignupComponent {
       // console.log('password: ', password);
       // console.log('telephone: ', telephone);
       // console.log('dateNaissance: ', dateNaissance);
-      // console.log('nom_doc: ', nom_doc);
-      // console.log('num_doc: ', num_doc);
-      // console.log('roles: ', roles);
+      // console.log('nomDoc: ', nomDoc);
+      // console.log('numDoc: ', numDoc);
+      // console.log('role: ', role);
     }
   }
   onChange(typeUser: any) {
@@ -243,10 +282,10 @@ export class SignupComponent {
     this.form.password ='',
     this.form.telephone ='',
     this.form.dateNaissance ='',
-    this.form.nom_doc = "Type de pieces",
-    this.form.num_doc ='',
+    this.form.nomDoc = "Type de pieces",
+    this.form.numDoc ='',
     this.form.confirmPassword ='',
-    this.form.roles = "Type d'Utilisateur",
+    this.form.role = "Type d'Utilisateur",
     this.form.photo = null
   })
 }

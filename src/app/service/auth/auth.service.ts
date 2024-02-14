@@ -33,7 +33,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.http.post(
-      URL_BASE + '/login',
+      URL_BASE + '/auth/signin',
       {
         email,
         password,
@@ -48,30 +48,21 @@ export class AuthService {
     password: string,
     telephone: string,
     dateNaissance: string,
-    nom_doc: string,
-    num_doc: string,
-    roles: string,
-    photos: File[]
+    nomDoc: string,
+    numDoc: string,
+    role: string,
+    nomPhoto: any
   ): Observable<any> {
     const formData = new FormData();
-    // console.log('nom: ', nom);
-    //   console.log('email: ', email);
-    //   console.log('password: ', password);
-    //   console.log('telephone: ', telephone);
-    //   console.log('dateNaissance: ', dateNaissance);
-    //   console.log('nom_doc: ', nom_doc);
-    //   console.log('num_doc: ', num_doc);
-    //   console.log('roles: ', roles);
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('password', password);
     formData.append('telephone', telephone);
     formData.append('dateNaissance', dateNaissance);
-    formData.append('nom_doc', nom_doc);
-    formData.append('num_doc', num_doc);
-    formData.append('roles', roles);
-    photos.forEach(p => { formData.append('photo[]', p) });
-
+    formData.append('nomDoc', nomDoc);
+    formData.append('numDoc', numDoc);
+    formData.append('role', role);
+    formData.append('nomPhoto', nomPhoto as Blob);
     // Définition du header Content-Type
     const headers = new HttpHeaders({
       'Content-Type': 'multipart/form-data'
@@ -81,7 +72,7 @@ export class AuthService {
     const options = { headers: headers };
 
     return this.http.post(
-      this.URL_BASE + '/register',
+      this.URL_BASE + '/auth/signup',
       formData,
       // options
     );

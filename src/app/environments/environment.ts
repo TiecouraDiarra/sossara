@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    Url_BASE:"http://192.168.1.13:8000/api",
-    Url_PHOTO:"http://192.168.1.13:8000"
+    Url_BASE:"http://localhost:8080/api",
+    Url_PHOTO:"http://localhost:8080"
   };
   
   /*

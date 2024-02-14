@@ -73,12 +73,12 @@ export class HeaderComponent implements OnInit {
     });
     this.getroutes(this.router);
     this.User = this.storageService.getUser();
-    // console.log(this.User);
+    console.log(this.User);
   }
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true

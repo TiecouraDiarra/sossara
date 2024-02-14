@@ -41,7 +41,7 @@ export class BienimmoService {
 
   //AFFICHER LA LISTE DES BIENS IMMO
   AfficherLaListeBienImmo(): Observable<any> {
-    return this.http.get(`${URL_BASE}/bien/immo`);
+    return this.http.get(`${URL_BASE}/bien/afficherbien`);
   }
 
   //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
@@ -65,7 +65,7 @@ export class BienimmoService {
 
   //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
   AfficherBienImmoParId(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/bien/immo/${id}`);
+    return this.http.get(`${URL_BASE}/bien/afficherbienparid/${id}`);
   }
 
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE LA COMMUNE
@@ -277,9 +277,11 @@ export class BienimmoService {
   //AIMER UN BIEN 
   AimerBien(id: any): Observable<any> {
     const headers = this.getHeaders();
+    const formData = new FormData();
+    formData.append('bienImmo', id || '');
     // console.log(id)
     // console.log(headers)
-    return this.http.post(`${URL_BASE}/bien/immo/view/${id}`, null, { headers });
+    return this.http.post(`${URL_BASE}/favoris/ajouter-ou-retirer`, formData, { headers });
   }
 
   //LA LISTE DES AIMES EN FONCTION DE L'ID DU BIEN 
