@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit {
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
-      this.nombreCandidatureAccepter = data.biens.length;
+      this.nombreCandidatureAccepter = data.length;
       // console.log(this.nombreCandidatureAccepter);
     });
 
@@ -163,7 +163,10 @@ export class HeaderComponent implements OnInit {
           next: res => {
             // console.log(res);
             this.storageService.clean();
-            this.router.navigateByUrl("/auth/connexion")
+            // this.router.navigateByUrl("/auth/connexion")
+            this.router.navigate(['/auth/connexion']).then(() => {
+              window.location.reload();
+            })
           },
           error: err => {
             // console.log(err);

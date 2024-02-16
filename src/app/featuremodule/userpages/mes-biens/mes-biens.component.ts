@@ -431,7 +431,7 @@ export class MesBiensComponent implements OnInit {
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
-      this.bienImmoDejaLoueLocataire = data.biens.reverse();
+      this.bienImmoDejaLoueLocataire = data.reverse();
       // console.log(this.bienImmoDejaLoueLocataire);
     });
 

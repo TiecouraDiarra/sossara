@@ -13,6 +13,7 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { environment } from 'src/app/environments/environment';
 import { AgenceService } from 'src/app/service/agence/agence.service';
 import { BlogService } from 'src/app/service/blog/blog.service';
+import { AdresseService } from 'src/app/service/adresse/adresse.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -95,6 +96,7 @@ export class AccueilComponent {
     private DataService: DataService,
     private router: Router,
     private storageService: StorageService,
+    private serviceAdresse : AdresseService,
     private serviceCommodite: CommoditeService,
     private serviceAgence: AgenceService,
     @Inject(LOCALE_ID) private localeId: string,
@@ -120,7 +122,7 @@ export class AccueilComponent {
     this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
     this.categories = this.categoriesDataSource.filteredData;
   }
-  
+
   public listingOwlOptions: OwlOptions = {
     margin: 24,
     loop: true,
@@ -379,10 +381,17 @@ export class AccueilComponent {
       this.adresse = data;
       this.region = data.region;
       this.nombreZone = data.region.length;
-      this.commune = data.commune.slice(0, 6);
+      // this.commune = data.commune.slice(0, 6);
       this.typebien = data.type;
       // console.log(this.commune);
     });
+
+    //AFFICHER LA LISTE DES COMMUNES
+    this.serviceAdresse.AfficherListeCommune().subscribe(data => {
+      this.commune = data.slice(0, 6);
+      console.log(this.commune);
+    }
+    );
 
     //LE NOMBRE DE BIENS LOUES
     // this.serviceBienImmo.NombreBienLouer().subscribe(data => {

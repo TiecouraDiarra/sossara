@@ -134,9 +134,10 @@ export class NotificationsComponent implements OnInit {
     );
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+    //fait
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.reverse();
-      // console.log(this.bienImmoLoueCandidatureAccepter);
+      console.log("candiat",this.bienImmoLoueCandidatureAccepter);
     });
   }
 

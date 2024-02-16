@@ -104,6 +104,8 @@ export class LoginComponent implements OnInit {
         this.roles = this.storageService.getUser().roles;
         this.path();
 
+        this.reloadPage();
+
         // Vérifiez si l'attribut profilcompleter est false
         // if (data.profilcompleter === false) {
         //   // Redirigez l'utilisateur vers la page de complétion de profil
