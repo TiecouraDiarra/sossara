@@ -53,4 +53,16 @@ export class AdresseService {
     const headers = this.getHeaders();
     return this.http.get(`${URL_BASE}/commune/afficher`, { headers });
   }
+
+     //AFFICHER LA LISTE DES TYPES BIEN IMMO
+     AfficherListeTypeBien(): Observable<any> {
+      const headers = this.getHeaders();
+      return this.http.get(`${URL_BASE}/typeimmo/afficher`, { headers });
+    }
+
+      //AFFICHER LA LISTE DES STATUTS BIEN IMMO
+      AfficherListeStatutBien(): Observable<any> {
+        const headers = this.getHeaders();
+        return this.http.get(`${URL_BASE}/typeimmo/afficher`, { headers });
+      }
 }

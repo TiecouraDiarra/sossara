@@ -104,6 +104,7 @@ export class NotificationsComponent implements OnInit {
     );
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+    //FAIT
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
       // this.candidature = data.reverse();
       // this.nombreRdvUser = data.length;

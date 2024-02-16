@@ -74,7 +74,7 @@
                                                         <div class="flex-grow-1 ms-3">
                                                             <select class="form-control select category-select">
                                                                 <option selected>Region</option>
-                                                                <option *ngFor="let Region of region">{{Region.nom}}
+                                                                <option *ngFor="let Region of region">{{Region.nomregion}}
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -93,7 +93,7 @@
                                                         <div class="flex-grow-1 ms-3">
                                                             <select class="form-control select category-select">
                                                                 <option selected>Commune</option>
-                                                                <option *ngFor="let Commune of commune">{{Commune.nom}}
+                                                                <option *ngFor="let Commune of commune">{{Commune.nomcommune}}
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -164,8 +164,8 @@
                                                                 <div class="flex-grow-1 ms-3">
                                                                     <select class="form-control select category-select">
                                                                         <option selected>Statut</option>
-                                                                        <option>A louer</option>
-                                                                        <option>A vendre</option>
+                                                                        <option *ngFor="let Statut of statut">
+                                                                            {{Statut.nom}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -1000,7 +1000,7 @@
                     <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
                         <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
                             class="commune-image img-fluid" alt="">
-                        <span>{{Commune.nom}}</span>
+                        <span>{{Commune.nomcommune}}</span>
                     </div>
                 </a>
             </div>

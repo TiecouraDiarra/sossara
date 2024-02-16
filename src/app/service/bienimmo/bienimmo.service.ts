@@ -70,7 +70,7 @@ export class BienimmoService {
 
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE LA COMMUNE
   AfficherBienImmoParCommune(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/bien/immo/commune/${id}`);
+    return this.http.get(`${URL_BASE}/bien/afficherbien/parcommune/${id}`);
   }
 
   //AFFICHER UNE TRANSACTION POUR LES  VENTE EN FONCTION DE SON ID

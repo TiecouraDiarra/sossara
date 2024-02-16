@@ -88,11 +88,11 @@
                                                 </ng-template>
                                             </a>
                                             <div class="fav-item">
-                                                <span [ngClass]="{'statutbien': BienImo.statut === 'A vendre' }"
-                                                    class="Featured-text">{{ BienImo.statut }}</span>
+                                                <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }"
+                                                    class="Featured-text">{{ BienImo?.statut?.nom }}</span>
                                                 <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
                                                     (click)="AimerBien(BienImo.id)"
-                                                    [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+                                                    [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : 'white'">
                                                     <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'"
                                                         class="feather-heart"></i>
                                                 </a>
@@ -102,13 +102,13 @@
                                             <div class="card-body">
                                                 <div class="blogfeaturelink">
                                                     <div class="grid-author">
-                                                        <img src="{{generateImageUrl(BienImo.utilisateur.photo)}}" alt="author"
+                                                        <img src="{{generateImageUrl(BienImo?.utilisateur?.photo)}}" alt="author"
                                                             (error)="handleAuthorImageError($event)" />
                                                     </div>
                                                     <div class="blog-features">
                                                         <a href="javascript:void(0)"><span> <i
                                                                     class="fa-regular fa-circle-stop"></i> {{
-                                                                BienImo.typeImmo.nom }}</span></a>
+                                                                BienImo?.typeImmo?.nom }}</span></a>
                                                     </div>
                                                     <div class="blog-author text-end">
                                                         <span> <i class="feather-eye"></i>{{
@@ -122,7 +122,7 @@
                                                         <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
                                                     </div>
                                                     <div class="location-info">
-                                                        <i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date |
+                                                        <i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt |
                                                         date:"dd/MM/yyyy"}}
                                                     </div>
                                                 </div>

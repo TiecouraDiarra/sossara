@@ -13,6 +13,7 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { environment } from 'src/app/environments/environment';
 import { AgenceService } from 'src/app/service/agence/agence.service';
 import { BlogService } from 'src/app/service/blog/blog.service';
+import { AdresseService } from 'src/app/service/adresse/adresse.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -42,6 +43,8 @@ export class AccueilComponent {
     './assets/img/banner/immo.jpg',
     './assets/img/banner/maison.jpg'
   ];
+  statut: any;
+  BienLoueRecensTotal: any;
 
   changeImage() {
     this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -57,7 +60,7 @@ export class AccueilComponent {
   typebien: any
   bienImmo: any;
   bienImmoPlusVue: any;
-  BienLoueRecens: any
+  BienLoueRecens: any[] = []
   searchInputCategory: any;
   public categories: any = [];
   categoriesDataSource = new MatTableDataSource();
@@ -95,6 +98,7 @@ export class AccueilComponent {
     private DataService: DataService,
     private router: Router,
     private storageService: StorageService,
+    private serviceAdresse : AdresseService,
     private serviceCommodite: CommoditeService,
     private serviceAgence: AgenceService,
     @Inject(LOCALE_ID) private localeId: string,
@@ -120,7 +124,7 @@ export class AccueilComponent {
     this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
     this.categories = this.categoriesDataSource.filteredData;
   }
-  
+
   public listingOwlOptions: OwlOptions = {
     margin: 24,
     loop: true,
@@ -361,7 +365,7 @@ export class AccueilComponent {
 
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
@@ -373,16 +377,50 @@ export class AccueilComponent {
 
     AOS.init({ disable: 'mobile' }
     );
-    //AFFICHER LA LISTE DES COMMODITES
+    //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.commodite = data.commodite;
+      // this.commodite = data.commodite;
       this.adresse = data;
-      this.region = data.region;
-      this.nombreZone = data.region.length;
-      this.commune = data.commune.slice(0, 6);
-      this.typebien = data.type;
+      // this.region = data.region;
+      // this.nombreZone = data.region.length;
+      // this.commune = data.commune.slice(0, 6);
+      // this.typebien = data.type;
       // console.log(this.commune);
     });
+
+    //AFFICHER LA LISTE DES COMMODITES ANCIEN
+    this.serviceCommodite.AfficherListeCommodite().subscribe(data => {
+      this.commodite = data;
+      console.log(this.commodite);
+
+    }
+    );
+
+     //AFFICHER LA LISTE DES TYPES BIEN IMMO
+     this.serviceAdresse.AfficherListeTypeBien().subscribe(data => {
+      this.typebien = data;
+    }
+    );
+
+     //AFFICHER LA LISTE DES STATUTS BIEN IMMO
+     this.serviceAdresse.AfficherListeStatutBien().subscribe(data => {
+      this.statut = data;
+    }
+    );
+
+    //AFFICHER LA LISTE DES COMMUNES
+    this.serviceAdresse.AfficherListeCommune().subscribe(data => {
+      this.commune = data.slice(0, 6);
+      console.log("commune de test",this.commune);
+    }
+    );
+
+    //AFFICHER LA LISTE DES REGIONS
+    this.serviceAdresse.AfficherListeRegion().subscribe(data => {
+      this.region = data;
+      this.nombreZone = data.length;
+    }
+    );
 
     //LE NOMBRE DE BIENS LOUES
     // this.serviceBienImmo.NombreBienLouer().subscribe(data => {
@@ -449,14 +487,30 @@ export class AccueilComponent {
     );
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmoRecentAlouer().subscribe(data => {
-      this.nombreBienLoue = data.biens.length;
-      this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+       this.BienLoueRecensTotal = [data.reverse()[0], data.reverse()[1], data.reverse()[2], data.reverse()[3]]
+       this.BienLoueRecensTotal.forEach((bien: any) => {
+        // Vérifier si le bien est déjà loué
+        if (bien.statut.nom === "A louer") {
+          this.BienLoueRecens.push(bien);
+        }
+
+      //   // Vérifier si le bien est déjà vendu
+        // if (bien.bien.is_sell === true) {
+        //   this.bienImmoUserAAcheter.push(bien);
+        // }
+
+      //   // Le reste de votre logique pour traiter les favoris...
+      });
+      console.log('Biens loués par recemment :', this.BienLoueRecens);
+      this.nombreBienLoue = data.length;
+      // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
       // console.log(this.BienLoueRecens);
       // console.log(data.biens);
       // console.log(this.nombreBienLoue);
     }
     );
+    
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
       this.nombreBienVendre = data.biens.length;
