@@ -94,7 +94,7 @@ export class BienimmoService {
   AfficherBienImmoLoueCandidatureAccepter(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers);
-    return this.http.get(`${URL_BASE}/bien/immo/get/rent/mine`,
+    return this.http.get(`${URL_BASE}/candidature/immo/get/rent/mine`,
       { headers });
   }
 

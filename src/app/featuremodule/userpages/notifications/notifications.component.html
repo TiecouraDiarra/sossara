@@ -58,9 +58,9 @@
                 </li> -->
             </ul>
         </div>
-        <div class="row dashboard-info reviewpage-content">
+        <div class="row dashboard-info reviewpage-content ">
             <div class="col-lg-6 d-flex" *ngIf="candidature && candidature.length > 0">
-                <div class="card dash-cards">
+                <div class="card dash-cards  w-100">
                     <div class="card-header">
                         <h4>Les candidatures</h4>
                         <div class="card-dropdown">
@@ -156,11 +156,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 d-flex"
+            <div class="col-lg-6 d-flex "
                 *ngIf="bienImmoLoueCandidatureAccepter && bienImmoLoueCandidatureAccepter.length > 0">
-                <div class="card dash-cards">
+                <div class="card dash-cards  w-100">
                     <div class="card-header">
-                        <h4>Les candidatures acceptees</h4>
+                        <h4>Mes candidatures acceptées</h4>
                         <div class="card-dropdown">
                             <ul>
                                 <li class="nav-item dropdown has-arrow logged-item">
@@ -184,12 +184,12 @@
 
                                     <div class="review-profile">
                                         <div class="review-img">
-                                            <img src="{{generateImageUrl(Candidature.bien.utilisateur.photo)}}"
+                                            <img src="{{generateImageUrl(Candidature?.utilisateur?.photo)}}"
                                                 class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
                                         </div>
                                     </div>
                                     <div class="review-details">
-                                        <h6>{{Candidature.bien.utilisateur.nom}}</h6>
+                                        <h6>{{Candidature?.utilisateur?.nom}}</h6>
                                         <div class="rating">
                                             <div class="rating-star">
                                                 <i class="fas fa-star filled"></i>
@@ -199,35 +199,35 @@
                                                 <i class="fas fa-star filled"></i>
                                             </div>
                                             <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                {{Candidature.createdAt |
+                                                {{Candidature?.updatedAt |
                                                 date:"dd MMM yyyy":locale}}</div>
-                                            <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature.createdAt
+                                            <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.updatedAt
                                                 |
                                                 date:"HH:mm"}}</div>
                                         </div>
                                         <div class="row mb-3">
-                                            {{Candidature.bien.nom}}
+                                            {{Candidature?.bien?.nom}}
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <p class="blog-category">
                                                     <a
-                                                        href="javascript:void(0)"><span>{{Candidature.bien.statut.nom}}</span></a>
+                                                        href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
                                                 </p>
                                             </div>
                                             <div class="col">
                                                 <p style="color: #e98b11; font-weight: bold;">{{
-                                                    formatPrice(Candidature.bien.prix) }} FCFA</p>
+                                                    formatPrice(Candidature?.bien?.prix) }} FCFA</p>
                                             </div>
 
                                         </div>
 
                                         <ul class="review-gallery">
                                             <li
-                                                *ngFor="let photo of Candidature.bien.photos.slice(0, 4); let i = index">
-                                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo.nom)">
+                                                *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
+                                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
                                             </li>
-                                            <ng-container *ngIf="Candidature.bien.photos.length === 0">
+                                            <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
                                                 <li *ngFor="let _ of [1, 2, 3, 4]">
                                                     <!-- Répéter 4 fois -->
                                                     <img class="img-fluid" alt="Image par défaut"

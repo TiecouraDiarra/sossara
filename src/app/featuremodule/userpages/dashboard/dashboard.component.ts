@@ -223,7 +223,7 @@ export class DashboardComponent implements OnInit {
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
-      this.nombreCandidatureAccepter = data.biens.length;
+      this.nombreCandidatureAccepter = data.length;
       // console.log(this.nombreCandidatureAccepter);
       // console.log(this.nombreCandidatureBienUser);
       // console.log(this.nombreRdvUser);
