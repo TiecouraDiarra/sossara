@@ -104,6 +104,7 @@ export class NotificationsComponent implements OnInit {
     );
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+    //FAIT
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
       // this.candidature = data.reverse();
       // this.nombreRdvUser = data.length;
@@ -134,7 +135,7 @@ export class NotificationsComponent implements OnInit {
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
-      this.bienImmoLoueCandidatureAccepter = data.biens.reverse();
+      this.bienImmoLoueCandidatureAccepter = data.reverse();
       // console.log(this.bienImmoLoueCandidatureAccepter);
     });
   }
