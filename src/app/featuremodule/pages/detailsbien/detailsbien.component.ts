@@ -15,7 +15,7 @@ declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
- 
+
 @Component({
   selector: 'app-detailsbien',
   templateUrl: './detailsbien.component.html',
@@ -61,11 +61,11 @@ export class DetailsbienComponent implements AfterViewInit {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data;
       console.log(this.bien);
-      
+
       this.photos = this.bien.photos;
-      this.latitude = this.bien.adresse.latitude || null;
-      this.longitude = this.bien.adresse.longitude || null;
-      this.nombien = this.bien.nom;
+      this.latitude = this.bien?.adresse?.latitude || null;
+      this.longitude = this.bien?.adresse?.longitude || null;
+      this.nombien = this.bien?.nom;
 
       // Reste du code pour récupérer d'autres données...
 
@@ -79,7 +79,6 @@ export class DetailsbienComponent implements AfterViewInit {
       setTimeout(() => {
         const mapElement = document.getElementById("mape");
         const map = new google.maps.Map(mapElement, mapOptions);
-
 
 
         // Créer un marqueur pour l'emplacement
@@ -299,15 +298,16 @@ export class DetailsbienComponent implements AfterViewInit {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data;
       console.log(this.bien);
-      
-      this.photos = this.bien.photos;
+
+      this.photos = this.bien?.photos;
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
       // this.nombien = this.bien.nom;
       // this.description = this.bien.description;
       // this.status = this.bien.statut;
       // this.type = this.bien.statut;
-      this.commodite = data.commodites
+      this.commodite = data.commodites;
+      // this.commentaire = data.commentaire
       // console.log(this.bien);
       // console.log(this.latitude);
       // console.log(this.longitude);
@@ -440,13 +440,13 @@ export class DetailsbienComponent implements AfterViewInit {
       // Définissez le token dans le service commentaireService
       this.serviceUser.setAccessToken(user.token);
 
-
-
       // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
       this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(
         data => {
-          // console.log("commentaire envoyé avec succès:", data);
+          console.log("commentaire envoyé avec succès:", data);
           // this.isSuccess = false;
+          // this.commentaire;
+          // this.commentaireForm.contenu = '';
 
           //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
           this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
@@ -478,14 +478,14 @@ export class DetailsbienComponent implements AfterViewInit {
       // Définissez le token dans le service serviceUser
       this.serviceUser.setAccessToken(user.token);
 
-
-
       // Appelez la méthode PrendreRdv() avec le contenu et l'ID
       this.serviceUser.PrendreRdv(this.RdvForm.date, this.RdvForm.heure, this.id).subscribe({
         next: (data) => {
           // console.log("Rendez-vous envoyé avec succès:", data);
           this.isSuccess = true;
-          this.errorMessage = 'Rendez-vous envoyé avec succès'
+          this.errorMessage = 'Rendez-vous envoyé avec succès';
+          this.RdvForm.date= null;
+          this.RdvForm.heure = null;
         },
         error: (err) => {
           // console.error("Erreur lors de l'envoi du rdv :", err);
@@ -535,18 +535,52 @@ export class DetailsbienComponent implements AfterViewInit {
           // Appelez la méthode PrendreRdv() avec le contenu et l'ID
           this.serviceBienImmo.CandidaterBien(this.id).subscribe({
             next: (data) => {
-              // console.log("Candidature envoyée avec succès:", data);
-              this.isSuccess = true;
-              this.errorMessage = 'Candidature envoyée avec succès';
-              // this.isCandidatureSent = true;
-              // Afficher le premier popup de succès
-              this.popUpConfirmation();
+              if (data.status) {
+                let timerInterval = 2000;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: "Envoie de candidature",
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  timer: timerInterval,
+                  timerProgressBar: true,
+                }).then(() => {
+                  this.reloadPage();
+                });
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Erreur',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => { });
+              }
             },
             error: (err) => {
               // console.error("Erreur lors de l'envoi du rdv :", err);
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
+              const errorMessage =
+                err.error && err.error.message ? err.error.message : 'Erreur inconnue';
+              swalWithBootstrapButtons.fire(
+                '',
+                `<h1 style='font-size: 1em !important; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${errorMessage}</h1>`,
+                'error'
+              );
             }
           }
           );
@@ -595,7 +629,7 @@ export class DetailsbienComponent implements AfterViewInit {
   }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 

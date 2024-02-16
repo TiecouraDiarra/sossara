@@ -148,9 +148,11 @@ export class DashboardComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    console.log(this.storageService.getUser());
+    
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
@@ -161,7 +163,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     // console.log(this.storageService.getUser());
-    this.User = this.storageService.getUser().user.id;
+    this.User = this.storageService.getUser().id;
     const Users = this.storageService.getUser();
     // console.log(this.User);
     const token = Users.token;
@@ -192,25 +194,30 @@ export class DashboardComponent implements OnInit {
     });
 
      //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
+    //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
-      this.nombreBienAutre = data.biens.length;
+      this.nombreBienAutre = data.length;
       // console.log(this.nombreBienAutre);
+      // console.log(data);
     }
     );
 
     //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
+    //FAIT
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       this.nombreRdvUser = data.length;
-      // console.log(this.rdv);
+      console.log(this.rdv);
     }
     );
 
+    
     //AFFICHER LA LISTE DES RDV ENVOYER PAR USER CONNECTE
+    //FAIT
     this.serviceUser.AfficherLaListeRdvUserConnecte().subscribe(data => {
       this.rdvUserConnect = data.reverse();
       this.nombreRdvUserConnect = data.length;
-      // console.log(this.rdvUserConnect);
+      console.log(this.rdvUserConnect);
     }
     );
 
@@ -246,7 +253,7 @@ export class DashboardComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 

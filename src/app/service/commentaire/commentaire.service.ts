@@ -35,20 +35,19 @@ export class commentaireService {
     private http: HttpClient,) { }
 
   //FAIRE UNE commentaire
-  Fairecommentaire(contenu: any, id: any): Observable<any> {
+  Fairecommentaire(contenu: string, id: any): Observable<any> {
     const headers = this.getHeaders();
-    // const data = new FormData();
-    // data.append("contenu", contenu)
+    const data = new FormData();
+    data.append("contenu", contenu)
+    data.append("bienImmo", id)
     // console.log(id)
-    // console.log(headers)
+    // console.log(data)  
     // console.log(contenu)
-    return this.http.post(`${URL_BASE}/commentaire/${id}`, {
-      contenu
-    }, { headers });
+    return this.http.post(`${URL_BASE}/commentaire/ajouter`,data, { headers });
   }
 
   //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
   AffichercommentaireParBien(id: number):Observable<any>{
-    return this.http.get(`${URL_BASE}/commentaire/get/${id}`);
+    return this.http.get(`${URL_BASE}/commentaire/afficherparBien/${id}`);
   }
 }

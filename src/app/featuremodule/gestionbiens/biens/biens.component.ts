@@ -103,6 +103,8 @@ export class BiensComponent {
       (el: any) => el.region.nomregion == newValue.value
     );
   }
+
+
   //AFFICHER COMMUNE EN FONCTION DE CERCLE
   onChangeCercle(newValue: any) {
     this.communes = this.commune.filter(

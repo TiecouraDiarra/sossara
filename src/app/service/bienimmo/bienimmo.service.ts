@@ -114,6 +114,8 @@ export class BienimmoService {
       { headers });
   }
 
+
+
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoDejaLoueParUser(): Observable<any> {
     const headers = this.getHeaders();
@@ -269,9 +271,11 @@ export class BienimmoService {
   //CANDIDATER UN BIEN 
   CandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
+    const formData = new FormData();
+    formData.append('bienImmo', id || '');
     // console.log(id)
     // console.log(headers)
-    return this.http.post(`${URL_BASE}/candidature/${id}`, null, { headers });
+    return this.http.post(`${URL_BASE}/candidature/ajouter`, formData, { headers });
   }
 
   //AIMER UN BIEN 
@@ -330,7 +334,7 @@ export class BienimmoService {
     const headers = this.getHeaders();
     // console.log(id)
     // console.log(headers)
-    return this.http.post(`${URL_BASE}/candidature/refuse/${id}`, null, { headers });
+    return this.http.post(`${URL_BASE}/candidature/annuler/${id}`, null, { headers });
   }
 
   //AJOUTER UN BIEN
@@ -478,26 +482,26 @@ export class BienimmoService {
     return this.http.post(`${URL_BASE}/bien/immo/delete/${id}`, null, { headers });
   }
 
-    //FAIRE UNE RECLAMATION
-    ArreterProcessusNew(
-      idRec: number,
-      photo: File,
-      // photo: File // Liste de photos
-    ): Observable<any> {
-      const headers = this.getHeaders();
-      headers.append('Content-Type', 'multipart/form-data');
-      // console.log(headers);
-      // console.log('photo', photo);
-      const formData = new FormData();
-  
-      formData.append('idRec', idRec.toString());
-      formData.append('photo', photo);
-  
-      return this.http.post(
-        URL_BASE + '/reparation/confirmer/list/' + `${idRec}`,
-        formData,
-        { headers }
-      );
-    }
+  //FAIRE UNE RECLAMATION
+  ArreterProcessusNew(
+    idRec: number,
+    photo: File,
+    // photo: File // Liste de photos
+  ): Observable<any> {
+    const headers = this.getHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    // console.log(headers);
+    // console.log('photo', photo);
+    const formData = new FormData();
+
+    formData.append('idRec', idRec.toString());
+    formData.append('photo', photo);
+
+    return this.http.post(
+      URL_BASE + '/reparation/confirmer/list/' + `${idRec}`,
+      formData,
+      { headers }
+    );
+  }
 
 }

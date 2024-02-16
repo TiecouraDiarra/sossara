@@ -11,10 +11,9 @@
                 <div class="sorting-select">
                   <select class="form-control select" [(ngModel)]="searchText">
                     <option value="" selected>Tout</option>
-                    <option>A louer</option>
-                    <option>A vendre</option>
+                    <option *ngFor="let Statut of status">{{Statut?.nom}}</option>
                   </select>
-                </div>
+                </div> 
               </div>
               <div class="grid-listview">
                 <ul>
@@ -40,50 +39,46 @@
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                   <div class="filter-content form-group">
-                    <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                    <mat-form-field class="mat-custom-select" style="width: 100%;">
                       <mat-label *ngIf="selectedCategory == ''">
                         Région</mat-label>
-                      <mat-select (selectionChange)="onRegionSelectionChange($event)" [(ngModel)]="selectedRegion"
-                        name="selectedRegion">
+                      <mat-select (change)="onChangeRegion($event.target)"
+                        (selectionChange)="onRegionSelectionChange($event)">
                         <mat-option disabled class="search-input-option">
-                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                          <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
                               searchCategory(searchInputCategory)
                             " class="search-input" type="text" />
                         </mat-option>
-                        <mat-option [value]="Region.nom" *ngFor="let Region of region">{{ Region.nom
+                        <mat-option [value]="Region.nomregion" *ngFor="let Region of region">{{ Region?.nomregion
                           }}</mat-option>
                       </mat-select>
                     </mat-form-field>
-
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                   <div class="filter-content form-group">
-                    <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                    <mat-form-field class="mat-custom-select" style="width: 100%;">
                       <mat-label *ngIf="selectedCategory == ''">
                         Commune</mat-label>
-                      <mat-select (selectionChange)="onCommuneSelectionChange($event)" [(ngModel)]="selectedCommune"
-                        name="selectedCommune">
+                      <mat-select (selectionChange)="onCommuneSelectionChange($event)">
                         <mat-option disabled class="search-input-option">
-                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                          <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
                               searchCategory(searchInputCategory)
                             " class="search-input" type="text" />
                         </mat-option>
-                        <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
+                        <mat-option [value]="Commune.nomcommune" *ngFor="let Commune of commune">{{Commune.nomcommune}}</mat-option>
                       </mat-select>
                     </mat-form-field>
-
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                   <div class="filter-content form-group">
-                    <mat-form-field class="mat-custom-select custom-narrow-form-field">
+                    <mat-form-field class="mat-custom-select" style="width: 100%;">
                       <mat-label *ngIf="selectedCategory == ''">
                         Type</mat-label>
-                      <mat-select (selectionChange)="onTypeSelectionChange($event)" [(ngModel)]="selectedType"
-                        name="selectedType">
+                      <mat-select (selectionChange)="onTypeSelectionChange($event)">
                         <mat-option disabled class="search-input-option">
-                          <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                          <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
                               searchCategory(searchInputCategory)
                             " class="search-input" type="text" />
                         </mat-option>
@@ -281,8 +276,8 @@
                           </ng-template>
                         </a>
                         <div class="fav-item">
-                          <span [ngClass]="{'statutbien': slide.statut === 'A vendre' }" class="Featured-text">{{
-                            slide.statut }}</span>
+                          <span [ngClass]="{'statutbien': slide.statut.nom === 'A vendre' }" class="Featured-text">{{
+                            slide?.statut?.nom }}</span>
                           <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
                             (click)="AimerBien(slide.id)"
                             [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : ''">
@@ -294,13 +289,13 @@
                         <div class="card-body">
                           <div class="blogfeaturelink">
                             <div class="grid-author">
-                              <img src="{{generateImageUrl(slide.utilisateur.photo)}}" alt="author"
+                              <img src="{{generateImageUrl(slide?.utilisateur?.photo)}}" alt="author"
                                 (error)="handleAuthorImageError($event)" />
                             </div>
                             <div class="blog-features">
                               <a href="javascript:void(0)"><span>
                                   <i class="fa-regular fa-circle-stop"></i>
-                                  {{ slide.typeImmo.nom }}</span></a>
+                                  {{ slide?.typeImmo?.nom }}</span></a>
                             </div>
                             <div class="blog-author text-end">
                               <span>
@@ -316,7 +311,7 @@
                               <i class="feather-map-pin"></i> {{ slide.adresse.quartier }}
                             </div>
                             <div class="location-info">
-                              <i class="fa-solid fa-calendar-days"></i>{{slide.createdAt.date | date:"dd MMM
+                              <i class="fa-solid fa-calendar-days"></i>{{slide.createdAt | date:"dd MMM
                               yyyy":locale}}
   
                             </div>

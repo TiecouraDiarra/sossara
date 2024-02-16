@@ -57,6 +57,7 @@
                 </li> -->
             </ul>
         </div>
+
         <!-- Debut AGENCE ET PROPRIETAIRE  -->
         <div class="container card shadow d-flex justify-content-center mt-5" *ngIf="isLocataire==false">
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -312,13 +313,13 @@
                                                             FCFA</span>
 
                                                     </div>
-                                                    <p>{{BienImmo.adresse.commune.region.pays.nom}} -
-                                                        {{BienImmo.adresse.commune.region.nom}} -
-                                                        {{BienImmo.adresse.commune.nom}} - {{BienImmo.adresse.quartier}}
+                                                    <p>{{BienImmo.adresse.commune.cercle.region.pays.nompays}} -
+                                                        {{BienImmo.adresse.commune.cercle.region.nomregion}} -
+                                                        {{BienImmo.adresse.commune.nomcommune}} - {{BienImmo.adresse.quartier}}
                                                     </p>
                                                 </td>
-                                                <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
-                                                        class="status-text">{{BienImmo.statut}}</span></td>
+                                                <td><span [ngClass]="{'unpublish': BienImmo.statut.nom === 'A vendre' }"
+                                                        class="status-text">{{BienImmo.statut.nom}}</span></td>
                                                 <td><span class="views-count">{{ favoritedPropertiesCount1[BienImmo.id]
                                                         }}</span></td>
                                                 <td>
@@ -350,7 +351,6 @@
                 </div>
                 <!-- fin La liste des biens   -->
                 <!-- Debut des biens loues  -->
-
                 <div class="tab-pane fade show" [class.active]="isTabActive('loue')" id="loue" role="tabpanel"
                     aria-labelledby="loue-tab">
                     <div class="dash-listingcontent dashboard-info">
@@ -421,33 +421,33 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
-                                                            (click)="goToDettailBien(BienImmo.id)">{{ BienImmo.bien.nom
+                                                    <h6 *ngIf="BienImmo && BienImmo.typeImmo"><a
+                                                            (click)="goToDettailBien(BienImmo.id)">{{ BienImmo.nom
                                                             ?
-                                                            BienImmo.bien.nom : BienImmo.bien.typeImmo.nom }}</a>
+                                                            BienImmo.nom : BienImmo.typeImmo.nom }}</a>
                                                     </h6>
                                                     <div class="listingtable-rate">
-                                                        <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                                                        <a *ngIf="BienImmo && BienImmo.typeImmo"
                                                             href="javascript:void(0)" class="cat-icon">
                                                             <i class="fa-regular fa-circle-stop"></i>
-                                                            {{BienImmo.bien.typeImmo.nom}}
+                                                            {{BienImmo.typeImmo.nom}}
                                                         </a> <span class="discount-amt"
-                                                            *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
-                                                            formatPrice(BienImmo.bien.prix) }}
+                                                            *ngIf="BienImmo && BienImmo.prix">{{
+                                                            formatPrice(BienImmo.prix) }}
                                                             FCFA</span>
 
                                                     </div>
-                                                    <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
-                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.nom}} -
-                                                        {{BienImmo.bien.adresse.quartier}}
+                                                    <p *ngIf="BienImmo && BienImmo.adresse">
+                                                        {{BienImmo.adresse.commune.cercle.region.pays.nompays}} -
+                                                        {{BienImmo.adresse.commune.cercle.region.nomregion}} -
+                                                        {{BienImmo.adresse.commune.nomcommune}} -
+                                                        {{BienImmo.adresse.quartier}}
                                                     </p>
                                                 </td>
-                                                <td><span [ngClass]="{'unpublish': BienImmo.statut === 'A vendre' }"
-                                                        class="status-text">{{BienImmo.statut}}</span></td>
+                                                <td><span [ngClass]="{'unpublish': BienImmo.statut.nom === 'A vendre' }"
+                                                        class="status-text">Loué</span></td>
                                                 <td><span class="views-count"
-                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt
                                                         |
                                                         date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
@@ -455,7 +455,7 @@
                                                         <li class="review-box">
                                                             <div class="review-profile">
                                                                 <div class="review-img">
-                                                                    <img src="{{generateImageUrl(BienImmo.utilisateur.photo)}}"
+                                                                    <img src="{{generateImageUrl(BienImmo?.candidatures[0]?.utilisateur?.photo)}}"
                                                                         class="img-fluid" alt="img"
                                                                         (error)="handleAuthorImageError($event)">
                                                                 </div>
@@ -463,9 +463,9 @@
                                                             <div class="review-details">
                                                                 <div class="tes">
                                                                     <div class="views-count">
-                                                                        {{BienImmo.utilisateur.nom}}</div>
+                                                                        {{BienImmo?.candidatures[0]?.utilisateur?.nom}}</div>
                                                                 </div>
-                                                                <div>Tel : {{BienImmo.utilisateur.telephone}}</div>
+                                                                <div>Tel : {{BienImmo?.candidatures[0]?.utilisateur?.telephone}}</div>
                                                                 <!-- <p>ffff</p>																	 -->
                                                             </div>
                                                         </li>
@@ -694,34 +694,34 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
+                                                    <h6 *ngIf="BienImmo && BienImmo.typeImmo"><a
                                                             (click)="goToDettailBien(BienImmo.id)">
-                                                            {{ BienImmo.bien.nom ? BienImmo.bien.nom :
-                                                            BienImmo.bien.typeImmo.nom }}
+                                                            {{ BienImmo.nom ? BienImmo.nom :
+                                                            BienImmo.typeImmo.nom }}
                                                         </a>
                                                     </h6>
                                                     <div class="listingtable-rate">
-                                                        <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                                                        <a *ngIf="BienImmo && BienImmo.typeImmo"
                                                             href="javascript:void(0)" class="cat-icon">
                                                             <i class="fa-regular fa-circle-stop"></i>
-                                                            {{BienImmo.bien.typeImmo.nom}}
+                                                            {{BienImmo.typeImmo.nom}}
                                                         </a> <span class="discount-amt"
-                                                            *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
-                                                            formatPrice(BienImmo.bien.prix) }}
+                                                            *ngIf="BienImmo && BienImmo.prix">{{
+                                                            formatPrice(BienImmo.prix) }}
                                                             FCFA</span>
 
                                                     </div>
-                                                    <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
-                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.nom}} -
-                                                        {{BienImmo.bien.adresse.quartier}}
+                                                    <p *ngIf="BienImmo && BienImmo.adresse">
+                                                        {{BienImmo.adresse.commune.cercle.region.pays.nompays}} -
+                                                        {{BienImmo.adresse.commune.cercle.region.nomregion}} -
+                                                        {{BienImmo.adresse.commune.nomcommune}} -
+                                                        {{BienImmo.adresse.quartier}}
                                                     </p>
                                                 </td>
                                                 <td><span class="status-text"
-                                                        style="color: red;">{{BienImmo.statut}}</span></td>
+                                                        style="color: red;">Vendu</span></td>
                                                 <td><span class="views-count"
-                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt
                                                         |
                                                         date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
@@ -729,7 +729,7 @@
                                                         <li class="review-box">
                                                             <div class="review-profile">
                                                                 <div class="review-img">
-                                                                    <img src="{{generateImageUrl(BienImmo.utilisateur.photo)}}"
+                                                                    <img src="{{generateImageUrl(BienImmo.candidatures[0].utilisateur.photo)}}"
                                                                         class="img-fluid" alt="img"
                                                                         (error)="handleAuthorImageError($event)">
                                                                 </div>
@@ -737,9 +737,9 @@
                                                             <div class="review-details">
                                                                 <div class="tes">
                                                                     <div class="views-count">
-                                                                        {{BienImmo.utilisateur.nom}}</div>
+                                                                        {{BienImmo.candidatures[0].utilisateur.nom}}</div>
                                                                 </div>
-                                                                <div>Tel : {{BienImmo.utilisateur.telephone}}</div>
+                                                                <div>Tel : {{BienImmo.candidatures[0].utilisateur.telephone}}</div>
                                                                 <!-- <p>ffff</p>																	 -->
                                                             </div>
                                                         </li>

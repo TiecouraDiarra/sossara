@@ -103,21 +103,21 @@ export class ProfileComponent implements OnInit {
     this.User = this.storageService.getUser();
     // console.log(this.User);
     this.formModif = {
-      nom: this.User.user.username,
-      telephone: this.User.user.telephone,
-      email: this.User.user.email,
-      date_de_naissance: this.User.user.date_de_naissance,
+      nom: this.User.nom,
+      telephone: this.User.telephone,
+      email: this.User.email,
+      date_de_naissance: this.User.date_de_naissance,
     };
   }
 
   getRoleLabel(): string {
-    if (this.User.user.role[0] === 'ROLE_LOCATAIRE') {
+    if (this.User.role[0] === 'ROLE_LOCATAIRE') {
       return 'LOCATAIRE';
-    } else if (this.User.user.role[0] === 'ROLE_PROPRIETAIRE') {
+    } else if (this.User.role[0] === 'ROLE_PROPRIETAIRE') {
       return 'AGENCE';
-    } else if (this.User.user.role[0] === 'ROLE_AGENCE') {
+    } else if (this.User.role[0] === 'ROLE_AGENCE') {
       return 'AGENCE';
-    } else if (this.User.user.role[0] === 'ROLE_AGENT') {
+    } else if (this.User.role[0] === 'ROLE_AGENT') {
       return 'AGENT';
     } else {
       return '';
@@ -127,7 +127,7 @@ export class ProfileComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 
@@ -139,7 +139,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
@@ -148,8 +148,8 @@ export class ProfileComponent implements OnInit {
       }
 
       // Chargez l'image de profil actuelle depuis User.user.photo (si disponible)
-      if (this.User.user && this.User.user.photo) {
-        this.profileImageUrl = this.generateImageUrl(this.User.user.photo);
+      if (this.User && this.User.photo) {
+        this.profileImageUrl = this.generateImageUrl(this.User.photo);
       }
     }
 

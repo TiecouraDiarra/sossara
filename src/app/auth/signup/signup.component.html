@@ -150,8 +150,9 @@
                 <div class="group-img">
                   <select class="form-control" (change)="onChange($event.target)" [(ngModel)]="form.role"
                   name="role">
-                    <option *ngFor="let item of typeUser" [value]="item">
-                      {{ item }}
+                  <option disabled value="">Choisissez un type d'utilisateur</option>
+                    <option *ngFor="let item of typeUser" [value]="item.value">
+                      {{ item?.nom }}
                     </option>
                   </select>
                 </div>

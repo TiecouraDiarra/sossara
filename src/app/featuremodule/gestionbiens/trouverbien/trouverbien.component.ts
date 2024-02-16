@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
+import { AdresseService } from 'src/app/service/adresse/adresse.service';
+import { configbienService } from 'src/app/service/configbien/configbien.service';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -57,6 +59,9 @@ export class TrouverbienComponent implements OnInit {
 
   // IMAGE PAR DEFAUT DES BIENS
   DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
+  status: any;
+  cercle: any;
+  cercles: any;
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -65,10 +70,16 @@ export class TrouverbienComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 
+  //AFFICHER CERCLE EN FONCTION DE REGION
+  onChangeRegion(newValue: any) {
+    this.cercles = this.cercle.filter(
+      (el: any) => el.region.nomregion == newValue.value
+    );
+  }
 
   //RECHERCHER PAR REGION
   onRegionSelectionChange(event: any) {
@@ -134,6 +145,8 @@ export class TrouverbienComponent implements OnInit {
     private router: Router,
     @Inject(LOCALE_ID) private localeId: string,
     private serviceUser: UserService,
+    private serviceAdresse: AdresseService,
+    private serviceConfigBien: configbienService,
     private storageService: StorageService,
     private serviceCommodite: CommoditeService
   ) {
@@ -193,23 +206,29 @@ export class TrouverbienComponent implements OnInit {
     });
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.bienImmo = data.biens.reverse();
+      this.bienImmo = data.reverse();
+      console.log(this.bienImmo);
+
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = data.vues;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-          }
-          // console.log(this.NombreJaime)
-          // Charger l'état de favori depuis localStorage
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          if (isFavorite === 'true') {
-            this.favoriteStatus[bien.id] = true;
-          } else {
-            this.favoriteStatus[bien.id] = false;
-          }
-        })
+      this.bienImmo.forEach((bien: {
+        favoris: any; id: string | number;
+      }) => {
+        // Charger le nombre de "J'aime" pour chaque bien
+        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+        this.NombreJaime = bien.favoris?.length;
+        // console.log(this.NombreJaime);
+
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        }
+
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        if (isFavorite === 'true') {
+          this.favoriteStatus[bien.id] = true;
+        } else {
+          this.favoriteStatus[bien.id] = false;
+        }
       });
       // console.log(this.bienImmo);
     }
@@ -218,23 +237,58 @@ export class TrouverbienComponent implements OnInit {
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.commodite = data.commodite;
       this.adresse = data;
-      this.region = data.region.reverse();
-      this.commune = data.commune;
-      this.typebien = data.type;
+      // this.region = data.region.reverse();
+      // this.commune = data.commune;
+      // this.typebien = data.type;
       // console.log(this.adresse);
     });
 
+    //AFFICHER LA LISTE DES TYPES DE BIENS
+    this.serviceConfigBien.AfficherListeTypeImmo().subscribe(data => {
+      this.typebien = data;
+      // console.log(this.typebien);
+    }
+    );
+
+    //AFFICHER LA LISTE DES STATUT DE BIENS
+    this.serviceConfigBien.AfficherListeStatut().subscribe(data => {
+      this.status = data;
+      // console.log(this.typebien);
+    }
+    );
+
+    //AFFICHER LA LISTE DES REGIONS
+    this.serviceAdresse.AfficherListeRegion().subscribe(data => {
+      this.region = data;
+      // console.log(this.region);
+    }
+    );
+
+    //AFFICHER LA LISTE DES REGIONS
+    this.serviceAdresse.AfficherListeCercle().subscribe(data => {
+      this.cercle = data;
+      // console.log(this.cercle);
+    }
+    );
+
+    //AFFICHER LA LISTE DES COMMUNES
+    this.serviceAdresse.AfficherListeCommune().subscribe(data => {
+      this.commune = data;
+      // console.log(this.commune);
+    }
+    );
+
     // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      if (Array.isArray(data.biens)) {
+      if (Array.isArray(data)) {
         // Assurez-vous que data.biens est un tableau avant d'appeler map
-        this.bienImmoMap = data.biens;
-        // console.log(this.bienImmoMap);
+        this.bienImmoMap = data;
+        console.log(this.bienImmoMap);
 
         // Convertissez les données de bien immobilier en marqueurs Google Maps
         this.overlays = this.bienImmoMap.map((bien: any) => {
           // Vérifiez si la propriété 'photos' est un tableau non vide
-          const imageSrc = bien.photos && bien.photos.length > 0 ? bien.photos[0].nom : 'assets/img/gallery/gallery1/gallery-1.jpg';
+          const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom): 'assets/img/gallery/gallery1/gallery-1.jpg';
           return new google.maps.Marker({
             position: { lat: bien.adresse.latitude, lng: bien.adresse.longitude },
             icon: 'assets/img/icons/marker7.png',
@@ -242,10 +296,10 @@ export class TrouverbienComponent implements OnInit {
             address: bien.adresse.quartier,
             amount: bien.prix,
             image: imageSrc,
-            regions: bien.adresse.commune.region.nom,
+            regions: bien?.adresse?.commune?.cercle?.region?.nomregion,
             communes: bien.adresse.commune.nom,
             types: bien.typeImmo.nom,
-            statut: bien.statut,
+            statut: bien.statut.nom,
             id: bien.id
           });
         });
@@ -343,10 +397,10 @@ export class TrouverbienComponent implements OnInit {
 
   setInfo(event: any) {
     var marker = event.overlay;
-    var imageSrc = marker.image ? this.generateImageUrl(marker.image) : 'assets/img/gallery/gallery1/gallery-1.jpg'; // Remplacez 'chemin/vers/image_par_defaut.jpg' par le chemin de votre image par défaut.
+    // var imageSrc = marker.image ? this.generateImageUrl(marker.image) : 'assets/img/gallery/gallery1/gallery-1.jpg'; // Remplacez 'chemin/vers/image_par_defaut.jpg' par le chemin de votre image par défaut.
     var content =
       '<div class="profile-widget crd" style="width: 300px; background: url(' +
-      imageSrc +
+      marker.image +
       '); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px; ">' +
       '<div class="pro-content">' +
       '<h3 class="title">' +
@@ -356,13 +410,13 @@ export class TrouverbienComponent implements OnInit {
       '</h3>';
 
     // Utilisation de *ngIf pour conditionner l'affichage en fonction du statut
-    if (marker.statut === 'A vendre') {
+    if (marker.statut == 'A vendre') {
       content +=
         '<div class="row">' +
         '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">' + marker.statut + '</span></div>' +
         `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>`
         + marker.types + '</span></a></p></div>';
-    } else if (marker.statut === 'A louer') {
+    } else if (marker.statut == 'A louer') {
       content +=
         '<div class="row">' +
         '<div class="col"><span class="Featured-text" style="font-weight: bold;">' + marker.statut + '</span></div>' +
@@ -405,7 +459,7 @@ export class TrouverbienComponent implements OnInit {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          // console.log("Bien aimé avec succès:", data);
+          console.log(data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {

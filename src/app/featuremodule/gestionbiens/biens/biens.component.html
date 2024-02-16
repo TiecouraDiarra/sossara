@@ -38,7 +38,7 @@
                   <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
                       Statut</mat-label>
-                    <mat-select (change)="onChangeRegion($event.target)"
+                    <mat-select 
                       (selectionChange)="onStatutSelectionChange($event)">
                       <mat-option disabled class="search-input-option">
                         <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
@@ -295,7 +295,7 @@
                     <div class="blog-img">
                       <a (click)="goToDettailBien(BienImo.id)" class="crd">
                         <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
-                          <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" (error)="handleAuthorImageError($event)" class="img-fluid image-size"
+                          <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size"
                             alt="blog-img">
                         </div>
                         <ng-template #noImages>

@@ -99,9 +99,11 @@ export class MesBiensComponent implements OnInit {
   searchTextBienVendu: any;
   bienImmo: any;
   probleme: any;
-  bienImmoDejaLoue: any;
+  // bienImmoDejaLoue: any;
+  bienImmoDejaLoue: any[] = [];
+  bienImmoDejaVendu: any[] = [];
   bienImmoDejaLoueAgence: any;
-  bienImmoDejaVendu: any;
+  // bienImmoDejaVendu: any;
   reclamation: any;
   p1: number = 1;
   p2: number = 1;
@@ -137,7 +139,7 @@ export class MesBiensComponent implements OnInit {
   }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
   reclamationUser: any
@@ -306,11 +308,13 @@ export class MesBiensComponent implements OnInit {
       this.isButtonDisabled = false;
     }
   }
+  bienImmoDejaLoueNew: any[] = [];
+  bienImmoDejaVenduNew: any[] = [];
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
@@ -325,30 +329,43 @@ export class MesBiensComponent implements OnInit {
         this.selectedTab = 'home';
       }
     }
-    this.User = this.storageService.getUser().user.id;
+    this.User = this.storageService.getUser().id;
     // console.log(this.User);
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
+    //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
-      this.bienImmo = data.biens.reverse();
-      // console.log(this.bienImmo);
-      // Parcourir la liste des biens immobiliers
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
-        // Charger le nombre de "J'aime" pour chaque bien
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = data.vues;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-          }
+      this.bienImmo = data.reverse();
+      console.log(this.bienImmo);
 
-          // Charger l'état de favori depuis localStorage
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          // if (isFavorite === 'true') {
-          //   this.favoriteStatus[bien.id] = true;
-          // } else {
-          //   this.favoriteStatus[bien.id] = false;
-          // }
-        });
+      // Filtrer les biens immobiliers
+      this.bienImmo.forEach((bien: any) => {
+        // Vérifier si le bien est déjà loué
+        if (bien.is_rent === true) {
+          this.bienImmoDejaLoue.push(bien);
+        }
+
+      //   // Vérifier si le bien est déjà vendu
+        if (bien.is_sell === true) {
+          this.bienImmoDejaVendu.push(bien);
+        }
+
+      //   // Le reste de votre logique pour traiter les favoris...
+      });
+      // // Afficher les biens déjà loués et déjà vendus
+      console.log('Biens déjà loués :', this.bienImmoDejaLoue);
+      console.log('Biens déjà vendus :', this.bienImmoDejaVendu);
+
+      // Parcourir la liste des biens immobiliers
+      this.bienImmo.forEach((bien: {
+        favoris: any; id: string | number;
+      }) => {
+        this.NombreJaime = bien.favoris?.length;
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        }
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
       });
     });
 
@@ -824,51 +841,51 @@ export class MesBiensComponent implements OnInit {
 
     }).then((result) => {
       // Après avoir réussi à supprimer, mettez à jour l'état de la page
-          //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
-      this.bienImmo = data.biens.reverse();
-      // console.log(this.bienImmo);
-      // Parcourir la liste des biens immobiliers
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
-        // Charger le nombre de "J'aime" pour chaque bien
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = data.vues;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-          }
+      //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
+      this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
+        this.bienImmo = data.biens.reverse();
+        // console.log(this.bienImmo);
+        // Parcourir la liste des biens immobiliers
+        this.bienImmo.forEach((bien: { id: string | number; }) => {
+          // Charger le nombre de "J'aime" pour chaque bien
+          this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+            this.NombreJaime = data.vues;
+            if (typeof bien.id === 'number') {
+              this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+            }
 
-          // Charger l'état de favori depuis localStorage
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          // if (isFavorite === 'true') {
-          //   this.favoriteStatus[bien.id] = true;
-          // } else {
-          //   this.favoriteStatus[bien.id] = false;
-          // }
+            // Charger l'état de favori depuis localStorage
+            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+            // if (isFavorite === 'true') {
+            //   this.favoriteStatus[bien.id] = true;
+            // } else {
+            //   this.favoriteStatus[bien.id] = false;
+            // }
+          });
         });
       });
-    });
 
-    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
-    this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
-      this.test = data;
-      this.bienImmoAgence = data.biens_agences;
-      this.bienImmoAgent = data.biens_agents;
-      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
-      // console.log(this.test);
-      // console.log(this.bienImmoAgence);
-      // console.log(this.bienImmoAgent);
-      // console.log(this.bienImmoAgenceTotal);
-      // Parcourir la liste des biens immobiliers
-      this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaimeAgence = data.vues;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
-          }
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+      //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+      this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
+        this.test = data;
+        this.bienImmoAgence = data.biens_agences;
+        this.bienImmoAgent = data.biens_agents;
+        this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
+        // console.log(this.test);
+        // console.log(this.bienImmoAgence);
+        // console.log(this.bienImmoAgent);
+        // console.log(this.bienImmoAgenceTotal);
+        // Parcourir la liste des biens immobiliers
+        this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
+          this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+            this.NombreJaimeAgence = data.vues;
+            if (typeof bien.id === 'number') {
+              this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
+            }
+            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          });
         });
       });
-    });
 
     })
   }

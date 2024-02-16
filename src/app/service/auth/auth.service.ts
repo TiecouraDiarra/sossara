@@ -61,7 +61,15 @@ export class AuthService {
     formData.append('dateNaissance', dateNaissance);
     formData.append('nomDoc', nomDoc);
     formData.append('numDoc', numDoc);
-    formData.append('role', role);
+    const roles = [role, 'userRole'];
+    formData.append('role[]', roles[0]);
+    formData.append('role[]', roles[1]);
+    // Suppose que role est un tableau
+    // const roles = ['userRole'];
+
+    // roles.forEach(role => {
+    //   formData.append('role', role);
+    // });
     formData.append('nomPhoto', nomPhoto as Blob);
     // Définition du header Content-Type
     const headers = new HttpHeaders({

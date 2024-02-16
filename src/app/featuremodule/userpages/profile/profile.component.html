@@ -68,7 +68,7 @@
                         <div class="card-body">
                             <div class="profile-photo">
                                 <div class="profile-img">
-                                    <div class="settings-upload-img" *ngIf="User.user && User.user.photo">
+                                    <div class="settings-upload-img" *ngIf="User && User.photos">
                                         <img [src]="profileImageUrl" alt="profile"
                                             (error)="handleAuthorImageError($event)">
                                     </div>
@@ -83,47 +83,47 @@
                             </div>
                             <div class="profile-form">
                                 <form>
-                                    <div class="form-group" *ngIf="User.user && User.user.username">
+                                    <div class="form-group" *ngIf="User && User.nom">
                                         <label class="col-form-label">Votre nom et prenom</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-user"></i></span>
-                                            <input type="text" class="form-control" value="{{User.user.username}}">
+                                            <input type="text" class="form-control" value="{{User.nom}}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group" *ngIf="User.user && User.user.telephone">
+                                            <div class="form-group" *ngIf="User && User.telephone">
                                                 <label class="col-form-label">Numero</label>
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i class="feather-phone-call"></i></span>
                                                     <input type="tel" class="form-control"
-                                                        value="{{User.user.telephone}}">
+                                                        value="{{User.telephone}}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group" *ngIf="User.user && User.user.email">
+                                            <div class="form-group" *ngIf="User && User.email">
                                                 <label class="col-form-label">Adresse Email</label>
                                                 <div class="group-img">
                                                     <i class="feather-mail"></i>
-                                                    <input type="text" class="form-control" value="{{User.user.email}}">
+                                                    <input type="text" class="form-control" value="{{User.email}}">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row socialmedia-info">
-                                        <div class="col-lg-6 col-md-6" *ngIf="User.user.date_de_naissance">
+                                        <div class="col-lg-6 col-md-6" *ngIf="User.dateNaissance">
                                             <div class="form-group">
                                                 <label class="col-form-label">Date de naissance</label>
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i
                                                             class="fa-sharp fa-solid fa-calendar-days"></i></span>
                                                     <input type="text" class="form-control"
-                                                        value="{{User.user.date_de_naissance | date:'dd MMM yyyy':locale}}">
+                                                        value="{{User.dateNaissance | date:'dd MMM yyyy':locale}}">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6" *ngIf="User.user.role && User.user.role[0]">
+                                        <!-- <div class="col-lg-6 col-md-6" *ngIf="User.roles && User.role[0]">
                                             <div class="form-group">
                                                 <label class="col-form-label">Statut</label>
                                                 <div class="pass-group group-img">
@@ -131,29 +131,29 @@
                                                     <input type="text" class="form-control" [value]="getRoleLabel()">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="row socialmedia-info">
                                         <div class="col-lg-6 col-md-6"
-                                            *ngIf="User.user.documents && User.user.documents[0]">
+                                            *ngIf="User.documents && User.documents[0]">
                                             <div class="form-group">
                                                 <label class="col-form-label">Type de piece</label>
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i
                                                             class="fas fa-id-card"></i></span>
                                                     <input type="text" class="form-control"
-                                                        value="{{User.user.documents[0].nom}}">
+                                                        value="{{User.documents[0].nom}}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6"
-                                            *ngIf="User.user.documents && User.user.documents[0]">
+                                            *ngIf="User.documents && User.documents[0]">
                                             <div class="form-group">
                                                 <label class="col-form-label">Numero de la carte</label>
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i class="fas fa-file"></i></span>
                                                     <input type="text" class="form-control"
-                                                        value="{{User.user.documents[0].num_doc}}">
+                                                        value="{{User.documents[0].num_doc}}">
                                                 </div>
                                             </div>
                                         </div>

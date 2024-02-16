@@ -21,7 +21,7 @@ export class NotificationsComponent implements OnInit {
   public routes = routes;
   rdv: any;
   User: any;
-  candidature: any;
+  candidature: any[] = [];
   locale!: string;
   isLocataire = false;
   isAgence = false;
@@ -36,8 +36,12 @@ export class NotificationsComponent implements OnInit {
   // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
   selectedFactureId: any;
   factureNumber: number = 1; // Numéro de facture initial
-  transaction:any
+  transaction: any
   today: Date;
+
+  candidatureAccepter: any[] = [];
+  candidatureAnnuler: any[] = [];
+  // bienVendu: any[] = [];
 
   // Fonction pour ouvrir le modal avec l'ID de la transaction
   openFactureModal(bienImmoId: number) {
@@ -75,22 +79,23 @@ export class NotificationsComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
-      }else if(this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
     }
     // console.log(this.storageService.getUser());
-    this.User = this.storageService.getUser().user.id;
+    this.User = this.storageService.getUser().id;
     const Users = this.storageService.getUser();
     // console.log(this.User);
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
 
     //AFFICHER LA LISTE DES RDV
+    // FAIT
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       // this.nombreRdvUser = data.length;
@@ -100,9 +105,30 @@ export class NotificationsComponent implements OnInit {
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      this.candidature = data.candidature.reverse();
+      // this.candidature = data.reverse();
       // this.nombreRdvUser = data.length;
-      // console.log(this.candidature);
+      console.log(this.candidature);
+      // Filtrer les biens immobiliers
+      data.forEach((Candidature: any) => {
+        if (Candidature.isAccepted === false && Candidature.isCancel === false) {
+          this.candidature?.push(Candidature);
+        }
+        // Vérifier si le bien est déjà loué
+        if (Candidature.isAccepted === true) {
+          this.candidatureAccepter?.push(Candidature);
+        }
+
+        // Vérifier si le bien est déjà vendu
+        if (Candidature.isCancel === true) {
+          this.candidatureAnnuler?.push(Candidature);
+        }
+
+        // Le reste de votre logique pour traiter les favoris...
+      });
+      // Afficher les biens déjà loués et déjà vendus
+      console.log('candidatureAccepter :', this.candidatureAccepter);
+      console.log('candidatureAnnuler :', this.candidatureAnnuler);
+      console.log('candidature :', this.candidature);
     }
     );
 
@@ -155,7 +181,7 @@ export class NotificationsComponent implements OnInit {
         cancelButton: 'btn btn-danger',
       },
       heightAuto: false
-    }) 
+    })
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
       text: "Etes-vous sûre de valider cette candidature?",
@@ -225,7 +251,7 @@ export class NotificationsComponent implements OnInit {
 
 
           // Appelez la méthode ANNULERCANDIDATUREBIEN() avec le contenu et l'ID
-          this.serviceBienImmo.AccepterCandidaterBien(id).subscribe({
+          this.serviceBienImmo.AnnulerCandidaterBien(id).subscribe({
             next: (data) => {
               // console.log("Candidature annulée avec succès:", data);
               this.isSuccess = true;
@@ -268,12 +294,29 @@ export class NotificationsComponent implements OnInit {
 
     }).then((result) => {
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-      this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-        this.candidature = data.candidature.reverse();
-        // this.nombreRdvUser = data.length;
-        // console.log(this.candidature);
-      }
-      );
+    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+      // this.candidature = data.reverse();
+      // this.nombreRdvUser = data.length;
+      console.log(this.candidature);
+      // Filtrer les biens immobiliers
+      data.forEach((Candidature: any) => {
+        if (Candidature.isAccepted === false && Candidature.isCancel === false) {
+          this.candidature?.push(Candidature);
+        }
+        // Vérifier si le bien est déjà loué
+        if (Candidature.isAccepted === true) {
+          this.candidatureAccepter?.push(Candidature);
+        }
+
+        // Vérifier si le bien est déjà vendu
+        if (Candidature.isCancel === true) {
+          this.candidatureAnnuler?.push(Candidature);
+        }
+
+        // Le reste de votre logique pour traiter les favoris...
+      });
+    }
+    );
     })
 
   }
@@ -298,12 +341,30 @@ export class NotificationsComponent implements OnInit {
 
     }).then((result) => {
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-      this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-        this.candidature = data.candidature.reverse();
-        // this.nombreRdvUser = data.length;
-        // console.log(this.candidature);
-      }
-      );
+    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+      // this.candidature = data.reverse();
+      // this.nombreRdvUser = data.length;
+      console.log(this.candidature);
+      // Filtrer les biens immobiliers
+      data.forEach((Candidature: any) => {
+        if (Candidature.isAccepted === false && Candidature.isCancel === false) {
+          this.candidature?.push(Candidature);
+        }
+        // Vérifier si le bien est déjà loué
+        if (Candidature.isAccepted === true) {
+          this.candidatureAccepter?.push(Candidature);
+        }
+
+        // Vérifier si le bien est déjà vendu
+        if (Candidature.isCancel === true) {
+          this.candidatureAnnuler?.push(Candidature);
+        }
+
+        // Le reste de votre logique pour traiter les favoris...
+      });
+     
+    }
+    );
     })
 
   }
@@ -315,7 +376,7 @@ export class NotificationsComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 

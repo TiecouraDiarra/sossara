@@ -24,11 +24,18 @@ export class SignupComponent {
   public currentUser = 'Utilisateur';
   public currentType = 'Type';
   public TYpePie = 'TypePiece';
-  public typeUser = [
-    "Type d'Utilisateur",
-    'LOCATAIRE OU ACHETEUR',
-    'PROPRIETAIRE',
-    'AGENCE',
+  // public typeUser = [
+  //   "Type d'Utilisateur",
+  //   'LOCATAIRE OU ACHETEUR',
+  //   'PROPRIETAIRE',
+  //   'AGENCE',
+  // ];
+
+  public typeUser: any[] = [
+    // { nom: "Type d'Utilisateur", },
+    { nom: 'LOCATAIRE OU ACHETEUR', value: 'locataire' },
+    { nom: 'PROPRIETAIRE', value: 'proprietaire' },
+    { nom: 'AGENCE', value: 'agence' },
   ];
 
   userName: any = {
@@ -45,7 +52,7 @@ export class SignupComponent {
     dateNaissance: null,
     nomDoc : "Type de pieces",
     numDoc : null,
-    role : "Type d'Utilisateur",
+    role : "Choisissez un type d'utilisateur",
     photo:null,
   };
   isSuccessful = false;
@@ -218,11 +225,11 @@ handleFileSelection(event: any): void {
     }
   }
   onChange(typeUser: any) {
-    if (typeUser.value === "LOCATAIRE OU ACHETEUR" || typeUser.value === 'PROPRIETAIRE') {
+    if (typeUser.value === "locataire" || typeUser.value === 'proprietaire') {
       this.typePieces = this.typepiciesUser;
       this.currentUser = typeUser.value;
       // this.currentType = typeUser.value
-    } else if (typeUser.value === 'AGENCE') {
+    } else if (typeUser.value === 'agence') {
       this.typePieces = this.typepiciesAgence;
       this.currentUser = typeUser.value;
       // this.NINABio = true

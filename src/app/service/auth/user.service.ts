@@ -78,25 +78,21 @@ export class UserService {
   }
 
   //PRENDRE RENDEZ-VOUS EN FONCTION DU BIEN
-  PrendreRdv(date: Date, heure: string, id: any): Observable<any> {
+  PrendreRdv(date: string, heure: string, id: any): Observable<any> {
     const headers = this.getHeaders();
-    // const data = new FormData();
-    // data.append("contenu", contenu)
-    // console.log(id)
-    // console.log(headers)
-    // console.log(date)
-    // console.log(heure)
-    return this.http.post(`${URL_BASE}/rdv/${id}`, {
-      date,
-      heure
-    }, { headers });
+    const formData = new FormData();
+    formData.append('bienImmo', id || '');
+    formData.append('date', date || '');
+    formData.append('heure', heure || '');
+    return this.http.post(`${URL_BASE}/rdv/ajouter`,
+    formData, { headers });
   }
 
   //AFFICHER LA LISTE DES CANDIDATURES DE BIENS EN FONCTION DE USER
   AfficherLaListeCandidature(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers)
-    return this.http.get(`${URL_BASE}/candidature/get`, { headers });
+    return this.http.get(`${URL_BASE}/candidature/get/mine`, { headers });
   }
 
   //CHANGER MOT DE PASSE
