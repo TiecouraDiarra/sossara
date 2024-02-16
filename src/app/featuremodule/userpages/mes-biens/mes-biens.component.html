@@ -933,8 +933,8 @@
                                                     <div class="listingtable-img">
                                                         <a (click)="goToDettailBien(BienImmo.id)">
                                                             <div
-                                                                *ngIf="BienImmo.photos && BienImmo.photos.length > 0; else noImages">
-                                                                <img src="{{ generateImageUrl(BienImmo.photos[0].nom) }}"
+                                                                *ngIf="BienImmo?.bien.photoImmos && BienImmo?.bien?.photoImmos?.length > 0; else noImages">
+                                                                <img src="{{ generateImageUrl(BienImmo?.bien?.photoImmos[0].nom) }}"
                                                                     class="img-fluid image-size" alt="blog-img">
                                                             </div>
                                                             <ng-template #noImages>
@@ -963,21 +963,21 @@
 
                                                     </div>
                                                     <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
-                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.cercle.region.pays.nompays}} -
+                                                        {{BienImmo.bien.adresse.commune.cercle.region.nomregion}} -
+                                                        {{BienImmo.bien.adresse.commune.nomcommune}} -
                                                         {{BienImmo.bien.adresse.quartier}}
                                                     </p>
                                                 </td>
                                                 <td><span class="views-count"
-                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        *ngIf="BienImmo && BienImmo.updatedAt">{{BienImmo.updatedAt
                                                         | date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
                                                     <ul class="review-list">
                                                         <li class="review-box">
                                                             <div class="review-profile">
                                                                 <div class="review-img">
-                                                                    <img src="{{generateImageUrl(BienImmo.bien.utilisateur.photo)}}"
+                                                                    <img src="{{generateImageUrl(BienImmo?.bien?.proprietaire.photo)}}"
                                                                         class="img-fluid" alt="img"
                                                                         (error)="handleAuthorImageError($event)">
                                                                 </div>
@@ -985,9 +985,9 @@
                                                             <div class="review-details">
                                                                 <div class="tes">
                                                                     <div class="views-count">
-                                                                        {{BienImmo.bien.utilisateur.nom}}</div>
+                                                                        {{BienImmo?.bien?.proprietaire.nom}}</div>
                                                                 </div>
-                                                                <div>Tel : {{BienImmo.bien.utilisateur.telephone}}</div>
+                                                                <div>Tel : {{BienImmo?.bien?.proprietaire.telephone}}</div>
                                                                 <!-- <p>ffff</p>																	 -->
                                                             </div>
                                                         </li>
@@ -1372,8 +1372,8 @@
                                                     <div class="listingtable-img">
                                                         <a (click)="goToDettailBien(BienImmo.id)">
                                                             <div
-                                                                *ngIf="BienImmo.bien && BienImmo.bien.photos && BienImmo.bien.photos.length > 0; else noImages">
-                                                                <img src="{{ generateImageUrl(BienImmo.bien.photos[0].nom) }}"
+                                                                *ngIf="BienImmo.bien && BienImmo?.bien?.photoImmos && BienImmo?.bien?.photoImmos?.length > 0; else noImages">
+                                                                <img src="{{ generateImageUrl(BienImmo?.bien?.photoImmos[0].nom) }}"
                                                                     class="img-fluid image-size" alt="blog-img">
                                                             </div>
                                                             <ng-template #noImages>
@@ -1401,15 +1401,16 @@
                                                             FCFA</span>
 
                                                     </div>
+                                                  
                                                     <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
-                                                        {{BienImmo.bien.adresse.commune.region.pays.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.region.nom}} -
-                                                        {{BienImmo.bien.adresse.commune.nom}} -
+                                                        {{BienImmo.bien.adresse.commune.cercle.region.pays.nompays}} -
+                                                        {{BienImmo.bien.adresse.commune.cercle.region.nomregion}} -
+                                                        {{BienImmo.bien.adresse.commune.nomcommune}} -
                                                         {{BienImmo.bien.adresse.quartier}}
                                                     </p>
                                                 </td>
                                                 <td><span class="views-count"
-                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                        *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo?.updatedAt
                                                         |
                                                         date:"dd MMM yyyy":locale}}</span></td>
                                                 <td>
@@ -1417,7 +1418,7 @@
                                                         <li class="review-box">
                                                             <div class="review-profile">
                                                                 <div class="review-img">
-                                                                    <img src="{{generateImageUrl(BienImmo.bien.utilisateur.photo)}}"
+                                                                    <img src="{{generateImageUrl(BienImmo?.bien?.proprietaire.photo)}}"
                                                                         class="img-fluid" alt="img"
                                                                         (error)="handleAuthorImageError($event)">
                                                                 </div>
@@ -1425,9 +1426,9 @@
                                                             <div class="review-details">
                                                                 <div class="tes">
                                                                     <div class="views-count">
-                                                                        {{BienImmo.bien.utilisateur.nom}}</div>
+                                                                        {{BienImmo?.bien?.proprietaire.nom}}</div>
                                                                 </div>
-                                                                <div>Tel : {{BienImmo.bien.utilisateur.telephone}}</div>
+                                                                <div>Tel : {{BienImmo?.bien?.proprietaire.telephone}}</div>
                                                                 <!-- <p>ffff</p>																	 -->
                                                             </div>
                                                         </li>

@@ -39,6 +39,7 @@ export class MesBiensComponent implements OnInit {
 
   @ViewChild('factureachat')
   factureachat!: ElementRef;
+  bienImmoDejaLoueLocataires: any;
 
   //GENERER FACTURE DU MOIS (LOCATION)
   genererPDFLocation() {
@@ -118,7 +119,7 @@ export class MesBiensComponent implements OnInit {
   isAgence = false;
   isAgent = false;
   roles: string[] = [];
-  bienImmoDejaLoueLocataire: any
+  bienImmoDejaLoueLocataire: any[] = []
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
 
@@ -185,7 +186,7 @@ export class MesBiensComponent implements OnInit {
   transaction: any
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   favoritedPropertiesCountAgence: { [bienId: number]: number } = {};
-  bienImmoUserAAcheter: any
+  bienImmoUserAAcheter: any[] = []
   bienImmoAgenceTotal: any
 
   bienagent: any
@@ -431,15 +432,31 @@ export class MesBiensComponent implements OnInit {
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
-      this.bienImmoDejaLoueLocataire = data.biens.reverse();
-      // console.log(this.bienImmoDejaLoueLocataire);
+      this.bienImmoDejaLoueLocataires = data.reverse();
+      console.log(this.bienImmoDejaLoueLocataires);
+      this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
+        // Vérifier si le bien est déjà loué
+        if (bien.bien.is_rent === true) {
+          this.bienImmoDejaLoueLocataire.push(bien);
+        }
+
+      //   // Vérifier si le bien est déjà vendu
+        if (bien.bien.is_sell === true) {
+          this.bienImmoUserAAcheter.push(bien);
+        }
+
+      //   // Le reste de votre logique pour traiter les favoris...
+      });
+      // // Afficher les biens déjà loués et déjà vendus
+      console.log('Biens déjà loués par user connecté :', this.bienImmoDejaLoueLocataire);
+      console.log('Biens déjà achétés par user connecté :', this.bienImmoUserAAcheter);
     });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
-    this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
-      this.bienImmoUserAAcheter = data.biens.reverse();
-      // console.log(this.bienImmoUserAAcheter);
-    });
+    // this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
+    //   this.bienImmoUserAAcheter = data.biens.reverse();
+    //   // console.log(this.bienImmoUserAAcheter);
+    // });
 
 
     //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
