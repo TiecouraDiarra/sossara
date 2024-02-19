@@ -184,12 +184,12 @@
 
                                     <div class="review-profile">
                                         <div class="review-img">
-                                            <img src="{{generateImageUrl(Candidature?.utilisateur?.photo)}}"
+                                            <img src="{{generateImageUrl(Candidature?.bien?.proprietaire.photo)}}"
                                                 class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
                                         </div>
                                     </div>
                                     <div class="review-details">
-                                        <h6>{{Candidature?.utilisateur?.nom}}</h6>
+                                        <h6>{{Candidature?.bien?.proprietaire.nom}}</h6>
                                         <div class="rating">
                                             <div class="rating-star">
                                                 <i class="fas fa-star filled"></i>
