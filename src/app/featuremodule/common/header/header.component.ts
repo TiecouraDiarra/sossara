@@ -90,20 +90,20 @@ export class HeaderComponent implements OnInit {
 
     //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
-      this.nombreRdvUser = data.length;
+      this.nombreRdvUser = data?.length;
       // console.log(this.nombreRdvUser);
     }
     );
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
-      this.nombreCandidatureAccepter = data.length;
+      this.nombreCandidatureAccepter = data?.length;
       // console.log(this.nombreCandidatureAccepter);
     });
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      this.nombreCandidatureBienUser = data.candidature.length;
+      this.nombreCandidatureBienUser = data.candidature?.length;
       // console.log(this.nombreCandidatureBienUser);
 
       // Calculer la somme des candidatures et des rendez-vous

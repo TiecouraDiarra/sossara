@@ -391,11 +391,11 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherListeCommodite().subscribe(data => {
       this.commodite = data;
-      console.log(this.commodite);
+      // console.log("bbbbbbbbbbbbbbbbbbbb",this.commodite);
 
     }
     );
-
+ 
      //AFFICHER LA LISTE DES TYPES BIEN IMMO
      this.serviceAdresse.AfficherListeTypeBien().subscribe(data => {
       this.typebien = data;
@@ -521,8 +521,8 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
-      this.blog = data.blogs;
-      // console.log(this.blog);
+      this.blog = data;
+      console.log("blog",this.blog);
     });
   }
   //METHODE PERMETTANT D'AIMER UN BIEN 

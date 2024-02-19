@@ -23,9 +23,9 @@
             <div class="col-lg-8">
                 <div class="row">
                     <!-- Vérifiez s'il y a des blogs à afficher -->
-                    <ng-container *ngIf="blog && blog.length > 0; else noBlogs">
-                        <div class="col-lg-6 col-md-6 d-lg-flex" *ngFor="let slide of  blog | filter:searchText">
-                            <div class="blog grid-blog">
+                    <ng-container *ngIf="blog && blog?.length > 0; else noBlogs">
+                        <div class="col-lg-6 col-md-6 d-lg-flex " *ngFor="let slide of  blog | filter:searchText">
+                            <div class="blog grid-blog w-100">
                                 <div class="blog-image">
                                     <a (click)="goToDettailBlog(slide.id)"><img class="img-fluid image-size crd"
                                             src="{{generateImageUrl(slide.photo)}}"
@@ -40,19 +40,19 @@
                                         <li>
                                             <div class="post-author">
                                                 <div class="post-author-img">
-                                                    <img src="{{generateImageUrl(slide.utilisateur.photo)}}"
+                                                    <img src="{{generateImageUrl(slide?.utilisateur?.photo)}}"
                                                         (error)="handleAuthorImageError1($event)" alt="author">
                                                 </div>
-                                                <a href="javascript:void(0)"> <span> {{slide.utilisateur.nom}}
+                                                <a href="javascript:void(0)"> <span> {{slide.utilisateur?.nom}}
                                                     </span></a>
                                             </div>
                                         </li>
                                         <li class="date-icon"><i class="fa-solid fa-calendar-days"></i>
-                                            {{slide.createdAt.date | date:"dd MMM yyyy":locale}}</li>
+                                            {{slide.createdAt | date:"dd MMM yyyy":locale}}</li>
                                     </ul>
-                                    <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide.id)">{{slide.titre}}</a>
+                                    <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide.id)">{{slide?.titre}}</a>
                                     </h3>
-                                    <p class="blog-description">{{slide.description}} </p>
+                                    <p class="blog-description">{{slide?.description}} </p>
                                     <div class="viewlink crd"><a (click)="goToDettailBlog(slide.id)">Voir plus <i
                                                 class="feather-arrow-right"></i></a></div>
                                 </div>
@@ -224,7 +224,7 @@
                                 <li>Culture </li>
                             </ul>
                         </div>-->
-                        <div class="card" *ngIf="bienImmo && bienImmo.length > 0">
+                        <div class="card" *ngIf="bienImmo && bienImmo?.length > 0">
                             <h4><i class="feather-tag"></i> Biens recents</h4>
                             <div class="article" *ngFor="let BienImo of bienImmo">
                                 <a *ngIf="BienImo && BienImo.photos && BienImo.photos.length > 0"
@@ -235,7 +235,7 @@
                                             <h6>{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</h6>
                                         </li>
                                         <li *ngIf="BienImo && BienImo.createdAt" class="date-icon"><i
-                                                class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt.date |
+                                                class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt |
                                             date:"dd MMM yyyy":locale}}
                                         </li>
                                     </ul>

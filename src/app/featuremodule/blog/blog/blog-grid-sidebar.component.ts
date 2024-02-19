@@ -63,8 +63,8 @@ export class BlogGridSidebarComponent {
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
-      this.blog = data.blogs;
-      // console.log(this.blog);
+      this.blog = data;
+      console.log("blogs",this.blog);
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO

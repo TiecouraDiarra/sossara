@@ -29,11 +29,17 @@ export class AdresseService {
       'Authorization': `Bearer ${token}`
     });
   }
+  
+  //AFFICHER LA LISTE DES PAYS
+  AfficherListePeriode(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/periode/afficher`, { headers });
+  }
 
   //AFFICHER LA LISTE DES PAYS
   AfficherListePays(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(`${URL_BASE}pays/afficher`, { headers });
+    return this.http.get(`${URL_BASE}/pays/afficher`, { headers });
   }
 
    //AFFICHER LA LISTE DES REGIONS
@@ -63,6 +69,6 @@ export class AdresseService {
       //AFFICHER LA LISTE DES STATUTS BIEN IMMO
       AfficherListeStatutBien(): Observable<any> {
         const headers = this.getHeaders();
-        return this.http.get(`${URL_BASE}/typeimmo/afficher`, { headers });
+        return this.http.get(`${URL_BASE}/statutbien/afficher`, { headers });
       }
 }

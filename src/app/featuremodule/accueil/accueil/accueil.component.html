@@ -851,7 +851,7 @@
                                             <div class="top-room-details">
                                                 <div class="area">
                                                     <span><img src="assets/img/icons/bed-icon.svg" class="img-fluid"
-                                                            alt="">{{bienRecent.typeImmo.nom}}</span>
+                                                            alt="">{{bienRecent?.typeImmo?.nom}}</span>
                                                 </div>
                                                 <div class="area">
                                                     <span><img src="assets/img/icons/area-icon.svg" class="img-fluid"
@@ -1186,20 +1186,20 @@
                                         <ng-template carouselSlide>
                                             <div class="blog grid-blog aos" data-aos="fade-up">
                                                 <div class="blog-image">
-                                                    <a (click)="goToDettailBlog(Blog.id)"><img class="img-fluid image-sizeblog crd"
-                                                            src="{{generateImageUrl(Blog.photo)}}"
-                                                            (error)="handleAuthorImageError($event)" alt="Post Image"></a>
+                                                    <!-- <a (click)="goToDettailBlog(Blog?.id)"><img class="img-fluid image-sizeblog crd"
+                                                            src="{{generateImageUrl(Blog?.photo)}}"
+                                                            (error)="handleAuthorImageError($event)" alt="Post Image"></a> -->
                                                 </div>
                                                 <div class="blog-content">
                                                     <h3 class="blog-title"><a
-                                                            [routerLink]="routes.blogdetails">{{Blog.titre}}</a></h3>
+                                                            [routerLink]="routes.blogdetails">{{Blog?.titre}}</a></h3>
                                                     <ul class="entry-meta meta-item">
                                                         <li class="date-icon"><i class="feather-calendar"></i>
-                                                            {{Blog.createdAt.date | date:"dd MMM yyyy":locale}}</li>
+                                                            {{Blog?.createdAt | date:"dd MMM yyyy":locale}}</li>
                                                     </ul>
-                                                    <p class="blog-description">{{Blog.description}}</p>
+                                                    <p class="blog-description">{{Blog?.description}}</p>
                                                     <div class="viewlink crd">
-                                                        <a (click)="goToDettailBlog(Blog.id)">Voir plus</a>
+                                                        <a (click)="goToDettailBlog(Blog?.id)">Voir plus</a>
                                                     </div>
                                                 </div>
                                             </div>
