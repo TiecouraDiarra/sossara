@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Aos from 'aos';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
@@ -10,7 +11,6 @@ import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 declare var google: any;
-
 
 interface Food {
   value: string | any;
@@ -47,16 +47,17 @@ export class AjouterBienComponent {
   isAgence = false;
   roles: string[] = [];
   commodite3: any;
-  regions: any = [];
+  regions: any[] = [];
+  cercles: any[] = [];
   communes: any = [];
   photo: File[] = [];
   image: File[] = [];
   images: File[] = [];
   fileName: any;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  status: any = ['A louer', 'A vendre'];
-
-
+  status:any[] = [];
+  nombreZone: any;
+  cercle: any;
 
   constructor(
     private DataService: DataService,
@@ -66,12 +67,15 @@ export class AjouterBienComponent {
     private userService: UserService,
     private elRef: ElementRef,
     private ngZone: NgZone,
+    private serviceAdresse: AdresseService,
+
     private serviceBienImmo: BienimmoService
-  ) { }
+  ) {}
 
   public routes = routes;
   selectedValue: string | any = 'pays';
   selectedValueR: string | any = 'region';
+  selectedValueC: string | any = 'cercle';
   fliesValues: any = [];
   valuesFileCurrent: String = 'assets/img/mediaimg-2.jpg';
   errorMessage: any = '';
@@ -94,7 +98,7 @@ export class AjouterBienComponent {
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
           console.log(this.image);
-          this.maxImageCount = this.image.length
+          this.maxImageCount = this.image.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
@@ -142,8 +146,8 @@ export class AjouterBienComponent {
     periode: null,
     rue: null,
     porte: null,
-    longitude: null,
-    latitude: null,
+    longitude: 123456789,
+    latitude: 123456789,
     photo: null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
@@ -152,72 +156,123 @@ export class AjouterBienComponent {
   initMap() {
     const mapOptions = {
       center: { lat: 12.639231999999997, lng: -7.998184000000001 }, // Coordonnées initiales de la carte
-      zoom: 15 // Niveau de zoom initial
+      zoom: 15, // Niveau de zoom initial
     };
-  
+
     const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  
+
     // Créer un marqueur initial au centre de la carte
     const initialMarker = new google.maps.Marker({
       position: mapOptions.center,
       map: map,
-      draggable: true // Rend le marqueur draggable
+      draggable: true, // Rend le marqueur draggable
     });
-  
-    // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
-    google.maps.event.addListener(initialMarker, 'dragend', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
-      this.form.latitude = markerEvent.latLng.lat();
-      this.form.longitude = markerEvent.latLng.lng();
-  
-      console.log('Latitude :', this.form.latitude);
-      console.log('Longitude :', this.form.longitude);
-    });
-  
-    // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
-    google.maps.event.addListener(initialMarker, 'click', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
-      const newLatLng = new google.maps.LatLng(
-        initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
-        initialMarker.getPosition().lng() + 0.001  // Déplacez le marqueur d'une petite quantité en longitude
-      );
-  
-      initialMarker.setPosition(newLatLng);
-  
-      // Mettez à jour les coordonnées dans votre formulaire
-      this.form.latitude = newLatLng.lat();
-      this.form.longitude = newLatLng.lng();
-  
-      console.log('Latitude :', this.form.latitude);
-      console.log('Longitude :', this.form.longitude);
-    });
-  }
-  
 
+    // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
+    google.maps.event.addListener(
+      initialMarker,
+      'dragend',
+      (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+        this.form.latitude = markerEvent.latLng.lat();
+        this.form.longitude = markerEvent.latLng.lng();
+
+        console.log('Latitude :', this.form.latitude);
+        console.log('Longitude :', this.form.longitude);
+      }
+    );
+
+    // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
+    google.maps.event.addListener(
+      initialMarker,
+      'click',
+      (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+        const newLatLng = new google.maps.LatLng(
+          initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
+          initialMarker.getPosition().lng() + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
+        );
+
+        initialMarker.setPosition(newLatLng);
+
+        // Mettez à jour les coordonnées dans votre formulaire
+        this.form.latitude = 123456789;
+        this.form.longitude = 123456789;
+        // this.form.latitude = newLatLng.lat();
+        // this.form.longitude = newLatLng.lng();
+
+        console.log('Latitude :', this.form.latitude);
+        console.log('Longitude :', this.form.longitude);
+      }
+    );
+  }
 
   ngOnInit(): void {
-    this.initMap();
     Aos.init({ disable: 'mobile' });
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       console.log(this.roles);
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
-        this.isLocataire = true
-      } else if (this.roles[0] == "ROLE_AGENCE") {
-        this.isAgence = true
+      if (this.roles[0] == 'ROLE_LOCATAIRE') {
+        this.isLocataire = true;
+      } else if (this.roles[0] == 'ROLE_AGENCE') {
+        this.isAgence = true;
       }
+      // this.initMap();
     }
 
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-      this.les_commodite = data.commodite;
+      // this.les_commodite = data.commodite;
       this.adresse = data;
-      this.pays = data.pays;
-      this.region = data.region;
-      this.commune = data.commune;
-      this.typebien = data.type;
+      // this.pays = data.pays;
+      // this.region = data.region;
+      // this.commune = data.commune;
+      // this.typebien = data.type;
       this.periode = data.periode;
       console.log(data);
     });
+    this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+      this.les_commodite = data;
+      console.log('commodite', this.les_commodite);
+    });
+    //AFFICHER LA LISTE DES COMMUNES
+    this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
+      this.commune = data;
+      console.log('commune de test', this.commune);
+    });
+    //AFFICHER LA LISTE DES Pays
+    this.serviceAdresse.AfficherListePays().subscribe((data) => {
+      this.pays = data;
+      console.log('pays', this.pays);
+    });
+    //AFFICHER LA LISTE DES CERCLE
+    this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
+      this.cercle = data;
+      console.log('cercle de test', this.cercle);
+    });
+
+    //AFFICHER LA LISTE DES REGIONS
+    this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
+      this.region = data;
+      this.nombreZone = data.length;
+      console.log('region', this.region);
+    });
+
+    //AFFICHER LA LISTE DES TYPEBIEN
+    this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
+      this.typebien = data;
+      console.log('typebien de test', this.typebien);
+    });
+
+    //AFFICHER LA LISTE DES PERIODES
+    this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
+      this.periode = data;
+      console.log('periode de test', this.periode);
+    });
+       //AFFICHER LA LISTE DES PERIODES
+       this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
+        this.status = data;
+        console.log('status de test', this.status);
+      });
 
     // //AFFICHER LA LISTE DES BIENS IMMO
     // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
@@ -234,13 +289,18 @@ export class AjouterBienComponent {
 
   onChange(newValue: any) {
     this.regions = this.region.filter(
-      (el: any) => el.pays.nom == newValue.value
+      (el: any) => el.pays.nompays == newValue.value
+    );
+  }
+  onChangeRegion(newValue: any) {
+    this.cercles = this.cercle.filter(
+      (el: any) => el.region.nomregion == newValue.value
     );
   }
 
-  onChangeRegion(newValue: any) {
+  onChangeCercle(newValue: any) {
     this.communes = this.commune.filter(
-      (el: any) => el.region.nom == newValue.value
+      (el: any) => el.cercle.nomcercle == newValue.value
     );
   }
 
@@ -248,11 +308,11 @@ export class AjouterBienComponent {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    if (this.selectedStatut === 'A vendre') {
+    console.log("this.selectedStatut",this.selectedStatut)
+    if (this.selectedStatut === '2' ) {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
   }
-
 
   // onFileSelected(newValue: any) {
   //   this.files.push(newValue.target.files[0]);
@@ -278,92 +338,113 @@ export class AjouterBienComponent {
       periode,
       longitude,
       latitude,
-      photo
+      photo,
     } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
+      heightAuto: false,
+    });
 
-    if (this.form.commodite === null
-      || this.form.type === null
-      || this.form.commune === null
-      || this.form.nb_piece === null
-      || this.form.nom === null
-      || this.form.chambre === null
-      || this.form.cuisine === null
-      || this.form.toilette === null
-      || this.form.surface === null
-      || this.form.prix === null
-      || this.form.statut === null
-      || this.form.description === null
-      || this.form.quartier === null
-      || this.form.rue === null
-      || this.form.porte === null
-      || this.form.photo === null) {
+    if (
+      this.form.commodite === null ||
+      this.form.type === null ||
+      this.form.commune === null ||
+      this.form.nb_piece === null ||
+      this.form.nom === null ||
+      this.form.chambre === null ||
+      this.form.cuisine === null ||
+      this.form.toilette === null ||
+      this.form.surface === null ||
+      this.form.prix === null ||
+      this.form.statut === null ||
+      this.form.description === null ||
+      this.form.quartier === null ||
+      this.form.rue === null ||
+      this.form.porte === null ||
+      this.form.photo === null
+    ) {
       swalWithBootstrapButtons.fire(
-        this.message = " Tous les champs sont obligatoires !",
-      )
+        (this.message = ' Tous les champs sont obligatoires !')
+      );
       // console.error('Tous les champs sont obligatoires !');
-
     } else {
-      swalWithBootstrapButtons.fire({
-        text: "Etes-vous sûre de bien vouloir creer ce bien ?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Confirmer',
-        cancelButtonText: 'Annuler',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const user = this.storageService.getUser();
-          if (user && user.token) {
-            this.serviceBienImmo.setAccessToken(user.token);
-            this.serviceBienImmo
-              .registerBien(
-                commodite,
-                type,
-                commune,
-                nb_piece,
-                nom,
-                chambre,
-                cuisine,
-                toilette,
-                surface,
-                prix,
-                statut,
-                description,
-                quartier,
-                rue,
-                porte,
-                periode,
-                longitude,
-                latitude,
-                photo
-              )
-              .subscribe({
-                next: (data) => {
-                  console.log(data);
-                  this.isSuccess = false;
-                  console.log(this.form);
-                  this.popUpConfirmation();
-                },
-                error: (err) => {
-                  console.log(err);
-                  this.errorMessage = err.error.message;
-                  this.isSuccess = true;
-                },
-              });
-          } else {
-            console.error('Token JWT manquant');
+      swalWithBootstrapButtons
+        .fire({
+          text: 'Etes-vous sûre de bien vouloir creer ce bien ?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Confirmer',
+          cancelButtonText: 'Annuler',
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const user = this.storageService.getUser();
+            console.log("commodite", commodite,
+           "type", type,
+          "commune" , commune,
+          "nb_piece",  nb_piece,
+           "nom", nom,
+          "chambre",  chambre,
+          "cuisine" , cuisine,
+           "toilette", toilette,
+           "surface", surface,
+           "prix", prix,
+          "statut",  statut,
+           "description", description,
+           "quartier", quartier,
+            "rue", rue,
+           "porte", porte,
+          "periode",  periode,
+          "longitude",  longitude,
+          "latitude",  latitude,
+          "photo",  photo)
+            if (user && user.token) {
+              this.serviceBienImmo.setAccessToken(user.token);
+              this.serviceBienImmo
+                .registerBien(
+                  commodite,
+                  type,
+                  commune,
+                  nb_piece,
+                  nom,
+                  chambre,
+                  cuisine,
+                  toilette,
+                  surface,
+                  prix,
+                  statut,
+                  description,
+                  quartier,
+                  rue,
+                  porte,
+                  periode,
+                  longitude,
+                  latitude,
+                  photo
+                )
+                .subscribe({
+                  next: (data) => {
+                    console.log(data);
+                    this.isSuccess = false;
+                    console.log(this.form);
+                    this.popUpConfirmation();
+                  },
+                  error: (err) => {
+                    console.log(err);
+                    this.errorMessage = err.error.message;
+                    this.isSuccess = true;
+                  },
+                });
+            } else {
+              console.error('Token JWT manquant');
+            }
           }
-        }
-      })
+        });
     }
-
   }
 
   //POPUP APRES CONFIRMATION
@@ -382,13 +463,11 @@ export class AjouterBienComponent {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then((result) => {
       this.path();
       // Après avoir réussi à candidater, mettez à jour l'état de la candidature
-
-    })
+    });
   }
   path() {
     this.router.navigate([routes.mylisting]);
@@ -407,5 +486,4 @@ export class AjouterBienComponent {
   //     this.photo = [];
   //   }
   // }
-
 }

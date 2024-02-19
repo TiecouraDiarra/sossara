@@ -121,11 +121,12 @@ export class BienparcommuneComponent {
     //RECUPERER L'ID D'UNE COMMUNE
     this.id = this.route.snapshot.params["id"]
     this.serviceBienImmo.AfficherBienImmoParCommune(this.id).subscribe(data => {
-      this.bienImmo = data.biens.reverse();
+      this.bienImmo = data.reverse();
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = data.vues;
+      this.bienImmo.forEach((bien: {
+        favoris: any; id: string | number; }) => {
+        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = bien.favoris?.length;
           if (typeof bien.id === 'number') {
             this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
             // this.favoriteStatus[bien.id] = true
@@ -138,7 +139,7 @@ export class BienparcommuneComponent {
           } else {
             this.favoriteStatus[bien.id] = false;
           }
-        })
+        // })
       });
       console.log(this.bienImmo);
       this.commune = this.bienImmo[0].adresse.commune.nom;

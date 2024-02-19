@@ -39,6 +39,6 @@ export class BlogService {
 
   //AFFICHER LA LISTE DES BLOGS
   AfficherLaListeBlog(): Observable<any> {
-    return this.http.get(`${URL_BASE}/blog`);
+    return this.http.get(`${URL_BASE}/blog/afficher`);
   }
 }

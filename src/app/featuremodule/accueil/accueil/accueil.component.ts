@@ -43,6 +43,8 @@ export class AccueilComponent {
     './assets/img/banner/immo.jpg',
     './assets/img/banner/maison.jpg'
   ];
+  statut: any;
+  BienLoueRecensTotal: any;
 
   changeImage() {
     this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -58,7 +60,7 @@ export class AccueilComponent {
   typebien: any
   bienImmo: any;
   bienImmoPlusVue: any;
-  BienLoueRecens: any
+  BienLoueRecens: any[] = []
   searchInputCategory: any;
   public categories: any = [];
   categoriesDataSource = new MatTableDataSource();
@@ -363,7 +365,7 @@ export class AccueilComponent {
 
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
+      this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
@@ -375,21 +377,48 @@ export class AccueilComponent {
 
     AOS.init({ disable: 'mobile' }
     );
-    //AFFICHER LA LISTE DES COMMODITES
+    //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.commodite = data.commodite;
+      // this.commodite = data.commodite;
       this.adresse = data;
-      this.region = data.region;
-      this.nombreZone = data.region.length;
+      // this.region = data.region;
+      // this.nombreZone = data.region.length;
       // this.commune = data.commune.slice(0, 6);
-      this.typebien = data.type;
+      // this.typebien = data.type;
       // console.log(this.commune);
     });
+
+    //AFFICHER LA LISTE DES COMMODITES ANCIEN
+    this.serviceCommodite.AfficherListeCommodite().subscribe(data => {
+      this.commodite = data;
+      // console.log("bbbbbbbbbbbbbbbbbbbb",this.commodite);
+
+    }
+    );
+ 
+     //AFFICHER LA LISTE DES TYPES BIEN IMMO
+     this.serviceAdresse.AfficherListeTypeBien().subscribe(data => {
+      this.typebien = data;
+    }
+    );
+
+     //AFFICHER LA LISTE DES STATUTS BIEN IMMO
+     this.serviceAdresse.AfficherListeStatutBien().subscribe(data => {
+      this.statut = data;
+    }
+    );
 
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe(data => {
       this.commune = data.slice(0, 6);
-      console.log(this.commune);
+      console.log("commune de test",this.commune);
+    }
+    );
+
+    //AFFICHER LA LISTE DES REGIONS
+    this.serviceAdresse.AfficherListeRegion().subscribe(data => {
+      this.region = data;
+      this.nombreZone = data.length;
     }
     );
 
@@ -458,14 +487,30 @@ export class AccueilComponent {
     );
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmoRecentAlouer().subscribe(data => {
-      this.nombreBienLoue = data.biens.length;
-      this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+       this.BienLoueRecensTotal = [data.reverse()[0], data.reverse()[1], data.reverse()[2], data.reverse()[3]]
+       this.BienLoueRecensTotal.forEach((bien: any) => {
+        // Vérifier si le bien est déjà loué
+        if (bien.statut.nom === "A louer") {
+          this.BienLoueRecens.push(bien);
+        }
+
+      //   // Vérifier si le bien est déjà vendu
+        // if (bien.bien.is_sell === true) {
+        //   this.bienImmoUserAAcheter.push(bien);
+        // }
+
+      //   // Le reste de votre logique pour traiter les favoris...
+      });
+      console.log('Biens loués par recemment :', this.BienLoueRecens);
+      this.nombreBienLoue = data.length;
+      // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
       // console.log(this.BienLoueRecens);
       // console.log(data.biens);
       // console.log(this.nombreBienLoue);
     }
     );
+    
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
       this.nombreBienVendre = data.biens.length;
@@ -476,8 +521,8 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
-      this.blog = data.blogs;
-      // console.log(this.blog);
+      this.blog = data;
+      console.log("blog",this.blog);
     });
   }
   //METHODE PERMETTANT D'AIMER UN BIEN 
