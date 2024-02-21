@@ -44,14 +44,14 @@ export class BlogDetailsComponent {
   }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
   ngOnInit(): void {
-    //RECUPERER L'ID D'UN BLOG 
+    //RECUPERER L'UUID D'UN BLOG 
     this.id = this.route.snapshot.params["id"]
-    this.serviceBlog.AfficherBlogParId(this.id).subscribe(data => {
-      this.blog = data.blogs;
+    this.serviceBlog.AfficherBlogParUuId(this.id).subscribe(data => {
+      this.blog = data;
       console.log(this.blog);
     })
     //AFFICHER LA LISTE DES COMMODITES

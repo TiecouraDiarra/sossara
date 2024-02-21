@@ -41,8 +41,8 @@
                                             searchCategory(searchInputCategory)
                                           " class="search-input" type="text" />
                                             </mat-option>
-                                            <mat-option [value]="Statut"
-                                                *ngFor="let Statut of status">{{Statut}}</mat-option>
+                                            <mat-option [value]="Statut.nom"
+                                                *ngFor="let Statut of status">{{Statut.nom}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>

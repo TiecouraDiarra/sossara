@@ -45,6 +45,9 @@ export class AccueilComponent {
   ];
   statut: any;
   BienLoueRecensTotal: any;
+  BienTotal: any;
+  BienLoue: any[] = [];
+  BienVendre: any[] = [];
 
   changeImage() {
     this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -53,7 +56,7 @@ export class AccueilComponent {
   commodite: any
   isLocataire = false;
   roles: string[] = [];
-  agence: any
+  agence: any[] = []
   adresse: any
   region: any
   commune: any
@@ -85,7 +88,7 @@ export class AccueilComponent {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 
@@ -94,11 +97,15 @@ export class AccueilComponent {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
+  handleBlogImageError(event: any) {
+    event.target.src = 'https://img.freepik.com/vecteurs-libre/bloguer-amusant-creation-contenu-streaming-ligne-blog-video-jeune-fille-faisant-selfie-pour-reseau-social-partage-commentaires-strategie-auto-promotion-illustration-metaphore-concept-isole-vecteur_335657-855.jpg';
+  }
+
   constructor(
     private DataService: DataService,
     private router: Router,
     private storageService: StorageService,
-    private serviceAdresse : AdresseService,
+    private serviceAdresse: AdresseService,
     private serviceCommodite: CommoditeService,
     private serviceAgence: AgenceService,
     @Inject(LOCALE_ID) private localeId: string,
@@ -145,7 +152,7 @@ export class AccueilComponent {
         items: 3
       },
       1170: {
-        items: 5,
+        items: 4,
         loop: true
       }
     },
@@ -171,7 +178,7 @@ export class AccueilComponent {
         items: 4
       },
       1170: {
-        items: 5,
+        items: 4,
         loop: true
       }
     },
@@ -249,7 +256,7 @@ export class AccueilComponent {
         items: 2
       },
       1170: {
-        items: 1,
+        items: 3,
         loop: true
       }
     },
@@ -301,7 +308,7 @@ export class AccueilComponent {
         items: 3
       },
       1170: {
-        items: 1,
+        items: 3,
         loop: true
       }
     },
@@ -395,15 +402,15 @@ export class AccueilComponent {
 
     }
     );
- 
-     //AFFICHER LA LISTE DES TYPES BIEN IMMO
-     this.serviceAdresse.AfficherListeTypeBien().subscribe(data => {
+
+    //AFFICHER LA LISTE DES TYPES BIEN IMMO
+    this.serviceAdresse.AfficherListeTypeBien().subscribe(data => {
       this.typebien = data;
     }
     );
 
-     //AFFICHER LA LISTE DES STATUTS BIEN IMMO
-     this.serviceAdresse.AfficherListeStatutBien().subscribe(data => {
+    //AFFICHER LA LISTE DES STATUTS BIEN IMMO
+    this.serviceAdresse.AfficherListeStatutBien().subscribe(data => {
       this.statut = data;
     }
     );
@@ -411,7 +418,7 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe(data => {
       this.commune = data.slice(0, 6);
-      console.log("commune de test",this.commune);
+      console.log("commune de test", this.commune);
     }
     );
 
@@ -436,41 +443,60 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
     this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe(data => {
-      this.bienImmoPlusVue = data.biens;
-      this.NombreFavory = data.biens.favoris
-      // console.log(this.bienImmoPlusVue);
+      this.bienImmoPlusVue = data;
+      this.NombreFavory = data.nombreDeFavoris
+      console.log(this.bienImmoPlusVue);
       // console.log(this.NombreFavory);
       // Suppose que BienImo est un élément de votre bienImmo
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       // Parcourir la liste des biens immobiliers
-      this.bienImmoPlusVue.forEach((bien: { id: string | number; }) => {
+      this.bienImmoPlusVue.forEach((bien: {
+        favoris: any; id: string | number;
+      }) => {
         // Charger le nombre de "J'aime" pour chaque bien
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = data.vues;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-          }
+        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+        this.NombreJaime = bien?.favoris?.length;
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        }
 
-          // Charger l'état de favori depuis localStorage
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          if (isFavorite === 'true') {
-            this.favoriteStatus[bien.id] = true;
-          } else {
-            this.favoriteStatus[bien.id] = false;
-          }
-        });
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        if (isFavorite === 'true') {
+          this.favoriteStatus[bien.id] = true;
+        } else {
+          this.favoriteStatus[bien.id] = false;
+        }
+        // });
       });
 
     }
     );
+
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe(data => {
-      this.agence = data.agences.reverse();
-      this.nombreAgence = data.agences.length;
+      // data.forEach((user: any) => {
+      //   // Vérifier si le bien est déjà loué
+      //   if (user.roles.name.imclude("ROLE_AGENCE")) {
+      //     this.agence.push(user);
+      //   }
+      // })
+      data.forEach((user: any) => {
+        // Extraire les noms de rôles de l'utilisateur
+        const userRoles = user.roles.map((role: { name: any; }) => role.name);
+
+        // Vérifier si le rôle "ROLE_AGENCE" est inclus dans les rôles de l'utilisateur
+        if (userRoles.includes("ROLE_AGENCE")) {
+          this.agence.push(user);
+        }
+      });
+
+      // this.agence = data.reverse();
+      this.nombreAgence = this.agence?.length;
       // console.log(this.nombreAgence);
-      // console.log(this.agence);
+      console.log(this.agence);
       // Parcourir la liste des biens immobiliers
-      this.agence.forEach((agence: { id: number; }) => {
+      this.agence?.forEach((agence: { id: number; }) => {
         // Charger le nombre de "J'aime" pour chaque bien
         this.serviceAgence.AfficherAgenceParId(agence.id).subscribe(data => {
           this.bienImmoAgence = data.biens_agence;
@@ -488,41 +514,67 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-       this.BienLoueRecensTotal = [data.reverse()[0], data.reverse()[1], data.reverse()[2], data.reverse()[3]]
-       this.BienLoueRecensTotal.forEach((bien: any) => {
+      this.BienLoueRecensTotal = [data.reverse()[0], data.reverse()[1], data.reverse()[2], data.reverse()[3]]
+      this.BienLoueRecensTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
         if (bien.statut.nom === "A louer") {
           this.BienLoueRecens.push(bien);
         }
 
-      //   // Vérifier si le bien est déjà vendu
-        // if (bien.bien.is_sell === true) {
-        //   this.bienImmoUserAAcheter.push(bien);
+        // Vérifier si le bien est déjà vendu
+        // if (bien.statut.nom === "A vendre") {
+        //   this.BienVendreRecens.push(bien);
         // }
 
-      //   // Le reste de votre logique pour traiter les favoris...
+        //   // Le reste de votre logique pour traiter les favoris...
       });
       console.log('Biens loués par recemment :', this.BienLoueRecens);
-      this.nombreBienLoue = data.length;
+      // this.nombreBienLoue = this.BienLoueRecens.length;
+      // this.nombreBienVendre = this.BienVendreRecens.length;
       // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
       // console.log(this.BienLoueRecens);
       // console.log(data.biens);
       // console.log(this.nombreBienLoue);
     }
     );
-    
+
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
-      this.nombreBienVendre = data.biens.length;
-      // console.log(this.nombreBienVendre);
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+      this.BienTotal = data;
+      this.BienTotal.forEach((bien: any) => {
+        // Vérifier si le bien est déjà loué
+        if (bien.statut.nom === "A louer") {
+          this.BienLoue.push(bien);
+        }
+
+        // Vérifier si le bien est déjà vendu
+        if (bien.statut.nom === "A vendre") {
+          this.BienVendre.push(bien);
+        }
+
+        //   // Le reste de votre logique pour traiter les favoris...
+      });
+      this.nombreBienLoue = this.BienLoue.length;
+      this.nombreBienVendre = this.BienVendre.length;
+      // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
+      // console.log(this.BienLoueRecens);
       // console.log(data.biens);
+      // console.log(this.nombreBienLoue);
     }
-    )
+    );
+
+    //AFFICHER LA LISTE DES BIENS IMMO RECENTS A VENDRE
+    // this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
+    //   this.nombreBienVendre = data.biens.length;
+    //   // console.log(this.nombreBienVendre);
+    //   // console.log(data.biens);
+    // }
+    // )
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
       this.blog = data;
-      console.log("blog",this.blog);
+      console.log("blog", this.blog);
     });
   }
   //METHODE PERMETTANT D'AIMER UN BIEN 
@@ -549,29 +601,31 @@ export class AccueilComponent {
           }
           //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
           this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe(data => {
-            this.bienImmoPlusVue = data.biens;
-            this.NombreFavory = data.biens.favoris
-            // console.log(this.bienImmoPlusVue);
+            this.bienImmoPlusVue = data;
+            this.NombreFavory = data.nombreDeFavoris
+            console.log(this.bienImmoPlusVue);
             // console.log(this.NombreFavory);
             // Suppose que BienImo est un élément de votre bienImmo
             // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
             // Parcourir la liste des biens immobiliers
-            this.bienImmoPlusVue.forEach((bien: { id: string | number; }) => {
+            this.bienImmoPlusVue.forEach((bien: {
+              favoris: any; id: string | number;
+            }) => {
               // Charger le nombre de "J'aime" pour chaque bien
-              this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-                this.NombreJaime = data.vues;
-                if (typeof bien.id === 'number') {
-                  this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-                }
+              // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+              this.NombreJaime = bien?.favoris?.length;
+              if (typeof bien.id === 'number') {
+                this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+              }
 
-                // Charger l'état de favori depuis localStorage
-                const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-                if (isFavorite === 'true') {
-                  this.favoriteStatus[bien.id] = true;
-                } else {
-                  this.favoriteStatus[bien.id] = false;
-                }
-              });
+              // Charger l'état de favori depuis localStorage
+              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+              if (isFavorite === 'true') {
+                this.favoriteStatus[bien.id] = true;
+              } else {
+                this.favoriteStatus[bien.id] = false;
+              }
+              // });
             });
 
           }

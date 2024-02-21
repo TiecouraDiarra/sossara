@@ -123,15 +123,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-lg-6 col-md-6" *ngIf="User.roles && User.role[0]">
+                                        <div class="col-lg-6 col-md-6" *ngIf="User.roles && User.roles[0]">
                                             <div class="form-group">
                                                 <label class="col-form-label">Statut</label>
                                                 <div class="pass-group group-img">
                                                     <span class="lock-icon"><i class="fas fa-info-circle"></i></span>
-                                                    <input type="text" class="form-control" [value]="getRoleLabel()">
+                                                    <input type="text" class="form-control" readonly [value]="getRoleLabel()">
                                                 </div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                     <div class="row socialmedia-info">
                                         <div class="col-lg-6 col-md-6"
@@ -247,40 +247,28 @@
                                         <label class="col-form-label">Ancien mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input name="old_password" [(ngModel)]="ChangeMdpForm.old_password"
-                                                type="password" class="form-control pass-input"
-                                                placeholder="Ancien mot de passe">
+                                            <input name="oldPassword" [(ngModel)]="ChangeMdpForm.oldPassword" type="password" class="form-control pass-input" placeholder="Ancien mot de passe">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Nouveau mot de passe</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input name="password" [(ngModel)]="ChangeMdpForm.password" type="password"
-                                                [type]="Toggledata ? 'password' : 'text'"
-                                                class="form-control pass-input" placeholder="Nouveau mot de passe">
-
-                                            <span
-                                                [ngClass]="Toggledata == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
-                                                (click)="iconLogle()"></span>
+                                            <input name="newPassword" [(ngModel)]="ChangeMdpForm.newPassword" type="password" [type]="Toggledata ? 'password' : 'text'" class="form-control pass-input" placeholder="Nouveau mot de passe">
+                                            <span [ngClass]="Toggledata == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'" (click)="iconLogle()"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Confirmer Nouveau MDP</label>
                                         <div class="pass-group group-img">
                                             <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input name="password" [(ngModel)]="ChangeMdpForm.confirmPassword"
-                                                type="password" name="password" [type]="Toggle ? 'password' : 'text'"
-                                                class="form-control pass-input" placeholder="Confirmation">
-                                            <span
-                                                [ngClass]="Toggle == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
-                                                (click)="icon()"></span>
+                                            <input name="confirmPassword" [(ngModel)]="ChangeMdpForm.confirmPassword" type="password" [type]="Toggle ? 'password' : 'text'" class="form-control pass-input" placeholder="Confirmation">
+                                            <span [ngClass]="Toggle == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'" (click)="icon()"></span>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary"
-                                        [disabled]="!ChangeMdpForm.old_password || ChangeMdpForm.old_password.trim() === '' || !ChangeMdpForm.password || ChangeMdpForm.password.trim() === '' || !ChangeMdpForm.confirmPassword || ChangeMdpForm.confirmPassword.trim() === '' "
-                                        (click)="ChangerMotDePasse()" type="submit"> Changer mot de passe</button>
+                                    <button class="btn btn-primary" [disabled]="!ChangeMdpForm.oldPassword || ChangeMdpForm.oldPassword.trim() === '' || !ChangeMdpForm.newPassword || ChangeMdpForm.newPassword.trim() === '' || !ChangeMdpForm.confirmPassword || ChangeMdpForm.confirmPassword.trim() === ''" (click)="ChangerMotDePasse()" type="submit"> Changer mot de passe</button>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>

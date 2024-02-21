@@ -130,8 +130,10 @@ export class DetailsagenceComponent implements OnInit {
     //RECUPERER L'ID D'UNE AGENCE
     this.id = this.route.snapshot.params["id"]
     this.serviceAgence.AfficherAgenceParId(this.id).subscribe(data => {
-      this.agence = data.utilisateur;
-      this.bienImmoAgence = data.biens_agence;
+      console.log(data);
+      
+      this.agence = data;
+      this.bienImmoAgence = data.bienImmos;
       this.bienImmoAgent = data.biens_agents;
       this.bienImmo = [...this.bienImmoAgence, ...this.bienImmoAgent];
       this.NombreBienAgence = this.bienImmo.length;
@@ -179,7 +181,7 @@ export class DetailsagenceComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       // this.bienImmo = data.biens;
-      this.NombreTotalBien = data.biens.length;
+      this.NombreTotalBien = data?.length;
       // console.log(this.bienImmo);
       console.log(this.NombreTotalBien);
       const tauxActivite = (this.NombreBienAgence * 100) / this.NombreTotalBien;
