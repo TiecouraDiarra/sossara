@@ -46,7 +46,7 @@ export class BienimmoService {
 
   //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
   AfficherLaListeBienImmoPlusVue(): Observable<any> {
-    return this.http.get(`${URL_BASE}/bien/immo/most/views/get`);
+    return this.http.get(`${URL_BASE}/favoris/top6biens`);
   }
 
   //AFFICHER LA LISTE DE TOUS LES BIENS IMMO AIMES

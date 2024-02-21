@@ -33,7 +33,12 @@ export class BlogService {
 
   //AFFICHER  UN BLOG EN FONCTION DE L'ID
   AfficherBlogParId(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/blog/${id}`);
+    return this.http.get(`${URL_BASE}/blog/blogparid/${id}`);
+  }
+
+  //AFFICHER  UN BLOG EN FONCTION DE L'UUID
+  AfficherBlogParUuId(id: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/blog/blogparuuid/${id}`);
   }
 
 

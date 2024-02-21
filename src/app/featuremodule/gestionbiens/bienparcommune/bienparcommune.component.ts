@@ -7,6 +7,7 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
+import { configbienService } from 'src/app/service/configbien/configbien.service';
 import { DataService } from 'src/app/service/data.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -35,7 +36,7 @@ export class BienparcommuneComponent {
   public categories: any = [];
   typebien: any
   selectedCategory: any = '';
-  status: any = ['A louer', 'A vendre'];
+  // status: any = ['A louer', 'A vendre'];
 
 
 
@@ -46,6 +47,7 @@ export class BienparcommuneComponent {
   selectedStatut: any;
 
   selectedType: any;
+  status: any;
 
 
 
@@ -54,8 +56,8 @@ export class BienparcommuneComponent {
     this.selectedType = event.value;
   }
 
-   //RECHERCHER PAR STATUT
-   onStatutSelectionChange(event: any) {
+  //RECHERCHER PAR STATUT
+  onStatutSelectionChange(event: any) {
     this.selectedStatut = event.value;
   }
 
@@ -90,6 +92,7 @@ export class BienparcommuneComponent {
     private router: Router,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
+    private serviceConfigBien: configbienService,
     private serviceCommodite: CommoditeService,
     private storageService: StorageService,
     private route: ActivatedRoute,
@@ -114,9 +117,23 @@ export class BienparcommuneComponent {
       this.adresse = data;
       this.region = data.region.reverse();
       // this.commune = data.commune;
-      this.typebien = data.type;
+      // this.typebien = data.type;
       console.log(this.adresse);
     });
+
+    //AFFICHER LA LISTE DES TYPES DE BIENS
+    this.serviceConfigBien.AfficherListeTypeImmo().subscribe(data => {
+      this.typebien = data;
+      // console.log(this.typebien);
+    }
+    );
+
+    //AFFICHER LA LISTE DES STATUT DE BIENS
+    this.serviceConfigBien.AfficherListeStatut().subscribe(data => {
+      this.status = data;
+      // console.log(this.typebien);
+    }
+    );
 
     //RECUPERER L'ID D'UNE COMMUNE
     this.id = this.route.snapshot.params["id"]
@@ -124,25 +141,26 @@ export class BienparcommuneComponent {
       this.bienImmo = data.reverse();
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: {
-        favoris: any; id: string | number; }) => {
+        favoris: any; id: string | number;
+      }) => {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = bien.favoris?.length;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-            // this.favoriteStatus[bien.id] = true
-          }
-          console.log(this.NombreJaime)
-          // Charger l'état de favori depuis localStorage
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          if (isFavorite === 'true') {
-            this.favoriteStatus[bien.id] = true;
-          } else {
-            this.favoriteStatus[bien.id] = false;
-          }
+        this.NombreJaime = bien.favoris?.length;
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          // this.favoriteStatus[bien.id] = true
+        }
+        console.log(this.NombreJaime)
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        if (isFavorite === 'true') {
+          this.favoriteStatus[bien.id] = true;
+        } else {
+          this.favoriteStatus[bien.id] = false;
+        }
         // })
       });
       console.log(this.bienImmo);
-      this.commune = this.bienImmo[0].adresse.commune.nom;
+      this.commune = this.bienImmo[0]?.adresse?.commune?.nomcommune;
       console.log(this.bienImmo);
     })
   }

@@ -410,11 +410,11 @@
                                                         </ng-template>
                                                     </a>
                                                     <div class="fav-item">
-                                                        <span [ngClass]="{'statut': BienImo.statut === 'A vendre' }"
-                                                            class="Featured-text">{{BienImo.statut}}</span>
+                                                        <span [ngClass]="{'statut': BienImo.statut.nom === 'A vendre' }"
+                                                            class="Featured-text">{{BienImo.statut.nom}}</span>
                                                         <a href="javascript:void(0)" *ngIf="isLoggedIn == true"
                                                             class="fav-icon" (click)="AimerBien(BienImo.id)"
-                                                            [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : ''">
+                                                            [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : 'white'">
                                                             <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'"
                                                                 class="feather-heart"></i>
                                                         </a>
@@ -448,7 +448,7 @@
                                                             </div>
                                                             <div class="location-info">
                                                                 <i
-                                                                    class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt.date
+                                                                    class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt
                                                                 | date:"dd MMM yyyy":locale}}
                                                             </div>
                                                         </div>
@@ -566,32 +566,33 @@
                                         <a>
                                             <div class="companies-set mb-4">
                                                 <div class="companies-set-head">
-                                                    <div class="companies-set-logo" *ngIf="Agence && Agence.photo">
+                                                    <div class="companies-set-logo">
                                                         <span>
-                                                            <img src="{{generateImageUrl(Agence.photo)}}" alt="img"
+                                                            <img src="{{generateImageUrl(Agence?.utilisateurPhoto)}}" alt="img"
                                                                 (error)="handleAuthorImageError($event)">
                                                         </span>
                                                     </div>
                                                     <div class="companies-set-content">
-                                                        <h5><span>{{ NombreBienCount[Agence.id] }}</span>Biens</h5>
                                                         <h6>{{Agence.nom}}</h6>
+                                                        <h5><span>{{ Agence?.telephone }}</span></h5>
+                                                        <!-- <h5><span>{{ NombreBienCount[Agence.id] }}</span>Biens</h5> -->
                                                     </div>
                                                 </div>
                                                 <div class="companies-set-count">
-                                                    <!-- <ul>
+                                                    <ul>
                                                         <li>
                                                             <h6>10</h6>
-                                                            <span>test</span>
+                                                            <span>Biens</span>
                                                         </li>
                                                         <li>
                                                             <h6>10</h6>
-                                                            <span>test</span>
+                                                            <span>Agents</span>
                                                         </li>
                                                         <li>
                                                             <h6>10</h6>
-                                                            <span>test</span>
+                                                            <span>Aimer</span>
                                                         </li>
-                                                    </ul> -->
+                                                    </ul>
                                                     <div class="companies-set-btn">
                                                         <a (click)="goToDettailAgence(Agence.id)"
                                                             class="btn btn-linebtn">Savoir plus<i
@@ -738,7 +739,8 @@
 <!-- /Explore Our Categories -->
 
 <!-- Counter -->
-<section class="property-counter common-padding position-relative" *ngIf="bienImmo && bienImmo.length > 0">
+<!-- <section class="property-counter common-padding position-relative"> -->
+<section class="property-counter common-padding position-relative" *ngIf="BienTotal && BienTotal.length > 0">
     <div class="property-counter-float-bg">
         <img src="./assets/img/bg/counter-bg.png" alt="">
     </div>
@@ -827,7 +829,7 @@
                                             </div>
                                         </div>
                                         <div class="pent-house">
-                                            <span>{{ bienRecent.statut }}</span>
+                                            <span>{{ bienRecent.statut.nom }}</span>
                                         </div>
                                         <div class="top-rent-room-info">
                                             <div class="top-rent-room-location">
@@ -851,7 +853,7 @@
                                             <div class="top-room-details">
                                                 <div class="area">
                                                     <span><img src="assets/img/icons/bed-icon.svg" class="img-fluid"
-                                                            alt="">{{bienRecent?.typeImmo?.nom}}</span>
+                                                            alt="">{{bienRecent.typeImmo.nom}}</span>
                                                 </div>
                                                 <div class="area">
                                                     <span><img src="assets/img/icons/area-icon.svg" class="img-fluid"
@@ -996,7 +998,7 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
-                <a (click)="goToDettailCommune(Commune.id)" class="crd">
+                <a (click)="goToDettailCommune(Commune.uuid)" class="crd">
                     <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
                         <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
                             class="commune-image img-fluid" alt="">
@@ -1186,28 +1188,30 @@
                                         <ng-template carouselSlide>
                                             <div class="blog grid-blog aos" data-aos="fade-up">
                                                 <div class="blog-image">
-                                                    <!-- <a (click)="goToDettailBlog(Blog?.id)"><img class="img-fluid image-sizeblog crd"
-                                                            src="{{generateImageUrl(Blog?.photo)}}"
-                                                            (error)="handleAuthorImageError($event)" alt="Post Image"></a> -->
+                                                    <a (click)="goToDettailBlog(Blog.uuid)"><img
+                                                            class="img-fluid image-sizeblog crd"
+                                                            src="{{generateImageUrl(Blog.photo)}}"
+                                                            (error)="handleBlogImageError($event)"
+                                                            alt="Post Image"></a>
                                                 </div>
                                                 <div class="blog-content">
                                                     <h3 class="blog-title"><a
-                                                            [routerLink]="routes.blogdetails">{{Blog?.titre}}</a></h3>
+                                                            [routerLink]="routes.blogdetails">{{Blog.titre}}</a></h3>
                                                     <ul class="entry-meta meta-item">
                                                         <li class="date-icon"><i class="feather-calendar"></i>
-                                                            {{Blog?.createdAt | date:"dd MMM yyyy":locale}}</li>
+                                                            {{Blog.createdAt | date:"dd MMM yyyy":locale}}</li>
                                                     </ul>
-                                                    <p class="blog-description">{{Blog?.description}}</p>
+                                                    <p class="blog-description">{{Blog.description}}</p>
                                                     <div class="viewlink crd">
-                                                        <a (click)="goToDettailBlog(Blog?.id)">Voir plus</a>
+                                                        <a (click)="goToDettailBlog(Blog.uuid)">Voir plus</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </ng-template>
                                     </ng-container>
                                 </owl-carousel-o>
-        
-        
+
+
                             </div>
                         </div>
                     </div>
@@ -1251,7 +1255,8 @@
                 <ng-template carouselSlide>
 
                     <ul class="partnerslist d-flex">
-                        <li><a href="javascript:void(0);"><img class="img-fluid image-sizeparter" [src]="slide.img" alt="partners"></a>
+                        <li><a href="javascript:void(0);"><img class="img-fluid image-sizeparter" [src]="slide.img"
+                                    alt="partners"></a>
                         </li>
                     </ul>
                 </ng-template>

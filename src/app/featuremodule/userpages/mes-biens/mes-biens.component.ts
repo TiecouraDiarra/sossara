@@ -316,19 +316,19 @@ export class MesBiensComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      // console.log(this.roles);
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
-        this.isLocataire = true
+      console.log(this.storageService.getUser());
+      if (this.roles.includes("ROLE_LOCATAIRE")) {
+        this.isLocataire = true;
         this.selectedTab = 'home';
-      } else if (this.roles[0] == "ROLE_AGENCE") {
-        this.isAgence = true
+    } else if (this.roles.includes("ROLE_AGENCE")) {
+        this.isAgence = true;
         this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else if (this.roles[0] == "ROLE_AGENT") {
-        this.isAgent = true
+    } else if (this.roles.includes("ROLE_AGENT")) {
+        this.isAgent = true;
         this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else {
+    } else {
         this.selectedTab = 'home';
-      }
+    }
     }
     this.User = this.storageService.getUser().id;
     // console.log(this.User);

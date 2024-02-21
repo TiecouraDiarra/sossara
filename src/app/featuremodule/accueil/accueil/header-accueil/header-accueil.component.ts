@@ -38,7 +38,7 @@ export class HeaderAccueilComponent {
     }
     //IMAGE
     generateImageUrl(photoFileName: string): string {
-      const baseUrl = URL_PHOTO + '/uploads/images/';
+      const baseUrl = URL_PHOTO;
       return baseUrl + photoFileName;
     }
 

@@ -54,7 +54,7 @@ export class UserService {
 
   //AFFICHER LA LISTE DES AGENCES
   AfficherLaListeAgence(): Observable<any> {
-    return this.http.get(`${URL_BASE}/user/agence/get`);
+    return this.http.get(`${URL_BASE}/user/alluser`);
   }
 
   //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
@@ -85,7 +85,7 @@ export class UserService {
     formData.append('date', date || '');
     formData.append('heure', heure || '');
     return this.http.post(`${URL_BASE}/rdv/ajouter`,
-    formData, { headers });
+      formData, { headers });
   }
 
   //AFFICHER LA LISTE DES CANDIDATURES DE BIENS EN FONCTION DE USER
@@ -96,28 +96,42 @@ export class UserService {
   }
 
   //CHANGER MOT DE PASSE
-  ChangerMotDePasse(old_password: string, password: string): Observable<any> {
+  ChangerMotDePasse(oldPassword: string, newPassword: string): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers)
-    // console.log('Ancien mdp', old_password)
-    // console.log('nouveau mdp', password)
+    console.log(oldPassword);
+    console.log(newPassword);
+    const formData = new FormData();
+    formData.append('oldPassword', oldPassword);
+    formData.append('newPassword', newPassword);
     return this.http.post(
-      URL_BASE + '/user/password_reset',
-      {
-        old_password,
-        password,
-      },
+      URL_BASE + '/auth/updatePassword',
+      formData,
       { headers }
     );
   }
+  // ChangerMotDePasse(old_password: string, password: string): Observable<any> {
+  //   const headers = this.getHeaders();
+  //   // console.log(headers)
+  //   // console.log('Ancien mdp', old_password)
+  //   // console.log('nouveau mdp', password)
+  //   return this.http.post(
+  //     URL_BASE + '/user/password_reset',
+  //     {
+  //       old_password,
+  //       password,
+  //     },
+  //     { headers }
+  //   );
+  // }
 
   //CHANGER PHOTO PROFILE
+  
   changerPhoto(photo: File): Observable<any> {
     const headers = this.getHeaders();
     headers.set('Cache-Control', 'no-cache'); // Désactive le cache pour cette requête
     const formData = new FormData();
     formData.append('photo', photo);
-    return this.http.post(`${URL_BASE}/user/update/photo`, formData, { headers });
+    return this.http.put(`${URL_BASE}/user/updatePhoto`, formData, { headers });
   }
 
   //MODIFIER PROFIL USER

@@ -14,7 +14,7 @@
                     <a href="javascript:void(0)" *ngIf="blog && blog.utilisateur"><span> {{blog.utilisateur.nom}} </span></a>
                 </div>
             </li>
-            <li class="date-icon" *ngIf="blog && blog.createdAt"><i class="fa-solid fa-calendar-days"></i> {{blog.createdAt.date | date:"dd MMM yyyy":locale}}</li>
+            <li class="date-icon" *ngIf="blog && blog.createdAt"><i class="fa-solid fa-calendar-days"></i> {{blog.createdAt | date:"dd MMM yyyy":locale}}</li>
         </ul>
     </div>
 </div>

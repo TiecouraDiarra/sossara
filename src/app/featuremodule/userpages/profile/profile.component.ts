@@ -23,9 +23,9 @@ export class ProfileComponent implements OnInit {
   documents: any
 
   ChangeMdpForm: any = {
-    old_password: null,
-    password: null,
-    confirmPassword: null,
+    oldPassword: null,
+    newPassword: null,
+    confirmPassword: null
   }
 
   formModif: any
@@ -111,13 +111,11 @@ export class ProfileComponent implements OnInit {
   }
 
   getRoleLabel(): string {
-    if (this.User.role[0] === 'ROLE_LOCATAIRE') {
+    if (this.User.roles.includes('ROLE_LOCATAIRE')) {
       return 'LOCATAIRE';
-    } else if (this.User.role[0] === 'ROLE_PROPRIETAIRE') {
+    } else if (this.User.roles.includes('ROLE_PROPRIETAIRE') || this.User.roles.includes('ROLE_AGENCE')) {
       return 'AGENCE';
-    } else if (this.User.role[0] === 'ROLE_AGENCE') {
-      return 'AGENCE';
-    } else if (this.User.role[0] === 'ROLE_AGENT') {
+    } else if (this.User.roles.includes('ROLE_AGENT')) {
       return 'AGENT';
     } else {
       return '';
@@ -148,8 +146,8 @@ export class ProfileComponent implements OnInit {
       }
 
       // Chargez l'image de profil actuelle depuis User.user.photo (si disponible)
-      if (this.User && this.User.photo) {
-        this.profileImageUrl = this.generateImageUrl(this.User.photo);
+      if (this.User && this.User.photos) {
+        this.profileImageUrl = this.generateImageUrl(this.User.photos[0].nom);
       }
     }
 
@@ -191,7 +189,8 @@ export class ProfileComponent implements OnInit {
 
   //METHODE PERMETTANT DE CHANGER SON MOT DE PASSE
   ChangerMotDePasse(): void {
-    if (this.ChangeMdpForm.password !== this.ChangeMdpForm.confirmPassword) {
+    const { oldPassword, newPassword, password2 } = this.ChangeMdpForm;
+    if (this.ChangeMdpForm.newPassword !== this.ChangeMdpForm.confirmPassword) {
       Swal.fire({
         text: "La confirmation du mot de passe ne correspond pas au nouveau mot de passe.",
         icon: 'error',
@@ -220,13 +219,48 @@ export class ProfileComponent implements OnInit {
           // Définissez le token dans le service notificationService
           this.serviceUser.setAccessToken(user.token);
 
-          // Appelez la méthode ChangerMotDePasse() avec le old_password et password
-          this.serviceUser.ChangerMotDePasse(this.ChangeMdpForm.old_password, this.ChangeMdpForm.password).subscribe(
+          // Appelez la méthode ChangerMotDePasse() avec le oldPassword et newPassword
+          this.serviceUser.ChangerMotDePasse(oldPassword, newPassword).subscribe(
             data => {
+              console.log(data);
+              if(data.status){
+                let timerInterval = 2000;
+                  Swal.fire({
+                    position: 'center',
+                    text: data.message,
+                    title: "Mot de passe modifié",
+                    icon: 'success',
+                    heightAuto: false,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#0857b5',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                    timer: timerInterval,
+                    timerProgressBar: true,
+                  }).then(() => {
+                    this.storageService.clean();
+                    this.router.navigateByUrl("/auth/connexion")
+                  });
+              }else{
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Erreur',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => { });
+              }
               // console.log("Mot de passe changé avec succès:", data);
               // this.isSuccess = false;
               // Afficher le premier popup de succès
-              this.popUpConfirmation();
+              // this.popUpConfirmation();
             },
             error => {
               // console.error("Erreur lors du changement de mot de passe :", error);
@@ -328,16 +362,16 @@ export class ProfileComponent implements OnInit {
       this.serviceUser.changerPhoto(photo).subscribe(
         successResponse => {
           // console.log('Photo changed successfully', successResponse);
-          this.User.user.photo = photo.name;
-          user.user.photo = successResponse.photo.photo;
+          // this.User.photos[0] = photo.name;
+          user.photos[0].nom = successResponse?.message;
           this.storageService.setUser(user);
-          // console.log(this.User.user.photo);
-          this.User.user.photo = photo.name;
+          console.log(successResponse);
+          // this.User.photos[0].nom = photo.name;
           // this.generateImageUrl(photo.name);
           // Mettez à jour le chemin de l'image de profil
           this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
           const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
-          this.User.user.photo = uniqueFileName;
+          this.User.photos[0].nom = uniqueFileName;
           // this.reloadPage();
         },
         error => {

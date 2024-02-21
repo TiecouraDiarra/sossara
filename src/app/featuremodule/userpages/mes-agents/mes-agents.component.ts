@@ -55,7 +55,7 @@ export class MesAgentsComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 
@@ -93,8 +93,8 @@ export class MesAgentsComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
-      this.nomAgence = this.storageService.getUser().user.username
+      this.roles = this.storageService.getUser().roles;
+      this.nomAgence = this.storageService.getUser().nom
       // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true

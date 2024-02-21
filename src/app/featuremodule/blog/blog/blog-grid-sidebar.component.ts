@@ -49,7 +49,7 @@ export class BlogGridSidebarComponent {
   }
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
-    event.target.src = 'assets/img/gallery/gallery1/gallery-1.jpg';
+    event.target.src = 'https://img.freepik.com/vecteurs-libre/bloguer-amusant-creation-contenu-streaming-ligne-blog-video-jeune-fille-faisant-selfie-pour-reseau-social-partage-commentaires-strategie-auto-promotion-illustration-metaphore-concept-isole-vecteur_335657-855.jpg';
   }
   handleAuthorImageError1(event: any) {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
@@ -70,12 +70,12 @@ export class BlogGridSidebarComponent {
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       // Tri des biens immobiliers par ordre décroissant de la date de création
-      data.biens.sort((a: { createdAt: { date: string | number | Date; }; }, b: { createdAt: { date: string | number | Date; }; }) => new Date(b.createdAt.date).getTime() - new Date(a.createdAt.date).getTime());
+      data.sort((a: { createdAt: string | number | Date; }, b: { createdAt:string | number | Date; }) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     
       // Extraction des trois biens immobiliers les plus récents
-      this.bienImmo = data.biens.slice(0, 3);
+      this.bienImmo = data.slice(0, 3);
     
-      // console.log(this.bienImmo);
+      console.log(this.bienImmo);
       // console.log(data);
       // console.log(data.biens.length);
     });
@@ -95,7 +95,7 @@ export class BlogGridSidebarComponent {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
 
