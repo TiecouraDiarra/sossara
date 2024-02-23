@@ -40,11 +40,11 @@ export class AgenceService {
   ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-    // console.log("nom " + nom)
-    // console.log(headers)
-    // console.log("email " + email)
-    // console.log("telephone " + telephone)
-    // console.log("quartier " + quartier)
+    console.log("nom " + nom)
+    console.log(headers)
+    console.log("email " + email)
+    console.log("telephone " + telephone)
+    console.log("quartier " + quartier)
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
