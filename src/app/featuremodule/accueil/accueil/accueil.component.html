@@ -398,7 +398,7 @@
                                         <div class="card aos aos-init aos-animate" data-aos="fade-up">
                                             <div class="blog-widget">
                                                 <div class="blog-img">
-                                                    <a (click)="goToDettailBien(BienImo.id)" class="crd">
+                                                    <a (click)="goToDettailBien(BienImo.uuid)" class="crd">
                                                         <div
                                                             *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
                                                             <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}"
@@ -438,7 +438,7 @@
                                                                     favoritedPropertiesCount1[BienImo.id] }}</span>
                                                             </div>
                                                         </div>
-                                                        <h6 class="crd"><a (click)="goToDettailBien(BienImo.id)">{{
+                                                        <h6 class="crd"><a (click)="goToDettailBien(BienImo.uuid)">{{
                                                                 BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom }}</a>
                                                         </h6>
                                                         <div class="blog-location-details">
@@ -594,7 +594,7 @@
                                                         </li>
                                                     </ul>
                                                     <div class="companies-set-btn">
-                                                        <a (click)="goToDettailAgence(Agence.id)"
+                                                        <a (click)="goToDettailAgence(Agence.uuid)"
                                                             class="btn btn-linebtn">Savoir plus<i
                                                                 class="fa fa-arrow-right ms-3"
                                                                 aria-hidden="true"></i></a>
@@ -809,7 +809,7 @@
                                 <ng-template carouselSlide>
                                     <div class="top-rent-room">
                                         <div class="top-room-img">
-                                            <a (click)="goToDettailBien(bienRecent.id)" class="crd">
+                                            <a (click)="goToDettailBien(bienRecent.uuid)" class="crd">
                                                 <div
                                                     *ngIf="bienRecent.photos && bienRecent.photos.length > 0; else noImages">
                                                     <img src="{{ generateImageUrl(bienRecent.photos[0].nom) }}"
@@ -836,7 +836,7 @@
                                                 <div class="room-address">
                                                     <span><i
                                                             class="fa-solid fa-location-dot"></i>{{bienRecent.adresse.quartier}}</span>
-                                                    <a (click)="goToDettailBien(bienRecent.id)" class="crd">
+                                                    <a (click)="goToDettailBien(bienRecent.uuid)" class="crd">
                                                         <h5>{{ bienRecent.nom ? bienRecent.nom : bienRecent.typeImmo.nom
                                                             }}</h5>
                                                     </a>

@@ -53,8 +53,12 @@ export class DetailsbienComponent implements AfterViewInit {
   selectedValueR: string | any = 'region';
   image: File[] = [];
   images: File[] = [];
+  idBien: any;
 
 
+  generateQrCodeUrl(qrCodeBase64: string): string {
+    return 'data:image/png;base64,' + qrCodeBase64;
+  }
 
   ngAfterViewInit() {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
@@ -484,7 +488,7 @@ export class DetailsbienComponent implements AfterViewInit {
           // console.log("Rendez-vous envoyé avec succès:", data);
           this.isSuccess = true;
           this.errorMessage = 'Rendez-vous envoyé avec succès';
-          this.RdvForm.date= null;
+          this.RdvForm.date = null;
           this.RdvForm.heure = null;
         },
         error: (err) => {
@@ -508,6 +512,7 @@ export class DetailsbienComponent implements AfterViewInit {
   CandidaterBien(): void {
     this.id = this.route.snapshot.params["id"]
     // const user = this.storageService.getUser();
+
     const currentUser = this.getCurrentUser();
 
     const swalWithBootstrapButtons = Swal.mixin({
@@ -531,59 +536,63 @@ export class DetailsbienComponent implements AfterViewInit {
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
-
-          // Appelez la méthode PrendreRdv() avec le contenu et l'ID
-          this.serviceBienImmo.CandidaterBien(this.id).subscribe({
-            next: (data) => {
-              if (data.status) {
-                let timerInterval = 2000;
-                Swal.fire({
-                  position: 'center',
-                  text: data.message,
-                  title: "Envoie de candidature",
-                  icon: 'success',
-                  heightAuto: false,
-                  showConfirmButton: false,
-                  confirmButtonColor: '#0857b5',
-                  showDenyButton: false,
-                  showCancelButton: false,
-                  allowOutsideClick: false,
-                  timer: timerInterval,
-                  timerProgressBar: true,
-                }).then(() => {
-                  this.reloadPage();
-                });
-              } else {
-                Swal.fire({
-                  position: 'center',
-                  text: data.message,
-                  title: 'Erreur',
-                  icon: 'error',
-                  heightAuto: false,
-                  showConfirmButton: true,
-                  confirmButtonText: 'OK',
-                  confirmButtonColor: '#0857b5',
-                  showDenyButton: false,
-                  showCancelButton: false,
-                  allowOutsideClick: false,
-                }).then((result) => { });
+          //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+          this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+            this.idBien = data.id;
+            console.log(this.idBien);
+            // Appelez la méthode PrendreRdv() avec le contenu et l'ID
+            this.serviceBienImmo.CandidaterBien(this.idBien).subscribe({
+              next: (data) => {
+                if (data.status) {
+                  let timerInterval = 2000;
+                  Swal.fire({
+                    position: 'center',
+                    text: data.message,
+                    title: "Envoie de candidature",
+                    icon: 'success',
+                    heightAuto: false,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#0857b5',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                    timer: timerInterval,
+                    timerProgressBar: true,
+                  }).then(() => {
+                    this.reloadPage();
+                  });
+                } else {
+                  Swal.fire({
+                    position: 'center',
+                    text: data.message,
+                    title: 'Erreur',
+                    icon: 'error',
+                    heightAuto: false,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#0857b5',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                  }).then((result) => { });
+                }
+              },
+              error: (err) => {
+                // console.error("Erreur lors de l'envoi du rdv :", err);
+                this.errorMessage = err.error.message;
+                this.isError = true
+                // Gérez les erreurs ici
+                const errorMessage =
+                  err.error && err.error.message ? err.error.message : 'Erreur inconnue';
+                swalWithBootstrapButtons.fire(
+                  '',
+                  `<h1 style='font-size: 1em !important; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${errorMessage}</h1>`,
+                  'error'
+                );
               }
-            },
-            error: (err) => {
-              // console.error("Erreur lors de l'envoi du rdv :", err);
-              this.errorMessage = err.error.message;
-              this.isError = true
-              // Gérez les erreurs ici
-              const errorMessage =
-                err.error && err.error.message ? err.error.message : 'Erreur inconnue';
-              swalWithBootstrapButtons.fire(
-                '',
-                `<h1 style='font-size: 1em !important; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${errorMessage}</h1>`,
-                'error'
-              );
             }
-          }
-          );
+            );
+          });
         } else {
           // console.error("Token JWT manquant");
         }

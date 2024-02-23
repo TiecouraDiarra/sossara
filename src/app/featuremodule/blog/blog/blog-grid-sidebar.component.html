@@ -227,7 +227,7 @@
                         <div class="card" *ngIf="bienImmo && bienImmo?.length > 0">
                             <h4><i class="feather-tag"></i> Biens recents</h4>
                             <div class="article" *ngFor="let BienImo of bienImmo">
-                                <a (click)="goToDettailBien(BienImo.id)" 
+                                <a (click)="goToDettailBien(BienImo.uuid)" 
                                     class="articleimg-1 crd"
                                     [style.background-image]="BienImo?.photos[0]?.nom ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos[0]?.nom) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/gallery/gallery1/gallery-1.jpg)'">
                                     <ul>

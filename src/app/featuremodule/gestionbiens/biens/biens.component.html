@@ -293,7 +293,7 @@
                 <div class="card">
                   <div class="blog-widget">
                     <div class="blog-img">
-                      <a (click)="goToDettailBien(BienImo.id)" class="crd">
+                      <a (click)="goToDettailBien(BienImo.uuid)" class="crd">
                         <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
                           <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size"
                             alt="blog-img">
@@ -316,7 +316,7 @@
                       <div class="card-body">
                         <div class="blogfeaturelink">
                           <div class="grid-author">
-                            <img src="{{generateImageUrl(BienImo?.utilisateur?.photo)}}" alt="author"
+                            <img src="{{generateImageUrl(BienImo?.utilisateur?.photo?.nom)}}" alt="author"
                               (error)="handleAuthorImageError($event)" />
                           </div>
                           <div class="blog-features">
@@ -332,7 +332,7 @@
                           </div>
                         </div>
                         <h6 class="crd">
-                          <a (click)="goToDettailBien(BienImo.id)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom
+                          <a (click)="goToDettailBien(BienImo.uuid)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom
                             }}</a>
                         </h6>
                         <div class="blog-location-details">
