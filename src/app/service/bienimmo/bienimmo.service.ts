@@ -110,7 +110,7 @@ export class BienimmoService {
   AfficherBienImmoParUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers);
-    return this.http.get(`${URL_BASE}/bien/immo/user/agence/get`,
+    return this.http.get(`${URL_BASE}/bien/immo/user`,
       { headers });
   }
 
@@ -170,7 +170,7 @@ export class BienimmoService {
   AfficherListeReclamationParUser(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers);
-    return this.http.get(`${URL_BASE}/signal/get`,
+    return this.http.get(`${URL_BASE}/probleme/signal/get`,
       { headers });
   }
 
@@ -178,7 +178,7 @@ export class BienimmoService {
   AfficherListeReclamationFaitesParUser(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers);
-    return this.http.get(`${URL_BASE}/signal/get/mine`,
+    return this.http.get(`${URL_BASE}/probleme/signal/get/mine`,
       { headers });
   }
 
@@ -395,11 +395,11 @@ export class BienimmoService {
     );
   }
 
-  //AFFICHER LA LISTE DES PROBLEMES
+  //AFFICHER LA LISTE DES TYPES DE PROBLEMES
   AfficherLIsteProbleme(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers);
-    return this.http.get(`${URL_BASE}/probleme/get`,
+    return this.http.get(`${URL_BASE}/typeprobleme/afficher`,
       { headers });
   }
 
@@ -432,13 +432,13 @@ export class BienimmoService {
     const formData = new FormData();
 
     formData.append('contenu', contenu);
-    formData.append('type', type.toString());
+    formData.append('typeProblemeId', type.toString());
     formData.append('prix_estimatif', prix_estimatif.toString());
-    formData.append('idbien', idbien.toString());
-    photos.forEach(p => { formData.append('photo[]', p) });
+    formData.append('bienImmoId', idbien.toString());
+    photos.forEach(p => { formData.append('photoReclamations', p) });
 
     return this.http.post(
-      URL_BASE + '/signal/' + `${idbien}`,
+      URL_BASE + '/probleme/signal',
       formData,
       { headers }
     );

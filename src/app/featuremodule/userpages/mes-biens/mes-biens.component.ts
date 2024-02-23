@@ -191,8 +191,8 @@ export class MesBiensComponent implements OnInit {
 
   bienagent: any
   bienVenduagent: any
-  bienTotalAgence: any
-  bienVenduTotalAgence: any
+  bienTotalAgence: any[] = []
+  bienVenduTotalAgence: any[] = []
   bienImmoDejaVenduAgence: any
 
 
@@ -320,15 +320,15 @@ export class MesBiensComponent implements OnInit {
       if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true;
         this.selectedTab = 'home';
-    } else if (this.roles.includes("ROLE_AGENCE")) {
+      } else if (this.roles.includes("ROLE_AGENCE")) {
         this.isAgence = true;
         this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-    } else if (this.roles.includes("ROLE_AGENT")) {
+      } else if (this.roles.includes("ROLE_AGENT")) {
         this.isAgent = true;
         this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-    } else {
+      } else {
         this.selectedTab = 'home';
-    }
+      }
     }
     this.User = this.storageService.getUser().id;
     // console.log(this.User);
@@ -346,12 +346,12 @@ export class MesBiensComponent implements OnInit {
           this.bienImmoDejaLoue.push(bien);
         }
 
-      //   // Vérifier si le bien est déjà vendu
+        //   // Vérifier si le bien est déjà vendu
         if (bien.is_sell === true) {
           this.bienImmoDejaVendu.push(bien);
         }
 
-      //   // Le reste de votre logique pour traiter les favoris...
+        //   // Le reste de votre logique pour traiter les favoris...
       });
       // // Afficher les biens déjà loués et déjà vendus
       console.log('Biens déjà loués :', this.bienImmoDejaLoue);
@@ -373,29 +373,49 @@ export class MesBiensComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
     this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
       this.test = data;
-      this.bienImmoAgence = data.biens_agences;
-      this.bienImmoAgent = data.biens_agents;
-      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
+      this.bienImmoAgenceTotal = data.reverse();
+      console.log(this.bienImmoAgenceTotal);
+      // this.bienImmoAgence = data.biens_agences;
+      // this.bienImmoAgent = data.biens_agents;
+      // this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
       // console.log(this.test);
       // console.log(this.bienImmoAgence);
       // console.log(this.bienImmoAgent);
       // console.log(this.bienImmoAgenceTotal);
+      // Filtrer les biens immobiliers
+      this.bienImmoAgenceTotal.forEach((bien: any) => {
+        // Vérifier si le bien est déjà loué AGENCE
+        if (bien.is_rent === true) {
+          this.bienTotalAgence.push(bien);
+        }
+
+        //   // Vérifier si le bien est déjà vendu AGENCE
+        if (bien.is_sell === true) {
+          this.bienVenduTotalAgence.push(bien);
+        }
+
+        //   // Le reste de votre logique pour traiter les favoris...
+        
+      });
+      console.log("Agence Bien loues", this.bienTotalAgence);
       // Parcourir la liste des biens immobiliers
-      this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaimeAgence = data.vues;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
-          }
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-        });
+      this.bienImmoAgenceTotal.forEach((bien: {
+        favoris: any; id: string | number;
+      }) => {
+        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+        this.NombreJaimeAgence = bien.favoris.length;
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
+        }
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        // });
       });
     });
 
     //AFFICHER LA LISTE DES PROBLEMES
     this.serviceBienImmo.AfficherLIsteProbleme().subscribe(data => {
-      this.probleme = data.type_problemes;
-      // console.log(this.probleme);
+      this.probleme = data;
+      console.log(this.probleme);
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
@@ -415,7 +435,7 @@ export class MesBiensComponent implements OnInit {
       // this.bienImmoDejaLoueNew = data;
       this.bienagent = data.agent_bien;
       this.bienImmoDejaLoueAgence = data.biens;
-      this.bienTotalAgence = [...this.bienagent, ...this.bienImmoDejaLoueAgence];
+      // this.bienTotalAgence = [...this.bienagent, ...this.bienImmoDejaLoueAgence];
       // console.log(this.bienTotalAgence);
 
     });
@@ -425,7 +445,7 @@ export class MesBiensComponent implements OnInit {
       // this.bienImmoDejaLoueNew = data;
       this.bienVenduagent = data.agent_bien;
       this.bienImmoDejaVenduAgence = data.biens;
-      this.bienVenduTotalAgence = [...this.bienVenduagent, ...this.bienImmoDejaVenduAgence];
+      // this.bienVenduTotalAgence = [...this.bienVenduagent, ...this.bienImmoDejaVenduAgence];
       // console.log(this.bienVenduTotalAgence);
 
     });
@@ -440,12 +460,12 @@ export class MesBiensComponent implements OnInit {
           this.bienImmoDejaLoueLocataire.push(bien);
         }
 
-      //   // Vérifier si le bien est déjà vendu
+        //   // Vérifier si le bien est déjà vendu
         if (bien.bien.is_sell === true) {
           this.bienImmoUserAAcheter.push(bien);
         }
 
-      //   // Le reste de votre logique pour traiter les favoris...
+        //   // Le reste de votre logique pour traiter les favoris...
       });
       // // Afficher les biens déjà loués et déjà vendus
       console.log('Biens déjà loués par user connecté :', this.bienImmoDejaLoueLocataire);
@@ -459,19 +479,20 @@ export class MesBiensComponent implements OnInit {
     // });
 
 
-    //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
+    //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
-      this.reclamation = data.attributes.reverse();
-      // console.log(this.reclamation);
+      this.reclamation = data.reverse();
+      console.log(this.reclamation);
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationFaitesParUser().subscribe(data => {
-      this.reclamationUser = data.mes_reclamations.reverse();
+      this.reclamationUser = data.reverse();
       // this.photos = this.reclamation.bien;
-      // console.log(this.reclamationUser);
+      console.log(this.reclamationUser);
       // console.log(this.photos);
     });
+
 
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
     this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {

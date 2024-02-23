@@ -206,7 +206,7 @@ export class DetailsagenceComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
   //FORMATER LE PRIX
