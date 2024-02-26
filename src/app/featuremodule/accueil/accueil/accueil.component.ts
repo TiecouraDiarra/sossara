@@ -333,8 +333,8 @@ export class AccueilComponent {
   NombreAgentCount: { [agenceId: number]: number } = {};
   NombreBienLouerCount: { [agenceId: number]: number } = {};
   NombreBienVendreCount: { [agenceId: number]: number } = {};
-  NombreVendreParAgence : number =0;
-  NombreLouerParAgence : number =0;
+  NombreVendreParAgence: number = 0;
+  NombreLouerParAgence: number = 0;
   toggleFavorite(bienId: number) {
     this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
 
@@ -527,17 +527,24 @@ export class AccueilComponent {
           this.NombreBienParAgence = this.bienImmo.length;
           this.NombreAgentParAgence = data.agents.length;
           console.log(this.bienImmo);
-          
-            if (this.bienImmo?.statut?.nom === "A louer") {
-              this.bienImmoLouer.push(this.bienImmo);
-              this.NombreLouerParAgence = this.bienImmoLouer.length;
-            }
+          // Initialisation des compteurs
+          let nombreLouerParAgence = 0;
+          let nombreVendreParAgence = 0;
 
-            //   // Vérifier si le bien est déjà vendu
-            if (this.bienImmo?.statut?.nom === "A vendre") {
-              this.bienImmoVendre.push(this.bienImmo);
-              this.NombreVendreParAgence = this.bienImmoVendre.length;
+          // Parcourir chaque bien immobilier
+          this.bienImmo.forEach((bien: any) => {
+            // Vérifier le statut du bien immobilier
+            if (bien?.statut?.nom === "A louer") {
+              this.bienImmoLouer.push(bien);
+              nombreLouerParAgence++;
+            } else if (bien?.statut?.nom === "A vendre") {
+              this.bienImmoVendre.push(bien);
+              nombreVendreParAgence++;
             }
+          });
+          // Assigner les compteurs
+          this.NombreLouerParAgence = nombreLouerParAgence;
+          this.NombreVendreParAgence = nombreVendreParAgence;
 
           console.log('Biens loués Agence:', this.bienImmoLouer);
           console.log('Biens vendus Agence :', this.bienImmoVendre);

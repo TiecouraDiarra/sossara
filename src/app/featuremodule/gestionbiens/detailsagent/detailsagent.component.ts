@@ -72,12 +72,15 @@ export class DetailsagentComponent implements OnInit {
     this.id = this.route.snapshot.params["id"]
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceAgence.AfficherAgentParId(this.id).subscribe(data => {
-      this.bienImmo = data.biens_agence;
-      this.NombreBienAgent = data.biens_agence.length;
+      console.log(data);
+      
+      this.agent = data?.agent;
+      this.bienImmo = data?.bienImmos;
+      this.NombreBienAgent = data?.bienImmos?.length;
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = data.vues;
+      this.bienImmo.forEach((bien: {favoris: any; id: string | number; }) => {
+        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = bien.favoris.length;
           if (typeof bien.id === 'number') {
             this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
             // Ajoutez le nombre de "J'aime" au total.
@@ -90,7 +93,7 @@ export class DetailsagentComponent implements OnInit {
           } else {
             this.favoriteStatus[bien.id] = false;
           }
-        })
+        // })
       });
       console.log(this.bienImmo);
       console.log('Total Likes:', this.totalLikes);
@@ -100,10 +103,10 @@ export class DetailsagentComponent implements OnInit {
 
 
     //AFFICHER UN AGENT EN FONCTION DE SON ID
-    this.serviceAgence.AfficherUserParId(this.id).subscribe(data => {
-      this.agent = data.Utilisateurs
-      console.log(this.agent);
-    })
+    // this.serviceAgence.AfficherUserParId(this.id).subscribe(data => {
+    //   this.agent = data.Utilisateurs
+    //   console.log(this.agent);
+    // })
 
 
 
@@ -120,7 +123,7 @@ export class DetailsagentComponent implements OnInit {
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
   //FORMATER LE PRIX

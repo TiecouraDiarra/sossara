@@ -35,11 +35,11 @@
                 Details Agent
               </h4>
               <div class="card-block">
-                <div class="user-image" *ngIf="agent">
-                  <img src="{{generateImageUrl(agent.photo)}}" class="img-radius"
+                <div class="user-image">
+                  <img src="{{generateImageUrl(agent?.agentPhoto?.nom)}}" class="img-radius"
                     alt="User-Profile-Image" (error)="handleAuthorImageError($event)">
                 </div>
-                <h6 class="f-w-600 m-t-25 m-b-10" *ngIf="agent && agent.nom">{{agent.nom}}</h6>
+                <h6 class="f-w-600 m-t-25 m-b-10" *ngIf="agent && agent.nom">{{agent?.nom}}</h6>
                 <div class="row" *ngIf="agent && agent.email">
                   <div class="col-5" style="font-weight: bold;font-size: 14px">
                     <label>Email :</label>
@@ -130,7 +130,7 @@
               <div class="card aos aos-init aos-animate" data-aos="fade-up">
                 <div class="blog-widget">
                   <div class="blog-img">
-                    <a (click)="goToDettailBien(data.id)">
+                    <a (click)="goToDettailBien(data.uuid)">
                       <div *ngIf="data.photos && data.photos.length > 0; else noImages">
                         <img src="{{ generateImageUrl(data.photos[0].nom) }}" class="img-fluid image-size"
                           alt="blog-img" />
@@ -140,11 +140,11 @@
                       </ng-template>
                     </a>
                     <div class="fav-item">
-                      <span [ngClass]="{'statutbien': data.statut === 'A vendre' }" class="Featured-text">{{ data.statut
+                      <span [ngClass]="{'statutbien': data.statut.nom === 'A vendre' }" class="Featured-text">{{ data?.statut?.nom
                         }}</span>
                       <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
                         (click)="AimerBien(data.id)"
-                        [style.background-color]="favoriteStatus[data.id] ? '#e98b11' : ''">
+                        [style.background-color]="favoriteStatus[data.id] ? '#e98b11' : 'white'">
                         <i [style.color]="favoriteStatus[data.id] ? 'white' : 'black'" class="feather-heart"></i>
                       </a>
                     </div>
@@ -154,7 +154,7 @@
                       <div class="blogfeaturelink">
                         <div class="grid-author">
                           <!-- <img [src]="data.img2" alt="author"> -->
-                          <img src="{{generateImageUrl(data.utilisateur.photo)}}" alt="author"
+                          <img src="{{generateImageUrl(data?.utilisateur?.photo?.nom)}}" alt="author"
                             (error)="handleAuthorImageError($event)" />
                         </div>
                         <div class="blog-features">
@@ -166,13 +166,13 @@
                           </span>
                         </div>
                       </div>
-                      <h6><a (click)="goToDettailBien(data.id)">{{ data.nom ? data.nom : data.typeImmo.nom }}</a></h6>
+                      <h6><a (click)="goToDettailBien(data.uuid)">{{ data.nom ? data.nom : data.typeImmo.nom }}</a></h6>
                       <div class="blog-location-details">
                         <div class="location-info">
                           <i class="feather-map-pin"></i> {{data.adresse.quartier}}
                         </div>
                         <div class="location-info">
-                          <i class="fa-solid fa-calendar-days"></i> {{data.createdAt.date | date:"dd MMM yyyy":locale}}
+                          <i class="fa-solid fa-calendar-days"></i> {{data.createdAt | date:"dd MMM yyyy":locale}}
                         </div>
                       </div>
                       <div class="amount-details">

@@ -424,7 +424,7 @@
                                                     <div class="card-body">
                                                         <div class="blogfeaturelink">
                                                             <div class="grid-author">
-                                                                <img src="{{generateImageUrl(BienImo.utilisateur.photo)}}"
+                                                                <img src="{{generateImageUrl(BienImo?.utilisateur?.photo?.nom)}}"
                                                                     alt="author"
                                                                     (error)="handleAuthorImageError($event)">
                                                             </div>
@@ -547,7 +547,7 @@
             <div class="row align-items-center">
                 <!-- <div class="col-md-1"></div> -->
                 <!-- <div class="col-md-9 aos aos-init aos-animate text-center" data-aos="fade-up"> -->
-                <h2>Sociétés de Gestion de Propriétés(Agences)</h2>
+                <h2>Sociétés de Gestion de biens(Agences)</h2>
                 <!-- <p>The most trendy accommodations available</p> -->
                 <!-- </div> -->
                 <!-- <div class="col-md-2 text-md-end aos aos-init aos-animate" data-aos="fade-up">
@@ -828,7 +828,7 @@
                                         <div class="top-listing-rounded-img">
                                             <div class="favourite-small-user">
                                                 <img class="img-fluid"
-                                                    src="{{generateImageUrl(bienRecent.utilisateur.photo)}}" alt=""
+                                                    src="{{generateImageUrl(bienRecent?.utilisateur?.photo?.nom)}}" alt=""
                                                     (error)="handleAuthorImageError($event)">
                                             </div>
                                         </div>
