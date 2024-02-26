@@ -11,7 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterMarkersPipe } from './recherchebien/filter-markers.pipe';
 
 @NgModule({
-  declarations: [FeaturemoduleComponent, RecherchebienComponent, FilterMarkersPipe],
+  declarations: [FeaturemoduleComponent, RecherchebienComponent, FilterMarkersPipe,],
   imports: [
     CommonModule, 
     FeaturemoduleRoutingModule, 

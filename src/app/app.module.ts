@@ -21,6 +21,7 @@ import localeFr from '@angular/common/locales/fr';
 @NgModule({
   declarations: [
     AppComponent,
+    
     // SegmentedControlComponent,
     
     

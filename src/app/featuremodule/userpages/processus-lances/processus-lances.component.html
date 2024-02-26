@@ -1,0 +1,202 @@
+    <div class="card-header">
+        <h4>Processus de reclamations lances</h4>
+       
+    </div>
+    <div class="ligne">
+        <div class="card-body">
+            <div id="review-chart">
+                <ul class="review-list">
+                    <li class="review-box"
+                        *ngFor="let Reclamation of reclamationProcessusLance">
+                        <div class="review-profile">
+                            <div class="review-img">
+                                <img src="{{generateImageUrl(Reclamation.bien.utilisateur.photo.nom)}}"
+                                    class="img-fluid" alt="img"
+                                    (error)="handleAuthorImageError($event)">
+                            </div>
+                        </div>
+                        <div class="review-details">
+                            <div class="name-and-image">
+                                <h6>{{Reclamation.bien.utilisateur.nom}}</h6>
+                                <img style="width: 47px;"
+                                    src="assets/img/processus.gif" alt="">
+                            </div>
+                            <div class="rating">
+                                <div class="rating-star">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                </div>
+                                <div *ngIf="Reclamation && Reclamation.createdAt"><i
+                                        style="color: #e98b11; font-weight: bold;"
+                                        class="fa-sharp fa-solid fa-calendar-days"></i>
+                                    {{Reclamation.createdAt
+                                    |
+                                    date:"dd MMM yyyy":locale}}</div>
+                                <div *ngIf="Reclamation && Reclamation.createdAt"><i
+                                        class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt
+                                    |
+                                    date:"HH:mm"}}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                {{Reclamation.bien.nom}}
+                            </div>
+                            <ul class="review-gallery">
+                                <li
+                                    *ngFor="let photo of Reclamation?.bien?.photos?.slice(0, 4); let i = index">
+                                    <img class="img-fluid" alt="Image"
+                                        [src]="generateImageUrl(photo?.nom)">
+                                </li>
+                                <ng-container
+                                    *ngIf="Reclamation?.bien?.photos.length === 0">
+                                    <li *ngFor="let _ of [1, 2, 3, 4]">
+
+                                        <img class="img-fluid"
+                                            alt="Image par défaut"
+                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                    </li>
+                                </ng-container>
+                            </ul>
+                            <div class="m-3">
+                                <i style="color: #e98b11; font-weight: bold;"
+                                    class="fa-regular fa-circle-exclamation"></i>
+                                Probleme :
+                                {{Reclamation?.type_probleme?.nom}}
+                            </div>
+                            <div class="m-3">
+                                <i style="color: #e98b11; font-weight: bold;"
+                                    class="fa-solid fa-check"></i>
+                                Motif : {{Reclamation?.contenu}}
+                            </div>
+                            <div class="m-3"><i style="color: #e98b11; font-weight: bold;"
+                                class="fa-solid fa-check"> </i> Cout : <span
+                                    style="color: #e98b11; font-weight: bold;">
+                                    {{ formatPrice(Reclamation?.prix_estimatif) }} FCFA
+                                </span>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="row scroll-text">
+                                    <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
+                                        C'est en votre charge </div>
+                                    <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
+                                        C'est le proprietaire qui paie
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="blog-category">
+                                        <a data-bs-toggle="collapse"
+                                            href="#quelquesimages1" role="button"
+                                            aria-expanded="false"
+                                            aria-controls="collapseExample"><span>Quelques
+                                                images</span></a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="collapse" id="quelquesimages1">
+                                <ul class="review-gallery">
+                                    <li
+                                        *ngFor="let photo of Reclamation.photoReclamations.slice(0, 4); let i = index">
+                                        <img class="img-fluid" alt="Image"
+                                            [src]="generateImageUrl(photo.nom)">
+                                    </li>
+                                    <ng-container
+                                        *ngIf="Reclamation.photoReclamations.length === 0">
+                                        <li *ngFor="let _ of [1, 2, 3, 4]">
+
+                                            <img class="img-fluid"
+                                                alt="Image par défaut"
+                                                src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                        </li>
+                                    </ng-container>
+                                </ul>
+                            </div>
+                            <div class="row mt-3">
+                                <button type="button"
+                                    (click)="openProcessusModal(Reclamation.id)"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalArreterProcessus1"
+                                    class="btn btn-outline-success"><i
+                                        class="fas fa-check"></i>
+                                    Arreter le processus</button>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalArreterProcessus1"
+                                tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                id="exampleModalLabel">Fiche de
+                                                justification
+                                            </h5>
+                                            <button type="button" class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <input type="hidden"
+                                                    [(ngModel)]="selectedBienImmoProcessusId"
+                                                    name="selectedBienImmoProcessusId">
+                                                <div class="mb-3">
+                                                    <div class="row">
+                                                        <div class=" featured-img1">
+                                                            <div
+                                                                class="media-image">
+                                                                <div class="row">
+                                                                    <div *ngFor="let imageUrl of image; let i = index"
+                                                                        class="col-lg-3 col-md-6 image-container m-1">
+                                                                        <img class=" image-size m-3"
+                                                                            [src]="imageUrl"
+                                                                            alt="Image {{ i }}" />
+                                                                        <button
+                                                                            class="close-button"
+                                                                            (click)="removeImage(i)">
+                                                                            <i
+                                                                                class="fas fa-times close-icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="settings-upload-btn">
+                                                            <input type="file"
+                                                                id="photo"
+                                                                name="photo"
+                                                                (change)="onFileSelected($event)"
+                                                                multiple
+                                                                class="hide-input image-upload"
+                                                                [disabled]="maxImageCount >=1" />
+                                                            <label for="file"
+                                                                class="file-upload">Ajouter
+                                                                la fiche</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Annuler</button>
+                                            <button type="button"
+                                                class="btn btn-primary"
+                                                (click)="ArreterProcessus()">Arreter
+                                                le processus</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>

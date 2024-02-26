@@ -5,19 +5,32 @@ import { UserpagesRoutingModule } from './userpages-routing.module';
 import { UserpagesComponent } from './userpages.component';
 import { LocataireComponent } from './locataire/locataire.component';
 import { ProprietaireComponent } from './proprietaire/proprietaire.component';
-import { AgenceComponent } from './agence/agence.component';
+// import { AgenceComponent } from './agence/agence.component';
+import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
+// import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
+// import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
 
 @NgModule({
   declarations: [
     UserpagesComponent,
-    LocataireComponent,
+    // LocataireComponent,
     ProprietaireComponent,
-    AgenceComponent,
+    // MesReclamationsComponent,
+    // ProcessusLancesComponent,
+    // AgenceComponent,
+    // LocataireComponent
   ],
   imports: [
     CommonModule,
-    UserpagesRoutingModule
+    UserpagesRoutingModule,
+    FormsModule,
+    Ng2SearchPipeModule,
+    SharedModule,
+    NgxPaginationModule
   ]
 })
 export class UserpagesModule { }
