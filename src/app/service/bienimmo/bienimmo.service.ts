@@ -407,9 +407,18 @@ export class BienimmoService {
   AfficherLIsteReclamationProcessusLance(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers);
-    return this.http.get(`${URL_BASE}/reparation/confirm/list`,
+    return this.http.get(`${URL_BASE}/probleme/processus/get`,
       { headers });
   }
+
+    //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
+    AfficherProcessusLancerProprietaireAgenceConnecter(): Observable<any> {
+      const headers = this.getHeaders();
+      // console.log(headers);
+      return this.http.get(`${URL_BASE}/probleme/processus/get/mine`,
+        { headers });
+    }
+  
 
 
   //FAIRE UNE RECLAMATION

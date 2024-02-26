@@ -147,7 +147,7 @@ export class ProfileComponent implements OnInit {
 
       // Chargez l'image de profil actuelle depuis User.user.photo (si disponible)
       if (this.User && this.User.photos) {
-        this.profileImageUrl = this.generateImageUrl(this.User.photos[0].nom);
+        this.profileImageUrl = this.generateImageUrl(this.User.photos[0]?.nom);
       }
     }
 
@@ -223,26 +223,26 @@ export class ProfileComponent implements OnInit {
           this.serviceUser.ChangerMotDePasse(oldPassword, newPassword).subscribe(
             data => {
               console.log(data);
-              if(data.status){
+              if (data.status) {
                 let timerInterval = 2000;
-                  Swal.fire({
-                    position: 'center',
-                    text: data.message,
-                    title: "Mot de passe modifié",
-                    icon: 'success',
-                    heightAuto: false,
-                    showConfirmButton: false,
-                    confirmButtonColor: '#0857b5',
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    allowOutsideClick: false,
-                    timer: timerInterval,
-                    timerProgressBar: true,
-                  }).then(() => {
-                    this.storageService.clean();
-                    this.router.navigateByUrl("/auth/connexion")
-                  });
-              }else{
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: "Mot de passe modifié",
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  timer: timerInterval,
+                  timerProgressBar: true,
+                }).then(() => {
+                  this.storageService.clean();
+                  this.router.navigateByUrl("/auth/connexion")
+                });
+              } else {
                 Swal.fire({
                   position: 'center',
                   text: data.message,
@@ -363,7 +363,12 @@ export class ProfileComponent implements OnInit {
         successResponse => {
           // console.log('Photo changed successfully', successResponse);
           // this.User.photos[0] = photo.name;
-          user.photos[0].nom = successResponse?.message;
+          // user.photos[0].nom = successResponse?.message;
+          if (user.photos?.length > 0) {
+            user.photos[0].nom = successResponse?.message;
+          } else {
+            user.photos = [{ nom: successResponse?.message }];
+          }
           this.storageService.setUser(user);
           console.log(successResponse);
           // this.User.photos[0].nom = photo.name;
@@ -371,7 +376,9 @@ export class ProfileComponent implements OnInit {
           // Mettez à jour le chemin de l'image de profil
           this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
           const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
-          this.User.photos[0].nom = uniqueFileName;
+          if (this.User.photos?.length > 0 || this.User.photos.length === 0) {
+            this.User.photos[0].nom = uniqueFileName;
+          }
           // this.reloadPage();
         },
         error => {

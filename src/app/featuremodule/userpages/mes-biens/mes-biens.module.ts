@@ -7,11 +7,20 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DatePipe } from '@angular/common';
+import { LocataireComponent } from '../locataire/locataire.component';
+import { AgenceComponent } from '../agence/agence.component';
+import { ProcessusLancesComponent } from '../processus-lances/processus-lances.component';
+import { MesReclamationsComponent } from '../mes-reclamations/mes-reclamations.component';
 
 @NgModule({
   declarations: [
     MesBiensComponent,
+    LocataireComponent,
     // SegmentedControlComponent,
+    AgenceComponent,
+    ProcessusLancesComponent,
+    MesReclamationsComponent
+    
   ],
   imports: [
     CommonModule,

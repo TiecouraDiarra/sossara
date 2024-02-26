@@ -172,7 +172,7 @@ export class DashboardComponent implements OnInit {
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
-      this.nombreBienLoue = data.biens.length;
+      this.nombreBienLoue = data?.biens?.length;
       // console.log(this.nombreBienLoue);
     });
 
@@ -236,7 +236,7 @@ export class DashboardComponent implements OnInit {
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      this.nombreCandidatureBienUser = data.candidature.length;
+      this.nombreCandidatureBienUser = data?.candidature?.length;
       // this.nombreRdvUser = data.length;
       
 
