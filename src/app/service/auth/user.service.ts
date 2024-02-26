@@ -96,7 +96,7 @@ export class UserService {
   }
 
   //CHANGER MOT DE PASSE
-  ChangerMotDePasse(oldPassword: string, newPassword: string): Observable<any> {
+  ChangerMotDePasse(oldPassword: any, newPassword: any): Observable<any> {
     const headers = this.getHeaders();
     console.log(oldPassword);
     console.log(newPassword);
