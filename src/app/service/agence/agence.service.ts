@@ -63,7 +63,7 @@ export class AgenceService {
 
   //AFFICHER UN AGENT EN FONCTION DE SON ID
   AfficherAgentParId(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/bien/immo/user/agent/get/${id}`);
+    return this.http.get(`${URL_BASE}/user/agentparuuid/${id}`);
   }
 
   //AFFICHER UN UTILISATEUR EN FONCTION DE SON ID
@@ -77,6 +77,10 @@ export class AgenceService {
   // }
   AfficherAgenceParId(id: number): Observable<any> {
     return this.http.get(`${URL_BASE}/user/agence/${id}`);
+  }
+
+  AfficherAgenceParUuId(id: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/user/agenceparuuid/${id}`);
   }
 
   //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'ID DE AGENCE

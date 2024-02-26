@@ -32,7 +32,7 @@
               </h4>
               <div class="card-block">
                 <div class="user-image">
-                  <img src="{{generateImageUrl(agence?.utilisateurPhoto?.nom)}}" class="img-radius" alt="User-Profile-Image"
+                  <img src="{{generateImageUrl(agence?.agencePhoto?.nom)}}" class="img-radius" alt="User-Profile-Image"
                     (error)="handleAuthorImageError($event)">
                 </div>
                 <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nom}}</h6>
@@ -45,7 +45,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-5" style="font-weight: bold;bold;font-size: 13px">
+                  <div class="col-5" style="font-weight: bold;font-size: 13px">
                     <label>Contact :</label>
                   </div>
                   <div class="col-7">
@@ -126,7 +126,7 @@
             *ngFor="let slide of bienImmo | filter:searchText | paginate:{itemsPerPage :3, currentPage:p}">
             <div class="blog-widget">
               <div class="blog-img">
-                <a (click)="goToDettailBien(slide.id)">
+                <a (click)="goToDettailBien(slide.uuid)">
                   <div *ngIf="slide.photos && slide.photos.length > 0; else noImages">
                     <img src="{{ generateImageUrl(slide.photos[0].nom) }}" class="img-fluid image-size"
                       alt="blog-img" />
@@ -136,10 +136,10 @@
                   </ng-template>
                 </a>
                 <div class="fav-item">
-                  <span [ngClass]="{'statutbien': slide.statut === 'A vendre' }" class="Featured-text">{{ slide.statut
+                  <span [ngClass]="{'statutbien': slide.statut.nom === 'A vendre' }" class="Featured-text">{{ slide?.statut?.nom
                     }}</span>
                   <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                    (click)="AimerBien(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : ''">
+                    (click)="AimerBien(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : 'white'">
                     <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
                   </a>
                 </div>
@@ -155,14 +155,14 @@
                     <div class="blog-author">
                       <div class="blog-author-img">
                         <!-- <img [src]="slide.img2" alt="author" /> -->
-                        <img src="{{generateImageUrl(slide.utilisateur.photo)}}" alt="author"
+                        <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
                           (error)="handleAuthorImageError($event)" />
                       </div>
-                      <a (click)="goToDettailBien(slide.id)">{{ slide.utilisateur.nom}}</a>
+                      <a (click)="goToDettailBien(slide.uuid)">{{ slide?.utilisateur?.nom}}</a>
                     </div>
                   </div>
                   <h6>
-                    <a (click)="goToDettailBien(slide.id)">{{
+                    <a (click)="goToDettailBien(slide.uuid)">{{
                       slide.nom ? slide.nom : slide.typeImmo.nom
                       }}</a>
                   </h6>
@@ -200,7 +200,7 @@
         </div>
       </div>
     </div>
-    <div class="container mt-5 mb-5" *ngIf="agent && agent.length > 0">
+    <div class="container mt-5 mb-5">
       <h5 class="section-title h1">Ses agents</h5>
       <div class="listing-search">
         <div class="filter-content form-group">
@@ -305,25 +305,24 @@
                 <ng-container *ngFor="let Agent of agent | filter : searchTextAgent">
                   <ng-template carouselSlide>
                     <div class="card p-2 py-3 text-center card1">
-                      <div class=" mb-2 image-sizeagent" *ngIf="Agent">
-                        <img src="{{generateImageUrl(Agent.photo)}}" (error)="handleAuthorImageError($event)" width="70"
+                      <div class=" mb-2 image-sizeagent">
+                        <img src="{{generateImageUrl(Agent?.photo?.nom)}}" (error)="handleAuthorImageError($event)" width="70"
                           class="">
                       </div>
-                      <h5 class="mb-0">{{Agent.username}}</h5>
-                      <small style="margin-top: 8px !important;"
-                        *ngIf="Agent.adresse && Agent.adresse.length > 0; else noAddress">
-                        {{ Agent.adresse[0]?.nom }}
+                      <h5 class="mb-0">{{Agent?.nom}}</h5>
+                      <small style="margin-top: 8px !important;">
+                        {{ Agent?.adresse }}
                       </small>
-                      <ng-template #noAddress>
+                      <!-- <ng-template #noAddress>
                         <small style="margin-top: 8px !important;">Pas d'adresse</small>
-                      </ng-template>
+                      </ng-template> -->
 
-                      <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                      <!-- <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                           class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                      </div>
+                      </div> -->
                       <div class="mt-4 apointment">
-                        <div (click)="goToDettailAgent(Agent.id)">
+                        <div (click)="goToDettailAgent(Agent.uuid)">
                           <a class="btn btn-primartd"><i class="uil uil-filter"></i>
                             Savoir plus</a>
 

@@ -114,6 +114,15 @@ export class BienimmoService {
       { headers });
   }
 
+   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'AGENCE CONNECTEE
+   AfficherBienImmoParAgenceConnecte(): Observable<any> {
+    const headers = this.getHeaders();
+    // console.log(headers);
+    return this.http.get(`${URL_BASE}/user/agenceconnecter`,
+      { headers });
+  }
+
+
 
 
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE

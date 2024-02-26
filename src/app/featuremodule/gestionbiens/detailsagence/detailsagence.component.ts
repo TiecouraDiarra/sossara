@@ -94,7 +94,7 @@ export class DetailsagenceComponent implements OnInit {
         items: 4
       },
       1170: {
-        items: 1,
+        items: 3,
         loop: true
       }
     },
@@ -129,54 +129,60 @@ export class DetailsagenceComponent implements OnInit {
 
     //RECUPERER L'ID D'UNE AGENCE
     this.id = this.route.snapshot.params["id"]
-    this.serviceAgence.AfficherAgenceParId(this.id).subscribe(data => {
+    this.serviceAgence.AfficherAgenceParUuId(this.id).subscribe(data => {
       console.log(data);
+        // Initialiser une liste pour stocker tous les biens immobiliers des agents
+        let totalBiensAgents: any[] = [];
+         // Parcourir chaque agent
+         data.agents.forEach((agent: any) => {
+          // Ajouter les biens immobiliers de l'agent à la liste totale
+          totalBiensAgents.push(...agent.bienImmosAgents);
+        });
+
+        // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
+        console.log(totalBiensAgents);
+        // console.log(this.bienImmoAgent);
       
-      this.agence = data;
-      this.bienImmoAgence = data.bienImmos;
-      this.bienImmoAgent = data.biens_agents;
-      this.bienImmo = [...this.bienImmoAgence, ...this.bienImmoAgent];
+      this.agence = data?.agence;
+      this.bienImmoAgence = data?.bienImmos;
+      this.agent = data?.agents.reverse();
+      console.log(this.agent);
+      
+      this.NombreAgent = this.agent.length;
+      this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
       this.NombreBienAgence = this.bienImmo.length;
+      console.log(this.bienImmo);
+      
     
       // Initialisez une variable pour stocker le nombre total de "J'aime".
       // let totalLikes = 0;
     
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
-        this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = data.vues;
+      this.bienImmo.forEach((bien: {favoris: any; id: string | number; }) => {
+        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = bien.favoris.length;
           if (typeof bien.id === 'number') {
             this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
             // Ajoutez le nombre de "J'aime" au total.
             this.totalLikes += this.NombreJaime;
           }
-          console.log(this.NombreJaime);
+          console.log(this.NombreJaime)
           const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
           if (isFavorite === 'true') {
             this.favoriteStatus[bien.id] = true;
           } else {
             this.favoriteStatus[bien.id] = false;
           }
-    
-          // Vérifiez si toutes les requêtes sont terminées.
-          // if (this.favoritedPropertiesCount1.length === this.bienImmo.length) {
-            console.log('Total Likes:', this.totalLikes);
-            console.log(this.bienImmo);
-            console.log(this.agence);
-            console.log(this.bienImmoAgence);
-            console.log(this.NombreBienAgence);
-            console.log(this.bienImmoAgent);
-          // }
-        });
+        // })
       });
     });
     
 
     //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'ID DE AGENCE
-    this.serviceAgence.AfficherListeAgentParAgence(this.id).subscribe(data => {
-      this.agent = data.agents.reverse();
-      this.NombreAgent = data.agents.length;
-      console.log(this.agent);
-    })
+    // this.serviceAgence.AfficherListeAgentParAgence(this.id).subscribe(data => {
+    //   // this.agent = data.agents.reverse();
+    //   // this.NombreAgent = data.agents.length;
+    //   console.log(this.agent);
+    // })
 
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {

@@ -158,7 +158,7 @@
             </div>
             <div class="col-lg-6 d-flex "
                 *ngIf="bienImmoLoueCandidatureAccepter && bienImmoLoueCandidatureAccepter.length > 0">
-                <div class="card dash-cards  w-100">
+                <div class="card dash-cards w-100">
                     <div class="card-header">
                         <h4>Mes candidatures acceptées</h4>
                         <div class="card-dropdown">
@@ -184,7 +184,7 @@
 
                                     <div class="review-profile">
                                         <div class="review-img">
-                                            <img src="{{generateImageUrl(Candidature?.bien?.proprietaire.photo)}}"
+                                            <img src="{{generateImageUrl(Candidature?.bien?.proprietaire.photo.nom)}}"
                                                 class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
                                         </div>
                                     </div>

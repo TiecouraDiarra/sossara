@@ -43,9 +43,12 @@ export class DashboardComponent implements OnInit {
 
   User: any
   bienImmo: any;
+  bienImmoDejaLoue: any[] = [];
+  bienImmoDejaVendu: any[] = [];
   rdv: any;
   rdvUserConnect: any;
   nombrebien: number = 0
+  nombreagent: number = 0
   isLocataire = false;
   isAgence = false;
   isAgent = false;
@@ -149,7 +152,7 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.storageService.getUser());
-    
+
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
@@ -158,7 +161,7 @@ export class DashboardComponent implements OnInit {
         this.isLocataire = true
       } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
-      }else if (this.roles[0] == "ROLE_AGENT") {
+      } else if (this.roles[0] == "ROLE_AGENT") {
         this.isAgent = true
       }
     }
@@ -170,30 +173,66 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.setAccessToken(token);
 
 
-    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
-      this.nombreBienLoue = data?.biens?.length;
-      // console.log(this.nombreBienLoue);
-    });
+      this.bienImmo = data.reverse();
+      console.log(this.bienImmo);
 
-    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
-    this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
-      this.nombreBienAchete = data.biens.length;
-      // console.log(this.nombreBienAchete);
+      // Filtrer les biens immobiliers
+      this.bienImmo.forEach((bien: any) => {
+        // Vérifier si le bien est déjà loué
+        if (bien.bien.is_rent === true) {
+          this.bienImmoDejaLoue.push(bien);
+        }
+
+        //   // Vérifier si le bien est déjà vendu
+        if (bien.bien.is_sell === true) {
+          this.bienImmoDejaVendu.push(bien);
+        }
+
+        //   // Le reste de votre logique pour traiter les favoris...
+      });
+      this.nombreBienLoue = this.bienImmoDejaLoue?.length;
+      this.nombreBienAchete = this.bienImmoDejaVendu?.length;
     });
+    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
+    // this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
+    //   this.nombreBienLoue = data?.biens?.length;
+    //   // console.log(this.nombreBienLoue);
+    // });
+
+    // //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
+    // this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
+    //   this.nombreBienAchete = data.biens.length;
+    //   // console.log(this.nombreBienAchete);
+    // });
 
 
     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
-    this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
+    this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
       // this.bienImmo = data.biens.reverse();
-      this.bienImmoAgence = data.biens_agences;
-      this.bienImmoAgent = data.biens_agents;
-      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
+      // Initialiser une liste pour stocker tous les biens immobiliers des agents
+      let totalBiensAgents: any[] = [];
+      this.bienImmoAgence = data?.bienImmos;
+
+      // Parcourir chaque agent
+      data.agents.forEach((agent: any) => {
+        // Ajouter les biens immobiliers de l'agent à la liste totale
+        totalBiensAgents.push(...agent.bienImmosAgents);
+      });
+      // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
+      console.log(totalBiensAgents);
+      console.log(this.bienImmoAgent);
+
+      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents];
+      // this.bienImmoAgence = data.biens_agences;
+      // this.bienImmoAgent = data.biens_agents;
+      // this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
       this.nombrebien = this.bienImmoAgenceTotal.length;
-      // console.log(this.nombrebien);
+      this.nombrebien = data.agents.length;
+      console.log(data);
     });
 
-     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
+    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.nombreBienAutre = data.length;
@@ -211,7 +250,7 @@ export class DashboardComponent implements OnInit {
     }
     );
 
-    
+
     //AFFICHER LA LISTE DES RDV ENVOYER PAR USER CONNECTE
     //FAIT
     this.serviceUser.AfficherLaListeRdvUserConnecte().subscribe(data => {
@@ -238,7 +277,7 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
       this.nombreCandidatureBienUser = data?.candidature?.length;
       // this.nombreRdvUser = data.length;
-      
+
 
     }
     );
