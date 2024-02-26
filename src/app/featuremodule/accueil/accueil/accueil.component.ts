@@ -76,6 +76,7 @@ export class AccueilComponent {
   bienImmoAgent: any;
   bienImmoAgence: any;
   NombreBienParAgence: number = 0
+  NombreAgentParAgence: number = 0
   blog: any;
   isLoginFailed = true;
   errorMessage: any = '';
@@ -324,9 +325,16 @@ export class AccueilComponent {
   }
 
   favoriteStatus: { [key: string]: boolean } = {};
+  bienImmoLouer: any[] = [];
+  bienImmoVendre: any[] = [];
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   favoritedPropertiesCount2: { [bienId: number]: number } = {};
   NombreBienCount: { [agenceId: number]: number } = {};
+  NombreAgentCount: { [agenceId: number]: number } = {};
+  NombreBienLouerCount: { [agenceId: number]: number } = {};
+  NombreBienVendreCount: { [agenceId: number]: number } = {};
+  NombreVendreParAgence : number =0;
+  NombreLouerParAgence : number =0;
   toggleFavorite(bienId: number) {
     this.favoriteStatus[bienId] = !this.favoriteStatus[bienId];
 
@@ -498,14 +506,48 @@ export class AccueilComponent {
       // Parcourir la liste des biens immobiliers
       this.agence?.forEach((agence: { id: number; }) => {
         // Charger le nombre de "J'aime" pour chaque bien
-        this.serviceAgence.AfficherAgenceParId(agence.id).subscribe(data => {
-          this.bienImmoAgence = data.biens_agence;
-          this.bienImmoAgent = data.biens_agents;
-          this.bienImmo = [...this.bienImmoAgence, ...this.bienImmoAgent];
-          this.NombreBienParAgence = this.bienImmo.len;
-          // console.log(this.NombreBienParAgence);
+        this.serviceAgence.AfficherAgenceParId(agence?.id).subscribe(data => {
+          this.bienImmoAgence = data?.bienImmos;
+          console.log(this.bienImmoAgence);
+          this.bienImmoAgent = data?.agents;
+          // Initialiser une liste pour stocker tous les biens immobiliers des agents
+          let totalBiensAgents: any[] = [];
+
+          // Parcourir chaque agent
+          data.agents.forEach((agent: any) => {
+            // Ajouter les biens immobiliers de l'agent à la liste totale
+            totalBiensAgents.push(...agent.bienImmosAgents);
+          });
+
+          // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
+          console.log(totalBiensAgents);
+          console.log(this.bienImmoAgent);
+
+          this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
+          this.NombreBienParAgence = this.bienImmo.length;
+          this.NombreAgentParAgence = data.agents.length;
+          console.log(this.bienImmo);
+          
+            if (this.bienImmo?.statut?.nom === "A louer") {
+              this.bienImmoLouer.push(this.bienImmo);
+              this.NombreLouerParAgence = this.bienImmoLouer.length;
+            }
+
+            //   // Vérifier si le bien est déjà vendu
+            if (this.bienImmo?.statut?.nom === "A vendre") {
+              this.bienImmoVendre.push(this.bienImmo);
+              this.NombreVendreParAgence = this.bienImmoVendre.length;
+            }
+
+          console.log('Biens loués Agence:', this.bienImmoLouer);
+          console.log('Biens vendus Agence :', this.bienImmoVendre);
+
+          console.log(this.NombreBienParAgence);
           if (typeof agence.id === 'number') {
             this.NombreBienCount[agence.id] = this.NombreBienParAgence;
+            this.NombreAgentCount[agence.id] = this.NombreAgentParAgence;
+            this.NombreBienLouerCount[agence.id] = this.NombreLouerParAgence;
+            this.NombreBienVendreCount[agence.id] = this.NombreVendreParAgence;
           }
         });
       });

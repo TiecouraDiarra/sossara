@@ -72,8 +72,11 @@ export class AgenceService {
   }
 
   //AFFICHER UNE AGENCE EN FONCTION DE SON ID
+  // AfficherAgenceParId(id: number): Observable<any> {
+  //   return this.http.get(`${URL_BASE}/user/afficheruserparid/${id}`);
+  // }
   AfficherAgenceParId(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/user/afficheruserparid/${id}`);
+    return this.http.get(`${URL_BASE}/user/agence/${id}`);
   }
 
   //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'ID DE AGENCE
