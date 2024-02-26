@@ -189,7 +189,7 @@ export class ProfileComponent implements OnInit {
 
   //METHODE PERMETTANT DE CHANGER SON MOT DE PASSE
   ChangerMotDePasse(): void {
-    const { oldPassword, newPassword, password2 } = this.ChangeMdpForm;
+    const { oldPassword, newPassword } = this.ChangeMdpForm;
     if (this.ChangeMdpForm.newPassword !== this.ChangeMdpForm.confirmPassword) {
       Swal.fire({
         text: "La confirmation du mot de passe ne correspond pas au nouveau mot de passe.",

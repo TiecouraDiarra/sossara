@@ -568,7 +568,7 @@
                                                 <div class="companies-set-head">
                                                     <div class="companies-set-logo">
                                                         <span>
-                                                            <img src="{{generateImageUrl(Agence?.utilisateurPhoto)}}" alt="img"
+                                                            <img src="{{generateImageUrl(Agence?.utilisateurPhoto?.nom)}}" alt="img"
                                                                 (error)="handleAuthorImageError($event)">
                                                         </span>
                                                     </div>
@@ -581,16 +581,20 @@
                                                 <div class="companies-set-count">
                                                     <ul>
                                                         <li>
-                                                            <h6>10</h6>
+                                                            <h6>{{NombreBienCount[Agence.id]}}</h6>
                                                             <span>Biens</span>
                                                         </li>
                                                         <li>
-                                                            <h6>10</h6>
-                                                            <span>Agents</span>
+                                                            <h6>{{NombreBienLouerCount[Agence.id]}}</h6>
+                                                            <span>Louer</span>
                                                         </li>
                                                         <li>
-                                                            <h6>10</h6>
-                                                            <span>Aimer</span>
+                                                            <h6>{{NombreBienVendreCount[Agence.id]}}</h6>
+                                                            <span>Vendre</span>
+                                                        </li>
+                                                        <li>
+                                                            <h6>{{NombreAgentCount[Agence.id]}}</h6>
+                                                            <span>Agents</span>
                                                         </li>
                                                     </ul>
                                                     <div class="companies-set-btn">

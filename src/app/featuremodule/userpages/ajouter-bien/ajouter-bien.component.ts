@@ -216,7 +216,7 @@ export class AjouterBienComponent {
       } else if (this.roles[0] == 'ROLE_AGENCE') {
         this.isAgence = true;
       }
-      // this.initMap();
+      this.initMap();
     }
 
     //AFFICHER LA LISTE DES COMMODITES

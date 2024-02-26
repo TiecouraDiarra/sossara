@@ -40,11 +40,11 @@ export class AgenceService {
   ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-    // console.log("nom " + nom)
-    // console.log(headers)
-    // console.log("email " + email)
-    // console.log("telephone " + telephone)
-    // console.log("quartier " + quartier)
+    console.log("nom " + nom)
+    console.log(headers)
+    console.log("email " + email)
+    console.log("telephone " + telephone)
+    console.log("quartier " + quartier)
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
@@ -72,8 +72,11 @@ export class AgenceService {
   }
 
   //AFFICHER UNE AGENCE EN FONCTION DE SON ID
+  // AfficherAgenceParId(id: number): Observable<any> {
+  //   return this.http.get(`${URL_BASE}/user/afficheruserparid/${id}`);
+  // }
   AfficherAgenceParId(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/user/afficheruserparid/${id}`);
+    return this.http.get(`${URL_BASE}/user/agence/${id}`);
   }
 
   //AFFICHER LA LISTE DES AGENTS EN FONCTION DE L'ID DE AGENCE
