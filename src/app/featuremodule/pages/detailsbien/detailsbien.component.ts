@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Lightbox } from 'ngx-lightbox';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
+import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
@@ -27,6 +28,8 @@ export class DetailsbienComponent implements AfterViewInit {
   public albumsTwo: any = [];
   bien: any
   les_commodite: any[] = [];
+  cercles: any[] = [];
+  cercle: any;
   pays: any;
   commune: any;
   nombien: any;
@@ -51,9 +54,11 @@ export class DetailsbienComponent implements AfterViewInit {
   communes: any = [];
   selectedValue: string | any = 'pays';
   selectedValueR: string | any = 'region';
+  selectedValueC: string | any = 'cercle';
   image: File[] = [];
   images: File[] = [];
   idBien: any;
+  nombreZone: any;
 
 
   generateQrCodeUrl(qrCodeBase64: string): string {
@@ -118,13 +123,18 @@ export class DetailsbienComponent implements AfterViewInit {
 
   onChange(newValue: any) {
     this.regions = this.region.filter(
-      (el: any) => el.pays.nom == newValue.value
+      (el: any) => el.pays.nompays == newValue.value
+    );
+  }
+  onChangeRegion(newValue: any) {
+    this.cercles = this.cercle.filter(
+      (el: any) => el.region.nomregion == newValue.value
     );
   }
 
-  onChangeRegion(newValue: any) {
+  onChangeCercle(newValue: any) {
     this.communes = this.commune.filter(
-      (el: any) => el.region.nom == newValue.value
+      (el: any) => el.cercle.nomcercle == newValue.value
     );
   }
 
@@ -188,6 +198,8 @@ export class DetailsbienComponent implements AfterViewInit {
     }
   }
 
+  
+
   photos: any;
 
   RdvForm: any = {
@@ -223,7 +235,8 @@ export class DetailsbienComponent implements AfterViewInit {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    if (this.selectedStatut === 'A vendre') {
+    console.log("this.selectedStatut",this.selectedStatut)
+    if (this.selectedStatut === '2' ) {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
   }
@@ -237,37 +250,57 @@ export class DetailsbienComponent implements AfterViewInit {
     private storageService: StorageService,
     private servicecommentaire: commentaireService,
     private route: ActivatedRoute,
+    private serviceAdresse: AdresseService,
   ) {
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params["id"];
-    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
-      this.bien = data;
-      console.log(this.bien);
-      this.form = {
-        nom: this.bien?.nom,
-        description: this.bien?.description,
-        type: this.bien?.typeImmo.id,
-        surface: this.bien?.surface,
-        periode: this.bien?.periode?.id,
-        porte: this.bien?.adresse?.porte,
-        rue: this.bien?.adresse?.rue,
-        quartier: this.bien.adresse.quartier,
-        statut: this.bien.statut.id,
-        prix: this.bien.prix,
-        toilette: this.bien.toilette,
-        nb_piece: this.bien.nb_piece,
-        cuisine: this.bien.cuisine,
-        chambre: this.bien.chambre,
-        longitude: this.bien.adresse.longitude,
-        latitude: this.bien.adresse.latitude,
-        commune: this.bien.adresse.commune.id,
-        pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
-        region: this.bien?.adresse?.commune?.region?.id,
-        commodite: this.bien?.commodite?.nom,
-      };
-    });
+
+    
+
+//AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+  this.bien = data;
+  console.log(this.bien);
+  this.form = {
+    nom: this.bien?.nom,
+    description: this.bien?.description,
+    type: this.bien?.typeImmo.id,
+    surface: this.bien?.surface,
+    periode: this.bien?.periode?.id,
+    porte: this.bien?.adresse?.porte,
+    rue: this.bien?.adresse?.rue,
+    quartier: this.bien?.adresse?.quartier,
+    statut: this.bien?.statut?.id,
+    prix: this.bien?.prix,
+    toilette: this.bien?.toilette,
+    nb_piece: this.bien?.nb_piece,
+    cuisine: this.bien?.cuisine,
+    chambre: this.bien?.chambre,
+    longitude: this.bien?.adresse?.longitude,
+    latitude: this.bien?.adresse?.latitude,
+    commune: this.bien?.adresse?.commune?.id,
+    pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
+    region: this.bien?.adresse?.commune?.region?.id
+    
+  };
+  this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+    this.les_commodite = data;
+    console.log('commodite vvvvv', this.les_commodite);
+  });
+
+
+  if (this.bien) {
+    // Parcourez les commodités liées à bien
+    console.log("je suis", this.bien.commodites ,"les commm" , this.les_commodite)
+    for (const item of this.les_commodite) {
+      // Vérifiez si l'ID de la commodité est dans la liste des commodités de bien
+      item.selected = this.bien.commodites.some(
+        (commodite: any) => commodite.id === item.id
+      );
+    }
   }
+});
+}
   open(index: number, albumArray: Array<any>): void {
     this._lightbox.open(albumArray, index);
   }
@@ -310,7 +343,7 @@ export class DetailsbienComponent implements AfterViewInit {
       // this.description = this.bien.description;
       // this.status = this.bien.statut;
       // this.type = this.bien.statut;
-      this.commodite = data.commodites;
+      // this.commodite = data.commodites;
       // this.commentaire = data.commentaire
       // console.log(this.bien);
       // console.log(this.latitude);
@@ -323,7 +356,7 @@ export class DetailsbienComponent implements AfterViewInit {
 
 
 
-      if (currentUser && this.bien && currentUser?.user?.id === this.bien?.utilisateur?.id) {
+      if (currentUser && this.bien && currentUser?.id === this.bien?.utilisateur?.id) {
         this.currentUser = true;
         this.ModifBien = true;
       }
@@ -399,15 +432,59 @@ export class DetailsbienComponent implements AfterViewInit {
       this.commentaire = data.reverse();
       // console.log(this.commentaire);
     });
+    this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+      this.les_commodite = data;
+      console.log('commodite', this.les_commodite);
+    });
+
+       //AFFICHER LA LISTE DES COMMUNES
+       this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
+        this.commune = data;
+        // console.log('commune de test', this.commune);
+      });
+      //AFFICHER LA LISTE DES Pays
+      this.serviceAdresse.AfficherListePays().subscribe((data) => {
+        this.pays = data;
+        console.log('pays', this.pays);
+      });
+      //AFFICHER LA LISTE DES CERCLE
+      this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
+        this.cercle = data;
+        console.log('cercle de test', this.cercle);
+      });
+  
+      //AFFICHER LA LISTE DES REGIONS
+      this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
+        this.region = data;
+        this.nombreZone = data.length;
+        console.log('region', this.region);
+      });
+      //AFFICHER LA LISTE DES TYPEBIEN
+    this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
+      this.typebien = data;
+      console.log('typebien de test', this.typebien);
+    });
+
+    //AFFICHER LA LISTE DES PERIODES
+    this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
+      this.periode = data;
+      console.log('periode de test', this.periode);
+    });
+       //AFFICHER LA LISTE DES PERIODES
+       this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
+        this.status = data;
+        console.log('status de test', this.status);
+      });
+  
 
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-      this.les_commodite = data.commodite;
-      this.adresse = data;
-      this.pays = data.pays;
-      this.region = data.region.reverse();
-      this.commune = data.commune;
-      this.periode = data.periode;
+      // this.les_commodite = data.commodite;
+      // this.adresse = data;
+      // this.pays = data.pays;
+      // this.region = data.region.reverse();
+      // this.commune = data.commune;
+      // this.periode = data.periode;
       this.typebien = data.type;
       // console.log(data);
     });
@@ -415,6 +492,7 @@ export class DetailsbienComponent implements AfterViewInit {
 
 
   }
+ 
   direction() {
     this.router.navigate([routes.servicedetails])
   }

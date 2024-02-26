@@ -96,7 +96,7 @@
                                         <div class="col-lg-3">
                                             <div class="filler-job-form">
                                                 <i class="uil uil-location-point"></i>
-                                                <select class="form-select selectForm__inner" [(ngModel)]="searchText" data-trigger="true"
+                                                <select class="form-select selectForm__inner py-2" [(ngModel)]="searchText" data-trigger="true"
                                                     name="choices-single-location" id="choices-single-location"
                                                     aria-label="Default select example">
                                                     <option value="" selected>Tout</option>
@@ -184,7 +184,7 @@
                 <tr>
                     <th mat-sort-header="img" class="no-sort">Image</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
-                    <th mat-sort-header="status">Statut</th>
+                    <!-- <th mat-sort-header="status">Statut</th> -->
                     <th mat-sort-header="adresse">Adresse</th>
                     <!-- <th mat-sort-header="nombrebien">Adresse</th> -->
                     <th mat-sort-header="Action">Action</th>
@@ -194,7 +194,7 @@
                 <tr *ngFor="let Agent of agent | filter:searchText | paginate:{itemsPerPage :4, currentPage:p1}">
                     <td>
                         <div class="candidate-list-images">
-                            <a href="#"><img src="{{generateImageUrl(Agent.photo)}}" alt=""
+                            <a href="#"><img src="{{generateImageUrl(Agent?.photo?.nom)}}" alt=""
                                     class="avatar-md img-thumbnail rounded-circle"
                                     (error)="handleAuthorImageError($event)" /></a>
                         </div>
@@ -202,27 +202,22 @@
                     <td>
                         <div class="candidate-list-content mt-3 mt-lg-0">
                             <h5 class="fs-19 mb-0">
-                                <a class="primary-link" href="#">{{Agent.username}}</a><span class="badge bg-success ms-1"><i
-                                        class="mdi mdi-star align-middle"></i>4.8</span>
+                                <a class="primary-link" href="#">{{Agent?.nom}}</a>
+                                <!-- <span class="badge bg-success ms-1"><i
+                                        class="mdi mdi-star align-middle"></i>4.8</span> -->
                             </h5>
-                            <p class="text-muted mb-2">{{Agent.email}}</p>
+                            <p class="text-muted mb-2">{{Agent?.email}}</p>
                             <ul class="list-inline mb-0 text-muted">
-                                <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{Agent.telephone}}
+                                <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{Agent?.telephone}}
                                 </li>
                                 <!-- <li class="list-inline-item"><i class="mdi mdi-wallet"></i> $650 / hours</li> -->
                             </ul>
                         </div>
                     </td>
-                    <td>
-                        <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
-                            <span class="badge bg-soft-secondary fs-14 mt-1">{{Agent.role[0] === 'ROLE_AGENT' ? 'AGENT'
-                                : ''}}</span>
-                        </div>
-                    </td>
+                  
                     <td>
                         <span *ngIf="Agent.adresse !== undefined">
-                            <span class="status-text" style="color: #374b5c;">{{ Agent.adresse[0]?.nom || 'Aucune
-                                adresse disponible' }}</span>
+                            <span class="status-text" style="color: #374b5c;">{{ Agent?.adresse || 'Aucune adresse disponible' }}</span>
                         </span>
                     </td>
                     <!-- <td>

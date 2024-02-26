@@ -44,12 +44,12 @@ export class AgenceService {
     console.log(headers)
     console.log("email " + email)
     console.log("telephone " + telephone)
-    console.log("quartier " + quartier)
+    console.log("adresse " + quartier)
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
-    formData.append('quartier', quartier);
-    return this.http.post(`${URL_BASE}/user/child/create`,
+    formData.append('adresse', quartier);
+    return this.http.post(`${URL_BASE}/auth/agent/ajouter`,
       formData, { headers });
   }
 
@@ -57,7 +57,7 @@ export class AgenceService {
   ListeAgentParAgence(): Observable<any> {
     const headers = this.getHeaders();
     // console.log(headers);
-    return this.http.get(`${URL_BASE}/user/child/get`,
+    return this.http.get(`${URL_BASE}/user/agenceconnecter`,
       { headers });
   }
 
