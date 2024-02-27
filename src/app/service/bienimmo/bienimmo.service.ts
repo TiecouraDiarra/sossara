@@ -469,8 +469,8 @@ export class BienimmoService {
     // data.append("contenu", contenu)
     // console.log(id)
     // console.log(headers)
-    // console.log(somme)
-    return this.http.post(`${URL_BASE}/reparation/${id}`, null, { headers });
+    console.log(headers)
+    return this.http.post(`${URL_BASE}/probleme/lancerprocessus/${id}`, null, { headers });
   }
 
   //SUPPRIMER UN BIEN
