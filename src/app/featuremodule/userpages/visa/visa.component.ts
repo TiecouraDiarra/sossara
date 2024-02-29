@@ -6,13 +6,13 @@ import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
-
 @Component({
-  selector: 'app-proprietaire',
-  templateUrl: './proprietaire.component.html',
-  styleUrls: ['./proprietaire.component.scss']
+  selector: 'app-visa',
+  templateUrl: './visa.component.html',
+  styleUrls: ['./visa.component.scss']
 })
-export class ProprietaireComponent {
+export class VisaComponent {
+
   public routes = routes;
   id: any
   locale!: string;

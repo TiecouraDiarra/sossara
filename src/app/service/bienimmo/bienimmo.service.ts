@@ -68,6 +68,11 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbienparid/${id}`);
   }
 
+   //AFFICHER UNE CANDIDATURE EN FONCTION DE SON UUID
+   AfficherCandidatureParUuId(uuid: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/candidature/affichercandidatureparuuid/${uuid}`);
+  }
+
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE LA COMMUNE
   AfficherBienImmoParCommune(id: number): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/afficherbien/parcommune/${id}`);

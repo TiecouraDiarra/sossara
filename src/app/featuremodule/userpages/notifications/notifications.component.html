@@ -249,7 +249,7 @@
                                                     Payer</button>
                                             </div> -->
                                             <!-- Button trigger modal -->
-                                            <button (click)="openFactureModal(Candidature.id)" type="button"
+                                            <button (click)="openPaiementModal(Candidature?.uuid)" type="button"
                                                 class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
                                                 Payer
@@ -268,33 +268,110 @@
                                                     <div class="modal-body">
                                                         <div class="container">
                                                             <div class="row">
+                                                                <!-- <div class="col-md-6 mb-3">
+                                                                    <label for="recipient-name"
+                                                                        class="col-form-label">Periode du bien</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{bien?.periode?.nom}}" readonly>
+                                                                </div>
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label class="col-form-label">Prix du bien</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{formatPrice(bien?.prix)}} FCFA" readonly>
+                                                                </div>
+                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
+                                                                    <label class="col-form-label">Nombre de jour</label>
+                                                                    <input type="number" class="form-control" min="0" max="29" [(ngModel)]="nombreJourChoisi" (input)="onNombreJourChange()">
+                                                                </div>
+                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
+                                                                    <label class="col-form-label">Nombre de semaine</label>
+                                                                    <input type="number" class="form-control" min="0" max="5" [(ngModel)]="nombreSemaineChoisi" (input)="onNombreSemaineChange()">
+                                                                </div> -->
+                                                                <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
+                                                                    <label class="col-form-label">Nombre de mois</label>
+                                                                    <input type="number" class="form-control" min="0" max="12" [(ngModel)]="nombreMoisChoisi" (input)="onNombreMoisChange()">
+                                                                </div> -->
+                                                                <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
+                                                                    <div class="d-flex flex-column dis">
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p>Nombre de jour</p>
+                                                                            <p>{{ nombreJourChoisi }} <span class="fw-bold">{{ nombreJourChoisi === 1 ? 'Jour' : 'Jours' }}</span></p>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p>Prix journalier</p>
+                                                                            <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p class="fw-bold">Total</p>
+                                                                            <p class="fw-bold">{{formatPrice(bien?.prix * nombreJourChoisi)}} <span class="fw-bold">FCFA</span></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
+                                                                    <div class="d-flex flex-column dis">
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p>Nombre de semaine</p>
+                                                                            <p>{{ nombreSemaineChoisi }} <span class="fw-bold">{{ nombreSemaineChoisi === 1 ? 'Semaine' : 'Semaines' }}</span></p>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p>Prix Hebdomadaire</p>
+                                                                            <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p class="fw-bold">Total</p>
+                                                                            <p class="fw-bold">{{formatPrice(bien?.prix * nombreSemaineChoisi)}} <span class="fw-bold">FCFA</span></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
+                                                                    <div class="d-flex flex-column dis">
+                                                
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p>Avance</p>
+                                                                            <p>{{bien?.avance}} <span class="fw-bold">Mois</span></p>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p>Caution</p>
+                                                                            <p>{{bien?.caution}} <span class="fw-bold">Mois</span></p>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p>Prix mensuel</p>
+                                                                            <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                            <p class="fw-bold">Total</p>
+                                                                            <p class="fw-bold">{{formatPrice(bien?.prix * (bien?.avance + bien?.caution) )}} <span class="fw-bold">FCFA</span></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                            <div class="row">
                                                                 <div class="paymentCont">
                                                                     <div class="headingWrap">
-                                                                        <h3 class="headingTop text-center">Selectionner
-                                                                            le mode de paiement</h3>
+                                                                        <h5 class="headingTop text-center">Selectionner
+                                                                            le mode de paiement</h5>
                                                                         <!-- <p class="text-center">Created with bootsrap
                                                                             button and using radio button</p> -->
                                                                     </div>
                                                                     <div class="row paymentWrap">
                                                                         <div class="btn-group paymentBtnGroup btn-group-justified"
                                                                             data-toggle="buttons">
-                                                                            <label class="btn paymentMethod">
-                                                                                <div class="method visa"></div>
-                                                                                <input type="radio" name="options"
-                                                                                    checked>
-                                                                            </label>
-                                                                            <label class="btn paymentMethod">
-                                                                                <div class="method master-card"></div>
+                                                                            <label class="btn paymentMethod" *ngFor="let Mode of modepaiement" (click)="selectPaymentMode(Mode)">
+                                                                                <div class="method test" style="background-image: url('{{generateImageUrl(Mode?.photo)}}');"></div>
                                                                                 <input type="radio" name="options">
                                                                             </label>
+                                                                            <!-- <label class="btn paymentMethod">
+                                                                                <div class="method master-card"></div>
+                                                                                <input type="radio" name="options">
+                                                                            </label> -->
                                                                             <!-- <label class="btn paymentMethod">
                                                                                 <div class="method amex"></div>
                                                                                 <input type="radio" name="options">
                                                                             </label> -->
-                                                                            <label class="btn paymentMethod">
+                                                                            <!-- <label class="btn paymentMethod">
                                                                                 <div class="method vishwa"></div>
                                                                                 <input type="radio" name="options">
-                                                                            </label>
+                                                                            </label> -->
                                                                             <!-- <label class="btn paymentMethod">
                                                                                 <div class="method ez-cash"></div>
                                                                                 <input type="radio" name="options">
@@ -316,6 +393,11 @@
 
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Annuler</button>
+                                                        <button type="button" (click)="goToPagePaiement(CandidatureUser?.uuid)" class="btn btn-primary">Continuer</button>
                                                     </div>
                                                     <!-- <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"

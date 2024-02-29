@@ -87,10 +87,10 @@
                         </div>
                         <div class="row mt-1">
                             <div class="row scroll-text">
-                                <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
-                                    C'est en votre charge </div>
-                                <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
-                                    C'est le proprietaire qui paie
+                                <!-- <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
+                                    C'est en votre charge </div> -->
+                                <div class="scroll-textl">
+                                    {{Reclamation?.charge}}
                                 </div>
                             </div>
                         </div>

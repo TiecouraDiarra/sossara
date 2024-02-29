@@ -146,8 +146,8 @@ export class AjouterBienComponent {
     periode: null,
     rue: null,
     porte: null,
-    longitude: 123456789,
-    latitude: 123456789,
+    longitude: null,
+    latitude: null,
     photo: null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées

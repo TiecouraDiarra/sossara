@@ -154,7 +154,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Les commodites</h4>
+                            <h4>Les commodites</h4> 
                         </div>
                         <div class="card-body">
                             <br />
@@ -198,8 +198,8 @@
                                         <div class="pass-group group-img">
                                             <select (change)="onStatutChange($event)" [(ngModel)]="form.statut"
                                                 name="statut" class="form-control" id="">
-                                                <option *ngFor="let item of status" [value]="item">
-                                                    {{item}}
+                                                <option *ngFor="let item of status" [value]="item.nom">
+                                                    {{item?.nom}}
                                                 </option>
                                             </select>
                                         </div>
@@ -330,29 +330,43 @@
                         <div class="card-body">
                             <div class="row">
                                 <!-- Pays  -->
-                                <div class="col-lg-6 col-md-6">
+                                <div class="col-lg-4 col-md-4">
                                     <div class="form-group">
                                         <label class="col-form-label">Pays <span>*</span></label>
                                         <div class="pass-group group-img">
                                             <select class="form-control" [ngModel]="selectedValue" name="pays"
                                                 (change)="onChange($event.target)">
                                                 <option value="pays" selected>pays</option>
-                                                <option *ngFor="let item of pays" [value]="item.nom">
-                                                    {{ item.nom }}
+                                                <option *ngFor="let item of pays" [value]="item.nompays">
+                                                    {{ item.nompays }}
                                                 </option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Region  -->
-                                <div class="col-lg-6 col-md-6">
+                                <div class="col-lg-4 col-md-4">
                                     <div class="form-group">
                                         <label class="col-form-label">Region <span>*</span></label>
                                         <div class="pass-group group-img">
                                             <select name="region" class="form-control" id="" [ngModel]="selectedValueR"
                                                 (change)="onChangeRegion($event.target)">
-                                                <option *ngFor="let item of regions" [value]="item.nom">
-                                                    {{ item.nom }}
+                                                <option *ngFor="let item of regions" [value]="item.nomregion">
+                                                    {{ item.nomregion }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CERCLE  -->
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Cercle <span>*</span></label>
+                                        <div class="pass-group group-img">
+                                            <select name="region" class="form-control" id="" [ngModel]="selectedValueC"
+                                                (change)="onChangeCercle($event.target)">
+                                                <option *ngFor="let item of cercles" [value]="item.nomcercle">
+                                                    {{ item.nomcercle }}
                                                 </option>
                                             </select>
                                         </div>
@@ -368,7 +382,7 @@
                                             <select [(ngModel)]="form.commune" name="commune" class="form-control"
                                                 id="">
                                                 <option *ngFor="let item of communes" [value]="item.id">
-                                                    {{ item.nom }}
+                                                    {{ item.nomcommune }}
                                                 </option>
                                             </select>
                                         </div>

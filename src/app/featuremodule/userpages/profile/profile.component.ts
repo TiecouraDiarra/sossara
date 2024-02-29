@@ -367,7 +367,7 @@ export class ProfileComponent implements OnInit {
           if (user.photos?.length > 0) {
             user.photos[0].nom = successResponse?.message;
           } else {
-            user.photos = [{ nom: successResponse?.message }];
+            user.photos[0] = [{ nom: successResponse?.message }];
           }
           this.storageService.setUser(user);
           console.log(successResponse);

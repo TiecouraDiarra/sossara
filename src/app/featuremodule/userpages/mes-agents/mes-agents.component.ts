@@ -1,4 +1,11 @@
-import { Component, ElementRef, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  LOCALE_ID,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -12,11 +19,10 @@ import Swal from 'sweetalert2';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
-
 @Component({
   selector: 'app-mes-agents',
   templateUrl: './mes-agents.component.html',
-  styleUrls: ['./mes-agents.component.css']
+  styleUrls: ['./mes-agents.component.css'],
 })
 export class MesAgentsComponent implements OnInit {
   public routes = routes;
@@ -25,7 +31,7 @@ export class MesAgentsComponent implements OnInit {
   isAgence = false;
   roles: string[] = [];
   public commune = [
-    "Commune",
+    'Commune',
     'Commune 1',
     'Commune 2',
     'Commune 3',
@@ -34,10 +40,10 @@ export class MesAgentsComponent implements OnInit {
     'Commune 6',
   ];
 
-  public Bookmarksdata: any = []
-  public electronics: any = []
-  agent: any
-  MotdePasseAgent: any
+  public Bookmarksdata: any = [];
+  public electronics: any = [];
+  agent: any;
+  MotdePasseAgent: any;
   searchText: any;
   message: string | undefined;
   nomAgence: any;
@@ -45,13 +51,11 @@ export class MesAgentsComponent implements OnInit {
 
   // @ViewChild('motDePasseSpan', { static: false }) motDePasseSpan!: ElementRef;
 
-
   // ngAfterViewInit() {
   //   const nomAgenceSansEspaces = this.nomAgence.replace(/ /g, '_');
   //   const motDePasse = `pass_${nomAgenceSansEspaces}_123`;
   //   this.motDePasseSpan.nativeElement.textContent = motDePasse;
   // }
-
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
@@ -61,21 +65,20 @@ export class MesAgentsComponent implements OnInit {
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
-    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+    event.target.src =
+      'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
   bienImmo: any;
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
 
   errorMessage: any = '';
 
-
-
   agentForm: any = {
     nom: null,
     email: null,
     telephone: null,
     quartier: null,
-  }
+  };
 
   constructor(
     private dataservice: DataService,
@@ -88,25 +91,25 @@ export class MesAgentsComponent implements OnInit {
     private serviceBienImmo: BienimmoService
   ) {
     this.locale = localeId;
-    this.Bookmarksdata = this.dataservice.Bookmarksdata
+    this.Bookmarksdata = this.dataservice.Bookmarksdata;
   }
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      this.nomAgence = this.storageService.getUser().nom
+      this.nomAgence = this.storageService.getUser().nom;
       // console.log(this.roles);
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
-        this.isLocataire = true
-      } else if (this.roles[0] == "ROLE_AGENCE") {
-        this.isAgence = true
+      if (this.roles[0] == 'ROLE_LOCATAIRE') {
+        this.isLocataire = true;
+      } else if (this.roles[0] == 'ROLE_AGENCE') {
+        this.isAgence = true;
       }
     }
 
     //AFFICHER LA LISTE DES AGENTS PAR AGENCE
-    this.agenceService.ListeAgentParAgence().subscribe(data => {
+    this.agenceService.ListeAgentParAgence().subscribe((data) => {
       this.agent = data.agents.reverse();
-      // console.log(this.agent);
+      console.log("vcvvc",this.agent);
     });
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
@@ -137,15 +140,15 @@ export class MesAgentsComponent implements OnInit {
     }
   }
 
-  //METHODE PERMETTANT D'AJOUTER UN AGENT 
+  //METHODE PERMETTANT D'AJOUTER UN AGENT
   AjouterAgent(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
+      heightAuto: false,
+    });
     const user = this.storageService.getUser();
     if (user && user.token) {
       // Définissez le token dans le service commentaireService
@@ -158,41 +161,91 @@ export class MesAgentsComponent implements OnInit {
         this.agentForm.telephone !== null &&
         this.agentForm.quartier !== null
       ) {
-        swalWithBootstrapButtons.fire({
-          text: "Etes-vous sûre de creer cet agent ?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Confirmer',
-          cancelButtonText: 'Annuler',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Appelez la méthode AjouterAgent() avec les données du formulaire
-            this.agenceService.AjouterAgent(
-              this.agentForm.nom,
-              this.agentForm.email,
-              this.agentForm.telephone,
-              this.agentForm.quartier
-            ).subscribe(
-              (data) => {
-                // La réponse de la requête réussie est gérée ici
-                // console.log("Agent ajouté avec succès:", data);
-                this.popUpConfirmationAjouter();
-              },
-              (error) => {
-                // Gérez les erreurs ici
-                // console.error("Erreur lors de l'ajout d'un agent :", error);
+        swalWithBootstrapButtons
+          .fire({
+            text: 'Etes-vous sûre de creer cet agent ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmer',
+            cancelButtonText: 'Annuler',
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              // Appelez la méthode AjouterAgent() avec les données du formulaire
+              this.agenceService
+                .AjouterAgent(
+                  this.agentForm.nom,
+                  this.agentForm.email,
+                  this.agentForm.telephone,
+                  this.agentForm.quartier
+                )
+                .subscribe(
+                  (data) => {
+                    // La réponse de la requête réussie est gérée ici
+                    // console.log("Agent ajouté avec succès:", data);
+                    console.log('data', data);
 
-                // Affichez un message d'erreur à l'utilisateur si nécessaire
-                // this.errorMessage = "Une erreur s'est produite lors de l'ajout de l'agent.";
-              }
-            );
-          }
-        })
+                    if (data.status) {
+                      let timerInterval = 2000;
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: "Ajout d'une éducation",
+                        icon: 'success',
+                        heightAuto: false,
+                        showConfirmButton: false,
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        timer: timerInterval,
+                        timerProgressBar: true,
+                      }).then(() => {
+                        // Réinitialisez le formulaire d'ajout d'agent après un succès
+                        this.agentForm = {
+                          nom: '',
+                          email: '',
+                          telephone: '',
+                          quartier: '',
+                        };
+                        //AFFICHER LA LISTE DES AGENTS PAR AGENCE
+                        this.agenceService
+                          .ListeAgentParAgence()
+                          .subscribe((data) => {
+                            this.agent = data.agents.reverse();
+                            // console.log(this.agent);
+                          });
+                      });
+                    } else {
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: 'Erreur',
+                        icon: 'error',
+                        heightAuto: false,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                      }).then((result) => {});
+                    }
+                  },
+                  (error) => {
+                    // Gérez les erreurs ici
+                    // console.error("Erreur lors de l'ajout d'un agent :", error);
+                    // Affichez un message d'erreur à l'utilisateur si nécessaire
+                    // this.errorMessage = "Une erreur s'est produite lors de l'ajout de l'agent.";
+                  }
+                );
+            }
+          });
       } else {
         swalWithBootstrapButtons.fire(
-          this.message = " Tous les champs sont obligatoires !",
-        )
+          (this.message = ' Tous les champs sont obligatoires !')
+        );
       }
     } else {
       // console.error("Token JWT manquant");
@@ -215,30 +268,27 @@ export class MesAgentsComponent implements OnInit {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then((result) => {
       // Réinitialisez le formulaire d'ajout d'agent après un succès
       this.agentForm = {
         nom: '',
         email: '',
         telephone: '',
-        quartier: ''
+        quartier: '',
       };
       //AFFICHER LA LISTE DES AGENTS PAR AGENCE
-      this.agenceService.ListeAgentParAgence().subscribe(data => {
+      this.agenceService.ListeAgentParAgence().subscribe((data) => {
         this.agent = data.agents.reverse();
         // console.log(this.agent);
       });
-
-
-    })
+    });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS AGENT
   goToDettailAgent(id: number) {
     // console.log(id);
-    return this.routerr.navigate(['details-agent', id])
+    return this.routerr.navigate(['details-agent', id]);
   }
 
   //METHODE PERMETTANT DE SUPPRIMER UN AGENT
@@ -248,57 +298,58 @@ export class MesAgentsComponent implements OnInit {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
-    swalWithBootstrapButtons.fire({
-      // title: 'Etes-vous sûre de vous déconnecter?',
-      text: "Etes-vous sûre de suppimer cet agent?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Supprimer',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const user = this.storageService.getUser();
-        if (user && user.token) {
-          // Définissez le token dans le service serviceUser
-          this.serviceUser.setAccessToken(user.token);
+      heightAuto: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        // title: 'Etes-vous sûre de vous déconnecter?',
+        text: 'Etes-vous sûre de suppimer cet agent?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Supprimer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            // Définissez le token dans le service serviceUser
+            this.serviceUser.setAccessToken(user.token);
 
-          // Appelez la méthode PrendreRdv() avec le contenu et l'ID
-          this.serviceAgence.SupprimerAgent(id).subscribe({
-            next: (data) => {
-              // console.log("Agent supprimé avec succès:", data);
-              // this.errorMessage = 'Candidature envoyée avec succès';
-              // this.isCandidatureSent = true;
-              // Afficher le premier popup de succès
-              this.popUpConfirmation();
-            },
-            error: (err) => {
-              // console.error("Erreur lors de la suppression :", err);
-              this.errorMessage = err.error.message;
-              // console.error(this.errorMessage);
-              // this.isError = true
-              // Gérez les erreurs ici
-            }
+            // Appelez la méthode PrendreRdv() avec le contenu et l'ID
+            this.serviceAgence.SupprimerAgent(id).subscribe({
+              next: (data) => {
+                // console.log("Agent supprimé avec succès:", data);
+                // this.errorMessage = 'Candidature envoyée avec succès';
+                // this.isCandidatureSent = true;
+                // Afficher le premier popup de succès
+                this.popUpConfirmation();
+              },
+              error: (err) => {
+                // console.error("Erreur lors de la suppression :", err);
+                this.errorMessage = err.error.message;
+                // console.error(this.errorMessage);
+                // this.isError = true
+                // Gérez les erreurs ici
+              },
+            });
+          } else {
+            // console.error("Token JWT manquant");
           }
-          );
-        } else {
-          // console.error("Token JWT manquant");
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // L'utilisateur a annulé l'action
+          const cancelNotification = Swal.fire({
+            title: 'Action annulée',
+            text: "Vous avez annulé la suppression de l'agent.",
+            icon: 'info',
+            showConfirmButton: false, // Supprime le bouton "OK"
+            timer: 2000, // Durée en millisecondes (par exemple, 3000 ms pour 3 secondes)
+          });
+
+          // Vous n'avez pas besoin de setTimeout pour fermer cette notification, car "timer" le fait automatiquement après la durée spécifiée.
         }
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // L'utilisateur a annulé l'action
-        const cancelNotification = Swal.fire({
-          title: "Action annulée",
-          text: "Vous avez annulé la suppression de l'agent.",
-          icon: "info",
-          showConfirmButton: false, // Supprime le bouton "OK"
-          timer: 2000, // Durée en millisecondes (par exemple, 3000 ms pour 3 secondes)
-        });
-  
-        // Vous n'avez pas besoin de setTimeout pour fermer cette notification, car "timer" le fait automatiquement après la durée spécifiée.
-      }
-    })
+      });
   }
 
   //POPUP APRES CONFIRMATION DE SUPPRESSION
@@ -317,17 +368,14 @@ export class MesAgentsComponent implements OnInit {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then((result) => {
       // Après avoir réussi à supprimer, mettez à jour l'état de la page
       //AFFICHER LA LISTE DES AGENTS PAR AGENCE
-      this.agenceService.ListeAgentParAgence().subscribe(data => {
+      this.agenceService.ListeAgentParAgence().subscribe((data) => {
         this.agent = data.agents.reverse();
         // console.log(this.agent);
       });
-
-
-    })
+    });
   }
 }

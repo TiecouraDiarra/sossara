@@ -393,15 +393,15 @@ export class AccueilComponent {
     AOS.init({ disable: 'mobile' }
     );
     //AFFICHER LA LISTE DES COMMODITES ANCIEN
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      // this.commodite = data.commodite;
-      this.adresse = data;
-      // this.region = data.region;
-      // this.nombreZone = data.region.length;
-      // this.commune = data.commune.slice(0, 6);
-      // this.typebien = data.type;
-      // console.log(this.commune);
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+    //   // this.commodite = data.commodite;
+    //   this.adresse = data;
+    //   // this.region = data.region;
+    //   // this.nombreZone = data.region.length;
+    //   // this.commune = data.commune.slice(0, 6);
+    //   // this.typebien = data.type;
+    //   // console.log(this.commune);
+    // });
 
     //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherListeCommodite().subscribe(data => {
