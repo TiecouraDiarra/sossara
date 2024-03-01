@@ -1747,30 +1747,32 @@
                                                     </div>
                                                     <div class="row mt-1">
                                                         <div class="row scroll-text">
-                                                            <div class="scroll-textl"
+                                                            <div class="scroll-textl">
+                                                                {{Reclamation?.charge}}
+                                                            </div>
+                                                            <!-- <div class="scroll-textl"
                                                                 *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
                                                                 Confirmer, Locataire paie</div>
                                                             <div class="scroll-textl"
                                                                 *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
-                                                                Confirmer, c'est a votre charge</div>
+                                                                Confirmer, c'est a votre charge</div> -->
                                                         </div>
                                                     </div>
                                                     <div class="row mt-3">
-                                                        <div class="col"
-                                                            *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
+                                                        <div class="col">
                                                             <button type="button"
                                                                 class="btn btn-outline-success" (click)="LancerProcessusReparation(Reclamation.bien.id)"><i
                                                                     class="fas fa-times"></i>
                                                                 Confirmer</button>
                                                         </div>
-                                                        <div class="col"
+                                                        <!-- <div class="col"
                                                             *ngIf="Reclamation && Reclamation.prix_estimatif >= 10000">
                                                             <button type="button"
                                                                 class="btn btn-outline-success"
                                                                 (click)="LancerProcessusReparation(Reclamation.bien.id)"><i
                                                                     class="fas fa-check"></i>
                                                                 Je prend</button>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </li>

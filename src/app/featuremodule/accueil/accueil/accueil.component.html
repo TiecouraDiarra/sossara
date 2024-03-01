@@ -57,11 +57,11 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab" tabindex="0">
                             <div class="search-tab-col">
-                                <form action="listing-grid-sidebar.html">
+                                <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
                                     <div class="row align-items-center search-form">
                                         <div class="col-12 col-lg-10 search-group">
                                             <div class="row">
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
                                                     <div class="d-flex real-estate-search">
                                                         <div class="flex-shrink-0 d-flex align-items-center">
                                                             <div class="icon-blk rounded-circle">
@@ -72,15 +72,16 @@
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                                                         <div class="flex-grow-1 ms-3">
-                                                            <select class="form-control select category-select">
-                                                                <option selected>Region</option>
-                                                                <option *ngFor="let Region of region">{{Region.nomregion}}
+                                                            <select class="form-control select category-select" 
+                                                            (change)="onChangeRegion($event.target)">
+                                                                <option selected [value]="null">Region</option>
+                                                                <option *ngFor="let Region of region" >{{Region.nomregion}}
                                                                 </option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
                                                     <div class="d-flex real-estate-search">
                                                         <div class="flex-shrink-0 d-flex align-items-center">
                                                             <div class="icon-blk rounded-circle">
@@ -91,30 +92,37 @@
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                                                         <div class="flex-grow-1 ms-3">
-                                                            <select class="form-control select category-select">
-                                                                <option selected>Commune</option>
-                                                                <option *ngFor="let Commune of commune">{{Commune.nomcommune}}
+                                                            <select class="form-control select category-select" 
+                                                            (change)="onChangeCercle($event.target)">
+                                                                <option selected [value]="null">Cercle</option>
+                                                                <option *ngFor="let Cercle of cercles"  [value]="Cercle.id" >{{Cercle.nomcercle}}
                                                                 </option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <!--<div class="filter-content form-group">
-                                                        <mat-form-field class="mat-custom-select">
-                                                          <mat-label *ngIf="selectedCategory == ''">
-                                                            Commune</mat-label>
-                                                          <mat-select [(ngModel)]="selectedCategory">
-                                                            <mat-option disabled class="search-input-option">
-                                                              <input [(ngModel)]="searchInputCategory" (ngModelChange)="
-                                                                  searchCategory(searchInputCategory)
-                                                                " class="search-input" type="text" />
-                                                            </mat-option>
-                                                            <mat-option [value]="Commune.nom" *ngFor="let Commune of commune">{{Commune.nom}}</mat-option>
-                                                          </mat-select>
-                                                        </mat-form-field>
-                                      
-                                                      </div>-->
+                                                    
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
+                                                    <div class="d-flex real-estate-search">
+                                                        <div class="flex-shrink-0 d-flex align-items-center">
+                                                            <div class="icon-blk rounded-circle">
+                                                                <i class="feather-map-pin"></i>
+                                                            </div>
+                                                        </div>
+                                                        <!--<div class="flex-grow-1 ms-3">
+                                                            <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
+                                                        </div>-->
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <select class="form-control select category-select" [(ngModel)]="form.commune" name="commune">
+                                                                <option selected [value]="null">Commune</option>
+                                                                <option *ngFor="let Commune of  communes1" [value]="Commune.id">{{Commune.nomcommune}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-lg-3">
                                                     <div class="d-flex real-estate-search">
                                                         <div class="flex-grow-1 ms-3">
                                                             <p>
@@ -144,9 +152,9 @@
                                                                     <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                                 </div>-->
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select">
-                                                                        <option selected>Type</option>
-                                                                        <option *ngFor="let Type of typebien">
+                                                                    <select class="form-control select category-select" [(ngModel)]="form.type" name="type" class="form-control" id="">
+                                                                        <option selected [value]="null">Type</option>
+                                                                        <option *ngFor="let Type of typebien" [value]="Type.id">
                                                                             {{Type.nom}}</option>
                                                                     </select>
                                                                 </div>
@@ -162,9 +170,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select">
-                                                                        <option selected>Statut</option>
-                                                                        <option *ngFor="let Statut of statut">
+                                                                    <select class="form-control select category-select" (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut">
+                                                                        <option selected [value]="null">Statut</option>
+                                                                        <option *ngFor="let Statut of statut" [value]="Statut.id">
                                                                             {{Statut.nom}}</option>
                                                                     </select>
                                                                 </div>
@@ -179,8 +187,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select">
-                                                                        <option selected>Nombre de Toilette</option>
+                                                                    <select class="form-control select category-select"  [(ngModel)]="form.toilette" name="toilette">
+                                                                        <option selected [value]="null">Nombre de Toilette</option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
                                                                     </select>
@@ -198,8 +206,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select">
-                                                                        <option selected>Nombre de chambre</option>
+                                                                    <select class="form-control select category-select" [(ngModel)]="form.chambre" name="chambre">
+                                                                        <option selected [value]="null">Nombre de chambre</option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
                                                                     </select>
@@ -215,8 +223,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select">
-                                                                        <option selected>Nomre de salon</option>
+                                                                    <select class="form-control select category-select" [(ngModel)]="form.nb_piece" name="nb_piece">
+                                                                        <option selected [value]="null">Nomre de salon</option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
 
@@ -233,8 +241,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select">
-                                                                        <option selected>Nombre de cuisine</option>
+                                                                    <select class="form-control select category-select" [(ngModel)]="form.cuisine" name="cuisine">
+                                                                        <option selected [value]="null">Nombre de cuisine</option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
                                                                     </select>
@@ -261,7 +269,7 @@
                                                                 <div class="col-3" *ngFor="let Commodite of commodite">
                                                                     <div class="form-check mb-2">
                                                                         <input class="form-check-input" type="checkbox"
-                                                                            value="" id="flexCheckDefault">
+                                                                            value="" [(ngModel)]="Commodite.selected" [value]="Commodite.id"  id="flexCheckDefault"  (change)="onChangeCommodite()" name="commodite">
                                                                         <label class="form-check-label"
                                                                             for="flexCheckDefault">
                                                                             {{Commodite.nom}}
@@ -276,7 +284,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-2 real-search-bar">
-                                            <button class="btn car-search-icon" [routerLink]="routes.listingmapgrid"
+                                            <button class="btn car-search-icon" 
                                                 type="submit">Rechercher</button>
                                         </div>
                                     </div>

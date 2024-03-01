@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'filterMarkersByCriteria'
 })
-export class FilterMarkersPipe implements PipeTransform {
+export class FilterMarkersPipes implements PipeTransform {
     transform(markers: any[], searchText: string, selectedRegion: string, selectedCommune: string, selectedType: string): any[] {
         // transform(markers: any[], searchText: string, selectedRegion: string, selectedCommune: string, selectedType1: string): any[] {
     // if (!markers) {

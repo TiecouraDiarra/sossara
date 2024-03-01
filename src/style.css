@@ -2687,7 +2687,7 @@ a:focus {
   margin: 0 0 20px;
 }
 .price-body ul li:before {
-  background-image: url(./assets/img/pricingli-bg.svg);
+  background-image: url("./assets/img/pricingli-bg.svg");
 }
 .price-body ul li:before {
   position: absolute;
@@ -2706,7 +2706,7 @@ a:focus {
   width: 100%;
   left: auto;
   height: 120px;
-  background-image: url(./assets/img/pricingcircle.png);
+  background-image: url("./assets/img/pricingcircle.png");
   background-repeat: no-repeat;
   z-index: 2;
   opacity: 0.4;
@@ -2749,7 +2749,7 @@ a:focus {
   -webkit-transition: ease all 0.5s;
 }
 .price-card:hover .price-body ul li:before {
-  background-image: url(./assets/img/pricinglihover-bg.svg);
+  background-image: url("./assets/img/pricinglihover-bg.svg");
 }
 .price-card:hover .viewdetails-btn {
   background: #fff;
@@ -4654,7 +4654,7 @@ a:focus {
   opacity: 0;
 }
 .categories-content a:before {
-  background-image: url(./assets/img/categoriesbg.png);
+  background-image: url("./assets/img/categoriesbg.png");
   background-repeat: no-repeat;
   background-position: left bottom;
   content: "";
@@ -5771,11 +5771,11 @@ ul.tags {
 -----------------------*/
 
 .pricing-page.pricingplan-section {
-  background-image: url(./assets/img/priceplanbg.png);
+  background-image: url("./assets/img/priceplanbg.png");
   padding: 70px 0;
 }
 .pricinginner-page {
-  background-image: url(./assets/img/priceplanbg.png);
+  background-image: url("./assets/img/priceplanbg.png");
 }
 
 /*-----------------.
@@ -7295,7 +7295,7 @@ textarea.form-control {
   font-size: 36px;
 }
 .popular-section {
-  background: url(./assets/img/bg/popular-bg.png) no-repeat;
+  background: url("./assets/img/bg/popular-bg.png") no-repeat;
   background-position: right center;
   background-size: contain;
   padding: 70px 0;
@@ -7344,7 +7344,7 @@ textarea.form-control {
 }
 .popular-wrap:before {
   content: "";
-  background: url(./assets/img/bg/search-bg.png) no-repeat;
+  background: url("./assets/img/bg/search-bg.png") no-repeat;
   position: absolute;
   top: -38px;
   left: 50%;
@@ -7375,7 +7375,7 @@ textarea.form-control {
   transition: all 0.4s ease;
 }
 .celebrate-section {
-  background: url(./assets/img/bg/celebrate-bg.png) no-repeat;
+  background: url("./assets/img/bg/celebrate-bg.png") no-repeat;
   background-position: right bottom;
   background-size: cover;
   padding: 0 0 70px;
@@ -7390,7 +7390,7 @@ textarea.form-control {
 }
 .celebrate-wrap:before {
   content: "";
-  background: url(./assets/img/bg/celebrate-img.png) no-repeat;
+  background: url("./assets/img/bg/celebrate-img.png") no-repeat;
   position: absolute;
   bottom: -109px;
   right: -94px;
@@ -7467,7 +7467,7 @@ textarea.form-control {
   }
 }
 .wedding-section {
-  background: url(./assets/img/bg/wedding-bg.png) no-repeat;
+  background: url("./assets/img/bg/wedding-bg.png") no-repeat;
   background-position: left center;
   background-size: contain;
   padding: 70px 0 56px;
@@ -7521,14 +7521,14 @@ textarea.form-control {
   letter-spacing: 0.5px;
 }
 .appointment-sec {
-  background: url(./assets/img/bg/appointment-bg-01.png) no-repeat;
+  background: url("./assets/img/bg/appointment-bg-01.png") no-repeat;
   background-size: contain;
   background-position: bottom;
 }
 .wedding-form {
   max-width: 634px;
   width: 100%;
-  background: url(./assets/img/bg/appointment-bg.png) no-repeat;
+  background: url("./assets/img/bg/appointment-bg.png") no-repeat;
   background-size: cover;
   padding: 170px 100px 36px;
   margin: 0 auto;
@@ -7569,8 +7569,8 @@ textarea.form-control {
 }
 .vendor-sec {
   background: #e98b11;
-  background-image: url(./assets/img/bg/vector-bg-01.png),
-    url(./assets/img/bg/vector-bg-02.png);
+  background-image: url("./assets/img/bg/vector-bg-01.png"),
+    url("./assets/img/bg/vector-bg-02.png");
   background-repeat: no-repeat;
   background-position: left 20px top 10px, right 20px top 10px;
   border-radius: 15px;
@@ -7672,7 +7672,7 @@ textarea.form-control {
   padding: 8px 8px 0;
 }
 .feedback-section {
-  background: url(./assets/img/bg/wedding-bg.png) no-repeat;
+  background: url("./assets/img/bg/wedding-bg.png") no-repeat;
   background-position: left center;
   background-size: contain;
 }
@@ -7764,7 +7764,7 @@ textarea.form-control {
   margin-bottom: 2px;
 }
 .categories-section {
-  background: url(./assets/img/bg/venue.png) no-repeat;
+  background: url("./assets/img/bg/venue.png") no-repeat;
   background-position: right bottom;
   background-size: 400px;
   padding: 0 0 46px;
@@ -7813,7 +7813,7 @@ textarea.form-control {
   transition: all 0.7s;
 }
 .portfolio-section {
-  background: url(./assets/img/bg/portfolio-bg.jpg) no-repeat;
+  background: url("./assets/img/bg/portfolio-bg.jpg") no-repeat;
   background-size: cover;
   padding: 70px 0;
 }
@@ -7892,7 +7892,7 @@ textarea.form-control {
   z-index: -1;
 }
 .package-wrap {
-  background: url(./assets/img/bg/package-bg.png) no-repeat;
+  background: url("./assets/img/bg/package-bg.png") no-repeat;
   background-size: 100% 100%;
   padding: 80px 70px;
   position: relative;
@@ -7932,7 +7932,7 @@ textarea.form-control {
   padding: 11px 34px;
 }
 .success-section {
-  background: url(./assets/img/bg/wedding-bg.png), url(./assets/img/bg/venue-bg.png);
+  background: url("./assets/img/bg/wedding-bg.png"), url("./assets/img/bg/venue-bg.png");
   background-position: left center, right center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -7959,7 +7959,7 @@ textarea.form-control {
   padding: 70px 0;
 }
 .offer-sec {
-  background: url(./assets/img/bg/celebration-bg.png) #f3ebeb;
+  background: url("./assets/img/bg/celebration-bg.png") #f3ebeb;
   background-repeat: no-repeat;
   background-position: right bottom;
   background-size: cover;
@@ -7995,7 +7995,7 @@ textarea.form-control {
   padding: 10px 32px;
 }
 .venue-section {
-  background: url(./assets/img/bg/venue-bg.png) no-repeat;
+  background: url("./assets/img/bg/venue-bg.png") no-repeat;
   background-position: right center;
   background-size: contain;
   padding: 0 0 70px;
@@ -8116,7 +8116,7 @@ textarea.form-control {
 .timeline-wrap li:before {
   position: absolute;
   content: "";
-  background: url(./assets/img/bg/line-bg.png) no-repeat;
+  background: url("./assets/img/bg/line-bg.png") no-repeat;
   width: 76px;
   height: 15px;
   background-position: top center, left center;
@@ -8566,7 +8566,7 @@ textarea.form-control {
 .destination-blk:before {
   position: absolute;
   content: "";
-  background: url(./assets/img/balloon-img.png) no-repeat center left;
+  background: url("./assets/img/balloon-img.png") no-repeat center left;
   width: 125px;
   height: 182px;
   top: 140px;
@@ -8821,7 +8821,7 @@ textarea.form-control {
 .offer-blk:before {
   position: absolute;
   content: "";
-  background: url(./assets/img/offer-bg.png) no-repeat top center;
+  background: url("./assets/img/offer-bg.png") no-repeat top center;
   width: 100%;
   height: 423px;
   top: 0px;
@@ -8829,7 +8829,7 @@ textarea.form-control {
 .offer-blk:after {
   position: absolute;
   content: "";
-  background: url(./assets/img/balloon-img.png) no-repeat center right;
+  background: url("./assets/img/balloon-img.png") no-repeat center right;
   width: 125px;
   height: 182px;
   top: 140px;
@@ -8861,7 +8861,7 @@ textarea.form-control {
   width: 100%;
 }
 .box-style .btm-box-style:before {
-  background: url(./assets/img/offer-arrow.svg) no-repeat center left;
+  background: url("./assets/img/offer-arrow.svg") no-repeat center left;
   content: "";
   width: 100%;
   height: 80%;
@@ -8942,13 +8942,13 @@ textarea.form-control {
   margin-top: 50px;
 }
 .recommended-blk.style2-blk {
-  background: url(./assets/img/bg/recom-bg-01.png), url(./assets/img/bg/recom-bg-02.png);
+  background: url("./assets/img/bg/recom-bg-01.png"), url("./assets/img/bg/recom-bg-02.png");
   background-repeat: no-repeat;
   background-position: left bottom, right bottom;
   background-size: contain, 125px;
 }
 .recommended-blk.style1-blk {
-  background: url(./assets/img/recomended-bg-btm.png) #f5fcff no-repeat center bottom;
+  background: url("./assets/img/recomended-bg-btm.png") #f5fcff no-repeat center bottom;
   width: 100%;
   min-height: 300px;
   padding: 80px 0px;
@@ -9137,7 +9137,7 @@ textarea.form-control {
   margin-top: 80px;
 }
 .testi-blk:before {
-  background: url(./assets/img/testi-after-img.png) no-repeat center left;
+  background: url("./assets/img/testi-after-img.png") no-repeat center left;
   content: "";
   width: 100%;
   height: 100%;
@@ -9158,7 +9158,7 @@ textarea.form-control {
   color: white;
 }
 .testi-blk .btn-style2 a .shape-bg {
-  background: url(/assets/img/search-bg-2.png) no-repeat center right;
+  background: url("./assets/img/search-bg-2.png") no-repeat center right;
   color: #eec304;
 }
 .testi-blk .title-blk {
@@ -9195,7 +9195,7 @@ textarea.form-control {
 .testi-widget .testi-info-blk:before {
   position: absolute;
   content: "";
-  background: url(./assets/img/quote-before.png) no-repeat left top;
+  background: url("./assets/img/quote-before.png") no-repeat left top;
   width: 46px;
   height: 32px;
   top: 0;
@@ -9205,7 +9205,7 @@ textarea.form-control {
 .testi-widget .testi-info-blk:after {
   position: absolute;
   content: "";
-  background: url(./assets/img/quote-after.png) no-repeat left top;
+  background: url("./assets/img/quote-after.png") no-repeat left top;
   width: 46px;
   height: 32px;
   bottom: 0;
@@ -9280,7 +9280,7 @@ textarea.form-control {
 .faq-blk:before {
   position: absolute;
   content: "";
-  background: url(./assets/img/balloon-img.png) no-repeat center left;
+  background: url("./assets/img/balloon-img.png") no-repeat center left;
   width: 125px;
   height: 182px;
   top: 140px;
@@ -9313,7 +9313,7 @@ textarea.form-control {
 .subscribe-blk:before {
   position: absolute;
   content: "";
-  background: url(./assets/img/services-bg.png) no-repeat center right;
+  background: url("./assets/img/services-bg.png") no-repeat center right;
   width: 320px;
   height: 399px;
   top: -86px;
@@ -9588,7 +9588,7 @@ textarea.form-control {
 .blog-block:before {
   position: absolute;
   content: "";
-  background: url(./assets/img/balloon-img.png) no-repeat center left;
+  background: url("./assets/img/balloon-img.png") no-repeat center left;
   width: 125px;
   height: 182px;
   top: 140px;
@@ -10247,7 +10247,7 @@ textarea.form-control {
   transition: all 0.7s;
 }
 .city-section {
-  background: url(./assets/img/bg/cate-bg.png), #f5f8fd;
+  background: url("./assets/img/bg/cate-bg.png"), #f5f8fd;
   background-size: cover;
 }
 .city-sec {
@@ -10352,7 +10352,7 @@ textarea.form-control {
   margin: 0;
 }
 .pricing-section {
-  background: url(./assets/img/bg/cate-bg.png), #fff;
+  background: url("./assets/img/bg/cate-bg.png"), #fff;
   background-size: cover;
   padding: 80px 0;
 }
@@ -10556,7 +10556,7 @@ textarea.form-control {
 }
 .category-five-section {
   padding: 80px 0px;
-  background: url(./assets/img/bg/bg-01.png), #fff;
+  background: url("./assets/img/bg/bg-01.png"), #fff;
   background-size: cover;
 }
 .category-items li {
@@ -10924,7 +10924,7 @@ textarea.form-control {
 }
 .testimonial-five-section {
   padding: 80px 0;
-  background: url(./assets/img/bg/business-bg.png), #f3f3f3;
+  background: url("./assets/img/bg/business-bg.png"), #f3f3f3;
   background-size: cover;
 }
 .testi-four.testi-five .testimonialslider-content span {
@@ -10937,7 +10937,7 @@ textarea.form-control {
   padding: 50px 0;
   position: relative;
   overflow: hidden;
-  background: url(./assets/img/footer-bg.png), #e98b11;
+  background: url("./assets/img/footer-bg.png"), #e98b11;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -12179,7 +12179,7 @@ button.btn.car-search-icon:hover {
 }
 .header-nine .car-top-left li a:hover {
   color: #e98b11;
-  border-bottom: 2px solid #fffff;
+  border-bottom: 2px solid #ffffff;
 }
 .home-nine .header .car-list-bt,.header .home-nine-btn .car-list-btn {
   background-color: #e98b11;
@@ -14278,7 +14278,7 @@ button.btn.car-search-icon:hover {
   padding: 80px 0;
 }
 .testimonial-section-seven .testi-widget-seven {
-  background: url(./assets/img/bg/test-bg.png);
+  background: url("./assets/img/bg/test-bg.png");
   background-repeat: no-repeat;
   background-position: top 25px left 25px;
   margin: 0;
@@ -14322,7 +14322,7 @@ button.btn.car-search-icon:hover {
 .testimonial-section-seven .testi-widget .test-details:after {
   position: absolute;
   content: "";
-  background: url(./assets/img/bg/test-bg.png) no-repeat left top;
+  background: url("./assets/img/bg/test-bg.png") no-repeat left top;
   width: 80px;
   height: 80px;
   top: 34px;
@@ -14374,7 +14374,7 @@ button.btn.car-search-icon:hover {
 }
 .blog-seven-section {
   padding: 80px 0 160px;
-  background: url(./assets/img/bg/honeycomb-texture-bg-1.png), rgba(193, 0, 55, 0.04);
+  background: url("./assets/img/bg/honeycomb-texture-bg-1.png"), rgba(193, 0, 55, 0.04);
   background-size: cover;
 }
 .blog-seven-section .grid-blog-seven:hover {
@@ -16497,7 +16497,7 @@ section.advertisement {
   left: 20px;
 }
 .footer-four {
-  background: url(./assets/img/bg/cate-bg.png), #fff;
+  background: url("./assets/img/bg/cate-bg.png"), #fff;
   background-size: cover;
   margin: 0;
 }

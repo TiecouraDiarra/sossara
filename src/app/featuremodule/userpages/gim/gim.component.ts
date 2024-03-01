@@ -8,11 +8,12 @@ import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 const URL_PHOTO: string = environment.Url_PHOTO;
 
 @Component({
-  selector: 'app-proprietaire',
-  templateUrl: './proprietaire.component.html',
-  styleUrls: ['./proprietaire.component.scss']
+  selector: 'app-gim',
+  templateUrl: './gim.component.html',
+  styleUrls: ['./gim.component.scss']
 })
-export class ProprietaireComponent {
+export class GimComponent {
+
   public routes = routes;
   id: any
   locale!: string;

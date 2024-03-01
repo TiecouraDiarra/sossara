@@ -7,6 +7,7 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
+import { ModepaiementService } from 'src/app/service/modepaiement/modepaiement.service';
 import Swal from 'sweetalert2';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -24,8 +25,31 @@ export class NotificationsComponent implements OnInit {
   candidature: any[] = [];
   locale!: string;
   isLocataire = false;
+  nombreMoisChoisi: number = 0;
+  nombreJourChoisi: number = 0;
+  nombreSemaineChoisi: number = 0;
   isAgence = false;
   roles: string[] = [];
+  nombreMois: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  modepaiement: any;
+  CandidatureUser: any;
+  selectedPaymentMode: any;
+  onNombreMoisChange(): void {
+    console.log(this.nombreMoisChoisi);
+    // const selectElement = event.target as HTMLSelectElement;
+    // this.nombreMoisChoisi = parseInt(selectElement.value, 10);
+  }
+  onNombreJourChange(): void {
+    // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
+    console.log(this.nombreJourChoisi);
+    // Faites tout traitement supplémentaire ici si nécessaire
+  }
+
+  onNombreSemaineChange(): void {
+    // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
+    console.log(this.nombreSemaineChoisi);
+    // Faites tout traitement supplémentaire ici si nécessaire
+  }
 
   errorMessage: any = '';
   isSuccess: any = false;
@@ -41,6 +65,7 @@ export class NotificationsComponent implements OnInit {
 
   candidatureAccepter: any[] = [];
   candidatureAnnuler: any[] = [];
+  bien: any;
   // bienVendu: any[] = [];
 
   // Fonction pour ouvrir le modal avec l'ID de la transaction
@@ -60,12 +85,26 @@ export class NotificationsComponent implements OnInit {
 
   }
 
+  // Fonction pour ouvrir le modal avec l'ID du BienImmo
+  openPaiementModal(candidatureId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedBienImmoId = candidatureId;
+    console.log(this.selectedBienImmoId);
+    //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
+    this.serviceBienImmo.AfficherCandidatureParUuId(this.selectedBienImmoId).subscribe(data => {
+      this.CandidatureUser = data;
+      console.log(this.CandidatureUser);
+    })
+  }
+
+
 
   public reviewdata: any = []
   constructor(
     private dataservice: DataService,
     private authService: AuthService,
     private storageService: StorageService,
+    private modepaiementService: ModepaiementService,
     @Inject(LOCALE_ID) private localeId: string,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
@@ -103,6 +142,13 @@ export class NotificationsComponent implements OnInit {
     }
     );
 
+    //AFFICHER LA LISTE DES MODES DE PAIEMENTS
+    this.modepaiementService.AfficherListeModePaiement().subscribe(data => {
+      this.modepaiement = data.reverse();
+      console.log(this.modepaiement)
+    }
+    );
+
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     //FAIT
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
@@ -137,7 +183,7 @@ export class NotificationsComponent implements OnInit {
     //fait
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.reverse();
-      console.log("candiat",this.bienImmoLoueCandidatureAccepter);
+      console.log("candiat", this.bienImmoLoueCandidatureAccepter);
     });
   }
 
@@ -296,29 +342,29 @@ export class NotificationsComponent implements OnInit {
 
     }).then((result) => {
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      // this.candidature = data.reverse();
-      // this.nombreRdvUser = data.length;
-      console.log(this.candidature);
-      // Filtrer les biens immobiliers
-      data.forEach((Candidature: any) => {
-        if (Candidature.isAccepted === false && Candidature.isCancel === false) {
-          this.candidature?.push(Candidature);
-        }
-        // Vérifier si le bien est déjà loué
-        if (Candidature.isAccepted === true) {
-          this.candidatureAccepter?.push(Candidature);
-        }
+      this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+        // this.candidature = data.reverse();
+        // this.nombreRdvUser = data.length;
+        console.log(this.candidature);
+        // Filtrer les biens immobiliers
+        data.forEach((Candidature: any) => {
+          if (Candidature.isAccepted === false && Candidature.isCancel === false) {
+            this.candidature?.push(Candidature);
+          }
+          // Vérifier si le bien est déjà loué
+          if (Candidature.isAccepted === true) {
+            this.candidatureAccepter?.push(Candidature);
+          }
 
-        // Vérifier si le bien est déjà vendu
-        if (Candidature.isCancel === true) {
-          this.candidatureAnnuler?.push(Candidature);
-        }
+          // Vérifier si le bien est déjà vendu
+          if (Candidature.isCancel === true) {
+            this.candidatureAnnuler?.push(Candidature);
+          }
 
-        // Le reste de votre logique pour traiter les favoris...
-      });
-    }
-    );
+          // Le reste de votre logique pour traiter les favoris...
+        });
+      }
+      );
     })
 
   }
@@ -343,37 +389,37 @@ export class NotificationsComponent implements OnInit {
 
     }).then((result) => {
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      // this.candidature = data.reverse();
-      // this.nombreRdvUser = data.length;
-      console.log(this.candidature);
-      // Filtrer les biens immobiliers
-      data.forEach((Candidature: any) => {
-        if (Candidature.isAccepted === false && Candidature.isCancel === false) {
-          this.candidature?.push(Candidature);
-        }
-        // Vérifier si le bien est déjà loué
-        if (Candidature.isAccepted === true) {
-          this.candidatureAccepter?.push(Candidature);
-        }
+      this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+        // this.candidature = data.reverse();
+        // this.nombreRdvUser = data.length;
+        console.log(this.candidature);
+        // Filtrer les biens immobiliers
+        data.forEach((Candidature: any) => {
+          if (Candidature.isAccepted === false && Candidature.isCancel === false) {
+            this.candidature?.push(Candidature);
+          }
+          // Vérifier si le bien est déjà loué
+          if (Candidature.isAccepted === true) {
+            this.candidatureAccepter?.push(Candidature);
+          }
 
-        // Vérifier si le bien est déjà vendu
-        if (Candidature.isCancel === true) {
-          this.candidatureAnnuler?.push(Candidature);
-        }
+          // Vérifier si le bien est déjà vendu
+          if (Candidature.isCancel === true) {
+            this.candidatureAnnuler?.push(Candidature);
+          }
 
-        // Le reste de votre logique pour traiter les favoris...
-      });
-     
-    }
-    );
+          // Le reste de votre logique pour traiter les favoris...
+        });
+
+      }
+      );
     })
 
   }
 
   //FORMATER LE PRIX
   formatPrice(price: number): string {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
   //IMAGE
@@ -386,4 +432,39 @@ export class NotificationsComponent implements OnInit {
   handleAuthorImageError(event: any) {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
+
+  selectPaymentMode(mode: any) {
+    // Enregistrez le mode de paiement sélectionné dans une variable ou envoyez-le directement à la méthode goToPaymentPage
+    this.selectedPaymentMode = mode; // Vous pouvez stocker le mode sélectionné dans une variable
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE PAIMENT
+  goToPagePaiement(uuid: number) {
+    if (this.selectedPaymentMode) {
+        switch (this.selectedPaymentMode.nom) {
+            case "Orange Money":
+                this.router.navigate(['/userpages/paiement-orangemoney', uuid]).then(() => {
+                    window.location.reload();
+                });
+                break;
+            case "Visa":
+                this.router.navigate(['/userpages/paiement-visa', uuid]).then(() => {
+                    window.location.reload();
+                });
+                break;
+            case "GIM":
+                this.router.navigate(['/userpages/paiement-gim', uuid]).then(() => {
+                    window.location.reload();
+                });
+                break;
+            default:
+                console.log("Mode de paiement non pris en charge.");
+                break;
+        }
+    } else {
+        console.log("Veuillez sélectionner un mode de paiement.");
+    }
+}
+
+
 }

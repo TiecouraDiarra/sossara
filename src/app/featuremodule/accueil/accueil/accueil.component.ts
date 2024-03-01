@@ -14,15 +14,15 @@ import { environment } from 'src/app/environments/environment';
 import { AgenceService } from 'src/app/service/agence/agence.service';
 import { BlogService } from 'src/app/service/blog/blog.service';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
+import { NgForm } from '@angular/forms';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
-  styleUrls: ['./accueil.component.scss']
+  styleUrls: ['./accueil.component.scss'],
 })
-
 export class AccueilComponent {
   public routes = routes;
   public listing: any = [];
@@ -41,51 +41,63 @@ export class AccueilComponent {
   carouselImages = [
     './assets/img/banner/bamako-slider.jpg',
     './assets/img/banner/immo.jpg',
-    './assets/img/banner/maison.jpg'
+    './assets/img/banner/maison.jpg',
   ];
   statut: any;
   BienLoueRecensTotal: any;
   BienTotal: any;
   BienLoue: any[] = [];
   BienVendre: any[] = [];
+  communes: any;
+  cercles: any[] = [];
+  communes1: any = [];
 
   changeImage() {
-    this.currentImageIndex = (this.currentImageIndex + 1) % this.carouselImages.length;
+    this.currentImageIndex =
+      (this.currentImageIndex + 1) % this.carouselImages.length;
   }
 
-  commodite: any
+  commodite: any;
   isLocataire = false;
   roles: string[] = [];
-  agence: any[] = []
-  adresse: any
-  region: any
-  commune: any
-  typebien: any
+  agence: any[] = [];
+  adresse: any;
+  region: any;
+  cercle: any;
+  commune: any;
+  typebien: any;
   bienImmo: any;
   bienImmoPlusVue: any;
-  BienLoueRecens: any[] = []
+  BienLoueRecens: any[] = [];
   searchInputCategory: any;
   public categories: any = [];
   categoriesDataSource = new MatTableDataSource();
   selectedCategory: any = '';
-  nombreAgence: number = 0
-  nombreZone: number = 0
+  nombreAgence: number = 0;
+  nombreZone: number = 0;
   isLoggedIn = false;
-  NombreJaime: number = 0
-  NombreFavory: number = 0
+  NombreJaime: number = 0;
+  NombreFavory: number = 0;
   bienImmoAgent: any;
   bienImmoAgence: any;
-  NombreBienParAgence: number = 0
-  NombreAgentParAgence: number = 0
+  NombreBienParAgence: number = 0;
+  NombreAgentParAgence: number = 0;
   blog: any;
   isLoginFailed = true;
   errorMessage: any = '';
-  nombreBienLoue: number = 0
-  nombreBienVendre: number = 0
+  nombreBienLoue: number = 0;
+  nombreBienVendre: number = 0;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   locale!: string;
-  imagesCommunes = ['commune1.jpeg', 'commune2.png', 'commune3.jpg', 'commune4.jpg', 'commune5.jpeg', 'commune6.jpeg'];
-  public universitiesCompanies: any = []
+  imagesCommunes = [
+    'commune1.jpeg',
+    'commune2.png',
+    'commune3.jpg',
+    'commune4.jpg',
+    'commune5.jpeg',
+    'commune6.jpeg',
+  ];
+  public universitiesCompanies: any = [];
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
@@ -93,13 +105,14 @@ export class AccueilComponent {
     return baseUrl + photoFileName;
   }
 
-
   handleAuthorImageError1(event: any) {
-    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+    event.target.src =
+      'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
   handleBlogImageError(event: any) {
-    event.target.src = 'https://img.freepik.com/vecteurs-libre/bloguer-amusant-creation-contenu-streaming-ligne-blog-video-jeune-fille-faisant-selfie-pour-reseau-social-partage-commentaires-strategie-auto-promotion-illustration-metaphore-concept-isole-vecteur_335657-855.jpg';
+    event.target.src =
+      'https://img.freepik.com/vecteurs-libre/bloguer-amusant-creation-contenu-streaming-ligne-blog-video-jeune-fille-faisant-selfie-pour-reseau-social-partage-commentaires-strategie-auto-promotion-illustration-metaphore-concept-isole-vecteur_335657-855.jpg';
   }
 
   constructor(
@@ -112,7 +125,7 @@ export class AccueilComponent {
     @Inject(LOCALE_ID) private localeId: string,
     private serviceBienImmo: BienimmoService,
     private serviceBlog: BlogService,
-    private serviceUser: UserService
+    private serviceUser: UserService,
   ) {
     this.locale = localeId;
 
@@ -123,9 +136,9 @@ export class AccueilComponent {
       (this.recentproperties = this.DataService.recentproperties),
       (this.ourtestimonials = this.DataService.ourtestimonials),
       (this.Bookmark = this.DataService.bookmarkList),
-      (this.recentarticle = this.DataService.recentarticle)
+      (this.recentarticle = this.DataService.recentarticle);
 
-    this.universitiesCompanies = this.DataService.universitiesCompanies
+    this.universitiesCompanies = this.DataService.universitiesCompanies;
   }
   searchCategory(value: any): void {
     const filterValue = value;
@@ -147,15 +160,15 @@ export class AccueilComponent {
     ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       768: {
-        items: 3
+        items: 3,
       },
       1170: {
         items: 4,
-        loop: true
-      }
+        loop: true,
+      },
     },
     nav: false,
   };
@@ -173,15 +186,15 @@ export class AccueilComponent {
     ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       768: {
-        items: 4
+        items: 4,
       },
       1170: {
         items: 4,
-        loop: true
-      }
+        loop: true,
+      },
     },
     nav: false,
   };
@@ -199,15 +212,15 @@ export class AccueilComponent {
     ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       768: {
-        items: 1
+        items: 1,
       },
       1170: {
         items: 1,
-        loop: false
-      }
+        loop: false,
+      },
     },
     nav: true,
   };
@@ -225,15 +238,15 @@ export class AccueilComponent {
     ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       768: {
-        items: 4
+        items: 4,
       },
       1170: {
         items: 1,
-        loop: true
-      }
+        loop: true,
+      },
     },
     nav: false,
   };
@@ -251,15 +264,15 @@ export class AccueilComponent {
     ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       768: {
-        items: 2
+        items: 2,
       },
       1170: {
         items: 3,
-        loop: true
-      }
+        loop: true,
+      },
     },
     nav: false,
   };
@@ -277,15 +290,15 @@ export class AccueilComponent {
     ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       768: {
-        items: 3
+        items: 3,
       },
       1170: {
         items: 1,
-        loop: true
-      }
+        loop: true,
+      },
     },
     nav: false,
   };
@@ -303,15 +316,15 @@ export class AccueilComponent {
     ],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       768: {
-        items: 3
+        items: 3,
       },
       1170: {
         items: 3,
-        loop: true
-      }
+        loop: true,
+      },
     },
     nav: false,
   };
@@ -321,7 +334,8 @@ export class AccueilComponent {
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
-    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+    event.target.src =
+      'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
   favoriteStatus: { [key: string]: boolean } = {};
@@ -355,22 +369,25 @@ export class AccueilComponent {
     autoplay: true,
     smartSpeed: 2000,
 
-    navText: ["<i class='fa-solid fa-angle-left'></i>", "<i class='fa-solid fa-angle-right'></i>"],
+    navText: [
+      "<i class='fa-solid fa-angle-left'></i>",
+      "<i class='fa-solid fa-angle-right'></i>",
+    ],
     responsive: {
       0: {
-        items: 2
+        items: 2,
       },
 
       550: {
-        items: 2
+        items: 2,
       },
       700: {
-        items: 4
+        items: 4,
       },
       1000: {
-        items: 6
-      }
-    }
+        items: 6,
+      },
+    },
   };
 
   ngOnInit(): void {
@@ -378,64 +395,53 @@ export class AccueilComponent {
       this.changeImage();
     }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)
 
+
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
-        this.isLocataire = true
+      if (this.roles[0] == 'ROLE_LOCATAIRE') {
+        this.isLocataire = true;
       }
       // this.roles = this.storageService.getUser().roles;
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
     }
 
-    AOS.init({ disable: 'mobile' }
-    );
+    AOS.init({ disable: 'mobile' });
+  
     //AFFICHER LA LISTE DES COMMODITES ANCIEN
-    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-    //   // this.commodite = data.commodite;
-    //   this.adresse = data;
-    //   // this.region = data.region;
-    //   // this.nombreZone = data.region.length;
-    //   // this.commune = data.commune.slice(0, 6);
-    //   // this.typebien = data.type;
-    //   // console.log(this.commune);
-    // });
-
-    //AFFICHER LA LISTE DES COMMODITES ANCIEN
-    this.serviceCommodite.AfficherListeCommodite().subscribe(data => {
+    this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.commodite = data;
-      // console.log("bbbbbbbbbbbbbbbbbbbb",this.commodite);
-
-    }
-    );
+    });
 
     //AFFICHER LA LISTE DES TYPES BIEN IMMO
-    this.serviceAdresse.AfficherListeTypeBien().subscribe(data => {
+    this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
       this.typebien = data;
-    }
-    );
+    });
 
     //AFFICHER LA LISTE DES STATUTS BIEN IMMO
-    this.serviceAdresse.AfficherListeStatutBien().subscribe(data => {
+    this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
       this.statut = data;
-    }
-    );
+    });
 
     //AFFICHER LA LISTE DES COMMUNES
-    this.serviceAdresse.AfficherListeCommune().subscribe(data => {
+    this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
+      this.communes = data;
       this.commune = data.slice(0, 6);
-      console.log("commune de test", this.commune);
-    }
-    );
+      console.log('commune de test', this.commune);
+    });
 
     //AFFICHER LA LISTE DES REGIONS
-    this.serviceAdresse.AfficherListeRegion().subscribe(data => {
+    this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
       this.nombreZone = data.length;
-    }
-    );
+    });
+    //AFFICHER LA LISTE DES cercle
+    this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
+      this.cercle = data;
+      this.nombreZone = data.length;
+    });
 
     //LE NOMBRE DE BIENS LOUES
     // this.serviceBienImmo.NombreBienLouer().subscribe(data => {
@@ -450,39 +456,37 @@ export class AccueilComponent {
     // });
 
     //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
-    this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe(data => {
+    this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe((data) => {
       this.bienImmoPlusVue = data;
-      this.NombreFavory = data.nombreDeFavoris
+      this.NombreFavory = data.nombreDeFavoris;
       console.log(this.bienImmoPlusVue);
       // console.log(this.NombreFavory);
       // Suppose que BienImo est un élément de votre bienImmo
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       // Parcourir la liste des biens immobiliers
-      this.bienImmoPlusVue.forEach((bien: {
-        favoris: any; id: string | number;
-      }) => {
-        // Charger le nombre de "J'aime" pour chaque bien
-        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-        this.NombreJaime = bien?.favoris?.length;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-        }
+      this.bienImmoPlusVue.forEach(
+        (bien: { favoris: any; id: string | number }) => {
+          // Charger le nombre de "J'aime" pour chaque bien
+          // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaime = bien?.favoris?.length;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          }
 
-        // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-        if (isFavorite === 'true') {
-          this.favoriteStatus[bien.id] = true;
-        } else {
-          this.favoriteStatus[bien.id] = false;
+          // Charger l'état de favori depuis localStorage
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          if (isFavorite === 'true') {
+            this.favoriteStatus[bien.id] = true;
+          } else {
+            this.favoriteStatus[bien.id] = false;
+          }
+          // });
         }
-        // });
-      });
-
-    }
-    );
+      );
+    });
 
     //AFFICHER LA LISTE DES AGENCES
-    this.serviceUser.AfficherLaListeAgence().subscribe(data => {
+    this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       // data.forEach((user: any) => {
       //   // Vérifier si le bien est déjà loué
       //   if (user.roles.name.imclude("ROLE_AGENCE")) {
@@ -491,10 +495,10 @@ export class AccueilComponent {
       // })
       data.forEach((user: any) => {
         // Extraire les noms de rôles de l'utilisateur
-        const userRoles = user.roles.map((role: { name: any; }) => role.name);
+        const userRoles = user.roles.map((role: { name: any }) => role.name);
 
         // Vérifier si le rôle "ROLE_AGENCE" est inclus dans les rôles de l'utilisateur
-        if (userRoles.includes("ROLE_AGENCE")) {
+        if (userRoles.includes('ROLE_AGENCE')) {
           this.agence.push(user);
         }
       });
@@ -504,9 +508,9 @@ export class AccueilComponent {
       // console.log(this.nombreAgence);
       console.log(this.agence);
       // Parcourir la liste des biens immobiliers
-      this.agence?.forEach((agence: { id: number; }) => {
+      this.agence?.forEach((agence: { id: number }) => {
         // Charger le nombre de "J'aime" pour chaque bien
-        this.serviceAgence.AfficherAgenceParId(agence?.id).subscribe(data => {
+        this.serviceAgence.AfficherAgenceParId(agence?.id).subscribe((data) => {
           this.bienImmoAgence = data?.bienImmos;
           console.log(this.bienImmoAgence);
           this.bienImmoAgent = data?.agents;
@@ -534,10 +538,10 @@ export class AccueilComponent {
           // Parcourir chaque bien immobilier
           this.bienImmo.forEach((bien: any) => {
             // Vérifier le statut du bien immobilier
-            if (bien?.statut?.nom === "A louer") {
+            if (bien?.statut?.nom === 'A louer') {
               this.bienImmoLouer.push(bien);
               nombreLouerParAgence++;
-            } else if (bien?.statut?.nom === "A vendre") {
+            } else if (bien?.statut?.nom === 'A vendre') {
               this.bienImmoVendre.push(bien);
               nombreVendreParAgence++;
             }
@@ -558,15 +562,19 @@ export class AccueilComponent {
           }
         });
       });
-    }
-    );
+    });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.BienLoueRecensTotal = [data.reverse()[0], data.reverse()[1], data.reverse()[2], data.reverse()[3]]
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
+      this.BienLoueRecensTotal = [
+        data.reverse()[0],
+        data.reverse()[1],
+        data.reverse()[2],
+        data.reverse()[3],
+      ];
       this.BienLoueRecensTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
-        if (bien.statut.nom === "A louer") {
+        if (bien.statut.nom === 'A louer') {
           this.BienLoueRecens.push(bien);
         }
 
@@ -584,20 +592,19 @@ export class AccueilComponent {
       // console.log(this.BienLoueRecens);
       // console.log(data.biens);
       // console.log(this.nombreBienLoue);
-    }
-    );
+    });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
       this.BienTotal = data;
       this.BienTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
-        if (bien.statut.nom === "A louer") {
+        if (bien.statut.nom === 'A louer') {
           this.BienLoue.push(bien);
         }
 
         // Vérifier si le bien est déjà vendu
-        if (bien.statut.nom === "A vendre") {
+        if (bien.statut.nom === 'A vendre') {
           this.BienVendre.push(bien);
         }
 
@@ -609,8 +616,7 @@ export class AccueilComponent {
       // console.log(this.BienLoueRecens);
       // console.log(data.biens);
       // console.log(this.nombreBienLoue);
-    }
-    );
+    });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A VENDRE
     // this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
@@ -621,12 +627,13 @@ export class AccueilComponent {
     // )
 
     //AFFICHER LA LISTE DES BLOGS
-    this.serviceBlog.AfficherLaListeBlog().subscribe(data => {
+    this.serviceBlog.AfficherLaListeBlog().subscribe((data) => {
       this.blog = data;
-      console.log("blog", this.blog);
+      console.log('blog', this.blog);
     });
   }
-  //METHODE PERMETTANT D'AIMER UN BIEN 
+
+  //METHODE PERMETTANT D'AIMER UN BIEN
   AimerBien(id: any): void {
     const user = this.storageService.getUser();
     if (user && user.token) {
@@ -635,7 +642,7 @@ export class AccueilComponent {
 
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
-        data => {
+        (data) => {
           // console.log("Bien aimé avec succès:", data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
@@ -649,68 +656,70 @@ export class AccueilComponent {
             this.favoritedPropertiesCount1[id]++;
           }
           //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
-          this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe(data => {
-            this.bienImmoPlusVue = data;
-            this.NombreFavory = data.nombreDeFavoris
-            console.log(this.bienImmoPlusVue);
-            // console.log(this.NombreFavory);
-            // Suppose que BienImo est un élément de votre bienImmo
-            // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-            // Parcourir la liste des biens immobiliers
-            this.bienImmoPlusVue.forEach((bien: {
-              favoris: any; id: string | number;
-            }) => {
-              // Charger le nombre de "J'aime" pour chaque bien
-              // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-              this.NombreJaime = bien?.favoris?.length;
-              if (typeof bien.id === 'number') {
-                this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-              }
+          this.serviceBienImmo
+            .AfficherLaListeBienImmoPlusVue()
+            .subscribe((data) => {
+              this.bienImmoPlusVue = data;
+              this.NombreFavory = data.nombreDeFavoris;
+              console.log(this.bienImmoPlusVue);
+              // console.log(this.NombreFavory);
+              // Suppose que BienImo est un élément de votre bienImmo
+              // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+              // Parcourir la liste des biens immobiliers
+              this.bienImmoPlusVue.forEach(
+                (bien: { favoris: any; id: string | number }) => {
+                  // Charger le nombre de "J'aime" pour chaque bien
+                  // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+                  this.NombreJaime = bien?.favoris?.length;
+                  if (typeof bien.id === 'number') {
+                    this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+                  }
 
-              // Charger l'état de favori depuis localStorage
-              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-              if (isFavorite === 'true') {
-                this.favoriteStatus[bien.id] = true;
-              } else {
-                this.favoriteStatus[bien.id] = false;
-              }
-              // });
+                  // Charger l'état de favori depuis localStorage
+                  const isFavorite = localStorage.getItem(
+                    `favoriteStatus_${bien.id}`
+                  );
+                  if (isFavorite === 'true') {
+                    this.favoriteStatus[bien.id] = true;
+                  } else {
+                    this.favoriteStatus[bien.id] = false;
+                  }
+                  // });
+                }
+              );
             });
-
-          }
-          );
         },
-        error => {
+        (error) => {
           // console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
+      console.error('Token JWT manquant');
     }
   }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
     // console.log(id);
-    return this.router.navigate(['details-bien', id])
+    return this.router.navigate(['details-bien', id]);
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
   goToDettailCommune(id: number) {
     // console.log(id);
-    return this.router.navigate(['bienparcommune', id])
+    return this.router.navigate(['bienparcommune', id]);
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
   AjouterBienOrLogin() {
     if (this.storageService.isLoggedIn()) {
-      this.router.navigateByUrl("/userpages/ajouter-propriete")
+      this.router.navigateByUrl('/userpages/ajouter-propriete');
     } else {
-      this.router.navigateByUrl("/auth/connexion")
+      this.router.navigateByUrl('/auth/connexion');
     }
   }
 
@@ -735,12 +744,11 @@ export class AccueilComponent {
           this.errorMessage = err.error.message;
           // this.isError = true
           // Gérez les erreurs ici
-        }
-      }
-      );
+        },
+      });
     } else {
       // console.error("Token JWT manquant");
-      this.router.navigateByUrl("/auth/connexion")
+      this.router.navigateByUrl('/auth/connexion');
     }
     // if (this.storageService.isLoggedIn()) {
     //   this.router.navigate([routes.messages]);
@@ -752,13 +760,95 @@ export class AccueilComponent {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS AGENCE
   goToDettailAgence(id: number) {
     // console.log(id);
-    return this.router.navigate(['detailsagence', id])
+    return this.router.navigate(['detailsagence', id]);
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS D'UN BLOG
   goToDettailBlog(id: number) {
     // console.log(id);
-    return this.router.navigate(['blog-details', id])
+    return this.router.navigate(['blog-details', id]);
   }
 
+  onChangeCommodite() {
+    if (this.commodite) {
+      const commoditeArray = [];
+      for (const item of this.commodite) {
+        if (item.selected) {
+          commoditeArray.push(item.id);
+        }
+      }
+      this.form.commodite = commoditeArray;
+      console.log('mes commodites', this.form.commodite);
+    }
+  }
+  selectedStatut: string | null = null;
+  onStatutChange(event: any) {
+    this.selectedStatut = event.target.value;
+    console.log('this.selectedStatut', this.selectedStatut);
+  }
+  onChangeRegion(newValue: any) {
+    this.cercles = this.cercle.filter(
+      (el: any) =>
+        el.region.id == newValue.value || el.region.nomregion == newValue.value
+    );
+    this.cercles.forEach((el: any) => {
+      console.log('region.id', el.region.id);
+      this.form.regionForm = el.region.id;
+
+    });
+  }
+  onChangeCercle(newValue: any) {
+    this.communes1 = this.communes.filter(
+      (el: any) =>
+        el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+    );
+    this.communes1.forEach((el: any) => {
+      console.log('cercle.id', el.cercle.id);
+      this.form.cercleForm = el.cercle.id;
+
+    });
+  }
+  onSubmit(form: NgForm): void {
+    const {
+      commodite,
+      type,
+      commune,
+      nb_piece,
+      chambre,
+      cuisine,
+      toilette,
+      regionForm,
+      cercleForm,
+      statut,
+    } = this.form;
+  
+    // Construisez l'URL avec les paramètres de recherche
+    const queryParams: { [key: string]: any } = {};
+    if (type) queryParams['type'] = type;
+    if (statut) queryParams['statut'] = statut;
+    if (chambre) queryParams['chambre'] = chambre;
+    if (nb_piece) queryParams['nb_piece'] = nb_piece;
+    if (toilette) queryParams['toilette'] = toilette;
+    if (cuisine) queryParams['cuisine'] = cuisine;
+    if (commune) queryParams['commune'] = commune;
+    if (cercleForm) queryParams['cercleForm'] = cercleForm;
+    if (regionForm) queryParams['regionForm'] = regionForm;
+    if (commodite) queryParams['commodite'] = commodite;
+  
+    this.router.navigate(['/rechercher'], { queryParams });
+  }
+  
+
+  form: any = {
+    commodite: null,
+    type: null,
+    commune: null,
+    nb_piece: null,
+    chambre: null,
+    cuisine: null,
+    toilette: null,
+    statut: null,
+    regionForm: null,
+    cercleForm: null,
+  };
 }

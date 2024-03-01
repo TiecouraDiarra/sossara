@@ -144,6 +144,8 @@ export class AjouterBienComponent {
     description: null,
     quartier: null,
     periode: null,
+    caution: null,
+    avance: null,
     rue: null,
     porte: null,
     longitude: null,
@@ -314,6 +316,35 @@ export class AjouterBienComponent {
     }
   }
 
+  selectedStatutMensuel: string | null = null;
+  //METHODE PERMETTANT DE CHANGER LES STATUTS
+  onStatutChangeMensuel(event: any) {
+    this.selectedStatutMensuel = event.target.value;
+    console.log("this.onStatutChangeMensuel",this.selectedStatutMensuel)
+    if (this.selectedStatut === '2' ) {
+      this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
+      this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
+
+    }
+  }
+
+  // onStatutChangeMensuel(event: any) {
+  //   const selectedId = parseInt(event.target.value); // Convertir en nombre entier
+  
+  //   console.log("selectedId :", selectedId); // Vérifiez quelle valeur est sélectionnée
+  //   console.log("this.periode :", this.periode); // Vérifiez si this.periode est défini
+  
+  //   if (this.periode && this.periode.length > 0) {
+  //       const selectedStatutMensuel = this.periode.find(item => item.id === selectedId);
+  
+  //       console.log("selectedPeriode :", selectedStatutMensuel); // Vérifiez la valeur de selectedPeriode
+  
+  //       if (selectedStatutMensuel && selectedStatutMensuel.nom === 'Mensuel') {
+  //           this.form.periode = null; // Mettre la période à null si la période est "Mensuel"
+  //       }
+  //   }
+  // }
+
   // onFileSelected(newValue: any) {
   //   this.files.push(newValue.target.files[0]);
   //   this.valuesFileCurrent = newValue.target.value;
@@ -336,6 +367,8 @@ export class AjouterBienComponent {
       rue,
       porte,
       periode,
+      caution,
+      avance,
       longitude,
       latitude,
       photo,
@@ -401,6 +434,8 @@ export class AjouterBienComponent {
           "periode",  periode,
           "longitude",  longitude,
           "latitude",  latitude,
+          "avance",  avance,
+          "caution",  caution,
           "photo",  photo)
             if (user && user.token) {
               this.serviceBienImmo.setAccessToken(user.token);
@@ -422,6 +457,8 @@ export class AjouterBienComponent {
                   rue,
                   porte,
                   periode,
+                  caution,
+                  avance,
                   longitude,
                   latitude,
                   photo

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
@@ -13,7 +13,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 @Component({
   selector: 'app-recherchebien',
   templateUrl: './recherchebien.component.html',
-  styleUrls: ['./recherchebien.component.scss']
+  styleUrls: ['./recherchebien.component.scss'],
 })
 export class RecherchebienComponent {
   public routes = routes;
@@ -24,11 +24,11 @@ export class RecherchebienComponent {
   selectedCategory: any = '';
   bienImmo: any;
   bienImmoMap: any;
-  commodite: any
-  adresse: any
-  region: any
-  commune: any
-  typebien: any
+  commodite: any;
+  adresse: any;
+  region: any;
+  commune: any;
+  typebien: any;
   searchText: any;
   selectedType1: any;
   selectedRegion: any;
@@ -53,18 +53,19 @@ export class RecherchebienComponent {
 
   // IMAGE PAR DEFAUT DES BIENS
   DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
+  bienImmo1: any;
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
-    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+    event.target.src =
+      'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
-
 
   //RECHERCHER PAR REGION
   onRegionSelectionChange(event: any) {
@@ -77,22 +78,30 @@ export class RecherchebienComponent {
 
     // Filtrer les marqueurs en fonction de la région sélectionnée
     if (this.selectedRegion !== '' && this.selectedRegion !== 'Tout') {
-      filteredOverlays = filteredOverlays.filter(marker => marker.region === this.selectedRegion);
+      filteredOverlays = filteredOverlays.filter(
+        (marker) => marker.region === this.selectedRegion
+      );
     }
 
     // Filtrer les marqueurs en fonction de la commune sélectionnée
     if (this.selectedCommune !== '' && this.selectedCommune !== 'Tout') {
-      filteredOverlays = filteredOverlays.filter(marker => marker.commune === this.selectedCommune);
+      filteredOverlays = filteredOverlays.filter(
+        (marker) => marker.commune === this.selectedCommune
+      );
     }
 
     // Filtrer les marqueurs en fonction de la commune sélectionnée
     if (this.selectedType !== '' && this.selectedType !== 'Tout') {
-      filteredOverlays = filteredOverlays.filter(marker => marker.type === this.selectedType);
+      filteredOverlays = filteredOverlays.filter(
+        (marker) => marker.type === this.selectedType
+      );
     }
 
     // Filtrer les marqueurs en fonction du texte de recherche
     if (this.searchText !== '') {
-      filteredOverlays = filteredOverlays.filter(marker => marker.nom.toLowerCase().includes(this.searchText.toLowerCase()));
+      filteredOverlays = filteredOverlays.filter((marker) =>
+        marker.nom.toLowerCase().includes(this.searchText.toLowerCase())
+      );
     }
 
     // Ajoutez d'autres critères de filtrage ici si nécessaire
@@ -113,19 +122,19 @@ export class RecherchebienComponent {
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
-
 
   constructor(
     private Dataservice: DataService,
     private serviceBienImmo: BienimmoService,
     private router: Router,
-    private serviceCommodite: CommoditeService
+    private serviceCommodite: CommoditeService,
+    private route: ActivatedRoute
   ) {
     this.mapgrid = this.Dataservice.mapgridList;
     this.categories = this.Dataservice.categoriesList;
-    (this.categoriesDataSource = new MatTableDataSource(this.categories));
+    this.categoriesDataSource = new MatTableDataSource(this.categories);
   }
 
   favoriteStatus: { [key: number]: boolean } = {};
@@ -149,12 +158,40 @@ export class RecherchebienComponent {
   }
 
   ngOnInit(): void {
-    
-     // Récupérer la position actuelle de l'utilisateur
-     navigator.geolocation.getCurrentPosition((position) => {
+    const {
+      type,
+      statut,
+      chambre,
+      nb_piece,
+      toilette,
+      cuisine,
+      commune,
+      cercleForm,
+      regionForm,
+      commodite,
+    } = this.route.snapshot.queryParams;
+    this.serviceBienImmo
+      .faireUneRecherche(
+        type,
+        statut,
+        chambre,
+        nb_piece,
+        toilette,
+        cuisine,
+        commune,
+        cercleForm,
+        regionForm,
+        commodite
+      ).subscribe((data) => {
+        this.bienImmo1 = data;
+        console.log('data this.bienImmo1', this.bienImmo1);
+      });
+
+    // Récupérer la position actuelle de l'utilisateur
+    navigator.geolocation.getCurrentPosition((position) => {
       this.userPosition = {
         lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lng: position.coords.longitude,
       };
 
       // Réinitialiser les options de la carte pour centrer sur la position de l'utilisateur
@@ -164,48 +201,49 @@ export class RecherchebienComponent {
         scrollwheel: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       };
-       // Ajouter un marqueur pour la position de l'utilisateur
-      this.overlays.push(new google.maps.Marker({
-        position: this.userPosition,
-        title: 'Votre position actuelle'
-      }));
-      
+      // Ajouter un marqueur pour la position de l'utilisateur
+      this.overlays.push(
+        new google.maps.Marker({
+          position: this.userPosition,
+          title: 'Votre position actuelle',
+        })
+      );
     });
     //AFFICHER LA LISTE DES BIENS IMMO
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.bienImmo = data.biens.reverse();
-       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-      this.bienImmo.forEach((bien: { id: string | number; }) => {
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = 0;
-        }
-      });
-      console.log(this.bienImmo);
-    }
-    );
-    //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.commodite = data.commodite;
-      this.adresse = data;
-      this.region = data.region.reverse();
-      this.commune = data.commune;
-      this.typebien = data.type;
-      console.log(this.adresse);
-    });
+    
 
     // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      if (Array.isArray(data.biens)) {
+    this.serviceBienImmo
+    .faireUneRecherche(
+      type,
+      statut,
+      chambre,
+      nb_piece,
+      toilette,
+      cuisine,
+      commune,
+      cercleForm,
+      regionForm,
+      commodite
+    ).subscribe((data) => {
+      if (Array.isArray(data)) {
         // Assurez-vous que data.biens est un tableau avant d'appeler map
-        this.bienImmoMap = data.biens;
-        console.log(this.bienImmoMap);
+        this.bienImmoMap = data;
+        console.log("dddd", this.bienImmoMap);
 
         // Convertissez les données de bien immobilier en marqueurs Google Maps
         this.overlays = this.bienImmoMap.map((bien: any) => {
           // Vérifiez si la propriété 'photos' est un tableau non vide
-          const imageSrc = bien.photos && bien.photos.length > 0 ? bien.photos[0].nom : 'assets/img/gallery/gallery1/gallery-1.jpg';
+          const imageSrc =
+          bien.photos && bien.photos.length > 0 && bien.photos[0].nom
+            ? bien.photos[0].nom
+            : 'assets/img/gallery/gallery1/gallery-1.jpg';
+
           return new google.maps.Marker({
-            position: { lat: bien.adresse.latitude, lng: bien.adresse.longitude },
+            position: {
+              lat: bien.adresse.latitude,
+              lng: bien.adresse.longitude,
+            },
             icon: 'assets/img/icons/marker7.png',
             doc_name: bien.nom,
             address: bien.adresse.quartier,
@@ -215,16 +253,20 @@ export class RecherchebienComponent {
             communes: bien.adresse.commune.nom,
             types: bien.typeImmo.nom,
             statut: bien.statut,
-            id: bien.id
+            id: bien.id,
           });
         });
-          // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays
-          this.overlays.unshift(new google.maps.Marker({
+        // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays
+        this.overlays.unshift(
+          new google.maps.Marker({
             position: this.userPosition,
-            title: 'Votre position actuelle'
-          }));
+            title: 'Votre position actuelle',
+          })
+        );
       } else {
-        console.error('Les données de biens immobiliers ne sont pas au format attendu (tableau).');
+        console.error(
+          'Les données de biens immobiliers ne sont pas au format attendu (tableau).'
+        );
       }
     });
   }
@@ -232,12 +274,14 @@ export class RecherchebienComponent {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
     console.log(id);
-    return this.router.navigate(['pages/service-details', id])
+    return this.router.navigate(['pages/service-details', id]);
   }
 
   setInfo(event: any) {
     var marker = event.overlay;
-    var imageSrc = marker.image ? this.generateImageUrl(marker.image) : 'assets/img/gallery/gallery1/gallery-1.jpg'; // Remplacez 'chemin/vers/image_par_defaut.jpg' par le chemin de votre image par défaut.
+    var imageSrc = marker.image
+      ? this.generateImageUrl(marker.image)
+      : 'assets/img/gallery/gallery1/gallery-1.jpg'; // Remplacez 'chemin/vers/image_par_defaut.jpg' par le chemin de votre image par défaut.
     var content =
       '<div class="profile-widget crd" style="width: 300px; background: url(' +
       imageSrc +
@@ -251,17 +295,23 @@ export class RecherchebienComponent {
 
     // Utilisation de *ngIf pour conditionner l'affichage en fonction du statut
     if (marker.statut === 'A vendre') {
-      content += 
-      '<div class="row">' +
-      '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">'+marker.statut +'</span></div>' +
-      `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>`
-       + marker.types + '</span></a></p></div>';
+      content +=
+        '<div class="row">' +
+        '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">' +
+        marker.statut +
+        '</span></div>' +
+        `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>` +
+        marker.types +
+        '</span></a></p></div>';
     } else if (marker.statut === 'A louer') {
-      content += 
-      '<div class="row">' +
-      '<div class="col"><span class="Featured-text" style="font-weight: bold;">'+marker.statut +'</span></div>' +
-      '<div class="col"><p class="blog-category"><a href="javascript:void(0)"><span>' +
-      marker.types + '</span></a></p></div>';
+      content +=
+        '<div class="row">' +
+        '<div class="col"><span class="Featured-text" style="font-weight: bold;">' +
+        marker.statut +
+        '</span></div>' +
+        '<div class="col"><p class="blog-category"><a href="javascript:void(0)"><span>' +
+        marker.types +
+        '</span></a></p></div>';
     }
 
     content +=
@@ -274,10 +324,13 @@ export class RecherchebienComponent {
       // '</p>' +
       '<ul class="available-info mt-3">' +
       '<li class="mapaddress"><i class="fas fa-map-marker-alt me-2"></i> ' +
-      marker.address + ', ' + marker.regions +
+      marker.address +
+      ', ' +
+      marker.regions +
       ' </li>' +
       '<li class="map-amount" style="color: #e98b11;  font-weight: bold;">' +
-      this.formatPrice(marker.amount) + ' FCFA' +
+      this.formatPrice(marker.amount) +
+      ' FCFA' +
       // '<span class="d-inline-block average-rating"> (' +
       // marker.total_review +
       // ')</span>' +
@@ -288,5 +341,4 @@ export class RecherchebienComponent {
     this.infoWindow.setContent(content);
     this.infoWindow.open(event.map, event.overlay);
   }
-
 }

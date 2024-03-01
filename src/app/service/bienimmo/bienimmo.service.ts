@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from '../auth/storage.service';
@@ -66,6 +66,11 @@ export class BienimmoService {
   //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
   AfficherBienImmoParId(id: number): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/afficherbienparid/${id}`);
+  }
+
+   //AFFICHER UNE CANDIDATURE EN FONCTION DE SON UUID
+   AfficherCandidatureParUuId(uuid: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/candidature/affichercandidatureparuuid/${uuid}`);
   }
 
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE LA COMMUNE
@@ -217,6 +222,8 @@ export class BienimmoService {
     rue: string,
     porte: number,
     periode: number,
+    caution : number,
+    avance : number,
     longitude: number,
     latitude: number,
     photos: File[]
@@ -245,6 +252,9 @@ export class BienimmoService {
     } else {
         formData.append('periodeId', periode.toString());
     }
+   
+    formData.append('caution', caution.toString());
+    formData.append('avance', avance.toString());
     formData.append('longitude', longitude.toString());
     formData.append('latitude', latitude.toString());
     photos.forEach(p => { formData.append('photoImmos', p); });
@@ -427,8 +437,43 @@ export class BienimmoService {
       return this.http.get(`${URL_BASE}/probleme/processus/get/mine`,
         { headers });
     }
-  
 
+      //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
+      // ...
+      faireUneRecherche(
+        typeImmo?: any,
+        statut?: any,
+        chambre?: any,
+        nb_piece?: any,
+        toilette?: any,
+        cuisine?: any,
+        commune?: any,
+        cercle?: any,
+        region?: any,
+        commodites?: any[]
+      ): Observable<any> {
+        const headers = this.getHeaders(); // Supposons que cette méthode renvoie les en-têtes appropriés
+      
+        // Construisez les paramètres de l'URL
+        let params = new HttpParams();
+        if (typeImmo) params = params.append('typeImmo', typeImmo);
+        if (statut) params = params.append('statut', statut);
+        if (chambre) params = params.append('chambre', chambre);
+        if (nb_piece) params = params.append('nb_piece', nb_piece);
+        if (toilette) params = params.append('toilette', toilette);
+        if (cuisine) params = params.append('cuisine', cuisine);
+        if (commune) params = params.append('commune', commune);
+        if (cercle) params = params.append('cercle', cercle);
+        if (region) params = params.append('region', region);
+        if (commodites) {
+          commodites.forEach(commodite => {
+            params = params.append('commodites', commodite);
+          });
+        }
+      
+        return this.http.get(`${URL_BASE}/bien/biens`, { headers, params });
+      }
+      
 
   //FAIRE UNE RECLAMATION
   FaireReclamation(

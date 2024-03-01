@@ -121,6 +121,9 @@ export class routes {
   public static get bookmarks(): string {
     return this.baseUrl + '/userpages/mes-agents';
   }
+  public static get paiement(): string {
+    return this.baseUrl + '/userpages/paiement';
+  }
   public static get dashboard(): string {
     return this.baseUrl + '/userpages/dashboard';
   }
@@ -153,5 +156,9 @@ export class routes {
   }
   public static get signup(): string {
     return this.baseUrl + '/auth/inscription';
+  }
+
+  public static get rechercher(): string {
+    return this.baseUrl + '/rechercher';
   }
 }
