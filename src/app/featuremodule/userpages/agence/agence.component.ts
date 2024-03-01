@@ -691,9 +691,6 @@ export class AgenceComponent {
         if (user && user.token) {
           // Définissez le token dans le service commentaireService
           this.serviceUser.setAccessToken(user.token);
-
-
-
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
           this.serviceBienImmo.LancerProcessusReparation(id).subscribe(
             data => {

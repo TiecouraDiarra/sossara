@@ -227,7 +227,7 @@ export class BienimmoService {
     photos: File[]
 ): Observable<any> {
     const headers = this.getHeaders();
-    const formData = new FormData();
+    const formData = new FormData(); 
 
     commodite.forEach(i => { formData.append('commodites[]', i); });
     formData.append('typeImmoId', type.toString());
@@ -474,8 +474,8 @@ export class BienimmoService {
     // data.append("contenu", contenu)
     // console.log(id)
     // console.log(headers)
-    // console.log(somme)
-    return this.http.post(`${URL_BASE}/reparation/${id}`, null, { headers });
+    console.log(headers)
+    return this.http.post(`${URL_BASE}/probleme/lancerprocessus/${id}`, null, { headers });
   }
 
   //SUPPRIMER UN BIEN

@@ -12,6 +12,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { GimComponent } from './gim/gim.component';
 import { VisaComponent } from './visa/visa.component';
+import { FactureComponent } from './facture/facture.component';
+import { RecuComponent } from './recu/recu.component';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -21,6 +23,8 @@ import { VisaComponent } from './visa/visa.component';
     UserpagesComponent,
     GimComponent,
     VisaComponent,
+    FactureComponent,
+    RecuComponent,
     // LocataireComponent,
     // ProprietaireComponent,
     // MesReclamationsComponent,

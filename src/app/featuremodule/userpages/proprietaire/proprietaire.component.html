@@ -209,7 +209,7 @@
                         </div> -->
                         <div class=" my-3">
                             <p class="dis fw-bold mb-2">Numero de telephone</p>
-                            <div class="inputWithcheck"> <input class="form-control" type="text" value="">
+                            <div class="inputWithcheck"> <input class="form-control" type="text" name="numeroPaiement" [(ngModel)]="paiementForm.numeroPaiement">
                                 <!-- <span class="fas fa-check"></span> -->
                             </div>
                         </div>
@@ -237,15 +237,15 @@
                                 <p class="fw-bold">Total</p>
                                 <p class="fw-bold"><span class="fas fa-dollar-sign"></span>16.80</p>
                             </div> -->
-                            <div *ngIf="bien?.periode?.nom === 'Journalier'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
+                            <div (click)="FairePaiement(candidature?.id)" *ngIf="bien?.periode?.nom === 'Journalier'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
                                 {{formatPrice(bien?.prix * nombreJourChoisi)}}<span class="px-1">
                                     FCFA</span>
                             </div>
-                            <div *ngIf="bien?.periode?.nom === 'Hebdomadaire'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
+                            <div (click)="FairePaiement(candidature?.id)" *ngIf="bien?.periode?.nom === 'Hebdomadaire'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
                                 {{formatPrice(bien?.prix * nombreSemaineChoisi)}}<span class="px-1">
                                     FCFA</span>
                             </div>
-                            <div *ngIf="bien?.periode?.nom === 'Mensuel'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
+                            <div (click)="FairePaiement(candidature?.id)" *ngIf="bien?.periode?.nom === 'Mensuel'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
                                 {{formatPrice(bien?.prix * (bien?.avance + bien?.caution) )}}<span class="px-1">
                                     FCFA</span>
                             </div>
