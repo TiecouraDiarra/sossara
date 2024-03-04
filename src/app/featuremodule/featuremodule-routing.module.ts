@@ -40,7 +40,7 @@ const routes: Routes = [
         path: 'userpages',
         loadChildren: () =>
           import('./userpages/userpages.module').then((m) => m.UserpagesModule),
-          // canActivate: [AuthGuard]
+          canActivate: [AuthGuard]
       },
       {
         path: 'trouverbien',
@@ -48,6 +48,13 @@ const routes: Routes = [
           import('./gestionbiens/trouverbien/trouverbien.module').then(
             (m) => m.TrouverbienModule
           ),
+          // canActivate: [AuthGuard]
+      },
+      
+      {
+        path: 'rechercher',
+        loadChildren: () =>
+          import('./gestionbiens/recherchebien/recherchebien.module').then((m) => m.RecherchebienModule),
           // canActivate: [AuthGuard]
       },
       {
@@ -133,6 +140,8 @@ const routes: Routes = [
           import('./contact/contact.module').then((m) => m.ContactModule),
           // canActivate: [AuthGuard]
       },
+      
+
     ],
   },
 ];

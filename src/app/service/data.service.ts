@@ -316,7 +316,6 @@ export class DataService {
       base: 'trouverbien',
       showAsTab: false,
       separateRoute: true,
-
       route: '/trouverbien',
     },
     /* {

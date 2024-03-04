@@ -157,4 +157,8 @@ export class routes {
   public static get signup(): string {
     return this.baseUrl + '/auth/inscription';
   }
+
+  public static get rechercher(): string {
+    return this.baseUrl + '/rechercher';
+  }
 }

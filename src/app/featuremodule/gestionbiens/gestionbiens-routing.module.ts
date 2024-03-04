@@ -36,6 +36,12 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'rechercher',
+        loadChildren: () =>
+          import('./recherchebien/recherchebien.module').then((m) => m.RecherchebienModule),
+          // canActivate: [AuthGuard]
+      },
+      {
         path: 'details-agent',
         loadChildren: () =>
           import('./detailsagent/detailsagent.module').then(
