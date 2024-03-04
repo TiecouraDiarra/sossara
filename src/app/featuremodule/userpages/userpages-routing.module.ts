@@ -68,10 +68,19 @@ const routes: Routes = [
           import('./visa/visa-routing.module').then((m) => m.VisaRoutingModule),
         // canActivate: [AuthGuard]
       },
-      // {
-      //   path: 'paiement',
-      //   component: ProprietaireComponent
-      // },
+      {
+        path: 'facturepaiement/:uuid',
+        loadChildren: () =>
+          import('./facture/facture-routing.module').then((m) => m.FactureRoutingModule),
+        // canActivate: [AuthGuard]
+      },
+
+      {
+        path: 'recufacture/:uuid',
+        loadChildren: () =>
+          import('./recu/recu-routing.module').then((m) => m.RecuRoutingModule),
+        // canActivate: [AuthGuard]
+      },
 
     ]
   },

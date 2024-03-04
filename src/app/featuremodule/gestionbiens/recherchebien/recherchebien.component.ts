@@ -253,11 +253,11 @@ export class RecherchebienComponent {
             address: bien.adresse.quartier,
             amount: bien.prix,
             image: imageSrc,
-            regions: bien.adresse.commune.region.nom,
-            communes: bien.adresse.commune.nom,
-            types: bien.typeImmo.nom,
-            statut: bien.statut,
-            id: bien.id,
+            regions: bien?.adresse?.commune?.region?.nom,
+            communes: bien?.adresse?.commune?.nom,
+            types: bien?.typeImmo?.nom,
+            statut: bien?.statut,
+            id: bien?.id,
           });
         });
         // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays

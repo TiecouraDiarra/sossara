@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 // import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { FactureService } from 'src/app/service/facture/facture.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -23,7 +24,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   templateUrl: './locataire.component.html',
   styleUrls: ['./locataire.component.scss']
 })
-export class LocataireComponent  implements OnInit {
+export class LocataireComponent implements OnInit {
   // Référence au modal que vous souhaitez convertir en PDF
   @ViewChild('facturelocation')
   facturelocation!: ElementRef;
@@ -38,6 +39,8 @@ export class LocataireComponent  implements OnInit {
   @ViewChild('factureachat')
   factureachat!: ElementRef;
   bienImmoDejaLoueLocataires: any;
+  facture: any;
+  bienFacture: any;
 
   //GENERER FACTURE DU MOIS (LOCATION)
   genererPDFLocation() {
@@ -94,6 +97,7 @@ export class LocataireComponent  implements OnInit {
   public routes = routes;
   User: any;
   searchText: any;
+  searchFacture : any;
   searchTextBienLoue: any;
   searchTextBienVendu: any;
   bienImmo: any;
@@ -112,6 +116,7 @@ export class LocataireComponent  implements OnInit {
   p6: number = 1;
   p7: number = 1;
   p8: number = 1;
+  pfacture : number = 1;
   public albumsOne: any = [];
   isLocataire = false;
   isAgence = false;
@@ -180,7 +185,7 @@ export class LocataireComponent  implements OnInit {
   selectedBienImmoVenduId: any;
 
   selectedFactureId: any;
-  reclamationProcessusLance: any; 
+  reclamationProcessusLance: any;
   transaction: any
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   favoritedPropertiesCountAgence: { [bienId: number]: number } = {};
@@ -265,6 +270,7 @@ export class LocataireComponent  implements OnInit {
     private storageService: StorageService,
     public router: Router,
     private serviceBienImmo: BienimmoService,
+    private servicefacture: FactureService,
     private serviceUser: UserService,
     @Inject(LOCALE_ID) private localeId: string,
     private renderer: Renderer2,
@@ -498,6 +504,13 @@ export class LocataireComponent  implements OnInit {
       // console.log(this.bienImmoDejaVendu);
     });
 
+    //AFFICHER LA LISTE DES FACTURES DU LOCATAIRE CONNECTE
+    this.servicefacture.AfficherFactureLocataireConnecter().subscribe(data => {
+      this.facture = data;
+      this.bienFacture = data?.bien;
+      console.log(this.facture);
+    });
+
   }
 
   removeImage(index: number) {
@@ -524,6 +537,12 @@ export class LocataireComponent  implements OnInit {
   goToDettailBien(id: number) {
     // console.log(id);
     return this.router.navigate(['details-bien', id])
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS Facture
+  goToDettailFacture(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/facturepaiement', id])
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -724,9 +743,9 @@ export class LocataireComponent  implements OnInit {
     })
   }
 
-  
 
- 
+
+
 
   //METHODE PERMETTANT DE SUPPRIMER UN BIEN
   SupprimerBien(id: number): void {

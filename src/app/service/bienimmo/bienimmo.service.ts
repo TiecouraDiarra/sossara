@@ -229,7 +229,7 @@ export class BienimmoService {
     photos: File[]
 ): Observable<any> {
     const headers = this.getHeaders();
-    const formData = new FormData();
+    const formData = new FormData(); 
 
     commodite.forEach(i => { formData.append('commodites[]', i); });
     formData.append('typeImmoId', type.toString());
