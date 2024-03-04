@@ -88,6 +88,8 @@ export class AccueilComponent {
   nombreBienLoue: number = 0;
   nombreBienVendre: number = 0;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  valuesSelectPrix: any = ['10000', '20000', '30000', '40000', '50000', '60000', '70000', '80000', '90000', '100000', '200000', '300000', '400000', '500000', '600000', '700000', '800000', '900000', '1000000','1500000'];
+
   locale!: string;
   imagesCommunes = [
     'commune1.jpeg',
@@ -820,6 +822,8 @@ export class AccueilComponent {
       regionForm,
       cercleForm,
       statut,
+      maxprix,
+      minprix
     } = this.form;
   
     // Construisez l'URL avec les paramètres de recherche
@@ -834,8 +838,9 @@ export class AccueilComponent {
     if (cercleForm) queryParams['cercleForm'] = cercleForm;
     if (regionForm) queryParams['regionForm'] = regionForm;
     if (commodite) queryParams['commodite'] = commodite;
-  
-    this.router.navigate(['/rechercher'], { queryParams });
+    if (regionForm) queryParams['minprix'] = minprix;
+    if (commodite) queryParams['maxprix'] = maxprix;
+    this.router.navigate(['/trouverbien'], { queryParams });
   }
   
 
@@ -850,5 +855,17 @@ export class AccueilComponent {
     statut: null,
     regionForm: null,
     cercleForm: null,
+    maxprix:null,
+    minprix:null
   };
+
+  maxprix_values: any = [];
+
+  filterMaxPrix() {
+    if (this.form.minprix) {
+      this.maxprix_values = this.valuesSelectPrix.filter((item: string) => parseInt(item) > parseInt(this.form.minprix));
+    } else {
+      this.maxprix_values = this.valuesSelectPrix;
+    }
+  }
 }

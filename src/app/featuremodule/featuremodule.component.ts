@@ -75,7 +75,7 @@ export class FeaturemoduleComponent implements OnInit {
         this.strokeValue = 0;
       }
     
-      if (this.tittle.toLowerCase().includes('rechercher')) {
+      if (this.tittle.toLowerCase().includes('rechercher') || this.tittle.toLowerCase().includes('trouverbien')) {
         this.hideFooter = true;
       } else {
         this.hideFooter = false;

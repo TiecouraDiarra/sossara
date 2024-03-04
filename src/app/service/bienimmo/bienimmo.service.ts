@@ -450,6 +450,8 @@ export class BienimmoService {
         commune?: any,
         cercle?: any,
         region?: any,
+        minprix?:any,
+        maxprix?:any,
         commodites?: any[]
       ): Observable<any> {
         const headers = this.getHeaders(); // Supposons que cette méthode renvoie les en-têtes appropriés
@@ -465,6 +467,8 @@ export class BienimmoService {
         if (commune) params = params.append('commune', commune);
         if (cercle) params = params.append('cercle', cercle);
         if (region) params = params.append('region', region);
+        if (chambre) params = params.append('minprix', minprix);
+        if (nb_piece) params = params.append('maxprix', maxprix);
         if (commodites) {
           commodites.forEach(commodite => {
             params = params.append('commodites', commodite);
