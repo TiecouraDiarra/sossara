@@ -73,6 +73,9 @@ export class routes {
   public static get home9(): string {
     return this.baseUrl + '/accueil';
   }
+  public static get agences(): string {
+    return this.baseUrl + '/agences';
+  }
   public static get listinggrid(): string {
     return this.baseUrl + '/bienparcommune';
   }

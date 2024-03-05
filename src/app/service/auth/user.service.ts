@@ -77,6 +77,14 @@ export class UserService {
     return this.http.get(`${URL_BASE}/user/photo/get`, { headers });
   }
 
+
+  //AFFICHER LES INFORMATIONS DE USER CONNECTER
+  AfficherUserConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/user/afficherConnecter`, { headers });
+  }
+
+
   //PRENDRE RENDEZ-VOUS EN FONCTION DU BIEN
   PrendreRdv(date: string, heure: string, id: any): Observable<any> {
     const headers = this.getHeaders();
@@ -152,12 +160,38 @@ export class UserService {
     formData.append('email', email);
     formData.append('telephone', telephone);
     formData.append('dateNaissance', dateNaissance);
-    return this.http.post(
-      URL_BASE + '/user/update',
+    return this.http.put(
+      URL_BASE + '/user/updateProfil',
       formData,
       { headers }
     );
   }
+
+   //MODIFIER ADRESSE USER
+   modifierAdress(
+    quartier: string,
+    rue: string,
+    porte: string,
+    commune: any
+  ): Observable<any> {
+    const formData = new FormData();
+    const headers = this.getHeaders();
+    // console.log("Nom de user : " + nom);
+    // console.log("telephone de user : " + telephone);
+    // console.log("email de user : " + email);
+    // console.log("dateNaissance de user : " + dateNaissance);
+    // console.log(headers)
+    formData.append('quartier', quartier);
+    formData.append('rue', rue);
+    formData.append('porte', porte);
+    formData.append('commune', commune);
+    return this.http.put(
+      URL_BASE + '/adresse/adresse',
+      formData,
+      { headers }
+    );
+  }
+
 
   //ENVOIE D'EMAIL POUR CHANGER LE PASSWORD
   forgotPassword(email: string): Observable<any> {

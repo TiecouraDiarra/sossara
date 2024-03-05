@@ -318,6 +318,14 @@ export class DataService {
       separateRoute: true,
       route: '/trouverbien',
     },
+    {
+      tittle: 'Agences',
+      base: 'agences',
+      showAsTab: false,
+      separateRoute: true,
+      route: '/agences',
+    },
+
     /* {
        tittle: 'User Pages',
        base: 'userpages',

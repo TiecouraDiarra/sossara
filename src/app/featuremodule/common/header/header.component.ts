@@ -44,6 +44,7 @@ export class HeaderComponent implements OnInit {
   public nav: boolean = false;
   header: Array<any> = [];
   sidebar: Array<any> = [];
+  users: any;
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -110,8 +111,13 @@ export class HeaderComponent implements OnInit {
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
       // console.log( "Somme =",this.somme);
 
-    }
-    );
+    });
+
+    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+      this.users = data[0];
+      console.log('users', this.users);
+      
+    });
   }
   private getroutes(route: any): void {
     let splitVal = route.url.split('/');

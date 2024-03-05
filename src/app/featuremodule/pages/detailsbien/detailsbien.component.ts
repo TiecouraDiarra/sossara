@@ -635,7 +635,7 @@ export class DetailsbienComponent implements AfterViewInit {
     })
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
-      text: "Etes-vous sûre de candidater ce bien?",
+      text: "Veuillez confirmer votre candidature",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Confirmer',
@@ -659,7 +659,7 @@ export class DetailsbienComponent implements AfterViewInit {
                   Swal.fire({
                     position: 'center',
                     text: data.message,
-                    title: "Envoie de candidature",
+                    title: "Candidature envoyée nous vous reviendrons bientôt",
                     icon: 'success',
                     heightAuto: false,
                     showConfirmButton: false,

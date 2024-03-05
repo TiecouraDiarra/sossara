@@ -125,7 +125,7 @@
           </div>
         </div>
         <div class="bookmarks-content grid-view featured-slider">
-          <div class="row">
+          <div class="row" *ngIf="bienImmo && bienImmo.length > 0">
             <div class="col-lg-4 col-md-4 col-sm-6 " *ngFor="let data of bienImmo | filter:searchText | paginate:{itemsPerPage :3, currentPage:p}">
               <div class="card aos aos-init aos-animate" data-aos="fade-up">
                 <div class="blog-widget">
@@ -190,6 +190,9 @@
               </div>
             </div>
           </div>
+          <div *ngIf="!(bienImmo && bienImmo.length > 0)">
+            <p>Pas de bien disponible pour le moment.</p>
+        </div>
            <!-- PAGINATION  -->
            <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event"
             previousLabel="Précédent" nextLabel="Suivant" class="pagination" previousClass="pagination__previous"

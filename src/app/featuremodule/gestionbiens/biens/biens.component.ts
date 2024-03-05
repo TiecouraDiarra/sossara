@@ -261,8 +261,7 @@ export class BiensComponent {
     this.serviceAdresse.AfficherListeCommune().subscribe(data => {
       this.commune = data;
       // console.log(this.commune);
-    }
-    );
+    });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
