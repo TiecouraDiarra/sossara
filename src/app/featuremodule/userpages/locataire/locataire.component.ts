@@ -506,7 +506,7 @@ export class LocataireComponent implements OnInit {
 
     //AFFICHER LA LISTE DES FACTURES DU LOCATAIRE CONNECTE
     this.servicefacture.AfficherFactureLocataireConnecter().subscribe(data => {
-      this.facture = data;
+      this.facture = data?.reverse();
       this.bienFacture = data?.bien;
       console.log(this.facture);
     });

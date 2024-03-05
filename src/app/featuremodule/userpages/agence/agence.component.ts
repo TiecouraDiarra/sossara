@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 // import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { FactureService } from 'src/app/service/facture/facture.service';
 
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -29,6 +30,8 @@ export class AgenceComponent {
   facturelocation!: ElementRef;
 
   loading = false;
+  searchFacture: any;
+  pfacture: number = 1;
   bonAccord = false;
   prendEnCharge = false;
   locale!: string;
@@ -260,6 +263,8 @@ export class AgenceComponent {
   bienImmoAgent: any
   test: any
   errorMessage: any = '';
+  facture: any;
+  bienFacture: any;
 
   constructor(
     private DataService: DataService,
@@ -269,6 +274,7 @@ export class AgenceComponent {
     private serviceUser: UserService,
     @Inject(LOCALE_ID) private localeId: string,
     private renderer: Renderer2,
+    private servicefacture: FactureService,
     private authService: AuthService,
   ) {
     this.locale = localeId;
@@ -513,6 +519,13 @@ export class AgenceComponent {
     this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
       this.bienImmoDejaVendu = data.biens.reverse();
       // console.log(this.bienImmoDejaVendu);
+    });
+
+    //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE
+    this.servicefacture.AfficherFactureProprietaireConnecter().subscribe(data => {
+      this.facture = data?.reverse();
+      this.bienFacture = data?.bien;
+      console.log(this.facture);
     });
 
   }
@@ -938,5 +951,11 @@ export class AgenceComponent {
       });
 
     })
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS Facture
+  goToDettailFacture(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/facturepaiement', id])
   }
 }

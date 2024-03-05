@@ -4,12 +4,13 @@ import { DataService } from 'src/app/service/data.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { configbienService } from 'src/app/service/configbien/configbien.service';
+import { NgForm } from '@angular/forms';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -34,6 +35,8 @@ export class TrouverbienComponent implements OnInit {
   adresse: any
   region: any
   commune: any
+  cercles: any[] = [];
+  communes1: any = [];
   typebien: any
   searchText: any;
   selectedType1: any;
@@ -42,6 +45,8 @@ export class TrouverbienComponent implements OnInit {
   selectedType: any;
   p: number = 1;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  valuesSelectPrix: any = ['10000', '20000', '30000', '40000', '50000', '60000', '70000', '80000', '90000', '100000', '200000', '300000', '400000', '500000', '600000', '700000', '800000', '900000', '1000000','1500000'];
+
 
   // MAP
   options!: any;
@@ -61,7 +66,7 @@ export class TrouverbienComponent implements OnInit {
   DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
   status: any;
   cercle: any;
-  cercles: any;
+  // cercles: any;
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -75,11 +80,11 @@ export class TrouverbienComponent implements OnInit {
   }
 
   //AFFICHER CERCLE EN FONCTION DE REGION
-  onChangeRegion(newValue: any) {
-    this.cercles = this.cercle.filter(
-      (el: any) => el.region.nomregion == newValue.value
-    );
-  }
+  // onChangeRegion(newValue: any) {
+  //   this.cercles = this.cercle.filter(
+  //     (el: any) => el.region.nomregion == newValue.value
+  //   );
+  // }
 
   //RECHERCHER PAR REGION
   onRegionSelectionChange(event: any) {
@@ -148,7 +153,8 @@ export class TrouverbienComponent implements OnInit {
     private serviceAdresse: AdresseService,
     private serviceConfigBien: configbienService,
     private storageService: StorageService,
-    private serviceCommodite: CommoditeService
+    private serviceCommodite: CommoditeService,
+    private route: ActivatedRoute
   ) {
     this.locale = localeId;
     this.mapgrid = this.Dataservice.mapgridList;
@@ -175,6 +181,31 @@ export class TrouverbienComponent implements OnInit {
     this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
     this.categories = this.categoriesDataSource.filteredData;
   }
+
+  updateUrl(): void {
+    const queryParams: Params = {
+      type: this.form.type,
+      statut: this.form.statut,
+      chambre: this.form.chambre,
+      nb_piece: this.form.nb_piece,
+      toilette: this.form.toilette,
+      cuisine: this.form.cuisine,
+      commune: this.form.commune,
+      cercleForm: this.form.cercleForm,
+      regionForm: this.form.regionForm,
+      minprix: this.form.minprix,
+      maxprix: this.form.maxprix,
+      commodite: this.form.commodite
+      // Ajoutez d'autres paramètres si nécessaire
+    };
+  
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge' // Conserve les anciens paramètres d'URL
+    });
+  }
+  
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -204,9 +235,64 @@ export class TrouverbienComponent implements OnInit {
       }));
 
     });
+    this.route.queryParams.subscribe((params: Params) => {
+      // Initialisez les valeurs du formulaire avec les paramètres d'URL
+      this.form.type = params['type'] || null;
+      this.form.statut = params['statut'] || null;
+      this.form.chambre = params['chambre'] || null;
+      this.form.nb_piece = params['nb_piece'] || null;
+      this.form.toilette = params['toilette'] || null;
+      this.form.cuisine = params['cuisine'] || null;
+      this.form.commune = params['commune'] || null;
+      this.form.cercleForm = params['cercleForm'] || null;
+      this.form.regionForm = params['regionForm'] || null;
+      this.form.minprix = params['minprix'] || null;
+      this.form.maxprix = params['maxprix'] || null;
+      this.form.commodite = params['commodite'] || null;
+      // Initialisez d'autres propriétés du formulaire ici
+  });
+
+   
+   
     //AFFICHER LA LISTE DES BIENS IMMO
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      this.bienImmo = data.reverse();
+    this.route.queryParams.subscribe(params => {
+      const {
+          type,
+          statut,
+          chambre,
+          nb_piece,
+          toilette,
+          cuisine,
+          commune,
+          cercleForm,
+          regionForm,
+          minprix,
+          maxprix,
+          commodite,
+      } = params;
+
+      // Appel de la méthode de recherche avec les nouveaux paramètres d'URL
+      this.serviceBienImmo
+          .faireUneRecherche(
+              type,
+              statut,
+              chambre,
+              nb_piece,
+              toilette,
+              cuisine,
+              commune,
+              cercleForm,
+              regionForm,
+              minprix,
+              maxprix,
+              commodite
+          )
+          .subscribe((data) => {
+              // Mise à jour de la liste des biens immobiliers
+              this.bienImmo = data;
+              console.log(this.bienImmo);
+     
+      this.bienImmo = data;
       console.log(this.bienImmo);
 
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
@@ -231,17 +317,22 @@ export class TrouverbienComponent implements OnInit {
         }
       });
       // console.log(this.bienImmo);
-    }
-    );
-    //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.commodite = data.commodite;
-      this.adresse = data;
-      // this.region = data.region.reverse();
-      // this.commune = data.commune;
-      // this.typebien = data.type;
-      // console.log(this.adresse);
     });
+  });
+    //AFFICHER LA LISTE DES COMMODITES
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+    //   this.commodite = data.commodite;
+    //   this.adresse = data;
+    //   // this.region = data.region.reverse();
+    //   // this.commune = data.commune;
+    //   // this.typebien = data.type;
+    //   // console.log(this.adresse);
+    // });
+
+       //AFFICHER LA LISTE DES COMMODITES ANCIEN
+       this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+        this.commodite = data;
+      });
 
     //AFFICHER LA LISTE DES TYPES DE BIENS
     this.serviceConfigBien.AfficherListeTypeImmo().subscribe(data => {
@@ -395,6 +486,47 @@ export class TrouverbienComponent implements OnInit {
     return this.router.navigate(['details-bien', id])
   }
 
+  onChangeCommodite() {
+    if (this.commodite) {
+      const commoditeArray = [];
+      for (const item of this.commodite) {
+        if (item.selected) {
+          commoditeArray.push(item.id);
+        }
+      }
+      this.form.commodite = commoditeArray;
+      console.log('mes commodites', this.form.commodite);
+    }
+  }
+  selectedStatut: string | null = null;
+
+  onStatutChange(event: any) {
+    this.selectedStatut = event.target.value;
+    console.log('this.selectedStatut', this.selectedStatut);
+  }
+  onChangeRegion(newValue: any) {
+    this.cercles = this.cercle.filter(
+      (el: any) =>
+        el.region.id == newValue.value || el.region.nomregion == newValue.value
+    );
+    this.cercles.forEach((el: any) => {
+      console.log('region.id', el.region.id);
+      this.form.regionForm = el.region.id;
+
+    });
+  }
+  onChangeCercle(newValue: any) {
+    this.communes1 = this.commune.filter(
+      (el: any) =>
+        el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+    );
+    this.communes1.forEach((el: any) => {
+      console.log('cercle.id', el.cercle.id);
+      this.form.cercleForm = el.cercle.id;
+
+    });
+  }
+
   setInfo(event: any) {
     var marker = event.overlay;
     // var imageSrc = marker.image ? this.generateImageUrl(marker.image) : 'assets/img/gallery/gallery1/gallery-1.jpg'; // Remplacez 'chemin/vers/image_par_defaut.jpg' par le chemin de votre image par défaut.
@@ -479,6 +611,48 @@ export class TrouverbienComponent implements OnInit {
       );
     } else {
       // console.error("Token JWT manquant");
+    }
+  }
+
+  onSubmit(form: NgForm): void {
+    const {
+      commodite,
+      type,
+      commune,
+      nb_piece,
+      chambre,
+      cuisine,
+      toilette,
+      regionForm,
+      cercleForm,
+      statut,
+      maxprix,
+      minprix
+    } = this.form;
+  }
+
+  form: any = {
+    commodite: null,
+    type: null,
+    commune: null,
+    nb_piece: null,
+    chambre: null,
+    cuisine: null,
+    toilette: null,
+    statut: null,
+    regionForm: null,
+    cercleForm: null,
+    maxprix:null,
+    minprix:null
+  };
+
+  maxprix_values: any = [];
+
+  filterMaxPrix() {
+    if (this.form.minprix) {
+      this.maxprix_values = this.valuesSelectPrix.filter((item: string) => parseInt(item) > parseInt(this.form.minprix));
+    } else {
+      this.maxprix_values = this.valuesSelectPrix;
     }
   }
 }

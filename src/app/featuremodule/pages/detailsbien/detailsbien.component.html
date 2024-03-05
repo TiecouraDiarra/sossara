@@ -12,7 +12,7 @@
                         <li class="breadcrumb-item">
                             <a [routerLink]="routes.listinggridsidebar">Biens</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Details</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{bien?.nom}}</li>
                     </ol>
                 </nav>
             </div>
@@ -154,7 +154,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Les commodites</h4> 
+                            <h4>Les commodites</h4>
                         </div>
                         <div class="card-body">
                             <br />
@@ -689,13 +689,96 @@
                     </div>
                     <div class="card-body">
                         <div class="review-list">
+                            <!-- <div class="container bootstrap snippets bootdey"> -->
+                            <!-- <div class="row">
+                                    <div class="col-md-12"> -->
+                            <div class="blog-comment">
+                                <ul class="comments" *ngIf="commentaire && commentaire.length > 0">
+                                    <li class="clearfix" *ngFor="let commentaire of commentaire">
+                                        <img [src]="generateImageUrl(commentaire?.utilisateur?.photo?.nom)"
+                                            (error)="handleAuthorImageError($event)" class="avatar" alt="">
+                                        <div class="post-comments">
+                                            <p class="fw-bold">{{commentaire?.utilisateur?.nom}}
+                                            </p>
+                                            <p>
+                                                {{commentaire?.contenu}}
+                                            </p>
+                                            <p class="heure">
+                                                <i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                {{commentaire?.createdAt | date:"dd/MM/yyyy"}} &nbsp;&nbsp;
+                                                <i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                {{commentaire?.createdAt | date:"HH:mm"}}
+                                                <i class="float-end fw-bold">
+                                                    <a class="" style="margin-right: 10px;"
+                                                        href="#"><small>Modifier</small></a>
+                                                    <!-- Ajout de "Modifier" ici -->
+                                                    <a data-bs-toggle="collapse"
+                                                        [href]="'#collapseExample-' + commentaire.id" role="button"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseExample"><small>{{commentaire?.reponses?.length}}
+                                                            Reponses</small></a>
+                                                </i>
+                                            </p>
+                                            <div class="collapse" [id]="'collapseExample-' + commentaire.id">
+                                                <div class="card card-body">
+                                                    <ul class="comments"
+                                                        *ngIf="commentaire?.reponses && commentaire?.reponses?.length > 0">
+                                                        <li class="clearfix"
+                                                            *ngFor="let Reponse of commentaire?.reponses?.reverse()">
+                                                            <img [src]="generateImageUrl(Reponse?.utilisateur?.photo?.nom)"
+                                                                class="avatar" alt="">
+                                                            <div class="post-comments">
+                                                                <p class="fw-bold">{{Reponse?.utilisateur?.nom}}
+                                                                <p>
+                                                                    {{Reponse?.contenu}}
+                                                                </p>
+                                                                <p class="heure"><i
+                                                                        class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                                    {{Reponse?.createdAt | date:"dd/MM/yyyy"}}
+                                                                    &nbsp;&nbsp;
+                                                                    <i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                                    {{Reponse?.createdAt | date:"HH:mm"}}
+                                                                    <!-- <i class="float-end fw-bold">
+                                                                        <a class="" style="margin-right: 10px;" href="#"><small>Modifier</small></a>
+                                                                        <a data-bs-toggle="collapse" [href]="'#collapseExample-' + commentaire.id"
+                                                                        role="button" aria-expanded="false"
+                                                                        aria-controls="collapseExample"><small>{{commentaire?.reponses?.length}} Reponses</small></a>
+                                                                    </i> -->
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="chat-footer">
+                                                        <div class="input-group">
+                                                            <div class="attach-btn">
+                                                                <input name="contenu" [(ngModel)]="reponseForm.contenu"
+                                                                    type="text" class="input-msg-send form-control"
+                                                                    placeholder="Repondre">
+                                                            </div>
+                                                            <button (click)="Repondrecommentaire(commentaire?.id)"
+                                                                [disabled]="!reponseForm.contenu || reponseForm.contenu.trim() === '' "
+                                                                type="button" class="btn msg-send-btn"><i
+                                                                    class="fas fa-paper-plane"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- </div>
+                                </div> -->
+                            <!-- </div> -->
                             <ul class="">
-                                <div class="ligne" *ngIf="commentaire && commentaire.length > 0">
+                                <!-- <div class="ligne" *ngIf="commentaire && commentaire.length > 0">
                                     <li class="review-box" *ngFor="let commentaire of commentaire">
                                         <div class="review-profile">
                                             <div class="review-img">
-                                                <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-                                                    class="img-fluid" alt="img">
+                                                <img [src]="generateImageUrl(commentaire?.utilisateur?.photo?.nom)"
+                                                    (error)="handleAuthorImageError($event)" class="img-fluid"
+                                                    alt="img">
                                             </div>
                                         </div>
                                         <div class="review-details">
@@ -706,105 +789,11 @@
                                                     {{commentaire?.createdAt | date:"dd/MM/yyyy"}}</div>
                                                 <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
                                                     {{commentaire?.createdAt | date:"HH:mm"}}</div>
-                                                <!-- <div>by: Demo Test</div> -->
                                             </div>
                                             <p>{{commentaire?.contenu}}</p>
-                                            <!-- <div class="row">
-                                                <div class="col-lg-3  col-md-3 col-sm-3">
-                                                    <div class="review-gallery">
-                                                        <a href="assets/img/gallery/gallery1/gallery-6.jpg"
-                                                            data-fancybox="gallery">
-                                                            <img class="img-fluid" alt="Image"
-                                                                src="assets/img/gallery/galleryimg-1.jpg">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3  col-md-3 col-sm-3">
-                                                    <div class="review-gallery">
-                                                        <a href="assets/img/gallery/gallery1/gallery-5.jpg"
-                                                            data-fancybox="gallery">
-                                                            <img class="img-fluid" alt="Image"
-                                                                src="assets/img/gallery/galleryimg-2.jpg">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3  col-md-3 col-sm-3">
-                                                    <div class="review-gallery">
-                                                        <a href="assets/img/gallery/gallery1/gallery-8.jpg"
-                                                            data-fancybox="gallery">
-                                                            <img class="img-fluid" alt="Image"
-                                                                src="assets/img/gallery/galleryimg-3.jpg">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3">
-                                                    <div class="review-gallery">
-                                                        <a href="assets/img/gallery/gallery1/gallery-9.jpg"
-                                                            data-fancybox="gallery">
-                                                            <img class="img-fluid" alt="Image"
-                                                                src="assets/img/gallery/galleryimg-9.jpg">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                            <!-- <div class="reply-box ">
-                                                <p><a href="javascript:void(0);" class="thumbsup"><i
-                                                            class="feather-thumbs-up"></i> Aimer </a>
-                                                    <a href="javascript:void(0);" class="thumbsdown"><i
-                                                            class="feather-thumbs-down"></i> Ne pas aimer </a>
-                                                </p>
-                                                <a href="javascript:void(0);" class="replylink"><i
-                                                        class="feather-corner-up-left"></i> Repondre</a>
-                                            </div> -->
                                         </div>
                                     </li>
-                                </div>
-
-                                <!-- <li class="review-box">
-                                    <div class="review-profile">
-                                        <div class="review-img">
-                                            <img src="assets/img/profiles/avatar-02.jpg" class="img-fluid" alt="img">
-                                        </div>
-                                    </div>
-                                    <div class="review-details">
-                                        <h6>Dev</h6>
-                                        <div class="rating">
-                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> 4 months ago</div>
-                                            <div>by: Demo Test</div>
-                                        </div>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the
-                                            1500s, when an unknown printer took a galley of type and scrambled it to
-                                            make a type specimen book.</p>
-                                    </div>
-                                </li>
-                                <li class="review-box">
-                                    <div class="review-profile">
-                                        <div class="review-img">
-                                            <img src="assets/img/profiles/avatar-01.jpg" class="img-fluid" alt="img">
-                                        </div>
-                                    </div>
-                                    <div class="review-details">
-                                        <h6>Johnson</h6>
-                                        <div class="rating">
-                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> 4 months ago</div>
-                                            <div>by: Demo Test</div>
-                                        </div>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the
-                                            1500s, when an unknown printer took a galley of type and scrambled it to
-                                            make a type specimen book.</p>
-                                        <div class="reply-box ">
-                                            <p><a href="javascript:void(0);" class="thumbsup"><i
-                                                        class="feather-thumbs-up"></i> Aimer </a>
-                                                <a href="javascript:void(0);" class="thumbsdown"><i
-                                                        class="feather-thumbs-down"></i> Ne pas aimer </a>
-                                            </p>
-                                            <a href="javascript:void(0);" class="replylink"><i
-                                                    class="feather-corner-up-left"></i> Repondre</a>
-                                        </div>
-                                    </div>
-                                </li> -->
+                                </div> -->
                                 <li class="review-box feedbackbox mb-0">
                                     <div class="review-details">
                                         <h6>Ecrire un commentaire</h6>
@@ -831,7 +820,7 @@
                                             <div class="submit-section">
                                                 <button class="btn btn-primary submit-btn"
                                                     [disabled]="!commentaireForm.contenu || commentaireForm.contenu.trim() === '' "
-                                                    (click)="Fairecommentaire()" type="submit">
+                                                    (click)="Fairecommentaire(bien?.id)" type="submit">
                                                     Commenter</button>
                                             </div>
                                         </form>
@@ -851,7 +840,8 @@
                             <h4><img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon"> Details
                                 du bien</h4>
                             <ul>
-                                <li *ngIf="bien && bien.reference">reference du bien <span>{{bien.reference}}</span></li>
+                                <li *ngIf="bien && bien.reference">reference du bien <span>{{bien.reference}}</span>
+                                </li>
                                 <li *ngIf="bien && bien.typeImmo">Type du bien <span>{{bien.typeImmo.nom}}</span></li>
                                 <li *ngIf="bien && bien.typeImmo">Periode <span>{{bien.periode.nom}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Quartier <span>{{bien.adresse.quartier}}</span></li>
@@ -899,21 +889,21 @@
                         </div>
                         <div class="card" *ngIf="isLoggedIn == true && currentUser == false">
 
-                            <h4><i class="feather-briefcase"></i>Info Entreprise</h4>
+                            <!-- <h4><i class="feather-briefcase"></i>Info Entreprise</h4> -->
                             <div class="map-details">
-                                <div class="map-frame">
+                                <!-- <div class="map-frame">
                                     <iframe
                                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2238528387797!2d-122.41637708468208!3d37.78479337975754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858090475dcdc3%3A0x417fdbbd16e076ed!2s484%20Ellis%20St%2C%20San%20Francisco%2C%20CA%2094102%2C%20USA!5e0!3m2!1sen!2sin!4v1669879954211!5m2!1sen!2sin"
                                         width="200" height="160" style="border:0;" allowfullscreen="" loading="lazy"
                                         referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                </div>
+                                </div> -->
                                 <ul class="info-list">
                                     <!-- <li><i class="feather-map-pin"></i> {{bien.adresse.quartier}},<br>Rue : {{bien.adresse.rue}},
                                         Porte :{{bien.adresse.porte}}</li> -->
-                                    <li *ngIf="bien && bien.utilisateur"><i class="feather-phone-call"></i>
+                                    <!-- <li *ngIf="bien && bien.utilisateur"><i class="feather-phone-call"></i>
                                         {{bien?.utilisateur?.telephone}}</li>
                                     <li *ngIf="bien && bien.utilisateur"><i class="feather-mail"></i>
-                                        {{bien?.utilisateur?.email}}</li>
+                                        {{bien?.utilisateur?.email}}</li> -->
                                     <!-- <li><img src="assets/img/website.svg" alt="website"> www.listee.com</li> -->
                                     <li class="socialicons pb-0">
                                         <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> </a>
@@ -958,7 +948,7 @@
                                     {{ errorMessage }}
                                 </div>
                                 <div class="submit-section">
-                                    <button (click)="PrendreRvd()" class="btn btn-primary submit-btn"
+                                    <button (click)="PrendreRvd(bien?.id)" class="btn btn-primary submit-btn"
                                         type="submit">Envoyer</button>
                                 </div>
                             </form>

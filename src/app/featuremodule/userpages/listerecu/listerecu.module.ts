@@ -3,18 +3,17 @@ import { CommonModule } from '@angular/common';
 
 
 import { FormsModule } from '@angular/forms';
-import { RecuComponent } from './recu.component';
-import { RecuRoutingModule } from './recu-routing.module';
-
+import { ListerecuComponent } from './listerecu.component';
+import { ListrecuRoutingModule } from './listerecu-routing.module';
 
 @NgModule({
   declarations: [
-    RecuComponent
+    ListerecuComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RecuRoutingModule
+    ListrecuRoutingModule
   ]
 })
-export class RecuModule { }
+export class ListerecuModule { }

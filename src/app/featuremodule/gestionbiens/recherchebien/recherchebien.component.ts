@@ -168,6 +168,8 @@ export class RecherchebienComponent {
       commune,
       cercleForm,
       regionForm,
+      minprix,
+      maxprix,
       commodite,
     } = this.route.snapshot.queryParams;
     this.serviceBienImmo
@@ -181,6 +183,8 @@ export class RecherchebienComponent {
         commune,
         cercleForm,
         regionForm,
+        minprix,
+        maxprix,
         commodite
       ).subscribe((data) => {
         this.bienImmo1 = data;

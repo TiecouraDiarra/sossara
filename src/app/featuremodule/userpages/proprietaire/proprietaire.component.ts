@@ -6,6 +6,7 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
+import { FactureService } from 'src/app/service/facture/facture.service';
 import { ModepaiementService } from 'src/app/service/modepaiement/modepaiement.service';
 import Swal from 'sweetalert2';
 
@@ -36,12 +37,14 @@ export class ProprietaireComponent {
   }
   errorMessage: any;
   isError: any = false;
+  facture: any;
 
   constructor(
     private paiementService: ModepaiementService,
     @Inject(LOCALE_ID) private localeId: string,
     private router: Router,
     private serviceUser: UserService,
+    private serviceFacture: FactureService,
     private storageService: StorageService,
     private route: ActivatedRoute,
     private serviceBienImmo: BienimmoService,
@@ -67,11 +70,12 @@ export class ProprietaireComponent {
     //RECUPERER L'UUID D'UN BLOG 
     this.id = this.route.snapshot.params["uuid"]
     //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
-    this.serviceBienImmo.AfficherCandidatureParUuId(this.id).subscribe(data => {
+    this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
+      this.facture = data;
       this.candidature = data;
       this.bien = data?.bien;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.candidature);
+      console.log(this.facture);
     })
   }
   //FORMATER LE PRIX
@@ -160,7 +164,7 @@ export class ProprietaireComponent {
                   timer: timerInterval,
                   timerProgressBar: true,
                 }).then(() => {
-                  this.goToPageFacture(data.message)
+                  this.goToPageRecu(data.message)
                 });
               } else {
                 Swal.fire({
@@ -193,9 +197,9 @@ export class ProprietaireComponent {
     })
   }
 
-  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE FACTURE
-  goToPageFacture(id: number) {
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
+  goToPageRecu(id: number) {
     // console.log(id);
-    return this.router.navigate(['userpages/facturepaiement', id])
+    return this.router.navigate(['userpages/recufacture', id])
   }
 }

@@ -797,7 +797,7 @@
         aria-labelledby="facture-tab">
         <div class="dash-listingcontent dashboard-info">
             <div class="dash-cards card">
-                <div class="card-body" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                <div class="card-body" *ngIf="facture && facture.length > 0">
                     <div class="listing-search">
                         <h4>Mes factures</h4>
                         <div class="filter-content form-group">
@@ -869,7 +869,7 @@
                                             date:"dd MMM yyyy":locale}}</span></td>
                                     <td>
                                         <span class="views-count"
-                                            *ngIf="Facture && Facture.createdAt">{{Facture.createdAt
+                                            *ngIf="Facture && Facture.createdAt">{{Facture.dateEcheance
                                             |
                                             date:"dd MMM yyyy":locale}}</span>
                                     </td>

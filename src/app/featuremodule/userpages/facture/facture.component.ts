@@ -21,6 +21,7 @@ export class FactureComponent {
   id: any
   locale!: string;
   paiement: any;
+  modepaiement: any;
   bien: any;
   photoImmo: any;
   transaction: any;
@@ -31,6 +32,10 @@ export class FactureComponent {
   // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
   selectedFactureId: any;
   selectedPaymentMode: any;
+  selectedBienImmoId: any;
+  CandidatureUser: any;
+  isAgenceProprietaire = false;
+  roles: string[] = [];
 
   constructor(
     private paiementService: ModepaiementService,
@@ -38,7 +43,9 @@ export class FactureComponent {
     private serviceUser: UserService,
     private storageService: StorageService,
     private route: ActivatedRoute,
+    private serviceBienImmo: BienimmoService,
     private router: Router,
+    private modepaiementService: ModepaiementService,
     private serviceFacture: FactureService,
 
   ) {
@@ -59,12 +66,19 @@ export class FactureComponent {
   }
 
   ngOnInit(): void {
+    if (this.storageService.isLoggedIn()) {
+      this.roles = this.storageService.getUser().roles;
+      if (this.roles.includes("ROLE_AGENCE") || this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isAgenceProprietaire = true;
+      }
+    }
+   
     //RECUPERER L'UUID D'UN BLOG 
     this.id = this.route.snapshot.params["uuid"]
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
-      this.paiement = data;
+      // this.paiement = data;
       this.modePaiement = data?.modePaiement;
       this.bien = data?.bien;
       this.locataire = data?.locataire;
@@ -73,6 +87,13 @@ export class FactureComponent {
       this.photoImmo = data?.bien?.photoImmos;
       console.log(this.facture);
     })
+
+    //AFFICHER LA LISTE DES MODES DE PAIEMENTS
+    this.modepaiementService.AfficherListeModePaiement().subscribe(data => {
+      this.modepaiement = data.reverse();
+      console.log(this.modepaiement)
+    }
+    );
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
@@ -163,6 +184,19 @@ export class FactureComponent {
     this.selectedPaymentMode = mode; // Vous pouvez stocker le mode sélectionné dans une variable
   }
 
+  // Fonction pour ouvrir le modal avec l'ID du BienImmo
+  openPaiementModal(candidatureId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedBienImmoId = candidatureId;
+    console.log(this.selectedBienImmoId);
+    //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
+    // this.serviceBienImmo.AfficherCandidatureParUuId(this.selectedBienImmoId).subscribe(data => {
+    //   this.CandidatureUser = data;
+    //   console.log(this.CandidatureUser);
+    // })
+  }
+
+
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE PAIMENT
   goToPagePaiement(uuid: number) {
     if (this.selectedPaymentMode) {
@@ -191,4 +225,17 @@ export class FactureComponent {
     }
   }
 
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
+  goToPageRecu(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/recufacture', id])
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
+  goToListeRecu(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/liste_recu', id])
+  }
+  
 }

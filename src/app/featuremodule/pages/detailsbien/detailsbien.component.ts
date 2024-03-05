@@ -118,6 +118,9 @@ export class DetailsbienComponent implements AfterViewInit {
   commentaireForm: any = {
     contenu: null,
   }
+  reponseForm: any = {
+    contenu: null,
+  }
   currentUser: any = false;
   ModifBien: any = false;
 
@@ -198,7 +201,7 @@ export class DetailsbienComponent implements AfterViewInit {
     }
   }
 
-  
+
 
   photos: any;
 
@@ -235,8 +238,8 @@ export class DetailsbienComponent implements AfterViewInit {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    console.log("this.selectedStatut",this.selectedStatut)
-    if (this.selectedStatut === '2' ) {
+    console.log("this.selectedStatut", this.selectedStatut)
+    if (this.selectedStatut === '2') {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
   }
@@ -255,52 +258,52 @@ export class DetailsbienComponent implements AfterViewInit {
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params["id"];
 
-    
-
-//AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
-  this.bien = data;
-  console.log(this.bien);
-  this.form = {
-    nom: this.bien?.nom,
-    description: this.bien?.description,
-    type: this.bien?.typeImmo.id,
-    surface: this.bien?.surface,
-    periode: this.bien?.periode?.id,
-    porte: this.bien?.adresse?.porte,
-    rue: this.bien?.adresse?.rue,
-    quartier: this.bien?.adresse?.quartier,
-    statut: this.bien?.statut?.id,
-    prix: this.bien?.prix,
-    toilette: this.bien?.toilette,
-    nb_piece: this.bien?.nb_piece,
-    cuisine: this.bien?.cuisine,
-    chambre: this.bien?.chambre,
-    longitude: this.bien?.adresse?.longitude,
-    latitude: this.bien?.adresse?.latitude,
-    commune: this.bien?.adresse?.commune?.id,
-    pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
-    region: this.bien?.adresse?.commune?.region?.id
-    
-  };
-  this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-    this.les_commodite = data;
-    console.log('commodite vvvvv', this.les_commodite);
-  });
 
 
-  if (this.bien) {
-    // Parcourez les commodités liées à bien
-    console.log("je suis", this.bien.commodites ,"les commm" , this.les_commodite)
-    for (const item of this.les_commodite) {
-      // Vérifiez si l'ID de la commodité est dans la liste des commodités de bien
-      item.selected = this.bien.commodites.some(
-        (commodite: any) => commodite.id === item.id
-      );
-    }
+    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+      this.bien = data;
+      console.log(this.bien);
+      this.form = {
+        nom: this.bien?.nom,
+        description: this.bien?.description,
+        type: this.bien?.typeImmo.id,
+        surface: this.bien?.surface,
+        periode: this.bien?.periode?.id,
+        porte: this.bien?.adresse?.porte,
+        rue: this.bien?.adresse?.rue,
+        quartier: this.bien?.adresse?.quartier,
+        statut: this.bien?.statut?.id,
+        prix: this.bien?.prix,
+        toilette: this.bien?.toilette,
+        nb_piece: this.bien?.nb_piece,
+        cuisine: this.bien?.cuisine,
+        chambre: this.bien?.chambre,
+        longitude: this.bien?.adresse?.longitude,
+        latitude: this.bien?.adresse?.latitude,
+        commune: this.bien?.adresse?.commune?.id,
+        pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
+        region: this.bien?.adresse?.commune?.region?.id
+
+      };
+      this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+        this.les_commodite = data;
+        console.log('commodite vvvvv', this.les_commodite);
+      });
+
+
+      if (this.bien) {
+        // Parcourez les commodités liées à bien
+        console.log("je suis", this.bien.commodites, "les commm", this.les_commodite)
+        for (const item of this.les_commodite) {
+          // Vérifiez si l'ID de la commodité est dans la liste des commodités de bien
+          item.selected = this.bien.commodites.some(
+            (commodite: any) => commodite.id === item.id
+          );
+        }
+      }
+    });
   }
-});
-}
   open(index: number, albumArray: Array<any>): void {
     this._lightbox.open(albumArray, index);
   }
@@ -430,36 +433,36 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
     this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
       this.commentaire = data.reverse();
-      // console.log(this.commentaire);
+      console.log(this.commentaire);
     });
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.les_commodite = data;
       console.log('commodite', this.les_commodite);
     });
 
-       //AFFICHER LA LISTE DES COMMUNES
-       this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
-        this.commune = data;
-        // console.log('commune de test', this.commune);
-      });
-      //AFFICHER LA LISTE DES Pays
-      this.serviceAdresse.AfficherListePays().subscribe((data) => {
-        this.pays = data;
-        console.log('pays', this.pays);
-      });
-      //AFFICHER LA LISTE DES CERCLE
-      this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
-        this.cercle = data;
-        console.log('cercle de test', this.cercle);
-      });
-  
-      //AFFICHER LA LISTE DES REGIONS
-      this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
-        this.region = data;
-        this.nombreZone = data.length;
-        console.log('region', this.region);
-      });
-      //AFFICHER LA LISTE DES TYPEBIEN
+    //AFFICHER LA LISTE DES COMMUNES
+    this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
+      this.commune = data;
+      // console.log('commune de test', this.commune);
+    });
+    //AFFICHER LA LISTE DES Pays
+    this.serviceAdresse.AfficherListePays().subscribe((data) => {
+      this.pays = data;
+      console.log('pays', this.pays);
+    });
+    //AFFICHER LA LISTE DES CERCLE
+    this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
+      this.cercle = data;
+      console.log('cercle de test', this.cercle);
+    });
+
+    //AFFICHER LA LISTE DES REGIONS
+    this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
+      this.region = data;
+      this.nombreZone = data.length;
+      console.log('region', this.region);
+    });
+    //AFFICHER LA LISTE DES TYPEBIEN
     this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
       this.typebien = data;
       console.log('typebien de test', this.typebien);
@@ -470,12 +473,12 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.periode = data;
       console.log('periode de test', this.periode);
     });
-       //AFFICHER LA LISTE DES PERIODES
-       this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
-        this.status = data;
-        console.log('status de test', this.status);
-      });
-  
+    //AFFICHER LA LISTE DES PERIODES
+    this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
+      this.status = data;
+      console.log('status de test', this.status);
+    });
+
 
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
@@ -492,7 +495,7 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
 
 
   }
- 
+
   direction() {
     this.router.navigate([routes.servicedetails])
   }
@@ -510,7 +513,7 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
   }
 
   //METHODE PERMETTANT DE FAIRE UN commentaire 
-  Fairecommentaire(): void {
+  Fairecommentaire(id: number): void {
     this.id = this.route.snapshot.params["id"]
     // const Users = this.storageService.getUser();
     // console.log(Users);
@@ -523,7 +526,7 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.serviceUser.setAccessToken(user.token);
 
       // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-      this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(
+      this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, id).subscribe(
         data => {
           console.log("commentaire envoyé avec succès:", data);
           // this.isSuccess = false;
@@ -552,16 +555,46 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
     // });
   }
 
+  //METHODE PERMETTANT DE REPONDRE A UN commentaire 
+  Repondrecommentaire(id: number): void {
+    const user = this.storageService.getUser();
+    if (user && user.token) {
+      this.serviceUser.setAccessToken(user.token);
+      this.servicecommentaire.Repondrecommentaire(this.reponseForm.contenu, id).subscribe(
+        data => {
+          console.log("Reponse envoyé avec succès:", data);
+
+          //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+          this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
+            this.commentaire = data.reverse();
+            this.reponseForm.contenu = '';
+          });
+        },
+        error => {
+          // console.error("Erreur lors de l'envoi du commentaire :", error);
+          // Gérez les erreurs ici
+        }
+      );
+    } else {
+      // console.error("Token JWT manquant");
+    }
+
+    //Faire un commentaire
+    //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
+    //   console.log(data);
+    // });
+  }
+
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
-  PrendreRvd(): void {
-    this.id = this.route.snapshot.params["id"]
+  PrendreRvd(id: number): void {
+    // this.id = this.route.snapshot.params["id"]
     const user = this.storageService.getUser();
     if (user && user.token) {
       // Définissez le token dans le service serviceUser
       this.serviceUser.setAccessToken(user.token);
 
       // Appelez la méthode PrendreRdv() avec le contenu et l'ID
-      this.serviceUser.PrendreRdv(this.RdvForm.date, this.RdvForm.heure, this.id).subscribe({
+      this.serviceUser.PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id).subscribe({
         next: (data) => {
           // console.log("Rendez-vous envoyé avec succès:", data);
           this.isSuccess = true;
