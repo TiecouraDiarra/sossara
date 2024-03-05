@@ -159,6 +159,32 @@ export class UserService {
     );
   }
 
+   //MODIFIER ADRESSE USER
+   modifierAdress(
+    quartier: string,
+    rue: string,
+    porte: string,
+    commune: any
+  ): Observable<any> {
+    const formData = new FormData();
+    const headers = this.getHeaders();
+    // console.log("Nom de user : " + nom);
+    // console.log("telephone de user : " + telephone);
+    // console.log("email de user : " + email);
+    // console.log("dateNaissance de user : " + dateNaissance);
+    // console.log(headers)
+    formData.append('quartier', quartier);
+    formData.append('rue', rue);
+    formData.append('porte', porte);
+    formData.append('commune', commune);
+    return this.http.put(
+      URL_BASE + '/adresse/adresse',
+      formData,
+      { headers }
+    );
+  }
+
+
   //ENVOIE D'EMAIL POUR CHANGER LE PASSWORD
   forgotPassword(email: string): Observable<any> {
     // const headers = this.getHeaders();

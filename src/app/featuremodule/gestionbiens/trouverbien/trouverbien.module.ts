@@ -7,10 +7,11 @@ import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterMarkersPipe } from './filter-markers.pipe';
+import { LesagencesComponent } from '../lesagences/lesagences.component';
 
 
 @NgModule({
-  declarations: [TrouverbienComponent, FilterMarkersPipe ],
+  declarations: [TrouverbienComponent, FilterMarkersPipe,LesagencesComponent ],
   imports: [
     CommonModule, 
     ListingmapGridRoutingModule, 

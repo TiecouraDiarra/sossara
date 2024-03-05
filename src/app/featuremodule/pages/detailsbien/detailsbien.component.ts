@@ -602,7 +602,7 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
     })
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
-      text: "Etes-vous sûre de candidater ce bien?",
+      text: "Veuillez confirmer votre candidature",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Confirmer',
@@ -626,7 +626,7 @@ this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
                   Swal.fire({
                     position: 'center',
                     text: data.message,
-                    title: "Envoie de candidature",
+                    title: "Candidature envoyée nous vous reviendrons bientôt",
                     icon: 'success',
                     heightAuto: false,
                     showConfirmButton: false,

@@ -2,6 +2,7 @@ import { Component, Inject, LOCALE_ID, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
+import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
   isLocataire = false;
   isAgence = false;
   roles: string[] = [];
+  formModifadress:any;
 
 
   form: any = {
@@ -58,6 +60,21 @@ export class ProfileComponent implements OnInit {
     'NINA',
     'Passport',
   ];
+  commune: any;
+  pays: any;
+  cercle: any;
+  region: any;
+  nombreZone: any;
+  selectedValue: string | any = 'pays';
+  selectedValueR: string | any = 'region';
+  selectedValueC: string | any = 'cercle';
+  regions: any[] = [];
+  cercles: any[] = [];
+  communes: any = [];
+  communes1: any = [];
+  regions1: any = [];
+
+
 
   onChange(typeUser: any) {
     if (typeUser.value === "LOCATAIRE OU ACHETEUR" || typeUser.value === 'PROPRIETAIRE') {
@@ -97,7 +114,10 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private renderer: Renderer2,
     @Inject(LOCALE_ID) private localeId: string,
-    private serviceUser: UserService
+    private serviceUser: UserService,
+    private serviceAdresse: AdresseService,
+    
+
   ) {
     this.locale = localeId;
     this.User = this.storageService.getUser();
@@ -108,6 +128,12 @@ export class ProfileComponent implements OnInit {
       email: this.User.email,
       date_de_naissance: this.User.date_de_naissance,
     };
+    this.formModifadress = {
+      quartier: null,
+      rue: null,
+      porte: null,
+      communeform: null
+  };
   }
 
   getRoleLabel(): string {
@@ -151,6 +177,63 @@ export class ProfileComponent implements OnInit {
       }
     }
 
+      //AFFICHER LA LISTE DES COMMUNES
+      this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
+        this.commune = data;
+        console.log('commune de test', this.commune);
+      });
+      //AFFICHER LA LISTE DES Pays
+      this.serviceAdresse.AfficherListePays().subscribe((data) => {
+        this.pays = data;
+        console.log('pays', this.pays);
+      });
+      //AFFICHER LA LISTE DES CERCLE
+      this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
+        this.cercle = data;
+        console.log('cercle de test', this.cercle);
+      });
+  
+      //AFFICHER LA LISTE DES REGIONS
+      this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
+        this.region = data;
+        this.nombreZone = data?.length;
+        console.log('region', this.region);
+      });
+  
+
+  }
+  onChange2(newValue: any) {
+    this.regions1 = this.region.filter(
+      (el: any) =>
+        el.pays.id == newValue.value || el.pays.nompays == newValue.value
+    );
+    this.regions1.forEach((el: any) => {
+      console.log('pays.id', el.pays.id);
+      // this.form.regionForm = el.region.id;
+
+    });
+  }
+  onChangeRegion(newValue: any) {
+    this.cercles = this.cercle.filter(
+      (el: any) =>
+        el.region.id == newValue.value || el.region.nomregion == newValue.value
+    );
+    this.cercles.forEach((el: any) => {
+      console.log('region.id', el.region.id);
+      this.form.regionForm = el.region.id;
+
+    });
+  }
+  onChangeCercle(newValue: any) {
+    this.communes1 = this.commune.filter(
+      (el: any) =>
+        el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+    );
+    this.communes1.forEach((el: any) => {
+      console.log('cercle.id', el.cercle.id);
+      this.form.cercleForm = el.cercle.id;
+
+    });
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -453,6 +536,105 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  ModifierAdressUser() {
+    const {
+        quartier,
+        rue,
+        porte,
+        communeform
+    } = this.formModifadress;
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn',
+            cancelButton: 'btn btn-danger',
+        },
+        heightAuto: false
+    });
+
+    swalWithBootstrapButtons.fire({
+        text: "Etes-vous sûre de modifier votre profil?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const user = this.storageService.getUser();
+
+            if (user && user.token) {
+                this.serviceUser.setAccessToken(user.token);
+                this.serviceUser.modifierAdress(quartier, rue, porte, communeform).subscribe({
+                  next: data => {
+                      console.log(data);
+                      if (data) {
+                          const user = this.storageService.getUser();
+              
+                          if (user) {
+                              if (user.adresse === null) {
+                                  user.adresse = {
+                                      id: data.id,
+                                      rue: rue,
+                                      porte: porte,
+                                      quartier: quartier,
+                                      latitude: null,
+                                      longitude: null,
+                                      commune: {
+                                          id: data.commune.id,
+                                          nomcommune: data.commune.nomcommune,
+                                          cercle: {
+                                              id: data.commune.cercle.id,
+                                              nomcercle: data.commune.cercle.nomcercle,
+                                              region: {
+                                                  id: data.commune.cercle.region.id,
+                                                  nomregion: data.commune.cercle.region.nomregion,
+                                                  pays: {
+                                                      id: data.commune.cercle.region.pays.id,
+                                                      nompays: data.commune.cercle.region.pays.nompays
+                                                  }
+                                              }
+                                          }
+                                      },
+                                      status: true
+                                  };
+                              } else {
+                                  user.adresse.quartier = quartier;
+                                  user.adresse.rue = rue;
+                                  user.adresse.porte = porte;
+                                  user.adresse.commune.id = data.commune.id;
+                                  user.adresse.commune.nomcommune = data.commune.nomcommune;
+                                  user.adresse.commune.cercle.id = data.commune.cercle.id;
+                                  user.adresse.commune.cercle.nomcercle = data.commune.cercle.nomcercle;
+                                  user.adresse.commune.cercle.region.id = data.commune.cercle.region.id;
+                                  user.adresse.commune.cercle.region.nomregion = data.commune.cercle.region.nomregion;
+                                  user.adresse.commune.cercle.region.pays.id = data.commune.cercle.region.pays.id;
+                                  user.adresse.commune.cercle.region.pays.nompays = data.commune.cercle.region.pays.nompays;
+                              }
+                              this.storageService.setUser(user);
+                          }
+                          this.isSuccessful = true;
+                          this.isSignUpFailed = false;
+                          this.popUpModification();
+                           window.location.reload();
+                      } else {
+                          console.log("Les données d'adresse sont manquantes ou incorrectes.");
+                      }
+                  },
+                  error: err => {
+                      this.errorMessage = err.error.message;
+                      this.isSignUpFailed = true;
+                  }
+              });
+              
+            } else {
+                console.error("Token JWT manquant");
+            }
+        }
+    });
+}
+
+
   //POPUP APRES MODIFICATION PROFIL
   popUpModification() {
     let timerInterval = 2000;
@@ -472,10 +654,10 @@ export class ProfileComponent implements OnInit {
       timerProgressBar: true // ajouter la barre de progression du temps
 
     }).then(() => {
-      this.formModif.nom; // Réinitialisez la valeur de formModif.username
-      this.formModif.telephone; // Réinitialisez la valeur de formModif.telephone
-      this.formModif.email; // Réinitialisez la valeur de formModif.email
-      this.formModif.date_de_naissance; // Réinitialisez la valeur de formModif.date_de_naissance
+      this.formModifadress.communeform; // Réinitialisez la valeur de formModif.username
+      this.formModifadress.quartier; // Réinitialisez la valeur de formModif.telephone
+      this.formModifadress.rue; // Réinitialisez la valeur de formModif.email
+      this.formModifadress.porte; // Réinitialisez la valeur de formModif.date_de_naissance
     })
   }
 

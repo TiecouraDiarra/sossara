@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth.guard';
 import { FeaturemoduleComponent } from './featuremodule.component';
+import { LesagencesComponent } from './gestionbiens/lesagences/lesagences.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,16 @@ const routes: Routes = [
           ),
           // canActivate: [AuthGuard]
       },
+      // {
+      //   path: 'agences',
+      //   loadChildren: () =>
+      //     import('./gestionbiens/trouverbien/trouverbien.module').then(
+      //       (m) => m.TrouverbienModule
+      //     ),
+      //     // canActivate: [AuthGuard]
+      // },
+          {path: 'agences', component: LesagencesComponent},
+
       
       {
         path: 'rechercher',
