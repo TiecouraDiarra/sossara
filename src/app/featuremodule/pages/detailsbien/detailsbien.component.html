@@ -125,8 +125,8 @@
 </section>
 <!--/Details Description  Section-->
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -198,7 +198,7 @@
                                         <div class="pass-group group-img">
                                             <select (change)="onStatutChange($event)" [(ngModel)]="form.statut"
                                                 name="statut" class="form-control" id="">
-                                                <option *ngFor="let item of status" [value]="item.nom">
+                                                <option *ngFor="let item of status" [value]="item.id">
                                                     {{item?.nom}}
                                                 </option>
                                             </select>
@@ -307,11 +307,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
-                                    <div class="form-group" *ngIf="selectedStatut === 'A louer'">
+                                    <div class="form-group" *ngIf="selectedStatut === '1'">
                                         <label class="col-form-label">Periode <span>*</span></label>
                                         <div class="pass-group group-img">
                                             <select [(ngModel)]="form.periode" name="periode" class="form-control"
-                                                id="">
+                                                id=""
+                                                (change)="onStatutChangeMensuel($event)"
+                                                >
                                                 <option *ngFor="let item of periode" [value]="item.id">
                                                     {{ item.nom }}
                                                 </option>
@@ -320,8 +322,40 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-6" *ngIf="selectedStatutMensuel === '2'">
+                                <div class="form-group">
+                                    <label class="col-form-label">Caution <span>*</span></label>
+                                    <div class="pass-group group-img">
+                                        <select [(ngModel)]="form.caution" name="periode" class="form-control" id="">
+                                            <option *ngFor="let item of valuesSelect" [value]="item">
+                                                {{ item }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                              <div class="col-lg-6 col-md-6"  *ngIf="selectedStatutMensuel === '2'">
+                                <div class="form-group">
+                                  <label class="col-form-label">Avance <span>*</span></label>
+                                  <div class="pass-group group-img">
+                                    <select
+                                      [(ngModel)]="form.avance"
+                                      name="periode"
+                                      class="form-control"
+                                      id=""
+                                    >
+                                    <option *ngFor="let item of valuesSelect" [value]="item">
+                                      {{ item }}
+                                    </option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                         </div>
-                    </div>
+                  
 
                     <div class="card">
                         <div class="card-header">
@@ -442,11 +476,44 @@
                             </div>
                             <!-- Image  -->
                             <div class="card media-section">
-
-                                <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
-                                    {{ errorMessage }}
+                                <div class="card-header">
+                                  <h4>Media Information</h4>
                                 </div>
-                            </div>
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="featured-img1">
+                                      <h6 class="media-title">Images biens <span>*</span></h6>
+                                      <div class="media-image">
+                                        <div
+                                          *ngFor="let imageUrl of image; let i = index"
+                                          class="image-container m-1"
+                                        >
+                                          <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
+                                          <button class="close-button" (click)="removeImage(i)">
+                                            <i class="fas fa-times close-icon"></i>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="settings-upload-btn">
+                                      <input
+                                        type="file"
+                                        id="photo"
+                                        name="photo"
+                                        (change)="onFileSelected($event)"
+                                        multiple
+                                        class="hide-input image-upload"
+                                        [disabled]="maxImageCount >= 8"
+                                        accept=".png, .jpeg, .jpg, .svg"
+                                      />
+                                      <label for="file" class="file-upload">Ajouter l'image</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
+                                  {{ errorMessage }}
+                                </div>
+                              </div>
                         </div>
                     </div>
                 </form>
@@ -508,7 +575,7 @@
 
 
                 <!--Commodites-->
-                <div class="card " *ngIf="commodite && commodite.length > 0">
+                <div class="card " *ngIf="les_commodite && les_commodite.length > 0">
                     <div class="card-header">
                         <i class="feather-list"></i>
                         <h4>Les commodités</h4>
@@ -516,75 +583,20 @@
                     <div class="card-body">
                         <div class="lisiting-featues">
                             <div class="row">
-                                <div *ngFor="let Commodite of commodite"
-                                    class="featureslist d-flex align-items-center col-lg-4 col-md-4">
+                                <div *ngFor="let commodite of les_commodite" class="featureslist d-flex align-items-center col-lg-4 col-md-4">
                                     <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-1.svg" alt="Room amenties">
+                                        <img src="assets/img/featured/Feature-1.svg" alt="Room amenities">
                                     </div>
-                                    <div class="featues-info">
-                                        <h6>{{Commodite.nom}}</h6>
+                                    <div class="features-info">
+                                        <input type="checkbox" [checked]="isCommoditeSelected(commodite)" (change)="toggleCommodite(commodite)">
+                                        <label>{{commodite.nom}}</label>
                                     </div>
                                 </div>
-                                <!-- <div class="featureslist d-flex align-items-center col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-2.svg" alt="Bathroom amenities">
-                                    </div>
-                                    <div class="featues-info">
-                                        <h6>Bathroom <br> amenities</h6>
-                                    </div>
-                                </div>
-                                <div class="featureslist d-flex align-items-center col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-3.svg" alt="Media Technology">
-                                    </div>
-                                    <div class="featues-info">
-                                        <h6>Media & Technology <br> amenities</h6>
-                                    </div>
-                                </div>
-                                <div class="featureslist d-flex align-items-center col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-4.svg" alt="Food Security">
-                                    </div>
-                                    <div class="featues-info">
-                                        <h6>Food & Security <br> amenities</h6>
-                                    </div>
-                                </div>
-                                <div class="featureslist d-flex align-items-center col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-5.svg" alt="Media Technology">
-                                    </div>
-                                    <div class="featues-info">
-                                        <h6>Services & Extra <br> amenities</h6>
-                                    </div>
-                                </div>
-                                <div class="featureslist d-flex align-items-center col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-6.svg" alt="Media Technology">
-                                    </div>
-                                    <div class="featues-info">
-                                        <h6>Outdoor & View <br> amenities</h6>
-                                    </div>
-                                </div>
-                                <div class="featureslist d-flex  access-feature align-items-center col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-7.svg" alt="Media Technology">
-                                    </div>
-                                    <div class="featues-info">
-                                        <h6>Accessibility <br> amenities</h6>
-                                    </div>
-                                </div>
-                                <div class="featureslist d-flex align-items-center access-feature col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-8.svg" alt="Media Technology">
-                                    </div>
-                                    <div class="featues-info">
-                                        <h6>Safety & Security<br> amenities</h6>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <!--Commodites-->
 
                 <!--Map Section-->
@@ -872,7 +884,7 @@
                             <h4> <i class="feather-user"></i> Auteur</h4>
                             <div class="sidebarauthor-details align-items-center">
                                 <div class="sideauthor-img" *ngIf="bien && bien.utilisateur">
-                                    <img src="{{generateImageUrl(bien.utilisateur.photo)}}" alt="author"
+                                    <img src="{{generateImageUrl(bien.utilisateur.photo.nom)}}" alt="author"
                                         (error)="handleAuthorImageError($event)">
                                 </div>
                                 <div class="sideauthor-info">
@@ -884,7 +896,7 @@
                         </div>
                         <div class="submit-section mb-3" style="text-align: center;"
                             *ngIf="isLoggedIn == true && currentUser == false">
-                            <button (click)="OuvrirConversation(bien.utilisateur.id)" class="btn btn-primary submit-btn"
+                            <button (click)="goToDettailBien(bien?.utilisateur?.email)" class="btn btn-primary submit-btn"
                                 type="submit">Envoyer un message</button>
                         </div>
                         <div class="card" *ngIf="isLoggedIn == true && currentUser == false">

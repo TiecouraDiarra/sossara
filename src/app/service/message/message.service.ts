@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from '../auth/storage.service';
 import { Observable } from 'rxjs';
+import { Message } from 'src/app/featuremodule/userpages/message/models/message';
+import { Chat } from 'src/app/featuremodule/userpages/message/models/chat';
 
 const URL_BASE: string = environment.Url_BASE;
 
@@ -29,7 +31,7 @@ export class MessageService {
   }
 
   constructor(private storageService: StorageService,
-    private http: HttpClient,) { }
+    private http: HttpClient, private httpClient: HttpClient) { }
 
     //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
   AfficherLaListeConversation():Observable<any>{
@@ -57,4 +59,28 @@ export class MessageService {
       content
     }, { headers });
   }
+
+
+
+
+  updateChat(message: Message, chatId: any): Observable<Object> {    
+    return this.httpClient.put(URL_BASE + "/chats/message/" + `${chatId}`, message);
+  }
+
+  getChatById(chatId: any) {
+    return this.httpClient.get<Chat>(URL_BASE + "/chats/" + chatId)
+  }
+
+  createChatRoom(chat: Chat): Observable<Object> {
+    return this.httpClient.post(URL_BASE + "/chats/add", chat);
+  }
+
+  getChatByFirstUserNameAndSecondUserName(firstUserName: any, secondUserName: any) {
+    return this.httpClient.get<Chat>(URL_BASE + "/chats/getChatByFirstUserNameAndSecondUserName" + '?expediteur=' + firstUserName + '&destinateur=' + secondUserName)
+  }
+
+  getChatByFirstUserNameOrSecondUserName(username: any) {
+    return this.httpClient.get<Chat>(URL_BASE + "/chats/allchat/" + username)
+  }
+
 }

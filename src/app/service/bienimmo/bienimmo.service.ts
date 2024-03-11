@@ -339,7 +339,7 @@ export class BienimmoService {
 
   //AJOUTER UN BIEN
   ModifierBien(
-    commodite: [],
+    commodite: any[],
     type: number,
     commune: number,
     nb_piece: number,
@@ -355,35 +355,18 @@ export class BienimmoService {
     rue: string,
     porte: number,
     periode: number,
+    caution: number,
+    avance: number,
     longitude: number,
     latitude: number,
+    photos: File[],
     id: any
   ): Observable<any> {
     const headers = this.getHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    // console.log(headers);
-    // console.log('commo', commodite);
-    // console.log('commune', commune);
-    // console.log('piece', nb_piece);
-    // console.log('nom', nom);
-    // console.log('chamb', chambre);
-    // console.log('cuis', cuisine);
-    // console.log('toil', toilette);
-    // console.log('sur', surface);
-    // console.log('prix', prix);
-    // console.log('stat', statut);
-    // console.log('descr', description);
-    // console.log('quart', quartier);
-    // console.log('rue', rue);
-    // console.log('porte', porte);
-    // console.log('periode', periode);
-    // console.log('longitude', longitude);
-    // console.log('latitude', latitude);
-    // console.log('id', id);
-    const formData = new FormData();
-
-    commodite.forEach(i => { formData.append('commodite[]', i) });
-    formData.append('type', type.toString());
+    const formData = new FormData(); 
+  
+    commodite.forEach(i => { formData.append('commodites[]', i.toString()); });
+    formData.append('typeImmoId', type.toString());
     formData.append('commune', commune.toString());
     formData.append('nb_piece', nb_piece.toString());
     formData.append('nom', nom);
@@ -392,27 +375,32 @@ export class BienimmoService {
     formData.append('toilette', toilette.toString());
     formData.append('surface', surface.toString());
     formData.append('prix', prix.toString());
-    formData.append('statut', statut);
+    formData.append('statutId', statut);
     formData.append('description', description);
     formData.append('quartier', quartier);
     formData.append('rue', rue);
     formData.append('porte', porte.toString());
     // Si le statut est "A vendre", définissez la période sur 6
-    if (statut === "A vendre") {
-      formData.append('periode', '6');
-    } else if (statut === "A louer") {
-      formData.append('periode', periode.toString());
+    if (statut === "2") {
+        formData.append('periodeId', '6');
+    } else {
+        formData.append('periodeId', periode.toString());
     }
+   
+    formData.append('caution', caution.toString());
+    formData.append('avance', avance.toString());
     formData.append('longitude', longitude.toString());
     formData.append('latitude', latitude.toString());
-    formData.append('id', id);
-
-    return this.http.post(
-      URL_BASE + '/bien/immo/update/' + `${id}`,
+    photos.forEach(p => { formData.append('photoImmos', p); });
+    formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
+  
+    return this.http.put(
+      URL_BASE + '/bien/modifierbien/' + `${id}`,
       formData,
       { headers }
     );
   }
+  
 
   //AFFICHER LA LISTE DES TYPES DE PROBLEMES
   AfficherLIsteProbleme(): Observable<any> {

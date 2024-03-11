@@ -1,4 +1,5 @@
 import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -9,11 +10,13 @@ import { DataService } from 'src/app/service/data.service';
 import { MercureService } from 'src/app/service/mercure/mercure.service';
 import { MessageService } from 'src/app/service/message/message.service';
 import Swal from 'sweetalert2';
+import { Chat } from '../message/models/chat';
+import { Message } from '../message/models/message';
 
-interface Message {
-  content: string;
-  isUser: boolean;
-}
+// interface Message {
+//   content: string;
+//   isUser: boolean;
+// }
 
 interface Conversation {
   id: number;
@@ -38,8 +41,11 @@ export class MessagesComponent implements OnInit {
   isLocataire = false;
   isAgence = false;
   roles: string[] = [];
-
+  public chatData: any;
   searchText: any;
+  secondUserName = "";
+
+  chatId: any = sessionStorage.getItem('chatId');
 
   selectedConversationId!: number;
 
@@ -59,6 +65,17 @@ export class MessagesComponent implements OnInit {
   newMessage: string = '';
   filteredMessages: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
   filteredMessagesUserCurrent: any[] = []; // Déclarez une nouvelle variable pour les messages filtrés
+  messageList: any;
+  users: any;
+  senderCheck: any;
+
+  chatForm: FormGroup;
+
+  chatObj: Chat = new Chat();
+  messageObj: Message = new Message('', '', '');
+  public chatList: any = [];
+
+  timesRun2 = 0;
 
   selectConversation(conversation: Conversation) {
     this.selectedConversation = conversation;
@@ -72,20 +89,17 @@ export class MessagesComponent implements OnInit {
     @Inject(LOCALE_ID) private localeId: string,
     private mercureService: MercureService,
     private router: Router,
+    private chatService: MessageService,
   ) {
     this.locale = localeId;
+    this.chatForm = new FormGroup({
+      replymessage: new FormControl()
+    });
   }
   ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().user.role;
-      // console.log(this.roles);
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
-        this.isLocataire = true
-      } else if (this.roles[0] == "ROLE_AGENCE") {
-        this.isAgence = true
-      }
-    }
+   
+    this.users=this.storageService.getUser()
+    this.senderCheck = this.users.email;
 
     this.mercureService.subscribeToTopic('conversation').subscribe((message: any) => {
       this.conversation.push(message);
@@ -95,8 +109,7 @@ export class MessagesComponent implements OnInit {
     this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
       this.conversations = data.conversation.reverse();
       this.IdConver = this.conversations.id
-      // console.log(this.conversations);
-      // console.log(this.conversations.nom);
+    
 
       // Initialisation de la première conversation ici, par exemple :
       if (this.conversations && this.conversations.length > 0) {
@@ -112,6 +125,28 @@ export class MessagesComponent implements OnInit {
     //   console.log(this.conversation);
     // }
     // );
+    let getByname = setInterval(() => {
+      // For getting all the chat list whose ever is logged in.
+      this.chatService.getChatByFirstUserNameOrSecondUserName(this.senderCheck).subscribe(data => {
+        this.chatData = data;
+        
+        this.chatList = this.chatData;
+      });
+
+      this.timesRun2 += 1;
+      if (this.timesRun2 === 2) {
+        clearInterval(getByname);
+      }
+    }, 1000);
+
+    setInterval(() => {
+      this.chatService.getChatById(sessionStorage.getItem("chatId")).subscribe(data => {
+        this.chatData = data;
+        this.messageList = this.chatData[0].messages;
+        this.secondUserName = this.chatData[0].destinateurInfo.nom;
+        // this.firstUserName = this.chatData.firstUserName;
+      });
+    }, 1000);
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -233,8 +268,52 @@ export class MessagesComponent implements OnInit {
   }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
-    const baseUrl = URL_PHOTO + '/uploads/images/';
+    const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
+  }
+
+  loadChatByEmail(event: string, event1: string) {
+    // For removing the previous chatId
+    sessionStorage.removeItem("chatId");
+
+    // window.location.reload();
+
+    // For checking the chat room by both the emails , if there is present then it will give the chat Id in sessionStorage
+    this.chatService.getChatByFirstUserNameAndSecondUserName(event, event1).subscribe(data => {
+      // console.log(data);
+      this.chatData = data;
+      this.chatId = this.chatData[0].chatId;
+      sessionStorage.setItem('chatId', this.chatId)
+      window.location.reload();
+
+      setInterval(() => {
+        this.chatService.getChatById(this.chatId).subscribe(data => {
+          this.chatData = data;
+          this.messageList = this.chatData.messageList;
+          this.secondUserName = this.chatData.secondUserName;
+          // this.firstUserName = this.chatData.firstUserName;
+        });
+      }, 1000)
+
+    });
+
+  }
+
+  sendMessage() {
+    // This will call the update chat method when ever user send the message
+    this.messageObj.message = this.MessageForm.content;
+    this.messageObj.senderEmail = this.senderCheck; // Utilisation de l'opérateur de coalescence nulle pour fournir une valeur par défaut si la valeur récupérée est null
+    this.chatService.updateChat(this.messageObj, this.chatId).subscribe(data => {
+      this.MessageForm.content = ''
+      // for displaying the messageList by the chatId
+      this.chatService.getChatById(this.chatId).subscribe(data => {
+        this.chatData = data;
+        this.messageList = this.chatData.messageList;
+        this.secondUserName = this.chatData.secondUserName;
+        // this.firstUserName = this.chatData.firstUserName;
+
+      })
+    })
   }
 
   // IMAGE PAR DEFAUT USER

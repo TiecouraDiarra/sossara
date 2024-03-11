@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
   cercle: any;
   region: any;
   nombreZone: any;
-  selectedValue: string | any = 'pays';
+  selectedValue: string = '';
   selectedValueR: string | any = 'region';
   selectedValueC: string | any = 'cercle';
   regions: any[] = [];
@@ -123,17 +123,18 @@ export class ProfileComponent implements OnInit {
     this.locale = localeId;
     this.User = this.storageService.getUser();
     // console.log(this.User);
+   
     this.formModif = {
-      nom: this.User.nom,
-      telephone: this.User.telephone,
-      email: this.User.email,
-      date_de_naissance: this.User.dateNaissance,
+      nom: '',
+      telephone: '',
+      email: '',
+      date_de_naissance: '',
     };
     this.formModifadress = {
-      quartier: null,
-      rue: null,
-      porte: null,
-      communeform: null
+      quartier: '',
+      rue:  '',
+      porte:  '',
+      communeform:  ''
   };
   }
 
@@ -171,10 +172,10 @@ export class ProfileComponent implements OnInit {
       } else if (this.roles[0] == "ROLE_AGENCE") {
         this.isAgence = true
       }
-
-      // Chargez l'image de profil actuelle depuis User.user.photo (si disponible)
      
     }
+
+
 
       //AFFICHER LA LISTE DES COMMUNES
       this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
@@ -199,17 +200,30 @@ export class ProfileComponent implements OnInit {
         console.log('region', this.region);
       });
 
-        //AFFICHER LES INFORMATIONS DE USER CONNECTER
-      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-        this.users = data[0];
-        console.log('users', this.users);
-        this.getRoleLabel()
-          this.profileImageUrl = this.generateImageUrl(this.users.utilisateurPhoto.nom);
-        
-      });
+       // Récupérer les données de l'utilisateur connecté
+  this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+    this.users = data[0];
+    // Attribuer les valeurs de l'utilisateur aux formulaires
+    this.formModif = {
+      nom: this.users?.nom || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
+      telephone: this.users.telephone || '',
+      email: this.users.email || '',
+      date_de_naissance: this.users.dateNaissance || '',
+    };
+    this.selectedValue= this.users.adresse?.commune?.cercle?.region.pays?.nompays;
+
+    this.formModifadress = {
+      quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
+      rue:  this.users.adresse?.rue || '',
+      porte:  this.users.adresse?.porte || '',
+      communeform:  this.users.adresse?.commune?.nomcommune || ''
+    };
+  });
   
 
   }
+   // Méthode pour charger la liste des pays
+  
   onChange2(newValue: any) {
     this.regions1 = this.region.filter(
       (el: any) =>
@@ -455,10 +469,10 @@ export class ProfileComponent implements OnInit {
           // console.log('Photo changed successfully', successResponse);
           // this.User.photos[0] = photo.name;
           // user.photos[0].nom = successResponse?.message;
-          if (user.photos?.length > 0) {
-            user.photos[0].nom = successResponse?.message;
+          if (user.utilisateurPhoto?.length > 0) {
+            user.utilisateurPhoto.nom = successResponse?.message;
           } else {
-            user.photos[0] = [{ nom: successResponse?.message }];
+            user.utilisateurPhoto = [{ nom: successResponse?.message }];
           }
           this.storageService.setUser(user);
           console.log(successResponse);
@@ -470,7 +484,7 @@ export class ProfileComponent implements OnInit {
           if (this.User.photos?.length > 0 || this.User.photos.length === 0) {
             this.User.photos[0].nom = uniqueFileName;
           }
-          // this.reloadPage();
+          this.reloadPage();
         },
         error => {
           // console.error('Error while changing photo', error);

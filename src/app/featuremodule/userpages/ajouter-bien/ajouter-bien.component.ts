@@ -328,22 +328,7 @@ export class AjouterBienComponent {
     }
   }
 
-  // onStatutChangeMensuel(event: any) {
-  //   const selectedId = parseInt(event.target.value); // Convertir en nombre entier
   
-  //   console.log("selectedId :", selectedId); // Vérifiez quelle valeur est sélectionnée
-  //   console.log("this.periode :", this.periode); // Vérifiez si this.periode est défini
-  
-  //   if (this.periode && this.periode.length > 0) {
-  //       const selectedStatutMensuel = this.periode.find(item => item.id === selectedId);
-  
-  //       console.log("selectedPeriode :", selectedStatutMensuel); // Vérifiez la valeur de selectedPeriode
-  
-  //       if (selectedStatutMensuel && selectedStatutMensuel.nom === 'Mensuel') {
-  //           this.form.periode = null; // Mettre la période à null si la période est "Mensuel"
-  //       }
-  //   }
-  // }
 
   // onFileSelected(newValue: any) {
   //   this.files.push(newValue.target.files[0]);
