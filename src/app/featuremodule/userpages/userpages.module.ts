@@ -15,6 +15,7 @@ import { VisaComponent } from './visa/visa.component';
 import { FactureComponent } from './facture/facture.component';
 import { RecuComponent } from './recu/recu.component';
 import { ListerecuComponent } from './listerecu/listerecu.component';
+import { ContratComponent } from './contrat/contrat.component';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -27,6 +28,7 @@ import { ListerecuComponent } from './listerecu/listerecu.component';
     FactureComponent,
     RecuComponent,
     ListerecuComponent,
+    ContratComponent,
     // LocataireComponent,
     // ProprietaireComponent,
     // MesReclamationsComponent,

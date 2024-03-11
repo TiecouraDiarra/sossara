@@ -8,10 +8,12 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { commentaireService } from 'src/app/service/commentaire/commentaire.service';
+import * as L from 'leaflet';
 
 
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import Swal from 'sweetalert2';
+import { UsageService } from 'src/app/service/usage/usage.service';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -59,6 +61,7 @@ export class DetailsbienComponent implements AfterViewInit {
   images: File[] = [];
   idBien: any;
   nombreZone: any;
+  usage: any;
 
 
   generateQrCodeUrl(qrCodeBase64: string): string {
@@ -66,7 +69,6 @@ export class DetailsbienComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data;
       console.log(this.bien);
@@ -76,29 +78,40 @@ export class DetailsbienComponent implements AfterViewInit {
       this.longitude = this.bien?.adresse?.longitude || null;
       this.nombien = this.bien?.nom;
 
-      // Reste du code pour récupérer d'autres données...
-
       // Options de la carte
       const mapOptions = {
-        center: { lat: this.latitude, lng: this.longitude },
+        center: [this.latitude, this.longitude],
         zoom: 15,
       };
 
-      // Attendre que le DOM soit chargé pour initialiser la carte
-      setTimeout(() => {
-        const mapElement = document.getElementById("mape");
-        const map = new google.maps.Map(mapElement, mapOptions);
+      // Récupération de l'élément de la carte dans le DOM
+      const mapElement = document.getElementById('mape');
 
+      // Vérification que l'élément de la carte existe dans le DOM
+      if (mapElement) {
+        // Création de la carte Leaflet
+        const map = L.map(mapElement).setView([this.longitude, this.latitude], 12);
 
-        // Créer un marqueur pour l'emplacement
-        const marker = new google.maps.Marker({
-          position: { lat: this.latitude, lng: this.longitude },
-          map: map,
-          title: this.nombien,
+        // Ajouter des tuiles OpenStreetMap à la carte
+        const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 20,
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         });
-      }, 0); // Utilisation d'un délai de 0 millisecondes pour s'assurer que le DOM est prêt
+
+        tiles.addTo(map);
+        // Créer un marqueur pour l'emplacement
+        L.marker([this.latitude, this.longitude]).addTo(map)
+          .bindPopup(this.nombien)
+          .openPopup();
+        // Centrer la carte sur le marqueur
+        map.setView([this.latitude, this.longitude]);
+      } else {
+        console.error("L'élément de la carte est introuvable dans le DOM.");
+      }
     });
   }
+
+
 
   latitude: any
   longitude: any
@@ -250,6 +263,7 @@ export class DetailsbienComponent implements AfterViewInit {
     private serviceCommodite: CommoditeService,
     private serviceBienImmo: BienimmoService,
     private serviceUser: UserService,
+    private serviceUsage: UsageService,
     private storageService: StorageService,
     private servicecommentaire: commentaireService,
     private route: ActivatedRoute,
@@ -423,6 +437,13 @@ export class DetailsbienComponent implements AfterViewInit {
       });
 
     });
+
+    //AFFICHER LA LISTE DES USAGE
+    this.serviceUsage.AfficherListeUsage().subscribe(data => {
+      this.usage = data;
+      console.log(this.usage)
+    }
+    );
 
     const Users = this.storageService.getUser();
     // console.log(Users);
@@ -618,6 +639,10 @@ export class DetailsbienComponent implements AfterViewInit {
     }
   }
 
+  formCandidater: any = {
+    usage: null,
+    date: null,
+  };
 
   //METHODE PERMETTANT DE CANDIDATER UN BIEN
   CandidaterBien(): void {
@@ -652,7 +677,7 @@ export class DetailsbienComponent implements AfterViewInit {
             this.idBien = data.id;
             console.log(this.idBien);
             // Appelez la méthode PrendreRdv() avec le contenu et l'ID
-            this.serviceBienImmo.CandidaterBien(this.idBien).subscribe({
+            this.serviceBienImmo.CandidaterBien(this.idBien, this.formCandidater.usage, this.formCandidater.date).subscribe({
               next: (data) => {
                 if (data.status) {
                   let timerInterval = 2000;

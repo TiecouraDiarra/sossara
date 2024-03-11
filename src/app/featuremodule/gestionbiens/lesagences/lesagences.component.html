@@ -10,7 +10,7 @@
             <li class="breadcrumb-item">
               <a [routerLink]="routes.home9">Accueil</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">agences</li>
+            <li class="breadcrumb-item active" aria-current="page">Agences</li>
           </ol>
         </nav>
       </div>
@@ -125,7 +125,7 @@
                   | paginate : { itemsPerPage: 4, currentPage: p }
               "
             >
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="property-item">
                   <a>
                     <div class="companies-set mb-4">
@@ -142,31 +142,33 @@
                           </span>
                         </div>
                         <div class="companies-set-content">
-                          <h6>{{ Agence.nom }}</h6>
+                          <h4>{{ Agence.nom }}</h4>
                           <h5>
-                            <span>{{ Agence?.telephone }}</span>
+                            <!-- <span>{{ Agence?.telephone }}</span> -->
                           </h5>
                         </div>
                       </div>
                       <div class="companies-set-count">
-                        <ul>
-                          <li>
-                            <h6>{{ NombreBienCount[Agence.id] }}</h6>
-                            <span>Biens</span>
-                          </li>
-                          <li>
-                            <h6>{{ NombreBienLouerCount[Agence.id] }}</h6>
-                            <span>Louer</span>
-                          </li>
-                          <li>
-                            <h6>{{ NombreBienVendreCount[Agence.id] }}</h6>
-                            <span>Vendre</span>
-                          </li>
-                          <li>
-                            <h6>{{ NombreAgentCount[Agence.id] }}</h6>
-                            <span>Agents</span>
-                          </li>
-                        </ul>
+                        <div class="tst" style="background-color: white; margin-bottom: 8px;">
+                          <ul>
+                            <li>
+                              <h6>{{ NombreBienCount[Agence.id] }}</h6>
+                              <span>Biens</span>
+                            </li>
+                            <li>
+                              <h6>{{ NombreBienLouerCount[Agence.id] }}</h6>
+                              <span>Louer</span>
+                            </li>
+                            <li>
+                              <h6>{{ NombreBienVendreCount[Agence.id] }}</h6>
+                              <span>Vendre</span>
+                            </li>
+                            <li>
+                              <h6>{{ NombreAgentCount[Agence.id] }}</h6>
+                              <span>Agents</span>
+                            </li>
+                          </ul>
+                        </div>
                         <div class="companies-set-btn">
                           <a
                             (click)="goToDettailAgence(Agence.uuid)"
