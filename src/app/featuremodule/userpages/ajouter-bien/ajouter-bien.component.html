@@ -117,7 +117,7 @@
                   <div class="row">
                     <div
                       class="col-lg-4 col-md-6"
-                      *ngFor="let item of les_commodite"
+                      *ngFor="let item of lesCommodite"
                     >
                       <ul>
                         <li>
@@ -541,31 +541,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- <div class="row">
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input lat-input">
-                  <input
-                    [(ngModel)]="form.latitude"
-                    type="text"
-                    name="latitude"
-                    class="form-control"
-                    value="26.045197767574102"
-                  />
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
-                  <input
-                    name="loguititude"
-                    [(ngModel)]="form.loguititude"
-                    type="text"
-                    class="form-control"
-                    value="-80.26095677163161"
-                  />
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
         <!-- LA PARTIE MAP  -->
@@ -573,12 +548,10 @@
           <div class="card-header">
             <h4>Choisir l'emplacement du bien sur la map</h4>
           </div>
+          <div class="listing-map">
+            <div id="map" style="width: 100%; height: 32vw"></div>
+          </div>
           <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="listing-map">
-                <div id="map" style="width: 100%; height: 32vw"></div>
-              </div>
-            </div>
             <div class="col-lg-6 col-md-6">
               <div class="form-group">
                 <label class="col-form-label">Latitude</label>
@@ -591,6 +564,8 @@
                   [(ngModel)]="form.latitude"
                 />
               </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
               <div class="form-group">
                 <label class="col-form-label">Longitude</label>
                 <input
@@ -604,127 +579,8 @@
               </div>
             </div>
           </div>
-
-          <!-- MAP ADRESSE  -->
-          <!-- <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="form-group">
-                <label class="col-form-label">Latitude</label>
-                <input type="text" class="form-control" readonly placeholder="Latitude" name="latitude"
-                  [(ngModel)]="form.latitude" />
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="form-group">
-                <label class="col-form-label">Longitude</label>
-                <input type="text" class="form-control" readonly placeholder="Longitude" name="longitude"
-                  [(ngModel)]="form.longitude" />
-              </div>
-            </div>
-          </div> -->
         </div>
-        <!-- <div class="card">
-          <div class="card-header">
-            <h4>Contact Information</h4>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label class="col-form-label">Email </label>
-              <input
-                type="text"
-                class="form-control pass-input"
-                placeholder=""
-              />
-            </div>
-            <div class="form-group">
-              <label class="col-form-label">Website </label>
-              <input
-                type="text"
-                class="form-control pass-input"
-                placeholder=""
-              />
-            </div>
-            <div class="form-group formlast-input">
-              <label class="col-form-label">Phone </label>
-              <input
-                type="text"
-                class="form-control pass-input"
-                placeholder=""
-              />
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h4>Social Information</h4>
-          </div>
-          <div class="card-body">
-            <div class="row social-info">
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                  <label class="col-form-label">Facebook</label>
-                  <div class="pass-group group-img">
-                    <span class="lock-icon"
-                      ><i class="fab fa-facebook-f"></i
-                    ></span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      value="http://facebook.com"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                  <label class="col-form-label">Twitter</label>
-                  <div class="pass-group group-img">
-                    <span class="lock-icon"
-                      ><i class="fab fa-twitter"></i
-                    ></span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      value="http://twitter.com"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row social-info">
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input lat-input">
-                  <label class="col-form-label">Google+</label>
-                  <div class="pass-group group-img">
-                    <span class="lock-icon"
-                      ><i class="fa-brands fa-google-plus-g"></i
-                    ></span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      value="http://google.com"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
-                  <label class="col-form-label">Instagram</label>
-                  <div class="pass-group group-img">
-                    <span class="lock-icon"
-                      ><i class="fab fa-instagram"></i
-                    ></span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      value="http://instagram.com"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
+        
         <div class="card media-section">
           <div class="card-header">
             <h4>Media Information</h4>
@@ -759,61 +615,6 @@
                 <label for="file" class="file-upload">Ajouter l'image</label>
               </div>
             </div>
-            <!-- <div class="gallery-media">
-              <h6 class="media-title">Gallery</h6>
-              <div class="galleryimg-upload">
-                <div class="gallery-upload">
-                  <img
-                    src="assets/img/gallery/gallerymedia-1.jpg"
-                    class="img-fluid"
-                    alt=""
-                  />
-                  <a href="javascript:void(0)" class="profile-img-del"
-                    ><i class="feather-trash-2"></i
-                  ></a>
-                </div>
-                <div class="gallery-upload">
-                  <img
-                    src="assets/img/gallery/gallerymedia-2.jpg"
-                    class="img-fluid"
-                    alt=""
-                  />
-                  <a href="javascript:void(0)" class="profile-img-del"
-                    ><i class="feather-trash-2"></i
-                  ></a>
-                </div>
-                <div class="gallery-upload">
-                  <img
-                    src="assets/img/gallery/gallerymedia-3.jpg"
-                    class="img-fluid"
-                    alt=""
-                  />
-                  <a href="javascript:void(0)" class="profile-img-del"
-                    ><i class="feather-trash-2"></i
-                  ></a>
-                </div>
-                <div class="gallery-upload">
-                  <img
-                    src="assets/img/gallery/gallerymedia-4.jpg"
-                    class="img-fluid"
-                    alt=""
-                  />
-                  <a href="javascript:void(0)" class="profile-img-del"
-                    ><i class="feather-trash-2"></i
-                  ></a>
-                </div>
-                <div class="gallery-upload">
-                  <img
-                    src="assets/img/gallery/gallerymedia-5.jpg"
-                    class="img-fluid"
-                    alt=""
-                  />
-                  <a href="javascript:void(0)" class="profile-img-del"
-                    ><i class="feather-trash-2"></i
-                  ></a>
-                </div>
-              </div>
-            </div> -->
           </div>
           <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
             {{ errorMessage }}

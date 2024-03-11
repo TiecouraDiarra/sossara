@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth.guard';
 import { UserpagesComponent } from './userpages.component';
+import { MessageComponent } from './message/message.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,16 @@ const routes: Routes = [
           ),
         // canActivate: [AuthGuard]
       },
+      {
+        path: 'modifier-bien/:uuid',
+        loadChildren: () =>
+          import('./modifier-bien/modifier-bien.module').then(
+            (m) => m.ModifierBienModule
+          ),
+        // canActivate: [AuthGuard]
+      },
+      
+      {path: 'message', component: MessageComponent},
       {
         path: 'mes-agents',
         loadChildren: () =>

@@ -556,6 +556,12 @@ export class AgenceComponent {
     return this.router.navigate(['details-bien', id])
   }
 
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
+  goToModifierBien(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/modifier-bien', id])
+  }
+
   //METHODE PERMETTANT DE SE DECONNECTER
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({

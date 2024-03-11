@@ -71,27 +71,26 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="chat-users-list">
-                            <div class="chat-scroll">
-                                <a class="media d-flex" *ngFor="let Conversations of conversations | filter:searchText">
+                        <div class=" cardS chat-users-list">
+                            <div class="card-body msg_card_bodyZ chat-scroll" >
+                                <a class="media d-flex" *ngFor="let Conversations of chatList | filter:searchText">
                                     <div class="media-img-wrap flex-shrink-0 crd"
-                                        (click)="onConversationSelected(Conversations.conversationId)">
-                                        <div class="avatar avatar-online">
-                                            <img src="{{generateImageUrl(Conversations.photo)}}"
-                                                class="avatar-img rounded-circle" alt="img"
-                                                (error)="handleAuthorImageError($event)">
-                                        </div>
+                                    (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
+                                    <div class="img_cont">
+                                        <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName!=senderCheck">
+                                          {{Conversations?.destinateurInfo.nom.substring(0,1)}}</div>
+                                        <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                          {{firstUserName.substring(0,1)}}</div> -->
+                                      </div> &nbsp; &nbsp;
                                     </div>
-                                    <div class="media-body flex-grow-1">
+                                    <div class="media-body flex-grow-1 mt-4"  (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
                                         <div>
-                                            <div class="user-name">{{Conversations.nom}}</div>
-                                            <div class="user-last-chat">{{Conversations.content}}</div>
+                                            <div class="user-name">{{Conversations?.destinateurInfo.nom}}</div>
+                                            <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
                                         </div>
+                                        
                                         <div>
-                                            <div class="last-chat-time block">{{Conversations.createdAt |
-                                                date:"dd/MM/yyyy"}} - {{Conversations.createdAt |
-                                                date:"HH:mm"}} </div>
-                                            <div class="badge badge-success rounded-pill">10</div>
+                                            <div class="badge badge-success rounded-pill">{{Conversations?.messages.length}}</div>
                                         </div>
                                     </div>
                                 </a>
@@ -100,52 +99,87 @@
                     </div>
                 </div>
 
-                <div class="col-lg-7" *ngIf="conversationSelectionnee">
+                <div class="col-lg-7" >
                     <div class="chat-cont-right">
                         <div class="chat-header">
                             <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </a>
                             <div class="media d-flex align-items-center">
-                                <div class="media-img-wrap flex-shrink-0">
-                                    <div class="avatar avatar-online">
-                                        <img src="{{generateImageUrl(photoUserConversation)}}" alt="User Image"
-                                            (error)="handleAuthorImageError($event)" class="avatar-img rounded-circle">
-                                    </div>
-                                </div>
+                                <div class="img_cont">
+                                    <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName!=senderCheck">
+                                      {{secondUserName?.substring(0,1)}}</div>
+                                    <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                      {{firstUserName.substring(0,1)}}</div> -->
+                                  </div> &nbsp; &nbsp;
                                 <div class="media-body flex-grow-1">
-                                    <div class="user-name">{{nomConversation}}</div>
+                                    <div class="user-name">{{secondUserName}}</div>
                                 </div>
                             </div>
                         </div>
                         <div class="chat-body">
-                            <div class="chat-scroll">
-                                <ul class="list-unstyled">
+                            <div class="card">
+                                <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                                <ul class="list-unstyled ">
                                     <li class="media d-flex received">
                                         <!-- <div class="avatar flex-shrink-0">
                                             <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
                                                 alt="User Image" class="avatar-img rounded-circle">
                                         </div> -->
                                         <div class="media-body flex-grow-1">
-                                            <div class="msg-box" *ngFor="let Messages of messages">
-                                                <div class="avatar flex-shrink-0 imagChat" *ngIf="!Messages.mine">
-                                                    <img src="{{generateImageUrl(Messages.utilisateur.photo)}}" (error)="handleAuthorImageError($event)" alt="Image du message">
-                                                </div>
-                                                <div [ngClass]="{'mine-message': Messages.mine === true, 'other-message': !Messages.mine}"
-                                                    [ngStyle]="{'background-color': Messages.mine ? '#e98b11' : '#374b5c', 'margin-left': Messages.mine ? '55%' : 'auto'}">
-                                                    <p>{{Messages.content }}</p>
+                                            <div class="msg-box" *ngFor="let Messages of messageList">
+                                                <!-- <div class="avatar flex-shrink-0 imagChat" *ngIf="!Messages.senderEmail==senderCheck">
+                                                    <img src="{{generateImageUrl(users?.photos[0].nom)}}" (error)="handleAuthorImageError($event)" alt="Image du message">
+                                                </div> -->
+                                                <div class="d-flex justify-content-end mb-2" *ngIf="Messages.senderEmail==senderCheck">
+                                                    <div class="msg_cotainer_send">
+                                                      <!-- {{msg.replymessage | json}} -->
+                                                     <p style="background-color: #e98b11; padding: 15px; border-radius: 20px; margin-right: 5px;"> {{Messages.message}}</p>
+                                                     <!-- <ul class="chat-msg-info">
+                                                        <li>
+                                                            <div class="chat-time">
+                                                                <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul> -->
+                                                      <span class="msg_time_send float-end">{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                    </div>
+                                                    <div class="img_cont_msg">
+                                                      <span
+                                                        class="rounded-circle user_img_msg text_inside_circle4">{{Messages.senderEmail.substring(0,1)}}</span>
+                                                    </div>
+                                                  </div>
+                                                  <div class="d-flex justify-content-start mb-2" *ngIf="Messages.senderEmail!=senderCheck">
+                                                    <div class="img_cont_msg">
+                                                      <span
+                                                        class="rounded-circle user_img_msg text_inside_circle3">{{Messages.senderEmail.substring(0,1)}}</span>
+                                                    </div>
+                                                    <div class="msg_cotainer" >
+                                                        <p style="background-color: #374b5c; padding: 15px;border-radius: 20px; margin-left: 5px;"> {{Messages.message}}</p>
+                                                        <!-- <ul class="chat-msg-info">
+                                                           <li>
+                                                               <div class="chat-time">
+                                                                   <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                               </div>
+                                                           </li>
+                                                       </ul> -->
+                                                      <span class="msg_time_send">{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                    </div>
+                                                  </div>
+                                                <!-- <div [ngClass]="{'mine-message': Messages.senderEmail==senderCheck, 'other-message': !Messages.senderEmail==senderCheck}"
+                                                    [ngStyle]="{'background-color': Messages.senderEmail==senderCheck ? '#e98b11' : '#374b5c', 'margin-left': Messages.senderEmail==senderCheck ? '70%' : 'auto'}">
+                                                  
+
+                                                    <p>{{Messages.message }}</p>
+
                                                     <ul class="chat-msg-info">
                                                         <li>
                                                             <div class="chat-time">
-                                                                <span>{{ Messages.createdAt | date:"dd MMM yyyy
-                                                                    HH:mm":locale}}</span>
+                                                                <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                </div>
-                                                <div class="avatar flex-shrink-0 imagChat" *ngIf="Messages.mine">
-                                                    <img src="{{generateImageUrl(Messages.utilisateur.photo)}}" (error)="handleAuthorImageError($event)" alt="Image du message">
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </li>
@@ -199,6 +233,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            </div>
                         </div>
                         <div class="chat-footer">
                             <div class="input-group">
@@ -210,12 +245,13 @@
                                         <input name="file" type="file">
                                     </div>
                                 </div>
-                                <button (click)="EnvoyerMessage(selectedConversationId)"
+                                <button (click)="sendMessage()"
                                     [disabled]="!MessageForm.content || MessageForm.content.trim() === '' "
                                     type="button" class="btn msg-send-btn"><i class="fas fa-paper-plane"></i></button>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

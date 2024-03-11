@@ -10,25 +10,26 @@ import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { commentaireService } from 'src/app/service/commentaire/commentaire.service';
 import * as L from 'leaflet';
 
-
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
+import { MessageService } from 'src/app/service/message/message.service';
 import Swal from 'sweetalert2';
 import { UsageService } from 'src/app/service/usage/usage.service';
+import { Chat } from '../../userpages/message/models/chat';
+import { Message } from '../../userpages/message/models/message';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
-
 @Component({
   selector: 'app-detailsbien',
   templateUrl: './detailsbien.component.html',
-  styleUrls: ['./detailsbien.component.css']
+  styleUrls: ['./detailsbien.component.css'],
 })
 export class DetailsbienComponent implements AfterViewInit {
   public routes = routes;
   public albumsOne: any = [];
   public albumsTwo: any = [];
-  bien: any
+  bien: any;
   les_commodite: any[] = [];
   cercles: any[] = [];
   cercle: any;
@@ -39,8 +40,8 @@ export class DetailsbienComponent implements AfterViewInit {
   bienImmo: any;
   region: any;
   adresse: any;
-  id: any
-  commodite: any
+  id: any;
+  commodite: any;
   errorMessage: any = '';
   isSuccess: any = false;
   isError: any = false;
@@ -51,7 +52,7 @@ export class DetailsbienComponent implements AfterViewInit {
   // adresse : any
   // createdAt : any
   // User : any
-  commentaire: any
+  commentaire: any;
   regions: any = [];
   communes: any = [];
   selectedValue: string | any = 'pays';
@@ -62,7 +63,15 @@ export class DetailsbienComponent implements AfterViewInit {
   idBien: any;
   nombreZone: any;
   usage: any;
+  users: any;
 
+  senderCheck: any;
+  chatId: any = sessionStorage.getItem('chatId');
+  chat: any;
+  chatObj: Chat = new Chat();
+  messageObj: Message = new Message('', '', '');
+  public chatData: any;
+  lesCommodites: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -71,8 +80,6 @@ export class DetailsbienComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data;
-      console.log(this.bien);
-
       this.photos = this.bien.photos;
       this.latitude = this.bien?.adresse?.latitude || null;
       this.longitude = this.bien?.adresse?.longitude || null;
@@ -117,23 +124,20 @@ export class DetailsbienComponent implements AfterViewInit {
   longitude: any
   description: any
   status: any = ['A louer', 'A vendre'];
-  type: any
+  type: any;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   selectedFiles: any;
   isButtonDisabled: boolean = false;
   maxImageCount: number = 0;
   message: string | undefined;
-  periode: any
-
-
-
+  periode: any;
 
   commentaireForm: any = {
     contenu: null,
-  }
+  };
   reponseForm: any = {
     contenu: null,
-  }
+  };
   currentUser: any = false;
   ModifBien: any = false;
 
@@ -166,7 +170,7 @@ export class DetailsbienComponent implements AfterViewInit {
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
           // console.log(this.image);
-          this.maxImageCount = this.image.length
+          this.maxImageCount = this.image.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
@@ -180,7 +184,6 @@ export class DetailsbienComponent implements AfterViewInit {
     this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
   }
-
 
   getFullImagePath(imageName: string): string {
     // Assurez-vous que le chemin de base est correctement configuré
@@ -198,7 +201,8 @@ export class DetailsbienComponent implements AfterViewInit {
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
-    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+    event.target.src =
+      'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
   onChangeCommodite() {
@@ -210,18 +214,15 @@ export class DetailsbienComponent implements AfterViewInit {
         }
       }
       this.form.commodite = commoditeArray;
-      // console.log(this.form.commodite);
     }
   }
-
-
 
   photos: any;
 
   RdvForm: any = {
     date: null,
-    heure: null
-  }
+    heure: null,
+  };
 
   form: any = {
     commodite: null,
@@ -251,7 +252,6 @@ export class DetailsbienComponent implements AfterViewInit {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    console.log("this.selectedStatut", this.selectedStatut)
     if (this.selectedStatut === '2') {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
@@ -268,16 +268,14 @@ export class DetailsbienComponent implements AfterViewInit {
     private servicecommentaire: commentaireService,
     private route: ActivatedRoute,
     private serviceAdresse: AdresseService,
+    private chatService: MessageService
   ) {
     //RECUPERER L'ID D'UN BIEN
-    this.id = this.route.snapshot.params["id"];
-
-
+    this.id = this.route.snapshot.params['id'];
 
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(this.bien);
       this.form = {
         nom: this.bien?.nom,
         description: this.bien?.description,
@@ -297,18 +295,14 @@ export class DetailsbienComponent implements AfterViewInit {
         latitude: this.bien?.adresse?.latitude,
         commune: this.bien?.adresse?.commune?.id,
         pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
-        region: this.bien?.adresse?.commune?.region?.id
-
+        region: this.bien?.adresse?.commune?.region?.id,
       };
       this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
         this.les_commodite = data;
-        console.log('commodite vvvvv', this.les_commodite);
       });
-
 
       if (this.bien) {
         // Parcourez les commodités liées à bien
-        console.log("je suis", this.bien.commodites, "les commm", this.les_commodite)
         for (const item of this.les_commodite) {
           // Vérifiez si l'ID de la commodité est dans la liste des commodités de bien
           item.selected = this.bien.commodites.some(
@@ -328,7 +322,7 @@ export class DetailsbienComponent implements AfterViewInit {
   initMap() {
     const mapOptions = {
       center: { lat: 12.639231999999997, lng: -7.998184000000001 }, // Coordonnées initiales de la carte
-      zoom: 15 // Niveau de zoom initial
+      zoom: 15, // Niveau de zoom initial
     };
 
     const map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -337,6 +331,8 @@ export class DetailsbienComponent implements AfterViewInit {
     this._lightbox.close();
   }
   ngOnInit(): void {
+    this.users = this.storageService.getUser();
+    this.senderCheck = this.users.email;
     // this.initMap();
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
@@ -345,35 +341,24 @@ export class DetailsbienComponent implements AfterViewInit {
       this.isLoginFailed = false;
     }
     //RECUPERER L'ID D'UN BIEN
-    this.id = this.route.snapshot.params["id"]
-
+    this.id = this.route.snapshot.params['id'];
 
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(this.bien);
-
+      console.log(data);
+      this.lesCommodites = data?.commodites;
       this.photos = this.bien?.photos;
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
-      // this.nombien = this.bien.nom;
-      // this.description = this.bien.description;
-      // this.status = this.bien.statut;
-      // this.type = this.bien.statut;
-      // this.commodite = data.commodites;
-      // this.commentaire = data.commentaire
-      // console.log(this.bien);
-      // console.log(this.latitude);
-      // console.log(this.longitude);
-      // console.log(this.photos);
-      // console.log(this.storageService.getUser().user.id);
-      // console.log(this.bien.utilisateur.id);
 
       const currentUser = this.storageService.getUser();
 
-
-
-      if (currentUser && this.bien && currentUser?.id === this.bien?.utilisateur?.id) {
+      if (
+        currentUser &&
+        this.bien &&
+        currentUser?.id === this.bien?.utilisateur?.id
+      ) {
         this.currentUser = true;
         this.ModifBien = true;
       }
@@ -402,40 +387,41 @@ export class DetailsbienComponent implements AfterViewInit {
         zoom: 15, // Niveau de zoom initial
       };
       // Initialiser la carte dans l'élément avec l'ID "map"
-      const mapElement = document.getElementById("map");
+      const mapElement = document.getElementById('map');
       const map = new google.maps.Map(mapElement, mapOptions);
       // Créer un marqueur initial au centre de la carte
       const initialMarker = new google.maps.Marker({
         position: mapOptions.center,
         map: map,
-        draggable: true // Rend le marqueur draggable
+        draggable: true, // Rend le marqueur draggable
       });
       // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
-      google.maps.event.addListener(initialMarker, 'dragend', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
-        this.form.latitude = markerEvent.latLng.lat();
-        this.form.longitude = markerEvent.latLng.lng();
-
-        // console.log('Latitude :', this.form.latitude);
-        // console.log('Longitude :', this.form.longitude);
-      });
+      google.maps.event.addListener(
+        initialMarker,
+        'dragend',
+        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+          this.form.latitude = markerEvent.latLng.lat();
+          this.form.longitude = markerEvent.latLng.lng();
+        }
+      );
 
       // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
-      google.maps.event.addListener(initialMarker, 'click', (markerEvent: { latLng: { lat: () => any; lng: () => any; }; }) => {
-        const newLatLng = new google.maps.LatLng(
-          initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
-          initialMarker.getPosition().lng() + 0.001  // Déplacez le marqueur d'une petite quantité en longitude
-        );
+      google.maps.event.addListener(
+        initialMarker,
+        'click',
+        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+          const newLatLng = new google.maps.LatLng(
+            initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
+            initialMarker.getPosition().lng() + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
+          );
 
-        initialMarker.setPosition(newLatLng);
+          initialMarker.setPosition(newLatLng);
 
-        // Mettez à jour les coordonnées dans votre formulaire
-        this.form.latitude = newLatLng.lat();
-        this.form.longitude = newLatLng.lng();
-
-        // console.log('Latitude :', this.form.latitude);
-        // console.log('Longitude :', this.form.longitude);
-      });
-
+          // Mettez à jour les coordonnées dans votre formulaire
+          this.form.latitude = newLatLng.lat();
+          this.form.longitude = newLatLng.lng();
+        }
+      );
     });
 
     //AFFICHER LA LISTE DES USAGE
@@ -446,84 +432,64 @@ export class DetailsbienComponent implements AfterViewInit {
     );
 
     const Users = this.storageService.getUser();
-    // console.log(Users);
     const token = Users.token;
-    // console.log(token);
     this.serviceUser.setAccessToken(token);
 
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
-    this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
-      this.commentaire = data.reverse();
-      console.log(this.commentaire);
-    });
+    this.servicecommentaire
+      .AffichercommentaireParBien(this.id)
+      .subscribe((data) => {
+        this.commentaire = data.reverse();
+      });
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.les_commodite = data;
-      console.log('commodite', this.les_commodite);
     });
 
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
-      // console.log('commune de test', this.commune);
     });
     //AFFICHER LA LISTE DES Pays
     this.serviceAdresse.AfficherListePays().subscribe((data) => {
       this.pays = data;
-      console.log('pays', this.pays);
     });
     //AFFICHER LA LISTE DES CERCLE
     this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
       this.cercle = data;
-      console.log('cercle de test', this.cercle);
     });
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
       this.nombreZone = data.length;
-      console.log('region', this.region);
     });
     //AFFICHER LA LISTE DES TYPEBIEN
     this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
       this.typebien = data;
-      console.log('typebien de test', this.typebien);
     });
 
     //AFFICHER LA LISTE DES PERIODES
     this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
       this.periode = data;
-      console.log('periode de test', this.periode);
     });
     //AFFICHER LA LISTE DES PERIODES
     this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
       this.status = data;
-      console.log('status de test', this.status);
     });
-
 
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-      // this.les_commodite = data.commodite;
-      // this.adresse = data;
-      // this.pays = data.pays;
-      // this.region = data.region.reverse();
-      // this.commune = data.commune;
-      // this.periode = data.periode;
       this.typebien = data.type;
-      // console.log(data);
     });
-
-
-
   }
 
   direction() {
-    this.router.navigate([routes.servicedetails])
+    this.router.navigate([routes.servicedetails]);
   }
 
-  // FORMATER LE PRIX 
+  // FORMATER LE PRIX
   formatPrice(price: number): string {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
   getCurrentDate(): string {
     const now = new Date();
@@ -533,13 +499,9 @@ export class DetailsbienComponent implements AfterViewInit {
     return `${year}-${month}-${day}`;
   }
 
-  //METHODE PERMETTANT DE FAIRE UN commentaire 
+  //METHODE PERMETTANT DE FAIRE UN commentaire
   Fairecommentaire(id: number): void {
-    this.id = this.route.snapshot.params["id"]
-    // const Users = this.storageService.getUser();
-    // console.log(Users);
-    // const token = Users.token;
-    // this.serviceUser.setAccessToken(token);
+    this.id = this.route.snapshot.params['id'];
 
     const user = this.storageService.getUser();
     if (user && user.token) {
@@ -547,25 +509,29 @@ export class DetailsbienComponent implements AfterViewInit {
       this.serviceUser.setAccessToken(user.token);
 
       // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-      this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, id).subscribe(
-        data => {
-          console.log("commentaire envoyé avec succès:", data);
-          // this.isSuccess = false;
-          // this.commentaire;
-          // this.commentaireForm.contenu = '';
+      this.servicecommentaire
+        .Fairecommentaire(this.commentaireForm.contenu, id)
+        .subscribe(
+          (data) => {
+            console.log('commentaire envoyé avec succès:', data);
+            // this.isSuccess = false;
+            // this.commentaire;
+            // this.commentaireForm.contenu = '';
 
-          //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
-          this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
-            this.commentaire = data.reverse();
-            // console.log(this.commentaire);
-            this.commentaireForm.contenu = '';
-          });
-        },
-        error => {
-          // console.error("Erreur lors de l'envoi du commentaire :", error);
-          // Gérez les erreurs ici
-        }
-      );
+            //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+            this.servicecommentaire
+              .AffichercommentaireParBien(this.id)
+              .subscribe((data) => {
+                this.commentaire = data.reverse();
+                // console.log(this.commentaire);
+                this.commentaireForm.contenu = '';
+              });
+          },
+          (error) => {
+            // console.error("Erreur lors de l'envoi du commentaire :", error);
+            // Gérez les erreurs ici
+          }
+        );
     } else {
       // console.error("Token JWT manquant");
     }
@@ -576,26 +542,28 @@ export class DetailsbienComponent implements AfterViewInit {
     // });
   }
 
-  //METHODE PERMETTANT DE REPONDRE A UN commentaire 
+  //METHODE PERMETTANT DE REPONDRE A UN commentaire
   Repondrecommentaire(id: number): void {
     const user = this.storageService.getUser();
     if (user && user.token) {
       this.serviceUser.setAccessToken(user.token);
-      this.servicecommentaire.Repondrecommentaire(this.reponseForm.contenu, id).subscribe(
-        data => {
-          console.log("Reponse envoyé avec succès:", data);
-
-          //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
-          this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe(data => {
-            this.commentaire = data.reverse();
-            this.reponseForm.contenu = '';
-          });
-        },
-        error => {
-          // console.error("Erreur lors de l'envoi du commentaire :", error);
-          // Gérez les erreurs ici
-        }
-      );
+      this.servicecommentaire
+        .Repondrecommentaire(this.reponseForm.contenu, id)
+        .subscribe(
+          (data) => {
+            //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+            this.servicecommentaire
+              .AffichercommentaireParBien(this.id)
+              .subscribe((data) => {
+                this.commentaire = data.reverse();
+                this.reponseForm.contenu = '';
+              });
+          },
+          (error) => {
+            // console.error("Erreur lors de l'envoi du commentaire :", error);
+            // Gérez les erreurs ici
+          }
+        );
     } else {
       // console.error("Token JWT manquant");
     }
@@ -615,27 +583,27 @@ export class DetailsbienComponent implements AfterViewInit {
       this.serviceUser.setAccessToken(user.token);
 
       // Appelez la méthode PrendreRdv() avec le contenu et l'ID
-      this.serviceUser.PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id).subscribe({
-        next: (data) => {
-          // console.log("Rendez-vous envoyé avec succès:", data);
-          this.isSuccess = true;
-          this.errorMessage = 'Rendez-vous envoyé avec succès';
-          this.RdvForm.date = null;
-          this.RdvForm.heure = null;
-        },
-        error: (err) => {
-          // console.error("Erreur lors de l'envoi du rdv :", err);
-          this.errorMessage = err.error.message;
-          this.isError = true
-          // Gérez les erreurs ici
-          if (this.RdvForm.date == null || this.RdvForm.heure == null) {
-            this.errorMessage = 'Date et heure de rendez-vous sont obligatoire'
-          }
-        }
-      }
-      );
+      this.serviceUser
+        .PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id)
+        .subscribe({
+          next: (data) => {
+            this.isSuccess = true;
+            this.errorMessage = 'Rendez-vous envoyé avec succès';
+            this.RdvForm.date = null;
+            this.RdvForm.heure = null;
+          },
+          error: (err) => {
+            this.errorMessage = err.error.message;
+            this.isError = true;
+            // Gérez les erreurs ici
+            if (this.RdvForm.date == null || this.RdvForm.heure == null) {
+              this.errorMessage =
+                'Date et heure de rendez-vous sont obligatoire';
+            }
+          },
+        });
     } else {
-      // console.error("Token JWT manquant");
+
     }
   }
 
@@ -646,7 +614,7 @@ export class DetailsbienComponent implements AfterViewInit {
 
   //METHODE PERMETTANT DE CANDIDATER UN BIEN
   CandidaterBien(): void {
-    this.id = this.route.snapshot.params["id"]
+    this.id = this.route.snapshot.params['id'];
     // const user = this.storageService.getUser();
 
     const currentUser = this.getCurrentUser();
@@ -733,7 +701,7 @@ export class DetailsbienComponent implements AfterViewInit {
           // console.error("Token JWT manquant");
         }
       }
-    })
+    });
   }
 
   // Méthode pour obtenir les informations de l'utilisateur connecté
@@ -741,7 +709,6 @@ export class DetailsbienComponent implements AfterViewInit {
     const user = this.storageService.getUser();
     return user ? user.userData : null;
   }
-
 
   //POPUP APRES CONFIRMATION DE CANDIDATURE
   popUpConfirmation() {
@@ -759,13 +726,11 @@ export class DetailsbienComponent implements AfterViewInit {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then((result) => {
       this.reloadPage();
       // Après avoir réussi à candidater, mettez à jour l'état de la candidature
-
-    })
+    });
   }
 
   //METHODE PERMETTANT D'ACTUALISER LA PAGE
@@ -778,64 +743,68 @@ export class DetailsbienComponent implements AfterViewInit {
     return baseUrl + photoFileName;
   }
 
-
   //OUVRIR UNE CONVERSATION EN FONCTION DE L'UTILISATEUR
   OuvrirConversation(id: any): void {
+    alert(id);
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
-    swalWithBootstrapButtons.fire({
-      // title: 'Etes-vous sûre de vous déconnecter?',
-      text: "Etes-vous sûre d'ouvrir une conversation ?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const user = this.storageService.getUser();
-        if (user && user.token) {
-          // Définissez le token dans le service serviceUser
-          this.serviceUser.setAccessToken(user.token);
-
-
-
-          // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
-          this.serviceBienImmo.OuvrirConversation(id).subscribe({
-            next: (data) => {
-              // console.log("Conversation ouverte avec succès:", data);
-              this.isSuccess = true;
-              // this.errorMessage = 'Conversation ouverte avec succès';
-              this.pathConversation();
-            },
-            error: (err) => {
-              // console.error("Erreur lors de l'ouverture de la conversation:", err);
-              this.errorMessage = err.error.message;
-              this.isError = true
-              // Gérez les erreurs ici
-            }
+      heightAuto: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        // title: 'Etes-vous sûre de vous déconnecter?',
+        text: "Etes-vous sûre d'ouvrir une conversation ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            // Définissez le token dans le service serviceUser
+            this.serviceUser.setAccessToken(user.token);
+            // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
+            this.serviceBienImmo.OuvrirConversation(id).subscribe({
+              next: (data) => {
+                this.isSuccess = true;
+                // this.errorMessage = 'Conversation ouverte avec succès';
+                this.pathConversation();
+              },
+              error: (err) => {
+                this.errorMessage = err.error.message;
+                this.isError = true;
+                // Gérez les erreurs ici
+              },
+            });
+          } else {
           }
-          );
-        } else {
-          // console.error("Token JWT manquant");
         }
-      }
-    })
+      });
   }
 
   pathConversation() {
     this.router.navigate([routes.messages]);
   }
+  selectedStatutMensuel: string | null = null;
+  //METHODE PERMETTANT DE CHANGER LES STATUTS
+  onStatutChangeMensuel(event: any) {
+    this.selectedStatutMensuel = event.target.value;
+    if (this.selectedStatut === '2') {
+      this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
+      this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
+    }
+  }
 
-  //MODIFIER UN BIEN 
+  //MODIFIER UN BIEN
   ModifierBien(): void {
     //RECUPERER L'ID D'UN BIEN
-    this.id = this.route.snapshot.params["id"]
+    this.id = this.route.snapshot.params['id'];
     const {
       commodite,
       type,
@@ -853,93 +822,95 @@ export class DetailsbienComponent implements AfterViewInit {
       rue,
       porte,
       periode,
+      caution,
+      avance,
       longitude,
       latitude,
-      photo
+      photo,
     } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
+      heightAuto: false,
+    });
 
-    if (this.form.commodite === null
-      || this.form.type === null
-      || this.form.commune === null
-      || this.form.nb_piece === null
-      || this.form.nom === null
-      || this.form.chambre === null
-      || this.form.cuisine === null
-      || this.form.toilette === null
-      || this.form.surface === null
-      || this.form.prix === null
-      || this.form.statut === null
-      || this.form.description === null
-      || this.form.quartier === null
-      || this.form.rue === null
-      || this.form.porte === null) {
+    if (
+      this.form.commodite === null ||
+      this.form.type === null ||
+      this.form.commune === null ||
+      this.form.nb_piece === null ||
+      this.form.nom === null ||
+      this.form.chambre === null ||
+      this.form.cuisine === null ||
+      this.form.toilette === null ||
+      this.form.surface === null ||
+      this.form.prix === null ||
+      this.form.statut === null ||
+      this.form.description === null ||
+      this.form.quartier === null ||
+      this.form.rue === null ||
+      this.form.porte === null
+    ) {
       swalWithBootstrapButtons.fire(
-        this.message = " Tous les champs sont obligatoires !",
-      )
-      // console.error('Tous les champs sont obligatoires !');
-
+        (this.message = ' Tous les champs sont obligatoires !')
+      );
     } else {
-      swalWithBootstrapButtons.fire({
-        text: "Etes-vous sûre de bien vouloir modifier ce bien ?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Confirmer',
-        cancelButtonText: 'Annuler',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const user = this.storageService.getUser();
-          if (user && user.token) {
-            this.serviceBienImmo.setAccessToken(user.token);
-            this.serviceBienImmo
-              .ModifierBien(
-                commodite,
-                type,
-                commune,
-                nb_piece,
-                nom,
-                chambre,
-                cuisine,
-                toilette,
-                surface,
-                prix,
-                statut,
-                description,
-                quartier,
-                rue,
-                porte,
-                periode,
-                longitude,
-                latitude,
-                this.id
-              )
-              .subscribe({
-                next: (data) => {
-                  // console.log(data);
-                  this.isSuccess = false;
-                  // console.log(this.form);
-                  this.popUpConfirmationModification();
-                },
-                error: (err) => {
-                  // console.log(err);
-                  this.errorMessage = err.error.message;
-                  this.isSuccess = true;
-                },
-              });
-          } else {
-            // console.error('Token JWT manquant');
+      swalWithBootstrapButtons
+        .fire({
+          text: 'Etes-vous sûre de bien vouloir modifier ce bien ?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Confirmer',
+          cancelButtonText: 'Annuler',
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const user = this.storageService.getUser();
+            if (user && user.token) {
+              this.serviceBienImmo.setAccessToken(user.token);
+              this.serviceBienImmo
+                .ModifierBien(
+                  commodite,
+                  type,
+                  commune,
+                  nb_piece,
+                  nom,
+                  chambre,
+                  cuisine,
+                  toilette,
+                  surface,
+                  prix,
+                  statut,
+                  description,
+                  quartier,
+                  rue,
+                  porte,
+                  periode,
+                  caution,
+                  avance,
+                  longitude,
+                  latitude,
+                  photo,
+                  this.id
+                )
+                .subscribe({
+                  next: (data) => {
+                    this.isSuccess = false;
+                    this.popUpConfirmationModification();
+                  },
+                  error: (err) => {
+                    this.errorMessage = err.error.message;
+                    this.isSuccess = true;
+                  },
+                });
+            } else {
+            }
           }
-        }
-      })
+        });
     }
-
   }
 
   //POPUP APRES CONFIRMATION
@@ -958,26 +929,25 @@ export class DetailsbienComponent implements AfterViewInit {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then((result) => {
       // Après avoir réussi à candidater, mettez à jour l'état de la candidature
       //RECUPERER L'ID D'UN BIEN
-      this.id = this.route.snapshot.params["id"]
+      this.id = this.route.snapshot.params['id'];
 
       //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
         this.bien = data.biens[0];
         this.photos = this.bien.photos;
-        this.commodite = data.commodite
-        // console.log(this.bien);
-        // console.log(this.photos);
-        // console.log(this.storageService.getUser().user.id);
-        // console.log(this.bien.utilisateur.id);
+        this.commodite = data.commodite;
 
         const currentUser = this.storageService.getUser();
 
-        if (currentUser && this.bien && currentUser.user.id === this.bien.utilisateur.id) {
+        if (
+          currentUser &&
+          this.bien &&
+          currentUser.user.id === this.bien.utilisateur.id
+        ) {
           this.currentUser = true;
           this.ModifBien = true;
         }
@@ -989,11 +959,46 @@ export class DetailsbienComponent implements AfterViewInit {
           this.albumsOne.push({ src: src, caption: caption });
           this.albumsTwo.push({ src: src, caption: caption });
         }
-        // console.log(this.bien.nb_piece);
       });
-      return this.router.navigate(['pages/service-details', this.id])
-
-    })
+      return this.router.navigate(['pages/service-details', this.id]);
+    });
   }
 
+  goToDettailBi(email: number) {
+    return this.router.navigate(['/userpages/messages']);
+  }
+
+  goToDettailBien(username: any) {
+    this.chatService
+      .getChatByFirstUserNameAndSecondUserName(username, this.users.email)
+      .subscribe(
+        (data) => {
+          this.chat = data;
+
+          if (this.chat.length > 0) {
+            this.chatId = this.chat[0].chatId;
+            sessionStorage.setItem('chatId', this.chatId);
+            this.router.navigate(['/userpages/messages']);
+          } else {
+            // Si le tableau est vide, créez une nouvelle salle de chat
+            this.chatObj.expediteur = this.users.email;
+            this.chatObj.destinateur = username;
+            this.chatService.createChatRoom(this.chatObj).subscribe((data) => {
+              this.chatData = data;
+              this.chatId = this.chatData.chatId;
+              sessionStorage.setItem('chatId', this.chatData.chatId);
+              this.router.navigate(['/userpages/messages']);
+            });
+          }
+        },
+        (error) => { }
+      );
+  }
+
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
+  goToModifierBien(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/modifier-bien', id])
+  }
 }
