@@ -89,6 +89,12 @@ const routes: Routes = [
           import('./listerecu/listerecu-routing.module').then((m) => m.ListrecuRoutingModule),
         // canActivate: [AuthGuard]
       },
+      {
+        path: 'contrat/:uuid',
+        loadChildren: () =>
+          import('./contrat/contrat-routing.module').then((m) => m.ContratRoutingModule),
+        // canActivate: [AuthGuard]
+      },
 
     ]
   },

@@ -34,6 +34,7 @@ export class NotificationsComponent implements OnInit {
   modepaiement: any;
   CandidatureUser: any;
   selectedPaymentMode: any;
+  idCandidature: any;
   onNombreMoisChange(): void {
     console.log(this.nombreMoisChoisi);
     // const selectElement = event.target as HTMLSelectElement;
@@ -272,6 +273,14 @@ export class NotificationsComponent implements OnInit {
     })
   }
 
+  //ID DE LA CANDIDATURE D'UN BIEN
+  IdCandidaterBien(id: any): void {
+    // alert(id)
+    sessionStorage.removeItem("idCandidature");
+    this.idCandidature = id;
+    sessionStorage.setItem('idCandidature', id)
+  }
+
   //ANNULER LA CANDIDATURE D'UN BIEN
   AnnulerCandidaterBien(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -441,30 +450,35 @@ export class NotificationsComponent implements OnInit {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE PAIMENT
   goToPagePaiement(uuid: number) {
     if (this.selectedPaymentMode) {
-        switch (this.selectedPaymentMode.nom) {
-            case "Orange Money":
-                this.router.navigate(['/userpages/paiement-orangemoney', uuid]).then(() => {
-                    window.location.reload();
-                });
-                break;
-            case "Visa":
-                this.router.navigate(['/userpages/paiement-visa', uuid]).then(() => {
-                    window.location.reload();
-                });
-                break;
-            case "GIM":
-                this.router.navigate(['/userpages/paiement-gim', uuid]).then(() => {
-                    window.location.reload();
-                });
-                break;
-            default:
-                console.log("Mode de paiement non pris en charge.");
-                break;
-        }
+      switch (this.selectedPaymentMode.nom) {
+        case "Orange Money":
+          this.router.navigate(['/userpages/paiement-orangemoney', uuid]).then(() => {
+            window.location.reload();
+          });
+          break;
+        case "Visa":
+          this.router.navigate(['/userpages/paiement-visa', uuid]).then(() => {
+            window.location.reload();
+          });
+          break;
+        case "GIM":
+          this.router.navigate(['/userpages/paiement-gim', uuid]).then(() => {
+            window.location.reload();
+          });
+          break;
+        default:
+          console.log("Mode de paiement non pris en charge.");
+          break;
+      }
     } else {
-        console.log("Veuillez sélectionner un mode de paiement.");
+      console.log("Veuillez sélectionner un mode de paiement.");
     }
-}
+  }
 
 
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE CONTRAT
+  goToPageContrat(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/contrat', id])
+  }
 }

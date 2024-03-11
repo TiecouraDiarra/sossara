@@ -138,7 +138,11 @@
                                             </ng-container>
                                         </ul>
                                         <div class="row mt-3">
-                                            <div class="col">
+                                            <button (click)="IdCandidaterBien(Candidature.id)" (click)="goToPageContrat(Candidature?.bien?.contrat?.uuid)"
+                                                type="button" class="btn btn-primary">
+                                                Voir le contrat
+                                            </button>
+                                            <!-- <div class="col">
                                                 <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
                                                     class="btn btn-outline-danger"><i class="fas fa-times"></i>
                                                     Annuler</button>
@@ -147,7 +151,7 @@
                                                 <button (click)="AccepterCandidaterBien(Candidature.id)" type="button"
                                                     class="btn btn-outline-success"><i class="fas fa-check"></i>
                                                     Valider</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </li>
@@ -249,10 +253,9 @@
                                                     Payer</button>
                                             </div> -->
                                             <!-- Button trigger modal -->
-                                            <button (click)="openPaiementModal(Candidature?.uuid)" type="button"
-                                                class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                Payer
+                                            <button (click)="goToPageContrat(Candidature?.bien?.contrat?.uuid)"
+                                                type="button" class="btn btn-primary">
+                                                Voir le contrat
                                             </button>
                                         </div>
                                         <!-- Modal -->
@@ -356,8 +359,12 @@
                                                                     <div class="row paymentWrap">
                                                                         <div class="btn-group paymentBtnGroup btn-group-justified"
                                                                             data-toggle="buttons">
-                                                                            <label class="btn paymentMethod" *ngFor="let Mode of modepaiement" (click)="selectPaymentMode(Mode)">
-                                                                                <div class="method test" style="background-image: url('{{generateImageUrl(Mode?.photo)}}');"></div>
+                                                                            <label class="btn paymentMethod"
+                                                                                *ngFor="let Mode of modepaiement"
+                                                                                (click)="selectPaymentMode(Mode)">
+                                                                                <div class="method test"
+                                                                                    style="background-image: url('{{generateImageUrl(Mode?.photo)}}');">
+                                                                                </div>
                                                                                 <input type="radio" name="options">
                                                                             </label>
                                                                             <!-- <label class="btn paymentMethod">
@@ -397,7 +404,9 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Annuler</button>
-                                                        <button type="button" (click)="goToPagePaiement(CandidatureUser?.uuid)" class="btn btn-primary">Continuer</button>
+                                                        <button type="button"
+                                                            (click)="goToPagePaiement(CandidatureUser?.uuid)"
+                                                            class="btn btn-primary">Continuer</button>
                                                     </div>
                                                     <!-- <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"

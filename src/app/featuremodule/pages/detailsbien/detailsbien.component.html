@@ -92,8 +92,9 @@
             <div class="rate-details" *ngIf="bien && bien.prix">
                 <h4>{{ formatPrice(bien.prix) }} FCFA</h4>
                 <!-- CANDIDATER UN BIEN   -->
-                <div class="callnow crd mt-5" *ngIf="isLoggedIn == true && currentUser == false">
-                    <a (click)="CandidaterBien()" class="action-btn btn-edit"> <i class="feather-edit-3"></i>Candidater
+                <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                    *ngIf="isLoggedIn == true && currentUser == false">
+                    <a class="action-btn btn-edit"> <i class="feather-edit-3"></i>Candidater
                         pour ce bien</a>
                 </div>
                 <!-- BOUTON MODIFIER UN BIEN -->
@@ -124,9 +125,54 @@
     </div>
 </section>
 <!--/Details Description  Section-->
-<!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+<!-- Modal MODIFICATION PROFIL -->
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Candidater pour ce bien</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <!-- date de naissance  -->
+                    <div class="form-group group-img">
+                        <label for="dateMaison">Date d'entrée dans la maison</label>
+                        <div class="group-img">
+                            <i class="feather-calendar"></i>
+                            <input id="dateMaison" name="date" [(ngModel)]="formCandidater.date" type="date" required class="form-control" placeholder="Date d'entrée dans la maison" />
+                        </div>
+                    </div>   
+                    <div class="form-group group-img">
+                        <label for="dateMaison">Usage d'utilisation</label>
+                        <div class="group-img">
+                            <select class="form-control" [(ngModel)]="formCandidater.usage" name="usage">
+                            <option
+                              *ngFor="let item of usage"
+                              [value]="item.id"
+                            >
+                              {{ item.nom }}
+                            </option>
+                          </select>
+                        </div>
+                    </div>
+                                  
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Retour</button>
+                <button (click)="CandidaterBien()" type="button" class="btn btn-primary">Candidater</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Modifier un bien -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -608,6 +654,7 @@
                     <div class="card-body">
                         <div class="google-maps">
                             <div id="mape" style="width: 100%; height: 25vw;"></div>
+                            <!-- <div id="mape" style="width: 100%; height: 25vw;"></div> -->
                         </div>
                     </div>
                 </div>

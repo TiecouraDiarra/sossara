@@ -97,10 +97,11 @@ export class AuthService {
   // }
 
   logout(): Observable<any> {
-    //return this.http.post(AUTH_API + 'signout', {}, httpOptions);
     const req = new HttpRequest('POST', URL_BASE + '/logout', {}, httpOptions);
+    localStorage.removeItem('token'); // Supprime le token JWT du stockage local
     return this.http.request(req);
-  }
+}
+
 
   reloadPage(): void {
     window.location.reload();

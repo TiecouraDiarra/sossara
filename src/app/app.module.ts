@@ -11,9 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HttpRequestInterceptor } from './_helpers/http.interceptor';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { JwtInterceptor } from './_helpers/http.interceptor';
 // import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
@@ -49,7 +49,7 @@ import localeFr from '@angular/common/locales/fr';
     // },
     // httpInterceptorProviders
     // Ajoutez l'intercepteur à la liste des fournisseurs
-    // { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

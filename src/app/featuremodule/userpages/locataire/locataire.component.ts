@@ -160,7 +160,7 @@ export class LocataireComponent implements OnInit {
     type: null,
     prix_estimatif: null,
     photos: null,
-  };
+  }; 
 
   formProcessus: any = {
     somme: null,

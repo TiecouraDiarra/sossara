@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './contact.component';
 import { FormsModule } from '@angular/forms';
+import { MapComponent } from '../map/map.component';
 
 @NgModule({
   declarations: [ContactComponent],

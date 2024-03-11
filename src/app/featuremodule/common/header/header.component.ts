@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit {
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
       this.nombreCandidatureBienUser = data.candidature?.length;
-      // console.log(this.nombreCandidatureBienUser);
+      console.log(data);
 
       // Calculer la somme des candidatures et des rendez-vous
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;

@@ -17,6 +17,7 @@ import { RecuComponent } from './recu/recu.component';
 import { ListerecuComponent } from './listerecu/listerecu.component';
 import { MessageComponent } from './message/message.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ContratComponent } from './contrat/contrat.component';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -31,6 +32,7 @@ import { MessagesComponent } from './messages/messages.component';
     ListerecuComponent,
     MessageComponent,
     MessagesComponent,
+    ContratComponent,
     // LocataireComponent,
     // ProprietaireComponent,
     // MesReclamationsComponent,

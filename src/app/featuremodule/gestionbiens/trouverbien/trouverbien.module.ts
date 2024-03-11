@@ -9,7 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterMarkersPipe } from './filter-markers.pipe';
 import { LesagencesComponent } from '../lesagences/lesagences.component';
 
-
+ 
 @NgModule({
   declarations: [TrouverbienComponent, FilterMarkersPipe,LesagencesComponent ],
   imports: [

@@ -269,10 +269,12 @@ export class BienimmoService {
 }
 
   //CANDIDATER UN BIEN 
-  CandidaterBien(id: any): Observable<any> {
+  CandidaterBien(id: any, usage: any, dateEntree: any): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('bienImmo', id || '');
+    formData.append('usage', usage || '');
+    formData.append('dateEntree', dateEntree);
     // console.log(id)
     // console.log(headers)
     return this.http.post(`${URL_BASE}/candidature/ajouter`, formData, { headers });
