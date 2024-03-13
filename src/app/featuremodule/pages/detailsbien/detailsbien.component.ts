@@ -71,6 +71,7 @@ export class DetailsbienComponent implements AfterViewInit {
   chatObj: Chat = new Chat();
   messageObj: Message = new Message('', '', '');
   public chatData: any;
+  lesCommodites: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -328,8 +329,6 @@ export class DetailsbienComponent implements AfterViewInit {
     this._lightbox.close();
   }
   ngOnInit(): void {
-    this.initialiserFormulaire();
-
     this.users = this.storageService.getUser();
     this.senderCheck = this.users.email;
     // this.initMap();
@@ -345,6 +344,8 @@ export class DetailsbienComponent implements AfterViewInit {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
+      console.log(data);
+      this.lesCommodites = data?.commodites;
       this.photos = this.bien?.photos;
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
@@ -987,54 +988,14 @@ export class DetailsbienComponent implements AfterViewInit {
             });
           }
         },
-        (error) => {}
+        (error) => { }
       );
   }
-  initialiserFormulaire() {
-    // Récupération des données du bien immobilier
-    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
-      this.bien = data;
-      this.form = {
-        nom: this.bien?.nom,
-        description: this.bien?.description,
-        // Autres champs à récupérer...
-      };
 
-      // Récupération de la liste des commodités
-      this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-        this.les_commodite = data;
-        // Pré-remplissage des commodités
-        if (this.bien && this.bien.commodites) {
-          for (const commodite of this.les_commodite) {
-            commodite.selected = this.bien.commodites.some(
-              (bienCommodite: any) => bienCommodite.id === commodite.id
-            );
-          }
-        }
-      });
-    });
-  }
 
-  isCommoditeSelected(commodite: any): boolean {
-    if (this.bien && this.bien.commodites) {
-      return this.bien.commodites.some(
-        (c: { id: any }) => c.id === commodite.id
-      );
-    }
-    return false;
-  }
-
-  toggleCommodite(commodite: any) {
-    if (!this.bien.commodites) {
-      this.bien.commodites = [];
-    }
-    const index = this.bien.commodites.findIndex(
-      (c: { id: any }) => c.id === commodite.id
-    );
-    if (index !== -1) {
-      this.bien.commodites.splice(index, 1); // Retire la commodité si elle est déjà sélectionnée
-    } else {
-      this.bien.commodites.push(commodite); // Ajoute la commodité si elle n'est pas encore sélectionnée
-    }
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
+  goToModifierBien(id: number) {
+    // console.log(id);
+    return this.router.navigate(['userpages/modifier-bien', id])
   }
 }

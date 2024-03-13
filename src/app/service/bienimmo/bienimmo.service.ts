@@ -366,6 +366,7 @@ export class BienimmoService {
   ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData(); 
+    alert("je suis la")
   
     commodite.forEach(i => { formData.append('commodites[]', i.toString()); });
     formData.append('typeImmoId', type.toString());
@@ -396,6 +397,7 @@ export class BienimmoService {
     photos.forEach(p => { formData.append('photoImmos', p); });
     formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
   
+    console.log(formData)
     return this.http.put(
       URL_BASE + '/bien/modifierbien/' + `${id}`,
       formData,

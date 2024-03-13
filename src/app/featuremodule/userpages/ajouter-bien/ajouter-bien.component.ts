@@ -11,6 +11,7 @@ import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 declare var google: any;
+import * as L from 'leaflet';
 
 interface Food {
   value: string | any;
@@ -58,6 +59,7 @@ export class AjouterBienComponent {
   status:any[] = [];
   nombreZone: any;
   cercle: any;
+  lesCommodite: any;
 
   constructor(
     private DataService: DataService,
@@ -117,9 +119,9 @@ export class AjouterBienComponent {
   }
 
   onChangeCommodite() {
-    if (this.les_commodite) {
+    if (this.lesCommodite) {
       const commoditeArray = [];
-      for (const item of this.les_commodite) {
+      for (const item of this.lesCommodite) {
         if (item.selected) {
           commoditeArray.push(item.id);
         }
@@ -156,55 +158,45 @@ export class AjouterBienComponent {
   };
 
   initMap() {
-    const mapOptions = {
-      center: { lat: 12.639231999999997, lng: -7.998184000000001 }, // Coordonnées initiales de la carte
-      zoom: 15, // Niveau de zoom initial
-    };
-
-    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
+    const map = L.map('map').setView([12.6489, -8.0008], 14); // Définir une vue initiale
+  
+    // Ajouter une couche de tuiles OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+  
     // Créer un marqueur initial au centre de la carte
-    const initialMarker = new google.maps.Marker({
-      position: mapOptions.center,
-      map: map,
-      draggable: true, // Rend le marqueur draggable
-    });
-
+    const initialMarker = L.marker([12.6489, -8.0008], {
+      draggable: true // Rend le marqueur draggable
+    }).addTo(map);
+  
     // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
-    google.maps.event.addListener(
-      initialMarker,
-      'dragend',
-      (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
-        this.form.latitude = markerEvent.latLng.lat();
-        this.form.longitude = markerEvent.latLng.lng();
-
-        console.log('Latitude :', this.form.latitude);
-        console.log('Longitude :', this.form.longitude);
-      }
-    );
-
+    initialMarker.on('dragend', (markerEvent) => {
+      const markerLatLng = markerEvent.target.getLatLng();
+      this.form.latitude = markerLatLng.lat;
+      this.form.longitude = markerLatLng.lng;
+  
+      console.log('Latitude :', this.form.latitude);
+      console.log('Longitude :', this.form.longitude);
+    });
+  
     // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
-    google.maps.event.addListener(
-      initialMarker,
-      'click',
-      (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
-        const newLatLng = new google.maps.LatLng(
-          initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
-          initialMarker.getPosition().lng() + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
-        );
-
-        initialMarker.setPosition(newLatLng);
-
-        // Mettez à jour les coordonnées dans votre formulaire
-        this.form.latitude = 123456789;
-        this.form.longitude = 123456789;
-        // this.form.latitude = newLatLng.lat();
-        // this.form.longitude = newLatLng.lng();
-
-        console.log('Latitude :', this.form.latitude);
-        console.log('Longitude :', this.form.longitude);
-      }
-    );
+    initialMarker.on('click', () => {
+      const newLatLng = L.latLng(
+        initialMarker.getLatLng().lat + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
+        initialMarker.getLatLng().lng + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
+      );
+  
+      initialMarker.setLatLng(newLatLng);
+  
+      // Mettez à jour les coordonnées dans votre formulaire
+      this.form.latitude = newLatLng.lat;
+      this.form.longitude = newLatLng.lng;
+  
+      console.log('Latitude :', this.form.latitude);
+      console.log('Longitude :', this.form.longitude);
+    });
   }
 
   ngOnInit(): void {
@@ -233,8 +225,8 @@ export class AjouterBienComponent {
       console.log(data);
     });
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-      this.les_commodite = data;
-      console.log('commodite', this.les_commodite);
+      this.lesCommodite = data;
+      console.log('commodite', this.lesCommodite);
     });
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {

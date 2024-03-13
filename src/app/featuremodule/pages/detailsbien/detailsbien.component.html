@@ -98,7 +98,7 @@
                         pour ce bien</a>
                 </div>
                 <!-- BOUTON MODIFIER UN BIEN -->
-                <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                <div class="callnow crd mt-5" (click)="goToModifierBien(bien.uuid)"
                     *ngIf="isLoggedIn == true && currentUser == true">
                     <a class="action-btn btn-edit"> <i class="feather-edit-3"></i>Modifier ce bien</a>
                 </div>
@@ -126,7 +126,7 @@
 </section>
 <!--/Details Description  Section-->
 
-<!-- Modal MODIFICATION PROFIL -->
+<!-- Modal POUR LA CANDIDATURE -->
 <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -143,7 +143,7 @@
                         <label for="dateMaison">Date d'entrée dans la maison</label>
                         <div class="group-img">
                             <i class="feather-calendar"></i>
-                            <input id="dateMaison" name="date" [(ngModel)]="formCandidater.date" type="date" required class="form-control" placeholder="Date d'entrée dans la maison" />
+                            <input id="dateMaison"  name="date" [(ngModel)]="formCandidater.date" type="date" min="{{ getCurrentDate() }}" required class="form-control" placeholder="Date d'entrée dans la maison" />
                         </div>
                     </div>   
                     <div class="form-group group-img">
@@ -629,12 +629,11 @@
                     <div class="card-body">
                         <div class="lisiting-featues">
                             <div class="row">
-                                <div *ngFor="let commodite of les_commodite" class="featureslist d-flex align-items-center col-lg-4 col-md-4">
+                                <div *ngFor="let commodite of lesCommodites" class="featureslist d-flex align-items-center col-lg-4 col-md-4">
                                     <div class="feature-img">
                                         <img src="assets/img/featured/Feature-1.svg" alt="Room amenities">
                                     </div>
                                     <div class="features-info">
-                                        <input type="checkbox" [checked]="isCommoditeSelected(commodite)" (change)="toggleCommodite(commodite)">
                                         <label>{{commodite.nom}}</label>
                                     </div>
                                 </div>

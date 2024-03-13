@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row align-items-center text-center">
       <div class="col-md-12 col-12">
-        <h2 class="breadcrumb-title">Ajouter un bien</h2>
+        <h2 class="breadcrumb-title">Modifier un bien</h2>
         <nav aria-label="breadcrumb" class="page-breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -13,7 +13,7 @@
               <a [routerLink]="routes.mylisting">Mes biens</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
-              Ajouter bien
+              {{ bien?.reference }}
             </li>
           </ol>
         </nav>
@@ -23,7 +23,6 @@
 </div>
 <!-- /Breadscrumb Section -->
 
-<!-- Profile Content -->
 <div class="dashboard-content">
   <div class="container">
     <div class="">
@@ -58,35 +57,39 @@
             <i class="fas fa-bell"></i> <span>Notifications</span>
           </a>
         </li>
-        <!-- <li>
-          <a [routerLink]="routes.login">
-            <i class="fas fa-light fa-circle-arrow-left"></i>
-            <span>Deconnexion</span>
-          </a>
-        </li> -->
       </ul>
     </div>
     <div class="profile-content">
-      <form
-        (ngSubmit)="onSubmit(f)"
-        #f="ngForm"
-        class="messages-form"
-        enctype="multipart/form-data"
-      >
+      <form class="messages-form" enctype="multipart/form-data">
         <div class="card">
           <div class="card-header">
-            <h4>Basic information</h4>
+            <h4>Information de base</h4>
           </div>
           <div class="card-body">
             <div class="form-group">
               <label class="col-form-label">Nom du bien <span>*</span></label>
               <input
                 type="text"
-                class="form-control pass-input"
                 name="nom"
                 [(ngModel)]="form.nom"
-                placeholder="Nom"
+                class="form-control"
               />
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Prix du bien <span>*</span></label>
+              <div class="pass-group group-img">
+                <input
+                  type="number"
+                  pattern="[0-9]"
+                  name="prix"
+                  [(ngModel)]="form.prix"
+                  class="form-control pass-input"
+                  required
+                  aria-required="true"
+                  placeholder="FCFA"
+                />
+              </div>
             </div>
 
             <div class="form-group">
@@ -94,56 +97,18 @@
                 >Description du bien <span>*</span></label
               >
               <textarea
-                rows="6"
+                rows="3"
                 name="description"
                 [(ngModel)]="form.description"
                 class="form-control listingdescription"
-                placeholder="Description"
               ></textarea>
             </div>
           </div>
         </div>
+
         <div class="card">
           <div class="card-header">
-            <h4>Les commodites</h4>
-          </div>
-          <div class="card-body">
-            <br />
-            <div class="row social-info">
-              <!-- <div class="col-lg-6 col-md-6"> -->
-              <div class="form-group formlast-input lat-input">
-                <label class="col-form-label">Commodites <span>*</span></label>
-                <div class="pass-group group-img">
-                  <div class="row">
-                    <div
-                      class="col-lg-4 col-md-6"
-                      *ngFor="let item of lesCommodite"
-                    >
-                      <ul>
-                        <li>
-                          <label class="custom_check">
-                            <input
-                              type="checkbox"
-                              [(ngModel)]="item.selected"
-                              [value]="item.id"
-                              (change)="onChangeCommodite()"
-                              name="commodite"
-                            />
-                            <span class="checkmark"></span> {{ item.nom }}
-                          </label>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h4>Basic information</h4>
+            <h4>Information de base</h4>
           </div>
           <div class="card-body">
             <div class="row">
@@ -160,7 +125,7 @@
                       id=""
                     >
                       <option *ngFor="let item of status" [value]="item.id">
-                        {{ item.nom }}
+                        {{ item?.nom }}
                       </option>
                     </select>
                   </div>
@@ -172,8 +137,8 @@
                   <label class="col-form-label">Type <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
-                      [(ngModel)]="form.type"
                       name="type"
+                      [(ngModel)]="form.type"
                       class="form-control"
                       id=""
                     >
@@ -184,28 +149,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <!-- prix du bien -->
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                  <label class="col-form-label"
-                    >Prix du bien <span>*</span></label
-                  >
-                  <div class="pass-group group-img">
-                    <input
-                      type="number"
-                      pattern="[0-9]"
-                      name="prix"
-                      [(ngModel)]="form.prix"
-                      class="form-control pass-input"
-                      required
-                      aria-required="true"
-                      placeholder="FCFA"
-                    />
-                  </div>
-                </div>
-              </div>
+
               <!-- Nombre de salon -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
@@ -226,9 +170,7 @@
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
               <!-- Nombre de cuisine -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input lat-input">
@@ -265,10 +207,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <br />
+              <br />
 
-            <div class="row">
               <!-- Nombre de toilette -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group formlast-input">
@@ -305,13 +245,9 @@
                   />
                 </div>
               </div>
-            </div>
-   
-            <div class="row">
 
-        
-              <div class="col-lg-6 col-md-6"  *ngIf="selectedStatut === '1'">
-                <div class="form-group">
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group" *ngIf="selectedStatut === '1'">
                   <label class="col-form-label">Periode <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
@@ -329,21 +265,31 @@
                 </div>
               </div>
 
-              <div class="col-lg-6 col-md-6" *ngIf="selectedStatutMensuel === '2'">
+              <div
+                class="col-lg-6 col-md-6"
+                *ngIf="selectedStatutMensuel === '2'"
+              >
                 <div class="form-group">
-                    <label class="col-form-label">Caution <span>*</span></label>
-                    <div class="pass-group group-img">
-                        <select [(ngModel)]="form.caution" name="periode" class="form-control" id="">
-                            <option *ngFor="let item of valuesSelect" [value]="item">
-                                {{ item }}
-                            </option>
-                        </select>
-                    </div>
+                  <label class="col-form-label">Caution <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <select
+                      [(ngModel)]="form.caution"
+                      name="periode"
+                      class="form-control"
+                      id=""
+                    >
+                      <option *ngFor="let item of valuesSelect" [value]="item">
+                        {{ item }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
-            </div>
-            
-            
-              <div class="col-lg-6 col-md-6"  *ngIf="selectedStatutMensuel === '2'">
+              </div>
+
+              <div
+                class="col-lg-6 col-md-6"
+                *ngIf="selectedStatutMensuel === '2'"
+              >
                 <div class="form-group">
                   <label class="col-form-label">Avance <span>*</span></label>
                   <div class="pass-group group-img">
@@ -353,53 +299,53 @@
                       class="form-control"
                       id=""
                     >
-                    <option *ngFor="let item of valuesSelect" [value]="item">
-                      {{ item }}
-                    </option>
+                      <option *ngFor="let item of valuesSelect" [value]="item">
+                        {{ item }}
+                      </option>
                     </select>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input">
-                  <label class="col-form-label">Price From</label>
-
-                  <mat-select
-                    [(ngModel)]="selectedValue"
-                    [ngModelOptions]="{ standalone: true }"
-                    class="form-control select"
-                    name="food"
-                    placeholder="65"
-                  >
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                      {{ food.viewValue }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group formlast-input formlast-input-inner">
-                  <label class="col-form-label">Price To</label>
-
-                  <mat-select
-                    [(ngModel)]="selectedValue"
-                    [ngModelOptions]="{ standalone: true }"
-                    class="form-control select"
-                    name="price"
-                    placeholder="120"
-                  >
-                    <mat-option
-                      *ngFor="let price of prices"
-                      [value]="price.value"
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h4>Les commodites</h4>
+          </div>
+          <div class="card-body">
+            <br />
+            <div class="row social-info">
+              <!-- <div class="col-lg-6 col-md-6"> -->
+              <div class="form-group formlast-input lat-input">
+                <label class="col-form-label">Commodites <span>*</span></label>
+                <div class="pass-group group-img">
+                  <div class="row">
+                    <div
+                      class="col-lg-4 col-md-6"
+                      *ngFor="let item of les_commodite"
                     >
-                      {{ price.viewValue }}
-                    </mat-option>
-                  </mat-select>
+                      <ul>
+                        <li>
+                          <label class="custom_check">
+                            <input
+                              type="checkbox"
+                              [(ngModel)]="item.selected"
+                              [value]="item.id" (change)="onChangeCommodite()"
+                              name="commodite"
+                              [checked]="isCommoditeSelected(item)"
+                              (change)="toggleCommodite(item)"
+                            />
+                            <span class="checkmark"></span>{{ item.nom }}
+                          </label>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div> -->
+              <!-- </div> -->
+            </div>
           </div>
         </div>
 
@@ -450,13 +396,13 @@
                   </div>
                 </div>
               </div>
-
+              <!-- CERCLE  -->
               <div class="col-lg-4 col-md-4">
                 <div class="form-group">
                   <label class="col-form-label">Cercle <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
-                      name="cercle"
+                      name="region"
                       class="form-control"
                       id=""
                       [ngModel]="selectedValueC"
@@ -504,7 +450,7 @@
                       name="quartier"
                       [(ngModel)]="form.quartier"
                       class="form-control pass-input"
-                      placeholder="Quartier"
+                      placeholder="Yirimadio"
                     />
                   </div>
                 </div>
@@ -541,88 +487,89 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- LA PARTIE MAP  -->
-        <div class="card">
-          <div class="card-header">
-            <h4>Choisir l'emplacement du bien sur la map</h4>
-          </div>
-          <div class="listing-map">
-            <div id="map" style="width: 100%; height: 32vw"></div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="form-group">
-                <label class="col-form-label">Latitude</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  readonly
-                  placeholder="Latitude"
-                  name="latitude"
-                  [(ngModel)]="form.latitude"
-                />
-              </div>
+            <!-- map  -->
+            <div class="listing-map">
+              <div id="map" style="width: 100%; height: 30vw"></div>
             </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="form-group">
-                <label class="col-form-label">Longitude</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  readonly
-                  placeholder="Longitude"
-                  name="longitude"
-                  [(ngModel)]="form.longitude"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card media-section">
-          <div class="card-header">
-            <h4>Media Information</h4>
-          </div>
-          <div class="card-body">
+            <!-- MAP ADRESSE  -->
             <div class="row">
-              <div class="featured-img1">
-                <h6 class="media-title">Images biens <span>*</span></h6>
-                <div class="media-image">
-                  <div
-                    *ngFor="let imageUrl of image; let i = index"
-                    class="image-container m-1"
-                  >
-                    <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
-                    <button class="close-button" (click)="removeImage(i)">
-                      <i class="fas fa-times close-icon"></i>
-                    </button>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-form-label">Latitude</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly
+                    placeholder="Latitude"
+                    name="latitude"
+                    [(ngModel)]="form.latitude"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-form-label">Longitude</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly
+                    placeholder="Longitude"
+                    name="longitude"
+                    [(ngModel)]="form.longitude"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Image  -->
+            <div class="card media-section">
+              <div class="card-header">
+                <h4>Media Information</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="featured-img1">
+                    <h6 class="media-title">Images biens <span>*</span></h6>
+                    <div class="media-image">
+                        <div *ngFor="let imageUrl of images1; let i = index" class="image-container m-1">
+                            <img class="m-3" [src]="imageUrl.data" alt="Image {{ i }}" />
+                            <button class="close-button" (click)="removeImage(i)">
+                                <i class="fas fa-times close-icon"></i>
+                            </button>
+                        </div>
+                        
+                    </div>
+                  </div>
+                  <div class="settings-upload-btn">
+                    <input
+                    type="file"
+                    id="photo"
+                    name="photo"
+                    (change)="onFileSelected($event)"
+                    multiple
+                    class="hide-input image-upload"
+                    [disabled]="maxImageCount >= 8"
+                    accept=".png, .jpeg, .jpg, .svg"
+                  />
+                    <label for="file" class="file-upload"
+                      >Ajouter l'image</label
+                    >
                   </div>
                 </div>
               </div>
-              <div class="settings-upload-btn">
-                <input
-                  type="file"
-                  id="photo"
-                  name="photo"
-                  (change)="onFileSelected($event)"
-                  multiple
-                  class="hide-input image-upload"
-                  [disabled]="maxImageCount >= 8"
-                  accept=".png, .jpeg, .jpg, .svg"
-                />
-                <label for="file" class="file-upload">Ajouter l'image</label>
+              <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
+                {{ errorMessage }}
               </div>
             </div>
           </div>
-          <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
-            {{ errorMessage }}
-          </div>
         </div>
-        <button class="btn btn-primary" type="submit">Ajouter bien</button>
+        <button
+          class="btn btn-primary crd"
+          (click)="ModifierBien()"
+          type="submit"
+        >
+          Modifier bien
+        </button>
       </form>
     </div>
   </div>
 </div>
-<!-- /Profile Content -->

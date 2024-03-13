@@ -35,8 +35,8 @@ export class AgenceService {
   AjouterAgent(
     nom: string,
     email: string,
-    telephone: string,
-    quartier: string,
+    telephone: string
+  
   ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
@@ -44,11 +44,9 @@ export class AgenceService {
     console.log(headers)
     console.log("email " + email)
     console.log("telephone " + telephone)
-    console.log("adresse " + quartier)
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
-    formData.append('adresse', quartier);
     return this.http.post(`${URL_BASE}/auth/agent/ajouter`,
       formData, { headers });
   }

@@ -158,8 +158,8 @@ export class MesAgentsComponent implements OnInit {
       if (
         this.agentForm.nom !== null &&
         this.agentForm.email !== null &&
-        this.agentForm.telephone !== null &&
-        this.agentForm.quartier !== null
+        this.agentForm.telephone !== null 
+        // this.agentForm.quartier !== null
       ) {
         swalWithBootstrapButtons
           .fire({
@@ -177,8 +177,8 @@ export class MesAgentsComponent implements OnInit {
                 .AjouterAgent(
                   this.agentForm.nom,
                   this.agentForm.email,
-                  this.agentForm.telephone,
-                  this.agentForm.quartier
+                  this.agentForm.telephone
+                  
                 )
                 .subscribe(
                   (data) => {

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageComponent } from './message.component';
+import { ModifierBienComponent } from './modifier-bien.component';
 
-describe('MessageComponent', () => {
-  let component: MessageComponent;
-  let fixture: ComponentFixture<MessageComponent>;
+describe('ModifierBienComponent', () => {
+  let component: ModifierBienComponent;
+  let fixture: ComponentFixture<ModifierBienComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MessageComponent ]
+      declarations: [ ModifierBienComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MessageComponent);
+    fixture = TestBed.createComponent(ModifierBienComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
