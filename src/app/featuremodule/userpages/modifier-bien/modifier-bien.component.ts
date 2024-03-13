@@ -96,6 +96,7 @@ export class ModifierBienComponent {
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
+  images1: any;
 
   constructor(
     public router: Router,
@@ -169,11 +170,12 @@ export class ModifierBienComponent {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
       this.photos = this.bien?.photos;
+      this.photos = this.bien?.photos;
+      this.images1 = this.bien?.photos.map((photo: { nom: string; }) => ({ nom: photo.nom, data: this.generateImageUrl(photo.nom) }));
+
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
-
       const currentUser = this.storageService.getUser();
-
       if (
         currentUser &&
         this.bien &&
@@ -207,15 +209,7 @@ export class ModifierBienComponent {
         zoom: 15, // Niveau de zoom initial
       };
       const map = L.map('map').setView([this.latitude, this.longitude], 14);
-      // Initialiser la carte dans l'élément avec l'ID "map"
-      // const mapElement = document.getElementById('map');
-      // const map = new google.maps.Map(mapElement, mapOptions);
-      // Créer un marqueur initial au centre de la carte
-      // const initialMarker = new google.maps.Marker({
-      //   position: mapOptions.center,
-      //   map: map,
-      //   draggable: true, // Rend le marqueur draggable
-      // });
+  
       // Ajouter une couche de tuiles OpenStreetMap
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 20,
@@ -277,6 +271,11 @@ export class ModifierBienComponent {
       this.cercle = data;
     });
 
+     //AFFICHER LA LISTE DES PERIODES
+     this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
+      this.periode = data;
+    });
+
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
@@ -305,29 +304,25 @@ export class ModifierBienComponent {
   onFileSelected(event: any): void {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
-
     for (const file of this.selectedFiles) {
-      if (this.images.length < 8) {
+      if (this.images1.length < 8) {
         reader.onload = (e: any) => {
-          this.images.push(file);
-          this.image.push(e.target.result);
+          this.images1.push({ nom: file.name, data: e.target.result });
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          // console.log(this.image);
-          this.maxImageCount = this.image.length;
+          console.log(this.images1);
+          this.maxImageCount = this.images1.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
     this.form.photo = this.images;
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
-  }
+}
 
-  removeImage(index: number) {
-    this.image.splice(index, 1); // Supprime l'image du tableau
-    this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
+removeImage(index: number) {
+    this.images1.splice(index, 1); // Supprime l'image du tableau
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
-  }
-
+}
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
     if (this.images.length >= 8) {
@@ -371,11 +366,15 @@ export class ModifierBienComponent {
     return baseUrl + photoFileName;
   }
 
+  
+
+
 
   //MODIFIER UN BIEN
-  ModifierBien(): void {
+   ModifierBien(): void {
     //RECUPERER L'ID D'UN BIEN
-    this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['uuid'];
+    alert(this.id)
     const {
       commodite,
       type,
@@ -437,8 +436,11 @@ export class ModifierBienComponent {
           cancelButtonText: 'Annuler',
           reverseButtons: true,
         })
-        .then((result) => {
+        .then(async (result) => {
           if (result.isConfirmed) {
+            const images = this.images1;
+             const files = await this.convertURLsToFiles(images);         
+
             const user = this.storageService.getUser();
             if (user && user.token) {
               this.serviceBienImmo.setAccessToken(user.token);
@@ -464,7 +466,7 @@ export class ModifierBienComponent {
                   avance,
                   longitude,
                   latitude,
-                  photo,
+                  files,
                   this.id
                 )
                 .subscribe({
@@ -483,6 +485,25 @@ export class ModifierBienComponent {
         });
     }
   }
+
+  // Fonction pour convertir les URLs des images en objets File
+async convertURLsToFiles(images: { nom: string; data: string }[]): Promise<File[]> {
+  const files: File[] = [];
+
+  for (const image of images) {
+      const file = await this.fetchImageAsFile(image.data);
+      files.push(new File([file], image.nom));
+  }
+
+  return files;
+}
+
+// Fonction pour récupérer l'image depuis l'URL sous forme de blob
+async fetchImageAsFile(url: string): Promise<Blob> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return blob;
+}
 
   //POPUP APRES CONFIRMATION
   popUpConfirmationModification() {
@@ -582,4 +603,7 @@ export class ModifierBienComponent {
       this.bien.commodites.push(commodite); // Ajoute la commodité si elle n'est pas encore sélectionnée
     }
   }
+
+  
+
 }

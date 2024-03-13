@@ -4,14 +4,16 @@
     <div class="row">
       <div class="col-lg-6 listingmappage-content">
         <div class="listmapgrid-content">
-          <div class="row sorting-div" style="margin-top: 100px;">
+          <div class="row sorting-div" style="margin-top: 100px">
             <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
               <div class="sortbyset">
                 <span class="sortbytitle">Filtrer par</span>
                 <div class="sorting-select">
                   <select class="form-control select" [(ngModel)]="searchText">
                     <option value="" selected>Tout</option>
-                    <option *ngFor="let Statut of status">{{Statut?.nom}}</option>
+                    <option *ngFor="let Statut of status">
+                      {{ Statut?.nom }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -27,10 +29,20 @@
             </div>
           </div>
           <div class="card">
-            <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse" href="#collapseFilter"
-              role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a
+              class="flex-shrink-0 d-flex align-items-center"
+              data-bs-toggle="collapse"
+              href="#collapseFilter"
+              role="button"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
               <h5>
-                <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
+                <img
+                  style="width: 27px"
+                  src="assets/img/details-icon.svg"
+                  alt="details-icon"
+                />
                 Filtrer
               </h5>
             </a>
@@ -38,25 +50,29 @@
               <div class="car-filter-section">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                      data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                      aria-selected="true">Trouver un bien</button>
+                    <button
+                      class="nav-link active"
+                      id="pills-home-tab"
+                      data-bs-toggle="pill"
+                      data-bs-target="#pills-home"
+                      type="button"
+                      role="tab"
+                      aria-controls="pills-home"
+                      aria-selected="true"
+                    >
+                      Trouver un bien
+                    </button>
                   </li>
-                  <!--<li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                              data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                              aria-selected="false">Vendre une propriété</button>
-                      </li>-->
-                  <!--<li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-loue-tab" data-bs-toggle="pill"
-                              data-bs-target="#pills-loue" type="button" role="tab" aria-controls="pills-profile"
-                              aria-selected="false">Louer une propriété</button>
-                      </li>-->
+                 
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-
-                  <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                    aria-labelledby="pills-home-tab" tabindex="0">
+                  <div
+                    class="tab-pane fade show active"
+                    id="pills-home"
+                    role="tabpanel"
+                    aria-labelledby="pills-home-tab"
+                    tabindex="0"
+                  >
                     <div class="search-tab-col">
                       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                         <div class="row align-items-center search-form">
@@ -64,19 +80,27 @@
                             <div class="row">
                               <div class="col-lg-6">
                                 <div class="d-flex real-estate-search">
-                                  <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div
+                                    class="flex-shrink-0 d-flex align-items-center"
+                                  >
                                     <div class="icon-blk rounded-circle">
                                       <i class="feather-map-pin"></i>
                                     </div>
                                   </div>
-                                  <!--<div class="flex-grow-1 ms-3">
-                                                          <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                      </div>-->
+                               
                                   <div class="flex-grow-1 ms-3">
-                                    <select class="form-control select category-select"
-                                      (change)="onChangeRegion($event.target); updateUrl()">
-                                      <option selected [value]="null">Region</option>
-                                      <option *ngFor="let Region of region">{{Region.nomregion}}
+                                    <select
+                                      class="form-control select category-select"
+                                      (change)="
+                                        onChangeRegion($event.target);
+                                        updateUrl()
+                                      "
+                                    >
+                                      <option selected [value]="null">
+                                        Region
+                                      </option>
+                                      <option *ngFor="let Region of region">
+                                        {{ Region.nomregion }}
                                       </option>
                                       <!-- Ici, il manque la balise de fermeture </select> -->
                                     </select>
@@ -85,7 +109,40 @@
                               </div>
                               <div class="col-lg-6">
                                 <div class="d-flex real-estate-search">
-                                  <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div
+                                    class="flex-shrink-0 d-flex align-items-center"
+                                  >
+                                    <div class="icon-blk rounded-circle">
+                                      <i class="feather-map-pin"></i>
+                                    </div>
+                                  </div>
+                           
+                                  <div class="flex-grow-1 ms-3">
+                                    <select
+                                      class="form-control select category-select"
+                                      (change)="
+                                        onChangeCercle($event.target);
+                                        updateUrl()
+                                      "
+                                    >
+                                      <option selected [value]="null">
+                                        Cercle
+                                      </option>
+                                      <option
+                                        *ngFor="let Cercle of cercles"
+                                        [value]="Cercle.id"
+                                      >
+                                        {{ Cercle.nomcercle }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="d-flex real-estate-search">
+                                  <div
+                                    class="flex-shrink-0 d-flex align-items-center"
+                                  >
                                     <div class="icon-blk rounded-circle">
                                       <i class="feather-map-pin"></i>
                                     </div>
@@ -94,143 +151,203 @@
                                                           <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                       </div>-->
                                   <div class="flex-grow-1 ms-3">
-                                    <select class="form-control select category-select"
-                                      (change)="onChangeCercle($event.target); updateUrl()">
-                                      <option selected [value]="null">Cercle</option>
-                                      <option *ngFor="let Cercle of cercles" [value]="Cercle.id">{{Cercle.nomcercle}}
+                                    <select
+                                      class="form-control select category-select"
+                                      [(ngModel)]="form.commune"
+                                      name="commune"
+                                      (change)="updateUrl()"
+                                    >
+                                      <option selected [value]="null">
+                                        Commune
+                                      </option>
+                                      <option
+                                        *ngFor="let Commune of communes1"
+                                        [value]="Commune.id"
+                                      >
+                                        {{ Commune.nomcommune }}
                                       </option>
                                     </select>
                                   </div>
                                 </div>
-
                               </div>
-                              <div class="col-lg-6">
-                                <div class="d-flex real-estate-search">
-                                  <div class="flex-shrink-0 d-flex align-items-center">
-                                    <div class="icon-blk rounded-circle">
-                                      <i class="feather-map-pin"></i>
-                                    </div>
-                                  </div>
-                                  <!--<div class="flex-grow-1 ms-3">
-                                                          <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                      </div>-->
-                                  <div class="flex-grow-1 ms-3">
-                                    <select class="form-control select category-select" [(ngModel)]="form.commune"
-                                      name="commune" (change)="updateUrl()">
-                                      <option selected [value]="null">Commune</option>
-                                      <option *ngFor="let Commune of  communes1" [value]="Commune.id">
-                                        {{Commune.nomcommune}}
-                                      </option>
-                                    </select>
-                                  </div>
-                                </div>
-
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="d-flex real-estate-search">
-                                  <div class="flex-grow-1 ms-3">
-                                    <p>
-                                      <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse"
-                                        href="#collapseExample" role="button" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        Plus de recherche
-                                      </a>
-                                    </p>
-                                  </div>
-                                </div>
-
-                              </div>
-                            </div>
-                            <div class="collapse" id="collapseExample">
-                              <div class="card card-body">
-                                <div class="row">
+                             
+                           
+                           
+                               
                                   <div class="col-lg-6">
                                     <div class="d-flex real-estate-search">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
-                                          <img style="width: 20px;" src="./assets/img/icons/floor-icon.svg" alt="">
+                                          <img
+                                            style="width: 20px"
+                                            src="./assets/img/icons/floor-icon.svg"
+                                            alt=""
+                                          />
                                         </div>
                                       </div>
                                       <!--<div class="flex-grow-1 ms-3">
                                                                   <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                               </div>-->
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select" [(ngModel)]="form.minprix"
-                                          name="minprix" (ngModelChange)="filterMaxPrix()" (change)="updateUrl()">
-                                          <option selected [value]="null">Prix Minimum</option>
-                                          <option *ngFor="let item of valuesSelectPrix" [value]="item">{{item}}</option>
+                                        <select
+                                          class="form-control select category-select"
+                                          [(ngModel)]="form.minprix"
+                                          name="minprix"
+                                          (ngModelChange)="filterMaxPrix()"
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Prix Minimum
+                                          </option>
+                                          <option
+                                            *ngFor="
+                                              let item of valuesSelectPrix
+                                            "
+                                            [value]="item"
+                                          >
+                                            {{ item }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search real-select">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                    <div
+                                      class="d-flex real-estate-search real-select"
+                                    >
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
-                                          <img style="width: 20px;" src="./assets/img/icons/floor-icon.svg" alt="">
+                                          <img
+                                            style="width: 20px"
+                                            src="./assets/img/icons/floor-icon.svg"
+                                            alt=""
+                                          />
                                         </div>
                                       </div>
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select" [(ngModel)]="form.maxprix"
-                                          name="maxprix" (change)="updateUrl()">
-                                          <option selected [value]="null">Prix maximum</option>
-                                          <option *ngFor="let item of maxprix_values" [value]="item">{{item}}</option>
+                                        <select
+                                          class="form-control select category-select"
+                                          [(ngModel)]="form.maxprix"
+                                          name="maxprix"
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Prix maximum
+                                          </option>
+                                          <option
+                                            *ngFor="let item of maxprix_values"
+                                            [value]="item"
+                                          >
+                                            {{ item }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                                <div class="row">
+                               
+                                
                                   <div class="col-lg-6">
                                     <div class="d-flex real-estate-search">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
                                           <i class="feather-home"></i>
                                         </div>
                                       </div>
-                                      <!--<div class="flex-grow-1 ms-3">
-                                                                  <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                              </div>-->
+                                    
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select" [(ngModel)]="form.type"
-                                          name="type" class="form-control" id="" (change)="updateUrl()">
-                                          <option selected [value]="null">Type</option>
-                                          <option *ngFor="let Type of typebien" [value]="Type.id">
-                                            {{Type.nom}}</option>
+                                        <select
+                                          class="form-control select category-select"
+                                          [(ngModel)]="form.type"
+                                          name="type"
+                                          class="form-control"
+                                          id=""
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Type
+                                          </option>
+                                          <option
+                                            *ngFor="let Type of typebien"
+                                            [value]="Type.id"
+                                          >
+                                            {{ Type.nom }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search real-select">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                    <div
+                                      class="d-flex real-estate-search real-select"
+                                    >
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
-                                          <img style="width: 20px;" src="./assets/img/icons/fax-icon.png" alt="">
+                                          <img
+                                            style="width: 20px"
+                                            src="./assets/img/icons/fax-icon.png"
+                                            alt=""
+                                          />
                                         </div>
                                       </div>
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select"
-                                          (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut"
-                                          (change)="updateUrl()">
-                                          <option selected [value]="null">Statut</option>
-                                          <option *ngFor="let Statut of status" [value]="Statut.id">
-                                            {{Statut.nom}}</option>
+                                        <select
+                                          class="form-control select category-select"
+                                          (change)="onStatutChange($event)"
+                                          [(ngModel)]="form.statut"
+                                          name="statut"
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Statut
+                                          </option>
+                                          <option
+                                            *ngFor="let Statut of status"
+                                            [value]="Statut.id"
+                                          >
+                                            {{ Statut.nom }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search real-select">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                    <div
+                                      class="d-flex real-estate-search real-select"
+                                    >
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
-                                          <img src="./assets/img/icons/bath-icon.svg" alt="">
+                                          <img
+                                            src="./assets/img/icons/bath-icon.svg"
+                                            alt=""
+                                          />
                                         </div>
                                       </div>
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select" [(ngModel)]="form.toilette"
-                                          name="toilette" (change)="updateUrl()">
-                                          <option selected [value]="null">Nombre de Toilette</option>
-                                          <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
+                                        <select
+                                          class="form-control select category-select"
+                                          [(ngModel)]="form.toilette"
+                                          name="toilette"
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Nombre de Toilette
+                                          </option>
+                                          <option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
@@ -238,62 +355,116 @@
 
                                   <div class="col-lg-6">
                                     <div class="d-flex real-estate-search">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
-                                          <img src="./assets/img/icons/bed-icon.svg" alt="">
+                                          <img
+                                            src="./assets/img/icons/bed-icon.svg"
+                                            alt=""
+                                          />
                                         </div>
                                       </div>
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select" [(ngModel)]="form.chambre"
-                                          name="chambre" (change)="updateUrl()">
-                                          <option selected [value]="null">Nombre de chambre</option>
-                                          <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
+                                        <select
+                                          class="form-control select category-select"
+                                          [(ngModel)]="form.chambre"
+                                          name="chambre"
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Nombre de chambre
+                                          </option>
+                                          <option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search real-select">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                    <div
+                                      class="d-flex real-estate-search real-select"
+                                    >
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
-                                          <img src="./assets/img/icons/area-icon.svg" alt="">
+                                          <img
+                                            src="./assets/img/icons/area-icon.svg"
+                                            alt=""
+                                          />
                                         </div>
                                       </div>
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select" [(ngModel)]="form.nb_piece"
-                                          name="nb_piece" (change)="updateUrl()">
-                                          <option selected [value]="null">Nomre de salon</option>
-                                          <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
-
+                                        <select
+                                          class="form-control select category-select"
+                                          [(ngModel)]="form.nb_piece"
+                                          name="nb_piece"
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Nomre de salon
+                                          </option>
+                                          <option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search real-select">
-                                      <div class="flex-shrink-0 d-flex align-items-center">
+                                    <div
+                                      class="d-flex real-estate-search real-select"
+                                    >
+                                      <div
+                                        class="flex-shrink-0 d-flex align-items-center"
+                                      >
                                         <div class="icon-blk rounded-circle">
-                                          <img style="width: 20px;" src="./assets/img/icons/649395.png" alt="">
+                                          <img
+                                            style="width: 20px"
+                                            src="./assets/img/icons/649395.png"
+                                            alt=""
+                                          />
                                         </div>
                                       </div>
                                       <div class="flex-grow-1 ms-3">
-                                        <select class="form-control select category-select" [(ngModel)]="form.cuisine"
-                                          name="cuisine" (change)="updateUrl()">
-                                          <option selected [value]="null">Nombre de cuisine</option>
-                                          <option *ngFor="let item of valuesSelect" [value]="item">{{item}}</option>
+                                        <select
+                                          class="form-control select category-select"
+                                          [(ngModel)]="form.cuisine"
+                                          name="cuisine"
+                                          (change)="updateUrl()"
+                                        >
+                                          <option selected [value]="null">
+                                            Nombre de cuisine
+                                          </option>
+                                          <option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}
+                                          </option>
                                         </select>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-
-                                <!--<div class="row mt-3 mb-4 fw-bold">
-                                                      Autres commodites
-                                                  </div> -->
+                              
                                 <div class="flex-grow-1 ms-3">
                                   <p>
-                                    <a class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm"
-                                      role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <a
+                                      class="row mt-3 fw-bold"
+                                      data-bs-toggle="collapse"
+                                      href="#cautrecomm"
+                                      role="button"
+                                      aria-expanded="false"
+                                      aria-controls="collapseExample"
+                                    >
                                       Autres commodites
                                     </a>
                                   </p>
@@ -301,137 +472,115 @@
                                 <div class="collapse" id="cautrecomm">
                                   <div class="card card-body">
                                     <div class="row">
-                                      <div class="col-4" *ngFor="let Commodite of commodite">
+                                      <div
+                                        class="col-4"
+                                        *ngFor="let Commodite of commodite"
+                                      >
                                         <div class="form-check mb-2">
-                                          <input class="form-check-input" type="checkbox" value=""
-                                            [(ngModel)]="Commodite.selected" [value]="Commodite.id"
-                                            id="flexCheckDefault" (change)="onChangeCommodite()" name="commodite"
-                                            (change)="updateUrl()">
-                                          <label class="form-check-label" for="flexCheckDefault">
-                                            {{Commodite.nom}}
+                                          <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value=""
+                                            [(ngModel)]="Commodite.selected"
+                                            [value]="Commodite.id"
+                                            id="flexCheckDefault"
+                                            (change)="onChangeCommodite()"
+                                            name="commodite"
+                                            (change)="updateUrl()"
+                                          />
+                                          <label
+                                            class="form-check-label"
+                                            for="flexCheckDefault"
+                                          >
+                                            {{ Commodite.nom }}
                                           </label>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-
-                              </div>
+                             
                             </div>
                           </div>
                           <div class="col-12 col-lg-12 real-search-bar">
-                            <button class="btn car-search-icon float-end" type="submit">Rechercher</button>
+                            <button
+                              class="btn car-search-icon float-end"
+                              type="submit"
+                            >
+                              Rechercher
+                            </button>
                           </div>
                         </div>
                       </form>
                     </div>
                   </div>
-                  <!--<div class="tab-pane fade show" id="pills-loue" role="tabpanel" aria-labelledby="pills-loue-tab"
-                          tabindex="0">
-                          <div class="search-tab-col">
-                              <form action="listing-grid-sidebar.html">
-                                  <div class="row align-items-center search-form">
-                                      <div class="col-12 col-lg-10 datepicker-col search-group">
-                                          <div class="row">
-                                              <div class="col-lg-6">
-                                                  <div class="d-flex real-estate-search">
-                                                      <div class="flex-shrink-0 d-flex align-items-center">
-                                                          <div class="icon-blk rounded-circle">
-                                                              <i class="feather-map-pin"></i>
-                                                          </div>
-                                                      </div>
-                                                      <div class="flex-grow-1 ms-3">
-                                                          <input type="text" name="name"
-                                                              class="border-0 text-truncate px-0 form-control"
-                                                              placeholder="Search location of Property">
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <div class="col-lg-2">
-                                                  <div class="d-flex real-estate-search">
-                                                      <div class="flex-shrink-0 d-flex align-items-center">
-                                                          <div class="icon-blk rounded-circle">
-                                                              <img src="./assets/img/icons/calender.svg" alt="">
-                                                          </div>
-                                                      </div>
-                                                      <div class="flex-grow-1 ms-3">
-                                                          <input type="text" name="checkin"
-                                                              class="border-0 text-truncate px-0 form-control datetimepicker"
-                                                              placeholder="Check-in" bsDatepicker
-                                                              [bsConfig]="{ isAnimated: true }">
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <div class="col-lg-2">
-                                                  <div class="d-flex real-estate-search">
-                                                      <div class="flex-shrink-0 d-flex align-items-center">
-                                                          <div class="icon-blk rounded-circle">
-                                                              <img src="./assets/img/icons/calender.svg" alt="">
-                                                          </div>
-                                                      </div>
-                                                      <div class="flex-grow-1 ms-3">
-                                                          <input type="text" name="checkout"
-                                                              class="border-0 text-truncate px-0 form-control datetimepicker"
-                                                              placeholder="Check- out" bsDatepicker
-                                                              [bsConfig]="{ isAnimated: true }">
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <div class="col-lg-2">
-                                                  <div class="d-flex real-estate-search real-select">
-                                                      <div class="flex-shrink-0 d-flex align-items-center">
-                                                          <div class="icon-blk rounded-circle">
-                                                              <img src="./assets/img/icons/users.svg" alt="">
-                                                          </div>
-                                                      </div>
-                                                      <div class="flex-grow-1 ms-3">
-                                                          <select class="form-control select category-select">
-                                                              <option>Guest</option>
-                                                              <option>User</option>
-                                                              <option>Admin</option>
-                                                              <option>Seller</option>
-                                                              <option>Buyer</option>
-                                                          </select>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-12 col-lg-2 real-search-bar">
-                                          <button class="btn car-search-icon" type="submit">Search Properties</button>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>-->
                 </div>
               </div>
             </div>
           </div>
           <div class="grid-view">
             <div class="row">
-              <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
-                <div class="col-lg-6 col-md-4"
-                  *ngFor="let slide of bienImmo | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | paginate:{itemsPerPage :4, currentPage:p}">
+              <ng-container
+                *ngIf="bienImmo && bienImmo.length > 0; else noBiens"
+              >
+                <div
+                  class="col-lg-6 col-md-4"
+                  *ngFor="
+                    let slide of bienImmo
+                      | filter : searchText
+                      | filter : selectedRegion
+                      | filter : selectedCommune
+                      | filter : selectedType
+                      | paginate : { itemsPerPage: 4, currentPage: p }
+                  "
+                >
                   <div class="card">
                     <div class="blog-widget">
                       <div class="blog-img">
                         <a (click)="goToDettailBien(slide.uuid)" class="crd">
-                          <div *ngIf="slide.photos && slide.photos.length > 0; else noImages">
-                            <img src="{{ generateImageUrl(slide.photos[0].nom) }}" class="img-fluid image-size"
-                              alt="blog-img">
+                          <div
+                            *ngIf="
+                              slide.photos && slide.photos.length > 0;
+                              else noImages
+                            "
+                          >
+                            <img
+                              src="{{ generateImageUrl(slide.photos[0].nom) }}"
+                              class="img-fluid image-size"
+                              alt="blog-img"
+                            />
                           </div>
                           <ng-template #noImages>
-                            <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
+                            <img
+                              src="{{ DEFAULT_IMAGE_URL }}"
+                              class="img-fluid image-size"
+                              alt="default-img"
+                            />
                           </ng-template>
                         </a>
                         <div class="fav-item">
-                          <span [ngClass]="{'statutbien': slide.statut.nom === 'A vendre' }" class="Featured-text">{{
-                            slide?.statut?.nom }}</span>
-                          <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
+                          <span
+                            [ngClass]="{
+                              statutbien: slide.statut.nom === 'A vendre'
+                            }"
+                            class="Featured-text"
+                            >{{ slide?.statut?.nom }}</span
+                          >
+                          <a
+                            href="javascript:void(0)"
+                            *ngIf="isLoggedIn == true"
+                            class="fav-icon"
                             (click)="AimerBien(slide.id)"
-                            [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : ''">
-                            <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
+                            [style.background-color]="
+                              favoriteStatus[slide.id] ? '#e98b11' : ''
+                            "
+                          >
+                            <i
+                              [style.color]="
+                                favoriteStatus[slide.id] ? 'white' : 'black'
+                              "
+                              class="feather-heart"
+                            ></i>
                           </a>
                         </div>
                       </div>
@@ -439,36 +588,53 @@
                         <div class="card-body">
                           <div class="blogfeaturelink">
                             <div class="grid-author">
-                              <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
-                                (error)="handleAuthorImageError($event)" />
+                              <img
+                                src="{{
+                                  generateImageUrl(
+                                    slide?.utilisateur?.photo?.nom
+                                  )
+                                }}"
+                                alt="author"
+                                (error)="handleAuthorImageError($event)"
+                              />
                             </div>
                             <div class="blog-features">
-                              <a href="javascript:void(0)"><span>
+                              <a href="javascript:void(0)"
+                                ><span>
                                   <i class="fa-regular fa-circle-stop"></i>
-                                  {{ slide?.typeImmo?.nom }}</span></a>
+                                  {{ slide?.typeImmo?.nom }}</span
+                                ></a
+                              >
                             </div>
                             <div class="blog-author text-end">
                               <span>
-                                <i class="feather-eye"></i>{{ favoritedPropertiesCount1[slide.id] }}
+                                <i class="feather-eye"></i
+                                >{{ favoritedPropertiesCount1[slide.id] }}
                               </span>
                             </div>
                           </div>
                           <h6 class="crd">
-                            <a (click)="goToDettailBien(slide.uuid)">{{ slide.nom ? slide.nom : slide.typeImmo.nom
-                              }}</a>
+                            <a (click)="goToDettailBien(slide.uuid)">{{
+                              slide.nom ? slide.nom : slide.typeImmo.nom
+                            }}</a>
                           </h6>
                           <div class="blog-location-details">
                             <div class="location-info">
-                              <i class="feather-map-pin"></i> {{ slide.adresse.quartier }}
+                              <i class="feather-map-pin"></i>
+                              {{ slide.adresse.quartier }}
                             </div>
                             <div class="location-info">
-                              <i class="fa-solid fa-calendar-days"></i>{{slide.createdAt | date:"dd MMM yyyy":locale}}
-
+                              <i class="fa-solid fa-calendar-days"></i
+                              >{{
+                                slide.createdAt | date : "dd MMM yyyy" : locale
+                              }}
                             </div>
                           </div>
                           <div class="amount-details">
                             <div class="amount">
-                              <span class="validrate">{{ formatPrice(slide.prix) }} FCFA</span>
+                              <span class="validrate"
+                                >{{ formatPrice(slide.prix) }} FCFA</span
+                              >
                               <!-- <span>{{ slide.oldamount }}</span> -->
                             </div>
                             <div class="ratings">
@@ -489,12 +655,19 @@
                         <div class="blog-img">
                           <a>
                             <div>
-                              <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img">
+                              <img
+                                src="assets/img/test.jpg"
+                                class="img-fluid image-size"
+                                alt="blog-img"
+                              />
                             </div>
                           </a>
                           <div class="fav-item placeholder-glow">
                             <span class="placeholder">hhhhhh</span>
-                            <a href="javascript:void(0)" class="fav-icon placeholder">
+                            <a
+                              href="javascript:void(0)"
+                              class="fav-icon placeholder"
+                            >
                             </a>
                           </div>
                         </div>
@@ -505,30 +678,40 @@
                                 <img class="placeholder" alt="author" />
                               </div>
                               <div class="blog-features placeholder-glow">
-                                <a href="javascript:void(0)"><span class="placeholder">
-                                    jjjjjjjjjjjjjjj</span></a>
+                                <a href="javascript:void(0)"
+                                  ><span class="placeholder">
+                                    jjjjjjjjjjjjjjj</span
+                                  ></a
+                                >
                               </div>
-                              <div class="blog-author text-end placeholder-glow">
-                                <span class="placeholder">jjjjljjjjjjjjjjjl
+                              <div
+                                class="blog-author text-end placeholder-glow"
+                              >
+                                <span class="placeholder"
+                                  >jjjjljjjjjjjjjjjl
                                 </span>
                               </div>
                             </div>
                             <div class="blog-location-details placeholder-glow">
-                              <div class="location-info placeholder">aaaaaaaaaaaa
+                              <div class="location-info placeholder">
+                                aaaaaaaaaaaa
                               </div>
                             </div>
                             <div class="blog-location-details placeholder-glow">
-                              <div class="location-info placeholder">aaaaaaa
+                              <div class="location-info placeholder">
+                                aaaaaaa
                               </div>
-                              <div class="location-info placeholder">aaaaaaa
+                              <div class="location-info placeholder">
+                                aaaaaaa
                               </div>
                             </div>
                             <div class="amount-details placeholder-glow">
                               <div class="amount">
-                                <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                                <span class="placeholder"
+                                  >aaaaaaaaaaaaaaaaa</span
+                                >
                               </div>
-                              <div class="ratings">
-                              </div>
+                              <div class="ratings"></div>
                             </div>
                           </div>
                         </div>
@@ -541,12 +724,19 @@
                         <div class="blog-img">
                           <a>
                             <div>
-                              <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img">
+                              <img
+                                src="assets/img/test.jpg"
+                                class="img-fluid image-size"
+                                alt="blog-img"
+                              />
                             </div>
                           </a>
                           <div class="fav-item placeholder-glow">
                             <span class="placeholder">hhhhhh</span>
-                            <a href="javascript:void(0)" class="fav-icon placeholder">
+                            <a
+                              href="javascript:void(0)"
+                              class="fav-icon placeholder"
+                            >
                             </a>
                           </div>
                         </div>
@@ -557,30 +747,40 @@
                                 <img class="placeholder" alt="author" />
                               </div>
                               <div class="blog-features placeholder-glow">
-                                <a href="javascript:void(0)"><span class="placeholder">
-                                    jjjjjjjjjjjjjjj</span></a>
+                                <a href="javascript:void(0)"
+                                  ><span class="placeholder">
+                                    jjjjjjjjjjjjjjj</span
+                                  ></a
+                                >
                               </div>
-                              <div class="blog-author text-end placeholder-glow">
-                                <span class="placeholder">jjjjljjjjjjjjjjjl
+                              <div
+                                class="blog-author text-end placeholder-glow"
+                              >
+                                <span class="placeholder"
+                                  >jjjjljjjjjjjjjjjl
                                 </span>
                               </div>
                             </div>
                             <div class="blog-location-details placeholder-glow">
-                              <div class="location-info placeholder">aaaaaaaaaaaa
+                              <div class="location-info placeholder">
+                                aaaaaaaaaaaa
                               </div>
                             </div>
                             <div class="blog-location-details placeholder-glow">
-                              <div class="location-info placeholder">aaaaaaa
+                              <div class="location-info placeholder">
+                                aaaaaaa
                               </div>
-                              <div class="location-info placeholder">aaaaaaa
+                              <div class="location-info placeholder">
+                                aaaaaaa
                               </div>
                             </div>
                             <div class="amount-details placeholder-glow">
                               <div class="amount">
-                                <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                                <span class="placeholder"
+                                  >aaaaaaaaaaaaaaaaa</span
+                                >
                               </div>
-                              <div class="ratings">
-                              </div>
+                              <div class="ratings"></div>
                             </div>
                           </div>
                         </div>
@@ -593,10 +793,19 @@
           </div>
 
           <!--Pagination-->
-          <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event"
-            previousLabel="Précédent" nextLabel="Suivant" class="pagination" previousClass="pagination__previous"
-            nextClass="pagination__next" containerClass="pagination__container" pageClass="pagination__page"
-            activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"></pagination-controls>
+          <pagination-controls
+            *ngIf="bienImmo && bienImmo.length > 0"
+            (pageChange)="p = $event"
+            previousLabel="Précédent"
+            nextLabel="Suivant"
+            class="pagination"
+            previousClass="pagination__previous"
+            nextClass="pagination__next"
+            containerClass="pagination__container"
+            pageClass="pagination__page"
+            activeClassName="pagination__page--active"
+            disabledClass="pagination__page--disabled"
+          ></pagination-controls>
           <!--/Pagination-->
         </div>
       </div>
@@ -607,7 +816,7 @@
             [overlays]="overlays | filterMarkersByCriteria: searchText:selectedRegion:selectedCommune:selectedType"
             (onOverlayClick)="setInfo($event)" [style]="{ width: '100%', height: '100%' }"></p-gmap>
         </div> -->
-        <div id="map" style="width: 98%;"></div> 
+        <div id="map" style="width: 98%"></div>
         <!-- <div class="map-wrapper">
           <div class="map-border">
             <div id="map"></div>

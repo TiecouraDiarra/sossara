@@ -98,6 +98,18 @@ export class MessagesComponent implements OnInit {
   }
   ngOnInit(): void {
    
+    if (this.storageService.isLoggedIn()) {
+      // this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().roles;
+      // console.log(this.roles);
+      if (this.roles.includes("ROLE_LOCATAIRE")) {
+        this.isLocataire = true
+      } else if (this.roles.includes("ROLE_AGENCE")) {
+        this.isAgence = true
+      } else if (this.roles.includes("ROLE_AGENT")) {
+        // this.isAgent = true
+      }
+    }
     this.users=this.storageService.getUser()
     this.senderCheck = this.users.email;
 

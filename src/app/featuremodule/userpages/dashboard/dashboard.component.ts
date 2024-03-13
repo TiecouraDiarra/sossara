@@ -70,6 +70,11 @@ export class DashboardComponent implements OnInit {
   public dashboardreview: any = []
   @ViewChild("chart") chart !: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
+  users: any;
+  public chatData: any;
+  senderCheck: any;
+
+
   constructor(
     private DataService: DataService,
     private authService: AuthService,
@@ -152,16 +157,18 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.storageService.getUser());
+    this.users=this.storageService.getUser()
+    this.senderCheck = this.users.email;
 
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
+      if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
-      } else if (this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles.includes("ROLE_AGENCE")) {
         this.isAgence = true
-      } else if (this.roles[0] == "ROLE_AGENT") {
+      } else if (this.roles.includes("ROLE_AGENT")) {
         this.isAgent = true
       }
     }
@@ -213,6 +220,7 @@ export class DashboardComponent implements OnInit {
       // Initialiser une liste pour stocker tous les biens immobiliers des agents
       let totalBiensAgents: any[] = [];
       this.bienImmoAgence = data?.bienImmos;
+      this.nombreagent = data?.agents?.length;
 
       // Parcourir chaque agent
       data.agents.forEach((agent: any) => {
@@ -263,31 +271,26 @@ export class DashboardComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.nombreCandidatureAccepter = data.length;
-      // console.log(this.nombreCandidatureAccepter);
-      // console.log(this.nombreCandidatureBienUser);
-      // console.log(this.nombreRdvUser);
-      // console.log(this.nombreCandidatureAccepter);
+      //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
+      this.serviceUser.AfficherLaListeRdv().subscribe(data => {
+        this.nombreRdvUser = data?.length;
+        // console.log(this.nombreRdvUser);
+      }
+      );
 
       // Calculer la somme des candidatures et des rendez-vous
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
       // console.log("SommeTout =", this.somme);
     });
 
-    //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      this.nombreCandidatureBienUser = data?.candidature?.length;
-      // this.nombreRdvUser = data.length;
 
 
-    }
-    );
 
-    //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
-    this.serviceMessage.AfficherLaListeConversation().subscribe(data => {
-      this.nombreconversation = data.conversation.length;
-      // console.log(this.nombreconversation);
-    }
-    );
+    // For getting all the chat list whose ever is logged in.
+    this.serviceMessage.getChatByFirstUserNameOrSecondUserName(this.senderCheck).subscribe(data => {
+      this.chatData = data;
+      this.nombreconversation = this.chatData.length;
+    });
   }
 
   //IMAGE

@@ -101,6 +101,9 @@ export class AuthService {
     localStorage.removeItem('token'); // Supprime le token JWT du stockage local
     return this.http.request(req);
 }
+voirTokenValidite(token: any): Observable<any> {
+  return this.http.get(`${URL_BASE}/auth/validateToken/${token}`);
+}
 
 
   reloadPage(): void {

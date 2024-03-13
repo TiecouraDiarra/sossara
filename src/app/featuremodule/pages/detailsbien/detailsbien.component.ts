@@ -1023,8 +1023,9 @@ export class DetailsbienComponent implements AfterViewInit {
             this.router.navigate(['/userpages/messages']);
           } else {
             // Si le tableau est vide, créez une nouvelle salle de chat
-            this.chatObj.expediteur = this.users.email;
-            this.chatObj.destinateur = username;
+            // Si le tableau est vide, créez une nouvelle salle de chat
+            this.chatObj['expediteur'] = this.users.email;
+            this.chatObj['destinateur'] = username;
             this.chatService.createChatRoom(this.chatObj).subscribe((data) => {
               this.chatData = data;
               this.chatId = this.chatData.chatId;

@@ -167,10 +167,12 @@ export class ProfileComponent implements OnInit {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
       // console.log(this.roles);
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
+      if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
-      } else if (this.roles[0] == "ROLE_AGENCE") {
+      } else if (this.roles.includes("ROLE_AGENCE")) {
         this.isAgence = true
+      } else if (this.roles.includes("ROLE_AGENT")) {
+        // this.isAgent = true
       }
      
     }

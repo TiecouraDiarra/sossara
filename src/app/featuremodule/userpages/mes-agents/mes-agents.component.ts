@@ -99,10 +99,12 @@ export class MesAgentsComponent implements OnInit {
       this.roles = this.storageService.getUser().roles;
       this.nomAgence = this.storageService.getUser().nom;
       // console.log(this.roles);
-      if (this.roles[0] == 'ROLE_LOCATAIRE') {
-        this.isLocataire = true;
-      } else if (this.roles[0] == 'ROLE_AGENCE') {
-        this.isAgence = true;
+      if (this.roles.includes("ROLE_LOCATAIRE")) {
+        this.isLocataire = true
+      } else if (this.roles.includes("ROLE_AGENCE")) {
+        this.isAgence = true
+      } else if (this.roles.includes("ROLE_AGENT")) {
+        // this.isAgent = true
       }
     }
 
@@ -158,8 +160,8 @@ export class MesAgentsComponent implements OnInit {
       if (
         this.agentForm.nom !== null &&
         this.agentForm.email !== null &&
-        this.agentForm.telephone !== null &&
-        this.agentForm.quartier !== null
+        this.agentForm.telephone !== null 
+        // this.agentForm.quartier !== null
       ) {
         swalWithBootstrapButtons
           .fire({
@@ -177,8 +179,8 @@ export class MesAgentsComponent implements OnInit {
                 .AjouterAgent(
                   this.agentForm.nom,
                   this.agentForm.email,
-                  this.agentForm.telephone,
-                  this.agentForm.quartier
+                  this.agentForm.telephone
+                  
                 )
                 .subscribe(
                   (data) => {

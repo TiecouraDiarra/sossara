@@ -194,7 +194,7 @@ export class AccueilComponent {
         items: 4,
       },
       1170: {
-        items: 4,
+        items: 3,
         loop: true,
       },
     },
