@@ -13,9 +13,9 @@ import * as L from 'leaflet';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { MessageService } from 'src/app/service/message/message.service';
 import Swal from 'sweetalert2';
+import { UsageService } from 'src/app/service/usage/usage.service';
 import { Chat } from '../../userpages/message/models/chat';
 import { Message } from '../../userpages/message/models/message';
-import { UsageService } from 'src/app/service/usage/usage.service';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -62,8 +62,8 @@ export class DetailsbienComponent implements AfterViewInit {
   images: File[] = [];
   idBien: any;
   nombreZone: any;
-  users: any;
   usage: any;
+  users: any;
 
   senderCheck: any;
   chatId: any = sessionStorage.getItem('chatId');
@@ -118,9 +118,11 @@ export class DetailsbienComponent implements AfterViewInit {
     });
   }
 
-  latitude: any;
-  longitude: any;
-  description: any;
+
+
+  latitude: any
+  longitude: any
+  description: any
   status: any = ['A louer', 'A vendre'];
   type: any;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -575,6 +577,13 @@ export class DetailsbienComponent implements AfterViewInit {
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
   PrendreRvd(id: number): void {
     // this.id = this.route.snapshot.params["id"]
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
     const user = this.storageService.getUser();
     if (user && user.token) {
       // Définissez le token dans le service serviceUser
@@ -585,8 +594,39 @@ export class DetailsbienComponent implements AfterViewInit {
         .PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id)
         .subscribe({
           next: (data) => {
-            this.isSuccess = true;
-            this.errorMessage = 'Rendez-vous envoyé avec succès';
+            if (data.status) {
+              let timerInterval = 2000;
+              Swal.fire({
+                position: 'center',
+                text: data.message,
+                title: "Envoie de rendez-vous",
+                icon: 'success',
+                heightAuto: false,
+                showConfirmButton: false,
+                confirmButtonColor: '#0857b5',
+                showDenyButton: false,
+                showCancelButton: false,
+                allowOutsideClick: false,
+                timer: timerInterval,
+                timerProgressBar: true,
+              }).then(() => {
+                this.reloadPage();
+              });
+            } else {
+              Swal.fire({
+                position: 'center',
+                text: data.message,
+                title: 'Erreur',
+                icon: 'error',
+                heightAuto: false,
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#0857b5',
+                showDenyButton: false,
+                showCancelButton: false,
+                allowOutsideClick: false,
+              }).then((result) => { });
+            }
             this.RdvForm.date = null;
             this.RdvForm.heure = null;
           },
@@ -595,8 +635,13 @@ export class DetailsbienComponent implements AfterViewInit {
             this.isError = true;
             // Gérez les erreurs ici
             if (this.RdvForm.date == null || this.RdvForm.heure == null) {
-              this.errorMessage =
-                'Date et heure de rendez-vous sont obligatoire';
+              swalWithBootstrapButtons.fire(
+                '',
+                `<h1 style='font-size: 1em !important; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Date et heure de rendez-vous sont obligatoire</h1>`,
+                'error'
+              );
+              // this.errorMessage =
+              //   'Date et heure de rendez-vous sont obligatoire';
             }
           },
         });
@@ -965,7 +1010,7 @@ export class DetailsbienComponent implements AfterViewInit {
     return this.router.navigate(['/userpages/messages']);
   }
 
-  goToDettailBien(username: any) {
+  goToMessage(username: any) {
     this.chatService
       .getChatByFirstUserNameAndSecondUserName(username, this.users.email)
       .subscribe(

@@ -39,20 +39,28 @@
                     (error)="handleAuthorImageError($event)">
                 </div>
                 <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nom}}</h6>
-                <div class="row" *ngIf="agence && agence.email">
+                <div class="row" *ngIf="agence && agence.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 14px">
-                    <label>Email :</label>
+                    <label>Adresse :</label>
                   </div>
                   <div class="col-7" style="font-size: 12px;">
-                    <p>{{agence?.email}}</p>
+                    <p>{{ agence?.adresse?.commune?.cercle?.nomcercle }} - {{ agence?.adresse?.quartier }}</p>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="agence && agence.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 13px">
-                    <label>Contact :</label>
+                    <label>Rue :</label>
                   </div>
                   <div class="col-7">
-                    <p>{{agence?.telephone}}</p>
+                    <p>{{agence?.adresse?.rue}}</p>
+                  </div>
+                </div>
+                <div class="row" *ngIf="agence && agence.adresse">
+                  <div class="col-5" style="font-weight: bold;font-size: 13px">
+                    <label>Porte :</label>
+                  </div>
+                  <div class="col-7">
+                    <p>{{agence?.adresse?.porte}}</p>
                   </div>
                 </div>
                 <hr>
@@ -81,9 +89,10 @@
                     </div>
                   </div>
                 </div>
-                <div (click)="ContacterOrLogin(agence.id)">
+                
+                <div (click)="ContacterOrLogin(agence.id)" (click)="goToMessage(agence?.email)">
                   <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
-                    Contacter cette Agence</a>
+                    Contacter l'agence</a>
                 </div>
               </div>
             </div>
@@ -313,12 +322,12 @@
                           class="">
                       </div>
                       <h5 class="mb-0">{{Agent?.nom}}</h5>
-                      <small style="margin-top: 8px !important;">
-                        {{ Agent?.adresse }}
+                      <small *ngIf="Agent.adresse" style="margin-top: 8px !important;">
+                        {{ Agent?.adresse?.quartier }}
                       </small>
-                      <!-- <ng-template #noAddress>
-                        <small style="margin-top: 8px !important;">Pas d'adresse</small>
-                      </ng-template> -->
+                    
+                        <small *ngIf="!Agent.adresse" style="margin-top: 8px !important;">Pas d'adresse</small>
+                   
 
                       <!-- <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                           class="fa fa-star"></i>

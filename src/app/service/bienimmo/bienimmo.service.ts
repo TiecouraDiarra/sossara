@@ -44,6 +44,13 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbien`);
   }
 
+        // La liste de tous les biens y compris ceux qui sont vendus et loués
+    AfficherLaListeBienImmoTotal(): Observable<any> {
+      
+      return this.http.get(`${URL_BASE}/bien/afficherbienTotal`);
+    }
+  
+
   //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
   AfficherLaListeBienImmoPlusVue(): Observable<any> {
     return this.http.get(`${URL_BASE}/favoris/top6biens`);
@@ -365,9 +372,7 @@ export class BienimmoService {
     id: any
   ): Observable<any> {
     const headers = this.getHeaders();
-    const formData = new FormData(); 
-    alert("je suis la")
-  
+    const formData = new FormData();   
     commodite.forEach(i => { formData.append('commodites[]', i.toString()); });
     formData.append('typeImmoId', type.toString());
     formData.append('commune', commune.toString());

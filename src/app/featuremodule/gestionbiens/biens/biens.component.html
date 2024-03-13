@@ -299,7 +299,12 @@
                             alt="blog-img">
                         </div>
                         <ng-template #noImages>
-                          <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
+                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Villa'">
+                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size" alt="default-img">
+                          </div>
+                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Appartement'">
+                            <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size" alt="default-img">
+                          </div>
                         </ng-template>
                       </a>
                       <div class="fav-item">

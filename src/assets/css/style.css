@@ -5913,7 +5913,7 @@ ul.tags {
     margin-bottom: 15px;
 }
 .dashcard-img {
-    margin: 0 0 15px;
+    /* margin: 0 0 15px; */
 }
 .dash-widget-info h6 {
     font-size: 16px;

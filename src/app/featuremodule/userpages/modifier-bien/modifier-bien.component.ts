@@ -374,7 +374,6 @@ removeImage(index: number) {
    ModifierBien(): void {
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params['uuid'];
-    alert(this.id)
     const {
       commodite,
       type,
@@ -440,7 +439,6 @@ removeImage(index: number) {
           if (result.isConfirmed) {
             const images = this.images1;
              const files = await this.convertURLsToFiles(images);         
-
             const user = this.storageService.getUser();
             if (user && user.token) {
               this.serviceBienImmo.setAccessToken(user.token);
@@ -473,6 +471,7 @@ removeImage(index: number) {
                   next: (data) => {
                     this.isSuccess = false;
                     this.popUpConfirmationModification();
+                    this.router.navigate(['details-bien', this.id])
                   },
                   error: (err) => {
                     this.errorMessage = err.error.message;

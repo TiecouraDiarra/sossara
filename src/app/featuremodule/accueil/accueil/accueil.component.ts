@@ -168,7 +168,7 @@ export class AccueilComponent {
         items: 3,
       },
       1170: {
-        items: 4,
+        items: 3,
         loop: true,
       },
     },

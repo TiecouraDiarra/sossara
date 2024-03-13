@@ -9,10 +9,13 @@
             <li class="breadcrumb-item">
               <a [routerLink]="routes.home9">Accueil</a>
             </li>
-            <li class="breadcrumb-item">
-              <a [routerLink]="routes.listinglistsidebar">Nom Agence</a>
+            <li class="breadcrumb-item crd" style="color: white;">
+              <a (click)="goToDettailAgence(agent?.agence?.uuid)">{{agent?.agence?.nom}}</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Nom Agent</li>
+            <!-- <li class="breadcrumb-item">
+              <a [routerLink]="routes.listinglistsidebar">{{agent?.agence?.nom}}</a>
+            </li> -->
+            <li class="breadcrumb-item active" aria-current="page">{{agent?.nom}}</li>
           </ol>
         </nav>
       </div>
@@ -40,24 +43,32 @@
                     alt="User-Profile-Image" (error)="handleAuthorImageError($event)">
                 </div>
                 <h6 class="f-w-600 m-t-25 m-b-10" *ngIf="agent && agent.nom">{{agent?.nom}}</h6>
-                <div class="row" *ngIf="agent && agent.email">
+                <div class="row" *ngIf="agent && agent.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 14px">
-                    <label>Email :</label>
+                    <label>Adresse :</label>
                   </div>
                   <div class="col-7" style="font-size: 12px;">
-                    <p>{{agent.email}}</p>
+                    <p>{{ agent?.adresse?.commune?.cercle?.nomcercle }} - {{ agent?.adresse?.quartier }}</p>
                   </div>
                 </div>
-                <div class="row" *ngIf="agent && agent.telephone">
+                <div class="row" *ngIf="agent && agent.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 13px">
-                    <label>Contact :</label>
+                    <label>Rue :</label>
                   </div>
                   <div class="col-7">
-                    <p>{{agent.telephone}}</p>
+                    <p>{{agent?.adresse?.rue}}</p>
+                  </div>
+                </div>
+                <div class="row" *ngIf="agent && agent.adresse">
+                  <div class="col-5" style="font-weight: bold;font-size: 13px">
+                    <label>Porte :</label>
+                  </div>
+                  <div class="col-7">
+                    <p>{{agent?.adresse?.porte}}</p>
                   </div>
                 </div>
                 <hr>
-                <p class="text-muted m-t-15">Taux d'activite: 87%</p>
+                <p class="text-muted m-t-15">Taux d'activite: {{TauxActivite}}%</p>
                 <ul class="list-unstyled activity-leval">
                   <li class="active"></li>
                   <li class="active"></li>
@@ -81,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-                <div (click)="ContacterOrLogin(agent.id)">
+                <div (click)="ContacterOrLogin(agent.id)" (click)="goToMessage(agent?.email)">
                   <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
                     Contacter cet agent</a>
                 </div>

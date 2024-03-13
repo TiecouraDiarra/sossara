@@ -332,6 +332,7 @@ table th {
 
 .invoice-1 .invoice-logo {
     padding: 50px;
+
 }
 
 .invoice-1 .invoice-logo img {
@@ -3179,3 +3180,40 @@ input[type="radio"]:checked:after {
         transform: translateX(-100%);
     }
 }
+
+.article-heading {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.headArticle {
+    font-size: 15px;
+}
+
+.article{
+    margin-top: 10px;
+}
+
+@media print {
+    .page-break {
+        page-break-after: always;
+    }
+}
+
+.ligne {
+    overflow-y: scroll;
+    height: 1000px;
+    --overflow: hidden;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.image-size {
+    width: 30%;
+    /* Remplacez cette valeur par la taille souhaitée */
+    height: 80px;
+    /* Remplacez cette valeur par la taille souhaitée */
+  }

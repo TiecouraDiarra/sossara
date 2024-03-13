@@ -62,7 +62,7 @@ const routes: Routes = [
       {
         path: 'paiement-orangemoney/:uuid',
         loadChildren: () =>
-          import('./proprietaire/proprietaire.module').then((m) => m.ProprietaireModule),
+          import('./orange-money/orange-money.module').then((m) => m.OrangeMoneyModule),
         // canActivate: [AuthGuard]
       },
       {

@@ -7,6 +7,9 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { DataService } from 'src/app/service/data.service';
+import { Chat } from '../../userpages/message/models/chat';
+import { Message } from '../../userpages/message/models/message';
+import { MessageService } from 'src/app/service/message/message.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -43,7 +46,16 @@ export class DetailsagentComponent implements OnInit {
   NombreBienAgence: number = 0;
   TauxActivite: number = 0
 
-
+  users: any;
+  senderCheck: any;
+  chatId: any = sessionStorage.getItem('chatId');
+  chat: any;
+  chatObj: Chat = new Chat();
+  messageObj: Message = new Message('', '', '');
+  public chatData: any;
+  NombreTotalBien: any;
+  bienImmosAgence: any;
+  bienImmoAgenceEtAgents: any;
 
 
   constructor(
@@ -52,6 +64,7 @@ export class DetailsagentComponent implements OnInit {
     private serviceAgence: AgenceService,
     private serviceUser: UserService,
     private routerr: Router,
+    private chatService: MessageService,
     @Inject(LOCALE_ID) private localeId: string,
     private storageService: StorageService,
     private serviceBienImmo: BienimmoService
@@ -63,6 +76,9 @@ export class DetailsagentComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.users = this.storageService.getUser();
+    this.senderCheck = this.users.email;
+
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
     } else if (!this.storageService.isLoggedIn()) {
@@ -73,10 +89,30 @@ export class DetailsagentComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceAgence.AfficherAgentParId(this.id).subscribe(data => {
       console.log(data);
+      // Initialiser une liste pour stocker tous les biens immobiliers des agents
+      let totalBiensAgents: any[] = [];
       
       this.agent = data?.agent;
+       // Parcourir chaque agent
+       data.agent.agents.forEach((agent: any) => {
+        // Ajouter les biens immobiliers de l'agent à la liste totale
+        totalBiensAgents.push(...agent.bienImmosAgent);
+      });
+      this.bienImmosAgence = data?.agent?.bienImmosAgence;
       this.bienImmo = data?.bienImmos;
       this.NombreBienAgent = data?.bienImmos?.length;
+      console.log("Bien Agent ", this.NombreBienAgent);
+      this.bienImmoAgenceEtAgents = [...this.bienImmosAgence, ...totalBiensAgents];
+      console.log(this.bienImmoAgenceEtAgents);
+      
+      this.NombreBienAgence = this.bienImmoAgenceEtAgents.length;
+      console.log("Bien Agence + Agent ", this.NombreBienAgence);
+      const tauxActivite = (this.NombreBienAgent * 100) / this.NombreBienAgence;
+      console.log("Avant", tauxActivite);
+      // Arrondir le résultat à deux décimales et le stocker en tant que nombre
+      // Arrondir le résultat à l'entier supérieur
+      this.TauxActivite = Math.round(tauxActivite);
+      console.log(this.TauxActivite);
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: {favoris: any; id: string | number; }) => {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
@@ -107,7 +143,6 @@ export class DetailsagentComponent implements OnInit {
     //   this.agent = data.Utilisateurs
     //   console.log(this.agent);
     // })
-
 
 
 
@@ -203,5 +238,38 @@ export class DetailsagentComponent implements OnInit {
     // } else {
     //   this.router.navigateByUrl("/auth/connexion")
     // }
+  }
+
+  goToMessage(username: any) {
+    this.chatService
+      .getChatByFirstUserNameAndSecondUserName(username, this.users.email)
+      .subscribe(
+        (data) => {
+          this.chat = data;
+
+          if (this.chat.length > 0) {
+            this.chatId = this.chat[0].chatId;
+            sessionStorage.setItem('chatId', this.chatId);
+            this.routerr.navigate(['/userpages/messages']);
+          } else {
+            // Si le tableau est vide, créez une nouvelle salle de chat
+            this.chatObj.expediteur = this.users.email;
+            this.chatObj.destinateur = username;
+            this.chatService.createChatRoom(this.chatObj).subscribe((data) => {
+              this.chatData = data;
+              this.chatId = this.chatData.chatId;
+              sessionStorage.setItem('chatId', this.chatData.chatId);
+              this.routerr.navigate(['/userpages/messages']);
+            });
+          }
+        },
+        (error) => { }
+      );
+  }
+
+
+  goToDettailAgence(id: number) {
+    // console.log(id);
+    return this.routerr.navigate(['detailsagence', id]);
   }
 }

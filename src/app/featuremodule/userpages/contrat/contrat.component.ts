@@ -1,5 +1,6 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, ElementRef, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import jsPDF from 'jspdf';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
@@ -9,6 +10,7 @@ import { ContratService } from 'src/app/service/contrat/contrat.service';
 import { FactureService } from 'src/app/service/facture/facture.service';
 import { ModepaiementService } from 'src/app/service/modepaiement/modepaiement.service';
 import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -37,11 +39,24 @@ export class ContratComponent {
   selectedBienImmoId: any;
   CandidatureUser: any;
   isAgenceProprietaire = false;
+  // isProprietaire = false;
+  // isAgence = false;
   roles: string[] = [];
 
+  isProprietaire(roles: any[]): boolean {
+    return roles?.some(role => role.name === 'ROLE_PROPRIETAIRE');
+  }
+
+  isAgence(roles: any[]): boolean {
+    return roles?.some(role => role.name === 'ROLE_AGENCE');
+  }
   errorMessage: any = '';
   isSuccess: any = false;
   isError: any = false;
+  @ViewChild('contratlocation')
+  contratlocation!: ElementRef;
+
+  loading = false;
 
   constructor(
     private paiementService: ModepaiementService,
@@ -77,6 +92,14 @@ export class ContratComponent {
       if (this.roles.includes("ROLE_AGENCE") || this.roles.includes("ROLE_PROPRIETAIRE")) {
         this.isAgenceProprietaire = true;
       }
+
+      // if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true;
+      // }
+
+      // if (this.roles.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true;
+      // }
     }
 
 
@@ -90,6 +113,13 @@ export class ContratComponent {
       this.proprietaire = data?.bien?.proprietaire;
       this.photoImmo = data?.bien?.photoImmos;
       console.log(this.contrat);
+      // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true;
+      // }
+
+      // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true;
+      // }
     })
   }
   //FORMATER LE PRIX
@@ -263,7 +293,24 @@ export class ContratComponent {
       timerProgressBar: true // ajouter la barre de progression du temps
 
     }).then((result) => {
+      //RECUPERER L'UUID D'UN CONTRAT 
+    this.id = this.route.snapshot.params["uuid"]
+    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+    this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+      this.contrat = data;
+      this.bien = data?.bien;
+      this.locataire = data?.locataire;
+      this.proprietaire = data?.bien?.proprietaire;
+      this.photoImmo = data?.bien?.photoImmos;
+      console.log(this.contrat);
+      // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true;
+      // }
 
+      // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true;
+      // }
+    })
     })
 
   }
@@ -339,12 +386,30 @@ export class ContratComponent {
       timerProgressBar: true // ajouter la barre de progression du temps
 
     }).then((result) => {
+      //RECUPERER L'UUID D'UN CONTRAT 
+    this.id = this.route.snapshot.params["uuid"]
+    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+    this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+      this.contrat = data;
+      this.bien = data?.bien;
+      this.locataire = data?.locataire;
+      this.proprietaire = data?.bien?.proprietaire;
+      this.photoImmo = data?.bien?.photoImmos;
+      console.log(this.contrat);
+      // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true;
+      // }
+
+      // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true;
+      // }
+    })
     })
 
   }
 
   //VALIDER UN CONTRAT LOCATAIRE C'EST A DIRE VALIDE
-  ValiderContratLocataire(id : number): void {
+  ValiderContratLocataire(id: number): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -393,4 +458,89 @@ export class ContratComponent {
       }
     })
   }
+
+  // Supposons que vous avez une image par défaut dans votre projet
+  defaultImageUrl: string = 'assets/img/typebien/villa.png';
+  setDefaultImage(event: any): void {
+    // Si le chargement de l'image échoue, utilisez l'image par défaut
+    event.target.src = this.defaultImageUrl;
+  }
+
+  //GENERER CONTRAT LOCATAION
+  async genererPDFContrat() {
+    try {
+      this.loading = true; // Affiche l'indicateur de chargement
+
+      // Créer une instance de jsPDF
+      const pdf = new jsPDF();
+
+      // Générer la première page du contrat
+      await this.generateFirstPage(pdf);
+
+      // Générer la deuxième page du contrat
+      await this.generateSecondPage(pdf);
+
+      // Télécharger le PDF
+      pdf.save('contrat.pdf');
+
+      // Une fois la génération terminée, masquer l'indicateur de chargement
+      this.loading = false;
+    } catch (error) {
+      console.error('Une erreur s\'est produite lors de la génération du PDF :', error);
+      this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
+    }
+  }
+
+  async generateFirstPage(pdf: jsPDF) {
+    return new Promise<void>((resolve, reject) => {
+      // Obtenir le contenu HTML de la première partie du contrat
+      const firstPageContent = document.querySelector('.contratlocation .row:nth-child(1)') as HTMLElement;
+
+      if (firstPageContent) {
+        // Convertir le contenu HTML en une image (utilisation de html2canvas)
+        html2canvas(firstPageContent).then((canvas) => {
+          const imgWidth = 210; // Largeur de l'image (en mm)
+          const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculer la hauteur en préservant le ratio
+
+          // Ajouter l'image convertie au PDF (première page)
+          const imgData = canvas.toDataURL('image/png');
+          pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+          // Résoudre la promesse une fois la première page générée
+          resolve();
+        }).catch(reject);
+      } else {
+        reject(new Error('Le contenu de la première page est introuvable.'));
+      }
+    });
+  }
+
+  async generateSecondPage(pdf: jsPDF) {
+    return new Promise<void>((resolve, reject) => {
+      // Obtenir le contenu HTML de la deuxième partie du contrat
+      const secondPageContent = document.querySelector('.contratlocation .row:nth-child(2)') as HTMLElement;
+
+      if (secondPageContent) {
+        // Convertir le contenu HTML en une image (utilisation de html2canvas)
+        html2canvas(secondPageContent).then((canvas) => {
+          const imgWidth = 210; // Largeur de l'image (en mm)
+          const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculer la hauteur en préservant le ratio
+
+          // Ajouter une nouvelle page avant d'ajouter l'image de la deuxième page
+          pdf.addPage();
+
+          // Ajouter l'image convertie au PDF (deuxième page)
+          const imgData = canvas.toDataURL('image/png');
+          pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+          // Résoudre la promesse une fois la deuxième page générée
+          resolve();
+        }).catch(reject);
+      } else {
+        reject(new Error('Le contenu de la deuxième page est introuvable.'));
+      }
+    });
+  }
+
+
 }

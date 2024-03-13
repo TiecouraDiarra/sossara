@@ -14,10 +14,10 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 
 @Component({
   selector: 'app-proprietaire',
-  templateUrl: './proprietaire.component.html',
-  styleUrls: ['./proprietaire.component.scss']
+  templateUrl: './orange-money.component.html',
+  styleUrls: ['./orange-money.component.scss']
 })
-export class ProprietaireComponent {
+export class OrangeMoneyComponent {
   public routes = routes;
   id: any
   locale!: string;
