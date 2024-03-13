@@ -580,6 +580,14 @@
                 <div class="author-img" *ngFor="let photo of photos; let isFirst = first">
                     <img *ngIf="isFirst" src="{{ generateImageUrl(photo.nom) }}" alt="authorimg">
                 </div>
+                <div class="author-img" *ngIf="photos && photos.length == 0">
+                    <div class="type" *ngIf="bien.typeImmo.nom === 'Villa'">
+                        <img src="../../../../assets/img/typebien/villa.png" class="img-fluid" alt="default-img">
+                      </div>
+                      <div class="type" *ngIf="bien.typeImmo.nom === 'Appartement'">
+                        <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid" alt="default-img">
+                      </div>
+                </div>
                 <!--Gallery Section-->
                 <div class="card gallery-section " *ngIf="photos && photos.length > 0">
                     <div class="card-header ">
@@ -627,13 +635,13 @@
                         <h4>Les commodités</h4>
                     </div>
                     <div class="card-body">
-                        <div class="lisiting-featues">
+                        <div class="lisiting-featuesg">
                             <div class="row">
-                                <div *ngFor="let commodite of lesCommodites" class="featureslist d-flex align-items-center col-lg-4 col-md-4">
-                                    <div class="feature-img">
-                                        <img src="assets/img/featured/Feature-1.svg" alt="Room amenities">
+                                <div *ngFor="let commodite of lesCommodites" class="featureslist d-flex align-items-center col-lg-3 col-md-3">
+                                    <div class="icone-img">
+                                        <img class="icone-size" src="{{ generateImageUrl(commodite.icone) }}" alt="Room amenities">
                                     </div>
-                                    <div class="features-info">
+                                    <div class="features-info mt-1"> 
                                         <label>{{commodite.nom}}</label>
                                     </div>
                                 </div>
@@ -930,7 +938,7 @@
                             <h4> <i class="feather-user"></i> Auteur</h4>
                             <div class="sidebarauthor-details align-items-center">
                                 <div class="sideauthor-img" *ngIf="bien && bien.utilisateur">
-                                    <img src="{{generateImageUrl(bien.utilisateur.photo.nom)}}" alt="author"
+                                    <img src="{{generateImageUrl(bien?.utilisateur?.photo?.nom)}}" alt="author"
                                         (error)="handleAuthorImageError($event)">
                                 </div>
                                 <div class="sideauthor-info">

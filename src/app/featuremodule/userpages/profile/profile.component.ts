@@ -475,15 +475,15 @@ export class ProfileComponent implements OnInit {
             user.utilisateurPhoto = [{ nom: successResponse?.message }];
           }
           this.storageService.setUser(user);
-          console.log(successResponse);
+          // console.log(successResponse);
           // this.User.photos[0].nom = photo.name;
           // this.generateImageUrl(photo.name);
           // Mettez à jour le chemin de l'image de profil
-          this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
-          const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
-          if (this.User.photos?.length > 0 || this.User.photos.length === 0) {
-            this.User.photos[0].nom = uniqueFileName;
-          }
+          // this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
+          // const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
+          // if (this.User.photos?.length > 0 || this.User.photos.length === 0) {
+          //   this.User.photos[0].nom = uniqueFileName;
+          // }
           this.reloadPage();
         },
         error => {

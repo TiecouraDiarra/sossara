@@ -577,6 +577,13 @@ export class DetailsbienComponent implements AfterViewInit {
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
   PrendreRvd(id: number): void {
     // this.id = this.route.snapshot.params["id"]
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
     const user = this.storageService.getUser();
     if (user && user.token) {
       // Définissez le token dans le service serviceUser
@@ -587,8 +594,39 @@ export class DetailsbienComponent implements AfterViewInit {
         .PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id)
         .subscribe({
           next: (data) => {
-            this.isSuccess = true;
-            this.errorMessage = 'Rendez-vous envoyé avec succès';
+            if (data.status) {
+              let timerInterval = 2000;
+              Swal.fire({
+                position: 'center',
+                text: data.message,
+                title: "Envoie de rendez-vous",
+                icon: 'success',
+                heightAuto: false,
+                showConfirmButton: false,
+                confirmButtonColor: '#0857b5',
+                showDenyButton: false,
+                showCancelButton: false,
+                allowOutsideClick: false,
+                timer: timerInterval,
+                timerProgressBar: true,
+              }).then(() => {
+                this.reloadPage();
+              });
+            } else {
+              Swal.fire({
+                position: 'center',
+                text: data.message,
+                title: 'Erreur',
+                icon: 'error',
+                heightAuto: false,
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#0857b5',
+                showDenyButton: false,
+                showCancelButton: false,
+                allowOutsideClick: false,
+              }).then((result) => { });
+            }
             this.RdvForm.date = null;
             this.RdvForm.heure = null;
           },
@@ -597,8 +635,13 @@ export class DetailsbienComponent implements AfterViewInit {
             this.isError = true;
             // Gérez les erreurs ici
             if (this.RdvForm.date == null || this.RdvForm.heure == null) {
-              this.errorMessage =
-                'Date et heure de rendez-vous sont obligatoire';
+              swalWithBootstrapButtons.fire(
+                '',
+                `<h1 style='font-size: 1em !important; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Date et heure de rendez-vous sont obligatoire</h1>`,
+                'error'
+              );
+              // this.errorMessage =
+              //   'Date et heure de rendez-vous sont obligatoire';
             }
           },
         });
@@ -700,8 +743,7 @@ export class DetailsbienComponent implements AfterViewInit {
         } else {
           // console.error("Token JWT manquant");
         }
-      }
-    });
+      }});
   }
 
   // Méthode pour obtenir les informations de l'utilisateur connecté

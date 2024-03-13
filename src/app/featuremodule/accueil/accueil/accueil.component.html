@@ -57,7 +57,7 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab" tabindex="0">
                             <div class="search-tab-col">
-                                <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
+                                <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                                     <div class="row align-items-center search-form">
                                         <div class="col-12 col-lg-10 search-group">
                                             <div class="row">
@@ -72,10 +72,11 @@
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                                                         <div class="flex-grow-1 ms-3">
-                                                            <select class="form-control select category-select" 
-                                                            (change)="onChangeRegion($event.target)">
+                                                            <select class="form-control select category-select"
+                                                                (change)="onChangeRegion($event.target)">
                                                                 <option selected [value]="null">Region</option>
-                                                                <option *ngFor="let Region of region" >{{Region.nomregion}}
+                                                                <option *ngFor="let Region of region">
+                                                                    {{Region.nomregion}}
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -92,15 +93,16 @@
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                                                         <div class="flex-grow-1 ms-3">
-                                                            <select class="form-control select category-select" 
-                                                            (change)="onChangeCercle($event.target)">
+                                                            <select class="form-control select category-select"
+                                                                (change)="onChangeCercle($event.target)">
                                                                 <option selected [value]="null">Cercle</option>
-                                                                <option *ngFor="let Cercle of cercles"  [value]="Cercle.id" >{{Cercle.nomcercle}}
+                                                                <option *ngFor="let Cercle of cercles"
+                                                                    [value]="Cercle.id">{{Cercle.nomcercle}}
                                                                 </option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="d-flex real-estate-search">
@@ -113,14 +115,16 @@
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                                                         <div class="flex-grow-1 ms-3">
-                                                            <select class="form-control select category-select" [(ngModel)]="form.commune" name="commune">
+                                                            <select class="form-control select category-select"
+                                                                [(ngModel)]="form.commune" name="commune">
                                                                 <option selected [value]="null">Commune</option>
-                                                                <option *ngFor="let Commune of  communes1" [value]="Commune.id">{{Commune.nomcommune}}
+                                                                <option *ngFor="let Commune of  communes1"
+                                                                    [value]="Commune.id">{{Commune.nomcommune}}
                                                                 </option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="d-flex real-estate-search">
@@ -130,7 +134,7 @@
                                                                     data-bs-toggle="collapse" href="#collapseExample"
                                                                     role="button" aria-expanded="false"
                                                                     aria-controls="collapseExample">
-                                                                    Plus de recherche 
+                                                                    Plus de recherche
                                                                 </a>
                                                             </p>
                                                         </div>
@@ -146,7 +150,7 @@
                                                                 <div class="flex-shrink-0 d-flex align-items-center">
                                                                     <div class="icon-blk rounded-circle">
                                                                         <img style="width: 20px;"
-                                                                        src="./assets/img/icons/floor-icon.svg"
+                                                                            src="./assets/img/icons/floor-icon.svg"
                                                                             alt="">
                                                                     </div>
                                                                 </div>
@@ -154,10 +158,13 @@
                                                                     <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                                 </div>-->
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select" [(ngModel)]="form.minprix" name="minprix"
+                                                                    <select class="form-control select category-select"
+                                                                        [(ngModel)]="form.minprix" name="minprix"
                                                                         (ngModelChange)="filterMaxPrix()">
-                                                                        <option selected [value]="null">Prix Minimum</option>
-                                                                        <option *ngFor="let item of valuesSelectPrix" [value]="item">{{item}}</option>
+                                                                        <option selected [value]="null">Prix Minimum
+                                                                        </option>
+                                                                        <option *ngFor="let item of valuesSelectPrix"
+                                                                            [value]="item">{{item}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -172,9 +179,12 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select" [(ngModel)]="form.maxprix" name="maxprix">
-                                                                        <option selected [value]="null">Prix maximum</option>
-                                                                        <option *ngFor="let item of maxprix_values" [value]="item">{{item}}</option>
+                                                                    <select class="form-control select category-select"
+                                                                        [(ngModel)]="form.maxprix" name="maxprix">
+                                                                        <option selected [value]="null">Prix maximum
+                                                                        </option>
+                                                                        <option *ngFor="let item of maxprix_values"
+                                                                            [value]="item">{{item}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -192,9 +202,12 @@
                                                                     <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                                 </div>-->
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select" [(ngModel)]="form.type" name="type" class="form-control" id="">
+                                                                    <select class="form-control select category-select"
+                                                                        [(ngModel)]="form.type" name="type"
+                                                                        class="form-control" id="">
                                                                         <option selected [value]="null">Type</option>
-                                                                        <option *ngFor="let Type of typebien" [value]="Type.id">
+                                                                        <option *ngFor="let Type of typebien"
+                                                                            [value]="Type.id">
                                                                             {{Type.nom}}</option>
                                                                     </select>
                                                                 </div>
@@ -210,9 +223,12 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select" (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut">
+                                                                    <select class="form-control select category-select"
+                                                                        (change)="onStatutChange($event)"
+                                                                        [(ngModel)]="form.statut" name="statut">
                                                                         <option selected [value]="null">Statut</option>
-                                                                        <option *ngFor="let Statut of statut" [value]="Statut.id">
+                                                                        <option *ngFor="let Statut of statut"
+                                                                            [value]="Statut.id">
                                                                             {{Statut.nom}}</option>
                                                                     </select>
                                                                 </div>
@@ -227,8 +243,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select"  [(ngModel)]="form.toilette" name="toilette">
-                                                                        <option selected [value]="null">Nombre de Toilette</option>
+                                                                    <select class="form-control select category-select"
+                                                                        [(ngModel)]="form.toilette" name="toilette">
+                                                                        <option selected [value]="null">Nombre de
+                                                                            Toilette</option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
                                                                     </select>
@@ -246,8 +264,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select" [(ngModel)]="form.chambre" name="chambre">
-                                                                        <option selected [value]="null">Nombre de chambre</option>
+                                                                    <select class="form-control select category-select"
+                                                                        [(ngModel)]="form.chambre" name="chambre">
+                                                                        <option selected [value]="null">Nombre de
+                                                                            chambre</option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
                                                                     </select>
@@ -263,8 +283,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select" [(ngModel)]="form.nb_piece" name="nb_piece">
-                                                                        <option selected [value]="null">Nomre de salon</option>
+                                                                    <select class="form-control select category-select"
+                                                                        [(ngModel)]="form.nb_piece" name="nb_piece">
+                                                                        <option selected [value]="null">Nomre de salon
+                                                                        </option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
 
@@ -281,8 +303,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select" [(ngModel)]="form.cuisine" name="cuisine">
-                                                                        <option selected [value]="null">Nombre de cuisine</option>
+                                                                    <select class="form-control select category-select"
+                                                                        [(ngModel)]="form.cuisine" name="cuisine">
+                                                                        <option selected [value]="null">Nombre de
+                                                                            cuisine</option>
                                                                         <option *ngFor="let item of valuesSelect"
                                                                             [value]="item">{{item}}</option>
                                                                     </select>
@@ -309,7 +333,10 @@
                                                                 <div class="col-3" *ngFor="let Commodite of commodite">
                                                                     <div class="form-check mb-2">
                                                                         <input class="form-check-input" type="checkbox"
-                                                                            value="" [(ngModel)]="Commodite.selected" [value]="Commodite.id"  id="flexCheckDefault"  (change)="onChangeCommodite()" name="commodite">
+                                                                            value="" [(ngModel)]="Commodite.selected"
+                                                                            [value]="Commodite.id" id="flexCheckDefault"
+                                                                            (change)="onChangeCommodite()"
+                                                                            name="commodite">
                                                                         <label class="form-check-label"
                                                                             for="flexCheckDefault">
                                                                             {{Commodite.nom}}
@@ -324,8 +351,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-2 real-search-bar">
-                                            <button class="btn car-search-icon" 
-                                                type="submit">Rechercher</button>
+                                            <button class="btn car-search-icon" type="submit">Rechercher</button>
                                         </div>
                                     </div>
                                 </form>
@@ -453,8 +479,15 @@
                                                                 class="img-fluid image-size" alt="blog-img">
                                                         </div>
                                                         <ng-template #noImages>
-                                                            <img src="{{ DEFAULT_IMAGE_URL }}"
-                                                                class="img-fluid image-size" alt="default-img">
+                                                            <div class="type" *ngIf="BienImo.typeImmo.nom === 'Villa'">
+                                                                <img src="../../../../assets/img/typebien/villa.png"
+                                                                    class="img-fluid image-size" alt="default-img">
+                                                            </div>
+                                                            <div class="type"
+                                                                *ngIf="BienImo.typeImmo.nom === 'Appartement'">
+                                                                <img src="../../../../assets/img/typebien/appartement.png"
+                                                                    class="img-fluid image-size" alt="default-img">
+                                                            </div>
                                                         </ng-template>
                                                     </a>
                                                     <div class="fav-item">
@@ -616,13 +649,13 @@
                                                 <div class="companies-set-head">
                                                     <div class="companies-set-logo">
                                                         <span>
-                                                            <img src="{{generateImageUrl(Agence?.utilisateurPhoto?.nom)}}" alt="img"
-                                                                (error)="handleAuthorImageError($event)">
+                                                            <img src="{{generateImageUrl(Agence?.utilisateurPhoto?.nom)}}"
+                                                                alt="img" (error)="handleAuthorImageError($event)">
                                                         </span>
                                                     </div>
                                                     <div class="companies-set-content">
                                                         <h6>{{Agence.nom}}</h6>
-                                                        <h5><span>{{ Agence?.telephone }}</span></h5>
+                                                        <h5><span>{{ Agence?.adresse?.commune?.cercle?.nomcercle }} - {{ Agence?.adresse?.quartier }}</span></h5>
                                                         <!-- <h5><span>{{ NombreBienCount[Agence.id] }}</span>Biens</h5> -->
                                                     </div>
                                                 </div>
@@ -868,16 +901,22 @@
                                                         class="img-fluid image-sizeresents" alt="blog-img">
                                                 </div>
                                                 <ng-template #noImages>
-                                                    <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size"
-                                                        alt="default-img">
+                                                    <div class="type" *ngIf="bienRecent.typeImmo.nom === 'Villa'">
+                                                        <img src="../../../../assets/img/typebien/villa.png"
+                                                            class="img-fluid image-sizeresents" alt="default-img">
+                                                    </div>
+                                                    <div class="type" *ngIf="bienRecent.typeImmo.nom === 'Appartement'">
+                                                        <img src="../../../../assets/img/typebien/appartement.png"
+                                                            class="img-fluid image-sizeresents" alt="default-img">
+                                                    </div>
                                                 </ng-template>
                                             </a>
                                         </div>
                                         <div class="top-listing-rounded-img">
                                             <div class="favourite-small-user">
                                                 <img class="img-fluid"
-                                                    src="{{generateImageUrl(bienRecent?.utilisateur?.photo?.nom)}}" alt=""
-                                                    (error)="handleAuthorImageError($event)">
+                                                    src="{{generateImageUrl(bienRecent?.utilisateur?.photo?.nom)}}"
+                                                    alt="" (error)="handleAuthorImageError($event)">
                                             </div>
                                         </div>
                                         <div class="pent-house">
@@ -1243,8 +1282,7 @@
                                                     <a (click)="goToDettailBlog(Blog.uuid)"><img
                                                             class="img-fluid image-sizeblog crd"
                                                             src="{{generateImageUrl(Blog.photo)}}"
-                                                            (error)="handleBlogImageError($event)"
-                                                            alt="Post Image"></a>
+                                                            (error)="handleBlogImageError($event)" alt="Post Image"></a>
                                                 </div>
                                                 <div class="blog-content">
                                                     <h3 class="blog-title"><a

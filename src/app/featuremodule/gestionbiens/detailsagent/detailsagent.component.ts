@@ -204,4 +204,9 @@ export class DetailsagentComponent implements OnInit {
     //   this.router.navigateByUrl("/auth/connexion")
     // }
   }
+
+  goToDettailAgence(id: number) {
+    // console.log(id);
+    return this.routerr.navigate(['detailsagence', id]);
+  }
 }

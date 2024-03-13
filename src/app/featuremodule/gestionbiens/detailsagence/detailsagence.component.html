@@ -39,20 +39,28 @@
                     (error)="handleAuthorImageError($event)">
                 </div>
                 <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nom}}</h6>
-                <div class="row" *ngIf="agence && agence.email">
+                <div class="row" *ngIf="agence && agence.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 14px">
-                    <label>Email :</label>
+                    <label>Adresse :</label>
                   </div>
                   <div class="col-7" style="font-size: 12px;">
-                    <p>{{agence?.email}}</p>
+                    <p>{{ agence?.adresse?.commune?.cercle?.nomcercle }} - {{ agence?.adresse?.quartier }}</p>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="agence && agence.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 13px">
-                    <label>Contact :</label>
+                    <label>Rue :</label>
                   </div>
                   <div class="col-7">
-                    <p>{{agence?.telephone}}</p>
+                    <p>{{agence?.adresse?.rue}}</p>
+                  </div>
+                </div>
+                <div class="row" *ngIf="agence && agence.adresse">
+                  <div class="col-5" style="font-weight: bold;font-size: 13px">
+                    <label>Porte :</label>
+                  </div>
+                  <div class="col-7">
+                    <p>{{agence?.adresse?.porte}}</p>
                   </div>
                 </div>
                 <hr>
