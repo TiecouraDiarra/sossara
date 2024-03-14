@@ -31,7 +31,12 @@
                         <div class="d-flex justify-content-between mb-3 userdetails" style="font-size: 14px;">
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Journalier'">Prix journalier</p>
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">Prix hebdomendaire</p>
-                            <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Mensuel'">Prix mensuel</p>
+                            <p class="fw-bold"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">Prix mensuel
+                            </p>
+                            <p class="fw-bold"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">Prix du
+                                bien</p>
                             <p class="fw-lighter">{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
                         </div>
                         <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel"
@@ -95,27 +100,27 @@
                                 <p>{{bien?.reference}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.typeImmo">
+                                *ngIf="bien.typeImmo && bien.typeImmo.nom">
                                 <p>Type du bien</p>
                                 <p>{{bien.typeImmo.nom}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.periode">
+                                *ngIf="bien.periode && bien.periode.nom">
                                 <p>Periode</p>
                                 <p>{{bien.periode.nom}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.adresse">
+                                *ngIf="bien.adresse && bien.adresse.quartier">
                                 <p>Quartier</p>
                                 <p>{{bien.adresse.quartier}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.adresse">
+                                *ngIf="bien.adresse && bien.adresse.rue">
                                 <p>Rue</p>
                                 <p>{{bien.adresse.rue}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.adresse">
+                                *ngIf="bien.adresse && bien.adresse.porte">
                                 <p>Porte</p>
                                 <p>{{bien.adresse.porte}}</p>
                             </div>
@@ -172,7 +177,8 @@
                                             </div>
                                             <div class="card-header">
                                                 <h3 class="text-center">CONTRAT TYPE DE LOCATION OU DE COLOCATION </h3>
-                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}</p>
+                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}
+                                                </p>
                                             </div>
                                             <div class="card-body">
                                                 <article class="article">
@@ -325,8 +331,9 @@
                                                     <h5 class="headArticle"><span class="article-heading">Article 4
                                                             :</span>
                                                         Modalités de Paiement</h5>
-                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant. 
-                                                        Le Locataire s'engage à effectuer le paiement à la date convenue chaque mois.</p>
+                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant.
+                                                        Le Locataire s'engage à effectuer le paiement à la date convenue
+                                                        chaque mois.</p>
                                                 </article>
                                                 <article class="article">
                                                     <h5 class="headArticle"><span class="article-heading">Article 5
@@ -488,13 +495,21 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <p>Signature du Propriétaire</p>
-                                                            <img *ngIf="contrat?.accepterproprietaire" src="../../../../assets/img/contrat/approuver.jpg" class="img-fluid image-size" alt="default-img">
-                                                            <img *ngIf="contrat?.annulerProprietaire" src="../../../../assets/img/contrat/Annuler.jpg" class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.accepterproprietaire"
+                                                                src="../../../../assets/img/contrat/approuver.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.annulerProprietaire"
+                                                                src="../../../../assets/img/contrat/Annuler.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p>Signature du Locataire</p>
-                                                            <img *ngIf="contrat?.accepterLocataire" src="../../../../assets/img/contrat/approuver.jpg" class="img-fluid image-size" alt="default-img">
-                                                            <img *ngIf="contrat?.annulerLocataire" src="../../../../assets/img/contrat/Annuler.jpg" class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.accepterLocataire"
+                                                                src="../../../../assets/img/contrat/approuver.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.annulerLocataire"
+                                                                src="../../../../assets/img/contrat/Annuler.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -527,7 +542,8 @@
                                             </div>
                                             <div class="card-header">
                                                 <h3 class="text-center">CONTRAT TYPE DE VENTE </h3>
-                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}</p>
+                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}
+                                                </p>
                                             </div>
                                             <div class="card-body">
                                                 <article class="article">
@@ -680,8 +696,9 @@
                                                     <h5 class="headArticle"><span class="article-heading">Article 4
                                                             :</span>
                                                         Modalités de Paiement</h5>
-                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant. 
-                                                        Le Locataire s'engage à effectuer le paiement à la date convenue chaque mois.</p>
+                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant.
+                                                        Le Locataire s'engage à effectuer le paiement à la date convenue
+                                                        chaque mois.</p>
                                                 </article>
                                                 <article class="article">
                                                     <h5 class="headArticle"><span class="article-heading">Article 5
@@ -843,13 +860,21 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <p>Signature du Propriétaire</p>
-                                                            <img *ngIf="contrat?.accepterproprietaire" src="../../../../assets/img/contrat/approuver.jpg" class="img-fluid image-size" alt="default-img">
-                                                            <img *ngIf="contrat?.annulerProprietaire" src="../../../../assets/img/contrat/Annuler.jpg" class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.accepterproprietaire"
+                                                                src="../../../../assets/img/contrat/approuver.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.annulerProprietaire"
+                                                                src="../../../../assets/img/contrat/Annuler.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p>Signature du Locataire</p>
-                                                            <img *ngIf="contrat?.accepterLocataire" src="../../../../assets/img/contrat/approuver.jpg" class="img-fluid image-size" alt="default-img">
-                                                            <img *ngIf="contrat?.annulerLocataire" src="../../../../assets/img/contrat/Annuler.jpg" class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.accepterLocataire"
+                                                                src="../../../../assets/img/contrat/approuver.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.annulerLocataire"
+                                                                src="../../../../assets/img/contrat/Annuler.jpg"
+                                                                class="img-fluid image-size" alt="default-img">
                                                         </div>
                                                     </div>
                                                 </div>
