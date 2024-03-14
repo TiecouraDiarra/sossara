@@ -465,6 +465,27 @@ export class ContratComponent {
     }
   }
 
+  async genererPDFContratVente() {
+    try {
+      this.loading = true; // Affiche l'indicateur de chargement
+
+      // Créer une instance de jsPDF
+      const pdf = new jsPDF();
+
+      // Générer la première page du contrat
+      await this.generateFirstPage(pdf);
+
+      // Télécharger le PDF
+      pdf.save('contrat.pdf');
+
+      // Une fois la génération terminée, masquer l'indicateur de chargement
+      this.loading = false;
+    } catch (error) {
+      console.error('Une erreur s\'est produite lors de la génération du PDF :', error);
+      this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
+    }
+  }
+
   async generateFirstPage(pdf: jsPDF) {
     return new Promise<void>((resolve, reject) => {
       // Obtenir le contenu HTML de la première partie du contrat
