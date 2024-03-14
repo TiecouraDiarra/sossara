@@ -52,12 +52,10 @@ export class BlogDetailsComponent {
     this.id = this.route.snapshot.params["id"]
     this.serviceBlog.AfficherBlogParUuId(this.id).subscribe(data => {
       this.blog = data;
-      console.log(this.blog);
     })
     //AFFICHER LA LISTE DES COMMODITES
     this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
       this.typebien = data.type;
-      console.log(this.typebien);
     });
   }
 }

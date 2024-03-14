@@ -194,7 +194,7 @@ export class AccueilComponent {
         items: 4,
       },
       1170: {
-        items: 4,
+        items: 3,
         loop: true,
       },
     },
@@ -401,7 +401,6 @@ export class AccueilComponent {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      // console.log(this.roles);
       if (this.roles[0] == 'ROLE_LOCATAIRE') {
         this.isLocataire = true;
       }
@@ -431,7 +430,6 @@ export class AccueilComponent {
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.communes = data;
       this.commune = data.slice(0, 6);
-      console.log('commune de test', this.commune);
     });
 
     //AFFICHER LA LISTE DES REGIONS
@@ -448,21 +446,20 @@ export class AccueilComponent {
     //LE NOMBRE DE BIENS LOUES
     // this.serviceBienImmo.NombreBienLouer().subscribe(data => {
     //   this.nombreBienLoue = data.biens;
-    //   console.log(this.nombreBienLoue);
+
+    
     // });
 
     //LE NOMBRE DE BIENS VENDUS
     // this.serviceBienImmo.NombreBienVendu().subscribe(data => {
     //   this.nombreBienVendre = data.biens;
-    //   console.log(this.nombreBienVendre);
     // });
 
     //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
     this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe((data) => {
       this.bienImmoPlusVue = data;
       this.NombreFavory = data.nombreDeFavoris;
-      console.log(this.bienImmoPlusVue);
-      // console.log(this.NombreFavory);
+
       // Suppose que BienImo est un élément de votre bienImmo
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       // Parcourir la liste des biens immobiliers
@@ -507,14 +504,12 @@ export class AccueilComponent {
 
       // this.agence = data.reverse();
       this.nombreAgence = this.agence?.length;
-      // console.log(this.nombreAgence);
-      console.log(this.agence);
+
       // Parcourir la liste des biens immobiliers
       this.agence?.forEach((agence: { id: number }) => {
         // Charger le nombre de "J'aime" pour chaque bien
         this.serviceAgence.AfficherAgenceParId(agence?.id).subscribe((data) => {
           this.bienImmoAgence = data?.bienImmos;
-          console.log(this.bienImmoAgence);
           this.bienImmoAgent = data?.agents;
           // Initialiser une liste pour stocker tous les biens immobiliers des agents
           let totalBiensAgents: any[] = [];
@@ -525,14 +520,9 @@ export class AccueilComponent {
             totalBiensAgents.push(...agent.bienImmosAgents);
           });
 
-          // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
-          console.log(totalBiensAgents);
-          console.log(this.bienImmoAgent);
-
           this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
           this.NombreBienParAgence = this.bienImmo.length;
           this.NombreAgentParAgence = data.agents.length;
-          console.log(this.bienImmo);
           // Initialisation des compteurs
           let nombreLouerParAgence = 0;
           let nombreVendreParAgence = 0;
@@ -552,10 +542,6 @@ export class AccueilComponent {
           this.NombreLouerParAgence = nombreLouerParAgence;
           this.NombreVendreParAgence = nombreVendreParAgence;
 
-          console.log('Biens loués Agence:', this.bienImmoLouer);
-          console.log('Biens vendus Agence :', this.bienImmoVendre);
-
-          console.log(this.NombreBienParAgence);
           if (typeof agence.id === 'number') {
             this.NombreBienCount[agence.id] = this.NombreBienParAgence;
             this.NombreAgentCount[agence.id] = this.NombreAgentParAgence;
@@ -587,13 +573,10 @@ export class AccueilComponent {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      console.log('Biens loués par recemment :', this.BienLoueRecens);
       // this.nombreBienLoue = this.BienLoueRecens.length;
       // this.nombreBienVendre = this.BienVendreRecens.length;
       // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
-      // console.log(this.BienLoueRecens);
-      // console.log(data.biens);
-      // console.log(this.nombreBienLoue);
+
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
@@ -615,23 +598,17 @@ export class AccueilComponent {
       this.nombreBienLoue = this.BienLoue.length;
       this.nombreBienVendre = this.BienVendre.length;
       // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
-      // console.log(this.BienLoueRecens);
-      // console.log(data.biens);
-      // console.log(this.nombreBienLoue);
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A VENDRE
     // this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
     //   this.nombreBienVendre = data.biens.length;
-    //   // console.log(this.nombreBienVendre);
-    //   // console.log(data.biens);
     // }
     // )
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe((data) => {
       this.blog = data;
-      console.log('blog', this.blog);
     });
   }
 
@@ -645,7 +622,6 @@ export class AccueilComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         (data) => {
-          // console.log("Bien aimé avec succès:", data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
@@ -663,8 +639,6 @@ export class AccueilComponent {
             .subscribe((data) => {
               this.bienImmoPlusVue = data;
               this.NombreFavory = data.nombreDeFavoris;
-              console.log(this.bienImmoPlusVue);
-              // console.log(this.NombreFavory);
               // Suppose que BienImo est un élément de votre bienImmo
               // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
               // Parcourir la liste des biens immobiliers
@@ -702,13 +676,11 @@ export class AccueilComponent {
   }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    // console.log(id);
     return this.router.navigate(['details-bien', id]);
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
   goToDettailCommune(id: number) {
-    // console.log(id);
     return this.router.navigate(['bienparcommune', id]);
   }
   //FORMATER LE PRIX
@@ -735,7 +707,6 @@ export class AccueilComponent {
       // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
       this.serviceBienImmo.OuvrirConversation(id).subscribe({
         next: (data) => {
-          // console.log("Conversation ouverte avec succès:", data);
           this.router.navigate([routes.messages]);
           // this.isSuccess = true;
           // this.errorMessage = 'Conversation ouverte avec succès';
@@ -761,13 +732,11 @@ export class AccueilComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS AGENCE
   goToDettailAgence(id: number) {
-    // console.log(id);
     return this.router.navigate(['detailsagence', id]);
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS D'UN BLOG
   goToDettailBlog(id: number) {
-    // console.log(id);
     return this.router.navigate(['blog-details', id]);
   }
 
@@ -780,13 +749,11 @@ export class AccueilComponent {
         }
       }
       this.form.commodite = commoditeArray;
-      console.log('mes commodites', this.form.commodite);
     }
   }
   selectedStatut: string | null = null;
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    console.log('this.selectedStatut', this.selectedStatut);
   }
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
@@ -794,7 +761,6 @@ export class AccueilComponent {
         el.region.id == newValue.value || el.region.nomregion == newValue.value
     );
     this.cercles.forEach((el: any) => {
-      console.log('region.id', el.region.id);
       this.form.regionForm = el.region.id;
 
     });
@@ -805,7 +771,6 @@ export class AccueilComponent {
         el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
     );
     this.communes1.forEach((el: any) => {
-      console.log('cercle.id', el.cercle.id);
       this.form.cercleForm = el.cercle.id;
 
     });

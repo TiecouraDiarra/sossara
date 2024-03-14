@@ -188,7 +188,6 @@ export class RecherchebienComponent {
         commodite
       ).subscribe((data) => {
         this.bienImmo1 = data;
-        console.log('data this.bienImmo1', this.bienImmo1);
       });
 
     // Récupérer la position actuelle de l'utilisateur
@@ -233,7 +232,6 @@ export class RecherchebienComponent {
       if (Array.isArray(data)) {
         // Assurez-vous que data.biens est un tableau avant d'appeler map
         this.bienImmoMap = data;
-        console.log("dddd", this.bienImmoMap);
 
         // Convertissez les données de bien immobilier en marqueurs Google Maps
         this.overlays = this.bienImmoMap.map((bien: any) => {
@@ -277,7 +275,6 @@ export class RecherchebienComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
     return this.router.navigate(['pages/service-details', id]);
   }
 

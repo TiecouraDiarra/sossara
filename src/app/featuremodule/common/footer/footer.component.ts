@@ -28,13 +28,11 @@ export class FooterComponent implements OnInit {
         data.reverse()[1],
         data.reverse()[2],
       ];
-      console.log('commune de test footer', this.commune);
     });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
   goToDettailCommune(id: number) {
-    // console.log(id);
     return this.router.navigate(['bienparcommune', id]);
   }
 }

@@ -38,9 +38,7 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.path();
       // this.roles = this.storageService.getUser().roles;
-      // console.log(this.storageService.getUser().roles);
     }
-    // console.log(this.storageService.getUser());
 
   }
   path() {
@@ -94,7 +92,6 @@ export class LoginComponent implements OnInit {
         // Enregistrez les données de l'utilisateur dans le service de stockage (session storage ou autre)
         this.storageService.saveUser(data);
 
-        // console.log(data);
 
         // Réinitialisez les indicateurs d'erreur et définissez isLoggedIn à true
         this.isLoginFailed = false;
@@ -131,7 +128,6 @@ export class LoginComponent implements OnInit {
           error.error && error.error.message
             ? error.error.message
             : 'Erreur inconnue';
-        // console.log(error); 
 
         // Affichage d'une notification d'erreur à l'aide de la bibliothèque SweetAlert (Swal)
         swalWithBootstrapButtons.fire(

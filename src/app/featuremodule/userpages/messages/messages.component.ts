@@ -98,6 +98,17 @@ export class MessagesComponent implements OnInit {
   }
   ngOnInit(): void {
    
+    if (this.storageService.isLoggedIn()) {
+      // this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().roles;
+       if (this.roles.includes("ROLE_LOCATAIRE")) {
+        this.isLocataire = true
+      } else if (this.roles.includes("ROLE_AGENCE")) {
+        this.isAgence = true
+      } else if (this.roles.includes("ROLE_AGENT")) {
+        // this.isAgent = true
+      }
+    }
     this.users=this.storageService.getUser()
     this.senderCheck = this.users.email;
 
@@ -118,13 +129,7 @@ export class MessagesComponent implements OnInit {
     }
     );
 
-    //AFFICHER UNE CONVERSATION
-    // this.serviceMessage.AfficherUneConversation(2).subscribe(data => {
-    //   this.conversation = data.reverse();
-    //   this.nombreconversation = data.length;
-    //   console.log(this.conversation);
-    // }
-    // );
+   
     let getByname = setInterval(() => {
       // For getting all the chat list whose ever is logged in.
       this.chatService.getChatByFirstUserNameOrSecondUserName(this.senderCheck).subscribe(data => {
@@ -170,13 +175,11 @@ export class MessagesComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
-            this.storageService.clean();
+             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            // console.log(err);
-          }
+           }
         });
       }
     })
@@ -200,15 +203,7 @@ export class MessagesComponent implements OnInit {
       // this.filteredMessagesUserCurrent = this.messages.filter((message: { mine: boolean; }) => message.mine === true);
       // this.filteredMessages = this.messages.filter((message: { mine: boolean; }) => message.mine === false);
       this.nombreconversation = data.length;
-      // console.log(this.messages);
-      // Stockez le nom de la conversation dans this.nomConversation
-      // this.nomConversation = data[0].nomConversation; // Supposons que le nom de la conversation est dans data[0]
-
-      // Mettez à jour le nom de l'utilisateur sélectionné
-      // this.selectedUserName = data[0].nomUtilisateur; // Supposons que le nom de l'utilisateur est dans data[0]
-
-      // console.log(this.messages);
-      // console.log(this.conversations.nom);
+ 
 
       // Recherchez la conversation sélectionnée dans la liste des conversations
       const selectedConversation = this.conversations.find((conversation: { conversationId: number; }) => conversation.conversationId === conversationId);
@@ -220,8 +215,7 @@ export class MessagesComponent implements OnInit {
         // Le nom de l'utilisateur est déjà inclus dans la conversation, vous pouvez l'utiliser ici
       }
 
-      // console.log(this.nomConversation);
-      // console.log(this.photoUserConversation);
+  
     });
   }
 
@@ -240,8 +234,7 @@ export class MessagesComponent implements OnInit {
       // Appelez la méthode Fairenotification() avec le contenu et l'ID
       this.serviceMessage.EnvoyerMessage(this.MessageForm.content, this.selectedConversationId).subscribe(
         data => {
-          // console.log("Message envoyé avec succès:", data);
-          // this.isSuccess = false;
+       
           this.MessageForm.content = ''
 
           // Appel au service pour récupérer les détails de la conversation sélectionnée
@@ -256,10 +249,7 @@ export class MessagesComponent implements OnInit {
       // console.error("Token JWT manquant");
     }
 
-    //Faire un notification
-    //  this.servicenotification.Fairenotification(this.notificationForm.contenu, this.id).subscribe(data=>{
-    //   console.log(data);
-    // });
+    
   }
 
   ngOnDestroy() {
@@ -280,8 +270,7 @@ export class MessagesComponent implements OnInit {
 
     // For checking the chat room by both the emails , if there is present then it will give the chat Id in sessionStorage
     this.chatService.getChatByFirstUserNameAndSecondUserName(event, event1).subscribe(data => {
-      // console.log(data);
-      this.chatData = data;
+       this.chatData = data;
       this.chatId = this.chatData[0].chatId;
       sessionStorage.setItem('chatId', this.chatId)
       window.location.reload();

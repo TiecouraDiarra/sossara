@@ -655,7 +655,7 @@
                                                     </div>
                                                     <div class="companies-set-content">
                                                         <h6>{{Agence.nom}}</h6>
-                                                        <h5><span>{{ Agence?.adresse?.commune?.cercle?.nomcercle }} - {{ Agence?.adresse?.quartier }}</span></h5>
+                                                        <h5 *ngIf="Agence.adresse"><span>{{ Agence?.adresse?.commune?.cercle?.nomcercle }} - {{ Agence?.adresse?.quartier }}</span></h5>
                                                         <!-- <h5><span>{{ NombreBienCount[Agence.id] }}</span>Biens</h5> -->
                                                     </div>
                                                 </div>

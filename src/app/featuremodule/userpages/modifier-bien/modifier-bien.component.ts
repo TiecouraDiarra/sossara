@@ -111,8 +111,7 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(data);
-
+ 
       this.form = {
         nom: this.bien?.nom,
         description: this.bien?.description,
@@ -155,8 +154,7 @@ export class ModifierBienComponent {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      console.log(this.roles);
-      if (this.roles[0] == 'ROLE_LOCATAIRE') {
+       if (this.roles[0] == 'ROLE_LOCATAIRE') {
         this.isLocataire = true;
       } else if (this.roles[0] == 'ROLE_AGENCE') {
         this.isAgence = true;
@@ -227,8 +225,7 @@ export class ModifierBienComponent {
         this.form.latitude = markerLatLng.lat;
         this.form.longitude = markerLatLng.lng;
 
-        console.log('Latitude :', this.form.latitude);
-        console.log('Longitude :', this.form.longitude);
+       
       });
 
 
@@ -245,8 +242,7 @@ export class ModifierBienComponent {
         this.form.latitude = newLatLng.lat;
         this.form.longitude = newLatLng.lng;
     
-        console.log('Latitude :', this.form.latitude);
-        console.log('Longitude :', this.form.longitude);
+         
       });
     });
     //AFFICHER LA LISTE DES PERIODES
@@ -309,8 +305,7 @@ export class ModifierBienComponent {
         reader.onload = (e: any) => {
           this.images1.push({ nom: file.name, data: e.target.result });
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          console.log(this.images1);
-          this.maxImageCount = this.images1.length;
+           this.maxImageCount = this.images1.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte

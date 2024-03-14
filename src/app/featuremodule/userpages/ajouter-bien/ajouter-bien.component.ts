@@ -99,8 +99,7 @@ export class AjouterBienComponent {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          console.log(this.image);
-          this.maxImageCount = this.image.length;
+           this.maxImageCount = this.image.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
@@ -127,8 +126,7 @@ export class AjouterBienComponent {
         }
       }
       this.form.commodite = commoditeArray;
-      console.log(this.form.commodite);
-    }
+     }
   }
 
   form: any = {
@@ -177,8 +175,6 @@ export class AjouterBienComponent {
       this.form.latitude = markerLatLng.lat;
       this.form.longitude = markerLatLng.lng;
   
-      console.log('Latitude :', this.form.latitude);
-      console.log('Longitude :', this.form.longitude);
     });
   
     // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
@@ -194,8 +190,6 @@ export class AjouterBienComponent {
       this.form.latitude = newLatLng.lat;
       this.form.longitude = newLatLng.lng;
   
-      console.log('Latitude :', this.form.latitude);
-      console.log('Longitude :', this.form.longitude);
     });
   }
 
@@ -204,7 +198,6 @@ export class AjouterBienComponent {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      console.log(this.roles);
       if (this.roles[0] == 'ROLE_LOCATAIRE') {
         this.isLocataire = true;
       } else if (this.roles[0] == 'ROLE_AGENCE') {
@@ -222,63 +215,44 @@ export class AjouterBienComponent {
       // this.commune = data.commune;
       // this.typebien = data.type;
       this.periode = data.periode;
-      console.log(data);
     });
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.lesCommodite = data;
-      console.log('commodite', this.lesCommodite);
     });
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
-      console.log('commune de test', this.commune);
     });
     //AFFICHER LA LISTE DES Pays
     this.serviceAdresse.AfficherListePays().subscribe((data) => {
       this.pays = data;
-      console.log('pays', this.pays);
     });
     //AFFICHER LA LISTE DES CERCLE
     this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
       this.cercle = data;
-      console.log('cercle de test', this.cercle);
     });
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
       this.nombreZone = data.length;
-      console.log('region', this.region);
     });
 
     //AFFICHER LA LISTE DES TYPEBIEN
     this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
       this.typebien = data;
-      console.log('typebien de test', this.typebien);
     });
 
     //AFFICHER LA LISTE DES PERIODES
     this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
       this.periode = data;
-      console.log('periode de test', this.periode);
     });
        //AFFICHER LA LISTE DES PERIODES
        this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
         this.status = data;
-        console.log('status de test', this.status);
       });
 
-    // //AFFICHER LA LISTE DES BIENS IMMO
-    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
-    //   this.bienImmo = data.biens;
-    //   console.log(this.bienImmo);
-    // });
-
-    // //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
-    //   this.BienLoueRecens = data.biens;
-    //   console.log(this.BienLoueRecens);
-    // });
+  
   }
 
   onChange(newValue: any) {
@@ -302,7 +276,6 @@ export class AjouterBienComponent {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    console.log("this.selectedStatut",this.selectedStatut)
     if (this.selectedStatut === '2' ) {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
@@ -312,7 +285,6 @@ export class AjouterBienComponent {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChangeMensuel(event: any) {
     this.selectedStatutMensuel = event.target.value;
-    console.log("this.onStatutChangeMensuel",this.selectedStatutMensuel)
     if (this.selectedStatut === '2' ) {
       this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
       this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
@@ -393,27 +365,7 @@ export class AjouterBienComponent {
         .then((result) => {
           if (result.isConfirmed) {
             const user = this.storageService.getUser();
-            console.log("commodite", commodite,
-           "type", type,
-          "commune" , commune,
-          "nb_piece",  nb_piece,
-           "nom", nom,
-          "chambre",  chambre,
-          "cuisine" , cuisine,
-           "toilette", toilette,
-           "surface", surface,
-           "prix", prix,
-          "statut",  statut,
-           "description", description,
-           "quartier", quartier,
-            "rue", rue,
-           "porte", porte,
-          "periode",  periode,
-          "longitude",  longitude,
-          "latitude",  latitude,
-          "avance",  avance,
-          "caution",  caution,
-          "photo",  photo)
+           
             if (user && user.token) {
               this.serviceBienImmo.setAccessToken(user.token);
               this.serviceBienImmo
@@ -442,13 +394,10 @@ export class AjouterBienComponent {
                 )
                 .subscribe({
                   next: (data) => {
-                    console.log(data);
                     this.isSuccess = false;
-                    console.log(this.form);
                     this.popUpConfirmation();
                   },
                   error: (err) => {
-                    console.log(err);
                     this.errorMessage = err.error.message;
                     this.isSuccess = true;
                   },

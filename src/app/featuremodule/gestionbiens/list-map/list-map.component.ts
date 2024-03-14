@@ -39,7 +39,6 @@ export class ListMapComponent implements OnInit {
     // Récupérez les données de bien immobilier depuis serviceBienImmo
     // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
     //   this.bienImmo = data.biens.reverse();
-    //   console.log(this.bienImmo);
 
     // Convertissez les données de bien immobilier en marqueurs Google Maps
     //   this.overlays = this.bienImmo.map((bien: { lat: any; lng: any; doc_name: any; address: any; amount: any; image: any; }) => {
@@ -170,7 +169,6 @@ export class ListMapComponent implements OnInit {
   // createMarkers() {
   //   this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
   //     this.bienImmo = data.biens.reverse();
-  //     console.log(this.bienImmo);
 
   //     this.markers = this.bienImmo.map((bien) => {
   //       return new google.maps.Marker({

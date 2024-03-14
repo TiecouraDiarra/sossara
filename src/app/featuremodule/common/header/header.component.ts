@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
   errorMessage = '';
 
 
-  
+
   public nav: boolean = false;
   header: Array<any> = [];
   sidebar: Array<any> = [];
@@ -74,13 +74,11 @@ export class HeaderComponent implements OnInit {
     });
     this.getroutes(this.router);
     this.User = this.storageService.getUser();
-    console.log(this.User);
   }
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       }
@@ -89,34 +87,30 @@ export class HeaderComponent implements OnInit {
       this.isLoginFailed = false;
     }
 
-    //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
-    this.serviceUser.AfficherLaListeRdv().subscribe(data => {
-      this.nombreRdvUser = data?.length;
-      // console.log(this.nombreRdvUser);
-    }
-    );
+
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.nombreCandidatureAccepter = data?.length;
-      // console.log(this.nombreCandidatureAccepter);
+      //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
+      this.serviceUser.AfficherLaListeRdv().subscribe(data => {
+        this.nombreRdvUser = data?.length;
+      }
+      );
+      //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+      this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+        this.nombreCandidatureBienUser = data?.length;
+        // Calculer la somme des candidatures et des rendez-vous
+        this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
+
+      });
     });
 
-    //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-      this.nombreCandidatureBienUser = data.candidature?.length;
-      console.log(data);
 
-      // Calculer la somme des candidatures et des rendez-vous
-      this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
-      // console.log( "Somme =",this.somme);
-
-    });
 
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
       this.users = data[0];
-      console.log('users', this.users);
-      
+
     });
   }
   private getroutes(route: any): void {
@@ -144,7 +138,7 @@ export class HeaderComponent implements OnInit {
     this.sidebarService.closeSidebar();
   }
 
-  
+
 
   //METHODE PERMETTANT DE SE DECONNECTER
   logout(): void {
@@ -167,7 +161,7 @@ export class HeaderComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
+          
             this.storageService.clean();
             // this.router.navigateByUrl("/auth/connexion")
             this.router.navigate(['/auth/connexion']).then(() => {
@@ -175,7 +169,7 @@ export class HeaderComponent implements OnInit {
             })
           },
           error: err => {
-            // console.log(err);
+
           }
         });
       }

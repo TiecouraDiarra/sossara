@@ -58,8 +58,7 @@ export class MesReclamationsComponent  implements OnInit{
   ) {
     this.locale = localeId;
       this.User = this.storageService.getUser();
-    // console.log(this.User);
-    this.today = new Date();
+     this.today = new Date();
     // egisterLocaleData(localeFr); // Enregistrez la locale française
   }
 
@@ -75,9 +74,7 @@ export class MesReclamationsComponent  implements OnInit{
      this.serviceBienImmo.AfficherListeReclamationFaitesParUser().subscribe(data => {
       this.reclamationUser = data.reverse();
       // this.photos = this.reclamation.bien;
-      console.log(this.reclamationUser);
-      // console.log(this.photos);
-    });
+      });
   }
 
     //IMAGE

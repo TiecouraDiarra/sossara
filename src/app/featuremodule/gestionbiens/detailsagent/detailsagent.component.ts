@@ -88,7 +88,6 @@ export class DetailsagentComponent implements OnInit {
     this.id = this.route.snapshot.params["id"]
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceAgence.AfficherAgentParId(this.id).subscribe(data => {
-      console.log(data);
       // Initialiser une liste pour stocker tous les biens immobiliers des agents
       let totalBiensAgents: any[] = [];
       
@@ -101,18 +100,13 @@ export class DetailsagentComponent implements OnInit {
       this.bienImmosAgence = data?.agent?.bienImmosAgence;
       this.bienImmo = data?.bienImmos;
       this.NombreBienAgent = data?.bienImmos?.length;
-      console.log("Bien Agent ", this.NombreBienAgent);
       this.bienImmoAgenceEtAgents = [...this.bienImmosAgence, ...totalBiensAgents];
-      console.log(this.bienImmoAgenceEtAgents);
       
       this.NombreBienAgence = this.bienImmoAgenceEtAgents.length;
-      console.log("Bien Agence + Agent ", this.NombreBienAgence);
       const tauxActivite = (this.NombreBienAgent * 100) / this.NombreBienAgence;
-      console.log("Avant", tauxActivite);
       // Arrondir le résultat à deux décimales et le stocker en tant que nombre
       // Arrondir le résultat à l'entier supérieur
       this.TauxActivite = Math.round(tauxActivite);
-      console.log(this.TauxActivite);
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: {favoris: any; id: string | number; }) => {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
@@ -122,7 +116,6 @@ export class DetailsagentComponent implements OnInit {
             // Ajoutez le nombre de "J'aime" au total.
             this.totalLikes += this.NombreJaime;
           }
-          console.log(this.NombreJaime)
           const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
           if (isFavorite === 'true') {
             this.favoriteStatus[bien.id] = true;
@@ -131,18 +124,10 @@ export class DetailsagentComponent implements OnInit {
           }
         // })
       });
-      console.log(this.bienImmo);
-      console.log('Total Likes:', this.totalLikes);
-      console.log(this.agent);
+    
     })
 
 
-
-    //AFFICHER UN AGENT EN FONCTION DE SON ID
-    // this.serviceAgence.AfficherUserParId(this.id).subscribe(data => {
-    //   this.agent = data.Utilisateurs
-    //   console.log(this.agent);
-    // })
 
 
 
@@ -168,7 +153,6 @@ export class DetailsagentComponent implements OnInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
     return this.routerr.navigate(['details-bien', id])
   }
 
@@ -182,7 +166,6 @@ export class DetailsagentComponent implements OnInit {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log("Bien aimé avec succès:", data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
@@ -215,7 +198,6 @@ export class DetailsagentComponent implements OnInit {
       // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
       this.serviceBienImmo.OuvrirConversation(id).subscribe({
         next: (data) => {
-          console.log("Conversation ouverte avec succès:", data);
           this.routerr.navigate([routes.messages]);
           // this.isSuccess = true;
           // this.errorMessage = 'Conversation ouverte avec succès';
@@ -253,8 +235,9 @@ export class DetailsagentComponent implements OnInit {
             this.routerr.navigate(['/userpages/messages']);
           } else {
             // Si le tableau est vide, créez une nouvelle salle de chat
-            this.chatObj.expediteur = this.users.email;
-            this.chatObj.destinateur = username;
+            // Si le tableau est vide, créez une nouvelle salle de chat
+            this.chatObj['expediteur'] = this.users.email;
+            this.chatObj['destinateur'] = username;
             this.chatService.createChatRoom(this.chatObj).subscribe((data) => {
               this.chatData = data;
               this.chatId = this.chatData.chatId;
@@ -269,7 +252,6 @@ export class DetailsagentComponent implements OnInit {
 
 
   goToDettailAgence(id: number) {
-    // console.log(id);
     return this.routerr.navigate(['detailsagence', id]);
   }
 }

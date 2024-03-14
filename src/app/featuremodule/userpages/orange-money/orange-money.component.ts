@@ -75,28 +75,24 @@ export class OrangeMoneyComponent {
       this.candidature = data;
       this.bien = data?.bien;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.facture);
-    })
+     })
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
     return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
   onNombreMoisChange(): void {
-    console.log(this.nombreMoisChoisi);
-    // const selectElement = event.target as HTMLSelectElement;
+     // const selectElement = event.target as HTMLSelectElement;
     // this.nombreMoisChoisi = parseInt(selectElement.value, 10);
   }
   onNombreJourChange(): void {
     // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-    console.log(this.nombreJourChoisi);
-    // Faites tout traitement supplémentaire ici si nécessaire
+     // Faites tout traitement supplémentaire ici si nécessaire
   }
 
   onNombreSemaineChange(): void {
     // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-    console.log(this.nombreSemaineChoisi);
-    // Faites tout traitement supplémentaire ici si nécessaire
+     // Faites tout traitement supplémentaire ici si nécessaire
   }
 
   //FAIRE LE PAIEMENT AVEC ORANGE MONEY
@@ -142,8 +138,7 @@ export class OrangeMoneyComponent {
             this.paiementForm.nombreAnnees = this.nombreSemaineChoisi;
             this.paiementForm.sommePayer = this.bien?.prix * this.nombreSemaineChoisi;
           }
-          console.log(this.paiementForm);
-          this.paiementForm.modePaiement = 1;
+           this.paiementForm.modePaiement = 1;
 
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.paiementService.FairePaiement(id, this.paiementForm.nombreMois, nombreAnnees, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiement, 1).subscribe({
@@ -199,7 +194,6 @@ export class OrangeMoneyComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
   goToPageRecu(id: number) {
-    // console.log(id);
-    return this.router.navigate(['userpages/recufacture', id])
+     return this.router.navigate(['userpages/recufacture', id])
   }
 }

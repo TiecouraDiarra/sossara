@@ -75,10 +75,7 @@ export class SignupComponent {
       if (this.images.length < 2) {
         reader.onload = (e: any) => {
           this.images.push(file);
-          this.image.push(e.target.result);
-          console.log(this.image);
-          
-
+          this.image.push(e.target.result);       
         };
         this.maxImageCount =file.length
         reader.readAsDataURL(file);
@@ -145,7 +142,6 @@ handleFileSelection(event: any): void {
               // Ajouter les données de l'image à la liste d'URL d'image
               this.image.push(e.target.result);
               // Afficher les URLs des images dans la console
-              console.log(this.image);
           };
           // Démarrer la lecture du contenu du fichier en tant qu'URL de données
           reader.readAsDataURL(file);
@@ -163,7 +159,6 @@ handleFileSelection(event: any): void {
       return; // Sortir de la fonction si les mots de passe ne correspondent pas
     }
     const { nom, email, password, telephone, dateNaissance,  nomDoc,numDoc, role,photo} = this.form;
-    console.log(this.form);
     
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -199,7 +194,6 @@ handleFileSelection(event: any): void {
         if (result.isConfirmed) {
           this.authService.register(nom, email, password, telephone, dateNaissance, nomDoc,numDoc,role,photo).subscribe({
             next: (data) => {
-              // console.log(data);
               // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
@@ -207,22 +201,13 @@ handleFileSelection(event: any): void {
              
             },
             error: (err) => {
-              // console.log(err);
               this.errorMessage = err.error.message;
               this.isSignUpFailed = true;
             },
           });
         }
       })
-  
-      // console.log('nom: ', nom);
-      // console.log('email: ', email);
-      // console.log('password: ', password);
-      // console.log('telephone: ', telephone);
-      // console.log('dateNaissance: ', dateNaissance);
-      // console.log('nomDoc: ', nomDoc);
-      // console.log('numDoc: ', numDoc);
-      // console.log('role: ', role);
+
     }
   }
   onChange(typeUser: any) {

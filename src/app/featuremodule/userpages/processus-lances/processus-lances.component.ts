@@ -44,8 +44,7 @@ export class ProcessusLancesComponent implements OnInit {
   //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
   this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
     this.reclamationProcessusLance = data.reverse();
-    console.log(this.reclamationProcessusLance);
-  });  }
+   });  }
     //FORMATER LE PRIX
     formatPrice(price: number): string {
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -79,8 +78,7 @@ export class ProcessusLancesComponent implements OnInit {
           // Appelez la méthode ArreterProcessus() avec l'ID
           this.serviceBienImmo.ArreterProcessusNew(this.selectedBienImmoProcessusId, photo).subscribe(
             data => {
-              // console.log("Processus arreté avec succès:", data);
-              // this.isSuccess = false;
+               // this.isSuccess = false;
               this.popUpConfirmationArreteProcessus();
             },
             error => {
@@ -118,8 +116,7 @@ export class ProcessusLancesComponent implements OnInit {
       //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
       this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
         this.reclamationProcessusLance = data.reverse();
-        // console.log(this.reclamationProcessusLance);
-      });
+       });
     })
   }
 
@@ -134,8 +131,7 @@ export class ProcessusLancesComponent implements OnInit {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          // console.log(this.image);
-          this.maxImageCount = this.image.length
+           this.maxImageCount = this.image.length
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
@@ -162,8 +158,7 @@ export class ProcessusLancesComponent implements OnInit {
     openProcessusModal(bienImmoId: number) {
       // Stockez l'ID du BienImmo sélectionné dans la variable
       this.selectedBienImmoProcessusId = bienImmoId;
-      // console.log(this.selectedBienImmoProcessusId);
-  
+   
     }
 
      //IMAGE

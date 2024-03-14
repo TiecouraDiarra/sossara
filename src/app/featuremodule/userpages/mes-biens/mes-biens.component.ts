@@ -71,8 +71,7 @@ export class MesBiensComponent implements OnInit {
   ) {
     this.electronics = this.DataService.electronicsList,
       this.User = this.storageService.getUser();
-    // console.log(this.User);
-    this.today = new Date();
+     this.today = new Date();
     // egisterLocaleData(localeFr); // Enregistrez la locale française
   }
 
@@ -81,8 +80,7 @@ export class MesBiensComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      console.log(this.storageService.getUser());
-      if (this.roles.includes("ROLE_LOCATAIRE")) {
+       if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true;
         this.selectedTab = 'home';
       } else if (this.roles.includes("ROLE_AGENCE")) {
@@ -96,8 +94,7 @@ export class MesBiensComponent implements OnInit {
       }
     }
     this.User = this.storageService.getUser().id;
-    // console.log(this.User);
-  } 
+   } 
   sortData(sort: Sort) {
     const data = this.electronics.slice();
 
@@ -113,7 +110,6 @@ export class MesBiensComponent implements OnInit {
   }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    // console.log(id);
     return this.router.navigate(['details-bien', id])
   }
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -137,12 +133,10 @@ export class MesBiensComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            // console.log(err);
           }
         });
       }

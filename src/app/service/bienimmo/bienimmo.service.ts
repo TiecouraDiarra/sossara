@@ -88,8 +88,7 @@ export class BienimmoService {
   //AFFICHER UNE TRANSACTION POUR LES  VENTE EN FONCTION DE SON ID
   AfficherTransactionParId(id: number): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
-    // console.log(id);
+    
     return this.http.get(`${URL_BASE}/bien/immo/get/sell/invoyce/${id}`,
       { headers });
   }
@@ -97,15 +96,14 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
   AfficherCandidatureAccepter(id: number): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
-    // console.log(id);
+    
     return this.http.get(`${URL_BASE}/bien/immo/get/rent/invoyce/${id}`,
       { headers });
   }
   //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
   AfficherBienImmoLoueCandidatureAccepter(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/candidature/immo/get/rent/mine`,
       { headers });
   }
@@ -113,7 +111,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoParUser(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/bien/immo/user`,
       { headers });
   }
@@ -121,7 +119,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE  AVEC AGENCE
   AfficherBienImmoParUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/bien/immo/user`,
       { headers });
   }
@@ -129,7 +127,7 @@ export class BienimmoService {
    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'AGENCE CONNECTEE
    AfficherBienImmoParAgenceConnecte(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/user/agenceconnecter`,
       { headers });
   }
@@ -140,7 +138,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoDejaLoueParUser(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/bien/immo/get/rent`,
       { headers });
   }
@@ -148,7 +146,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'AGENCE
   AfficherBienImmoDejaLoueParAgence(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/bien/immo/agence/get/rent`,
       { headers });
   }
@@ -156,7 +154,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'AGENCE
   AfficherBienImmoDejaVenduParAgence(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/bien/immo/agence/get/sell`,
       { headers });
   }
@@ -164,7 +162,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
   AfficherBienImmoDejaLoueParLocataire(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/candidature/immo/get/rent/mine`,
       { headers });
   }
@@ -172,7 +170,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
   AfficherBienImmoUserAcheter(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/bien/immo/get/sell/mine`,
       { headers });
   }
@@ -182,7 +180,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoDejaVenduParUser(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
+    
     return this.http.get(`${URL_BASE}/bien/immo/get/sell`,
       { headers });
   }
@@ -190,24 +188,21 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
   AfficherListeReclamationParUser(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
-    return this.http.get(`${URL_BASE}/probleme/signal/get`,
+     return this.http.get(`${URL_BASE}/probleme/signal/get`,
       { headers });
   }
 
   //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
   AfficherListeReclamationFaitesParUser(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
-    return this.http.get(`${URL_BASE}/probleme/signal/get/mine`,
+     return this.http.get(`${URL_BASE}/probleme/signal/get/mine`,
       { headers });
   }
 
   //AFFICHER LA LISTE DES BIENS AIMES PAR UTILISATEUR
   ListeBiensAimesParUtilisateur(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
-    return this.http.get(`${URL_BASE}/bien/immo/views/user/get`,
+     return this.http.get(`${URL_BASE}/bien/immo/views/user/get`,
       { headers });
   }
 
@@ -282,8 +277,7 @@ export class BienimmoService {
     formData.append('bienImmo', id || '');
     formData.append('usage', usage || '');
     formData.append('dateEntree', dateEntree);
-    // console.log(id)
-    // console.log(headers)
+ 
     return this.http.post(`${URL_BASE}/candidature/ajouter`, formData, { headers });
   }
 
@@ -292,8 +286,7 @@ export class BienimmoService {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('bienImmo', id || '');
-    // console.log(id)
-    // console.log(headers)
+ 
     return this.http.post(`${URL_BASE}/favoris/ajouter-ou-retirer`, formData, { headers });
   }
 
@@ -315,8 +308,7 @@ export class BienimmoService {
   //ARRETER LE PROCESSUS
   ArreterProcessusOld(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+ 
     return this.http.post(`${URL_BASE}/reparation/confirmer/list/${id}`, null, { headers });
   }
 
@@ -324,16 +316,14 @@ export class BienimmoService {
   //ACCEPTER CANDIDATURE BIEN 
   AccepterCandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+ 
     return this.http.post(`${URL_BASE}/candidature/accept/${id}`, null, { headers });
   }
 
   //OUVRIR UNE CONVERSATION EN FONCTION DE L'UTILISATEUR
   OuvrirConversation(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+ 
     return this.http.post(`${URL_BASE}/conversation/new/${id}`, null, { headers });
   }
 
@@ -341,8 +331,7 @@ export class BienimmoService {
   //ANNULER CANDIDATURE BIEN 
   AnnulerCandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+ 
     return this.http.post(`${URL_BASE}/candidature/annuler/${id}`, null, { headers });
   }
 
@@ -402,8 +391,7 @@ export class BienimmoService {
     photos.forEach(p => { formData.append('photoImmos', p); });
     formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
   
-    console.log(formData)
-    return this.http.put(
+     return this.http.put(
       URL_BASE + '/bien/modifierbien/' + `${id}`,
       formData,
       { headers }
@@ -414,24 +402,21 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES TYPES DE PROBLEMES
   AfficherLIsteProbleme(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
-    return this.http.get(`${URL_BASE}/typeprobleme/afficher`,
+     return this.http.get(`${URL_BASE}/typeprobleme/afficher`,
       { headers });
   }
 
   //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
   AfficherLIsteReclamationProcessusLance(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers);
-    return this.http.get(`${URL_BASE}/probleme/processus/get`,
+     return this.http.get(`${URL_BASE}/probleme/processus/get`,
       { headers });
   }
 
     //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
     AfficherProcessusLancerProprietaireAgenceConnecter(): Observable<any> {
       const headers = this.getHeaders();
-      // console.log(headers);
-      return this.http.get(`${URL_BASE}/probleme/processus/get/mine`,
+       return this.http.get(`${URL_BASE}/probleme/processus/get/mine`,
         { headers });
     }
 
@@ -487,12 +472,7 @@ export class BienimmoService {
   ): Observable<any> {
     const headers = this.getHeaders();
     headers.append('Content-Type', 'multipart/form-data');
-    // console.log(headers);
-    // console.log('contenu', contenu);
-    // console.log('prixestimatif', prix_estimatif);
-    // console.log('type', type);
-    // console.log('idbien', idbien);
-    // console.log('photo', photos);
+ 
     const formData = new FormData();
 
     formData.append('contenu', contenu);
@@ -513,17 +493,14 @@ export class BienimmoService {
     const headers = this.getHeaders();
     // const data = new FormData();
     // data.append("contenu", contenu)
-    // console.log(id)
-    // console.log(headers)
-    console.log(headers)
+  
     return this.http.post(`${URL_BASE}/probleme/lancerprocessus/${id}`, null, { headers });
   }
 
   //SUPPRIMER UN BIEN
   SupprimerBien(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+ 
     return this.http.post(`${URL_BASE}/bien/immo/delete/${id}`, null, { headers });
   }
 
@@ -535,8 +512,7 @@ export class BienimmoService {
   ): Observable<any> {
     const headers = this.getHeaders();
     headers.append('Content-Type', 'multipart/form-data');
-    // console.log(headers);
-    // console.log('photo', photo);
+  
     const formData = new FormData();
 
     formData.append('idRec', idRec.toString());

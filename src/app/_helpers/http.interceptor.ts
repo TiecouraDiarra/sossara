@@ -14,7 +14,6 @@ export class JwtInterceptor implements HttpInterceptor {
     private storagservice:StorageService,
   ) {
     this.users=storagservice?.getUser().token
-    console.log("je suis l'utilisaruer token",this.users)
   
     if (this.users) { // Vérifiez si le token utilisateur est défini
       // Vérifiez la validité du token toutes les 30 secondes
@@ -26,7 +25,6 @@ export class JwtInterceptor implements HttpInterceptor {
          if(!data.status){
           this.authService.logout().subscribe({
             next: res => {
-              // console.log(res);
               this.storageService.clean();
               // this.router.navigateByUrl("/auth/connexion")
               this.router.navigate(['/auth/connexion']).then(() => {
@@ -60,17 +58,13 @@ export class JwtInterceptor implements HttpInterceptor {
           if (error.status === 401) { // Si le statut de l'erreur est 401 (non autorisé)
          
             // Vérifiez la validité du token
-            console.log("intercept")
           if(this.users){
-            console.log("utilisateur existe")
 
             this.authService.voirTokenValidite(this.users).subscribe(
               data => {
-                console.log("je suis ici et c'est a moi ",data)
                 if(!data.status){
                   this.authService.logout().subscribe({
                     next: res => {
-                      // console.log(res);
                       this.storageService.clean();
                       // this.router.navigateByUrl("/auth/connexion")
                       this.router.navigate(['/auth/connexion']).then(() => {
