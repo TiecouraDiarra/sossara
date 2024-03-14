@@ -56,11 +56,7 @@
                                         <img src="../../../../assets/img/typebien/appartement.png"
                                             class="img-fluid image-size" alt="default-img">
                                     </div>
-                                    <!-- <div class="carousel-item active">
-                                        <img src="../../../../assets/img/typebien/villa.png" class="d-block w-100">
-                                    </div> -->
                                 </ng-container>
-                                <!-- Affichez les images de photoImmo -->
                                 <ng-template #imagesBlock>
                                     <div *ngFor="let photo of photoImmo; let i = index" class="carousel-item"
                                         [class.active]="i === 0">
@@ -157,7 +153,7 @@
                     <div class="invoice-info clearfix" id="invoice_wrapper">
                         <!-- <div class="container mt-5"> -->
                         <div class="ligne">
-                            <div class="contratlocation" #contratlocation>
+                            <div class="contratlocation" #contratlocation *ngIf="bien?.statut?.nom =='A louer'">
                                 <div class="row">
                                     <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
                                         <div class="card">
@@ -176,7 +172,7 @@
                                             </div>
                                             <div class="card-header">
                                                 <h3 class="text-center">CONTRAT TYPE DE LOCATION OU DE COLOCATION </h3>
-                                                <p class="text-center">Date: 11 Mars 2024</p>
+                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}</p>
                                             </div>
                                             <div class="card-body">
                                                 <article class="article">
@@ -329,10 +325,363 @@
                                                     <h5 class="headArticle"><span class="article-heading">Article 4
                                                             :</span>
                                                         Modalités de Paiement</h5>
-                                                    <p>Le loyer doit être payé à la date convenue chaque mois. Le
-                                                        Locataire
-                                                        s'engage à effectuer le paiement par [Modalité de paiement
-                                                        convenu].</p>
+                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant. 
+                                                        Le Locataire s'engage à effectuer le paiement à la date convenue chaque mois.</p>
+                                                </article>
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 5
+                                                            :</span>
+                                                        Date de prise d’effet et durée du contrat</h5>
+                                                    <p>La durée du contrat et sa date de prise d’effet sont ainsi
+                                                        définies :</p>
+                                                    <ol>
+                                                        <li>
+                                                            <strong>Date de prise d’effet du contrat : <span
+                                                                    style="color: #e98b11;">{{contrat?.DateEntreeMaison}}</span></strong>
+                                                        </li>
+                                                        <li *ngIf="isAgence(proprietaire?.role)">
+                                                            <strong>Durée du contrat :</strong>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" value="3 ans"> 3 ans
+                                                            </label>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" readonly checked value="6 ans"> 6
+                                                                ans (minimum 6 ans si le
+                                                                bailleur est une personne morale)
+                                                            </label>
+                                                        </li>
+                                                        <li *ngIf="isProprietaire(proprietaire?.role)">
+                                                            <strong>Durée du contrat :</strong>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" checked readonly value="3 ans"> 3
+                                                                ans
+                                                            </label>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" value="6 ans"> 6 ans (minimum 6
+                                                                ans si le
+                                                                bailleur est une personne morale)
+                                                            </label>
+                                                        </li>
+                                                    </ol>
+                                                    <p>En l’absence de proposition de renouvellement du contrat,
+                                                        celui-ci est,
+                                                        à sont terme, reconduit tacitement pour 3 ou 6 ans et dans les
+                                                        mêmes conditions.
+                                                        Le locataire peut mettre fin au bail à tout moment, après avoir
+                                                        donné congé.
+                                                        Le bailleur, quant à lui, peut mettre fin au bail à son échéance
+                                                        et
+                                                        après avoir donné congé, soit pour reprendre le logement en vue
+                                                        de l’occuper lui-même
+                                                        ou une personne de sa famille, soit pour le vendre, soit pour un
+                                                        motif sérieux et légitime.</p>
+                                                </article>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <p class="text-center">© 2024 Sossara. Tous droits réservés.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Délimitation de page pour la deuxième page -->
+                                <!-- <div class="page-break"></div> -->
+
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="text-center">CONTRAT TYPE DE LOCATION OU DE COLOCATION </h3>
+                                                <p class="text-center">Date: 11 Mars 2024</p>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 6
+                                                            :</span>
+                                                        Droits du Propriétaire</h5>
+                                                    <p>Le Bailleur conserve les droits de propriété des locaux et peut
+                                                        accéder à
+                                                        ceux-ci pour effectuer des inspections, des réparations
+                                                        nécessaires, ou
+                                                        pour d'autres raisons légales.</p>
+                                                </article>
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 7
+                                                            :</span>
+                                                        Droits du Locataire</h5>
+                                                    <p>Le Locataire a le droit de jouir paisiblement des locaux loués et
+                                                        de les
+                                                        utiliser conformément à l'usage convenu.</p>
+                                                </article>
+
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 8
+                                                            :</span>
+                                                        Entretien et Réparation</h5>
+                                                    <p>Le Bailleur est responsable de l'entretien et des réparations
+                                                        majeures
+                                                        des locaux, tandis que le Locataire est responsable de maintenir
+                                                        les
+                                                        locaux en bon état de propreté et de signaler tout dommage ou
+                                                        problème
+                                                        nécessitant une réparation.</p>
+                                                </article>
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 9
+                                                            :</span> Clause résolutoire</h5>
+                                                    <p>Le présent contrat sera résilié de plein droit :</p>
+                                                    <p>- En cas de non paiement de la caution et de l'avance;</p>
+                                                    <p>- En cas de défaut de paiement du loyer;</p>
+                                                    <p>- En cas de trouble de voisinage constaté par une décision de
+                                                        justice;</p>
+                                                    <p style="text-align:justify ;"> <strong>Modalités de résiliation de
+                                                            plein droit du contrat :</strong> Le bail sera résilié de
+                                                        plein droit en cas d'inexécution des obligations du locataire,
+                                                        soit en cas de défaut
+                                                        de paiement des loyers et des charges locatives au terme
+                                                        convenu, de non-versement du
+                                                        dépôt de garantie, de défaut d'assurance du locataire contre les
+                                                        risques locatifs,
+                                                        de troubles de voisinage constatés par une décision de justice
+                                                        passée en force de chose
+                                                        jugée rendue au profit d'un tiers. Le bailleur devra assigner le
+                                                        locataire devant le
+                                                        tribunal pour faire constater l'acquisition de la clause
+                                                        résolutoire et la résiliation
+                                                        de plein droit du bail. Lorsque le bailleur souhaite mettre en
+                                                        œuvre la clause résolutoire
+                                                        pour défaut de paiement des loyers et des charges ou pour
+                                                        non-versement du dépôt de
+                                                        garantie, il doit préalablement faire signifier au locataire,
+                                                        par acte d'huissier,
+                                                        un commandement de payer, qui doit mentionner certaines
+                                                        informations et notamment la
+                                                        faculté pour le locataire de saisir le fonds de solidarité pour
+                                                        le logement. De plus,
+                                                        pour les bailleurs personnes physiques ou les sociétés
+                                                        immobilières familiales,
+                                                        le commandement de payer doit être signalé par l'huissier à la
+                                                        commission de coordination
+                                                        des actions de prévention des expulsions locatives dès lors que
+                                                        l'un des seuils relatifs
+                                                        au montant et à l'ancienneté de la dette, fixé par arrêté
+                                                        préfectoral, est atteint.
+                                                        Le locataire peut, à compter de la réception du commandement,
+                                                        régler sa dette, saisir le
+                                                        juge d'instance pour demander des délais de paiement, voire
+                                                        demander ponctuellement une
+                                                        aide financière à un fonds de solidarité pour le logement.
+                                                        Si le locataire ne s'est pas acquitté des sommes dues dans les
+                                                        deux mois suivant la
+                                                        signification, le bailleur peut alors assigner le locataire en
+                                                        justice pour faire
+                                                        constater la résiliation de plein droit du bail. En cas de
+                                                        défaut d'assurance,
+                                                        le bailleur ne peut assigner en justice le locataire pour faire
+                                                        constater l'acquisition de
+                                                        la clause résolutoire qu'après un délai d'un mois après un
+                                                        commandement demeuré infructueux.</p>
+                                                </article>
+                                                <div class="text-center mt-4">
+                                                    <p>Date: 11 Mars 2024</p>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p>Signature du Propriétaire</p>
+                                                            <img *ngIf="contrat?.accepterproprietaire" src="../../../../assets/img/contrat/approuver.jpg" class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.annulerProprietaire" src="../../../../assets/img/contrat/Annuler.jpg" class="img-fluid image-size" alt="default-img">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>Signature du Locataire</p>
+                                                            <img *ngIf="contrat?.accepterLocataire" src="../../../../assets/img/contrat/approuver.jpg" class="img-fluid image-size" alt="default-img">
+                                                            <img *ngIf="contrat?.annulerLocataire" src="../../../../assets/img/contrat/Annuler.jpg" class="img-fluid image-size" alt="default-img">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer text-muted" style="margin-top: 20vh !important;">
+                                                <p class="text-center">© 2024 Sossara. Tous droits réservés.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contratlocation" #contratlocation *ngIf="bien?.statut?.nom =='A vendre'">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
+                                        <div class="card">
+                                            <div class="invoice-headar">
+                                                <div class="row g-0">
+                                                    <!-- <div class="col-sm-12"> -->
+                                                    <div class="invoice-logo">
+                                                        <!-- logo started -->
+                                                        <div class="logo">
+                                                            <img src="../../../../assets/img/logo.png" alt="logo">
+                                                        </div>
+                                                        <!-- logo ended -->
+                                                    </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="card-header">
+                                                <h3 class="text-center">CONTRAT TYPE DE VENTE </h3>
+                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 1
+                                                            :</span> Désignation des
+                                                        parties</h5>
+                                                    <p>Le présent contrat est conclu entre les soussignés :</p>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>1. Qualité du bailleur:</strong>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isAgence(proprietaire?.role)">
+                                                                <input type="checkbox" value="Personne physique">
+                                                                Personne
+                                                                physique
+                                                            </label>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isAgence(proprietaire?.role)">
+                                                                <input type="checkbox" checked readonly
+                                                                    value="Personne morale"> Personne morale
+                                                            </label>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isProprietaire(proprietaire?.role)">
+                                                                <input type="checkbox" checked readonly
+                                                                    value="Personne physique"> Personne
+                                                                physique
+                                                            </label>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isProprietaire(proprietaire?.role)">
+                                                                <input type="checkbox" value="Personne morale"> Personne
+                                                                morale
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Nom et prénom du bailleur: <span
+                                                                    style="color: #e98b11;">{{proprietaire?.nom}}</span>
+                                                            </strong>
+                                                        </li>
+                                                        <li *ngIf="isAgence(proprietaire?.role)">
+                                                            <strong>Dénomination (si personne morale): </strong>
+                                                            <ol>
+                                                                <li>
+                                                                    <strong>Type du document : <span
+                                                                            style="color: #e98b11;">{{proprietaire?.document[0]?.nomDoc}}</span></strong>
+                                                                </li>
+                                                                <li>
+                                                                    <strong>Numero du document : <span
+                                                                            style="color: #e98b11;">{{proprietaire?.document[0]?.numDoc}}</span></strong>
+                                                                </li>
+                                                            </ol>
+                                                        </li>
+                                                        <!-- <li>
+                                                                <strong>Société civile constituée exclusivement entre parents et
+                                                                    alliés jusqu’au quatrième degré inclus:</strong>
+                                                                <label class="checkbox-inline">
+                                                                    <input type="checkbox" value="Personne physique">Oui
+                                                                </label>
+                                                                <label class="checkbox-inline">
+                                                                    <input type="checkbox" value="Personne morale">Non
+                                                                </label>
+                                                            </li> -->
+                                                        <li>
+                                                            <strong>Domicile ou siège social du bailleur: <span
+                                                                    style="color: #e98b11;">{{proprietaire?.adresse?.commune?.cercle?.region?.pays?.nompays}},
+                                                                    {{proprietaire?.adresse?.commune?.cercle?.nomcercle}},
+                                                                    {{proprietaire?.adresse?.commune?.nomcommune}}</span></strong>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Adresse: <span
+                                                                    style="color: #e98b11;">{{proprietaire?.adresse?.commune?.cercle?.region?.pays?.nompays}},
+                                                                    {{proprietaire?.adresse?.commune?.cercle?.nomcercle}},
+                                                                    {{proprietaire?.adresse?.commune?.nomcommune}}</span></strong>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Adresse email (facultatif): <span
+                                                                    style="color: #e98b11;">{{proprietaire?.email}}</span></strong>
+                                                        </li>
+                                                    </ul>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>2. Locataire:</strong>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Nom et prénom du locataire: <span
+                                                                    style="color: #e98b11;">{{locataire?.nom}}</span></strong>
+                                                        </li>
+
+                                                        <li>
+                                                            <strong>Adresse email (facultatif): <span
+                                                                    style="color: #e98b11;">{{locataire?.email}}</span></strong>
+                                                        </li>
+                                                    </ul>
+                                                </article>
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 2
+                                                            :</span>
+                                                        Objet du Contrat</h5>
+                                                    <p>Le présent contrat a pour objet la location d’un logement ainsi
+                                                        déterminé : </p>
+                                                    <ol>
+                                                        <li>
+                                                            <strong>Consistance du logement : <br></strong>
+                                                            <strong>- Adresse : <span
+                                                                    style="color: #e98b11;">{{bien?.adresse?.commune?.cercle?.region?.pays?.nompays}}
+                                                                    - {{bien?.adresse?.commune?.cercle?.nomcercle}} -
+                                                                    {{bien?.adresse?.commune?.nomcommune}}</span></strong>
+                                                            <br>
+                                                            <strong>- Quartier : <span
+                                                                    style="color: #e98b11;">{{bien?.adresse?.quartier}}</span></strong>,
+                                                            <strong> - Rue : <span
+                                                                    style="color: #e98b11;">{{bien?.adresse?.rue}}</span></strong>,
+                                                            <strong> - Porte : <span
+                                                                    style="color: #e98b11;">{{bien?.adresse?.porte}}</span></strong>,
+                                                            <br>
+                                                            <strong> - Type d’habitat : <span
+                                                                    style="color: #e98b11;">{{bien?.typeImmo?.nom}}</span></strong>,
+                                                            <br>
+                                                            <strong> - Nombre de pièces principales : <span
+                                                                    style="color: #e98b11;">{{bien?.chambre}}</span></strong>,
+                                                            <strong> - Surface habitable : <span
+                                                                    style="color: #e98b11;">{{bien?.surface}}
+                                                                </span>M²</strong>, <br>
+                                                            <strong> - Nombre de salon : <span
+                                                                    style="color: #e98b11;">{{bien?.nb_piece}}</span></strong>,
+                                                            <br>
+                                                            <strong> - Nombre de cuisine : <span
+                                                                    style="color: #e98b11;">{{bien?.cuisine}}</span></strong>,
+                                                            <br>
+                                                            <strong> - Nombre de toilette : <span
+                                                                    style="color: #e98b11;">{{bien?.toilette}}</span></strong>,
+                                                            <br>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Destination du local : <span
+                                                                    style="color: #e98b11;">{{contrat?.usage?.nom}}</span></strong>
+                                                        </li>
+                                                    </ol>
+                                                </article>
+
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 3
+                                                            :</span>
+                                                        Montant du Loyer</h5>
+                                                    <p>Le montant du loyer mensuel est fixé à <span class="fw-bold"
+                                                            style="color: #e98b11;">{{formatPrice(bien?.prix)}}</span>
+                                                        FCFA.</p>
+                                                </article>
+
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 4
+                                                            :</span>
+                                                        Modalités de Paiement</h5>
+                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant. 
+                                                        Le Locataire s'engage à effectuer le paiement à la date convenue chaque mois.</p>
                                                 </article>
                                                 <article class="article">
                                                     <h5 class="headArticle"><span class="article-heading">Article 5
