@@ -125,9 +125,9 @@
                                   *ngIf="bien.typeImmo && bien.typeImmo.nom">
                                   <p>Type du bien</p>
                                   <p>{{bien.typeImmo.nom}}</p>
-                              </div>
-                              <div class="d-flex align-items-center justify-content-between mb-2"
-                                  *ngIf="bien.periode && bien.periode.nom">
+                              </div> 
+                              <div class="d-flex align-items-center justify-content-between mb-2" 
+                                  *ngIf="bien.periode && bien.periode.nom && bien?.statut?.nom === 'A louer'">
                                   <p>Periode</p>
                                   <p>{{bien.periode.nom}}</p>
                               </div>

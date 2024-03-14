@@ -154,7 +154,7 @@ export class TrouverbienComponent implements OnInit {
     //   zoom: 6 // Zoom ajusté pour montrer le Mali correctement
     // });
     // Créer la carte Leaflet
-    this.map = L.map('map').setView([0, 0], 6); // Définir une vue initiale
+    this.map = L.map('map').setView([17.570692, -3.996166], 6); // Définir une vue initiale
 
 
     // Ajouter des tuiles OpenStreetMap à la carte
