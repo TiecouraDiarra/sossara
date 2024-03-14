@@ -72,6 +72,7 @@ export class DetailsbienComponent implements AfterViewInit {
   messageObj: Message = new Message('', '', '');
   public chatData: any;
   lesCommodites: any;
+  candidaterWithModal: boolean = false;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -84,6 +85,10 @@ export class DetailsbienComponent implements AfterViewInit {
       this.latitude = this.bien?.adresse?.latitude || null;
       this.longitude = this.bien?.adresse?.longitude || null;
       this.nombien = this.bien?.nom;
+
+      if(this.bien.statut.nom == "A louer"){
+        this.candidaterWithModal = true;
+      } 
 
       // Options de la carte
       const mapOptions = {

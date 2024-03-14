@@ -93,8 +93,13 @@
                 <h4>{{ formatPrice(bien.prix) }} FCFA</h4>
                 <!-- CANDIDATER UN BIEN   -->
                 <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
-                    *ngIf="isLoggedIn == true && currentUser == false">
+                    *ngIf="isLoggedIn == true && currentUser == false  && candidaterWithModal ==true ">
                     <a class="action-btn btn-edit"> <i class="feather-edit-3"></i>Candidater
+                        pour ce bien</a>
+                </div>
+                <div class="callnow crd mt-5"
+                    *ngIf="isLoggedIn == true && currentUser == false  && candidaterWithModal ==false ">
+                    <a (click)="CandidaterBien()" class="action-btn btn-edit"> <i class="feather-edit-3"></i>Candidater
                         pour ce bien</a>
                 </div>
                 <!-- BOUTON MODIFIER UN BIEN -->
@@ -908,11 +913,14 @@
                             <ul>
                                 <li *ngIf="bien && bien.reference">reference du bien <span>{{bien.reference}}</span>
                                 </li>
+                                <li *ngIf="bien && bien.caution">Caution <span>{{bien.caution}} mois</span></li>
+                                <li *ngIf="bien && bien.avance">Avance <span>{{bien.caution}} mois</span></li>
                                 <li *ngIf="bien && bien.typeImmo">Type du bien <span>{{bien.typeImmo.nom}}</span></li>
-                                <li *ngIf="bien && bien.typeImmo">Periode <span>{{bien.periode.nom}}</span></li>
+                                <li *ngIf="bien.caracteristique && bien.caracteristique.caracteristique">Caracteristique <span>{{bien.caracteristique.caracteristique}}</span></li>
+                                <li *ngIf="bien.statut.nom =='A louer'">Periode <span>{{bien.periode.nom}}</span></li>
                                 <li *ngIf="bien && bien.adresse">Quartier <span>{{bien.adresse.quartier}}</span></li>
-                                <li *ngIf="bien && bien.adresse">Rue <span>{{bien.adresse.rue}}</span></li>
-                                <li *ngIf="bien && bien.adresse">Porte <span>{{bien.adresse.porte}}</span></li>
+                                <li *ngIf="bien.adresse && bien.adresse.rue">Rue <span>{{bien.adresse.rue}}</span></li>
+                                <li *ngIf="bien.adresse && bien.adresse.porte">Porte <span>{{bien.adresse.porte}}</span></li>
                                 <li *ngIf="bien && bien.createdAt">Date de publication <span>{{bien.createdAt |
                                         date:"dd/MM/yyyy"}}</span></li>
                                 <li *ngIf="bien && bien.nb_piece">Salon <span>{{bien.nb_piece}}</span></li>
