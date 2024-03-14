@@ -363,6 +363,8 @@ export class AgenceComponent {
 
     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
     this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
+      console.log("Agence ",data);
+      
       let totalBiensAgents: any[] = [];
       this.bienImmoAgence = data?.bienImmos;
       // Parcourir chaque agent

@@ -210,6 +210,7 @@ export class BienimmoService {
   registerBien(
     commodite: any[],
     type: number,
+    caracteristique: number,
     commune: number,
     nb_piece: number,
     nom: string,
@@ -235,6 +236,7 @@ export class BienimmoService {
 
     commodite.forEach(i => { formData.append('commodites[]', i); });
     formData.append('typeImmoId', type.toString());
+    formData.append('caracteristiqueId', caracteristique.toString());
     formData.append('commune', commune.toString());
     formData.append('nb_piece', nb_piece.toString());
     formData.append('nom', nom);
