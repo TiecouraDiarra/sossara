@@ -98,14 +98,12 @@ export class LesagencesComponent implements OnInit  {
   
         // this.agence = data.reverse();
         this.nombreAgence = this.agence?.length;
-        // console.log(this.nombreAgence);
-        console.log("les agences", this.agence);
+
         // Parcourir la liste des biens immobiliers
         this.agence?.forEach((agence: { id: number }) => {
           // Charger le nombre de "J'aime" pour chaque bien
           this.serviceAgence.AfficherAgenceParId(agence?.id).subscribe((data) => {
             this.bienImmoAgence = data?.bienImmos;
-            console.log(this.bienImmoAgence);
             this.bienImmoAgent = data?.agents;
             // Initialiser une liste pour stocker tous les biens immobiliers des agents
             let totalBiensAgents: any[] = [];
@@ -117,13 +115,11 @@ export class LesagencesComponent implements OnInit  {
             });
   
             // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
-            console.log(totalBiensAgents);
-            console.log(this.bienImmoAgent);
+          
   
             this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
             this.NombreBienParAgence = this.bienImmo.length;
             this.NombreAgentParAgence = data.agents.length;
-            console.log(this.bienImmo);
             // Initialisation des compteurs
             let nombreLouerParAgence = 0;
             let nombreVendreParAgence = 0;
@@ -143,10 +139,7 @@ export class LesagencesComponent implements OnInit  {
             this.NombreLouerParAgence = nombreLouerParAgence;
             this.NombreVendreParAgence = nombreVendreParAgence;
   
-            console.log('Biens loués Agence:', this.bienImmoLouer);
-            console.log('Biens vendus Agence :', this.bienImmoVendre);
-  
-            console.log(this.NombreBienParAgence);
+        
             if (typeof agence.id === 'number') {
               this.NombreBienCount[agence.id] = this.NombreBienParAgence;
               this.NombreAgentCount[agence.id] = this.NombreAgentParAgence;
@@ -160,21 +153,18 @@ export class LesagencesComponent implements OnInit  {
        //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe(data => {
       this.region = data;
-      // console.log(this.region);
     }
     );
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeCercle().subscribe(data => {
       this.cercle = data;
-      // console.log(this.cercle);
     }
     );
 
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe(data => {
       this.commune = data;
-      // console.log(this.commune);
     });
   }
   //AFFICHER REGION EN FONCTION DU PAYS
@@ -223,7 +213,6 @@ export class LesagencesComponent implements OnInit  {
       'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
   goToDettailAgence(id: number) {
-    // console.log(id);
     return this.router.navigate(['detailsagence', id]);
   }
    // Méthode pour gérer le changement de page de la pagination

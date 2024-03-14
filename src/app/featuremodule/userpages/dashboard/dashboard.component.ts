@@ -152,18 +152,15 @@ export class DashboardComponent implements OnInit {
     this.dashboarddata = this.DataService.dashboarddata
     this.dashboardreview = this.DataService.dashboardreview
     this.User = this.storageService.getUser();
-    // console.log(this.User);
 
   }
   ngOnInit(): void {
-    console.log(this.storageService.getUser());
     this.users=this.storageService.getUser()
     this.senderCheck = this.users.email;
 
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      // console.log(this.roles);
       if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
       } else if (this.roles.includes("ROLE_AGENCE")) {
@@ -172,17 +169,14 @@ export class DashboardComponent implements OnInit {
         this.isAgent = true
       }
     }
-    // console.log(this.storageService.getUser());
     this.User = this.storageService.getUser().id;
     const Users = this.storageService.getUser();
-    // console.log(this.User);
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
 
 
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo);
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -201,24 +195,13 @@ export class DashboardComponent implements OnInit {
       this.nombreBienLoue = this.bienImmoDejaLoue?.length;
       this.nombreBienAchete = this.bienImmoDejaVendu?.length;
     });
-    //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
-    // this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
-    //   this.nombreBienLoue = data?.biens?.length;
-    //   // console.log(this.nombreBienLoue);
-    // });
-
-    // //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
-    // this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
-    //   this.nombreBienAchete = data.biens.length;
-    //   // console.log(this.nombreBienAchete);
-    // });
-
+  
 
     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
     this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
       // this.bienImmo = data.biens.reverse();
       // Initialiser une liste pour stocker tous les biens immobiliers des agents
-      let totalBiensAgents: any[] = [];
+       let totalBiensAgents: any[] = [];
       this.bienImmoAgence = data?.bienImmos;
       this.nombreagent = data?.agents?.length;
 
@@ -228,25 +211,21 @@ export class DashboardComponent implements OnInit {
         totalBiensAgents.push(...agent.bienImmosAgents);
       });
       // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
-      console.log(totalBiensAgents);
-      console.log(this.bienImmoAgent);
+    
 
       this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents];
       // this.bienImmoAgence = data.biens_agences;
       // this.bienImmoAgent = data.biens_agents;
       // this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
       this.nombrebien = this.bienImmoAgenceTotal.length;
-      this.nombrebien = data.agents.length;
-      console.log(data);
-    });
+      // this.nombrebien = data.agents.length;
+     });
 
     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.nombreBienAutre = data.length;
-      // console.log(this.nombreBienAutre);
-      // console.log(data);
-    }
+      }
     );
 
     //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
@@ -254,8 +233,7 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       this.nombreRdvUser = data.length;
-      console.log(this.rdv);
-    }
+     }
     );
 
 
@@ -264,8 +242,7 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdvUserConnecte().subscribe(data => {
       this.rdvUserConnect = data.reverse();
       this.nombreRdvUserConnect = data.length;
-      console.log(this.rdvUserConnect);
-    }
+     }
     );
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
@@ -274,13 +251,11 @@ export class DashboardComponent implements OnInit {
       //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
       this.serviceUser.AfficherLaListeRdv().subscribe(data => {
         this.nombreRdvUser = data?.length;
-        // console.log(this.nombreRdvUser);
       }
       );
 
       // Calculer la somme des candidatures et des rendez-vous
       this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
-      // console.log("SommeTout =", this.somme);
     });
 
 
@@ -325,14 +300,12 @@ export class DashboardComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
             // Actualise la page de connexion
             // window.location.reload();
           },
           error: err => {
-            // console.log(err);
           }
         });
       }

@@ -1010,7 +1010,7 @@ export class DetailsbienComponent implements AfterViewInit {
     return this.router.navigate(['/userpages/messages']);
   }
 
-  goToDettailBien(username: any) {
+  goToMessage(username: any) {
     this.chatService
       .getChatByFirstUserNameAndSecondUserName(username, this.users.email)
       .subscribe(

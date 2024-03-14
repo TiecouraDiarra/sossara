@@ -186,7 +186,6 @@ export class TrouverbienComponent implements OnInit {
       if (Array.isArray(data)) {
         // Assurez-vous que data.biens est un tableau avant d'appeler map
         this.bienImmoMap = data?.reverse();
-        console.log(this.bienImmoMap);
         // Convertissez les données de bien immobilier en marqueurs Leaflet
         this.overlays = this.bienImmoMap.map((bien: any) => {
           const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
@@ -364,7 +363,6 @@ export class TrouverbienComponent implements OnInit {
       if (Array.isArray(data)) {
         // Assurez-vous que data.biens est un tableau avant d'appeler map
         this.bienImmoMap = data?.reverse();
-        console.log(this.bienImmoMap);
 
         // Convertissez les données de bien immobilier en marqueurs Google Maps
         this.overlays = this.bienImmoMap.map((bien: any) => {
@@ -471,10 +469,8 @@ export class TrouverbienComponent implements OnInit {
         .subscribe((data) => {
           // Mise à jour de la liste des biens immobiliers
           this.bienImmo = data;
-          console.log(this.bienImmo);
 
           this.bienImmo = data;
-          console.log(this.bienImmo);
 
           // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
           this.bienImmo.forEach((bien: {
@@ -483,7 +479,6 @@ export class TrouverbienComponent implements OnInit {
             // Charger le nombre de "J'aime" pour chaque bien
             // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
             this.NombreJaime = bien.favoris?.length;
-            // console.log(this.NombreJaime);
 
             if (typeof bien.id === 'number') {
               this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
@@ -497,19 +492,9 @@ export class TrouverbienComponent implements OnInit {
               this.favoriteStatus[bien.id] = false;
             }
           });
-          // console.log(this.bienImmo);
         });
     });
-    //AFFICHER LA LISTE DES COMMODITES
-    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-    //   this.commodite = data.commodite;
-    //   this.adresse = data;
-    //   // this.region = data.region.reverse();
-    //   // this.commune = data.commune;
-    //   // this.typebien = data.type;
-    //   // console.log(this.adresse);
-    // });
-
+ 
     //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.commodite = data;
@@ -518,35 +503,30 @@ export class TrouverbienComponent implements OnInit {
     //AFFICHER LA LISTE DES TYPES DE BIENS
     this.serviceConfigBien.AfficherListeTypeImmo().subscribe(data => {
       this.typebien = data;
-      // console.log(this.typebien);
     }
     );
 
     //AFFICHER LA LISTE DES STATUT DE BIENS
     this.serviceConfigBien.AfficherListeStatut().subscribe(data => {
       this.status = data;
-      // console.log(this.typebien);
     }
     );
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe(data => {
       this.region = data;
-      // console.log(this.region);
     }
     );
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeCercle().subscribe(data => {
       this.cercle = data;
-      // console.log(this.cercle);
     }
     );
 
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe(data => {
       this.commune = data;
-      // console.log(this.commune);
     }
     );
 
@@ -629,7 +609,6 @@ export class TrouverbienComponent implements OnInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    // console.log(id);
     return this.router.navigate(['details-bien', id])
   }
 
@@ -642,14 +621,12 @@ export class TrouverbienComponent implements OnInit {
         }
       }
       this.form.commodite = commoditeArray;
-      console.log('mes commodites', this.form.commodite);
     }
   }
   selectedStatut: string | null = null;
 
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    console.log('this.selectedStatut', this.selectedStatut);
   }
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
@@ -657,7 +634,6 @@ export class TrouverbienComponent implements OnInit {
         el.region.id == newValue.value || el.region.nomregion == newValue.value
     );
     this.cercles.forEach((el: any) => {
-      console.log('region.id', el.region.id);
       this.form.regionForm = el.region.id;
 
     });
@@ -668,7 +644,6 @@ export class TrouverbienComponent implements OnInit {
         el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
     );
     this.communes1.forEach((el: any) => {
-      console.log('cercle.id', el.cercle.id);
       this.form.cercleForm = el.cercle.id;
 
     });
@@ -738,7 +713,6 @@ export class TrouverbienComponent implements OnInit {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log(data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {

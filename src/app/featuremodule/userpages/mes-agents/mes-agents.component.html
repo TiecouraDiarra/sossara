@@ -100,12 +100,12 @@
                                                     name="choices-single-location" id="choices-single-location"
                                                     aria-label="Default select example">
                                                     <option value="" selected>Tout</option>
-                                                    <option>Commune 1</option>
-                                                    <option>Commune 2</option>
-                                                    <option>Commune 3</option>
-                                                    <option>Commune 4</option>
-                                                    <option>Commune 5</option>
-                                                    <option>Commune 6</option>
+                                                    <option>Commune I</option>
+                                                    <option>Commune II</option>
+                                                    <option>Commune III</option>
+                                                    <option>Commune IV</option>
+                                                    <option>Commune V</option>
+                                                    <option>Commune VI</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -113,7 +113,7 @@
                                             <div>
                                                 <a class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#ajouteragent"><i class="uil uil-filter"></i>
-                                                    Ajouter un agents</a>
+                                                    Ajouter un agent</a>
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +217,7 @@
                   
                     <td>
                         <span *ngIf="Agent.adresse !== undefined">
-                            <span class="status-text" style="color: #374b5c;">{{ Agent?.adresse || 'Aucune adresse disponible' }}</span>
+                            <span class="status-text" style="color: #374b5c;">{{ Agent?.adresse?.quartier || 'Aucune adresse disponible' }}</span>
                         </span>
                     </td>
                     <!-- <td>

@@ -36,20 +36,15 @@ export class NotificationsComponent implements OnInit {
   selectedPaymentMode: any;
   idCandidature: any;
   onNombreMoisChange(): void {
-    console.log(this.nombreMoisChoisi);
-    // const selectElement = event.target as HTMLSelectElement;
+     // const selectElement = event.target as HTMLSelectElement;
     // this.nombreMoisChoisi = parseInt(selectElement.value, 10);
   }
   onNombreJourChange(): void {
-    // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-    console.log(this.nombreJourChoisi);
-    // Faites tout traitement supplémentaire ici si nécessaire
+   
   }
 
   onNombreSemaineChange(): void {
-    // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-    console.log(this.nombreSemaineChoisi);
-    // Faites tout traitement supplémentaire ici si nécessaire
+    
   }
 
   errorMessage: any = '';
@@ -73,16 +68,13 @@ export class NotificationsComponent implements OnInit {
   openFactureModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedFactureId = bienImmoId;
-    // console.log(this.selectedFactureId);
-    // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
-    // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
+  
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
     this.factureNumber++;
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherCandidatureAccepter(this.selectedFactureId).subscribe(data => {
       this.transaction = data.biens[0];
-      // console.log(this.transaction);
-    });
+     });
 
   }
 
@@ -90,12 +82,10 @@ export class NotificationsComponent implements OnInit {
   openPaiementModal(candidatureId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = candidatureId;
-    console.log(this.selectedBienImmoId);
-    //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
+     //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherCandidatureParUuId(this.selectedBienImmoId).subscribe(data => {
       this.CandidatureUser = data;
-      console.log(this.CandidatureUser);
-    })
+     })
   }
 
 
@@ -120,8 +110,7 @@ export class NotificationsComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      // console.log(this.roles);
-      if (this.roles.includes("ROLE_LOCATAIRE")) {
+       if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
       } else if (this.roles.includes("ROLE_AGENCE")) {
         this.isAgence = true
@@ -129,11 +118,9 @@ export class NotificationsComponent implements OnInit {
         // this.isAgent = true
       }
     }
-    // console.log(this.storageService.getUser());
-    this.User = this.storageService.getUser().id;
+     this.User = this.storageService.getUser().id;
     const Users = this.storageService.getUser();
-    // console.log(this.User);
-    const token = Users.token;
+     const token = Users.token;
     this.serviceUser.setAccessToken(token);
 
     //AFFICHER LA LISTE DES RDV
@@ -141,15 +128,13 @@ export class NotificationsComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       // this.nombreRdvUser = data.length;
-      // console.log(this.rdv);
-    }
+     }
     );
 
     //AFFICHER LA LISTE DES MODES DE PAIEMENTS
     this.modepaiementService.AfficherListeModePaiement().subscribe(data => {
       this.modepaiement = data.reverse();
-      console.log(this.modepaiement)
-    }
+     }
     );
 
     //AFFICHER LA LISTE DES CANDIDATURE PAR USER
@@ -157,8 +142,7 @@ export class NotificationsComponent implements OnInit {
     this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
       // this.candidature = data.reverse();
       // this.nombreRdvUser = data.length;
-      console.log(this.candidature);
-      // Filtrer les biens immobiliers
+       // Filtrer les biens immobiliers
       data.forEach((Candidature: any) => {
         if (Candidature.isAccepted === false && Candidature.isCancel === false) {
           this.candidature?.push(Candidature);
@@ -175,10 +159,7 @@ export class NotificationsComponent implements OnInit {
 
         // Le reste de votre logique pour traiter les favoris...
       });
-      // Afficher les biens déjà loués et déjà vendus
-      console.log('candidatureAccepter :', this.candidatureAccepter);
-      console.log('candidatureAnnuler :', this.candidatureAnnuler);
-      console.log('candidature :', this.candidature);
+   
     }
     );
 
@@ -186,8 +167,7 @@ export class NotificationsComponent implements OnInit {
     //fait
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.reverse();
-      console.log("candiat", this.bienImmoLoueCandidatureAccepter);
-    });
+     });
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -211,13 +191,11 @@ export class NotificationsComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
-            this.storageService.clean();
+             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            // console.log(err);
-          }
+           }
         });
       }
     })
@@ -253,8 +231,7 @@ export class NotificationsComponent implements OnInit {
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceBienImmo.AccepterCandidaterBien(id).subscribe({
             next: (data) => {
-              // console.log("Candidature acceptée avec succès:", data);
-              this.isSuccess = true;
+               this.isSuccess = true;
               this.errorMessage = 'Candidature acceptée avec succès';
 
               // Afficher le premier popup de succès
@@ -312,8 +289,7 @@ export class NotificationsComponent implements OnInit {
           // Appelez la méthode ANNULERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceBienImmo.AnnulerCandidaterBien(id).subscribe({
             next: (data) => {
-              // console.log("Candidature annulée avec succès:", data);
-              this.isSuccess = true;
+               this.isSuccess = true;
               this.errorMessage = 'Candidature annulée avec succès';
               // Afficher le premier popup d'annulation
               this.popUpAnnulation();
@@ -356,8 +332,7 @@ export class NotificationsComponent implements OnInit {
       this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
         // this.candidature = data.reverse();
         // this.nombreRdvUser = data.length;
-        console.log(this.candidature);
-        // Filtrer les biens immobiliers
+         // Filtrer les biens immobiliers
         data.forEach((Candidature: any) => {
           if (Candidature.isAccepted === false && Candidature.isCancel === false) {
             this.candidature?.push(Candidature);
@@ -403,8 +378,7 @@ export class NotificationsComponent implements OnInit {
       this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
         // this.candidature = data.reverse();
         // this.nombreRdvUser = data.length;
-        console.log(this.candidature);
-        // Filtrer les biens immobiliers
+         // Filtrer les biens immobiliers
         data.forEach((Candidature: any) => {
           if (Candidature.isAccepted === false && Candidature.isCancel === false) {
             this.candidature?.push(Candidature);
@@ -469,18 +443,15 @@ export class NotificationsComponent implements OnInit {
           });
           break;
         default:
-          console.log("Mode de paiement non pris en charge.");
-          break;
+           break;
       }
     } else {
-      console.log("Veuillez sélectionner un mode de paiement.");
-    }
+     }
   }
 
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE CONTRAT
   goToPageContrat(id: number) {
-    // console.log(id);
-    return this.router.navigate(['userpages/contrat', id])
+     return this.router.navigate(['userpages/contrat', id])
   }
 }

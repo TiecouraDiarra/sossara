@@ -12,7 +12,6 @@ export class MercureService {
     this.eventSource.onmessage = (event) => {
       // Traitez ici les mises à jour reçues du serveur Mercure
       const data = JSON.parse(event.data);
-      console.log('Nouvelle mise à jour reçue:', data);
     };
   }
 

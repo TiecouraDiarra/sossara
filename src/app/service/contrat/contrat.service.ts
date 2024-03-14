@@ -41,32 +41,32 @@ export class ContratService {
   //ANNULER UN CONTRAT COTE LOCATAIRE 
   AnnulerContratLocataire(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+    
+   
     return this.http.post(`${URL_BASE}/contrat/annulerlocataire/${id}`, null, { headers });
   }
 
   //ANNULER UN CONTRAT COTE PROPRIETAIRE 
   AnnulerContratProprietaire(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+    
+   
     return this.http.post(`${URL_BASE}/contrat/annulerproprietaire/${id}`, null, { headers });
   }
 
   //ACCEPTER CANDIDATURE BIEN PROPRIETAIRE C'EST A DIRE VALIDER CONTRAT
   AccepterCandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+    
+   
     return this.http.post(`${URL_BASE}/candidature/accept/${id}`, null, { headers });
   }
 
   //VALIDER CONTRAT LOCATAIRE C'EST A DIRE VALIDER CONTRAT
   ValiderContratBien(id: any): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(id)
-    // console.log(headers)
+    
+   
     return this.http.post(`${URL_BASE}/contrat/validelocataire/${id}`, null, { headers });
   }
 }

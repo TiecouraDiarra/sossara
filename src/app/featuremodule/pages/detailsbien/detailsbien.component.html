@@ -52,7 +52,7 @@
                     <img src="{{generateQrCodeUrl(bien?.codeqr)}}" alt="QR Code">
                 </div>
                 <div class="authordetails">
-
+ 
                     <h5 *ngIf="bien && bien.typeImmo">{{ bien.nom ? bien.nom : bien.typeImmo.nom }}</h5>
                     <div class="rating">
                         <p class="blog-category" *ngIf="bien && bien.adresse">
@@ -183,7 +183,7 @@
                 <form class="messages-form" enctype="multipart/form-data">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Basic information</h4>
+                            <h4>Information de base</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
@@ -233,7 +233,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Basic information</h4>
+                            <h4>Information de base</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -950,7 +950,7 @@
                         </div>
                         <div class="submit-section mb-3" style="text-align: center;"
                             *ngIf="isLoggedIn == true && currentUser == false">
-                            <button (click)="goToDettailBien(bien?.utilisateur?.email)" class="btn btn-primary submit-btn"
+                            <button (click)="goToMessage(bien?.utilisateur?.email)" class="btn btn-primary submit-btn"
                                 type="submit">Envoyer un message</button>
                         </div>
                         <div class="card" *ngIf="isLoggedIn == true && currentUser == false">

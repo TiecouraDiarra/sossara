@@ -122,7 +122,6 @@ export class ProfileComponent implements OnInit {
   ) {
     this.locale = localeId;
     this.User = this.storageService.getUser();
-    // console.log(this.User);
    
     this.formModif = {
       nom: '',
@@ -166,7 +165,6 @@ export class ProfileComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      // console.log(this.roles);
       if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
       } else if (this.roles.includes("ROLE_AGENCE")) {
@@ -182,25 +180,21 @@ export class ProfileComponent implements OnInit {
       //AFFICHER LA LISTE DES COMMUNES
       this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
         this.commune = data;
-        console.log('commune de test', this.commune);
       });
       //AFFICHER LA LISTE DES Pays
       this.serviceAdresse.AfficherListePays().subscribe((data) => {
         this.pays = data;
-        console.log('pays', this.pays);
       });
       //AFFICHER LA LISTE DES CERCLE
       this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
         this.cercle = data;
-        console.log('cercle de test', this.cercle);
-      });
+       });
   
       //AFFICHER LA LISTE DES REGIONS
       this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
         this.region = data;
         this.nombreZone = data?.length;
-        console.log('region', this.region);
-      });
+       });
 
        // Récupérer les données de l'utilisateur connecté
   this.serviceUser.AfficherUserConnecter().subscribe((data) => {
@@ -232,8 +226,7 @@ export class ProfileComponent implements OnInit {
         el.pays.id == newValue.value || el.pays.nompays == newValue.value
     );
     this.regions1.forEach((el: any) => {
-      console.log('pays.id', el.pays.id);
-      // this.form.regionForm = el.region.id;
+    
 
     });
   }
@@ -243,8 +236,7 @@ export class ProfileComponent implements OnInit {
         el.region.id == newValue.value || el.region.nomregion == newValue.value
     );
     this.cercles.forEach((el: any) => {
-      console.log('region.id', el.region.id);
-      this.form.regionForm = el.region.id;
+       this.form.regionForm = el.region.id;
 
     });
   }
@@ -254,8 +246,7 @@ export class ProfileComponent implements OnInit {
         el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
     );
     this.communes1.forEach((el: any) => {
-      console.log('cercle.id', el.cercle.id);
-      this.form.cercleForm = el.cercle.id;
+       this.form.cercleForm = el.cercle.id;
 
     });
   }
@@ -281,13 +272,11 @@ export class ProfileComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
-            this.storageService.clean();
+             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            // console.log(err);
-          }
+           }
         });
       }
     })
@@ -329,7 +318,6 @@ export class ProfileComponent implements OnInit {
           // Appelez la méthode ChangerMotDePasse() avec le oldPassword et newPassword
           this.serviceUser.ChangerMotDePasse(oldPassword, newPassword).subscribe(
             data => {
-              console.log(data);
               if (data.status) {
                 let timerInterval = 2000;
                 Swal.fire({
@@ -364,10 +352,7 @@ export class ProfileComponent implements OnInit {
                   allowOutsideClick: false,
                 }).then((result) => { });
               }
-              // console.log("Mot de passe changé avec succès:", data);
-              // this.isSuccess = false;
-              // Afficher le premier popup de succès
-              // this.popUpConfirmation();
+              
             },
             error => {
               // console.error("Erreur lors du changement de mot de passe :", error);
@@ -380,10 +365,7 @@ export class ProfileComponent implements OnInit {
       }
     })
 
-    //Faire un notification
-    //  this.servicenotification.Fairenotification(this.notificationForm.contenu, this.id).subscribe(data=>{
-    //   console.log(data);
-    // });
+
   }
 
 
@@ -409,13 +391,11 @@ export class ProfileComponent implements OnInit {
       //REDIRECTION ET DECONNECTION APRES LE CHANGEMENT DE MOT DE PASSE
       this.authService.logout().subscribe({
         next: res => {
-          // console.log(res);
-          this.storageService.clean();
+           this.storageService.clean();
           this.router.navigateByUrl("/auth/connexion")
         },
         error: err => {
-          // console.log(err);
-        }
+         }
       });
     })
 
@@ -427,16 +407,6 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  //CHANGER LA PHOTO DE PROFIL
-  // onPhotoChange(event: any): void {
-  //   const selectedFile = event.target.files[0];
-
-  //   if (selectedFile) {
-  //     this.form.photo = selectedFile;
-  //     console.log(this.form.photo);
-  //     this.onAdd();
-  //   }
-  // }
   onPhotoChange(event: any): void {
     const selectedFile = event.target.files[0];
 
@@ -445,9 +415,7 @@ export class ProfileComponent implements OnInit {
 
       if (selectedFile.size <= maxSize) {
         // Vous pouvez également afficher des informations sur le fichier si nécessaire
-        // console.log(`Nom du fichier: ${selectedFile.name}`);
-        // console.log(`Type de fichier: ${selectedFile.type}`);
-        // console.log(`Taille du fichier: ${selectedFile.size} octets`);
+        
 
         // Ajoutez le fichier au formulaire et exécutez votre logique d'ajout ici
         this.form.photo = selectedFile;
@@ -462,14 +430,12 @@ export class ProfileComponent implements OnInit {
 
   //AJOUTER LA PHOTO DE PROFIL
   onAdd(): void {
-    // console.log('Add button clicked');
-    const { photo } = this.form;
+     const { photo } = this.form;
     const user = this.storageService.getUser();
     if (user && user.token && photo) {
       this.serviceUser.changerPhoto(photo).subscribe(
         successResponse => {
-          // console.log('Photo changed successfully', successResponse);
-          // this.User.photos[0] = photo.name;
+           // this.User.photos[0] = photo.name;
           // user.photos[0].nom = successResponse?.message;
           if (user.utilisateurPhoto?.length > 0) {
             user.utilisateurPhoto.nom = successResponse?.message;
@@ -477,8 +443,7 @@ export class ProfileComponent implements OnInit {
             user.utilisateurPhoto = [{ nom: successResponse?.message }];
           }
           this.storageService.setUser(user);
-          // console.log(successResponse);
-          // this.User.photos[0].nom = photo.name;
+           // this.User.photos[0].nom = photo.name;
           // this.generateImageUrl(photo.name);
           // Mettez à jour le chemin de l'image de profil
           // this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
@@ -526,8 +491,7 @@ export class ProfileComponent implements OnInit {
           this.serviceUser.setAccessToken(user.token);
           this.serviceUser.modifierProfil(nom, telephone, email, dateNaissance).subscribe({
             next: data => {
-              // console.log(data);
-
+ 
               // Mise à jour des données utilisateur dans le sessionStorage
               // const updatedUser = this.storageService.getUser(); // Récupérez l'utilisateur du sessionStorage
               // if (updatedUser) {
@@ -548,8 +512,7 @@ export class ProfileComponent implements OnInit {
             },
             error: err => {
               this.errorMessage = err.error.message;
-              // console.log(this.errorMessage);
-              this.isSignUpFailed = true;
+               this.isSignUpFailed = true;
             }
           });
 
@@ -592,8 +555,7 @@ export class ProfileComponent implements OnInit {
                 this.serviceUser.setAccessToken(user.token);
                 this.serviceUser.modifierAdress(quartier, rue, porte, communeform).subscribe({
                   next: data => {
-                      console.log(data);
-                      if (data) {
+                       if (data) {
                           const user = this.storageService.getUser();
               
                           if (user) {
@@ -643,7 +605,6 @@ export class ProfileComponent implements OnInit {
                           this.popUpModification();
                            window.location.reload();
                       } else {
-                          // console.log("Les données d'adresse sont manquantes ou incorrectes.");
                       }
                   },
                   error: err => {

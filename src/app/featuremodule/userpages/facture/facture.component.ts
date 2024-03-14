@@ -85,14 +85,12 @@ export class FactureComponent {
       this.proprietaire = data?.bien?.proprietaire;
       this.transaction = data?.transaction;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.facture);
-    })
+     })
 
     //AFFICHER LA LISTE DES MODES DE PAIEMENTS
     this.modepaiementService.AfficherListeModePaiement().subscribe(data => {
       this.modepaiement = data.reverse();
-      console.log(this.modepaiement)
-    }
+     }
     );
   }
   //FORMATER LE PRIX
@@ -152,8 +150,7 @@ export class FactureComponent {
                   this.proprietaire = data?.transaction?.bien?.proprietaire;
                   this.transaction = data?.transaction;
                   this.photoImmo = data?.transaction?.bien?.photoImmos;
-                  console.log(this.paiement);
-                })
+                 })
               })
             },
             error: (err) => {
@@ -188,12 +185,7 @@ export class FactureComponent {
   openPaiementModal(candidatureId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = candidatureId;
-    console.log(this.selectedBienImmoId);
-    //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
-    // this.serviceBienImmo.AfficherCandidatureParUuId(this.selectedBienImmoId).subscribe(data => {
-    //   this.CandidatureUser = data;
-    //   console.log(this.CandidatureUser);
-    // })
+
   }
 
 
@@ -217,25 +209,21 @@ export class FactureComponent {
           });
           break;
         default:
-          console.log("Mode de paiement non pris en charge.");
-          break;
+           break;
       }
     } else {
-      console.log("Veuillez sélectionner un mode de paiement.");
-    }
+     }
   }
 
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
   goToPageRecu(id: number) {
-    // console.log(id);
-    return this.router.navigate(['userpages/recufacture', id])
+     return this.router.navigate(['userpages/recufacture', id])
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
   goToListeRecu(id: number) {
-    // console.log(id);
-    return this.router.navigate(['userpages/liste_recu', id])
+     return this.router.navigate(['userpages/liste_recu', id])
   }
   
 }

@@ -26,7 +26,6 @@ export class ContactComponent {
   constructor() {}
 
   sendEmail(e: Event): void {
-    console.log(e.target);
 
     e.preventDefault();
     emailjs
@@ -38,10 +37,8 @@ export class ContactComponent {
       )
       .then(
         (result: EmailJSResponseStatus) => {
-          console.log(result);
         },
         (error) => {
-          console.log(error.text);
         }
       );
   }

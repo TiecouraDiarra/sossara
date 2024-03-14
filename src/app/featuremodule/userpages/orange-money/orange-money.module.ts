@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 
 
 import { FormsModule } from '@angular/forms';
-import { ProprietaireComponent } from './proprietaire.component';
-import { ProprietaireRoutingModule } from './proprietaire-routing.module';
+import { OrangeMoneyComponent } from './orange-money.component';
+import { ProprietaireRoutingModule } from './orange-money-routing.module';
 
 
 @NgModule({
   declarations: [
-    ProprietaireComponent
+    OrangeMoneyComponent
   ],
   imports: [
     CommonModule,
@@ -17,4 +17,4 @@ import { ProprietaireRoutingModule } from './proprietaire-routing.module';
     ProprietaireRoutingModule
   ]
 })
-export class ProprietaireModule { }
+export class OrangeMoneyModule { }

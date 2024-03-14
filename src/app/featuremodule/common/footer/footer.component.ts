@@ -24,17 +24,15 @@ export class FooterComponent implements OnInit {
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = [
-        data.reverse()[0],
-        data.reverse()[1],
-        data.reverse()[2],
+        data.reverse()[3],
+        data.reverse()[4],
+        data.reverse()[6],
       ];
-      console.log('commune de test footer', this.commune);
     });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
   goToDettailCommune(id: number) {
-    // console.log(id);
     return this.router.navigate(['bienparcommune', id]);
   }
 }

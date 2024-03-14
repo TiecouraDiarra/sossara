@@ -112,14 +112,7 @@ export class ContratComponent {
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.contrat);
-      // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
-      //   this.isProprietaire = true;
-      // }
-
-      // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
-      //   this.isAgence = true;
-      // }
+   
     })
   }
   //FORMATER LE PRIX
@@ -137,12 +130,7 @@ export class ContratComponent {
   openPaiementModal(candidatureId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = candidatureId;
-    console.log(this.selectedBienImmoId);
-    //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
-    // this.serviceBienImmo.AfficherCandidatureParUuId(this.selectedBienImmoId).subscribe(data => {
-    //   this.CandidatureUser = data;
-    //   console.log(this.CandidatureUser);
-    // })
+ 
   }
 
 
@@ -166,24 +154,20 @@ export class ContratComponent {
           });
           break;
         default:
-          console.log("Mode de paiement non pris en charge.");
           break;
       }
     } else {
-      console.log("Veuillez sélectionner un mode de paiement.");
     }
   }
 
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
   goToPageRecu(id: number) {
-    // console.log(id);
     return this.router.navigate(['userpages/recufacture', id])
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
   goToListeRecu(id: number) {
-    // console.log(id);
     return this.router.navigate(['userpages/liste_recu', id])
   }
 
@@ -302,14 +286,7 @@ export class ContratComponent {
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.contrat);
-      // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
-      //   this.isProprietaire = true;
-      // }
-
-      // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
-      //   this.isAgence = true;
-      // }
+    
     })
     })
 
@@ -345,7 +322,6 @@ export class ContratComponent {
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceContrat.AccepterCandidaterBien(sessionStorage.getItem("idCandidature")).subscribe({
             next: (data) => {
-              // console.log("Candidature acceptée avec succès:", data);
               this.isSuccess = true;
               this.errorMessage = 'Candidature acceptée avec succès';
 
@@ -395,7 +371,6 @@ export class ContratComponent {
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.contrat);
       // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
       //   this.isProprietaire = true;
       // }
@@ -437,7 +412,6 @@ export class ContratComponent {
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceContrat.ValiderContratBien(id).subscribe({
             next: (data) => {
-              // console.log("Candidature acceptée avec succès:", data);
               this.isSuccess = true;
               this.errorMessage = 'Contrat acceptée avec succès';
 

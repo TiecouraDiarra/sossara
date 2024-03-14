@@ -40,9 +40,7 @@ export class commentaireService {
     const data = new FormData();
     data.append("contenu", contenu)
     data.append("bienImmo", id)
-    // console.log(id)
-    // console.log(data)  
-    // console.log(contenu)
+
     return this.http.post(`${URL_BASE}/commentaire/ajouter`, data, { headers });
   }
 
@@ -52,9 +50,7 @@ export class commentaireService {
     const data = new FormData();
     data.append("contenu", contenu)
     data.append("commentaire", id)
-    // console.log(id)
-    // console.log(data)  
-    // console.log(contenu)
+
     return this.http.post(`${URL_BASE}/reponse/ajouter`, data, { headers });
   }
 

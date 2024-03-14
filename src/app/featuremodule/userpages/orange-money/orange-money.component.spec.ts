@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProprietaireComponent } from './proprietaire.component';
+import { ProprietaireComponent } from './orange-money.component';
 
 describe('ProprietaireComponent', () => {
   let component: ProprietaireComponent;

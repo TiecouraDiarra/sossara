@@ -202,14 +202,12 @@ export class AgenceComponent {
   openReclamationModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
-    // console.log(this.selectedBienImmoId);
   }
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openArreterModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
-    // console.log(this.selectedBienImmoId);
   }
 
   formFiche: any = {
@@ -220,7 +218,6 @@ export class AgenceComponent {
   openProcessusModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoProcessusId = bienImmoId;
-    // console.log(this.selectedBienImmoProcessusId);
 
   }
 
@@ -228,7 +225,6 @@ export class AgenceComponent {
   openFactureModalVente(bienImmoVenteId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoVenduId = bienImmoVenteId;
-    // console.log(this.selectedBienImmoVenduId);
     // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
     // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
@@ -236,7 +232,6 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherTransactionParId(this.selectedBienImmoVenduId).subscribe(data => {
       this.transactionVendue = data.biens[0];
-      // console.log(this.transactionVendue);
     });
 
   }
@@ -245,7 +240,6 @@ export class AgenceComponent {
   openFactureModalLouer(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedFactureId = bienImmoId;
-    // console.log(this.selectedFactureId);
     // Générer un numéro aléatoire entre 1 et 1000 (vous pouvez ajuster la plage selon vos besoins)
     // this.factureNumber = Math.floor(Math.random() * 1000) + 1;
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
@@ -253,7 +247,6 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     this.serviceBienImmo.AfficherCandidatureAccepter(this.selectedFactureId).subscribe(data => {
       this.transaction = data.biens[0];
-      // console.log(this.transaction);
     });
 
   }
@@ -280,7 +273,6 @@ export class AgenceComponent {
     this.locale = localeId;
     this.electronics = this.DataService.electronicsList,
       this.User = this.storageService.getUser();
-    // console.log(this.User);
     this.today = new Date();
     // egisterLocaleData(localeFr); // Enregistrez la locale française
   }
@@ -296,7 +288,6 @@ export class AgenceComponent {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          // console.log(this.image);
           this.maxImageCount = this.image.length
         };
         reader.readAsDataURL(file);
@@ -321,7 +312,6 @@ export class AgenceComponent {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      console.log(this.storageService.getUser());
       if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true;
         this.selectedTab = 'home';
@@ -336,13 +326,11 @@ export class AgenceComponent {
       }
     }
     this.User = this.storageService.getUser().id;
-    // console.log(this.User);
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo);
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -358,9 +346,7 @@ export class AgenceComponent {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      // // Afficher les biens déjà loués et déjà vendus
-      console.log('Biens déjà loués :', this.bienImmoDejaLoue);
-      console.log('Biens déjà vendus :', this.bienImmoDejaVendu);
+
 
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: {
@@ -387,19 +373,9 @@ export class AgenceComponent {
         totalBiensAgents.push(...agent.bienImmosAgents);
       });
       // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
-      console.log(totalBiensAgents);
-      console.log(this.bienImmoAgent);
-
+  
       this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents];
-      // this.bienImmoAgenceTotal = data.reverse();
-      console.log(this.bienImmoAgenceTotal);
-      // this.bienImmoAgence = data.biens_agences;
-      // this.bienImmoAgent = data.biens_agents;
-      // this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
-      // console.log(this.test);
-      // console.log(this.bienImmoAgence);
-      // console.log(this.bienImmoAgent);
-      // console.log(this.bienImmoAgenceTotal);
+  
       // Filtrer les biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué AGENCE
@@ -415,7 +391,6 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
 
       });
-      console.log("Agence Bien loues", this.bienTotalAgence);
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: {
         favoris: any; id: string | number;
@@ -433,19 +408,16 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES PROBLEMES
     this.serviceBienImmo.AfficherLIsteProbleme().subscribe(data => {
       this.probleme = data;
-      console.log(this.probleme);
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
     this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
       this.reclamationProcessusLance = data?.reparations?.reverse();
-      // console.log(this.reclamationProcessusLance);
     });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
     this.serviceBienImmo.AfficherBienImmoDejaLoueParUser().subscribe(data => {
       this.bienImmoDejaLoue = data.biens.reverse();
-      // console.log(this.bienImmoDejaLoue);
     });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR AVEC AGENCE
@@ -454,7 +426,6 @@ export class AgenceComponent {
       this.bienagent = data.agent_bien;
       this.bienImmoDejaLoueAgence = data.biens;
       // this.bienTotalAgence = [...this.bienagent, ...this.bienImmoDejaLoueAgence];
-      // console.log(this.bienTotalAgence);
 
     });
 
@@ -464,14 +435,12 @@ export class AgenceComponent {
       this.bienVenduagent = data.agent_bien;
       this.bienImmoDejaVenduAgence = data.biens;
       // this.bienVenduTotalAgence = [...this.bienVenduagent, ...this.bienImmoDejaVenduAgence];
-      // console.log(this.bienVenduTotalAgence);
 
     });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
       this.bienImmoDejaLoueLocataires = data.reverse();
-      console.log(this.bienImmoDejaLoueLocataires);
       this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
         if (bien.bien.is_rent === true) {
@@ -486,48 +455,40 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
       });
       // // Afficher les biens déjà loués et déjà vendus
-      console.log('Biens déjà loués par user connecté :', this.bienImmoDejaLoueLocataire);
-      console.log('Biens déjà achétés par user connecté :', this.bienImmoUserAAcheter);
+     
     });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
     // this.serviceBienImmo.AfficherBienImmoUserAcheter().subscribe(data => {
     //   this.bienImmoUserAAcheter = data.biens.reverse();
-    //   // console.log(this.bienImmoUserAAcheter);
     // });
 
 
     //AFFICHER LA LISTE DES RECLAMATIONS Encours  EN FONCTION DES BIENS de agence proprietaire
     this.serviceBienImmo.AfficherProcessusLancerProprietaireAgenceConnecter().subscribe(data => {
       this.reclamationLancer = data.reverse();
-      console.log(this.reclamation);
     });
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
-      console.log(this.reclamation);
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationFaitesParUser().subscribe(data => {
       this.reclamationUser = data.reverse();
       // this.photos = this.reclamation.bien;
-      console.log(this.reclamationUser);
-      // console.log(this.photos);
     });
 
 
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
     this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
       this.bienImmoDejaVendu = data.biens.reverse();
-      // console.log(this.bienImmoDejaVendu);
     });
 
     //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE
     this.servicefacture.AfficherFactureProprietaireConnecter().subscribe(data => {
       this.facture = data?.reverse();
       this.bienFacture = data?.bien;
-      console.log(this.facture);
     });
 
   }
@@ -554,13 +515,11 @@ export class AgenceComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    // console.log(id);
     return this.router.navigate(['details-bien', id])
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
   goToModifierBien(id: number) {
-    // console.log(id);
     return this.router.navigate(['userpages/modifier-bien', id])
   }
 
@@ -585,12 +544,10 @@ export class AgenceComponent {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
             this.storageService.clean();
             this.router.navigateByUrl("/auth/connexion")
           },
           error: err => {
-            // console.log(err);
           }
         });
       }
@@ -631,7 +588,6 @@ export class AgenceComponent {
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
           this.serviceBienImmo.FaireReclamation(this.form.contenu, this.form.type, this.form.prix_estimatif, this.selectedBienImmoId, this.form.photo).subscribe(
             data => {
-              // console.log("Reclamation envoyée avec succès:", data);
               // this.isSuccess = false;
               this.popUpConfirmation();
             },
@@ -648,7 +604,6 @@ export class AgenceComponent {
 
     //Faire un commentaire
     //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
-    //   console.log(data);
     // });
   }
 
@@ -715,7 +670,6 @@ export class AgenceComponent {
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
           this.serviceBienImmo.LancerProcessusReparation(id).subscribe(
             data => {
-              // console.log("Processus lancé avec succès:", data);
               // this.isSuccess = false;
               this.popUpConfirmationProcessus();
             },
@@ -732,7 +686,6 @@ export class AgenceComponent {
 
     //Faire un commentaire
     //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
-    //   console.log(data);
     // });
   }
 
@@ -781,7 +734,6 @@ export class AgenceComponent {
       //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
       this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
         this.reclamationProcessusLance = data.reparations.reverse();
-        // console.log(this.reclamationProcessusLance);
       });
     })
   }
@@ -816,7 +768,6 @@ export class AgenceComponent {
           // Appelez la méthode ArreterProcessus() avec l'ID
           this.serviceBienImmo.ArreterProcessusNew(this.selectedBienImmoProcessusId, photo).subscribe(
             data => {
-              // console.log("Processus arreté avec succès:", data);
               // this.isSuccess = false;
               this.popUpConfirmationArreteProcessus();
             },
@@ -859,7 +810,6 @@ export class AgenceComponent {
           // Appelez la méthode PrendreRdv() avec le contenu et l'ID
           this.serviceBienImmo.SupprimerBien(id).subscribe({
             next: (data) => {
-              // console.log("Bien supprimé avec succès:", data);
               // this.errorMessage = 'Candidature envoyée avec succès';
               // this.isCandidatureSent = true;
               // Afficher le premier popup de succès
@@ -915,7 +865,6 @@ export class AgenceComponent {
       //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
       this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
         this.bienImmo = data.biens.reverse();
-        // console.log(this.bienImmo);
         // Parcourir la liste des biens immobiliers
         this.bienImmo.forEach((bien: { id: string | number; }) => {
           // Charger le nombre de "J'aime" pour chaque bien
@@ -942,10 +891,7 @@ export class AgenceComponent {
         this.bienImmoAgence = data.biens_agences;
         this.bienImmoAgent = data.biens_agents;
         this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
-        // console.log(this.test);
-        // console.log(this.bienImmoAgence);
-        // console.log(this.bienImmoAgent);
-        // console.log(this.bienImmoAgenceTotal);
+     
         // Parcourir la liste des biens immobiliers
         this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
           this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
@@ -963,7 +909,6 @@ export class AgenceComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS Facture
   goToDettailFacture(id: number) {
-    // console.log(id);
     return this.router.navigate(['userpages/facturepaiement', id])
   }
 }

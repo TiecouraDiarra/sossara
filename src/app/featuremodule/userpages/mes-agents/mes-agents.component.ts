@@ -98,7 +98,6 @@ export class MesAgentsComponent implements OnInit {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
       this.nomAgence = this.storageService.getUser().nom;
-      // console.log(this.roles);
       if (this.roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
       } else if (this.roles.includes("ROLE_AGENCE")) {
@@ -111,21 +110,9 @@ export class MesAgentsComponent implements OnInit {
     //AFFICHER LA LISTE DES AGENTS PAR AGENCE
     this.agenceService.ListeAgentParAgence().subscribe((data) => {
       this.agent = data.agents.reverse();
-      console.log("vcvvc",this.agent);
     });
 
-    //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    // this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
-    //   this.bienImmo = data.biens.reverse();
-    //   console.log(this.bienImmo);
-    //   this.bienImmo.forEach((bien: { id: string | number; }) => {
-    //     if (typeof bien.id === 'number') {
-    //       this.favoritedPropertiesCount1[bien.id] = this.bienImmo.length;
-    //     }
-    //     console.log();
-
-    //   });
-    // });
+    
   }
 
   sortData(sort: Sort) {
@@ -185,8 +172,7 @@ export class MesAgentsComponent implements OnInit {
                 .subscribe(
                   (data) => {
                     // La réponse de la requête réussie est gérée ici
-                    // console.log("Agent ajouté avec succès:", data);
-                    console.log('data', data);
+               
 
                     if (data.status) {
                       let timerInterval = 2000;
@@ -216,8 +202,7 @@ export class MesAgentsComponent implements OnInit {
                           .ListeAgentParAgence()
                           .subscribe((data) => {
                             this.agent = data.agents.reverse();
-                            // console.log(this.agent);
-                          });
+                           });
                       });
                     } else {
                       Swal.fire({
@@ -282,15 +267,13 @@ export class MesAgentsComponent implements OnInit {
       //AFFICHER LA LISTE DES AGENTS PAR AGENCE
       this.agenceService.ListeAgentParAgence().subscribe((data) => {
         this.agent = data.agents.reverse();
-        // console.log(this.agent);
-      });
+       });
     });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS AGENT
   goToDettailAgent(id: number) {
-    // console.log(id);
-    return this.routerr.navigate(['details-agent', id]);
+     return this.routerr.navigate(['details-agent', id]);
   }
 
   //METHODE PERMETTANT DE SUPPRIMER UN AGENT
@@ -322,8 +305,7 @@ export class MesAgentsComponent implements OnInit {
             // Appelez la méthode PrendreRdv() avec le contenu et l'ID
             this.serviceAgence.SupprimerAgent(id).subscribe({
               next: (data) => {
-                // console.log("Agent supprimé avec succès:", data);
-                // this.errorMessage = 'Candidature envoyée avec succès';
+                 // this.errorMessage = 'Candidature envoyée avec succès';
                 // this.isCandidatureSent = true;
                 // Afficher le premier popup de succès
                 this.popUpConfirmation();
@@ -376,8 +358,7 @@ export class MesAgentsComponent implements OnInit {
       //AFFICHER LA LISTE DES AGENTS PAR AGENCE
       this.agenceService.ListeAgentParAgence().subscribe((data) => {
         this.agent = data.agents.reverse();
-        // console.log(this.agent);
-      });
+       });
     });
   }
 }

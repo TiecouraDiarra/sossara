@@ -64,8 +64,7 @@ export class RecuComponent {
       this.proprietaire = data?.transaction?.bien?.proprietaire;
       this.transaction = data?.transaction;
       this.photoImmo = data?.transaction?.bien?.photoImmos;
-      console.log(this.paiement);
-    })
+     })
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
@@ -124,7 +123,6 @@ export class RecuComponent {
                   this.proprietaire = data?.transaction?.bien?.proprietaire;
                   this.transaction = data?.transaction;
                   this.photoImmo = data?.transaction?.bien?.photoImmos;
-                  console.log(this.paiement);
                 })
               })
             },

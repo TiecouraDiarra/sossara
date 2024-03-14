@@ -74,13 +74,11 @@ export class HeaderComponent implements OnInit {
     });
     this.getroutes(this.router);
     this.User = this.storageService.getUser();
-    console.log(this.User);
   }
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      // console.log(this.roles);
       if (this.roles[0] == "ROLE_LOCATAIRE") {
         this.isLocataire = true
       }
@@ -94,21 +92,16 @@ export class HeaderComponent implements OnInit {
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.nombreCandidatureAccepter = data?.length;
-      console.log("nombreCandidatureAccepter",this.nombreCandidatureAccepter);
       //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
       this.serviceUser.AfficherLaListeRdv().subscribe(data => {
         this.nombreRdvUser = data?.length;
-        console.log("nombreRdvUser",this.nombreRdvUser);
       }
       );
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
       this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
         this.nombreCandidatureBienUser = data?.length;
-        console.log("CandidatureBienUser", this.nombreCandidatureBienUser);
-
         // Calculer la somme des candidatures et des rendez-vous
         this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
-        // console.log( "Somme =",this.somme);
 
       });
     });
@@ -117,7 +110,6 @@ export class HeaderComponent implements OnInit {
 
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
       this.users = data[0];
-      console.log('users', this.users);
 
     });
   }
@@ -169,7 +161,7 @@ export class HeaderComponent implements OnInit {
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            // console.log(res);
+          
             this.storageService.clean();
             // this.router.navigateByUrl("/auth/connexion")
             this.router.navigate(['/auth/connexion']).then(() => {
@@ -177,7 +169,7 @@ export class HeaderComponent implements OnInit {
             })
           },
           error: err => {
-            // console.log(err);
+
           }
         });
       }

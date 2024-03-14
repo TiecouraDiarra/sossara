@@ -60,15 +60,13 @@ export class UserService {
   //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
   AfficherLaListeRdv(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers)
-    return this.http.get(`${URL_BASE}/rdv/get/mine`, { headers });
+     return this.http.get(`${URL_BASE}/rdv/get/mine`, { headers });
   }
 
   //AFFICHER LA LISTE DES RDV ENVOYER PAR USER CONNECTE
   AfficherLaListeRdvUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers)
-    return this.http.get(`${URL_BASE}/rdv/get`, { headers });
+     return this.http.get(`${URL_BASE}/rdv/get`, { headers });
   }
 
   //AFFICHER LA PHOTO DE USER CONNECTER
@@ -99,15 +97,13 @@ export class UserService {
   //AFFICHER LA LISTE DES CANDIDATURES DE BIENS EN FONCTION DE USER
   AfficherLaListeCandidature(): Observable<any> {
     const headers = this.getHeaders();
-    // console.log(headers)
     return this.http.get(`${URL_BASE}/candidature/get/mine`, { headers });
   }
 
   //CHANGER MOT DE PASSE
   ChangerMotDePasse(oldPassword: any, newPassword: any): Observable<any> {
     const headers = this.getHeaders();
-    console.log(oldPassword);
-    console.log(newPassword);
+ 
     const formData = new FormData();
     formData.append('oldPassword', oldPassword);
     formData.append('newPassword', newPassword);
@@ -119,9 +115,7 @@ export class UserService {
   }
   // ChangerMotDePasse(old_password: string, password: string): Observable<any> {
   //   const headers = this.getHeaders();
-  //   // console.log(headers)
-  //   // console.log('Ancien mdp', old_password)
-  //   // console.log('nouveau mdp', password)
+
   //   return this.http.post(
   //     URL_BASE + '/user/password_reset',
   //     {
@@ -151,11 +145,7 @@ export class UserService {
   ): Observable<any> {
     const formData = new FormData();
     const headers = this.getHeaders();
-    // console.log("Nom de user : " + nom);
-    // console.log("telephone de user : " + telephone);
-    // console.log("email de user : " + email);
-    // console.log("dateNaissance de user : " + dateNaissance);
-    // console.log(headers)
+
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('telephone', telephone);
@@ -176,11 +166,7 @@ export class UserService {
   ): Observable<any> {
     const formData = new FormData();
     const headers = this.getHeaders();
-    // console.log("Nom de user : " + nom);
-    // console.log("telephone de user : " + telephone);
-    // console.log("email de user : " + email);
-    // console.log("dateNaissance de user : " + dateNaissance);
-    // console.log(headers)
+
     formData.append('quartier', quartier);
     formData.append('rue', rue);
     formData.append('porte', porte);

@@ -7065,7 +7065,7 @@ textarea.form-control {
 	font-size: 36px;
 }
 .popular-section {
-	background: url(../img/bg/popular-bg.png) no-repeat;
+	/* background: url(../img/bg/popular-bg.png) no-repeat; */
 	background-position: right center;
 	background-size: contain;
 	padding: 70px 0;
@@ -7114,7 +7114,7 @@ textarea.form-control {
 }
 .popular-wrap:before {
 	content: "";
-	background: url(../img/bg/search-bg.png) no-repeat;
+	/* background: url(../img/bg/search-bg.png) no-repeat; */
     position: absolute;
     top: -38px;
     left: 50%;
@@ -7145,7 +7145,7 @@ textarea.form-control {
     transition: all 0.4s ease;
 }
 .celebrate-section {
-	background: url(../img/bg/celebrate-bg.png) no-repeat;
+	/* background: url(../img/bg/celebrate-bg.png) no-repeat; */
 	background-position: right bottom;
 	background-size: cover;
 	padding: 0 0 70px;
@@ -7160,7 +7160,7 @@ textarea.form-control {
 }
 .celebrate-wrap:before {
 	content: "";
-	background: url(../img/bg/celebrate-img.png) no-repeat;
+	/* background: url(../img/bg/celebrate-img.png) no-repeat; */
     position: absolute;
     bottom: -109px;
     right: -94px;
@@ -7238,7 +7238,7 @@ textarea.form-control {
 	}
 }
 .wedding-section {
-	background: url(../img/bg/wedding-bg.png) no-repeat;
+	/* background: url(../img/bg/wedding-bg.png) no-repeat; */
     background-position: left center;
     background-size: contain;
     padding: 70px 0 56px;
@@ -7292,14 +7292,14 @@ textarea.form-control {
 	letter-spacing: 0.5px;
 }
 .appointment-sec {
-	background: url(../img/bg/appointment-bg-01.png) no-repeat;
+	/* background: url(../img/bg/appointment-bg-01.png) no-repeat; */
     background-size: contain;
 	background-position: bottom;
 }
 .wedding-form {
 	max-width: 634px;
 	width: 100%;
-	background: url(../img/bg/appointment-bg.png) no-repeat;
+	/* background: url(../img/bg/appointment-bg.png) no-repeat; */
     background-size: cover;
     padding: 170px 100px 36px;
 	margin: 0 auto;
@@ -7337,7 +7337,7 @@ textarea.form-control {
 }
 .vendor-sec {
 	background: #e98b11;
-	background-image: url(../img/bg/vector-bg-01.png), url(../img/bg/vector-bg-02.png);
+	/* background-image: url(../img/bg/vector-bg-01.png), url(../img/bg/vector-bg-02.png); */
     background-repeat: no-repeat;
     background-position: left 20px top 10px, right 20px top 10px;
 	border-radius: 15px;
@@ -7385,7 +7385,7 @@ textarea.form-control {
 }
 .blog-section-two {
 	padding: 70px 0;
-	background: url(../img/bg/venue-bg.png) no-repeat;
+	/* background: url(../img/bg/venue-bg.png) no-repeat; */
     background-position: right center;
     background-size: contain;
 }
@@ -7439,12 +7439,12 @@ textarea.form-control {
 	padding: 8px 8px 0;
 }
 .feedback-section {
-	background: url(../img/bg/wedding-bg.png) no-repeat;
+	/* background: url(../img/bg/wedding-bg.png) no-repeat; */
     background-position: left center;
     background-size: contain;
 }
 .feedback-slider {
-	background: url('../img/bg/map.png') no-repeat;
+	/* background: url('../img/bg/map.png') no-repeat; */
 	background-position: center;
 }
 .testimonial-item {
@@ -7531,7 +7531,7 @@ textarea.form-control {
 	margin-bottom: 2px;
 }
 .categories-section {
-	background: url(../img/bg/venue.png) no-repeat;
+	/* background: url(../img/bg/venue.png) no-repeat; */
     background-position: right bottom;
     background-size: 400px;
 	padding: 0 0 46px;
@@ -7580,7 +7580,7 @@ textarea.form-control {
     transition: all 0.7s;
 }
 .portfolio-section {
-	background: url(../img/bg/portfolio-bg.jpg) no-repeat;
+	/* background: url(../img/bg/portfolio-bg.jpg) no-repeat; */
 	background-size: cover;
 	padding: 70px 0;
 }
@@ -7641,7 +7641,7 @@ textarea.form-control {
 }
 .package-section {
     padding: 70px 0;
-	background: url('../img/bg/package-bg-01.png'), url('../img/bg/package-bg-02.png');
+	/* background: url('../img/bg/package-bg-01.png'), url('../img/bg/package-bg-02.png'); */
 	background-repeat:  no-repeat;
     background-position: left top, right bottom;
     background-size: 400px;
@@ -7658,7 +7658,7 @@ textarea.form-control {
 	z-index: -1;
 }
 .package-wrap {
-	background: url(../img/bg/package-bg.png) no-repeat;
+	/* background: url(../img/bg/package-bg.png) no-repeat; */
     background-size: 100% 100%;
 	padding: 80px 70px;
 	position: relative;
@@ -7698,7 +7698,7 @@ textarea.form-control {
     padding: 11px 34px;
 }
 .success-section {
-	background: url(../img/bg/wedding-bg.png), url(../img/bg/venue-bg.png);
+	/* background: url(../img/bg/wedding-bg.png), url(../img/bg/venue-bg.png); */
     background-position: left center, right center;
     background-size: contain;
 	background-repeat: no-repeat;
@@ -7725,7 +7725,9 @@ textarea.form-control {
 	padding: 70px 0;
 }
 .offer-sec {
-	background: url(../img/bg/celebration-bg.png) #F3EBEB;
+	background:
+     /* url(../img/bg/celebration-bg.png)  */
+    #F3EBEB;
     background-repeat: no-repeat;
     background-position: right bottom;
 	background-size: cover;
@@ -7761,7 +7763,7 @@ textarea.form-control {
 	padding: 10px 32px;
 }
 .venue-section {
-	background: url(../img/bg/venue-bg.png) no-repeat;
+	/* background: url(../img/bg/venue-bg.png) no-repeat; */
     background-position: right center;
     background-size: contain;
 	padding: 0 0 70px;
@@ -7877,7 +7879,7 @@ textarea.form-control {
 .timeline-wrap li:before {
 	position: absolute;
     content: "";
-    background: url(../img/bg/line-bg.png) no-repeat;
+    /* background: url(../img/bg/line-bg.png) no-repeat; */
     width: 76px;
     height: 15px;
     background-position: top center, left center;
@@ -8390,7 +8392,7 @@ textarea.form-control {
     margin-top: 50px;
 }
 .section-blk.service-blk {
-	background: url('../img/bg/service-bg-01.png'), url('../img/bg/service-bg-02.png');
+	/* background: url('../img/bg/service-bg-01.png'), url('../img/bg/service-bg-02.png'); */
 	background-repeat: no-repeat;
 	background-position: top left, bottom 80px right 50px;
 	padding: 0 0 80px;
@@ -8661,7 +8663,7 @@ textarea.form-control {
 	margin-top: 50px;
 }
 .recommended-blk.style2-blk {
-	background: url(../img/bg/recom-bg-01.png), url(../img/bg/recom-bg-02.png);
+	/* background: url(../img/bg/recom-bg-01.png), url(../img/bg/recom-bg-02.png); */
     background-repeat: no-repeat;
     background-position: left bottom, right bottom;
     background-size: contain, 125px;
@@ -8847,7 +8849,7 @@ textarea.form-control {
 	margin-bottom: 0;
 }
 .testi-blk {
-	background: url("../img/testimonial-banner-bg.jpg") no-repeat center top;
+	/* background: url("../img/testimonial-banner-bg.jpg") no-repeat center top; */
 	width: 100%;
 	position: relative;
 	height: 100%;
@@ -9228,7 +9230,9 @@ textarea.form-control {
     row-gap: 14px;
 }
 .price-section {
-	background: url('../img/bg/recom-bg-01.png'), url('../img/bg/recom-bg-02.png');
+	/* background: 
+    url('../img/bg/recom-bg-01.png'), url('../img/bg/recom-bg-02.png') 
+    ; */
 	background-repeat:  no-repeat;
     background-position: left bottom, right bottom;
     background-size: contain, 125px;
@@ -9403,7 +9407,9 @@ textarea.form-control {
 -----------------------*/
 
 .banner-four {
-	background: url('../img/bg/banner-bg-04.png'), #F5F8FD;
+	background:
+     /* url('../img/bg/banner-bg-04.png'),  */
+    #F5F8FD;
 	background-position: left top;
     background-repeat: no-repeat;
     background-size: 60% 100%;
@@ -9473,7 +9479,9 @@ textarea.form-control {
 	-ms-flex-pack: space-between;
 }
 .category-four-section {
-	background: url('../img/bg/category-bg.png'), #F5F8FD;
+	background:
+     /* url('../img/bg/category-bg.png'), */
+     #F5F8FD;
 	background-size: cover;
 }
 .category-sec {
@@ -9553,7 +9561,7 @@ textarea.form-control {
 	color: #e98b11;
 }
 .cate-section {
-	background: url('../img/bg/cate-bg.png'), #F5F8FD;
+	/* background: url('../img/bg/cate-bg.png'), #F5F8FD; */
 	background-size: cover;
 }
 .cate-sec {
@@ -9952,7 +9960,7 @@ textarea.form-control {
     transition: all 0.7s;
 }
 .city-section {
-    background: url(../img/bg/cate-bg.png), #F5F8FD;
+    /* background: url(../img/bg/cate-bg.png), #F5F8FD; */
     background-size: cover;
 }
 .city-sec {
@@ -10057,7 +10065,7 @@ textarea.form-control {
 	margin: 0;
 }
 .pricing-section {
-	background: url(../img/bg/cate-bg.png), #fff;
+	/* background: url("../img/bg/cate-bg.png"), #fff; */
     background-size: cover;
 	padding: 80px 0;
 }
@@ -11038,7 +11046,7 @@ textarea.form-control {
     left: 20px;
 }
 .footer-four {
-	background: url(../img/bg/cate-bg.png), #fff;
+	/* background: url("../img/bg/cate-bg.png"), #fff; */
     background-size: cover;
 	margin: 0;
 }

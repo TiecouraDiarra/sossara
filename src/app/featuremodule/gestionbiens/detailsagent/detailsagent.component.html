@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <hr>
-                <p class="text-muted m-t-15">Taux d'activite: 87%</p>
+                <p class="text-muted m-t-15">Taux d'activite: {{TauxActivite}}%</p>
                 <ul class="list-unstyled activity-leval">
                   <li class="active"></li>
                   <li class="active"></li>
@@ -92,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-                <div (click)="ContacterOrLogin(agent.id)">
+                <div (click)="ContacterOrLogin(agent.id)" (click)="goToMessage(agent?.email)">
                   <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
                     Contacter cet agent</a>
                 </div>

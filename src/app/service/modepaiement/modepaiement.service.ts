@@ -56,12 +56,7 @@ export class ModepaiementService {
     formData.append('modePaiement', modePaiement);
     formData.append('numeroPaiement', numeroPaiement);
 
-    console.log('nombreMois', nombreMois);
-    console.log('nombreAnnees', nombreAnnees);
-    console.log('nombreJours', nombreJours);
-    console.log('sommePayer', sommePayer);
-    console.log('modePaiement', modePaiement);
-    console.log('numeroPaiement', numeroPaiement);
+  
     return this.http.post(`${URL_BASE}/paiement/fairepaiement/${id}`, formData, { headers });
   }
 

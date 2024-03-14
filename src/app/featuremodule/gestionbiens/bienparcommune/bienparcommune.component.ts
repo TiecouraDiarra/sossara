@@ -118,20 +118,17 @@ export class BienparcommuneComponent {
       this.region = data.region.reverse();
       // this.commune = data.commune;
       // this.typebien = data.type;
-      console.log(this.adresse);
     });
 
     //AFFICHER LA LISTE DES TYPES DE BIENS
     this.serviceConfigBien.AfficherListeTypeImmo().subscribe(data => {
       this.typebien = data;
-      // console.log(this.typebien);
     }
     );
 
     //AFFICHER LA LISTE DES STATUT DE BIENS
     this.serviceConfigBien.AfficherListeStatut().subscribe(data => {
       this.status = data;
-      // console.log(this.typebien);
     }
     );
 
@@ -149,7 +146,6 @@ export class BienparcommuneComponent {
           this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
           // this.favoriteStatus[bien.id] = true
         }
-        console.log(this.NombreJaime)
         // Charger l'état de favori depuis localStorage
         const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
         if (isFavorite === 'true') {
@@ -159,15 +155,12 @@ export class BienparcommuneComponent {
         }
         // })
       });
-      console.log(this.bienImmo);
       this.commune = this.bienImmo[0]?.adresse?.commune?.nomcommune;
-      console.log(this.bienImmo);
     })
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    console.log(id);
     return this.router.navigate(['details-bien', id])
   }
 
@@ -196,7 +189,6 @@ export class BienparcommuneComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log("Bien aimé avec succès:", data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
@@ -233,7 +225,6 @@ export class BienparcommuneComponent {
       // Récupérez la liste des biens immobiliers aimés par l'utilisateur depuis l'API Symfony
       this.serviceBienImmo.ListeBiensAimesParUtilisateur().subscribe(data => {
         this.BienAime = data;
-        console.log(this.BienAime);
 
         // dataArray est le tableau d'objets renvoyé par l'API Symfony
         data.forEach((aimedBien: any) => {

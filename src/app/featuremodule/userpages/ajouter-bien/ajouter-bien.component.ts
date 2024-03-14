@@ -12,6 +12,7 @@ import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 declare var google: any;
 import * as L from 'leaflet';
+import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
 
 interface Food {
   value: string | any;
@@ -56,10 +57,11 @@ export class AjouterBienComponent {
   images: File[] = [];
   fileName: any;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  status:any[] = [];
+  status: any[] = [];
   nombreZone: any;
   cercle: any;
   lesCommodite: any;
+  caracteristique: any;
 
   constructor(
     private DataService: DataService,
@@ -67,12 +69,13 @@ export class AjouterBienComponent {
     private serviceCommodite: CommoditeService,
     private storageService: StorageService,
     private userService: UserService,
+    private caracteristiqueService: CaracteristiqueService,
     private elRef: ElementRef,
     private ngZone: NgZone,
     private serviceAdresse: AdresseService,
 
     private serviceBienImmo: BienimmoService
-  ) {}
+  ) { }
 
   public routes = routes;
   selectedValue: string | any = 'pays';
@@ -99,7 +102,6 @@ export class AjouterBienComponent {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          console.log(this.image);
           this.maxImageCount = this.image.length;
         };
         reader.readAsDataURL(file);
@@ -127,13 +129,13 @@ export class AjouterBienComponent {
         }
       }
       this.form.commodite = commoditeArray;
-      console.log(this.form.commodite);
     }
   }
 
   form: any = {
     commodite: null,
     type: null,
+    caracteristique :null,
     commune: null,
     nb_piece: null,
     nom: null,
@@ -159,43 +161,39 @@ export class AjouterBienComponent {
 
   initMap() {
     const map = L.map('map').setView([12.6489, -8.0008], 14); // Définir une vue initiale
-  
+
     // Ajouter une couche de tuiles OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 20,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-  
+
     // Créer un marqueur initial au centre de la carte
     const initialMarker = L.marker([12.6489, -8.0008], {
       draggable: true // Rend le marqueur draggable
     }).addTo(map);
-  
+
     // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
     initialMarker.on('dragend', (markerEvent) => {
       const markerLatLng = markerEvent.target.getLatLng();
       this.form.latitude = markerLatLng.lat;
       this.form.longitude = markerLatLng.lng;
-  
-      console.log('Latitude :', this.form.latitude);
-      console.log('Longitude :', this.form.longitude);
+
     });
-  
+
     // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
     initialMarker.on('click', () => {
       const newLatLng = L.latLng(
         initialMarker.getLatLng().lat + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
         initialMarker.getLatLng().lng + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
       );
-  
+
       initialMarker.setLatLng(newLatLng);
-  
+
       // Mettez à jour les coordonnées dans votre formulaire
       this.form.latitude = newLatLng.lat;
       this.form.longitude = newLatLng.lng;
-  
-      console.log('Latitude :', this.form.latitude);
-      console.log('Longitude :', this.form.longitude);
+
     });
   }
 
@@ -204,7 +202,6 @@ export class AjouterBienComponent {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      console.log(this.roles);
       if (this.roles[0] == 'ROLE_LOCATAIRE') {
         this.isLocataire = true;
       } else if (this.roles[0] == 'ROLE_AGENCE') {
@@ -222,63 +219,49 @@ export class AjouterBienComponent {
       // this.commune = data.commune;
       // this.typebien = data.type;
       this.periode = data.periode;
-      console.log(data);
     });
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.lesCommodite = data;
-      console.log('commodite', this.lesCommodite);
     });
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
-      console.log('commune de test', this.commune);
     });
     //AFFICHER LA LISTE DES Pays
     this.serviceAdresse.AfficherListePays().subscribe((data) => {
       this.pays = data;
-      console.log('pays', this.pays);
     });
     //AFFICHER LA LISTE DES CERCLE
     this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
       this.cercle = data;
-      console.log('cercle de test', this.cercle);
+    });
+
+    //AFFICHER LA LISTE DES CARACTERISTIQUE
+    this.caracteristiqueService.AfficherCaracteristique().subscribe((data) => {
+      this.caracteristique = data;
     });
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
       this.nombreZone = data.length;
-      console.log('region', this.region);
     });
 
     //AFFICHER LA LISTE DES TYPEBIEN
     this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
       this.typebien = data;
-      console.log('typebien de test', this.typebien);
     });
 
     //AFFICHER LA LISTE DES PERIODES
     this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
       this.periode = data;
-      console.log('periode de test', this.periode);
     });
-       //AFFICHER LA LISTE DES PERIODES
-       this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
-        this.status = data;
-        console.log('status de test', this.status);
-      });
+    //AFFICHER LA LISTE DES PERIODES
+    this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
+      this.status = data;
+    });
 
-    // //AFFICHER LA LISTE DES BIENS IMMO
-    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
-    //   this.bienImmo = data.biens;
-    //   console.log(this.bienImmo);
-    // });
 
-    // //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
-    //   this.BienLoueRecens = data.biens;
-    //   console.log(this.BienLoueRecens);
-    // });
   }
 
   onChange(newValue: any) {
@@ -299,12 +282,20 @@ export class AjouterBienComponent {
   }
 
   selectedStatut: string | null = null;
+  selectedType: string | null = null;
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.target.value;
-    console.log("this.selectedStatut",this.selectedStatut)
-    if (this.selectedStatut === '2' ) {
+    if (this.selectedStatut === '2') {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
+    }
+  }
+
+  //METHODE PERMETTANT DE CHANGER LES TYPES
+  onTypeChange(event: any) {
+    this.selectedType = event.target.value;
+    if (this.selectedType === '3') {
+      this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
     }
   }
 
@@ -312,15 +303,14 @@ export class AjouterBienComponent {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChangeMensuel(event: any) {
     this.selectedStatutMensuel = event.target.value;
-    console.log("this.onStatutChangeMensuel",this.selectedStatutMensuel)
-    if (this.selectedStatut === '2' ) {
+    if (this.selectedStatut === '2') {
       this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
       this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
 
     }
   }
 
-  
+
 
   // onFileSelected(newValue: any) {
   //   this.files.push(newValue.target.files[0]);
@@ -330,6 +320,7 @@ export class AjouterBienComponent {
     const {
       commodite,
       type,
+      caracteristique,
       commune,
       nb_piece,
       nom,
@@ -361,6 +352,7 @@ export class AjouterBienComponent {
     if (
       this.form.commodite === null ||
       this.form.type === null ||
+      this.form.caracteristique === null ||
       this.form.commune === null ||
       this.form.nb_piece === null ||
       this.form.nom === null ||
@@ -393,33 +385,14 @@ export class AjouterBienComponent {
         .then((result) => {
           if (result.isConfirmed) {
             const user = this.storageService.getUser();
-            console.log("commodite", commodite,
-           "type", type,
-          "commune" , commune,
-          "nb_piece",  nb_piece,
-           "nom", nom,
-          "chambre",  chambre,
-          "cuisine" , cuisine,
-           "toilette", toilette,
-           "surface", surface,
-           "prix", prix,
-          "statut",  statut,
-           "description", description,
-           "quartier", quartier,
-            "rue", rue,
-           "porte", porte,
-          "periode",  periode,
-          "longitude",  longitude,
-          "latitude",  latitude,
-          "avance",  avance,
-          "caution",  caution,
-          "photo",  photo)
+
             if (user && user.token) {
               this.serviceBienImmo.setAccessToken(user.token);
               this.serviceBienImmo
                 .registerBien(
                   commodite,
                   type,
+                  caracteristique,
                   commune,
                   nb_piece,
                   nom,
@@ -442,13 +415,10 @@ export class AjouterBienComponent {
                 )
                 .subscribe({
                   next: (data) => {
-                    console.log(data);
                     this.isSuccess = false;
-                    console.log(this.form);
                     this.popUpConfirmation();
                   },
                   error: (err) => {
-                    console.log(err);
                     this.errorMessage = err.error.message;
                     this.isSuccess = true;
                   },

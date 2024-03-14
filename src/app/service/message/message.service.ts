@@ -36,14 +36,12 @@ export class MessageService {
     //AFFICHER LA LISTE DES CONVERSATIONS EN FONCTION DE USER
   AfficherLaListeConversation():Observable<any>{
     const headers = this.getHeaders();
-    // console.log(headers)
     return this.http.get(`${URL_BASE}/conversation/get/`, { headers });
   }
 
   //AFFICHER UNE CONVERSATION 
   AfficherUneConversation(id: number):Observable<any>{
     const headers = this.getHeaders();
-    // console.log(headers)
     return this.http.get(`${URL_BASE}/message/${id}`, { headers });
   }
 
@@ -51,10 +49,7 @@ export class MessageService {
   EnvoyerMessage(content: any, id: any): Observable<any> {
     const headers = this.getHeaders();
     // const data = new FormData();
-    // data.append("contenu", contenu)
-    // console.log(id)
-    // console.log(headers)
-    // console.log(content)
+
     return this.http.post(`${URL_BASE}/message/new/${id}`, {
       content
     }, { headers });

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProprietaireComponent } from './proprietaire.component';
+import { OrangeMoneyComponent } from './orange-money.component';
 
-const routes: Routes = [{ path: '', component: ProprietaireComponent }];
+const routes: Routes = [{ path: '', component: OrangeMoneyComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

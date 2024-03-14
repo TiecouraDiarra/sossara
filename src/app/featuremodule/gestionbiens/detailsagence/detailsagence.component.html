@@ -89,9 +89,10 @@
                     </div>
                   </div>
                 </div>
-                <div (click)="ContacterOrLogin(agence.id)">
+                
+                <div (click)="ContacterOrLogin(agence.id)" (click)="goToMessage(agence?.email)">
                   <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
-                    Contacter cette Agence</a>
+                    Contacter l'agence</a>
                 </div>
               </div>
             </div>
@@ -321,12 +322,12 @@
                           class="">
                       </div>
                       <h5 class="mb-0">{{Agent?.nom}}</h5>
-                      <small style="margin-top: 8px !important;">
-                        {{ Agent?.adresse }}
+                      <small *ngIf="Agent.adresse" style="margin-top: 8px !important;">
+                        {{ Agent?.adresse?.quartier }}
                       </small>
-                      <!-- <ng-template #noAddress>
-                        <small style="margin-top: 8px !important;">Pas d'adresse</small>
-                      </ng-template> -->
+                    
+                        <small *ngIf="!Agent.adresse" style="margin-top: 8px !important;">Pas d'adresse</small>
+                   
 
                       <!-- <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                           class="fa fa-star"></i>

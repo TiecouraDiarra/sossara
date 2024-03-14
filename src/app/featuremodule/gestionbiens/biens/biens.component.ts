@@ -193,7 +193,6 @@ export class BiensComponent {
     // Charger la liste des biens immobiliers
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo);
 
       this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
@@ -203,7 +202,6 @@ export class BiensComponent {
         // Charger le nombre de "J'aime" pour chaque bien
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
           this.NombreJaime = bien.favoris?.length;
-          console.log(this.NombreJaime);
           
           if (typeof bien.id === 'number') {
             this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
@@ -226,47 +224,40 @@ export class BiensComponent {
       // this.region = data.region.reverse();
       // this.commune = data.commune;
       // this.typebien = data.type;
-      // console.log(this.adresse);
     });
 
     //AFFICHER LA LISTE DES TYPES DE BIENS
     this.serviceConfigBien.AfficherListeTypeImmo().subscribe(data => {
       this.typebien = data;
-      // console.log(this.typebien);
     }
     );
 
     //AFFICHER LA LISTE DES STATUT DE BIENS
     this.serviceConfigBien.AfficherListeStatut().subscribe(data => {
       this.status = data;
-      // console.log(this.typebien);
     }
     );
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe(data => {
       this.region = data;
-      // console.log(this.region);
     }
     );
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeCercle().subscribe(data => {
       this.cercle = data;
-      // console.log(this.cercle);
     }
     );
 
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe(data => {
       this.commune = data;
-      // console.log(this.commune);
     });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    // console.log(id);
     return this.routerr.navigate(['details-bien', id])
   }
 
@@ -280,7 +271,6 @@ export class BiensComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log(data);
 
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
