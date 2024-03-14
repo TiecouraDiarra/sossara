@@ -354,18 +354,12 @@ export class AjouterBienComponent {
       this.form.type === null ||
       this.form.caracteristique === null ||
       this.form.commune === null ||
-      this.form.nb_piece === null ||
       this.form.nom === null ||
-      this.form.chambre === null ||
-      this.form.cuisine === null ||
-      this.form.toilette === null ||
       this.form.surface === null ||
       this.form.prix === null ||
       this.form.statut === null ||
       this.form.description === null ||
       this.form.quartier === null ||
-      this.form.rue === null ||
-      this.form.porte === null ||
       this.form.photo === null
     ) {
       swalWithBootstrapButtons.fire(

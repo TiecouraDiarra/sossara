@@ -212,21 +212,21 @@ export class BienimmoService {
     type: number,
     caracteristique: number,
     commune: number,
-    nb_piece: number,
+    nb_piece: any,
     nom: string,
-    chambre: number,
-    cuisine: number,
-    toilette: number,
+    chambre: any,
+    cuisine: any,
+    toilette: any,
     surface: number,
     prix: number,
     statut: string, // Assurez-vous que le statut est envoyé en tant que chaîne de caractères
     description: string,
     quartier: string,
     rue: string,
-    porte: number,
+    porte: string,
     periode: number,
-    caution : number,
-    avance : number,
+    caution : any,
+    avance : any,
     longitude: number,
     latitude: number,
     photos: File[]
@@ -238,27 +238,27 @@ export class BienimmoService {
     formData.append('typeImmoId', type.toString());
     formData.append('caracteristiqueId', caracteristique.toString());
     formData.append('commune', commune.toString());
-    formData.append('nb_piece', nb_piece.toString());
+    formData.append('nb_piece', nb_piece || 0);
     formData.append('nom', nom);
-    formData.append('chambre', chambre.toString());
-    formData.append('cuisine', cuisine.toString());
-    formData.append('toilette', toilette.toString());
-    formData.append('surface', surface.toString());
+    formData.append('chambre', chambre || 0);
+    formData.append('cuisine', cuisine || 0);
+    formData.append('toilette', toilette || 0);
+    formData.append('surface', surface.toString() );
     formData.append('prix', prix.toString());
     formData.append('statutId', statut);
     formData.append('description', description);
     formData.append('quartier', quartier);
-    formData.append('rue', rue);
-    formData.append('porte', porte.toString());
+    formData.append('rue', rue || '');
+    formData.append('porte', porte || '');
     // Si le statut est "A vendre", définissez la période sur 6
     if (statut === "2") {
-        formData.append('periodeId', '6');
+        formData.append('periodeId', '2');
     } else {
         formData.append('periodeId', periode.toString());
     }
    
-    formData.append('caution', caution.toString());
-    formData.append('avance', avance.toString());
+    formData.append('caution', caution || 0);
+    formData.append('avance', avance || 0);
     formData.append('longitude', longitude.toString());
     formData.append('latitude', latitude.toString());
     photos.forEach(p => { formData.append('photoImmos', p); });
@@ -277,8 +277,8 @@ export class BienimmoService {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('bienImmo', id || '');
-    formData.append('usage', usage || '');
-    formData.append('dateEntree', dateEntree);
+    formData.append('usage', usage || '5');
+    formData.append('dateEntree', dateEntree || '');
  
     return this.http.post(`${URL_BASE}/candidature/ajouter`, formData, { headers });
   }

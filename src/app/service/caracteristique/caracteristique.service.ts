@@ -32,7 +32,7 @@ export class CaracteristiqueService {
 
   //AFFICHER LA LISTE DES CARACTERISTIQUE
   AfficherCaracteristique(): Observable<any> {
-    return this.http.get(`${URL_BASE}/facture/afficherfactureparuuid`);
+    return this.http.get(`${URL_BASE}/caracteristique/afficher`);
   }
 
 
