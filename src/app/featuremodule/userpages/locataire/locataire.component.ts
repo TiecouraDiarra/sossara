@@ -97,7 +97,7 @@ export class LocataireComponent implements OnInit {
   public routes = routes;
   User: any;
   searchText: any;
-  searchFacture : any;
+  searchFacture: any;
   searchTextBienLoue: any;
   searchTextBienVendu: any;
   bienImmo: any;
@@ -116,7 +116,7 @@ export class LocataireComponent implements OnInit {
   p6: number = 1;
   p7: number = 1;
   p8: number = 1;
-  pfacture : number = 1;
+  pfacture: number = 1;
   public albumsOne: any = [];
   isLocataire = false;
   isAgence = false;
@@ -160,7 +160,7 @@ export class LocataireComponent implements OnInit {
     type: null,
     prix_estimatif: null,
     photos: null,
-  }; 
+  };
 
   formProcessus: any = {
     somme: null,
@@ -874,5 +874,10 @@ export class LocataireComponent implements OnInit {
       });
 
     })
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE CONTRAT
+  goToPageContrat(id: number) {
+    return this.router.navigate(['userpages/contrat', id])
   }
 }

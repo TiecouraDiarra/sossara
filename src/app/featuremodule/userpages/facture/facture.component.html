@@ -31,7 +31,12 @@
                         <div class="d-flex justify-content-between mb-3 userdetails" style="font-size: 14px;">
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Journalier'">Prix journalier</p>
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">Prix hebdomendaire</p>
-                            <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Mensuel'">Prix mensuel</p>
+                            <p class="fw-bold"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">Prix mensuel
+                            </p>
+                            <p class="fw-bold"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">Prix du
+                                bien</p>
                             <p class="fw-lighter">{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
                         </div>
                         <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel"
@@ -72,27 +77,32 @@
                                 <p>{{bien?.reference}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.typeImmo">
+                                *ngIf="bien.statut && bien.statut.nom">
+                                <p>Statut du bien</p>
+                                <p>{{bien?.statut?.nom}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien.typeImmo && bien.typeImmo.nom">
                                 <p>Type du bien</p>
                                 <p>{{bien.typeImmo.nom}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.periode">
+                                *ngIf="bien.statut.nom =='A louer'">
                                 <p>Periode</p>
                                 <p>{{bien.periode.nom}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.adresse">
+                                *ngIf="bien.adresse && bien.adresse.quartier">
                                 <p>Quartier</p>
                                 <p>{{bien.adresse.quartier}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.adresse">
+                                *ngIf="bien.adresse && bien.adresse.rue">
                                 <p>Rue</p>
                                 <p>{{bien.adresse.rue}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.adresse">
+                                *ngIf="bien.adresse && bien.adresse.porte">
                                 <p>Porte</p>
                                 <p>{{bien.adresse.porte}}</p>
                             </div>
@@ -292,12 +302,14 @@
                         <div class="telecharge-container">
                             <div class="telecharge crd" *ngIf="facture?.statut">
                                 <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
-                                    <i class="fa fa-print"></i> Voir les recus</a>
+                                    <!-- <i class="fa fa-print"></i>  -->
+                                    Voir les recus</a>
                             </div>
                             <div class="telecharge crd" *ngIf="!facture?.statut">
                                 <a (click)="openPaiementModal(facture?.uuid)" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal" class="action-btn btn-edit">
-                                    <i class="fa fa-download"></i> Payer la facture</a>
+                                    <!-- <i class="fa fa-download"></i> -->
+                                     Payer la facture</a>
                             </div>
                             <!-- <a href="javascript:window.print()" class="btn btn-lg btn-print">
                                 <i class="fa fa-print"></i> Imprimer le reçu
@@ -316,15 +328,16 @@
                         <div class="telecharge-container">
                             <div class="telecharge crd" *ngIf="facture?.statut">
                                 <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
-                                    <i class="fa fa-print"></i> Voir les recus</a>
+                                    <!-- <i class="fa fa-print"></i>  -->
+                                    Voir les recus</a>
                             </div>
                             <!-- <div class="crd" > -->
-                                <div class="row scroll-text" *ngIf="!facture?.statut">
-                                    <div class="scroll-textl"> Facture non payée
-                                        <span style="font-size: 20px; font-weight: bold; color: #e98b11;"
-                                            #motDePasseSpan></span>
-                                    </div>
+                            <div class="row scroll-text" *ngIf="!facture?.statut">
+                                <div class="scroll-textl"> Facture non payée
+                                    <span style="font-size: 20px; font-weight: bold; color: #e98b11;"
+                                        #motDePasseSpan></span>
                                 </div>
+                            </div>
                             <!-- </div> -->
 
                         </div>

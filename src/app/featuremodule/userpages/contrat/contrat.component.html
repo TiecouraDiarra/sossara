@@ -31,35 +31,25 @@
                             class="pic rounded-circle" alt="">
                         <p class="ps-2 name">{{bien?.proprietaire?.nom}}</p>
                     </div> -->
-          <div class="box-inner-1 pb-3 mb-3">
-            <div
-              class="d-flex justify-content-between mb-3 userdetails"
-              style="font-size: 14px"
-            >
-              <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Journalier'">
-                Prix journalier
-              </p>
-              <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
-                Prix hebdomendaire
-              </p>
-              <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Mensuel'">
-                Prix mensuel
-              </p>
-              <p class="fw-lighter">
-                {{ formatPrice(bien?.prix) }} <span class="fw-bold">FCFA</span>
-              </p>
-            </div>
-            <div
-              id="my"
-              class="carousel slide carousel-fade img-details"
-              data-bs-ride="carousel"
-              data-bs-interval="2000"
-            >
-              <!-- <div class="carousel-indicators">
+                    <div class="box-inner-1 pb-3 mb-3 ">
+                        <div class="d-flex justify-content-between mb-3 userdetails" style="font-size: 14px;">
+                            <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Journalier'">Prix journalier</p>
+                            <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">Prix hebdomendaire</p>
+                            <p class="fw-bold"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">Prix mensuel
+                            </p>
+                            <p class="fw-bold"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">Prix du
+                                bien</p>
+                            <p class="fw-lighter">{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                        </div>
+                        <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel"
+                            data-bs-interval="2000">
+                            <div class="carousel-indicators">
                                 <button type="button" data-bs-target="#my" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                 <button type="button" data-bs-target="#my" data-bs-slide-to="1" aria-label="Slide 2"></button>
                                 <button type="button" data-bs-target="#my" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div> -->
+                            </div> 
               <div class="carousel-inner">
                 <!-- <div *ngFor="let photo of photoImmo; let i = index" class="carousel-item"
                                     [class.active]="i === 0">
@@ -110,242 +100,159 @@
                                 </div>
                                 <div class="carousel-item"> <img src="https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="d-block w-100">
                                 </div> -->
-              </div>
-              <button
-                class="carousel-control-prev"
-                type="button"
-                data-bs-target="#my"
-                data-bs-slide="prev"
-              >
-                <div class="icon"><span class="fas fa-arrow-left"></span></div>
-                <span class="visually-hidden">Precedent</span>
-              </button>
-              <button
-                class="carousel-control-next"
-                type="button"
-                data-bs-target="#my"
-                data-bs-slide="next"
-              >
-                <div class="icon"><span class="fas fa-arrow-right"></span></div>
-                <span class="visually-hidden">Suivant</span>
-              </button>
-            </div>
-            <p class="dis my-3 info">{{ bien?.nom }}</p>
-            <p class="dis mb-3 updates">{{ bien?.description }}</p>
-            <p class="dis mb-3 different fw-bold">
-              Les caracteristiques du bien :
-            </p>
-            <div class="d-flex flex-column dis">
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.reference"
-              >
-                <p>Reference du bien</p>
-                <p>{{ bien?.reference }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.typeImmo"
-              >
-                <p>Type du bien</p>
-                <p>{{ bien.typeImmo.nom }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.periode"
-              >
-                <p>Periode</p>
-                <p>{{ bien.periode.nom }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.adresse"
-              >
-                <p>Quartier</p>
-                <p>{{ bien.adresse.quartier }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.adresse"
-              >
-                <p>Rue</p>
-                <p>{{ bien.adresse.rue }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.adresse"
-              >
-                <p>Porte</p>
-                <p>{{ bien.adresse.porte }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.createdAt"
-              >
-                <p>Date de publication</p>
-                <p>{{ bien.createdAt | date : "dd/MM/yyyy" }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.nb_piece"
-              >
-                <p>Salon</p>
-                <p>{{ bien.nb_piece }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.chambre"
-              >
-                <p>Chambre</p>
-                <p>{{ bien.chambre }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.cuisine"
-              >
-                <p>Cuisine</p>
-                <p>{{ bien.cuisine }}</p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.toilette"
-              >
-                <p>Toilette</p>
-                <p>{{ bien.toilette }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-7">
-        <div class="invoice-inner clearfix">
-          <div class="invoice-info clearfix" id="invoice_wrapper">
-            <!-- <div class="container mt-5"> -->
-            <div class="ligne">
-              <div
-                class="contratlocation"
-                #contratlocation
-                *ngIf="bien?.statut?.nom == 'A louer'"
-              >
-                <div class="row">
-                  <div
-                    class="col-md-12"
-                    style="margin-left: auto; margin-right: auto"
-                  >
-                    <div class="card">
-                      <div class="invoice-headar">
-                        <div class="row g-0">
-                          <!-- <div class="col-sm-12"> -->
-                          <div class="invoice-logo">
-                            <!-- logo started -->
-                            <div class="logo">
-                              <img
-                                src="../../../../assets/img/logo.png"
-                                alt="logo"
-                              />
                             </div>
-                            <!-- logo ended -->
-                          </div>
-                          <!-- </div> -->
+                            <button class="carousel-control-prev" type="button" data-bs-target="#my"
+                                data-bs-slide="prev">
+                                <div class="icon"> <span class="fas fa-arrow-left"></span> </div> <span
+                                    class="visually-hidden">Precedent</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#my"
+                                data-bs-slide="next">
+                                <div class="icon"> <span class="fas fa-arrow-right"></span> </div> <span
+                                    class="visually-hidden">Suivant</span>
+                            </button>
                         </div>
-                      </div>
-                      <div class="card-header">
-                        <h3 class="text-center">
-                          CONTRAT TYPE DE LOCATION OU DE COLOCATION
-                        </h3>
-                        <p class="text-center">
-                          Date: {{ contrat?.createdAt | date : "dd/MM/yyyy" }}
-                        </p>
-                      </div>
-                      <div class="card-body">
-                        <article class="article">
-                          <h5 class="headArticle">
-                            <span class="article-heading">Article 1 :</span>
-                            Désignation des parties
-                          </h5>
-                          <p>
-                            Le présent contrat est conclu entre les soussignés :
-                          </p>
-                          <ul>
-                            <li>
-                              <strong>1. Qualité du bailleur:</strong>
-                              <label
-                                class="checkbox-inline"
-                                *ngIf="isAgence(proprietaire?.role)"
-                              >
-                                <input
-                                  type="checkbox"
-                                  value="Personne physique"
-                                />
-                                Personne physique
-                              </label>
-                              <label
-                                class="checkbox-inline"
-                                *ngIf="isAgence(proprietaire?.role)"
-                              >
-                                <input
-                                  type="checkbox"
-                                  checked
-                                  readonly
-                                  value="Personne morale"
-                                />
-                                Personne morale
-                              </label>
-                              <label
-                                class="checkbox-inline"
-                                *ngIf="isProprietaire(proprietaire?.role)"
-                              >
-                                <input
-                                  type="checkbox"
-                                  checked
-                                  readonly
-                                  value="Personne physique"
-                                />
-                                Personne physique
-                              </label>
-                              <label
-                                class="checkbox-inline"
-                                *ngIf="isProprietaire(proprietaire?.role)"
-                              >
-                                <input
-                                  type="checkbox"
-                                  value="Personne morale"
-                                />
-                                Personne morale
-                              </label>
-                            </li>
-                            <li>
-                              <strong
-                                >Nom et prénom du bailleur:
-                                <span style="color: #e98b11">{{
-                                  proprietaire?.nom
-                                }}</span>
-                              </strong>
-                            </li>
-                            <li *ngIf="isAgence(proprietaire?.role)">
-                              <strong
-                                >Dénomination (si personne morale):
-                              </strong>
-                              <ol>
-                                <li>
-                                  <strong
-                                    >Type du document :
-                                    <span style="color: #e98b11">{{
-                                      proprietaire?.document[0]?.nomDoc
-                                    }}</span></strong
-                                  >
-                                </li>
-                                <li>
-                                  <strong
-                                    >Numero du document :
-                                    <span style="color: #e98b11">{{
-                                      proprietaire?.document[0]?.numDoc
-                                    }}</span></strong
-                                  >
-                                </li>
-                              </ol>
-                            </li>
-                            <!-- <li>
+                        <p class="dis my-3 info">{{bien?.nom}} </p>
+                        <p class="dis mb-3 updates">{{bien?.description}}</p>
+                        <p class="dis mb-3 different fw-bold">Les caracteristiques du bien :</p>
+                        <div class="d-flex flex-column dis">
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien && bien.reference">
+                                <p>Reference du bien</p>
+                                <p>{{bien?.reference}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien.typeImmo && bien.typeImmo.nom">
+                                <p>Type du bien</p>
+                                <p>{{bien.typeImmo.nom}}</p>
+                            </div> 
+                            <div class="d-flex align-items-center justify-content-between mb-2" 
+                                *ngIf="bien.periode && bien.periode.nom && bien?.statut?.nom === 'A louer'">
+                                <p>Periode</p>
+                                <p>{{bien.periode.nom}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien.adresse && bien.adresse.quartier">
+                                <p>Quartier</p>
+                                <p>{{bien.adresse.quartier}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien.adresse && bien.adresse.rue">
+                                <p>Rue</p>
+                                <p>{{bien.adresse.rue}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien.adresse && bien.adresse.porte">
+                                <p>Porte</p>
+                                <p>{{bien.adresse.porte}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien && bien.createdAt">
+                                <p>Date de publication</p>
+                                <p>{{bien.createdAt | date:"dd/MM/yyyy"}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien && bien.nb_piece">
+                                <p>Salon</p>
+                                <p>{{bien.nb_piece}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien && bien.chambre">
+                                <p>Chambre</p>
+                                <p>{{bien.chambre}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien && bien.cuisine">
+                                <p>Cuisine</p>
+                                <p>{{bien.cuisine}}</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2"
+                                *ngIf="bien && bien.toilette">
+                                <p>Toilette</p>
+                                <p>{{bien.toilette}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="invoice-inner clearfix">
+                    <div class="invoice-info clearfix" id="invoice_wrapper">
+                        <!-- <div class="container mt-5"> -->
+                        <div class="ligne">
+                            <div class="contratlocation" #contratlocation *ngIf="bien?.statut?.nom =='A louer'">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-left: auto; margin-right: auto;">
+                                        <div class="card">
+                                            <div class="invoice-headar">
+                                                <div class="row g-0">
+                                                    <!-- <div class="col-sm-12"> -->
+                                                    <div class="invoice-logo">
+                                                        <!-- logo started -->
+                                                        <div class="logo">
+                                                            <img src="../../../../assets/img/logo.png" alt="logo">
+                                                        </div>
+                                                        <!-- logo ended -->
+                                                    </div>
+                                                    <!-- </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="card-header">
+                                                <h3 class="text-center">CONTRAT TYPE DE LOCATION OU DE COLOCATION </h3>
+                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}
+                                                </p>
+                                            </div>
+                                            <div class="card-body">
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 1
+                                                            :</span> Désignation des
+                                                        parties</h5>
+                                                    <p>Le présent contrat est conclu entre les soussignés :</p>
+                                                    <ul>
+                                                        <li>
+                                                            <strong>1. Qualité du bailleur:</strong>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isAgence(proprietaire?.role)">
+                                                                <input type="checkbox" value="Personne physique">
+                                                                Personne
+                                                                physique
+                                                            </label>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isAgence(proprietaire?.role)">
+                                                                <input type="checkbox" checked readonly
+                                                                    value="Personne morale"> Personne morale
+                                                            </label>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isProprietaire(proprietaire?.role)">
+                                                                <input type="checkbox" checked readonly
+                                                                    value="Personne physique"> Personne
+                                                                physique
+                                                            </label>
+                                                            <label class="checkbox-inline"
+                                                                *ngIf="isProprietaire(proprietaire?.role)">
+                                                                <input type="checkbox" value="Personne morale"> Personne
+                                                                morale
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <strong>Nom et prénom du bailleur: <span
+                                                                    style="color: #e98b11;">{{proprietaire?.nom}}</span>
+                                                            </strong>
+                                                        </li>
+                                                        <li *ngIf="isAgence(proprietaire?.role)">
+                                                            <strong>Dénomination (si personne morale): </strong>
+                                                            <ol>
+                                                                <li>
+                                                                    <strong>Type du document : <span
+                                                                            style="color: #e98b11;">{{proprietaire?.document[0]?.nomDoc}}</span></strong>
+                                                                </li>
+                                                                <li>
+                                                                    <strong>Numero du document : <span
+                                                                            style="color: #e98b11;">{{proprietaire?.document[0]?.numDoc}}</span></strong>
+                                                                </li>
+                                                            </ol>
+                                                        </li>
+                                                        <!-- <li>
                                                                 <strong>Société civile constituée exclusivement entre parents et
                                                                     alliés jusqu’au quatrième degré inclus:</strong>
                                                                 <label class="checkbox-inline">
@@ -1124,9 +1031,68 @@
                                                     <h5 class="headArticle"><span class="article-heading">Article 4
                                                             :</span>
                                                         Modalités de Paiement</h5>
-                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant. 
-                                                        Le Locataire s'engage à effectuer le paiement à la date convenue chaque mois.</p>
-                                                </article> -->
+                                                    <p>Le loyer doit être payé entre le 1er et le 10 du mois suivant.
+                                                        Le Locataire s'engage à effectuer le paiement à la date convenue
+                                                        chaque mois.</p>
+                                                </article>
+                                                <article class="article">
+                                                    <h5 class="headArticle"><span class="article-heading">Article 5
+                                                            :</span>
+                                                        Date de prise d’effet et durée du contrat</h5>
+                                                    <p>La durée du contrat et sa date de prise d’effet sont ainsi
+                                                        définies :</p>
+                                                    <ol>
+                                                        <li>
+                                                            <strong>Date de prise d’effet du contrat : <span
+                                                                    style="color: #e98b11;">{{contrat?.DateEntreeMaison}}</span></strong>
+                                                        </li>
+                                                        <li *ngIf="isAgence(proprietaire?.role)">
+                                                            <strong>Durée du contrat :</strong>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" value="3 ans"> 3 ans
+                                                            </label>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" readonly checked value="6 ans"> 6
+                                                                ans (minimum 6 ans si le
+                                                                bailleur est une personne morale)
+                                                            </label>
+                                                        </li>
+                                                        <li *ngIf="isProprietaire(proprietaire?.role)">
+                                                            <strong>Durée du contrat :</strong>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" checked readonly value="3 ans"> 3
+                                                                ans
+                                                            </label>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" value="6 ans"> 6 ans (minimum 6
+                                                                ans si le
+                                                                bailleur est une personne morale)
+                                                            </label>
+                                                        </li>
+                                                    </ol>
+                                                    <p>En l’absence de proposition de renouvellement du contrat,
+                                                        celui-ci est,
+                                                        à sont terme, reconduit tacitement pour 3 ou 6 ans et dans les
+                                                        mêmes conditions.
+                                                        Le locataire peut mettre fin au bail à tout moment, après avoir
+                                                        donné congé.
+                                                        Le bailleur, quant à lui, peut mettre fin au bail à son échéance
+                                                        et
+                                                        après avoir donné congé, soit pour reprendre le logement en vue
+                                                        de l’occuper lui-même
+                                                        ou une personne de sa famille, soit pour le vendre, soit pour un
+                                                        motif sérieux et légitime.</p>
+                                                </article>
+                                            </div>
+                                            <div class="card-footer text-muted">
+                                                <p class="text-center">© 2024 Sossara. Tous droits réservés.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Délimitation de page pour la deuxième page -->
+                                <!-- <div class="page-break"></div> -->
 
                         <article class="article">
                           <h5 class="headArticle">
@@ -1206,7 +1172,8 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <h3 class="text-center">CONTRAT TYPE DE VENTE </h3>
-                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}</p>
+                                                <p class="text-center">Date: {{contrat?.createdAt | date:"dd/MM/yyyy"}}
+                                                </p>
                                             </div>
                                             <div class="card-body">
 
