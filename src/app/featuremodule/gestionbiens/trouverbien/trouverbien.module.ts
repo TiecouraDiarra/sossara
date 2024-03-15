@@ -8,6 +8,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterMarkersPipe } from './filter-markers.pipe';
 import { LesagencesComponent } from '../lesagences/lesagences.component';
+import { Ng5SliderModule } from 'ng5-slider';
 
  
 @NgModule({
@@ -17,7 +18,8 @@ import { LesagencesComponent } from '../lesagences/lesagences.component';
     ListingmapGridRoutingModule, 
     SharedModule,
     Ng2SearchPipeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    Ng5SliderModule,
   ],
 })
 export class TrouverbienModule {}

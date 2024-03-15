@@ -13,6 +13,7 @@ import { configbienService } from 'src/app/service/configbien/configbien.service
 import { NgForm } from '@angular/forms';
 declare var google: any;
 import * as L from 'leaflet';
+import { Options } from 'ng5-slider';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -45,8 +46,19 @@ export class TrouverbienComponent implements OnInit {
   selectedCommune: any;
   selectedType: any;
   p: number = 1;
+  customHtmlMinValue: number = 0;
+  customHtmlMaxValue: number = 0;
+  customHtmlSliderOptions: Options = { floor: 0, ceil: 100, translate: (value: number): string => ' FCFA ' + value }; // Valeur par défaut
+
+  // customHtmlSliderOptions: Options = {
+  //   floor: 0,
+  //   ceil: this.customHtmlMaxValue+100,
+  //   translate: (value: number): string => {
+  //     return ' FCFA ' + value;
+  //   }
+  // };
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  valuesSelectPrix: any = ['10000', '20000', '30000', '40000', '50000', '60000', '70000', '80000', '90000', '100000', '200000', '300000', '400000', '500000', '600000', '700000', '800000', '900000', '1000000', '1500000'];
+  valuesSelectPrix: any = ['10000', '20000', '30000', '40000', '50000', '60000', '70000', '80000', '90000', '100000', '200000', '300000', '400000', '500000', '600000', '700000', '800000', '900000', '1000000', '150000000000000000000000000'];
 
 
   // MAP
@@ -67,6 +79,8 @@ export class TrouverbienComponent implements OnInit {
   DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
   status: any;
   cercle: any;
+  max: any;
+  min: any;
   // cercles: any;
 
   // IMAGE PAR DEFAUT USER
@@ -357,6 +371,8 @@ export class TrouverbienComponent implements OnInit {
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
     }
+    this.initSliderOptions();
+
 
     // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
@@ -767,13 +783,35 @@ export class TrouverbienComponent implements OnInit {
     minprix: null
   };
 
-  maxprix_values: any = [];
+  initSliderOptions() {
+    this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
+      this.customHtmlMaxValue = data[0].prix;
+      this.customHtmlMinValue = data[data.length - 1].prix;
 
-  filterMaxPrix() {
-    if (this.form.minprix) {
-      this.maxprix_values = this.valuesSelectPrix.filter((item: string) => parseInt(item) > parseInt(this.form.minprix));
-    } else {
-      this.maxprix_values = this.valuesSelectPrix;
-    }
+      // Mettez à jour automatiquement les valeurs du formulaire avec les valeurs du slider
+      this.form.maxprix = this.customHtmlMaxValue;
+      this.form.minprix = this.customHtmlMinValue;
+
+      this.customHtmlSliderOptions = {
+        floor: this.customHtmlMinValue,
+        ceil: this.customHtmlMaxValue,
+        translate: (value: number): string => {
+          return ' FCFA ' + value;
+        }
+      };
+    });
   }
+  updateMinPrice() {
+    this.form.minprix=this.customHtmlMinValue;
+    // console.log('Min Price:', this.customHtmlMinValue,"customHtmlMinValue", this.form.minprix);
+    this.updateUrl();
+  }
+
+  updateMaxPrice() {
+    this.form.maxprix=this.customHtmlMaxValue;
+    // console.log('Max Price:', this.customHtmlMaxValue, " this.form.maxprix", this.form.maxprix);
+    this.updateUrl();
+  }
+
+  
 }
