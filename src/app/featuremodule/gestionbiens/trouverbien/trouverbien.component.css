@@ -79,6 +79,18 @@
   cursor: pointer;
 }
 
+.ligne {
+  overflow-y: scroll;
+  height: 900px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+      display: none;
+  }
+}
+
+
 .map-container {
   /* position: absolute; */
   /* top: 0; */
@@ -95,6 +107,25 @@
 }
 
 #map {
-  height: 85%;
+  /* margin-top: 30%; */
+  height: 100%;
 }
 
+
+.box-1 {
+  max-width: 600px;
+  padding: 10px 40px; 
+  /* user-select: none */
+}
+
+.box-2 {
+  /* transform: translateY(-500px); */
+  /* animation: img-top 2.5s; */
+  /* animation-fill-mode: forwards */
+}
+
+.user {
+  /* transform: translateY(-500px); */
+  /* animation: img-top 2.5s; */
+  /* animation-fill-mode: forwards */
+}

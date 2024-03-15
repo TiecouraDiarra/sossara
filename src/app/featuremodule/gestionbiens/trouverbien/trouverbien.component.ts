@@ -142,7 +142,7 @@ export class TrouverbienComponent implements OnInit {
   errorMessage = '';
   locale!: string;
   NombreJaime: number = 0
-  
+
 
   private map!: L.Map;
   private centroid: L.LatLngExpression = [17.570692, -3.996166]; // Coordonnées du Mali
@@ -153,15 +153,15 @@ export class TrouverbienComponent implements OnInit {
     //   center: this.centroid,
     //   zoom: 6 // Zoom ajusté pour montrer le Mali correctement
     // });
-    // Créer la carte Leaflet
-    this.map = L.map('map').setView([17.570692, -3.996166], 6); // Définir une vue initiale
-
-
+    
+    
     // Ajouter des tuiles OpenStreetMap à la carte
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 20,
+      maxZoom: 18,
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
     });
+    // Créer la carte Leaflet
+    this.map = L.map('map').setView([17.570692, -3.996166], 6).addLayer(tiles); // Définir une vue initiale
 
     tiles.addTo(this.map);
 
@@ -181,104 +181,300 @@ export class TrouverbienComponent implements OnInit {
       // Gérer les erreurs de géolocalisation
     });
 
-    // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      if (Array.isArray(data)) {
-        // Assurez-vous que data.biens est un tableau avant d'appeler map
-        this.bienImmoMap = data?.reverse();
-        // Convertissez les données de bien immobilier en marqueurs Leaflet
-        this.overlays = this.bienImmoMap.map((bien: any) => {
-          const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
-
-          const marker = L.marker([bien.adresse.latitude, bien.adresse.longitude], {
-            icon: L.icon({
-              iconUrl: 'assets/img/icons/marker7.png',
-              iconSize: [40, 40], // Taille de l'icône du marqueur
-              iconAnchor: [16, 32], // Point d'ancrage de l'icône du marqueur
-              popupAnchor: [0, -32], // Point d'ancrage du popup du marqueur
-              // iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
-              // iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
-              // iconSize: [25, 41],
-              // iconAnchor: [12, 41],
-              // popupAnchor: [1, -34],
-              // shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-              shadowSize: [41, 41]
-            })
-          });
-
-          // Créez un contenu de popup pour le marqueur
-          // Créez un contenu de popup pour le marqueur
-          let content = `
-          <div class="profile-widget crd" style="width: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${imageSrc}'); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px;">
-            <div class="pro-content">
-              <h3 class="title" style="font-weight: bold;">
-              <a>
-                 ${bien.nom}
-              </a>
-              </h3>
-`;
-
-          // Vérifiez le statut du bien immobilier
-          if (bien.statut.nom === 'A vendre') {
-            content += `
-    <div class="row">
-      <div class="col">
-        <span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">
-          ${bien.statut.nom}
-        </span>
-      </div>
-      <div class="col">
-        <p class="blog-category">
-          <a (click)="goToDettailBien(${bien.id})">
-            <span>${bien.typeImmo.nom}</span>
-          </a>
-        </p>
-      </div>
-    </div>
-  `;
-          } else if (bien.statut.nom === 'A louer') {
-            content += `
-    <div class="row">
-      <div class="col">
-        <span class="Featured-text" style="font-weight: bold;">
-          ${bien.statut.nom}
-        </span>
-      </div>
-      <div class="col">
-        <p class="blog-category">
-          <a href="javascript:void(0)">
-            <span>${bien.typeImmo.nom}</span>
-          </a>
-        </p>
-      </div>
-    </div>
-  `;
-          }
-          // Ajoutez les informations supplémentaires telles que l'adresse et le prix
-          content += `
-  <ul class="available-info mt-3">
-    <li class="mapaddress">
-      <i class="fas fa-map-marker-alt me-2"></i> ${bien.adresse.commune.cercle.nomcercle}, ${bien.adresse.quartier}
-    </li>
-    <li class="map-amount" style="color: #e98b11; font-weight: bold; margin-top:-15px">
-      ${this.formatPrice(bien.prix)} FCFA
-    </li>
-  </ul>
-`;
-
-          // Fermez la partie pro-content
-          content += `</div></div>`;
-
-          // Ajoutez le contenu du popup au marqueur
-          marker.bindPopup(content);
-
-          return marker;
-        })
-
-        // Ajoutez les marqueurs à la carte Leaflet
-        this.overlays.forEach(marker => marker.addTo(this.map));
-      }
+    this.route.queryParams.subscribe((params: Params) => {
+      // Initialisez les valeurs du formulaire avec les paramètres d'URL
+      this.form.type = params['type'] || null;
+      this.form.statut = params['statut'] || null;
+      this.form.chambre = params['chambre'] || null;
+      this.form.nb_piece = params['nb_piece'] || null;
+      this.form.toilette = params['toilette'] || null;
+      this.form.cuisine = params['cuisine'] || null;
+      this.form.commune = params['commune'] || null;
+      this.form.cercleForm = params['cercleForm'] || null;
+      this.form.regionForm = params['regionForm'] || null;
+      this.form.minprix = params['minprix'] || null;
+      this.form.maxprix = params['maxprix'] || null;
+      this.form.commodite = params['commodite'] || null;
+      // Initialisez d'autres propriétés du formulaire ici
     });
+
+
+
+    //AFFICHER LA LISTE DES BIENS IMMO
+    this.route.queryParams.subscribe(params => {
+      const {
+        type,
+        statut,
+        chambre,
+        nb_piece,
+        toilette,
+        cuisine,
+        commune,
+        cercleForm,
+        regionForm,
+        minprix,
+        maxprix,
+        commodite,
+      } = params;
+
+      // Appel de la méthode de recherche avec les nouveaux paramètres d'URL
+      this.serviceBienImmo
+        .faireUneRecherche(
+          type,
+          statut,
+          chambre,
+          nb_piece,
+          toilette,
+          cuisine,
+          commune,
+          cercleForm,
+          regionForm,
+          minprix,
+          maxprix,
+          commodite
+        )
+        .subscribe((data) => {
+
+          if (Array.isArray(data) && data.length > 0) {
+            // Assurez-vous que data.biens est un tableau avant d'appeler map
+            this.bienImmoMap = data?.reverse();
+            // Convertissez les données de bien immobilier en marqueurs Leaflet
+            this.overlays = this.bienImmoMap.map((bien: any) => {
+              const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
+
+              // Calculer le centre des coordonnées des biens immobiliers
+              // const latLngs = data.map(bien => L.latLng(bien.adresse.latitude, bien.adresse.longitude));
+              // const center = L.latLngBounds(latLngs).getCenter();
+
+              // Obtenir les coordonnées du premier bien immobilier
+              // const premierBien = data[0];
+              // const { latitude, longitude } = premierBien.adresse;
+
+              // Centrer la carte sur les coordonnées du premier bien immobilier
+              // this.map.setView([latitude, longitude], 12);
+              // Centrer la carte sur le centre calculé
+              // this.map.setView(center, 6);
+              const marker = L.marker([bien.adresse.latitude, bien.adresse.longitude], {
+                icon: L.icon({
+                  iconUrl: 'assets/img/icons/marker7.png',
+                  iconSize: [40, 40], // Taille de l'icône du marqueur
+                  iconAnchor: [16, 32], // Point d'ancrage de l'icône du marqueur
+                  popupAnchor: [0, -32], // Point d'ancrage du popup du marqueur
+                  // iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
+                  // iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
+                  // iconSize: [25, 41],
+                  // iconAnchor: [12, 41],
+                  // popupAnchor: [1, -34],
+                  // shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                  shadowSize: [41, 41]
+                })
+              });
+
+              // Créez un contenu de popup pour le marqueur
+              // Créez un contenu de popup pour le marqueur
+              let content = `
+              <div class="profile-widget crd" style="width: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${imageSrc}'); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px;">
+                <div class="pro-content">
+                  <h3 class="title" style="font-weight: bold;">
+                  <a>
+                     ${bien.nom}
+                  </a>
+                  </h3>
+    `;
+
+              // Vérifiez le statut du bien immobilier
+              if (bien.statut.nom === 'A vendre') {
+                content += `
+        <div class="row">
+          <div class="col">
+            <span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">
+              ${bien.statut.nom}
+            </span>
+          </div>
+          <div class="col">
+            <p class="blog-category">
+              <a (click)="goToDettailBien(${bien.id})">
+                <span>${bien.typeImmo.nom}</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      `;
+              } else if (bien.statut.nom === 'A louer') {
+                content += `
+        <div class="row">
+          <div class="col">
+            <span class="Featured-text" style="font-weight: bold;">
+              ${bien.statut.nom}
+            </span>
+          </div>
+          <div class="col">
+            <p class="blog-category">
+              <a href="javascript:void(0)">
+                <span>${bien.typeImmo.nom}</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      `;
+              }
+              // Ajoutez les informations supplémentaires telles que l'adresse et le prix
+              content += `
+      <ul class="available-info mt-3">
+        <li class="mapaddress">
+          <i class="fas fa-map-marker-alt me-2"></i> ${bien.adresse.commune.cercle.nomcercle}, ${bien.adresse.quartier}
+        </li>
+        <li class="map-amount" style="color: #e98b11; font-weight: bold; margin-top:-15px">
+          ${this.formatPrice(bien.prix)} FCFA
+        </li>
+      </ul>
+    `;
+
+              // Fermez la partie pro-content
+              content += `</div></div>`;
+
+              // Ajoutez le contenu du popup au marqueur
+              marker.bindPopup(content);
+
+              return marker;
+            })
+
+            // Ajoutez les marqueurs à la carte Leaflet
+            this.overlays.forEach(marker => marker.addTo(this.map));
+          } else {
+            // Aucun bien immobilier trouvé, centrer la carte sur une position par défaut
+            this.map.setView([17.570692, -3.996166], 6);
+          }
+          // Mise à jour de la liste des biens immobiliers
+          this.bienImmo = data;
+
+          this.bienImmo = data;
+
+          // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+          this.bienImmo.forEach((bien: {
+            favoris: any; id: string | number;
+          }) => {
+            // Charger le nombre de "J'aime" pour chaque bien
+            // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+            this.NombreJaime = bien.favoris?.length;
+
+            if (typeof bien.id === 'number') {
+              this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+            }
+
+            // Charger l'état de favori depuis localStorage
+            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+            if (isFavorite === 'true') {
+              this.favoriteStatus[bien.id] = true;
+            } else {
+              this.favoriteStatus[bien.id] = false;
+            }
+          });
+        });
+
+      // Nettoyer les marqueurs existants de la carte
+      this.overlays.forEach(marker => this.map.removeLayer(marker));
+      this.overlays = [];
+    });
+
+    // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
+    //     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+    //       if (Array.isArray(data)) {
+    //         // Assurez-vous que data.biens est un tableau avant d'appeler map
+    //         this.bienImmoMap = data?.reverse();
+    //         // Convertissez les données de bien immobilier en marqueurs Leaflet
+    //         this.overlays = this.bienImmoMap.map((bien: any) => {
+    //           const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
+
+    //           const marker = L.marker([bien.adresse.latitude, bien.adresse.longitude], {
+    //             icon: L.icon({
+    //               iconUrl: 'assets/img/icons/marker7.png',
+    //               iconSize: [40, 40], // Taille de l'icône du marqueur
+    //               iconAnchor: [16, 32], // Point d'ancrage de l'icône du marqueur
+    //               popupAnchor: [0, -32], // Point d'ancrage du popup du marqueur
+    //               // iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
+    //               // iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
+    //               // iconSize: [25, 41],
+    //               // iconAnchor: [12, 41],
+    //               // popupAnchor: [1, -34],
+    //               // shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    //               shadowSize: [41, 41]
+    //             })
+    //           });
+
+    //           // Créez un contenu de popup pour le marqueur
+    //           // Créez un contenu de popup pour le marqueur
+    //           let content = `
+    //           <div class="profile-widget crd" style="width: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${imageSrc}'); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px;">
+    //             <div class="pro-content">
+    //               <h3 class="title" style="font-weight: bold;">
+    //               <a>
+    //                  ${bien.nom}
+    //               </a>
+    //               </h3>
+    // `;
+
+    //           // Vérifiez le statut du bien immobilier
+    //           if (bien.statut.nom === 'A vendre') {
+    //             content += `
+    //     <div class="row">
+    //       <div class="col">
+    //         <span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">
+    //           ${bien.statut.nom}
+    //         </span>
+    //       </div>
+    //       <div class="col">
+    //         <p class="blog-category">
+    //           <a (click)="goToDettailBien(${bien.id})">
+    //             <span>${bien.typeImmo.nom}</span>
+    //           </a>
+    //         </p>
+    //       </div>
+    //     </div>
+    //   `;
+    //           } else if (bien.statut.nom === 'A louer') {
+    //             content += `
+    //     <div class="row">
+    //       <div class="col">
+    //         <span class="Featured-text" style="font-weight: bold;">
+    //           ${bien.statut.nom}
+    //         </span>
+    //       </div>
+    //       <div class="col">
+    //         <p class="blog-category">
+    //           <a href="javascript:void(0)">
+    //             <span>${bien.typeImmo.nom}</span>
+    //           </a>
+    //         </p>
+    //       </div>
+    //     </div>
+    //   `;
+    //           }
+    //           // Ajoutez les informations supplémentaires telles que l'adresse et le prix
+    //           content += `
+    //   <ul class="available-info mt-3">
+    //     <li class="mapaddress">
+    //       <i class="fas fa-map-marker-alt me-2"></i> ${bien.adresse.commune.cercle.nomcercle}, ${bien.adresse.quartier}
+    //     </li>
+    //     <li class="map-amount" style="color: #e98b11; font-weight: bold; margin-top:-15px">
+    //       ${this.formatPrice(bien.prix)} FCFA
+    //     </li>
+    //   </ul>
+    // `;
+
+    //           // Fermez la partie pro-content
+    //           content += `</div></div>`;
+
+    //           // Ajoutez le contenu du popup au marqueur
+    //           marker.bindPopup(content);
+
+    //           return marker;
+    //         })
+
+    //         // Ajoutez les marqueurs à la carte Leaflet
+    //         this.overlays.forEach(marker => marker.addTo(this.map));
+    //       }
+    //     });
 
   }
 
@@ -414,87 +610,87 @@ export class TrouverbienComponent implements OnInit {
       }));
 
     });
-    this.route.queryParams.subscribe((params: Params) => {
-      // Initialisez les valeurs du formulaire avec les paramètres d'URL
-      this.form.type = params['type'] || null;
-      this.form.statut = params['statut'] || null;
-      this.form.chambre = params['chambre'] || null;
-      this.form.nb_piece = params['nb_piece'] || null;
-      this.form.toilette = params['toilette'] || null;
-      this.form.cuisine = params['cuisine'] || null;
-      this.form.commune = params['commune'] || null;
-      this.form.cercleForm = params['cercleForm'] || null;
-      this.form.regionForm = params['regionForm'] || null;
-      this.form.minprix = params['minprix'] || null;
-      this.form.maxprix = params['maxprix'] || null;
-      this.form.commodite = params['commodite'] || null;
-      // Initialisez d'autres propriétés du formulaire ici
-    });
+    // this.route.queryParams.subscribe((params: Params) => {
+    //   // Initialisez les valeurs du formulaire avec les paramètres d'URL
+    //   this.form.type = params['type'] || null;
+    //   this.form.statut = params['statut'] || null;
+    //   this.form.chambre = params['chambre'] || null;
+    //   this.form.nb_piece = params['nb_piece'] || null;
+    //   this.form.toilette = params['toilette'] || null;
+    //   this.form.cuisine = params['cuisine'] || null;
+    //   this.form.commune = params['commune'] || null;
+    //   this.form.cercleForm = params['cercleForm'] || null;
+    //   this.form.regionForm = params['regionForm'] || null;
+    //   this.form.minprix = params['minprix'] || null;
+    //   this.form.maxprix = params['maxprix'] || null;
+    //   this.form.commodite = params['commodite'] || null;
+    //   // Initialisez d'autres propriétés du formulaire ici
+    // });
 
 
 
-    //AFFICHER LA LISTE DES BIENS IMMO
-    this.route.queryParams.subscribe(params => {
-      const {
-        type,
-        statut,
-        chambre,
-        nb_piece,
-        toilette,
-        cuisine,
-        commune,
-        cercleForm,
-        regionForm,
-        minprix,
-        maxprix,
-        commodite,
-      } = params;
+    // //AFFICHER LA LISTE DES BIENS IMMO
+    // this.route.queryParams.subscribe(params => {
+    //   const {
+    //     type,
+    //     statut,
+    //     chambre,
+    //     nb_piece,
+    //     toilette,
+    //     cuisine,
+    //     commune,
+    //     cercleForm,
+    //     regionForm,
+    //     minprix,
+    //     maxprix,
+    //     commodite,
+    //   } = params;
 
-      // Appel de la méthode de recherche avec les nouveaux paramètres d'URL
-      this.serviceBienImmo
-        .faireUneRecherche(
-          type,
-          statut,
-          chambre,
-          nb_piece,
-          toilette,
-          cuisine,
-          commune,
-          cercleForm,
-          regionForm,
-          minprix,
-          maxprix,
-          commodite
-        )
-        .subscribe((data) => {
-          // Mise à jour de la liste des biens immobiliers
-          this.bienImmo = data;
+    //   // Appel de la méthode de recherche avec les nouveaux paramètres d'URL
+    //   this.serviceBienImmo
+    //     .faireUneRecherche(
+    //       type,
+    //       statut,
+    //       chambre,
+    //       nb_piece,
+    //       toilette,
+    //       cuisine,
+    //       commune,
+    //       cercleForm,
+    //       regionForm,
+    //       minprix,
+    //       maxprix,
+    //       commodite
+    //     )
+    //     .subscribe((data) => {
+    //       // Mise à jour de la liste des biens immobiliers
+    //       this.bienImmo = data;
 
-          this.bienImmo = data;
+    //       this.bienImmo = data;
 
-          // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-          this.bienImmo.forEach((bien: {
-            favoris: any; id: string | number;
-          }) => {
-            // Charger le nombre de "J'aime" pour chaque bien
-            // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-            this.NombreJaime = bien.favoris?.length;
+    //       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
+    //       this.bienImmo.forEach((bien: {
+    //         favoris: any; id: string | number;
+    //       }) => {
+    //         // Charger le nombre de "J'aime" pour chaque bien
+    //         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+    //         this.NombreJaime = bien.favoris?.length;
 
-            if (typeof bien.id === 'number') {
-              this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-            }
+    //         if (typeof bien.id === 'number') {
+    //           this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+    //         }
 
-            // Charger l'état de favori depuis localStorage
-            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-            if (isFavorite === 'true') {
-              this.favoriteStatus[bien.id] = true;
-            } else {
-              this.favoriteStatus[bien.id] = false;
-            }
-          });
-        });
-    });
- 
+    //         // Charger l'état de favori depuis localStorage
+    //         const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+    //         if (isFavorite === 'true') {
+    //           this.favoriteStatus[bien.id] = true;
+    //         } else {
+    //           this.favoriteStatus[bien.id] = false;
+    //         }
+    //       });
+    //     });
+    // });
+
     //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.commodite = data;
