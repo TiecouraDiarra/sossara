@@ -4776,12 +4776,12 @@ a:focus {
 }
 .map-right {
   bottom: 0;
-  height: 100%;
+  height: 800px;
   min-height: 100%;
   padding-right: 30px;
-  position: fixed;
+  position: relative;
   right: 0;
-  top: 115px;
+  top: 10px;
   z-index: 1029;
 }
 ul.tags {

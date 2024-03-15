@@ -1,524 +1,484 @@
 <!-- Main Content Section -->
 <div class="list-content listmap-grid">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-6 listingmappage-content">
-        <div class="listmapgrid-content">
-          <div class="row sorting-div" style="margin-top: 100px">
-            <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
-              <div class="sortbyset">
-                <span class="sortbytitle">Filtrer par</span>
-                <div class="sorting-select">
-                  <select class="form-control select" [(ngModel)]="searchText">
-                    <option value="" selected>Tout</option>
-                    <option *ngFor="let Statut of status">
-                      {{ Statut?.nom }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="grid-listview">
-                <ul>
-                  <li>
-                    <a [routerLink]="routes.listingmapgrid" class="active">
-                      <i class="feather-grid"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <a
-              class="flex-shrink-0 d-flex align-items-center"
-              data-bs-toggle="collapse"
-              href="#collapseFilter"
-              role="button"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-            >
-              <h5>
-                <img
-                  style="width: 27px"
-                  src="assets/img/details-icon.svg"
-                  alt="details-icon"
-                />
-                Filtrer
-              </h5>
-            </a>
-            <div class="col-lg-12">
-              <div class="car-filter-section">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button
-                      class="nav-link active"
-                      id="pills-home-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-home"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-home"
-                      aria-selected="true"
-                    >
-                      Trouver un bien
-                    </button>
-                  </li>
-                 
-                </ul>
-                <div class="tab-content" id="pills-tabContent">
-                  <div
-                    class="tab-pane fade show active"
-                    id="pills-home"
-                    role="tabpanel"
-                    aria-labelledby="pills-home-tab"
-                    tabindex="0"
-                  >
-                    <div class="search-tab-col">
-                      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-                        <div class="row align-items-center search-form">
-                          <div class="col-12 col-lg-12 search-group">
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <div class="d-flex real-estate-search">
-                                  <div
-                                    class="flex-shrink-0 d-flex align-items-center"
-                                  >
-                                    <div class="icon-blk rounded-circle">
-                                      <i class="feather-map-pin"></i>
-                                    </div>
-                                  </div>
-                               
-                                  <div class="flex-grow-1 ms-3">
-                                    <select
-                                      class="form-control select category-select"
-                                      (change)="
-                                        onChangeRegion($event.target);
-                                        updateUrl()
-                                      "
-                                    >
-                                      <option selected [value]="null">
-                                        Region
-                                      </option>
-                                      <option *ngFor="let Region of region">
-                                        {{ Region.nomregion }}
-                                      </option>
-                                      <!-- Ici, il manque la balise de fermeture </select> -->
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="d-flex real-estate-search">
-                                  <div
-                                    class="flex-shrink-0 d-flex align-items-center"
-                                  >
-                                    <div class="icon-blk rounded-circle">
-                                      <i class="feather-map-pin"></i>
-                                    </div>
-                                  </div>
-                           
-                                  <div class="flex-grow-1 ms-3">
-                                    <select
-                                      class="form-control select category-select"
-                                      (change)="
-                                        onChangeCercle($event.target);
-                                        updateUrl()
-                                      "
-                                    >
-                                      <option selected [value]="null">
-                                        Cercle
-                                      </option>
-                                      <option
-                                        *ngFor="let Cercle of cercles"
-                                        [value]="Cercle.id"
-                                      >
-                                        {{ Cercle.nomcercle }}
-                                      </option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="d-flex real-estate-search">
-                                  <div
-                                    class="flex-shrink-0 d-flex align-items-center"
-                                  >
-                                    <div class="icon-blk rounded-circle">
-                                      <i class="feather-map-pin"></i>
-                                    </div>
-                                  </div>
-                                  <!--<div class="flex-grow-1 ms-3">
-                                                          <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                      </div>-->
-                                  <div class="flex-grow-1 ms-3">
-                                    <select
-                                      class="form-control select category-select"
-                                      [(ngModel)]="form.commune"
-                                      name="commune"
-                                      (change)="updateUrl()"
-                                    >
-                                      <option selected [value]="null">
-                                        Commune
-                                      </option>
-                                      <option
-                                        *ngFor="let Commune of communes1"
-                                        [value]="Commune.id"
-                                      >
-                                        {{ Commune.nomcommune }}
-                                      </option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                             
-                           
-                           
-                               
-                                  <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search">
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <img
-                                            style="width: 20px"
-                                            src="./assets/img/icons/floor-icon.svg"
-                                            alt=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--<div class="flex-grow-1 ms-3">
-                                                                  <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                              </div>-->
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          [(ngModel)]="form.minprix"
-                                          name="minprix"
-                                          (ngModelChange)="filterMaxPrix()"
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Prix Minimum
-                                          </option>
-                                          <option
-                                            *ngFor="
-                                              let item of valuesSelectPrix
-                                            "
-                                            [value]="item"
-                                          >
-                                            {{ item }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-6">
-                                    <div
-                                      class="d-flex real-estate-search real-select"
-                                    >
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <img
-                                            style="width: 20px"
-                                            src="./assets/img/icons/floor-icon.svg"
-                                            alt=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          [(ngModel)]="form.maxprix"
-                                          name="maxprix"
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Prix maximum
-                                          </option>
-                                          <option
-                                            *ngFor="let item of maxprix_values"
-                                            [value]="item"
-                                          >
-                                            {{ item }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                               
-                                
-                                  <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search">
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <i class="feather-home"></i>
-                                        </div>
-                                      </div>
-                                    
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          [(ngModel)]="form.type"
-                                          name="type"
-                                          class="form-control"
-                                          id=""
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Type
-                                          </option>
-                                          <option
-                                            *ngFor="let Type of typebien"
-                                            [value]="Type.id"
-                                          >
-                                            {{ Type.nom }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-6">
-                                    <div
-                                      class="d-flex real-estate-search real-select"
-                                    >
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <img
-                                            style="width: 20px"
-                                            src="./assets/img/icons/fax-icon.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          (change)="onStatutChange($event)"
-                                          [(ngModel)]="form.statut"
-                                          name="statut"
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Statut
-                                          </option>
-                                          <option
-                                            *ngFor="let Statut of status"
-                                            [value]="Statut.id"
-                                          >
-                                            {{ Statut.nom }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-lg-6">
-                                    <div
-                                      class="d-flex real-estate-search real-select"
-                                    >
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <img
-                                            src="./assets/img/icons/bath-icon.svg"
-                                            alt=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          [(ngModel)]="form.toilette"
-                                          name="toilette"
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Nombre de Toilette
-                                          </option>
-                                          <option
-                                            *ngFor="let item of valuesSelect"
-                                            [value]="item"
-                                          >
-                                            {{ item }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
 
-                                  <div class="col-lg-6">
-                                    <div class="d-flex real-estate-search">
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <img
-                                            src="./assets/img/icons/bed-icon.svg"
-                                            alt=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          [(ngModel)]="form.chambre"
-                                          name="chambre"
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Nombre de chambre
-                                          </option>
-                                          <option
-                                            *ngFor="let item of valuesSelect"
-                                            [value]="item"
-                                          >
-                                            {{ item }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
+    <div class="listingmappage-content">
+      <div class="listmapgrid-content">
+        <div class="card">
+          <div class="col-lg-12">
+            <div class="car-filter-section">
+              <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="pills-home-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-home"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-home"
+                    aria-selected="true"
+                  >
+                    Trouver un bien
+                  </button>
+                </li>
+               
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="pills-home"
+                  role="tabpanel"
+                  aria-labelledby="pills-home-tab"
+                  tabindex="0"
+                >
+                  <div class="search-tab-col">
+                    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                      <div class="row align-items-center search-form">
+                        <div class="col-12 col-lg-10 search-group">
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <div class="d-flex real-estate-search">
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
                                   </div>
-                                  <div class="col-lg-6">
-                                    <div
-                                      class="d-flex real-estate-search real-select"
+                                </div>
+                             
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    (change)="
+                                      onChangeRegion($event.target);
+                                      updateUrl()
+                                    "
+                                  >
+                                    <option selected [value]="null">
+                                      Region
+                                    </option>
+                                    <option *ngFor="let Region of region">
+                                      {{ Region.nomregion }}
+                                    </option>
+                                    <!-- Ici, il manque la balise de fermeture </select> -->
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-3">
+                              <div class="d-flex real-estate-search">
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+                         
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    (change)="
+                                      onChangeCercle($event.target);
+                                      updateUrl()
+                                    "
+                                  >
+                                    <option selected [value]="null">
+                                      Cercle
+                                    </option>
+                                    <option
+                                      *ngFor="let Cercle of cercles"
+                                      [value]="Cercle.id"
                                     >
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <img
-                                            src="./assets/img/icons/area-icon.svg"
-                                            alt=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          [(ngModel)]="form.nb_piece"
-                                          name="nb_piece"
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Nomre de salon
-                                          </option>
-                                          <option
-                                            *ngFor="let item of valuesSelect"
-                                            [value]="item"
-                                          >
-                                            {{ item }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
+                                      {{ Cercle.nomcercle }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-3">
+                              <div class="d-flex real-estate-search">
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
                                   </div>
-                                  <div class="col-lg-6">
-                                    <div
-                                      class="d-flex real-estate-search real-select"
+                                </div>
+                                <!--<div class="flex-grow-1 ms-3">
+                                                        <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
+                                                    </div>-->
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    [(ngModel)]="form.commune"
+                                    name="commune"
+                                    (change)="updateUrl()"
+                                  >
+                                    <option selected [value]="null">
+                                      Commune
+                                    </option>
+                                    <option
+                                      *ngFor="let Commune of communes1"
+                                      [value]="Commune.id"
                                     >
-                                      <div
-                                        class="flex-shrink-0 d-flex align-items-center"
-                                      >
-                                        <div class="icon-blk rounded-circle">
-                                          <img
-                                            style="width: 20px"
-                                            src="./assets/img/icons/649395.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                      </div>
-                                      <div class="flex-grow-1 ms-3">
-                                        <select
-                                          class="form-control select category-select"
-                                          [(ngModel)]="form.cuisine"
-                                          name="cuisine"
-                                          (change)="updateUrl()"
-                                        >
-                                          <option selected [value]="null">
-                                            Nombre de cuisine
-                                          </option>
-                                          <option
-                                            *ngFor="let item of valuesSelect"
-                                            [value]="item"
-                                          >
-                                            {{ item }}
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
+                                      {{ Commune.nomcommune }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                           
+                            <div class="col-lg-3">
+                              <div class="d-flex real-estate-search">
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-home"></i>
                                   </div>
+                                </div>
                               
                                 <div class="flex-grow-1 ms-3">
-                                  <p>
-                                    <a
-                                      class="row mt-3 fw-bold"
-                                      data-bs-toggle="collapse"
-                                      href="#cautrecomm"
-                                      role="button"
-                                      aria-expanded="false"
-                                      aria-controls="collapseExample"
+                                  <select
+                                    class="form-control select category-select"
+                                    [(ngModel)]="form.type"
+                                    name="type"
+                                    class="form-control"
+                                    id=""
+                                    (change)="updateUrl()"
+                                  >
+                                    <option selected [value]="null">
+                                      Type
+                                    </option>
+                                    <option
+                                      *ngFor="let Type of typebien"
+                                      [value]="Type.id"
                                     >
-                                      Autres commodites
-                                    </a>
-                                  </p>
+                                      {{ Type.nom }}
+                                    </option>
+                                  </select>
                                 </div>
-                                <div class="collapse" id="cautrecomm">
-                                  <div class="card card-body">
-                                    <div class="row">
-                                      <div
-                                        class="col-4"
-                                        *ngFor="let Commodite of commodite"
+                              </div>
+                            </div>
+                         
+                             
+                                <div class="col-lg-3">
+                                  <div class="d-flex real-estate-search">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          style="width: 20px"
+                                          src="./assets/img/icons/floor-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                
+                                    <div class="flex-grow-1 ms-3">
+                                      <select
+                                        class="form-control select category-select"
+                                        [(ngModel)]="form.minprix"
+                                        name="minprix"
+                                        (ngModelChange)="filterMaxPrix()"
+                                        (change)="updateUrl()"
                                       >
-                                        <div class="form-check mb-2">
-                                          <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            value=""
-                                            [(ngModel)]="Commodite.selected"
-                                            [value]="Commodite.id"
-                                            id="flexCheckDefault"
-                                            (change)="onChangeCommodite()"
-                                            name="commodite"
-                                            (change)="updateUrl()"
-                                          />
-                                          <label
-                                            class="form-check-label"
-                                            for="flexCheckDefault"
-                                          >
-                                            {{ Commodite.nom }}
-                                          </label>
-                                        </div>
+                                        <option selected [value]="null">
+                                          Prix Minimum
+                                        </option>
+                                        <option
+                                          *ngFor="
+                                            let item of valuesSelectPrix
+                                          "
+                                          [value]="item"
+                                        >
+                                          {{ item }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          style="width: 20px"
+                                          src="./assets/img/icons/floor-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                      <select
+                                        class="form-control select category-select"
+                                        [(ngModel)]="form.maxprix"
+                                        name="maxprix"
+                                        (change)="updateUrl()"
+                                      >
+                                        <option selected [value]="null">
+                                          Prix maximum
+                                        </option>
+                                        <option
+                                          *ngFor="let item of maxprix_values"
+                                          [value]="item"
+                                        >
+                                          {{ item }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                                        
+                                <div class="col-lg-3">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          style="width: 20px"
+                                          src="./assets/img/icons/fax-icon.png"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                      <select
+                                        class="form-control select category-select"
+                                        (change)="onStatutChange($event)"
+                                        [(ngModel)]="form.statut"
+                                        name="statut"
+                                        (change)="updateUrl()"
+                                      >
+                                        <option selected [value]="null">
+                                          Statut
+                                        </option>
+                                        <option
+                                          *ngFor="let Statut of status"
+                                          [value]="Statut.id"
+                                        >
+                                          {{ Statut.nom }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          src="./assets/img/icons/bath-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                      <select
+                                        class="form-control select category-select"
+                                        [(ngModel)]="form.toilette"
+                                        name="toilette"
+                                        (change)="updateUrl()"
+                                      >
+                                        <option selected [value]="null">
+                                         Nombre de Toilette
+                                        </option>
+                                        <option
+                                          *ngFor="let item of valuesSelect"
+                                          [value]="item"
+                                        >
+                                          {{ item }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                  <div class="d-flex real-estate-search">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          src="./assets/img/icons/bed-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                      <select
+                                        class="form-control select category-select"
+                                        [(ngModel)]="form.chambre"
+                                        name="chambre"
+                                        (change)="updateUrl()"
+                                      >
+                                        <option selected [value]="null">
+                                          Nombre de chambre
+                                        </option>
+                                        <option
+                                          *ngFor="let item of valuesSelect"
+                                          [value]="item"
+                                        >
+                                          {{ item }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          src="./assets/img/icons/area-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                      <select
+                                        class="form-control select category-select"
+                                        [(ngModel)]="form.nb_piece"
+                                        name="nb_piece"
+                                        (change)="updateUrl()"
+                                      >
+                                        <option selected [value]="null">
+                                          Nomre de salon
+                                        </option>
+                                        <option
+                                          *ngFor="let item of valuesSelect"
+                                          [value]="item"
+                                        >
+                                          {{ item }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-3">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          style="width: 20px"
+                                          src="./assets/img/icons/649395.png"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                      <select
+                                        class="form-control select category-select"
+                                        [(ngModel)]="form.cuisine"
+                                        name="cuisine"
+                                        (change)="updateUrl()"
+                                      >
+                                        <option selected [value]="null">
+                                          Nombre de cuisine
+                                        </option>
+                                        <option
+                                          *ngFor="let item of valuesSelect"
+                                          [value]="item"
+                                        >
+                                          {{ item }}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                            
+                              <div class="flex-grow-1 ms-3">
+                                <p>
+                                  <a
+                                    class="row mt-3 fw-bold"
+                                    data-bs-toggle="collapse"
+                                    href="#cautrecomm"
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls="collapseExample"
+                                  >
+                                    Autres commodites
+                                  </a>
+                                </p>
+                              </div>
+                              <div class="collapse" id="cautrecomm">
+                                <div class="card card-body">
+                                  <div class="row">
+                                    <div
+                                      class="col-4"
+                                      *ngFor="let Commodite of commodite"
+                                    >
+                                      <div class="form-check mb-2">
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          value=""
+                                          [(ngModel)]="Commodite.selected"
+                                          [value]="Commodite.id"
+                                          id="flexCheckDefault"
+                                          (change)="onChangeCommodite()"
+                                          name="commodite"
+                                          (change)="updateUrl()"
+                                        />
+                                        <label
+                                          class="form-check-label"
+                                          for="flexCheckDefault"
+                                        >
+                                          {{ Commodite.nom }}
+                                        </label>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                             
-                            </div>
-                          </div>
-                          <div class="col-12 col-lg-12 real-search-bar">
-                            <button
-                              class="btn car-search-icon float-end"
-                              type="submit"
-                            >
-                              Rechercher
-                            </button>
+                              </div>
+                           
                           </div>
                         </div>
-                      </form>
-                    </div>
+                        <div class="col-12 col-lg-2 real-search-bar">
+                          <button
+                            class="btn car-search-icon float-end"
+                            type="submit"
+                          >
+                            Rechercher
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="grid-view">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 listingmappage-content">
+        <div class="listmapgrid-content">
+                  <div class="grid-view">
             <div class="row">
               <ng-container
                 *ngIf="bienImmo && bienImmo.length > 0; else noBiens"
