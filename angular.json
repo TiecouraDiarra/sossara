@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Listee-Angular": {
+    "sossara": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -81,10 +81,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Listee-Angular:build:production"
+              "browserTarget": "sossara:build:production"
             },
             "development": {
-              "browserTarget": "Listee-Angular:build:development"
+              "browserTarget": "sossara:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +92,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Listee-Angular:build"
+            "browserTarget": "sossara:build"
           }
         },
         "test": {

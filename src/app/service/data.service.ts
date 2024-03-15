@@ -488,6 +488,22 @@ export class DataService {
 
       route: '/contact',
     },
+    // {
+    //   tittle: 'Connexion',
+    //   base: 'contact',
+    //   showAsTab: false,
+    //   separateRoute: true,
+
+    //   route: '/contact',
+    // },
+    // {
+    //   tittle: 'Inscription',
+    //   base: 'contact',
+    //   showAsTab: false,
+    //   separateRoute: true,
+
+    //   route: '/contact',
+    // },
   ];
   public categoriesList = [
     {
