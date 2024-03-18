@@ -206,14 +206,14 @@ export class ModifierBienComponent {
         center: { lat: this.latitude, lng: this.longitude }, // Coordonnées du centre de la carte
         zoom: 15, // Niveau de zoom initial
       };
-      const map = L.map('map').setView([this.latitude, this.longitude], 14);
-  
+      
       // Ajouter une couche de tuiles OpenStreetMap
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 20,
+      const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
-
+      });
+      const map = L.map('map').setView([this.latitude, this.longitude], 14).addLayer(tiles); // Définir une vue initiale;
+      tiles.addTo(map);
       // Créer un marqueur initial au centre de la carte
       const initialMarker = L.marker([this.latitude, this.longitude], {
         draggable: true // Rend le marqueur draggable

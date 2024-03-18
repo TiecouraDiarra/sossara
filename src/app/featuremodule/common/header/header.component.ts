@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -29,6 +29,16 @@ export class HeaderComponent implements OnInit {
   User: any
   isLocataire = false;
   roles: string[] = [];
+  // Dans votre composant TypeScript
+isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
+@HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenWidth();
+  }
+
+  checkScreenWidth() {
+    this.isMobile = window.innerWidth < 768; // Vous pouvez ajuster la valeur (768) selon vos besoins
+  }
 
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
@@ -76,6 +86,7 @@ export class HeaderComponent implements OnInit {
     this.User = this.storageService.getUser();
   }
   ngOnInit(): void {
+    this.checkScreenWidth();
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;

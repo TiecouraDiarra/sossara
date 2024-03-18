@@ -160,14 +160,15 @@ export class AjouterBienComponent {
   };
 
   initMap() {
-    const map = L.map('map').setView([12.6489, -8.0008], 14); // Définir une vue initiale
-
+    
     // Ajouter une couche de tuiles OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 20,
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
+    });
+    const map = L.map('map').setView([12.6489, -8.0008], 14).addLayer(tiles); // Définir une vue initiale
+    
+    tiles.addTo(map);
     // Créer un marqueur initial au centre de la carte
     const initialMarker = L.marker([12.6489, -8.0008], {
       draggable: true // Rend le marqueur draggable

@@ -39,6 +39,10 @@ export class ResetPasswordComponent {
     this.ToggledataC = !this.ToggledataC;
   }
 
+  path() {
+    this.router.navigate([routes.login]);
+  }
+
   NewPassword(){
     if (this.form.password !== this.form.confirmPassword) {
       Swal.fire({
@@ -58,7 +62,7 @@ export class ResetPasswordComponent {
     this.token = this.route.snapshot.params["token"]
     const { password} = this.form;
 
-    alert(this.token)
+    // alert(this.token)
     
     if (this.form.password === null || this.form.confirmPassword === null) {
       swalWithBootstrapButtons.fire(
@@ -68,11 +72,44 @@ export class ResetPasswordComponent {
       )
     }else{
       this.serviceUser.ChangerPassword(this.token,password).subscribe((data)=>{
-        swalWithBootstrapButtons.fire(
-          "",
-          `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${data.message}</h1>`,
-          "error"
-        );
+        if (data.status) {
+          let timerInterval = 2000;
+          Swal.fire({
+            position: 'center',
+            text: data.message,
+            title: "Changement du mot de passe",
+            icon: 'success',
+            heightAuto: false,
+            showConfirmButton: false,
+            confirmButtonColor: '#0857b5',
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+            timer: timerInterval,
+            timerProgressBar: true,
+          }).then(() => {
+            this.path();
+          });
+        } else {
+          Swal.fire({
+            position: 'center',
+            text: data.message,
+            title: 'Erreur',
+            icon: 'error',
+            heightAuto: false,
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#0857b5',
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+          }).then((result) => { });
+        }
+        // swalWithBootstrapButtons.fire(
+        //   "",
+        //   `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${data.message}</h1>`,
+        //   "error"
+        // );
       },(error)=>{
         const errorMessage = error.errorw && error.error.message ? error.error.message : 'Erreur inconnue';
         swalWithBootstrapButtons.fire(

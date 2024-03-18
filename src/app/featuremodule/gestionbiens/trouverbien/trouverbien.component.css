@@ -79,6 +79,18 @@
   cursor: pointer;
 }
 
+.ligne {
+  overflow-y: scroll;
+  height: 900px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+      display: none;
+  }
+}
+
+
 .map-container {
   /* position: absolute; */
   /* top: 0; */
@@ -98,6 +110,5 @@
   /* margin-top: 30%; */
   height: 100%;
 }
-
 
 

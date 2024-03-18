@@ -43,11 +43,44 @@ export class ForgotPasswordComponent {
       )
     }else{
       this.serviceUser.forgotPassword(email).subscribe((data)=>{
-        swalWithBootstrapButtons.fire(
-          "",
-          `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${data.message}</h1>`,
-          "success"
-        );
+        if (data.status) {
+          let timerInterval = 2000;
+          Swal.fire({
+            position: 'center',
+            text: data.message,
+            title: "Message envoyé",
+            icon: 'success',
+            heightAuto: false,
+            showConfirmButton: false,
+            confirmButtonColor: '#0857b5',
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+            timer: timerInterval,
+            timerProgressBar: true,
+          }).then(() => {
+            this.formEmail.email === ''
+          });
+        } else {
+          Swal.fire({
+            position: 'center',
+            text: data.message,
+            title: 'Erreur',
+            icon: 'error',
+            heightAuto: false,
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#0857b5',
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+          }).then((result) => { });
+        }
+        // swalWithBootstrapButtons.fire(
+        //   "",
+        //   `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${data.message}</h1>`,
+        //   "success"
+        // );
       },(error)=>{
         const errorMessage = error.errorw && error.error.message ? error.error.message : 'Erreur inconnue';
         swalWithBootstrapButtons.fire(

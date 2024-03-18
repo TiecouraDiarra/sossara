@@ -182,18 +182,22 @@ export class UserService {
   //ENVOIE D'EMAIL POUR CHANGER LE PASSWORD
   forgotPassword(email: string): Observable<any> {
     // const headers = this.getHeaders();
-    return this.http.post(`${URL_BASE}/reset/pass`, {
-      email
-    });
+    const formData = new FormData();
+    formData.append('email', email);
+    console.log(email);
+    return this.http.post(`${URL_BASE}/auth/forgotPassword`,
+      formData
+    );
   }
 
   //CHANGER PASSWORD APRES OUBLIE
-  ChangerPassword(token: string, password: any): Observable<any> {
+  ChangerPassword(token: string, newPassword: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post(`${URL_BASE}/rdv/${token}`, {
-      password
-    }
-    );
+    const formData = new FormData();
+    formData.append('token', token);
+    // console.log(token);
+    formData.append('newPassword', newPassword);
+    return this.http.post(URL_BASE + '/auth/resetPassword', formData);
   }
 
 

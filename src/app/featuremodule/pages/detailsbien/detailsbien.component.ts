@@ -101,15 +101,15 @@ export class DetailsbienComponent implements AfterViewInit {
 
       // Vérification que l'élément de la carte existe dans le DOM
       if (mapElement) {
-        // Création de la carte Leaflet
-        const map = L.map(mapElement).setView([this.longitude, this.latitude], 12);
-
+        
         // Ajouter des tuiles OpenStreetMap à la carte
         const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 20,
+          maxZoom: 18,
           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         });
-
+        // Création de la carte Leaflet
+        const map = L.map(mapElement).setView([this.longitude, this.latitude], 12).addLayer(tiles);
+        
         tiles.addTo(map);
         // Créer un marqueur pour l'emplacement
         L.marker([this.latitude, this.longitude]).addTo(map)
