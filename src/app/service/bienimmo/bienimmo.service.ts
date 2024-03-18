@@ -44,6 +44,11 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbien`);
   }
 
+   //AFFICHER LA LISTE PRIX DISPONIBLES
+   AfficherLaListePrix(): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/sortedByPrice`);
+  }
+
         // La liste de tous les biens y compris ceux qui sont vendus et loués
     AfficherLaListeBienImmoTotal(): Observable<any> {
       

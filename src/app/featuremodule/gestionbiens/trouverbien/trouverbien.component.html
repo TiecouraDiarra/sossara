@@ -1,10 +1,9 @@
 <!-- Main Content Section -->
 <div class="list-content listmap-grid">
   <div class="container-fluid">
-
     <div class="listingmappage-content">
       <div class="listmapgrid-content">
-        <div class="card">
+        <div class="mt-5">
           <div class="col-lg-12">
             <div class="car-filter-section">
               <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
@@ -22,7 +21,6 @@
                     Trouver un bien
                   </button>
                 </li>
-               
               </ul>
               <div class="tab-content" id="pills-tabContent">
                 <div
@@ -35,9 +33,9 @@
                   <div class="search-tab-col">
                     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                       <div class="row align-items-center search-form">
-                        <div class="col-12 col-lg-10 search-group">
+                        <div class="col-12 col-lg-12 search-group">
                           <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                               <div class="d-flex real-estate-search">
                                 <div
                                   class="flex-shrink-0 d-flex align-items-center"
@@ -46,13 +44,12 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-                             
+
                                 <div class="flex-grow-1 ms-3">
                                   <select
                                     class="form-control select category-select"
                                     (change)="
-                                      onChangeRegion($event.target);
-                                      updateUrl()
+                                      onChangeRegion($event.target); updateUrl()
                                     "
                                   >
                                     <option selected [value]="null">
@@ -66,7 +63,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                               <div class="d-flex real-estate-search">
                                 <div
                                   class="flex-shrink-0 d-flex align-items-center"
@@ -75,13 +72,11 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-                         
-                                <div class="flex-grow-1 ms-3">
+<div class="flex-grow-1 ms-3">
                                   <select
                                     class="form-control select category-select"
                                     (change)="
-                                      onChangeCercle($event.target);
-                                      updateUrl()
+                                      onChangeCercle($event.target); updateUrl()
                                     "
                                   >
                                     <option selected [value]="null">
@@ -97,7 +92,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                               <div class="d-flex real-estate-search">
                                 <div
                                   class="flex-shrink-0 d-flex align-items-center"
@@ -129,8 +124,44 @@
                                 </div>
                               </div>
                             </div>
-                           
-                            <div class="col-lg-3">
+<div class="col-lg-2">
+                              <div
+                                class="d-flex real-estate-search real-select"
+                              >
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <img
+                                      style="width: 20px"
+                                      src="./assets/img/icons/fax-icon.png"
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    (change)="onStatutChange($event)"
+                                    [(ngModel)]="form.statut"
+                                    name="statut"
+                                    (change)="updateUrl()"
+                                  >
+                                    <option selected [value]="null">
+                                      Statut
+                                    </option>
+                                    <option
+                                      *ngFor="let Statut of status"
+                                      [value]="Statut.id"
+                                    >
+                                      {{ Statut.nom }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-2">
                               <div class="d-flex real-estate-search">
                                 <div
                                   class="flex-shrink-0 d-flex align-items-center"
@@ -139,7 +170,7 @@
                                     <i class="feather-home"></i>
                                   </div>
                                 </div>
-                              
+
                                 <div class="flex-grow-1 ms-3">
                                   <select
                                     class="form-control select category-select"
@@ -162,309 +193,229 @@
                                 </div>
                               </div>
                             </div>
-                         
-                             
-                                <div class="col-lg-3">
-                                  <div class="d-flex real-estate-search">
-                                    <div
-                                      class="flex-shrink-0 d-flex align-items-center"
-                                    >
-                                      <div class="icon-blk rounded-circle">
-                                        <img
-                                          style="width: 20px"
-                                          src="./assets/img/icons/floor-icon.svg"
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                
-                                    <div class="flex-grow-1 ms-3">
-                                      <select
-                                        class="form-control select category-select"
-                                        [(ngModel)]="form.minprix"
-                                        name="minprix"
-                                        (ngModelChange)="filterMaxPrix()"
-                                        (change)="updateUrl()"
-                                      >
-                                        <option selected [value]="null">
-                                          Prix Minimum
-                                        </option>
-                                        <option
-                                          *ngFor="
-                                            let item of valuesSelectPrix
-                                          "
-                                          [value]="item"
-                                        >
-                                          {{ item }}
-                                        </option>
-                                      </select>
-                                    </div>
+<div class="col-lg-4 mt-2">
+                              <div class="d-flex">
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <img
+                                      style="width: 30px"
+                                      src="./assets/img/icons/prix.jpg"
+                                      alt=""
+                                    />
                                   </div>
                                 </div>
-                                <div class="col-lg-3">
-                                  <div
-                                    class="d-flex real-estate-search real-select"
-                                  >
-                                    <div
-                                      class="flex-shrink-0 d-flex align-items-center"
-                                    >
-                                      <div class="icon-blk rounded-circle">
-                                        <img
-                                          style="width: 20px"
-                                          src="./assets/img/icons/floor-icon.svg"
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                      <select
-                                        class="form-control select category-select"
-                                        [(ngModel)]="form.maxprix"
-                                        name="maxprix"
-                                        (change)="updateUrl()"
-                                      >
-                                        <option selected [value]="null">
-                                          Prix maximum
-                                        </option>
-                                        <option
-                                          *ngFor="let item of maxprix_values"
-                                          [value]="item"
-                                        >
-                                          {{ item }}
-                                        </option>
-                                      </select>
-                                    </div>
-                                  </div>
+                                &nbsp; &nbsp;
+                                <div class="col-md-11">
+                                  <ng5-slider
+                                    [(value)]="customHtmlMinValue"
+                                    (valueChange)="updateMinPrice()"
+                                    [(highValue)]="customHtmlMaxValue"
+                                    (highValueChange)="updateMaxPrice()"
+                                    [options]="customHtmlSliderOptions"
+                                  ></ng5-slider>
                                 </div>
-                                                        
-                                <div class="col-lg-3">
-                                  <div
-                                    class="d-flex real-estate-search real-select"
-                                  >
-                                    <div
-                                      class="flex-shrink-0 d-flex align-items-center"
-                                    >
-                                      <div class="icon-blk rounded-circle">
-                                        <img
-                                          style="width: 20px"
-                                          src="./assets/img/icons/fax-icon.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                      <select
-                                        class="form-control select category-select"
-                                        (change)="onStatutChange($event)"
-                                        [(ngModel)]="form.statut"
-                                        name="statut"
-                                        (change)="updateUrl()"
-                                      >
-                                        <option selected [value]="null">
-                                          Statut
-                                        </option>
-                                        <option
-                                          *ngFor="let Statut of status"
-                                          [value]="Statut.id"
-                                        >
-                                          {{ Statut.nom }}
-                                        </option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-3">
-                                  <div
-                                    class="d-flex real-estate-search real-select"
-                                  >
-                                    <div
-                                      class="flex-shrink-0 d-flex align-items-center"
-                                    >
-                                      <div class="icon-blk rounded-circle">
-                                        <img
-                                          src="./assets/img/icons/bath-icon.svg"
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                      <select
-                                        class="form-control select category-select"
-                                        [(ngModel)]="form.toilette"
-                                        name="toilette"
-                                        (change)="updateUrl()"
-                                      >
-                                        <option selected [value]="null">
-                                         Nombre de Toilette
-                                        </option>
-                                        <option
-                                          *ngFor="let item of valuesSelect"
-                                          [value]="item"
-                                        >
-                                          {{ item }}
-                                        </option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
+                              </div>
+                            </div>
 
-                                <div class="col-lg-3">
-                                  <div class="d-flex real-estate-search">
-                                    <div
-                                      class="flex-shrink-0 d-flex align-items-center"
-                                    >
-                                      <div class="icon-blk rounded-circle">
-                                        <img
-                                          src="./assets/img/icons/bed-icon.svg"
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                      <select
-                                        class="form-control select category-select"
-                                        [(ngModel)]="form.chambre"
-                                        name="chambre"
-                                        (change)="updateUrl()"
-                                      >
-                                        <option selected [value]="null">
-                                          Nombre de chambre
-                                        </option>
-                                        <option
-                                          *ngFor="let item of valuesSelect"
-                                          [value]="item"
-                                        >
-                                          {{ item }}
-                                        </option>
-                                      </select>
-                                    </div>
+                            <div class="col-lg-2">
+                              <div class="d-flex real-estate-search">
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <img
+                                      src="./assets/img/icons/bed-icon.svg"
+                                      alt=""
+                                    />
                                   </div>
                                 </div>
-                                <div class="col-lg-3">
-                                  <div
-                                    class="d-flex real-estate-search real-select"
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    [(ngModel)]="form.chambre"
+                                    name="chambre"
+                                    (change)="updateUrl()"
                                   >
-                                    <div
-                                      class="flex-shrink-0 d-flex align-items-center"
+                                    <option selected [value]="null">
+                                      Nombre de chambre
+                                    </option>
+                                    <option
+                                      *ngFor="let item of valuesSelect"
+                                      [value]="item"
                                     >
-                                      <div class="icon-blk rounded-circle">
-                                        <img
-                                          src="./assets/img/icons/area-icon.svg"
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                      <select
-                                        class="form-control select category-select"
-                                        [(ngModel)]="form.nb_piece"
-                                        name="nb_piece"
-                                        (change)="updateUrl()"
-                                      >
-                                        <option selected [value]="null">
-                                          Nomre de salon
-                                        </option>
-                                        <option
-                                          *ngFor="let item of valuesSelect"
-                                          [value]="item"
-                                        >
-                                          {{ item }}
-                                        </option>
-                                      </select>
-                                    </div>
+                                      {{ item }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-2">
+                              <div
+                                class="d-flex real-estate-search real-select"
+                              >
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <img
+                                      src="./assets/img/icons/area-icon.svg"
+                                      alt=""
+                                    />
                                   </div>
                                 </div>
-                                <div class="col-lg-3">
-                                  <div
-                                    class="d-flex real-estate-search real-select"
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    [(ngModel)]="form.nb_piece"
+                                    name="nb_piece"
+                                    (change)="updateUrl()"
                                   >
-                                    <div
-                                      class="flex-shrink-0 d-flex align-items-center"
+<option selected [value]="null">
+                                      Nomre de salon
+                                    </option>
+                                    <option
+                                      *ngFor="let item of valuesSelect"
+                                      [value]="item"
                                     >
-                                      <div class="icon-blk rounded-circle">
-                                        <img
-                                          style="width: 20px"
-                                          src="./assets/img/icons/649395.png"
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                      <select
-                                        class="form-control select category-select"
-                                        [(ngModel)]="form.cuisine"
-                                        name="cuisine"
+                                      {{ item }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-2">
+                              <div
+                                class="d-flex real-estate-search real-select"
+                              >
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <img
+                                      src="./assets/img/icons/bath-icon.svg"
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    [(ngModel)]="form.toilette"
+                                    name="toilette"
+                                    (change)="updateUrl()"
+                                  >
+                                    <option selected [value]="null">
+                                      Nombre de Toilette
+                                    </option>
+                                    <option
+                                      *ngFor="let item of valuesSelect"
+                                      [value]="item"
+                                    >
+                                      {{ item }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+<div class="col-lg-2">
+                              <div
+                                class="d-flex real-estate-search real-select"
+                              >
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <img
+                                      style="width: 20px"
+                                      src="./assets/img/icons/649395.png"
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <select
+                                    class="form-control select category-select"
+                                    [(ngModel)]="form.cuisine"
+                                    name="cuisine"
+                                    (change)="updateUrl()"
+                                  >
+                                    <option selected [value]="null">
+                                      Nombre de cuisine
+                                    </option>
+                                    <option
+                                      *ngFor="let item of valuesSelect"
+                                      [value]="item"
+                                    >
+                                      {{ item }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="flex-grow-1 ms-3">
+                              <p>
+                                <a
+                                  class="row mt-3 fw-bold"
+                                  data-bs-toggle="collapse"
+                                  href="#cautrecomm"
+                                  role="button"
+                                  aria-expanded="false"
+                                  aria-controls="collapseExample"
+                                >
+                                  Autres commodites
+                                </a>
+                              </p>
+                            </div>
+                            <div class="collapse" id="cautrecomm">
+                              <div class="card card-body">
+                                <div class="row">
+                                  <div
+                                    class="col-4"
+                                    *ngFor="let Commodite of commodite"
+                                  >
+                                    <div class="form-check mb-2">
+                                      <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        [(ngModel)]="Commodite.selected"
+                                        [value]="Commodite.id"
+                                        id="flexCheckDefault"
+                                        (change)="onChangeCommodite()"
+                                        name="commodite"
                                         (change)="updateUrl()"
+                                      />
+                                      <label
+                                        class="form-check-label"
+                                        for="flexCheckDefault"
                                       >
-                                        <option selected [value]="null">
-                                          Nombre de cuisine
-                                        </option>
-                                        <option
-                                          *ngFor="let item of valuesSelect"
-                                          [value]="item"
-                                        >
-                                          {{ item }}
-                                        </option>
-                                      </select>
+                                        {{ Commodite.nom }}
+                                      </label>
                                     </div>
                                   </div>
                                 </div>
-                            
+                              </div>
+                            </div>
+                            <!-- <div class="flex-grow-1 ms-3">
+<input type="number" class="form-control" [(ngModel)]="customHtmlMinValue" name="customHtmlMinValue" (change)="updateMinPrice(); updateUrl()">
+                              </div>
                               <div class="flex-grow-1 ms-3">
-                                <p>
-                                  <a
-                                    class="row mt-3 fw-bold"
-                                    data-bs-toggle="collapse"
-                                    href="#cautrecomm"
-                                    role="button"
-                                    aria-expanded="false"
-                                    aria-controls="collapseExample"
-                                  >
-                                    Autres commodites
-                                  </a>
-                                </p>
-                              </div>
-                              <div class="collapse" id="cautrecomm">
-                                <div class="card card-body">
-                                  <div class="row">
-                                    <div
-                                      class="col-4"
-                                      *ngFor="let Commodite of commodite"
-                                    >
-                                      <div class="form-check mb-2">
-                                        <input
-                                          class="form-check-input"
-                                          type="checkbox"
-                                          value=""
-                                          [(ngModel)]="Commodite.selected"
-                                          [value]="Commodite.id"
-                                          id="flexCheckDefault"
-                                          (change)="onChangeCommodite()"
-                                          name="commodite"
-                                          (change)="updateUrl()"
-                                        />
-                                        <label
-                                          class="form-check-label"
-                                          for="flexCheckDefault"
-                                        >
-                                          {{ Commodite.nom }}
-                                        </label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                           
+                                <input type="number" class="form-control" [(ngModel)]="customHtmlMaxValue" name="customHtmlMaxValue" (change)="updateMaxPrice(); updateUrl()">
+                              </div> -->
                           </div>
                         </div>
-                        <div class="col-12 col-lg-2 real-search-bar">
+                        <!-- <div class="col-12 col-lg-1 real-search-bar">
                           <button
                             class="btn car-search-icon float-end"
                             type="submit"
                           >
                             Rechercher
                           </button>
-                        </div>
+                        </div> -->
                       </div>
                     </form>
                   </div>
@@ -476,300 +427,86 @@
       </div>
     </div>
     <div class="row">
-      <!-- <div class="ligne"> -->
-        <div class="ligne col-lg-6 listingmappage-content">
-          <div class="listmapgrid-content">
-                    <div class="grid-view">
-              <div class="row">
-                <ng-container
-                  *ngIf="bienImmo && bienImmo.length > 0; else noBiens"
-                >
-                  <div
-                    class="col-lg-6 col-md-4"
-                    *ngFor="
-                      let slide of bienImmo
-                        | filter : searchText
-                        | filter : selectedRegion
-                        | filter : selectedCommune
-                        | filter : selectedType
-                    "
-                  >
-                    <div class="card">
-                      <div class="blog-widget">
-                        <div class="blog-img">
-                          <a (click)="goToDettailBien(slide.uuid)" class="crd">
-                            <div
-                              *ngIf="
-                                slide.photos && slide.photos.length > 0;
-                                else noImages
-                              "
-                            >
-                              <img
-                                src="{{ generateImageUrl(slide.photos[0].nom) }}"
-                                class="img-fluid image-size"
-                                alt="blog-img"
-                              />
-                            </div>
-                            <ng-template #noImages>
-                              <img
-                                src="{{ DEFAULT_IMAGE_URL }}"
-                                class="img-fluid image-size"
-                                alt="default-img"
-                              />
-                            </ng-template>
-                          </a>
-                          <div class="fav-item">
-                            <span
-                              [ngClass]="{
-                                statutbien: slide.statut.nom === 'A vendre'
-                              }"
-                              class="Featured-text"
-                              >{{ slide?.statut?.nom }}</span
-                            >
-                            <a
-                              href="javascript:void(0)"
-                              *ngIf="isLoggedIn == true"
-                              class="fav-icon"
-                              (click)="AimerBien(slide.id)"
-                              [style.background-color]="
-                                favoriteStatus[slide.id] ? '#e98b11' : ''
-                              "
-                            >
-                              <i
-                                [style.color]="
-                                  favoriteStatus[slide.id] ? 'white' : 'black'
-                                "
-                                class="feather-heart"
-                              ></i>
-                            </a>
-                          </div>
-                        </div>
-                        <div class="bloglist-content">
-                          <div class="card-body">
-                            <div class="blogfeaturelink">
-                              <div class="grid-author">
-                                <img
-                                  src="{{
-                                    generateImageUrl(
-                                      slide?.utilisateur?.photo?.nom
-                                    )
-                                  }}"
-                                  alt="author"
-                                  (error)="handleAuthorImageError($event)"
-                                />
-                              </div>
-                              <div class="blog-features">
-                                <a href="javascript:void(0)"
-                                  ><span>
-                                    <i class="fa-regular fa-circle-stop"></i>
-                                    {{ slide?.typeImmo?.nom }}</span
-                                  ></a
-                                >
-                              </div>
-                              <div class="blog-author text-end">
-                                <span>
-                                  <i class="feather-eye"></i
-                                  >{{ favoritedPropertiesCount1[slide.id] }}
-                                </span>
-                              </div>
-                            </div>
-                            <h6 class="crd">
-                              <a (click)="goToDettailBien(slide.uuid)">{{
-                                slide.nom ? slide.nom : slide.typeImmo.nom
-                              }}</a>
-                            </h6>
-                            <div class="blog-location-details">
-                              <div class="location-info">
-                                <i class="feather-map-pin"></i>
-                                {{ slide.adresse.quartier }}
-                              </div>
-                              <div class="location-info">
-                                <i class="fa-solid fa-calendar-days"></i
-                                >{{
-                                  slide.createdAt | date : "dd MMM yyyy" : locale
-                                }}
-                              </div>
-                            </div>
-                            <div class="amount-details">
-                              <div class="amount">
-                                <span class="validrate"
-                                  >{{ formatPrice(slide.prix) }} FCFA</span
-                                >
-                                <!-- <span>{{ slide.oldamount }}</span> -->
-                              </div>
-                              <div class="ratings">
-                                <!-- <span>{{ slide.rating }}</span> {{ slide.rating1 }} -->
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+      <div  class="col-lg-6 listingmappage-content" >
+        <div class="listmapgrid-content"  style="overflow-y: auto; height: 450px; overflow-x: hidden;  ">
+          <div class="blog-listview">
+            <div class="card card2"
+              *ngFor="let slide of bienImmo | filter:searchText ">
+              <div class="blog-widget">
+                <div class="blog-img">
+                  <a (click)="goToDettailBien(slide.uuid)">
+                    <div *ngIf="slide.photos && slide.photos.length > 0; else noImages">
+                      <img src="{{ generateImageUrl(slide.photos[0].nom) }}" class="img-fluid image-size"
+                        alt="blog-img" />
+                    </div>
+                    <ng-template #noImages>
+                      <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
+                    </ng-template>
+                  </a>
+                  <div class="fav-item">
+                    <span [ngClass]="{'statutbien': slide.statut.nom === 'A vendre' }" class="Featured-text">{{ slide?.statut?.nom
+                      }}</span>
+                    <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
+                      (click)="AimerBien(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : 'white'">
+                      <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="bloglist-content">
+                  <div class="card-body">
+                    <div class="blogfeaturelink">
+                      <div class="blog-features">
+                        <a href="javascript:void(0);"><span>
+                            <i class="fa-regular fa-circle-stop"></i>
+                            {{ slide.typeImmo.nom }}</span></a>
                       </div>
+                      <div class="blog-author">
+                        <div class="blog-author-img">
+                          <!-- <img [src]="slide.img2" alt="author" /> -->
+                          <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
+                            (error)="handleAuthorImageError($event)" />
+                        </div>
+                        <a (click)="goToDettailBien(slide.uuid)">{{ slide?.utilisateur?.nom}}</a>
+                      </div>
+                    </div>
+                    <h6>
+                      <a (click)="goToDettailBien(slide.uuid)">{{
+                        slide.nom ? slide.nom : slide.typeImmo.nom
+                        }}</a>
+                    </h6>
+                    <div class="blog-location-details">
+                      <div class="location-info">
+                        <i class="feather-map-pin"></i> {{ slide.adresse.quartier }}
+                      </div>
+                      <!-- <div class="location-info">
+<i class="feather-phone-call"></i> 00556245562
+                      </div> -->
+                      <div class="location-info">
+                        <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide.id] }}
+                      </div>
+                    </div>
+                    <!-- <p class="ratings">
+                      <span>4.0</span> ( 50 Reviews )
+                    </p> -->
+                    <div class="amount-details">
+                      <div class="amount">
+                        <span class="validrate">{{ formatPrice(slide.prix) }} FCFA </span>
+                        <!-- <span>{{ slide.oldamount }}</span> -->
+                      </div>
+                      <a (click)="goToDettailBien(slide.id)">Savoir plus</a>
                     </div>
                   </div>
-                </ng-container>
-                <ng-template #noBiens>
-                  <div class="row Pblog">
-                    <div class="col-lg-6 col-md-4" aria-hidden="true">
-                      <div class="card">
-                        <div class="blog-widget placeholder-glow">
-                          <div class="blog-img">
-                            <a>
-                              <div>
-                                <img
-                                  src="assets/img/test.jpg"
-                                  class="img-fluid image-size"
-                                  alt="blog-img"
-                                />
-                              </div>
-                            </a>
-                            <div class="fav-item placeholder-glow">
-                              <span class="placeholder">hhhhhh</span>
-                              <a
-                                href="javascript:void(0)"
-                                class="fav-icon placeholder"
-                              >
-                              </a>
-                            </div>
-                          </div>
-                          <div class="bloglist-content placeholder-glow">
-                            <div class="card-body">
-                              <div class="blogfeaturelink">
-                                <div class="grid-author placeholder">
-                                  <img class="placeholder" alt="author" />
-                                </div>
-                                <div class="blog-features placeholder-glow">
-                                  <a href="javascript:void(0)"
-                                    ><span class="placeholder">
-                                      jjjjjjjjjjjjjjj</span
-                                    ></a
-                                  >
-                                </div>
-                                <div
-                                  class="blog-author text-end placeholder-glow"
-                                >
-                                  <span class="placeholder"
-                                    >jjjjljjjjjjjjjjjl
-                                  </span>
-                                </div>
-                              </div>
-                              <div class="blog-location-details placeholder-glow">
-                                <div class="location-info placeholder">
-                                  aaaaaaaaaaaa
-                                </div>
-                              </div>
-                              <div class="blog-location-details placeholder-glow">
-                                <div class="location-info placeholder">
-                                  aaaaaaa
-                                </div>
-                                <div class="location-info placeholder">
-                                  aaaaaaa
-                                </div>
-                              </div>
-                              <div class="amount-details placeholder-glow">
-                                <div class="amount">
-                                  <span class="placeholder"
-                                    >aaaaaaaaaaaaaaaaa</span
-                                  >
-                                </div>
-                                <div class="ratings"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-4" aria-hidden="true">
-                      <div class="card">
-                        <div class="blog-widget placeholder-glow">
-                          <div class="blog-img">
-                            <a>
-                              <div>
-                                <img
-                                  src="assets/img/test.jpg"
-                                  class="img-fluid image-size"
-                                  alt="blog-img"
-                                />
-                              </div>
-                            </a>
-                            <div class="fav-item placeholder-glow">
-                              <span class="placeholder">hhhhhh</span>
-                              <a
-                                href="javascript:void(0)"
-                                class="fav-icon placeholder"
-                              >
-                              </a>
-                            </div>
-                          </div>
-                          <div class="bloglist-content placeholder-glow">
-                            <div class="card-body">
-                              <div class="blogfeaturelink">
-                                <div class="grid-author placeholder">
-                                  <img class="placeholder" alt="author" />
-                                </div>
-                                <div class="blog-features placeholder-glow">
-                                  <a href="javascript:void(0)"
-                                    ><span class="placeholder">
-                                      jjjjjjjjjjjjjjj</span
-                                    ></a
-                                  >
-                                </div>
-                                <div
-                                  class="blog-author text-end placeholder-glow"
-                                >
-                                  <span class="placeholder"
-                                    >jjjjljjjjjjjjjjjl
-                                  </span>
-                                </div>
-                              </div>
-                              <div class="blog-location-details placeholder-glow">
-                                <div class="location-info placeholder">
-                                  aaaaaaaaaaaa
-                                </div>
-                              </div>
-                              <div class="blog-location-details placeholder-glow">
-                                <div class="location-info placeholder">
-                                  aaaaaaa
-                                </div>
-                                <div class="location-info placeholder">
-                                  aaaaaaa
-                                </div>
-                              </div>
-                              <div class="amount-details placeholder-glow">
-                                <div class="amount">
-                                  <span class="placeholder"
-                                    >aaaaaaaaaaaaaaaaa</span
-                                  >
-                                </div>
-                                <div class="ratings"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
+                </div>
               </div>
             </div>
   
-            <!--Pagination-->
-            <!-- <pagination-controls
-              *ngIf="bienImmo && bienImmo.length > 0"
-              (pageChange)="p = $event"
-              previousLabel="Précédent"
-              nextLabel="Suivant"
-              class="pagination"
-              previousClass="pagination__previous"
-              nextClass="pagination__next"
-              containerClass="pagination__container"
-              pageClass="pagination__page"
-              activeClassName="pagination__page--active"
-              disabledClass="pagination__page--disabled"
-            ></pagination-controls> -->
-            <!--/Pagination-->
+            <!-- PAGINATION  -->
+           
           </div>
+
+
         </div>
-      <!-- </div> -->
+      </div>
       <div class="col-lg-6 map-right">
         <!-- <app-list-map></app-list-map> -->
         <!-- <div id="map" class="map-listing" *ngIf="userPosition">
