@@ -10,7 +10,7 @@
             <li class="nav-item crd">
                 <a class="nav-link custom-tab-link" id="achete-tab" data-toggle="tab"
                     [class.active]="isTabActive('achete')" (click)="changeTab('achete')" role="tab"
-                    aria-controls="achete" aria-selected="false">Biens achetes</a>
+                    aria-controls="achete" aria-selected="false">Biens achetés</a>
             </li>
             <li class="nav-item has-submenu crd">
                 <a class="nav-link custom-tab-link" (click)="toggleSubmenu()">
@@ -18,11 +18,12 @@
                 </a>
                 <ul class="submenu" style="margin-left: 20px;" [ngClass]="{'collapse': !isSubmenuOpen}">
                     <li><a class="nav-link custom-tab-link" id="reclamationfait-tab" data-toggle="tab"
-                        [class.active]="isTabActive('reclamationfait')" (click)="changeTab('reclamationfait')" role="tab"
-                        aria-controls="reclamationfait" aria-selected="false">Reclamations que j'ai fait</a></li>
+                            [class.active]="isTabActive('reclamationfait')" (click)="changeTab('reclamationfait')"
+                            role="tab" aria-controls="reclamationfait" aria-selected="false">Reclamations que j'ai
+                            fait</a></li>
                     <li><a class="nav-link custom-tab-link" id="reclamationlance-tab" data-toggle="tab"
-                        [class.active]="isTabActive('reclamationlance')" (click)="changeTab('reclamationlance')" role="tab"
-                        aria-controls="reclamationlance" aria-selected="false">Processus lancés </a></li>
+                            [class.active]="isTabActive('reclamationlance')" (click)="changeTab('reclamationlance')"
+                            role="tab" aria-controls="reclamationlance" aria-selected="false">Processus lancés </a></li>
                 </ul>
             </li>
             <li class="nav-item crd">
@@ -38,9 +39,15 @@
             aria-labelledby="location-tab">
             <div class="dash-listingcontent dashboard-info">
                 <div class="dash-cards card">
-                    <div class="card-body" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                    <div class="card-body">
                         <div class="listing-search">
-                            <h4>Les biens que j'ai loué</h4>
+                            <ng-container
+                                *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0; else noBiensLoue">
+                                <h5>Les biens que j'ai loué</h5>
+                            </ng-container>
+                            <ng-template #noBiensLoue>
+                                <h5>Pas de biens loués</h5>
+                            </ng-template>
                             <div class="filter-content form-group">
                                 <div class="group-img">
                                     <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
@@ -49,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
                             <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                 id="listdata-table">
                                 <thead>
@@ -461,9 +468,15 @@
             aria-labelledby="achete-tab">
             <div class="dash-listingcontent dashboard-info">
                 <div class="dash-cards card">
-                    <div class="card-body" *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
+                    <div class="card-body">
                         <div class="listing-search">
-                            <h4>Les biens que j'ai achete</h4>
+                            <ng-container
+                                *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0; else noBiensAcheter">
+                                <h5>Les biens que j'ai acheté</h5>
+                            </ng-container>
+                            <ng-template #noBiensAcheter>
+                                <h5>Pas de biens achetés</h5>
+                            </ng-template>
                             <div class="filter-content form-group">
                                 <div class="group-img">
                                     <input [(ngModel)]="searchTextBienVendu" type="text" class="form-control"
@@ -473,7 +486,7 @@
                             </div>
 
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive"  *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
                             <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                 id="listdata-table">
                                 <thead>
@@ -797,8 +810,8 @@
         </div>
         <!-- Fin des biens achetes  -->
         <!-- Debut des reclamations que j'ai fait  -->
-        <div class="tab-pane fade show" [class.active]="isTabActive('reclamationfait')" id="reclamationfait" role="tabpanel"
-            aria-labelledby="reclamationfait-tab">
+        <div class="tab-pane fade show" [class.active]="isTabActive('reclamationfait')" id="reclamationfait"
+            role="tabpanel" aria-labelledby="reclamationfait-tab">
             <div class="dashboard-content">
                 <div class="container">
                     <div class="row dashboard-info reviewpage-content">
@@ -813,8 +826,8 @@
         </div>
         <!-- Fin des reclamations que j'ai fait  -->
         <!-- Debut des processus de reclamations lancees que j'ai fait  -->
-        <div class="tab-pane fade show" [class.active]="isTabActive('reclamationlance')" id="reclamationlance" role="tabpanel"
-            aria-labelledby="reclamationlance-tab">
+        <div class="tab-pane fade show" [class.active]="isTabActive('reclamationlance')" id="reclamationlance"
+            role="tabpanel" aria-labelledby="reclamationlance-tab">
             <div class="dashboard-content">
                 <div class="container">
                     <div class="row dashboard-info reviewpage-content">
