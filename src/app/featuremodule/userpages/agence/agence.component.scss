@@ -72,7 +72,7 @@
     /* Couleur de la bordure du bas de l'onglet sélectionné */
   }
   
-  .nav {
+  .sidebar1 {
     background-color: #293d4a;
     /* Couleur de fond de la barre de navigation */
     padding: 10px 0;
@@ -174,8 +174,8 @@
   }
   
   .review-img img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 20px;
@@ -199,11 +199,11 @@
   
   /* Style de l'image de profil */
   .review-img img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 20px;
+    margin-right: 4px;
   }
   
   /* Style des détails de l'avis */
@@ -465,3 +465,5 @@
       transform: translateX(-100%);
     }
   }
+
+  

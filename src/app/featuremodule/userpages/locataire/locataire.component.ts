@@ -880,4 +880,10 @@ export class LocataireComponent implements OnInit {
   goToPageContrat(id: number) {
     return this.router.navigate(['userpages/contrat', id])
   }
+
+  isSubmenuOpen: boolean = false;
+
+  toggleSubmenu() {
+    this.isSubmenuOpen = !this.isSubmenuOpen;
+  }
 }
