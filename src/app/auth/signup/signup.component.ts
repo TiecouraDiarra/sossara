@@ -243,6 +243,23 @@ handleFileSelection(event: any): void {
     this.Toggledata = !this.Toggledata;
   }
 
+  getMaximumDate(): string {
+    // Obtenir la date du jour
+    const today = new Date();
+  
+    // Soustraire 18 ans à la date du jour
+    const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  
+    // Formater la date au format ISO (AAAA-MM-JJ)
+    return maximumDate.toISOString().split("T")[0];
+  }
+  validatePassword(password: string): boolean {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  }
+
+  
+    
  //POPUP APRES CONFIRMATION
  popUpConfirmation() {
   // let timerInterval = 2000;

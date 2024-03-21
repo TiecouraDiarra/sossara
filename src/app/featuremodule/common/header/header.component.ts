@@ -121,7 +121,6 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
 
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
       this.users = data[0];
-
     });
   }
   private getroutes(route: any): void {
