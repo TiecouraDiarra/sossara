@@ -167,8 +167,8 @@ export class TrouverbienComponent implements OnInit {
     //   center: this.centroid,
     //   zoom: 6 // Zoom ajusté pour montrer le Mali correctement
     // });
-    
-    
+
+
     // Ajouter des tuiles OpenStreetMap à la carte
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -184,8 +184,16 @@ export class TrouverbienComponent implements OnInit {
       const userLat = position.coords.latitude;
       const userLng = position.coords.longitude;
 
+      // Créer une icône personnalisée pour le marqueur
+      var customIcon = L.icon({
+        iconUrl: 'assets/img/iconeBien/localite.png',
+        iconSize: [50, 50], // Taille de l'icône [largeur, hauteur]
+        iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
+        popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
+      });
+
       // Créer un marqueur pour la position de l'utilisateur
-      const userMarker = L.marker([userLat, userLng]).addTo(this.map);
+      const userMarker = L.marker([userLat, userLng], { icon: customIcon }).addTo(this.map);
       userMarker.bindPopup('Votre position actuelle').openPopup();
 
       // Centrer la carte sur la position de l'utilisateur
@@ -270,10 +278,10 @@ export class TrouverbienComponent implements OnInit {
               // this.map.setView(center, 6);
               const marker = L.marker([bien.adresse.latitude, bien.adresse.longitude], {
                 icon: L.icon({
-                  iconUrl: 'assets/img/icons/marker7.png',
-                  iconSize: [40, 40], // Taille de l'icône du marqueur
-                  iconAnchor: [16, 32], // Point d'ancrage de l'icône du marqueur
-                  popupAnchor: [0, -32], // Point d'ancrage du popup du marqueur
+                  iconUrl: 'assets/img/iconeBien/iconBien.png',
+                  iconSize: [80, 80], // Taille de l'icône du marqueur
+                  iconAnchor: [19, 38], // Point d'ancrage de l'icône du marqueur
+                  popupAnchor: [0, -38], // Point d'ancrage du popup du marqueur
                   // iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
                   // iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
                   // iconSize: [25, 41],
@@ -571,61 +579,61 @@ export class TrouverbienComponent implements OnInit {
 
 
     // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      if (Array.isArray(data)) {
-        // Assurez-vous que data.biens est un tableau avant d'appeler map
-        this.bienImmoMap = data?.reverse();
+    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+    //   if (Array.isArray(data)) {
+    //     // Assurez-vous que data.biens est un tableau avant d'appeler map
+    //     this.bienImmoMap = data?.reverse();
 
-        // Convertissez les données de bien immobilier en marqueurs Google Maps
-        this.overlays = this.bienImmoMap.map((bien: any) => {
-          // Vérifiez si la propriété 'photos' est un tableau non vide
-          const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
-          return new google.maps.Marker({
-            position: { lat: bien.adresse.latitude, lng: bien.adresse.longitude },
-            icon: 'assets/img/icons/marker7.png',
-            doc_name: bien.nom,
-            address: bien.adresse.quartier,
-            amount: bien.prix,
-            image: imageSrc,
-            regions: bien?.adresse?.commune?.cercle?.region?.nomregion,
-            communes: bien.adresse.commune.nom,
-            types: bien.typeImmo.nom,
-            statut: bien.statut.nom,
-            id: bien.id
-          });
-        });
-        // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays
-        this.overlays.unshift(new google.maps.Marker({
-          position: this.userPosition,
-          title: 'Votre position actuelle'
-        }));
-      } else {
-        // console.error('Les données de biens immobiliers ne sont pas au format attendu (tableau).');
-      }
-    });
+    //     // Convertissez les données de bien immobilier en marqueurs Google Maps
+    //     this.overlays = this.bienImmoMap.map((bien: any) => {
+    //       // Vérifiez si la propriété 'photos' est un tableau non vide
+    //       const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
+    //       return new google.maps.Marker({
+    //         position: { lat: bien.adresse.latitude, lng: bien.adresse.longitude },
+    //         icon: 'assets/img/icons/marker7.png',
+    //         doc_name: bien.nom,
+    //         address: bien.adresse.quartier,
+    //         amount: bien.prix,
+    //         image: imageSrc,
+    //         regions: bien?.adresse?.commune?.cercle?.region?.nomregion,
+    //         communes: bien.adresse.commune.nom,
+    //         types: bien.typeImmo.nom,
+    //         statut: bien.statut.nom,
+    //         id: bien.id
+    //       });
+    //     });
+    //     // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays
+    //     this.overlays.unshift(new google.maps.Marker({
+    //       position: this.userPosition,
+    //       title: 'Votre position actuelle'
+    //     }));
+    //   } else {
+    //     // console.error('Les données de biens immobiliers ne sont pas au format attendu (tableau).');
+    //   }
+    // });
 
 
     // Récupérer la position actuelle de l'utilisateur
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.userPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+    // navigator.geolocation.getCurrentPosition((position) => {
+    //   this.userPosition = {
+    //     lat: position.coords.latitude,
+    //     lng: position.coords.longitude
+    //   };
 
-      // Réinitialiser les options de la carte pour centrer sur la position de l'utilisateur
-      this.options = {
-        center: this.userPosition,
-        zoom: 12,
-        scrollwheel: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-      };
-      // Ajouter un marqueur pour la position de l'utilisateur
-      this.overlays.push(new google.maps.Marker({
-        position: this.userPosition,
-        title: 'Votre position actuelle'
-      }));
+    //   // Réinitialiser les options de la carte pour centrer sur la position de l'utilisateur
+    //   this.options = {
+    //     center: this.userPosition,
+    //     zoom: 12,
+    //     scrollwheel: false,
+    //     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    //   };
+    //   // Ajouter un marqueur pour la position de l'utilisateur
+    //   this.overlays.push(new google.maps.Marker({
+    //     position: this.userPosition,
+    //     title: 'Votre position actuelle'
+    //   }));
 
-    });
+    // });
     // this.route.queryParams.subscribe((params: Params) => {
     //   // Initialisez les valeurs du formulaire avec les paramètres d'URL
     //   this.form.type = params['type'] || null;
@@ -998,16 +1006,16 @@ export class TrouverbienComponent implements OnInit {
     });
   }
   updateMinPrice() {
-    this.form.minprix=this.customHtmlMinValue;
+    this.form.minprix = this.customHtmlMinValue;
     // console.log('Min Price:', this.customHtmlMinValue,"customHtmlMinValue", this.form.minprix);
     this.updateUrl();
   }
 
   updateMaxPrice() {
-    this.form.maxprix=this.customHtmlMaxValue;
+    this.form.maxprix = this.customHtmlMaxValue;
     // console.log('Max Price:', this.customHtmlMaxValue, " this.form.maxprix", this.form.maxprix);
     this.updateUrl();
   }
 
-  
+
 }

@@ -162,6 +162,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // console.log(this.storageService.getUser());
+    
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
@@ -199,6 +201,8 @@ export class ProfileComponent implements OnInit {
        // Récupérer les données de l'utilisateur connecté
   this.serviceUser.AfficherUserConnecter().subscribe((data) => {
     this.users = data[0];
+    // console.log(this.users);
+    
     // Attribuer les valeurs de l'utilisateur aux formulaires
     this.formModif = {
       nom: this.users?.nom || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
@@ -432,17 +436,19 @@ export class ProfileComponent implements OnInit {
   onAdd(): void {
      const { photo } = this.form;
     const user = this.storageService.getUser();
-    if (user && user.token && photo) {
+    if (this.users && photo) {
       this.serviceUser.changerPhoto(photo).subscribe(
         successResponse => {
            // this.User.photos[0] = photo.name;
           // user.photos[0].nom = successResponse?.message;
-          if (user.utilisateurPhoto?.length > 0) {
-            user.utilisateurPhoto.nom = successResponse?.message;
-          } else {
-            user.utilisateurPhoto = [{ nom: successResponse?.message }];
-          }
-          this.storageService.setUser(user);
+          // if (this.users.utilisateurPhoto?.length > 0) {
+          //   this.users.utilisateurPhoto.nom = successResponse?.message;
+          // } else {
+          //   this.users.utilisateurPhoto = [{ nom: successResponse?.message }];
+          // }
+          // this.storageService.setUser(user);
+           // Mettre à jour l'URL de l'image affichée côté front-end
+        // this.profileImageUrl = this.generateImageUrl(user.utilisateurPhoto.nom) + '?timestamp=' + new Date().getTime();
            // this.User.photos[0].nom = photo.name;
           // this.generateImageUrl(photo.name);
           // Mettez à jour le chemin de l'image de profil

@@ -86,9 +86,9 @@ export class DetailsbienComponent implements AfterViewInit {
       this.longitude = this.bien?.adresse?.longitude || null;
       this.nombien = this.bien?.nom;
 
-      if(this.bien.statut.nom == "A louer"){
+      if (this.bien.statut.nom == "A louer") {
         this.candidaterWithModal = true;
-      } 
+      }
 
       // Options de la carte
       const mapOptions = {
@@ -101,18 +101,26 @@ export class DetailsbienComponent implements AfterViewInit {
 
       // Vérification que l'élément de la carte existe dans le DOM
       if (mapElement) {
-        
+
         // Ajouter des tuiles OpenStreetMap à la carte
         const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 18,
           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         });
+
+        // Créer une icône personnalisée pour le marqueur
+        var customIcon = L.icon({
+          iconUrl: 'assets/img/iconeBien/bien.svg',
+          iconSize: [60, 60], // Taille de l'icône [largeur, hauteur]
+          iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
+          popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
+        });
         // Création de la carte Leaflet
         const map = L.map(mapElement).setView([this.longitude, this.latitude], 12).addLayer(tiles);
-        
+
         tiles.addTo(map);
         // Créer un marqueur pour l'emplacement
-        L.marker([this.latitude, this.longitude]).addTo(map)
+        L.marker([this.latitude, this.longitude], { icon: customIcon }).addTo(map)
           .bindPopup(this.nombien)
           .openPopup();
         // Centrer la carte sur le marqueur
@@ -748,7 +756,8 @@ export class DetailsbienComponent implements AfterViewInit {
         } else {
           // console.error("Token JWT manquant");
         }
-      }});
+      }
+    });
   }
 
   // Méthode pour obtenir les informations de l'utilisateur connecté
