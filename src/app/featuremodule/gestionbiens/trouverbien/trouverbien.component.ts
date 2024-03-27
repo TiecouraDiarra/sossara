@@ -148,7 +148,7 @@ export class TrouverbienComponent implements OnInit {
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
 
   isLoggedIn = false;
@@ -161,6 +161,59 @@ export class TrouverbienComponent implements OnInit {
   private map!: L.Map;
   private centroid: L.LatLngExpression = [17.570692, -3.996166]; // Coordonnées du Mali
 
+  setInfo(event: any) {
+    var marker = event.overlay;
+    // var imageSrc = marker.image ? this.generateImageUrl(marker.image) : 'assets/img/gallery/gallery1/gallery-1.jpg'; // Remplacez 'chemin/vers/image_par_defaut.jpg' par le chemin de votre image par défaut.
+    var content =
+      '<div class="profile-widget crd" style="width: 300px; background: url(' +
+      marker.image +
+      '); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px; ">' +
+      '<div class="pro-content">' +
+      '<h3 class="title">' +
+      '<a href="javascript:void(0)">' +
+      marker.doc_name +
+      '</a>' +
+      '</h3>';
+
+    // Utilisation de *ngIf pour conditionner l'affichage en fonction du statut
+    if (marker.statut == 'A vendre') {
+      content +=
+        '<div class="row">' +
+        '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">' + marker.statut + '</span></div>' +
+        `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>`
+        + marker.types + '</span></a></p></div>';
+    } else if (marker.statut == 'A louer') {
+      content +=
+        '<div class="row">' +
+        '<div class="col"><span class="Featured-text" style="font-weight: bold;">' + marker.statut + '</span></div>' +
+        '<div class="col"><p class="blog-category"><a href="javascript:void(0)"><span>' +
+        marker.types + '</span></a></p></div>';
+    }
+
+    content +=
+      // '<p class="blog-category mt-3"> ' +
+      // '<a href="javascript:void(0)">' +
+      // '<span>' +
+      // marker.types +
+      // '</span>' +
+      // '</a>' +
+      // '</p>' +
+      '<ul class="available-info mt-3">' +
+      '<li class="mapaddress"><i class="fas fa-map-marker-alt me-2"></i> ' +
+      marker.address + ', ' + marker.regions +
+      ' </li>' +
+      '<li class="map-amount" style="color: #e98b11;  font-weight: bold;">' +
+      this.formatPrice(marker.amount) + ' FCFA' +
+      // '<span class="d-inline-block average-rating"> (' +
+      // marker.total_review +
+      // ')</span>' +
+      '</li>' +
+      '</ul>' +
+      '</div>' +
+      '</div>';
+    this.infoWindow.setContent(content);
+    this.infoWindow.open(event.map, event.overlay);
+  }
   private initMap(): void {
     // Créer la carte Leaflet
     // this.map = L.map('map', {
@@ -293,60 +346,51 @@ export class TrouverbienComponent implements OnInit {
               });
 
               // Créez un contenu de popup pour le marqueur
-              // Créez un contenu de popup pour le marqueur
               let content = `
               <div class="profile-widget crd" style="width: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${imageSrc}'); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px;">
                 <div class="pro-content">
-                  <h3 class="title" style="font-weight: bold;">
-                  <a>
-                     ${bien.nom}
-                  </a>
-                  </h3>
-    `;
-
-              // Vérifiez le statut du bien immobilier
-              if (bien.statut.nom === 'A vendre') {
-                content += `
-        <div class="row">
-          <div class="col">
-            <span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">
-              ${bien.statut.nom}
-            </span>
-          </div>
-          <div class="col">
-            <p class="blog-category">
-              <a (click)="goToDettailBien(${bien.id})">
-                <span>${bien.typeImmo.nom}</span>
-              </a>
-            </p>
-          </div>
-        </div>
-      `;
-              } else if (bien.statut.nom === 'A louer') {
-                content += `
-        <div class="row">
-          <div class="col">
-            <span class="Featured-text" style="font-weight: bold;">
-              ${bien.statut.nom}
-            </span>
-          </div>
-          <div class="col">
-            <p class="blog-category">
-              <a href="javascript:void(0)">
-                <span>${bien.typeImmo.nom}</span>
-              </a>
-            </p>
-          </div>
-        </div>
-      `;
-              }
+                  <h3 class="title" style="font-weight: 500; color:white; margin-bottom: 15px;font-size: 13px;">
+                    <a>
+                      ${bien.nom}
+                    </a>
+                  </h3>`;
+                  // Vérifiez le statut du bien immobilier
+                  if (bien.statut.nom === 'A vendre') {
+                      content += `
+                        <div class="row">
+                          <div class="col">
+                            <span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">
+                              ${bien.statut.nom}
+                            </span>
+                          </div>
+                          <div class="col-6">
+                            <span class="Featured-text" style="font-weight: bold; background-color: #dee2e7;color: #374b5c;">
+                              ${bien.typeImmo.nom}
+                            </span>
+                          </div>
+                        </div>`;
+                  } else if (bien.statut.nom === 'A louer') {
+                      content += `
+                        <div class="row">
+                          <div class="col-6">
+                            <span class="Featured-text" style="font-weight: bold;">
+                              ${bien.statut.nom}
+                            </span>
+                          </div>
+                          <div class="col-6">
+                              <span class="Featured-text" style="font-weight: bold; background-color: #dee2e7;color: #374b5c;">
+                               ${bien.typeImmo.nom}
+                              </span>
+                          </div>
+                        </div>`;
+                  }
               // Ajoutez les informations supplémentaires telles que l'adresse et le prix
               content += `
       <ul class="available-info mt-3">
         <li class="mapaddress">
           <i class="fas fa-map-marker-alt me-2"></i> ${bien.adresse.commune.cercle.nomcercle}, ${bien.adresse.quartier}
         </li>
-        <li class="map-amount" style="color: #e98b11; font-weight: bold; margin-top:-15px">
+        <li class="map-amount" style="color: #e98b11; font-weight: bold; margin-top:-27px">
           ${this.formatPrice(bien.prix)} FCFA
         </li>
       </ul>
@@ -869,59 +913,7 @@ export class TrouverbienComponent implements OnInit {
     });
   }
 
-  setInfo(event: any) {
-    var marker = event.overlay;
-    // var imageSrc = marker.image ? this.generateImageUrl(marker.image) : 'assets/img/gallery/gallery1/gallery-1.jpg'; // Remplacez 'chemin/vers/image_par_defaut.jpg' par le chemin de votre image par défaut.
-    var content =
-      '<div class="profile-widget crd" style="width: 300px; background: url(' +
-      marker.image +
-      '); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px; ">' +
-      '<div class="pro-content">' +
-      '<h3 class="title">' +
-      '<a href="javascript:void(0)">' +
-      marker.doc_name +
-      '</a>' +
-      '</h3>';
 
-    // Utilisation de *ngIf pour conditionner l'affichage en fonction du statut
-    if (marker.statut == 'A vendre') {
-      content +=
-        '<div class="row">' +
-        '<div class="col"><span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">' + marker.statut + '</span></div>' +
-        `<div class="col"><p class="blog-category"><a (click)="goToDettailBien(${marker.id})"><span>`
-        + marker.types + '</span></a></p></div>';
-    } else if (marker.statut == 'A louer') {
-      content +=
-        '<div class="row">' +
-        '<div class="col"><span class="Featured-text" style="font-weight: bold;">' + marker.statut + '</span></div>' +
-        '<div class="col"><p class="blog-category"><a href="javascript:void(0)"><span>' +
-        marker.types + '</span></a></p></div>';
-    }
-
-    content +=
-      // '<p class="blog-category mt-3"> ' +
-      // '<a href="javascript:void(0)">' +
-      // '<span>' +
-      // marker.types +
-      // '</span>' +
-      // '</a>' +
-      // '</p>' +
-      '<ul class="available-info mt-3">' +
-      '<li class="mapaddress"><i class="fas fa-map-marker-alt me-2"></i> ' +
-      marker.address + ', ' + marker.regions +
-      ' </li>' +
-      '<li class="map-amount" style="color: #e98b11;  font-weight: bold;">' +
-      this.formatPrice(marker.amount) + ' FCFA' +
-      // '<span class="d-inline-block average-rating"> (' +
-      // marker.total_review +
-      // ')</span>' +
-      '</li>' +
-      '</ul>' +
-      '</div>' +
-      '</div>';
-    this.infoWindow.setContent(content);
-    this.infoWindow.open(event.map, event.overlay);
-  }
 
   //METHODE PERMETTANT D'AIMER UN BIEN 
   AimerBien(id: any): void {
@@ -1000,7 +992,7 @@ export class TrouverbienComponent implements OnInit {
         floor: this.customHtmlMinValue,
         ceil: this.customHtmlMaxValue,
         translate: (value: number): string => {
-          return ' FCFA ' + value;
+          return this.formatPrice(value) +' FCFA';
         }
       };
     });
