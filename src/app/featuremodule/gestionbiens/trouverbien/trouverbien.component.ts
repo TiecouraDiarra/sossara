@@ -316,31 +316,12 @@ export class TrouverbienComponent implements OnInit {
             // Convertissez les données de bien immobilier en marqueurs Leaflet
             this.overlays = this.bienImmoMap.map((bien: any) => {
               const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
-
-              // Calculer le centre des coordonnées des biens immobiliers
-              // const latLngs = data.map(bien => L.latLng(bien.adresse.latitude, bien.adresse.longitude));
-              // const center = L.latLngBounds(latLngs).getCenter();
-
-              // Obtenir les coordonnées du premier bien immobilier
-              // const premierBien = data[0];
-              // const { latitude, longitude } = premierBien.adresse;
-
-              // Centrer la carte sur les coordonnées du premier bien immobilier
-              // this.map.setView([latitude, longitude], 12);
-              // Centrer la carte sur le centre calculé
-              // this.map.setView(center, 6);
               const marker = L.marker([bien.adresse.latitude, bien.adresse.longitude], {
                 icon: L.icon({
                   iconUrl: 'assets/img/iconeBien/localisations.svg',
                   iconSize: [80, 80], // Taille de l'icône du marqueur
                   iconAnchor: [19, 38], // Point d'ancrage de l'icône du marqueur
                   popupAnchor: [0, -38], // Point d'ancrage du popup du marqueur
-                  // iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon.png',
-                  // iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-icon-2x.png',
-                  // iconSize: [25, 41],
-                  // iconAnchor: [12, 41],
-                  // popupAnchor: [1, -34],
-                  // shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
                   shadowSize: [41, 41]
                 })
               });
@@ -350,7 +331,7 @@ export class TrouverbienComponent implements OnInit {
               <div class="profile-widget crd" style="width: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${imageSrc}'); position: relative; padding: 90px 0; background-repeat: no-repeat; background-size: cover; display: inline-block; border-radius: 10px;">
                 <div class="pro-content">
                   <h3 class="title" style="font-weight: 500; color:white; margin-bottom: 15px;font-size: 13px;">
-                    <a>
+                    <a class="bien-nom crd" style="cursor: pointer;">
                       ${bien.nom}
                     </a>
                   </h3>`;
@@ -401,6 +382,17 @@ export class TrouverbienComponent implements OnInit {
 
               // Ajoutez le contenu du popup au marqueur
               marker.bindPopup(content);
+
+              // Ajoutez le contenu du popup au marqueur
+            //   marker.bindPopup(content).on('click', () => {
+            //     this.goToDettailBien(bien.uuid);
+            // });
+            // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
+          
+          
+
+            // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
+            // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
 
               return marker;
             })
