@@ -90,10 +90,10 @@ export class ModifierBienComponent {
   //METHODE PERMETTANT DE CHANGER LES TYPES
   onTypeChange(event: any) {
     // Assurez-vous que les données du type de bien sont chargées
-    if (!this.typebien) {
-      this.loadTypeBiens();
-      return;
-    }
+    // if (!this.typebien) {
+    //   this.loadTypeBiens();
+    //   return;
+    // }
     this.selectedType = event.target.value;
     if (this.selectedType === '3') {
       this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
