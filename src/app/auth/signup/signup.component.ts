@@ -197,7 +197,41 @@ handleFileSelection(event: any): void {
               // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
-              this.popUpConfirmation()
+              if(data.status){
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Creation de compte',
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: "OK",
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // Réinitialisation des valeurs du formulaire après confirmation
+                    this.form.nom = '';
+                    this.form.email = '';
+                    this.form.password = '';
+                    this.form.telephone = '';
+                    this.form.dateNaissance = '';
+                    this.form.nomDoc = "Type de pieces";
+                    this.form.numDoc = '';
+                    this.form.confirmPassword = '';
+                    this.form.role = "Type d'Utilisateur";
+                    this.form.photo = null;
+                
+                    // Naviguer vers la page de connexion et recharger la page
+                    this.router.navigate(['/auth/connexion']).then(() => {
+                      window.location.reload();
+                    });
+                  }
+                });
+              }
+              // this.popUpConfirmation()
              
             },
             error: (err) => {
@@ -243,6 +277,23 @@ handleFileSelection(event: any): void {
     this.Toggledata = !this.Toggledata;
   }
 
+  getMaximumDate(): string {
+    // Obtenir la date du jour
+    const today = new Date();
+  
+    // Soustraire 18 ans à la date du jour
+    const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  
+    // Formater la date au format ISO (AAAA-MM-JJ)
+    return maximumDate.toISOString().split("T")[0];
+  }
+  validatePassword(password: string): boolean {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  }
+
+  
+    
  //POPUP APRES CONFIRMATION
  popUpConfirmation() {
   // let timerInterval = 2000;

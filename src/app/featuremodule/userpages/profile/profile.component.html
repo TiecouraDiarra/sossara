@@ -75,7 +75,7 @@
                     *ngIf="users && users.utilisateurPhoto"
                   >
                     <img
-                      [src]="generateImageUrl(users.utilisateurPhoto.nom)"
+                      [src]="generateImageUrl(photo?.photo?.nom)"
                       alt="profile"
                       (error)="handleAuthorImageError($event)"
                     />

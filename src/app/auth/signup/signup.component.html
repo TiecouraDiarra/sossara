@@ -101,6 +101,7 @@
                     name="dateNaissance"
                     class="form-control"
                     placeholder="Date de Naissance"
+                    [max]="getMaximumDate()"
                   />
                 </div>
               </div>
@@ -114,6 +115,7 @@
                     [type]="Toggledata ? 'password' : 'text'"
                     class="form-control pass-input"
                     placeholder="Mot de passe"
+                    [ngClass]="{'is-invalid': form.password && !validatePassword(form.password)}"
                   />
                   <span
                     [ngClass]="
@@ -124,17 +126,22 @@
                     (click)="iconLogle()"
                   ></span>
                 </div>
+                <div *ngIf="form.password && !validatePassword(form.password)" class="invalid-feedback" style="display:block;">
+                  Votre mot de passe doit avoir 8 caractères avec une majuscule, une minuscule, un chiffre et un symbole.
+                </div>
               </div>
+              
               <div class="col-md-6 form-group">
                 <div class="pass-group group-img">
                   <i class="feather-lock"></i>
                   <input
                     type="password"
-                    name="password"
+                    name="confirmPassword"
                     [type]="ToggledataC ? 'password' : 'text'"
                     class="form-control pass-input"
                     [(ngModel)]="form.confirmPassword"
                     placeholder="Confirmer Mot de passe"
+                    [ngClass]="{'is-invalid': form.confirmPassword && !passwordsMatch()}"
                   />
                   <span
                     [ngClass]="
@@ -145,7 +152,11 @@
                     (click)="iconLogleC()"
                   ></span>
                 </div>
+                <div *ngIf="form.confirmPassword && !passwordsMatch()" class="invalid-feedback" style="display:block;">
+                  Les mots de passe ne correspondent pas.
+                </div>
               </div>
+              
               <div class="col-md-6 form-group group-img">
                 <div class="group-img">
                   <select class="form-control" (change)="onChange($event.target)" [(ngModel)]="form.role"

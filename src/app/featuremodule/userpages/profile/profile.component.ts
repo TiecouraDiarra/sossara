@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, LOCALE_ID, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -74,6 +74,7 @@ export class ProfileComponent implements OnInit {
   communes1: any = [];
   regions1: any = [];
   users: any;
+  photo: any;
 
 
 
@@ -113,6 +114,7 @@ export class ProfileComponent implements OnInit {
     private storageService: StorageService,
     private authService: AuthService,
     private router: Router,
+    private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
     @Inject(LOCALE_ID) private localeId: string,
     private serviceUser: UserService,
@@ -138,12 +140,14 @@ export class ProfileComponent implements OnInit {
   }
 
   getRoleLabel(): string {
-    if (this.users?.roles?.includes('ROLE_LOCATAIRE')) {
+    if (this.User?.roles?.includes('ROLE_LOCATAIRE')) {
       return 'LOCATAIRE';
-    } else if (this.User?.roles?.includes('ROLE_PROPRIETAIRE') || this.User?.roles?.includes('ROLE_AGENCE')) {
-      return 'AGENCE';
+    } else if (this.User?.roles?.includes('ROLE_PROPRIETAIRE')) {
+      return 'PROPRIETAIRE';
     } else if (this.User?.roles?.includes('ROLE_AGENT')) {
       return 'AGENT';
+    } else if (this.User?.roles?.includes('ROLE_AGENCE')) {
+      return 'AGENCE';
     } else {
       return '';
     }
@@ -155,6 +159,15 @@ export class ProfileComponent implements OnInit {
     const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
+  // generateImageUrl(photoFileName: string): string {
+  //   const baseUrl = URL_PHOTO;
+  //   // this.cdr.detectChanges();
+  //   const timestamp = new Date().getTime(); // Obtenez un horodatage unique
+  //   return `${baseUrl}${photoFileName}?timestamp=${timestamp}`;
+  // }
+
+  
+  
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -177,6 +190,18 @@ export class ProfileComponent implements OnInit {
      
     }
 
+    // this.serviceUser.AfficherPhotoUserConnecter().subscribe(
+    //   url => this.photo = url,
+    //   error => console.error('Erreur lors de la récupération de l\'URL de la photo : ', error)
+    // );
+
+
+      //AFFICHER LA PHOTO DE USER CONNECTER
+    this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
+      this.photo = data;
+      console.log(this.photo);
+      
+    });
 
 
       //AFFICHER LA LISTE DES COMMUNES
@@ -186,6 +211,8 @@ export class ProfileComponent implements OnInit {
       //AFFICHER LA LISTE DES Pays
       this.serviceAdresse.AfficherListePays().subscribe((data) => {
         this.pays = data;
+        // console.log(this.pays);
+        
       });
       //AFFICHER LA LISTE DES CERCLE
       this.serviceAdresse.AfficherListeCercle().subscribe((data) => {

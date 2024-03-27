@@ -44,17 +44,17 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbien`);
   }
 
-   //AFFICHER LA LISTE PRIX DISPONIBLES
-   AfficherLaListePrix(): Observable<any> {
+  //AFFICHER LA LISTE PRIX DISPONIBLES
+  AfficherLaListePrix(): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/sortedByPrice`);
   }
 
-        // La liste de tous les biens y compris ceux qui sont vendus et loués
-    AfficherLaListeBienImmoTotal(): Observable<any> {
-      
-      return this.http.get(`${URL_BASE}/bien/afficherbienTotal`);
-    }
-  
+  // La liste de tous les biens y compris ceux qui sont vendus et loués
+  AfficherLaListeBienImmoTotal(): Observable<any> {
+
+    return this.http.get(`${URL_BASE}/bien/afficherbienTotal`);
+  }
+
 
   //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
   AfficherLaListeBienImmoPlusVue(): Observable<any> {
@@ -80,8 +80,8 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbienparid/${id}`);
   }
 
-   //AFFICHER UNE CANDIDATURE EN FONCTION DE SON UUID
-   AfficherCandidatureParUuId(uuid: number): Observable<any> {
+  //AFFICHER UNE CANDIDATURE EN FONCTION DE SON UUID
+  AfficherCandidatureParUuId(uuid: number): Observable<any> {
     return this.http.get(`${URL_BASE}/candidature/affichercandidatureparuuid/${uuid}`);
   }
 
@@ -93,7 +93,7 @@ export class BienimmoService {
   //AFFICHER UNE TRANSACTION POUR LES  VENTE EN FONCTION DE SON ID
   AfficherTransactionParId(id: number): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/get/sell/invoyce/${id}`,
       { headers });
   }
@@ -101,14 +101,14 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
   AfficherCandidatureAccepter(id: number): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/get/rent/invoyce/${id}`,
       { headers });
   }
   //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
   AfficherBienImmoLoueCandidatureAccepter(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/candidature/immo/get/rent/mine`,
       { headers });
   }
@@ -116,7 +116,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoParUser(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/user`,
       { headers });
   }
@@ -124,15 +124,15 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE  AVEC AGENCE
   AfficherBienImmoParUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/user`,
       { headers });
   }
 
-   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'AGENCE CONNECTEE
-   AfficherBienImmoParAgenceConnecte(): Observable<any> {
+  //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'AGENCE CONNECTEE
+  AfficherBienImmoParAgenceConnecte(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/user/agenceconnecter`,
       { headers });
   }
@@ -143,7 +143,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoDejaLoueParUser(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/get/rent`,
       { headers });
   }
@@ -151,7 +151,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'AGENCE
   AfficherBienImmoDejaLoueParAgence(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/agence/get/rent`,
       { headers });
   }
@@ -159,7 +159,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'AGENCE
   AfficherBienImmoDejaVenduParAgence(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/agence/get/sell`,
       { headers });
   }
@@ -167,7 +167,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
   AfficherBienImmoDejaLoueParLocataire(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/candidature/immo/get/rent/mine`,
       { headers });
   }
@@ -175,7 +175,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
   AfficherBienImmoUserAcheter(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/get/sell/mine`,
       { headers });
   }
@@ -185,7 +185,7 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
   AfficherBienImmoDejaVenduParUser(): Observable<any> {
     const headers = this.getHeaders();
-    
+
     return this.http.get(`${URL_BASE}/bien/immo/get/sell`,
       { headers });
   }
@@ -193,24 +193,102 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
   AfficherListeReclamationParUser(): Observable<any> {
     const headers = this.getHeaders();
-     return this.http.get(`${URL_BASE}/probleme/signal/get`,
+    return this.http.get(`${URL_BASE}/probleme/signal/get`,
       { headers });
   }
 
   //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
   AfficherListeReclamationFaitesParUser(): Observable<any> {
     const headers = this.getHeaders();
-     return this.http.get(`${URL_BASE}/probleme/signal/get/mine`,
+    return this.http.get(`${URL_BASE}/probleme/signal/get/mine`,
       { headers });
   }
 
   //AFFICHER LA LISTE DES BIENS AIMES PAR UTILISATEUR
   ListeBiensAimesParUtilisateur(): Observable<any> {
     const headers = this.getHeaders();
-     return this.http.get(`${URL_BASE}/bien/immo/views/user/get`,
+    return this.http.get(`${URL_BASE}/bien/immo/views/user/get`,
       { headers });
   }
 
+
+  //AJOUTER UN BIEN
+  ModifierBien(
+    commodite: any[],
+    type: number,
+    caracteristique: number,
+    commune: number,
+    nb_piece: any,
+    nom: string,
+    chambre: any,
+    cuisine: any,
+    toilette: any,
+    surface: number,
+    prix: number,
+    statut: string,
+    description: string,
+    quartier: string,
+    rue: string,
+    porte: any,
+    periode: number,
+    caution: any,
+    avance: any,
+    longitude: number,
+    latitude: number,
+    photos: File[],
+    id: any
+  ): Observable<any> {
+    const headers = this.getHeaders();
+    const formData = new FormData();
+    commodite.forEach(i => { formData.append('commodites[]', i.toString()); });
+    formData.append('typeImmoId', type.toString());
+    formData.append('caracteristiqueId', caracteristique.toString());
+    formData.append('commune', commune.toString());
+    formData.append('nom', nom);
+    formData.append('surface', surface.toString());
+    formData.append('prix', prix.toString());
+    formData.append('statutId', statut);
+    formData.append('description', description);
+    formData.append('quartier', quartier);
+    // Si le statut est "A vendre", définissez la période sur 6
+    if (statut === "2") {
+      formData.append('periodeId', '2');
+    } else {
+      formData.append('periodeId', periode.toString());
+    }
+
+    // if (type === 3) {
+    //   formData.append('caution', '0' || 0);
+    //   formData.append('avance', '0' || 0);
+    //   formData.append('rue', '');
+    //   formData.append('porte', '');
+    //   formData.append('chambre', '0');
+    //   formData.append('cuisine', '0' || 0);
+    //   formData.append('toilette', '0' || 0);
+    //   formData.append('nb_piece', '0' || 0);
+    // } else {
+      formData.append('caution', caution || 0);
+      formData.append('avance', avance || 0);
+      formData.append('rue', rue || '');
+      formData.append('porte', porte || '');
+      formData.append('chambre', chambre || 0);
+      formData.append('cuisine', cuisine || 0);
+      formData.append('toilette', toilette || 0);
+      formData.append('nb_piece', nb_piece || 0);
+    // }
+    formData.append('longitude', longitude.toString());
+    formData.append('latitude', latitude.toString());
+    photos.forEach(p => { formData.append('photoImmos', p); });
+    formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
+
+    // console.log(chambre, " Chambre");
+    
+    return this.http.put(
+      URL_BASE + '/bien/modifierbien/' + `${id}`,
+      formData,
+      { headers }
+    );
+  }
 
   registerBien(
     commodite: any[],
@@ -230,14 +308,14 @@ export class BienimmoService {
     rue: string,
     porte: string,
     periode: number,
-    caution : any,
-    avance : any,
+    caution: any,
+    avance: any,
     longitude: number,
     latitude: number,
     photos: File[]
-): Observable<any> {
+  ): Observable<any> {
     const headers = this.getHeaders();
-    const formData = new FormData(); 
+    const formData = new FormData();
 
     commodite.forEach(i => { formData.append('commodites[]', i); });
     formData.append('typeImmoId', type.toString());
@@ -248,7 +326,7 @@ export class BienimmoService {
     formData.append('chambre', chambre || 0);
     formData.append('cuisine', cuisine || 0);
     formData.append('toilette', toilette || 0);
-    formData.append('surface', surface.toString() );
+    formData.append('surface', surface.toString());
     formData.append('prix', prix.toString());
     formData.append('statutId', statut);
     formData.append('description', description);
@@ -257,11 +335,11 @@ export class BienimmoService {
     formData.append('porte', porte || '');
     // Si le statut est "A vendre", définissez la période sur 6
     if (statut === "2") {
-        formData.append('periodeId', '2');
+      formData.append('periodeId', '2');
     } else {
-        formData.append('periodeId', periode.toString());
+      formData.append('periodeId', periode.toString());
     }
-   
+
     formData.append('caution', caution || 0);
     formData.append('avance', avance || 0);
     formData.append('longitude', longitude.toString());
@@ -271,11 +349,11 @@ export class BienimmoService {
 
     // Vous pouvez supposer que URL_BASE est défini ailleurs dans votre code
     return this.http.post(
-        `${URL_BASE}/bien/ajouter`,
-        formData,
-        { headers }
+      `${URL_BASE}/bien/ajouter`,
+      formData,
+      { headers }
     );
-}
+  }
 
   //CANDIDATER UN BIEN 
   CandidaterBien(id: any, usage: any, dateEntree: any): Observable<any> {
@@ -284,7 +362,7 @@ export class BienimmoService {
     formData.append('bienImmo', id || '');
     formData.append('usage', usage || '5');
     formData.append('dateEntree', dateEntree || '');
- 
+
     return this.http.post(`${URL_BASE}/candidature/ajouter`, formData, { headers });
   }
 
@@ -293,7 +371,7 @@ export class BienimmoService {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('bienImmo', id || '');
- 
+
     return this.http.post(`${URL_BASE}/favoris/ajouter-ou-retirer`, formData, { headers });
   }
 
@@ -315,7 +393,7 @@ export class BienimmoService {
   //ARRETER LE PROCESSUS
   ArreterProcessusOld(id: any): Observable<any> {
     const headers = this.getHeaders();
- 
+
     return this.http.post(`${URL_BASE}/reparation/confirmer/list/${id}`, null, { headers });
   }
 
@@ -323,14 +401,14 @@ export class BienimmoService {
   //ACCEPTER CANDIDATURE BIEN 
   AccepterCandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
- 
+
     return this.http.post(`${URL_BASE}/candidature/accept/${id}`, null, { headers });
   }
 
   //OUVRIR UNE CONVERSATION EN FONCTION DE L'UTILISATEUR
   OuvrirConversation(id: any): Observable<any> {
     const headers = this.getHeaders();
- 
+
     return this.http.post(`${URL_BASE}/conversation/new/${id}`, null, { headers });
   }
 
@@ -338,135 +416,73 @@ export class BienimmoService {
   //ANNULER CANDIDATURE BIEN 
   AnnulerCandidaterBien(id: any): Observable<any> {
     const headers = this.getHeaders();
- 
+
     return this.http.post(`${URL_BASE}/candidature/annuler/${id}`, null, { headers });
   }
 
-  //AJOUTER UN BIEN
-  ModifierBien(
-    commodite: any[],
-    type: number,
-    commune: number,
-    nb_piece: number,
-    nom: string,
-    chambre: number,
-    cuisine: number,
-    toilette: number,
-    surface: number,
-    prix: number,
-    statut: string,
-    description: string,
-    quartier: string,
-    rue: string,
-    porte: number,
-    periode: number,
-    caution: number,
-    avance: number,
-    longitude: number,
-    latitude: number,
-    photos: File[],
-    id: any
-  ): Observable<any> {
-    const headers = this.getHeaders();
-    const formData = new FormData();   
-    commodite.forEach(i => { formData.append('commodites[]', i.toString()); });
-    formData.append('typeImmoId', type.toString());
-    formData.append('commune', commune.toString());
-    formData.append('nb_piece', nb_piece.toString());
-    formData.append('nom', nom);
-    formData.append('chambre', chambre.toString());
-    formData.append('cuisine', cuisine.toString());
-    formData.append('toilette', toilette.toString());
-    formData.append('surface', surface.toString());
-    formData.append('prix', prix.toString());
-    formData.append('statutId', statut);
-    formData.append('description', description);
-    formData.append('quartier', quartier);
-    formData.append('rue', rue);
-    formData.append('porte', porte.toString());
-    // Si le statut est "A vendre", définissez la période sur 6
-    if (statut === "2") {
-        formData.append('periodeId', '6');
-    } else {
-        formData.append('periodeId', periode.toString());
-    }
-   
-    formData.append('caution', caution.toString());
-    formData.append('avance', avance.toString());
-    formData.append('longitude', longitude.toString());
-    formData.append('latitude', latitude.toString());
-    photos.forEach(p => { formData.append('photoImmos', p); });
-    formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
-  
-     return this.http.put(
-      URL_BASE + '/bien/modifierbien/' + `${id}`,
-      formData,
-      { headers }
-    );
-  }
-  
+
 
   //AFFICHER LA LISTE DES TYPES DE PROBLEMES
   AfficherLIsteProbleme(): Observable<any> {
     const headers = this.getHeaders();
-     return this.http.get(`${URL_BASE}/typeprobleme/afficher`,
+    return this.http.get(`${URL_BASE}/typeprobleme/afficher`,
       { headers });
   }
 
   //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
   AfficherLIsteReclamationProcessusLance(): Observable<any> {
     const headers = this.getHeaders();
-     return this.http.get(`${URL_BASE}/probleme/processus/get`,
+    return this.http.get(`${URL_BASE}/probleme/processus/get`,
       { headers });
   }
 
-    //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
-    AfficherProcessusLancerProprietaireAgenceConnecter(): Observable<any> {
-      const headers = this.getHeaders();
-       return this.http.get(`${URL_BASE}/probleme/processus/get/mine`,
-        { headers });
+  //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
+  AfficherProcessusLancerProprietaireAgenceConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/probleme/processus/get/mine`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
+  // ...
+  faireUneRecherche(
+    typeImmo?: any,
+    statut?: any,
+    chambre?: any,
+    nb_piece?: any,
+    toilette?: any,
+    cuisine?: any,
+    commune?: any,
+    cercle?: any,
+    region?: any,
+    minprix?: any,
+    maxprix?: any,
+    commodites?: any[]
+  ): Observable<any> {
+    const headers = this.getHeaders(); // Supposons que cette méthode renvoie les en-têtes appropriés
+
+    // Construisez les paramètres de l'URL
+    let params = new HttpParams();
+    if (typeImmo) params = params.append('typeImmo', typeImmo);
+    if (statut) params = params.append('statut', statut);
+    if (chambre) params = params.append('chambre', chambre);
+    if (nb_piece) params = params.append('nb_piece', nb_piece);
+    if (toilette) params = params.append('toilette', toilette);
+    if (cuisine) params = params.append('cuisine', cuisine);
+    if (commune) params = params.append('commune', commune);
+    if (cercle) params = params.append('cercle', cercle);
+    if (region) params = params.append('region', region);
+    if (chambre) params = params.append('minprix', minprix);
+    if (nb_piece) params = params.append('maxprix', maxprix);
+    if (commodites) {
+      commodites.forEach(commodite => {
+        params = params.append('commodites', commodite);
+      });
     }
 
-      //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
-      // ...
-      faireUneRecherche(
-        typeImmo?: any,
-        statut?: any,
-        chambre?: any,
-        nb_piece?: any,
-        toilette?: any,
-        cuisine?: any,
-        commune?: any,
-        cercle?: any,
-        region?: any,
-        minprix?:any,
-        maxprix?:any,
-        commodites?: any[]
-      ): Observable<any> {
-        const headers = this.getHeaders(); // Supposons que cette méthode renvoie les en-têtes appropriés
-      
-        // Construisez les paramètres de l'URL
-        let params = new HttpParams();
-        if (typeImmo) params = params.append('typeImmo', typeImmo);
-        if (statut) params = params.append('statut', statut);
-        if (chambre) params = params.append('chambre', chambre);
-        if (nb_piece) params = params.append('nb_piece', nb_piece);
-        if (toilette) params = params.append('toilette', toilette);
-        if (cuisine) params = params.append('cuisine', cuisine);
-        if (commune) params = params.append('commune', commune);
-        if (cercle) params = params.append('cercle', cercle);
-        if (region) params = params.append('region', region);
-        if (chambre) params = params.append('minprix', minprix);
-        if (nb_piece) params = params.append('maxprix', maxprix);
-        if (commodites) {
-          commodites.forEach(commodite => {
-            params = params.append('commodites', commodite);
-          });
-        }
-      
-        return this.http.get(`${URL_BASE}/bien/biens`, { headers, params });
-      }
-      
+    return this.http.get(`${URL_BASE}/bien/biens`, { headers, params });
+  }
+
 
   //FAIRE UNE RECLAMATION
   FaireReclamation(
@@ -479,7 +495,7 @@ export class BienimmoService {
   ): Observable<any> {
     const headers = this.getHeaders();
     headers.append('Content-Type', 'multipart/form-data');
- 
+
     const formData = new FormData();
 
     formData.append('contenu', contenu);
@@ -500,14 +516,14 @@ export class BienimmoService {
     const headers = this.getHeaders();
     // const data = new FormData();
     // data.append("contenu", contenu)
-  
+
     return this.http.post(`${URL_BASE}/probleme/lancerprocessus/${id}`, null, { headers });
   }
 
   //SUPPRIMER UN BIEN
   SupprimerBien(id: any): Observable<any> {
     const headers = this.getHeaders();
- 
+
     return this.http.post(`${URL_BASE}/bien/immo/delete/${id}`, null, { headers });
   }
 
@@ -519,7 +535,7 @@ export class BienimmoService {
   ): Observable<any> {
     const headers = this.getHeaders();
     headers.append('Content-Type', 'multipart/form-data');
-  
+
     const formData = new FormData();
 
     formData.append('idRec', idRec.toString());

@@ -278,7 +278,7 @@ export class TrouverbienComponent implements OnInit {
               // this.map.setView(center, 6);
               const marker = L.marker([bien.adresse.latitude, bien.adresse.longitude], {
                 icon: L.icon({
-                  iconUrl: 'assets/img/iconeBien/iconBien.png',
+                  iconUrl: 'assets/img/iconeBien/localisations.svg',
                   iconSize: [80, 80], // Taille de l'icône du marqueur
                   iconAnchor: [19, 38], // Point d'ancrage de l'icône du marqueur
                   popupAnchor: [0, -38], // Point d'ancrage du popup du marqueur
