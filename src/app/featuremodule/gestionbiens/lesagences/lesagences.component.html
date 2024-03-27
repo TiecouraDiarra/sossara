@@ -153,21 +153,22 @@
                         <div class="tst" style="background-color: white; margin-bottom: 8px;">
                           <ul>
                             <li>
-                              <h6>{{ NombreBienCount[Agence.id] }}</h6>
+                              <h6>{{ NombreBienCount[hashString(Agence.uuid)] || 0 }}</h6>
                               <span>Biens</span>
                             </li>
                             <li>
-                              <h6>{{ NombreBienLouerCount[Agence.id] }}</h6>
+                              <h6>{{ NombreBienLouerCount[hashString(Agence.uuid)] || 0 }}</h6>
                               <span>Louer</span>
                             </li>
                             <li>
-                              <h6>{{ NombreBienVendreCount[Agence.id] }}</h6>
+                              <h6>{{ NombreBienVendreCount[hashString(Agence.uuid)] || 0 }}</h6>
                               <span>Vendre</span>
                             </li>
                             <li>
-                              <h6>{{ NombreAgentCount[Agence.id] }}</h6>
+                              <h6>{{ NombreAgentCount[hashString(Agence.uuid)] || 0 }}</h6>
                               <span>Agents</span>
                             </li>
+                            
                           </ul>
                         </div>
                         <div class="companies-set-btn">

@@ -54,7 +54,7 @@ export class UserService {
 
   //AFFICHER LA LISTE DES AGENCES
   AfficherLaListeAgence(): Observable<any> {
-    return this.http.get(`${URL_BASE}/user/alluser`);
+    return this.http.get(`${URL_BASE}/user/agences`);
   }
 
   //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE

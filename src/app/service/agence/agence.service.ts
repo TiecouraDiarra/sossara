@@ -69,8 +69,8 @@ export class AgenceService {
   // AfficherAgenceParId(id: number): Observable<any> {
   //   return this.http.get(`${URL_BASE}/user/afficheruserparid/${id}`);
   // }
-  AfficherAgenceParId(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/user/agence/${id}`);
+  AfficherAgenceParId(id: any): Observable<any> {
+    return this.http.get(`${URL_BASE}/user/agenceparuuid/${id}`);
   }
 
   AfficherAgenceParUuId(id: number): Observable<any> {

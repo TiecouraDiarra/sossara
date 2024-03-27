@@ -199,7 +199,8 @@ export class ProfileComponent implements OnInit {
        // Récupérer les données de l'utilisateur connecté
   this.serviceUser.AfficherUserConnecter().subscribe((data) => {
     this.users = data[0];
-    // Attribuer les valeurs de l'utilisateur aux formulaires
+    // Attribuer les valeurs de l'utilisateur aux formulaire
+    console.log(data)
     this.formModif = {
       nom: this.users?.nom || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
       telephone: this.users.telephone || '',
