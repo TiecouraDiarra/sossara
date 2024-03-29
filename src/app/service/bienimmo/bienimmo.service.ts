@@ -375,6 +375,14 @@ export class BienimmoService {
     return this.http.post(`${URL_BASE}/favoris/ajouter-ou-retirer`, formData, { headers });
   }
 
+
+  //AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
+  AfficherFavorisParUserConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/favoris/favoris`,
+      { headers });
+  }
+
   //LA LISTE DES AIMES EN FONCTION DE L'ID DU BIEN 
   ListeAimerBienParId(id: any): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/immo/views/get/${id}`);
