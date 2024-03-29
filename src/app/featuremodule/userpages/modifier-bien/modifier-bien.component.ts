@@ -10,6 +10,7 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { environment } from 'src/app/environments/environment';
+import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
 
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -71,6 +72,41 @@ export class ModifierBienComponent {
   selectedStatutMensuel: string | null = null;
   selectedStatut: string | null = null;
   photos: any;
+  caracteristique: any;
+  // selectedStatut: string | null = null;
+  selectedType: string | null = null;
+
+  // Supposons que vous ayez une méthode pour charger les types de biens
+  loadTypeBiens() {
+    // Code pour charger les types de biens depuis une source de données (API, service, etc.)
+    // Par exemple, vous pouvez utiliser une méthode dans votre service
+    //AFFICHER LA LISTE DES TYPEBIEN
+    this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
+      this.typebien = data;
+    });
+  }
+
+
+  //METHODE PERMETTANT DE CHANGER LES TYPES
+  onTypeChange(event: any) {
+    // Assurez-vous que les données du type de bien sont chargées
+    // if (!this.typebien) {
+    //   this.loadTypeBiens();
+    //   return;
+    // }
+    this.selectedType = event.target.value;
+    if (this.selectedType === '3') {
+      this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
+      this.form.caution = 0; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.avance = 0; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.chambre = 0; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.cuisine = 0; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.toilette = 0; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.nb_piece = 0; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.porte = ''; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.rue = ''; // Envoyer la valeur 0 si le type de bien est un terrain
+    }
+  }
 
 
   form: any = {
@@ -102,6 +138,7 @@ export class ModifierBienComponent {
     public router: Router,
     private storageService: StorageService,
     private serviceAdresse: AdresseService,
+    private caracteristiqueService: CaracteristiqueService,
     private route: ActivatedRoute,
     private serviceCommodite: CommoditeService,
     private serviceBienImmo: BienimmoService
@@ -111,11 +148,13 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
- 
+      console.log(this.bien);
+
       this.form = {
         nom: this.bien?.nom,
         description: this.bien?.description,
-        type: this.bien?.typeImmo.id,
+        type: this.bien?.typeImmo?.id,
+        caracteristique: this.bien?.caracteristique?.id,
         surface: this.bien?.surface,
         periode: this.bien?.periode?.id,
         porte: this.bien?.adresse?.porte,
@@ -154,7 +193,7 @@ export class ModifierBienComponent {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-       if (this.roles[0] == 'ROLE_LOCATAIRE') {
+      if (this.roles[0] == 'ROLE_LOCATAIRE') {
         this.isLocataire = true;
       } else if (this.roles[0] == 'ROLE_AGENCE') {
         this.isAgence = true;
@@ -167,6 +206,8 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
+      console.log(this.bien);
+
       this.photos = this.bien?.photos;
       this.photos = this.bien?.photos;
       this.images1 = this.bien?.photos.map((photo: { nom: string; }) => ({ nom: photo.nom, data: this.generateImageUrl(photo.nom) }));
@@ -206,16 +247,25 @@ export class ModifierBienComponent {
         center: { lat: this.latitude, lng: this.longitude }, // Coordonnées du centre de la carte
         zoom: 15, // Niveau de zoom initial
       };
-      
+
       // Ajouter une couche de tuiles OpenStreetMap
       const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       });
-      const map = L.map('map').setView([this.latitude, this.longitude], 14).addLayer(tiles); // Définir une vue initiale;
+
+      // Créer une icône personnalisée pour le marqueur
+      var customIcon = L.icon({
+        iconUrl: 'assets/img/iconeBien/localisations.svg',
+        iconSize: [80, 80], // Taille de l'icône [largeur, hauteur]
+        iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
+        popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
+      });
+      const map = L.map('map').setView([this.latitude, this.longitude], 12).addLayer(tiles); // Définir une vue initiale;
       tiles.addTo(map);
       // Créer un marqueur initial au centre de la carte
       const initialMarker = L.marker([this.latitude, this.longitude], {
+        icon: customIcon,
         draggable: true // Rend le marqueur draggable
       }).addTo(map);
       // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
@@ -225,7 +275,7 @@ export class ModifierBienComponent {
         this.form.latitude = markerLatLng.lat;
         this.form.longitude = markerLatLng.lng;
 
-       
+
       });
 
 
@@ -235,27 +285,32 @@ export class ModifierBienComponent {
           initialMarker.getLatLng().lat + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
           initialMarker.getLatLng().lng + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
         );
-    
+
         initialMarker.setLatLng(newLatLng);
-    
+
         // Mettez à jour les coordonnées dans votre formulaire
         this.form.latitude = newLatLng.lat;
         this.form.longitude = newLatLng.lng;
-    
-         
+
+
       });
     });
     //AFFICHER LA LISTE DES PERIODES
     this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
       this.status = data;
     });
-     //AFFICHER LA LISTE DES TYPEBIEN
-     this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
+    //AFFICHER LA LISTE DES TYPEBIEN
+    this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
       this.typebien = data;
     });
 
-     //AFFICHER LA LISTE DES COMMUNES
-     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
+    //AFFICHER LA LISTE DES CARACTERISTIQUE
+    this.caracteristiqueService.AfficherCaracteristique().subscribe((data) => {
+      this.caracteristique = data;
+    });
+
+    //AFFICHER LA LISTE DES COMMUNES
+    this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
     });
     //AFFICHER LA LISTE DES Pays
@@ -267,8 +322,8 @@ export class ModifierBienComponent {
       this.cercle = data;
     });
 
-     //AFFICHER LA LISTE DES PERIODES
-     this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
+    //AFFICHER LA LISTE DES PERIODES
+    this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
       this.periode = data;
     });
 
@@ -305,19 +360,19 @@ export class ModifierBienComponent {
         reader.onload = (e: any) => {
           this.images1.push({ nom: file.name, data: e.target.result });
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-           this.maxImageCount = this.images1.length;
+          this.maxImageCount = this.images1.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
     this.form.photo = this.images;
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
-}
+  }
 
-removeImage(index: number) {
+  removeImage(index: number) {
     this.images1.splice(index, 1); // Supprime l'image du tableau
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
-}
+  }
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
     if (this.images.length >= 8) {
@@ -361,17 +416,18 @@ removeImage(index: number) {
     return baseUrl + photoFileName;
   }
 
-  
+
 
 
 
   //MODIFIER UN BIEN
-   ModifierBien(): void {
+  ModifierBien(): void {
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params['uuid'];
     const {
       commodite,
       type,
+      caracteristique,
       commune,
       nb_piece,
       nom,
@@ -403,19 +459,15 @@ removeImage(index: number) {
     if (
       this.form.commodite === null ||
       this.form.type === null ||
+      this.form.caracteristique === null ||
       this.form.commune === null ||
-      this.form.nb_piece === null ||
       this.form.nom === null ||
-      this.form.chambre === null ||
-      this.form.cuisine === null ||
-      this.form.toilette === null ||
       this.form.surface === null ||
       this.form.prix === null ||
       this.form.statut === null ||
       this.form.description === null ||
       this.form.quartier === null ||
-      this.form.rue === null ||
-      this.form.porte === null
+      this.form.photo === null
     ) {
       swalWithBootstrapButtons.fire(
         (this.message = ' Tous les champs sont obligatoires !')
@@ -433,7 +485,7 @@ removeImage(index: number) {
         .then(async (result) => {
           if (result.isConfirmed) {
             const images = this.images1;
-             const files = await this.convertURLsToFiles(images);         
+            const files = await this.convertURLsToFiles(images);
             const user = this.storageService.getUser();
             if (user && user.token) {
               this.serviceBienImmo.setAccessToken(user.token);
@@ -441,6 +493,7 @@ removeImage(index: number) {
                 .ModifierBien(
                   commodite,
                   type,
+                  caracteristique,
                   commune,
                   nb_piece,
                   nom,
@@ -481,23 +534,23 @@ removeImage(index: number) {
   }
 
   // Fonction pour convertir les URLs des images en objets File
-async convertURLsToFiles(images: { nom: string; data: string }[]): Promise<File[]> {
-  const files: File[] = [];
+  async convertURLsToFiles(images: { nom: string; data: string }[]): Promise<File[]> {
+    const files: File[] = [];
 
-  for (const image of images) {
+    for (const image of images) {
       const file = await this.fetchImageAsFile(image.data);
       files.push(new File([file], image.nom));
+    }
+
+    return files;
   }
 
-  return files;
-}
-
-// Fonction pour récupérer l'image depuis l'URL sous forme de blob
-async fetchImageAsFile(url: string): Promise<Blob> {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  return blob;
-}
+  // Fonction pour récupérer l'image depuis l'URL sous forme de blob
+  async fetchImageAsFile(url: string): Promise<Blob> {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return blob;
+  }
 
   //POPUP APRES CONFIRMATION
   popUpConfirmationModification() {
@@ -598,6 +651,6 @@ async fetchImageAsFile(url: string): Promise<Blob> {
     }
   }
 
-  
+
 
 }

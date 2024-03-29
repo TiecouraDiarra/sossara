@@ -60,19 +60,19 @@ export class UserService {
   //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
   AfficherLaListeRdv(): Observable<any> {
     const headers = this.getHeaders();
-     return this.http.get(`${URL_BASE}/rdv/get/mine`, { headers });
+    return this.http.get(`${URL_BASE}/rdv/get/mine`, { headers });
   }
 
   //AFFICHER LA LISTE DES RDV ENVOYER PAR USER CONNECTE
   AfficherLaListeRdvUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
-     return this.http.get(`${URL_BASE}/rdv/get`, { headers });
+    return this.http.get(`${URL_BASE}/rdv/get`, { headers });
   }
 
-  //AFFICHER LA PHOTO DE USER CONNECTER
-  AfficherPhotoUserConnecter(): Observable<any> {
+  /// Modifiez le type de retour pour qu'il soit de type Observable<string>
+  AfficherPhotoUserConnecter(): Observable<string> {
     const headers = this.getHeaders();
-    return this.http.get(`${URL_BASE}/user/photo/get`, { headers });
+    return this.http.get<string>(`${URL_BASE}/user/photo-utilisateur`, { headers });
   }
 
 
@@ -103,7 +103,7 @@ export class UserService {
   //CHANGER MOT DE PASSE
   ChangerMotDePasse(oldPassword: any, newPassword: any): Observable<any> {
     const headers = this.getHeaders();
- 
+
     const formData = new FormData();
     formData.append('oldPassword', oldPassword);
     formData.append('newPassword', newPassword);
@@ -127,7 +127,7 @@ export class UserService {
   // }
 
   //CHANGER PHOTO PROFILE
-  
+
   changerPhoto(photo: File): Observable<any> {
     const headers = this.getHeaders();
     headers.set('Cache-Control', 'no-cache'); // Désactive le cache pour cette requête
@@ -157,8 +157,8 @@ export class UserService {
     );
   }
 
-   //MODIFIER ADRESSE USER
-   modifierAdress(
+  //MODIFIER ADRESSE USER
+  modifierAdress(
     quartier: string,
     rue: string,
     porte: string,

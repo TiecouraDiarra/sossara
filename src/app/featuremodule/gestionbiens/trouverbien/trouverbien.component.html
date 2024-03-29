@@ -454,11 +454,7 @@
                       />
                     </div>
                     <ng-template #noImages>
-                      <img
-                        src="{{ DEFAULT_IMAGE_URL }}"
-                        class="img-fluid image-size"
-                        alt="default-img"
-                      />
+                      <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img">
                     </ng-template>
                   </a>
                   <div class="fav-item">
@@ -542,7 +538,7 @@
                         </span>
                         <!-- <span>{{ slide.oldamount }}</span> -->
                       </div>
-                      <a (click)="goToDettailBien(slide.id)">Savoir plus</a>
+                      <a class="crd" (click)="goToDettailBien(slide.uuid)">Savoir plus</a>
                     </div>
                   </div>
                 </div>

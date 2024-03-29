@@ -1265,6 +1265,9 @@
                 <li *ngIf="bien && bien.typeImmo">
                   Type du bien <span>{{ bien.typeImmo.nom }}</span>
                 </li>
+                <li *ngIf="bien && bien.surface">
+                  Surface <span>{{ bien.surface }} M2</span>
+                </li>
                 <li
                   *ngIf="
                     bien.caracteristique && bien.caracteristique.caracteristique

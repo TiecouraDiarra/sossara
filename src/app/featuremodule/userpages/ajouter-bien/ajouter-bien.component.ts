@@ -166,11 +166,21 @@ export class AjouterBienComponent {
       maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
+
+    // Créer une icône personnalisée pour le marqueur
+    var customIcon = L.icon({
+      iconUrl: 'assets/img/iconeBien/localisations.svg',
+      iconSize: [80, 80], // Taille de l'icône [largeur, hauteur]
+      iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
+      popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
+    });
+    
     const map = L.map('map').setView([12.6489, -8.0008], 14).addLayer(tiles); // Définir une vue initiale
     
     tiles.addTo(map);
     // Créer un marqueur initial au centre de la carte
     const initialMarker = L.marker([12.6489, -8.0008], {
+      icon: customIcon,
       draggable: true // Rend le marqueur draggable
     }).addTo(map);
 

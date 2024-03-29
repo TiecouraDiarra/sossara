@@ -4,6 +4,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
+import { UserService } from 'src/app/service/auth/user.service';
 import { DataService } from 'src/app/service/data.service';
 import { SidebarService } from 'src/app/service/sidebar.service';
 import Swal from 'sweetalert2';
@@ -31,6 +32,7 @@ export class HeaderAccueilComponent {
 
   public tittle: string = 'Home';
   public nav: boolean = false;
+  users: any;
 
     // IMAGE PAR DEFAUT USER
     handleAuthorImageError(event: any) {
@@ -48,6 +50,7 @@ export class HeaderAccueilComponent {
     private data: DataService,
     private router: Router,
     private authService: AuthService,
+    private serviceUser: UserService,
     private storageService: StorageService,
     private sidebarService: SidebarService
   ) {
@@ -70,6 +73,10 @@ export class HeaderAccueilComponent {
       }else if (!this.storageService.isLoggedIn()) {
         this.isLoginFailed = false;
       }
+           // Récupérer les données de l'utilisateur connecté
+  this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+    this.users = data[0];
+  })
   }
 
     //METHODE PERMETTANT DE SE DECONNECTER

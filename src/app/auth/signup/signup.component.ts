@@ -197,7 +197,41 @@ handleFileSelection(event: any): void {
               // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
-              this.popUpConfirmation()
+              if(data.status){
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Creation de compte',
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: "OK",
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // Réinitialisation des valeurs du formulaire après confirmation
+                    this.form.nom = '';
+                    this.form.email = '';
+                    this.form.password = '';
+                    this.form.telephone = '';
+                    this.form.dateNaissance = '';
+                    this.form.nomDoc = "Type de pieces";
+                    this.form.numDoc = '';
+                    this.form.confirmPassword = '';
+                    this.form.role = "Type d'Utilisateur";
+                    this.form.photo = null;
+                
+                    // Naviguer vers la page de connexion et recharger la page
+                    this.router.navigate(['/auth/connexion']).then(() => {
+                      window.location.reload();
+                    });
+                  }
+                });
+              }
+              // this.popUpConfirmation()
              
             },
             error: (err) => {

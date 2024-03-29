@@ -54,7 +54,17 @@ export class ContactComponent {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    L.marker([latitude, longitude]).addTo(map)
-      .bindPopup('African Wealths Development').openPopup();
+    // Créer une icône personnalisée pour le marqueur
+    var customIcon = L.icon({
+      iconUrl: 'assets/img/iconeBien/localite.png',
+      iconSize: [60, 60], // Taille de l'icône [largeur, hauteur]
+      iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
+      popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
+    });
+
+    // Créer une instance de L.Marker avec l'icône personnalisée
+    var marker = L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
+      .bindPopup('African Wealths Development') // Ajouter une popup au marqueur
+      .openPopup(); // Ouvrir la popup par défaut
   }
 }

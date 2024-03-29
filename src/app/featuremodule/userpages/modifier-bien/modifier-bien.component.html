@@ -112,33 +112,15 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <!-- statut -->
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                  <label class="col-form-label">Statut <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <select
-                      (change)="onStatutChange($event)"
-                      [(ngModel)]="form.statut"
-                      name="statut"
-                      class="form-control"
-                      id=""
-                    >
-                      <option *ngFor="let item of status" [value]="item.id">
-                        {{ item?.nom }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
               <!-- Type -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label">Type <span>*</span></label>
                   <div class="pass-group group-img">
                     <select
-                      name="type"
+                      (change)="onTypeChange($event)"
                       [(ngModel)]="form.type"
+                      name="type"
                       class="form-control"
                       id=""
                     >
@@ -150,8 +132,66 @@
                 </div>
               </div>
 
-              <!-- Nombre de salon -->
+              <!-- statut -->
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType === '3'">
+                <div class="form-group">
+                  <label class="col-form-label">Statut <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <select
+                      [(ngModel)]="form.statut"
+                      name="statut"
+                      class="form-control"
+                      id=""
+                    >
+                      <option [value]="2">
+                        A vendre
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- statut -->
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+                <div class="form-group">
+                  <label class="col-form-label">Statut <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <select
+                      (change)="onStatutChange($event)"
+                      [(ngModel)]="form.statut"
+                      name="statut"
+                      class="form-control"
+                      id=""
+                    >
+                      <option *ngFor="let item of status" [value]="item.id">
+                        {{ item.nom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- caracteristique -->
               <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-form-label">Caracteristique <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <select
+                      [(ngModel)]="form.caracteristique"
+                      name="type"
+                      class="form-control"
+                      id=""
+                    >
+                      <option *ngFor="let item of caracteristique" [value]="item.id">
+                        {{ item.caracteristique }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Nombre de salon -->
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group">
                   <label class="col-form-label"
                     >Nombre de salon <span>*</span></label
@@ -172,7 +212,7 @@
               </div>
 
               <!-- Nombre de cuisine -->
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
@@ -190,7 +230,7 @@
                 </div>
               </div>
               <!-- Nombre de chambre -->
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Chambres <span>*</span></label>
                   <div class="pass-group group-img">
@@ -210,7 +250,7 @@
               <br />
 
               <!-- Nombre de toilette -->
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Toilette <span>*</span></label>
                   <div class="pass-group group-img">
@@ -458,7 +498,7 @@
             </div>
             <div class="row">
               <!-- Rue  -->
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Rue <span>*</span></label>
@@ -473,7 +513,7 @@
                 </div>
               </div>
               <!-- Porte  -->
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Porte <span>*</span></label>
                   <input
