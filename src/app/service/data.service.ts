@@ -480,6 +480,7 @@ export class DataService {
         },
       ],
     },*/
+    
     {
       tittle: 'Contact',
       base: 'contact',
@@ -505,6 +506,8 @@ export class DataService {
     //   route: '/contact',
     // },
   ];
+
+  
   public categoriesList = [
     {
       categoryName: 'Automotive',

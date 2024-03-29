@@ -302,7 +302,7 @@ export class BienimmoService {
     toilette: any,
     surface: number,
     prix: number,
-    statut: string, // Assurez-vous que le statut est envoyé en tant que chaîne de caractères
+    statut: any, // Assurez-vous que le statut est envoyé en tant que chaîne de caractères
     description: string,
     quartier: string,
     rue: string,
@@ -334,7 +334,7 @@ export class BienimmoService {
     formData.append('rue', rue || '');
     formData.append('porte', porte || '');
     // Si le statut est "A vendre", définissez la période sur 6
-    if (statut === "2") {
+    if (statut === 2) {
       formData.append('periodeId', '2');
     } else {
       formData.append('periodeId', periode.toString());
@@ -354,6 +354,7 @@ export class BienimmoService {
       { headers }
     );
   }
+  
 
   //CANDIDATER UN BIEN 
   CandidaterBien(id: any, usage: any, dateEntree: any): Observable<any> {
