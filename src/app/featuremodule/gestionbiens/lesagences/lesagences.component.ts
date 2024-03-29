@@ -56,7 +56,19 @@ export class LesagencesComponent implements OnInit  {
   categoriesDataSource = new MatTableDataSource();
   searchText: any;
 
-
+  hashString(str: string): number {
+    let hash = 0;
+    if (str.length === 0) {
+      return hash;
+    }
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return hash;
+  }
+  
 
   constructor(
     private router: Router,
@@ -78,77 +90,73 @@ export class LesagencesComponent implements OnInit  {
 
   ngOnInit(): void {
     
-      //AFFICHER LA LISTE DES AGENCES
-      this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
-        // data.forEach((user: any) => {
-        //   // Vérifier si le bien est déjà loué
-        //   if (user.roles.name.imclude("ROLE_AGENCE")) {
-        //     this.agence.push(user);
-        //   }
-        // })
-        data.forEach((user: any) => {
-          // Extraire les noms de rôles de l'utilisateur
-          const userRoles = user.roles.map((role: { name: any }) => role.name);
-  
-          // Vérifier si le rôle "ROLE_AGENCE" est inclus dans les rôles de l'utilisateur
-          if (userRoles.includes('ROLE_AGENCE')) {
-            this.agence.push(user);
-          }
-        });
-  
-        // this.agence = data.reverse();
-        this.nombreAgence = this.agence?.length;
+// AFFICHER LA LISTE DES AGENCES
+this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
+  data.forEach((user: any) => {
+    const userRoles = user.roles.map((role: { name: any }) => role.name);
 
-        // Parcourir la liste des biens immobiliers
-        this.agence?.forEach((agence: { id: number }) => {
-          // Charger le nombre de "J'aime" pour chaque bien
-          this.serviceAgence.AfficherAgenceParId(agence?.id).subscribe((data) => {
-            this.bienImmoAgence = data?.bienImmos;
-            this.bienImmoAgent = data?.agents;
-            // Initialiser une liste pour stocker tous les biens immobiliers des agents
-            let totalBiensAgents: any[] = [];
-  
-            // Parcourir chaque agent
-            data.agents.forEach((agent: any) => {
-              // Ajouter les biens immobiliers de l'agent à la liste totale
-              totalBiensAgents.push(...agent.bienImmosAgents);
-            });
-  
-            // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
-          
-  
-            this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
-            this.NombreBienParAgence = this.bienImmo.length;
-            this.NombreAgentParAgence = data.agents.length;
-            // Initialisation des compteurs
-            let nombreLouerParAgence = 0;
-            let nombreVendreParAgence = 0;
-  
-            // Parcourir chaque bien immobilier
-            this.bienImmo.forEach((bien: any) => {
-              // Vérifier le statut du bien immobilier
-              if (bien?.statut?.nom === 'A louer') {
-                this.bienImmoLouer.push(bien);
-                nombreLouerParAgence++;
-              } else if (bien?.statut?.nom === 'A vendre') {
-                this.bienImmoVendre.push(bien);
-                nombreVendreParAgence++;
-              }
-            });
-            // Assigner les compteurs
-            this.NombreLouerParAgence = nombreLouerParAgence;
-            this.NombreVendreParAgence = nombreVendreParAgence;
-  
-        
-            if (typeof agence.id === 'number') {
-              this.NombreBienCount[agence.id] = this.NombreBienParAgence;
-              this.NombreAgentCount[agence.id] = this.NombreAgentParAgence;
-              this.NombreBienLouerCount[agence.id] = this.NombreLouerParAgence;
-              this.NombreBienVendreCount[agence.id] = this.NombreVendreParAgence;
-            }
-          });
-        });
+    if (userRoles.includes('ROLE_AGENCE')) {
+      this.agence.push(user);
+    }
+  });
+
+  this.nombreAgence = this.agence?.length;
+
+  this.agence?.forEach((agence: { uuid: string }) => {
+    this.serviceAgence.AfficherAgenceParId(agence?.uuid).subscribe((data) => {
+      this.bienImmoAgence = data?.bienImmos;
+      this.bienImmoAgent = data?.agents;
+      let totalBiensAgents: any[] = [];
+
+      data.agents.forEach((agent: any) => {
+        totalBiensAgents.push(...agent.bienImmosAgents);
       });
+
+      this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
+      this.NombreBienParAgence = this.bienImmo.length;
+      this.NombreAgentParAgence = data.agents.length;
+      let nombreLouerParAgence = 0;
+      let nombreVendreParAgence = 0;
+
+      this.bienImmo.forEach((bien: any) => {
+        if (bien?.statut?.nom === 'A louer') {
+          this.bienImmoLouer.push(bien);
+          nombreLouerParAgence++;
+        } else if (bien?.statut?.nom === 'A vendre') {
+          this.bienImmoVendre.push(bien);
+          nombreVendreParAgence++;
+        }
+      });
+
+      this.NombreLouerParAgence = nombreLouerParAgence;
+      this.NombreVendreParAgence = nombreVendreParAgence;
+
+
+      // Convertir l'UUID de type string en type number avec une fonction de hachage
+function hashString(str: string): number {
+  let hash = 0;
+  if (str.length === 0) {
+    return hash;
+  }
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convertir en entier 32 bits
+  }
+  return hash;
+}
+
+// Utilisation de la fonction de hachage pour convertir l'UUID en number
+const agenceId = hashString(agence.uuid);
+      if (typeof agence.uuid === 'string') {
+        this.NombreBienCount[agenceId] = this.NombreBienParAgence;
+        this.NombreAgentCount[agenceId] = this.NombreAgentParAgence;
+        this.NombreBienLouerCount[agenceId] = this.NombreLouerParAgence;
+        this.NombreBienVendreCount[agenceId] = this.NombreVendreParAgence;
+      }
+    });
+  });
+});
 
        //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe(data => {

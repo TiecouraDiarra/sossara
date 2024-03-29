@@ -54,8 +54,8 @@ export class BlogDetailsComponent {
       this.blog = data;
     })
     //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.typebien = data.type;
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+    //   this.typebien = data.type;
+    // });
   }
 }

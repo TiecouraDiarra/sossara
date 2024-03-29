@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, RoutesRecognized } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -54,8 +54,15 @@ import { JwtInterceptor } from './_helpers/http.interceptor';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
+  constructor(private router: Router) {
     // Enregistrez les données de la locale en français
     registerLocaleData(localeFr, 'fr');
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof RoutesRecognized) {
+    //     if (event.url === '/contact' || event.url === '/trouverbien') {
+    //       window.location.reload();
+    //     }
+    //   }
+    // });
   }
 }

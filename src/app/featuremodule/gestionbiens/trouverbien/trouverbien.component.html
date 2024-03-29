@@ -72,7 +72,7 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-<div class="flex-grow-1 ms-3">
+                                <div class="flex-grow-1 ms-3">
                                   <select
                                     class="form-control select category-select"
                                     (change)="
@@ -124,7 +124,7 @@
                                 </div>
                               </div>
                             </div>
-<div class="col-lg-2">
+                            <div class="col-lg-2">
                               <div
                                 class="d-flex real-estate-search real-select"
                               >
@@ -193,32 +193,6 @@
                                 </div>
                               </div>
                             </div>
-<div class="col-lg-4 mt-2">
-                              <div class="d-flex">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 30px"
-                                      src="./assets/img/icons/prix.jpg"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                                &nbsp; &nbsp;
-                                <div class="col-md-11">
-                                  <ng5-slider
-                                    [(value)]="customHtmlMinValue"
-                                    (valueChange)="updateMinPrice()"
-                                    [(highValue)]="customHtmlMaxValue"
-                                    (highValueChange)="updateMaxPrice()"
-                                    [options]="customHtmlSliderOptions"
-                                  ></ng5-slider>
-                                </div>
-                              </div>
-                            </div>
-
                             <div class="col-lg-2">
                               <div class="d-flex real-estate-search">
                                 <div
@@ -251,6 +225,33 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="col-lg-4 mt-2">
+                              <div class="d-flex">
+                                <div
+                                  class="flex-shrink-0 d-flex align-items-center"
+                                >
+                                  <div class="icon-blk rounded-circle">
+                                    <img
+                                      style="width: 30px"
+                                      src="./assets/img/icons/prix.jpg"
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                                &nbsp; &nbsp;
+                                <div class="col-md-11">
+                                  <ng5-slider
+                                    [(value)]="customHtmlMinValue"
+                                    (valueChange)="updateMinPrice()"
+                                    [(highValue)]="customHtmlMaxValue"
+                                    (highValueChange)="updateMaxPrice()"
+                                    [options]="customHtmlSliderOptions"
+                                  ></ng5-slider>
+                                </div>
+                              </div>
+                            </div>
+
+                        
                             <div class="col-lg-2">
                               <div
                                 class="d-flex real-estate-search real-select"
@@ -272,7 +273,7 @@
                                     name="nb_piece"
                                     (change)="updateUrl()"
                                   >
-<option selected [value]="null">
+                                    <option selected [value]="null">
                                       Nomre de salon
                                     </option>
                                     <option
@@ -320,7 +321,7 @@
                                 </div>
                               </div>
                             </div>
-<div class="col-lg-2">
+                            <div class="col-lg-2">
                               <div
                                 class="d-flex real-estate-search real-select"
                               >
@@ -356,7 +357,7 @@
                               </div>
                             </div>
 
-                            <div class="flex-grow-1 ms-3">
+                            <div class="col-lg-2 flex-grow-1">
                               <p>
                                 <a
                                   class="row mt-3 fw-bold"
@@ -427,17 +428,30 @@
       </div>
     </div>
     <div class="row">
-      <div  class="col-lg-6 listingmappage-content" >
-        <div class="listmapgrid-content"  style="overflow-y: auto; height: 450px; overflow-x: hidden;  ">
+      <div class="col-lg-6 listingmappage-content">
+        <div
+          class="listmapgrid-content"
+          style="overflow-y: auto; height: 450px; overflow-x: hidden"
+        >
           <div class="blog-listview">
-            <div class="card card2"
-              *ngFor="let slide of bienImmo | filter:searchText ">
+            <div
+              class="card card2"
+              *ngFor="let slide of bienImmo | filter : searchText"
+            >
               <div class="blog-widget">
                 <div class="blog-img">
                   <a (click)="goToDettailBien(slide.uuid)">
-                    <div *ngIf="slide.photos && slide.photos.length > 0; else noImages">
-                      <img src="{{ generateImageUrl(slide.photos[0].nom) }}" class="img-fluid image-size"
-                        alt="blog-img" />
+                    <div
+                      *ngIf="
+                        slide.photos && slide.photos.length > 0;
+                        else noImages
+                      "
+                    >
+                      <img
+                        src="{{ generateImageUrl(slide.photos[0].nom) }}"
+                        class="img-fluid image-size"
+                        alt="blog-img"
+                      />
                     </div>
                     <ng-template #noImages>
                       <div class="type" *ngIf="slide.typeImmo.nom === 'Villa'">
@@ -448,15 +462,48 @@
                         <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
                           alt="default-img">
                       </div>
+                      <div class="type" *ngIf="slide.typeImmo.nom === 'Terrain'">
+                        <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                          alt="default-img">
+                      </div>
+                      <div class="type" *ngIf="slide.typeImmo.nom === 'Bureau'">
+                        <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                          alt="default-img">
+                      </div>
+                      <div class="type" *ngIf="slide.typeImmo.nom === 'Champ'">
+                        <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                          alt="default-img">
+                      </div>
+                      <div class="type" *ngIf="slide.typeImmo.nom === 'Commerce & Magasin'">
+                        <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                          alt="default-img">
+                      </div>
                       <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
                     </ng-template>
                   </a>
                   <div class="fav-item">
-                    <span [ngClass]="{'statutbien': slide.statut.nom === 'A vendre' }" class="Featured-text">{{ slide?.statut?.nom
-                      }}</span>
-                    <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                      (click)="AimerBien(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : 'white'">
-                      <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
+                    <span
+                      [ngClass]="{
+                        statutbien: slide.statut.nom === 'A vendre'
+                      }"
+                      class="Featured-text"
+                      >{{ slide?.statut?.nom }}</span
+                    >
+                    <a
+                      href="javascript:void(0)"
+                      *ngIf="isLoggedIn == true"
+                      class="fav-icon"
+                      (click)="AimerBien(slide.id)"
+                      [style.background-color]="
+                        favoriteStatus[slide.id] ? '#e98b11' : 'white'
+                      "
+                    >
+                      <i
+                        [style.color]="
+                          favoriteStatus[slide.id] ? 'white' : 'black'
+                        "
+                        class="feather-heart"
+                      ></i>
                     </a>
                   </div>
                 </div>
@@ -464,33 +511,45 @@
                   <div class="card-body">
                     <div class="blogfeaturelink">
                       <div class="blog-features">
-                        <a href="javascript:void(0);"><span>
+                        <a href="javascript:void(0);"
+                          ><span>
                             <i class="fa-regular fa-circle-stop"></i>
-                            {{ slide.typeImmo.nom }}</span></a>
+                            {{ slide.typeImmo.nom }}</span
+                          ></a
+                        >
                       </div>
                       <div class="blog-author">
                         <div class="blog-author-img">
                           <!-- <img [src]="slide.img2" alt="author" /> -->
-                          <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
-                            (error)="handleAuthorImageError($event)" />
+                          <img
+                            src="{{
+                              generateImageUrl(slide?.utilisateur?.photo?.nom)
+                            }}"
+                            alt="author"
+                            (error)="handleAuthorImageError($event)"
+                          />
                         </div>
-                        <a (click)="goToDettailBien(slide.uuid)">{{ slide?.utilisateur?.nom}}</a>
+                        <a (click)="goToDettailBien(slide.uuid)">{{
+                          slide?.utilisateur?.nom
+                        }}</a>
                       </div>
                     </div>
                     <h6>
                       <a (click)="goToDettailBien(slide.uuid)">{{
                         slide.nom ? slide.nom : slide.typeImmo.nom
-                        }}</a>
+                      }}</a>
                     </h6>
                     <div class="blog-location-details">
                       <div class="location-info">
-                        <i class="feather-map-pin"></i> {{ slide.adresse.quartier }}
+                        <i class="feather-map-pin"></i>
+                        {{ slide.adresse.quartier }}
                       </div>
                       <!-- <div class="location-info">
                         <i class="feather-phone-call"></i> 00556245562
                       </div> -->
                       <div class="location-info">
-                        <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide.id] }}
+                        <i class="feather-eye"></i>
+                        {{ favoritedPropertiesCount1[slide.id] }}
                       </div>
                     </div>
                     <!-- <p class="ratings">
@@ -498,7 +557,9 @@
                     </p> -->
                     <div class="amount-details">
                       <div class="amount">
-                        <span class="validrate">{{ formatPrice(slide.prix) }} FCFA </span>
+                        <span class="validrate"
+                          >{{ formatPrice(slide.prix) }} FCFA
+                        </span>
                         <!-- <span>{{ slide.oldamount }}</span> -->
                       </div>
                       <a class="crd" (click)="goToDettailBien(slide.uuid)">Savoir plus</a>
@@ -507,12 +568,9 @@
                 </div>
               </div>
             </div>
-  
+
             <!-- PAGINATION  -->
-           
           </div>
-
-
         </div>
       </div>
       <div class="col-lg-6 map-right">

@@ -218,13 +218,13 @@ export class BiensComponent {
       // });
     });
     //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.commodite = data.commodite;
-      this.adresse = data;
-      // this.region = data.region.reverse();
-      // this.commune = data.commune;
-      // this.typebien = data.type;
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+    //   this.commodite = data.commodite;
+    //   this.adresse = data;
+    //   // this.region = data.region.reverse();
+    //   // this.commune = data.commune;
+    //   // this.typebien = data.type;
+    // });
 
     //AFFICHER LA LISTE DES TYPES DE BIENS
     this.serviceConfigBien.AfficherListeTypeImmo().subscribe(data => {

@@ -500,9 +500,9 @@ export class DetailsbienComponent implements AfterViewInit {
     });
 
     //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-      this.typebien = data.type;
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
+    //   this.typebien = data.type;
+    // });
   }
 
   direction() {

@@ -56,9 +56,9 @@ export class BlogGridSidebarComponent {
   }
   ngOnInit(): void {
     //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.typebien = data.type;
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+    //   this.typebien = data.type;
+    // });
 
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe(data => {

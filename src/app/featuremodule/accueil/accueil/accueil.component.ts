@@ -88,7 +88,28 @@ export class AccueilComponent {
   nombreBienLoue: number = 0;
   nombreBienVendre: number = 0;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  valuesSelectPrix: any = ['10000', '20000', '30000', '40000', '50000', '60000', '70000', '80000', '90000', '100000', '200000', '300000', '400000', '500000', '600000', '700000', '800000', '900000', '1000000','1500000'];
+  valuesSelectPrix: any = [
+    '10000',
+    '20000',
+    '30000',
+    '40000',
+    '50000',
+    '60000',
+    '70000',
+    '80000',
+    '90000',
+    '100000',
+    '200000',
+    '300000',
+    '400000',
+    '500000',
+    '600000',
+    '700000',
+    '800000',
+    '900000',
+    '1000000',
+    '1500000',
+  ];
 
   locale!: string;
   imagesCommunes = [
@@ -101,6 +122,20 @@ export class AccueilComponent {
   ];
   public universitiesCompanies: any = [];
 
+  
+  hashString(str: string): number {
+    let hash = 0;
+    if (str.length === 0) {
+      return hash;
+    }
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return hash;
+  }
+  
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO;
@@ -127,7 +162,7 @@ export class AccueilComponent {
     @Inject(LOCALE_ID) private localeId: string,
     private serviceBienImmo: BienimmoService,
     private serviceBlog: BlogService,
-    private serviceUser: UserService,
+    private serviceUser: UserService
   ) {
     this.locale = localeId;
 
@@ -397,7 +432,6 @@ export class AccueilComponent {
       this.changeImage();
     }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)
 
-
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
@@ -410,7 +444,7 @@ export class AccueilComponent {
     }
 
     AOS.init({ disable: 'mobile' });
-  
+
     //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.commodite = data;
@@ -447,7 +481,6 @@ export class AccueilComponent {
     // this.serviceBienImmo.NombreBienLouer().subscribe(data => {
     //   this.nombreBienLoue = data.biens;
 
-    
     // });
 
     //LE NOMBRE DE BIENS VENDUS
@@ -506,9 +539,8 @@ export class AccueilComponent {
       this.nombreAgence = this.agence?.length;
 
       // Parcourir la liste des biens immobiliers
-      this.agence?.forEach((agence: { id: number }) => {
-        // Charger le nombre de "J'aime" pour chaque bien
-        this.serviceAgence.AfficherAgenceParId(agence?.id).subscribe((data) => {
+      this.agence?.forEach((agence: { uuid: string }) => {
+        this.serviceAgence.AfficherAgenceParId(agence?.uuid).subscribe((data) => {
           this.bienImmoAgence = data?.bienImmos;
           this.bienImmoAgent = data?.agents;
           // Initialiser une liste pour stocker tous les biens immobiliers des agents
@@ -542,11 +574,25 @@ export class AccueilComponent {
           this.NombreLouerParAgence = nombreLouerParAgence;
           this.NombreVendreParAgence = nombreVendreParAgence;
 
-          if (typeof agence.id === 'number') {
-            this.NombreBienCount[agence.id] = this.NombreBienParAgence;
-            this.NombreAgentCount[agence.id] = this.NombreAgentParAgence;
-            this.NombreBienLouerCount[agence.id] = this.NombreLouerParAgence;
-            this.NombreBienVendreCount[agence.id] = this.NombreVendreParAgence;
+          function hashString(str: string): number {
+            let hash = 0;
+            if (str.length === 0) {
+              return hash;
+            }
+            for (let i = 0; i < str.length; i++) {
+              const char = str.charCodeAt(i);
+              hash = (hash << 5) - hash + char;
+              hash = hash & hash; // Convertir en entier 32 bits
+            }
+            return hash;
+          }
+          // Utilisation de la fonction de hachage pour convertir l'UUID en number
+          const agenceId = hashString(agence.uuid);
+          if (typeof agence.uuid === 'string') {
+            this.NombreBienCount[agenceId] = this.NombreBienParAgence;
+            this.NombreAgentCount[agenceId] = this.NombreAgentParAgence;
+            this.NombreBienLouerCount[agenceId] = this.NombreLouerParAgence;
+            this.NombreBienVendreCount[agenceId] = this.NombreVendreParAgence;
           }
         });
       });
@@ -576,7 +622,6 @@ export class AccueilComponent {
       // this.nombreBienLoue = this.BienLoueRecens.length;
       // this.nombreBienVendre = this.BienVendreRecens.length;
       // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
-
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
@@ -622,7 +667,6 @@ export class AccueilComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         (data) => {
-
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
             this.favoriteStatus[id] = false; // Désaimé
@@ -762,7 +806,6 @@ export class AccueilComponent {
     );
     this.cercles.forEach((el: any) => {
       this.form.regionForm = el.region.id;
-
     });
   }
   onChangeCercle(newValue: any) {
@@ -772,7 +815,6 @@ export class AccueilComponent {
     );
     this.communes1.forEach((el: any) => {
       this.form.cercleForm = el.cercle.id;
-
     });
   }
   onSubmit(form: NgForm): void {
@@ -788,9 +830,9 @@ export class AccueilComponent {
       cercleForm,
       statut,
       maxprix,
-      minprix
+      minprix,
     } = this.form;
-  
+
     // Construisez l'URL avec les paramètres de recherche
     const queryParams: { [key: string]: any } = {};
     if (type) queryParams['type'] = type;
@@ -807,7 +849,6 @@ export class AccueilComponent {
     if (commodite) queryParams['maxprix'] = maxprix;
     this.router.navigate(['/trouverbien'], { queryParams });
   }
-  
 
   form: any = {
     commodite: null,
@@ -820,15 +861,17 @@ export class AccueilComponent {
     statut: null,
     regionForm: null,
     cercleForm: null,
-    maxprix:null,
-    minprix:null
+    maxprix: null,
+    minprix: null,
   };
 
   maxprix_values: any = [];
 
   filterMaxPrix() {
     if (this.form.minprix) {
-      this.maxprix_values = this.valuesSelectPrix.filter((item: string) => parseInt(item) > parseInt(this.form.minprix));
+      this.maxprix_values = this.valuesSelectPrix.filter(
+        (item: string) => parseInt(item) > parseInt(this.form.minprix)
+      );
     } else {
       this.maxprix_values = this.valuesSelectPrix;
     }

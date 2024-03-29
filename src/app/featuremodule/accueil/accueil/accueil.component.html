@@ -488,6 +488,22 @@
                                                                 <img src="../../../../assets/img/typebien/appartement.png"
                                                                     class="img-fluid image-size" alt="default-img">
                                                             </div>
+                                                            <div class="type" *ngIf="BienImo.typeImmo.nom === 'Terrain'">
+                                                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                                                  alt="default-img">
+                                                              </div>
+                                                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Bureau'">
+                                                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                                                  alt="default-img">
+                                                              </div>
+                                                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Champ'">
+                                                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                                                  alt="default-img">
+                                                              </div>
+                                                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Commerce & Magasin'">
+                                                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                                                  alt="default-img">
+                                                              </div>
                                                         </ng-template>
                                                     </a>
                                                     <div class="fav-item">
@@ -626,14 +642,14 @@
     <div class="container">
         <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
             <div class="row align-items-center">
-                <!-- <div class="col-md-1"></div> -->
-                <!-- <div class="col-md-9 aos aos-init aos-animate text-center" data-aos="fade-up"> -->
-                <h2>Sociétés de Gestion de biens(Agences)</h2>
-                <!-- <p>The most trendy accommodations available</p> -->
-                <!-- </div> -->
-                <!-- <div class="col-md-2 text-md-end aos aos-init aos-animate" data-aos="fade-up">
-                    <a [routerLink]="routes.categories" class="btn  btn-view">Voir toutes les agences</a>
-                </div> -->
+                <div class="col-lg-4 col-md-3"></div>
+                <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
+                    <h2>Les Agences</h2>
+                    <p>Sociétés de Gestion de biens</p>
+                </div>
+                <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
+                    <a [routerLink]="routes.agences" class="btn  btn-view">Voir toutes les agences</a>
+                </div>
             </div>
         </div>
         <div class="row aos" data-aos="fade-up" data-aos-delay="200">
@@ -662,22 +678,23 @@
                                                 <div class="companies-set-count">
                                                     <ul>
                                                         <li>
-                                                            <h6>{{NombreBienCount[Agence.id]}}</h6>
-                                                            <span>Biens</span>
+                                                          <h6>{{ NombreBienCount[hashString(Agence.uuid)] || 0 }}</h6>
+                                                          <span>Biens</span>
                                                         </li>
                                                         <li>
-                                                            <h6>{{NombreBienLouerCount[Agence.id]}}</h6>
-                                                            <span>Louer</span>
+                                                          <h6>{{ NombreBienLouerCount[hashString(Agence.uuid)] || 0 }}</h6>
+                                                          <span>Louer</span>
                                                         </li>
                                                         <li>
-                                                            <h6>{{NombreBienVendreCount[Agence.id]}}</h6>
-                                                            <span>Vendre</span>
+                                                          <h6>{{ NombreBienVendreCount[hashString(Agence.uuid)] || 0 }}</h6>
+                                                          <span>Vendre</span>
                                                         </li>
                                                         <li>
-                                                            <h6>{{NombreAgentCount[Agence.id]}}</h6>
-                                                            <span>Agents</span>
+                                                          <h6>{{ NombreAgentCount[hashString(Agence.uuid)] || 0 }}</h6>
+                                                          <span>Agents</span>
                                                         </li>
-                                                    </ul>
+                                                        
+                                                      </ul>
                                                     <div class="companies-set-btn">
                                                         <a (click)="goToDettailAgence(Agence.uuid)"
                                                             class="btn btn-linebtn">Savoir plus<i
@@ -909,6 +926,22 @@
                                                         <img src="../../../../assets/img/typebien/appartement.png"
                                                             class="img-fluid image-sizeresents" alt="default-img">
                                                     </div>
+                                                    <div class="type" *ngIf="bienRecent.typeImmo.nom === 'Terrain'">
+                                                        <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                                          alt="default-img">
+                                                      </div>
+                                                      <div class="type" *ngIf="bienRecent.typeImmo.nom === 'Bureau'">
+                                                        <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                                          alt="default-img">
+                                                      </div>
+                                                      <div class="type" *ngIf="bienRecent.typeImmo.nom === 'Champ'">
+                                                        <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                                          alt="default-img">
+                                                      </div>
+                                                      <div class="type" *ngIf="bienRecent.typeImmo.nom === 'Commerce & Magasin'">
+                                                        <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                                          alt="default-img">
+                                                      </div>
                                                 </ng-template>
                                             </a>
                                         </div>

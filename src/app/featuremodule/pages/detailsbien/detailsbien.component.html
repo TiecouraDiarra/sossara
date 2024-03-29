@@ -849,6 +849,22 @@
               alt="default-img"
             />
           </div>
+          <div class="type" *ngIf="bien.typeImmo.nom === 'Terrain'">
+            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+              alt="default-img">
+          </div>
+          <div class="type" *ngIf="bien.typeImmo.nom === 'Bureau'">
+            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+              alt="default-img">
+          </div>
+          <div class="type" *ngIf="bien.typeImmo.nom === 'Champ'">
+            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+              alt="default-img">
+          </div>
+          <div class="type" *ngIf="bien.typeImmo.nom === 'Commerce & Magasin'">
+            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+              alt="default-img">
+          </div>
         </div>
         <!--Gallery Section-->
         <div class="card gallery-section" *ngIf="photos && photos.length > 0">
@@ -1270,11 +1286,11 @@
                 </li>
                 <li
                   *ngIf="
-                    bien.caracteristique && bien.caracteristique.caracteristique
+                    bien?.caracteristique && bien?.caracteristique?.caracteristique
                   "
                 >
                   Caracteristique
-                  <span>{{ bien.caracteristique.caracteristique }}</span>
+                  <span>{{ bien?.caracteristique?.caracteristique }}</span>
                 </li>
                 <li *ngIf="bien.statut.nom == 'A louer'">
                   Periode <span>{{ bien.periode.nom }}</span>

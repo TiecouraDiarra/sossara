@@ -35,10 +35,10 @@ export class AproposComponent implements OnInit {
   }
   ngOnInit(): void {
     //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-      this.commune = data.commune;
-      console.log(this.commune);
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
+    //   this.commune = data.commune;
+    //   console.log(this.commune);
+    // });
 
   }
   getNombreBiensPourCommune(communeId: number): number {

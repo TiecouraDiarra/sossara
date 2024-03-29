@@ -21,10 +21,10 @@ export class CommoditeService {
 
   constructor(private http: HttpClient) { }
 
-    //AFFICHER LA LISTE DES COMMODITES ANCIEN
-    AfficherLaListeCommodite():Observable<any>{
-      return this.http.get(`${URL_BASE}/type/immo`);
-    }
+    //AFFICHER LA LISTE DES COMMODITES ANCIEN  
+    // AfficherLaListeCommodite():Observable<any>{
+    //   return this.http.get(`${URL_BASE}/type/immo`);
+    // }
 
       //AFFICHER LA LISTE DES COMMODITES
       AfficherListeCommodite():Observable<any>{
