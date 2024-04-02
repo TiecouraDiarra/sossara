@@ -38,6 +38,11 @@
             <i class="fas fa-users"></i> <span>Mes agents</span>
           </a>
         </li>
+        <li *ngIf="isAgence">
+          <a [routerLink]="routes.rdv">
+            <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+          </a>
+        </li> 
         <li>
           <a [routerLink]="routes.messages">
             <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -70,30 +75,15 @@
             <div class="card-body">
               <div class="profile-photo">
                 <div class="profile-img">
-                  <div
-                    class="settings-upload-img"
-                    *ngIf="users && users.utilisateurPhoto"
-                  >
-                    <img
-                      [src]="generateImageUrl(photo?.photo?.nom)"
-                      alt="profile"
-                      (error)="handleAuthorImageError($event)"
-                    />
+                  <div class="settings-upload-img" *ngIf="users && users.utilisateurPhoto">
+                    <img [src]="generateImageUrl(photo?.photo?.nom)" alt="profile"
+                      (error)="handleAuthorImageError($event)" />
                   </div>
-                  
+
                   <div class="settings-upload-btn">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      name="photo"
-                      class="hide-input image-upload"
-                      id="photo"
-                      (change)="onPhotoChange($event)"
-                      accept=".png, .jpeg, .jpg, .svg"
-                    />
-                    <label for="file" class="file-upload"
-                      >Changer Photo profil</label
-                    >
+                    <input type="file" accept="image/*" name="photo" class="hide-input image-upload" id="photo"
+                      (change)="onPhotoChange($event)" accept=".png, .jpeg, .jpg, .svg" />
+                    <label for="file" class="file-upload">Changer Photo profil</label>
                   </div>
                   <span>Taille Max: 5MB</span>
                 </div>
@@ -104,14 +94,8 @@
                   <div class="form-group" *ngIf="users && users.nom">
                     <label class="col-form-label">Votre nom et prenom</label>
                     <div class="pass-group group-img">
-                      <span class="lock-icon"
-                        ><i class="feather-user"></i
-                      ></span>
-                      <input
-                        type="text"
-                        class="form-control"
-                        value="{{ users.nom }}"
-                      />
+                      <span class="lock-icon"><i class="feather-user"></i></span>
+                      <input type="text" class="form-control" value="{{ users.nom }}" />
                     </div>
                   </div>
                   <div class="row">
@@ -119,14 +103,8 @@
                       <div class="form-group" *ngIf="users && users.telephone">
                         <label class="col-form-label">Numero</label>
                         <div class="pass-group group-img">
-                          <span class="lock-icon"
-                            ><i class="feather-phone-call"></i
-                          ></span>
-                          <input
-                            type="tel"
-                            class="form-control"
-                            value="{{ users.telephone }}"
-                          />
+                          <span class="lock-icon"><i class="feather-phone-call"></i></span>
+                          <input type="tel" class="form-control" value="{{ users.telephone }}" />
                         </div>
                       </div>
                     </div>
@@ -135,11 +113,7 @@
                         <label class="col-form-label">Adresse Email</label>
                         <div class="group-img">
                           <i class="feather-mail"></i>
-                          <input
-                            type="text"
-                            class="form-control"
-                            value="{{ users.email }}"
-                          />
+                          <input type="text" class="form-control" value="{{ users.email }}" />
                         </div>
                       </div>
                     </div>
@@ -149,74 +123,40 @@
                       <div class="form-group">
                         <label class="col-form-label">Date de naissance</label>
                         <div class="pass-group group-img">
-                          <span class="lock-icon"
-                            ><i class="fa-sharp fa-solid fa-calendar-days"></i
-                          ></span>
-                          <input
-                            type="text"
-                            class="form-control"
-                            value="{{
+                          <span class="lock-icon"><i class="fa-sharp fa-solid fa-calendar-days"></i></span>
+                          <input type="text" class="form-control" value="{{
                               users.dateNaissance
                                 | date : 'dd MMM yyyy' : locale
-                            }}"
-                          />
+                            }}" />
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="col-lg-6 col-md-6"
-                      *ngIf="User.roles && User.roles[0]"
-                    >
+                    <div class="col-lg-6 col-md-6" *ngIf="User.roles && User.roles[0]">
                       <div class="form-group">
                         <label class="col-form-label">Statut</label>
                         <div class="pass-group group-img">
-                          <span class="lock-icon"
-                            ><i class="fas fa-info-circle"></i
-                          ></span>
-                          <input
-                            type="text"
-                            class="form-control"
-                            readonly
-                            [value]="getRoleLabel()"
-                          />
+                          <span class="lock-icon"><i class="fas fa-info-circle"></i></span>
+                          <input type="text" class="form-control" readonly [value]="getRoleLabel()" />
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="row socialmedia-info">
-                    <div
-                      class="col-lg-6 col-md-6"
-                      *ngIf="users?.documents && users?.documents[0]"
-                    >
+                    <div class="col-lg-6 col-md-6" *ngIf="users?.documents && users?.documents[0]">
                       <div class="form-group">
                         <label class="col-form-label">Type de piece</label>
                         <div class="pass-group group-img">
-                          <span class="lock-icon"
-                            ><i class="fas fa-id-card"></i
-                          ></span>
-                          <input
-                            type="text"
-                            class="form-control"
-                            value="{{ users.documents[0].nomDoc }}"
-                          />
+                          <span class="lock-icon"><i class="fas fa-id-card"></i></span>
+                          <input type="text" class="form-control" value="{{ users.documents[0].nomDoc }}" />
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="col-lg-6 col-md-6"
-                      *ngIf="users?.documents && users?.documents[0]"
-                    >
+                    <div class="col-lg-6 col-md-6" *ngIf="users?.documents && users?.documents[0]">
                       <div class="form-group">
                         <label class="col-form-label">Numero de la carte</label>
                         <div class="pass-group group-img">
-                          <span class="lock-icon"
-                            ><i class="fas fa-file"></i
-                          ></span>
-                          <input
-                            type="text"
-                            class="form-control"
-                            value="{{ users.documents[0].numDoc }}"
-                          />
+                          <span class="lock-icon"><i class="fas fa-file"></i></span>
+                          <input type="text" class="form-control" value="{{ users.documents[0].numDoc }}" />
                         </div>
                       </div>
                     </div>
@@ -231,14 +171,8 @@
                     <div class="d-flex real-estate-search">
                       <div class="flex-grow-1 ms-3">
                         <p>
-                          <a
-                            class="flex-shrink-0 d-flex align-items-center"
-                            data-bs-toggle="collapse"
-                            href="#collapseExample"
-                            role="button"
-                            aria-expanded="false"
-                            aria-controls="collapseExample"
-                          >
+                          <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse"
+                            href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                             Plus d'informations
                           </a>
                         </p>
@@ -247,29 +181,23 @@
                   </div>
                   <div class="collapse" id="collapseExample">
                     <div class="row">
-                    
-                      <div
-                      class="col-lg-6 col-md-6 mb-4"
-                      *ngIf="users?.adresse && users?.adresse"
-                    >
-                      <label class="col-form-label">Pays</label>
 
-                      <div class="d-flex real-estate-search form-control">
-                        <div class="flex-shrink-0 d-flex align-items-center">
-                          <div class="icon-blk rounded-circle">
-                            <i class="feather-map-pin"></i>
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Pays</label>
+
+                        <div class="d-flex real-estate-search form-control">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-map-pin"></i>
+                            </div>
                           </div>
+                          &nbsp;
+                          <span class="mt-1 input">{{
+                            users.adresse.commune.cercle.region.pays.nompays
+                            }}</span>
                         </div>
-                       &nbsp;
-                        <span class="mt-1 input">{{
-                          users.adresse.commune.cercle.region.pays.nompays
-                        }}</span>
                       </div>
-                    </div>
-                      <div
-                        class="col-lg-6 col-md-6 mb-4"
-                        *ngIf="users?.adresse && users?.adresse"
-                      >
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
                         <label class="col-form-label">Region</label>
 
                         <div class="d-flex real-estate-search form-control">
@@ -278,116 +206,89 @@
                               <i class="feather-map-pin"></i>
                             </div>
                           </div>
-                         &nbsp;
+                          &nbsp;
                           <span class="mt-1 input">{{
                             users.adresse.commune.cercle.region.nomregion
-                          }}</span>
+                            }}</span>
                         </div>
                       </div>
-                    
 
-                      <div
-                      class="col-lg-6 col-md-6 mb-4"
-                      *ngIf="users?.adresse && users?.adresse"
-                    >
-                      <label class="col-form-label">Cercle</label>
 
-                      <div class="d-flex real-estate-search form-control">
-                        <div class="flex-shrink-0 d-flex align-items-center">
-                          <div class="icon-blk rounded-circle">
-                            <i class="feather-map-pin"></i>
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Cercle</label>
+
+                        <div class="d-flex real-estate-search form-control">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-map-pin"></i>
+                            </div>
                           </div>
+                          &nbsp;
+                          <span class="mt-1 input">{{
+                            users.adresse.commune.cercle.nomcercle
+                            }}</span>
                         </div>
-                       &nbsp;
-                        <span class="mt-1 input">{{
-                          users.adresse.commune.cercle.nomcercle
-                        }}</span>
                       </div>
-                    </div>
-                      <div
-                      class="col-lg-6 col-md-6 mb-4"
-                      *ngIf="users?.adresse && users?.adresse"
-                    >
-                      <label class="col-form-label">Commune</label>
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Commune</label>
 
-                      <div class="d-flex real-estate-search form-control">
-                        <div class="flex-shrink-0 d-flex align-items-center">
-                          <div class="icon-blk rounded-circle">
-                            <i class="feather-map-pin"></i>
+                        <div class="d-flex real-estate-search form-control">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-map-pin"></i>
+                            </div>
                           </div>
+                          &nbsp;
+                          <span class="mt-1 input">{{
+                            users.adresse.commune.nomcommune
+                            }}</span>
                         </div>
-                       &nbsp;
-                        <span class="mt-1 input">{{
-                         users.adresse.commune.nomcommune
-                        }}</span>
                       </div>
-                    </div>
 
-                      <div
-                        class="col-lg-6 col-md-6 mb-4"
-                        *ngIf="users?.adresse && users?.adresse"
-                      >
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
                         <label class="col-form-label">Quartier</label>
 
                         <div class="d-flex form-control" readonly>
                           <div class="flex-shrink-0 d-flex align-items-center">
                             <div class="icon-blk rounded-circle">
-                              <img
-                                style="width: 20px"
-                                src="../../../../assets/img/icons/quartier.png"
-                                alt=""
-                              />
+                              <img style="width: 20px" src="../../../../assets/img/icons/quartier.png" alt="" />
                             </div>
                           </div>
                           &nbsp;
                           <span class="mt-2 input">{{
                             users.adresse.quartier
-                          }}</span>
+                            }}</span>
                           <!-- <input type="text" style="border: none;"  readonly [value]="users.adresse.quartier"> -->
                         </div>
                       </div>
 
-                      <div
-                        class="col-lg-6 col-md-6 mb-4"
-                        *ngIf="users?.adresse && users?.adresse"
-                      >
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
                         <label class="col-form-label">Rue</label>
                         <div class="d-flex form-control" readonly>
                           <div class="flex-shrink-0 d-flex align-items-center">
                             <div class="icon-blk rounded-circle">
-                              <img
-                                style="width: 20px"
-                                src="../../../../assets/img/icons/route.png"
-                                alt=""
-                              />
+                              <img style="width: 20px" src="../../../../assets/img/icons/route.png" alt="" />
                             </div>
                           </div>
                           &nbsp;
                           <span class="mt-2 input">{{
                             users.adresse.rue
-                          }}</span>
+                            }}</span>
                           <!-- <input type="text" style="border: none;"  readonly [value]="users.adresse.rue"> -->
                         </div>
                       </div>
-                      <div
-                        class="col-lg-6 col-md-6 mb-4"
-                        *ngIf="users?.adresse && users?.adresse"
-                      >
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
                         <label class="col-form-label">Porte</label>
                         <div class="d-flex form-control" readonly>
                           <div class="flex-shrink-0 d-flex align-items-center">
                             <div class="icon-blk rounded-circle">
-                              <img
-                                style="width: 20px"
-                                src="../../../../assets/img/icons/porte.png"
-                                alt=""
-                              />
+                              <img style="width: 20px" src="../../../../assets/img/icons/porte.png" alt="" />
                             </div>
                           </div>
                           &nbsp;
                           <span class="mt-2 input">{{
                             users.adresse.porte
-                          }}</span>
+                            }}</span>
                           <!-- <input style="border: none;" readonly [value]="users.adresse.porte" type="text" 
                                                         /> -->
                         </div>
@@ -395,48 +296,28 @@
                     </div>
                   </div>
                   <div class="form-group text-center">
-                    <button
-                      class="btn btn-primary"
-                      type="submit"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop"
-                    >
+                    <button class="btn btn-primary" type="submit" data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop">
                       Modifier mon profil
                     </button>
                     &nbsp; &nbsp;
 
-                    <button
-                      class="btn btn-primary"
-                      type="submit"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop2"
-                    >
+                    <button class="btn btn-primary" type="submit" data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop2">
                       Modifier mon adresse
                     </button>
                   </div>
 
                   <!-- Modal MODIFICATION PROFIL -->
-                  <div
-                    class="modal fade"
-                    id="staticBackdrop"
-                    data-bs-backdrop="static"
-                    data-bs-keyboard="false"
-                    tabindex="-1"
-                    aria-labelledby="staticBackdropLabel"
-                    aria-hidden="true"
-                  >
+                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="staticBackdropLabel">
                             Modification du profil
                           </h5>
-                          <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                          ></button>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                           <form>
@@ -444,76 +325,44 @@
                             <div class="form-group group-img">
                               <div class="group-img" id="datepicker">
                                 <i class="feather-user"></i>
-                                <input
-                                  placeholder="Prenom et Nom"
-                                  name="nom"
-                                  type="text"
-                                  class="form-control"
-                                  [(ngModel)]="formModif.nom"
-                                  required
-                                />
+                                <input placeholder="Prenom et Nom" name="nom" type="text" class="form-control"
+                                  [(ngModel)]="formModif.nom" required />
                               </div>
                             </div>
                             <!-- email  -->
                             <div class="form-group group-img">
                               <div class="group-img">
                                 <i class="feather-mail"></i>
-                                <input
-                                  type="email"
-                                  placeholder="Adresse Email"
-                                  name="email"
-                                  required
-                                  class="form-control"
-                                  [(ngModel)]="formModif.email"
-                                />
+                                <input type="email" placeholder="Adresse Email" name="email" required
+                                  class="form-control" [(ngModel)]="formModif.email" />
                               </div>
                             </div>
                             <!-- telephone  -->
                             <div class="form-group group-img">
                               <div class="group-img">
                                 <i class="feather-phone"></i>
-                                <input
-                                  [(ngModel)]="formModif.telephone"
-                                  type="text"
-                                  required
-                                  name="telephone"
-                                  class="form-control"
-                                  placeholder="Numero de Telephone"
-                                />
+                                <input [(ngModel)]="formModif.telephone" type="text" required name="telephone"
+                                  class="form-control" placeholder="Numero de Telephone" />
                               </div>
                             </div>
                             <!-- date de naissance  -->
                             <!-- date de naissance  -->
-<div class="form-group group-img">
-  <div class="group-img">
-    <i class="feather-calendar"></i>
-    <!-- Utilisation d'une icône de calendrier pour représenter la date de naissance -->
-    <input
-      [(ngModel)]="formModif.date_de_naissance"
-      type="date"
-      required
-      name="dateNaissance"
-      class="form-control"
-      placeholder="Date de Naissance"
-    />
-  </div>
-</div>
+                            <div class="form-group group-img">
+                              <div class="group-img">
+                                <i class="feather-calendar"></i>
+                                <!-- Utilisation d'une icône de calendrier pour représenter la date de naissance -->
+                                <input [(ngModel)]="formModif.date_de_naissance" type="date" required
+                                  name="dateNaissance" class="form-control" placeholder="Date de Naissance" />
+                              </div>
+                            </div>
 
                           </form>
                         </div>
                         <div class="modal-footer">
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Retour
                           </button>
-                          <button
-                            (click)="ModifierProfilUser()"
-                            type="button"
-                            class="btn btn-primary"
-                          >
+                          <button (click)="ModifierProfilUser()" type="button" class="btn btn-primary">
                             Modifier
                           </button>
                         </div>
@@ -521,34 +370,20 @@
                     </div>
                   </div>
 
-                  <div
-                    class="modal fade"
-                    id="staticBackdrop2"
-                    data-bs-backdrop="static"
-                    data-bs-keyboard="false"
-                    tabindex="-1"
-                    aria-labelledby="staticBackdropLabel"
-                    aria-hidden="true"
-                  >
+                  <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="staticBackdropLabel">
                             Modification de mon adresse
                           </h5>
-                          <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                          ></button>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                           <form>
                             <div class="d-flex real-estate-search">
-                              <div
-                                class="flex-shrink-0 d-flex align-items-center"
-                              >
+                              <div class="flex-shrink-0 d-flex align-items-center">
                                 <div class="icon-blk rounded-circle">
                                   <i class="feather-map-pin"></i>
                                 </div>
@@ -557,17 +392,10 @@
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                               <div class="flex-grow-1 ms-3">
-                                <select
-                                  class="form-control"
-                                  [ngModel]="selectedValue"
-                                  name="pays"
-                                  (change)="onChange2($event.target)"
-                                >
+                                <select class="form-control" [ngModel]="selectedValue" name="pays"
+                                  (change)="onChange2($event.target)">
                                   <option value="pays" selected>pays</option>
-                                  <option
-                                    *ngFor="let item of pays"
-                                    [value]="item.nompays"
-                                  >
+                                  <option *ngFor="let item of pays" [value]="item.nompays">
                                     {{ item.nompays }}
                                   </option>
                                 </select>
@@ -577,9 +405,7 @@
 
                             <div>
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
                                     <i class="feather-map-pin"></i>
                                   </div>
@@ -588,10 +414,8 @@
                                                                 <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                             </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    (change)="onChangeRegion($event.target)"
-                                  >
+                                  <select class="form-control select category-select"
+                                    (change)="onChangeRegion($event.target)">
                                     <option selected [value]="null">
                                       Region
                                     </option>
@@ -604,9 +428,7 @@
                             </div>
                             <div>
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
                                     <i class="feather-map-pin"></i>
                                   </div>
@@ -615,17 +437,12 @@
                                                                 <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                             </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    (change)="onChangeCercle($event.target)"
-                                  >
+                                  <select class="form-control select category-select"
+                                    (change)="onChangeCercle($event.target)">
                                     <option selected [value]="null">
                                       Cercle
                                     </option>
-                                    <option
-                                      *ngFor="let Cercle of cercles"
-                                      [value]="Cercle.id"
-                                    >
+                                    <option *ngFor="let Cercle of cercles" [value]="Cercle.id">
                                       {{ Cercle.nomcercle }}
                                     </option>
                                   </select>
@@ -634,9 +451,7 @@
                             </div>
                             <div>
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
                                     <i class="feather-map-pin"></i>
                                   </div>
@@ -645,18 +460,12 @@
                                                                 <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                             </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    [(ngModel)]="formModifadress.communeform"
-                                    name="communeform"
-                                  >
+                                  <select class="form-control select category-select"
+                                    [(ngModel)]="formModifadress.communeform" name="communeform">
                                     <option selected [value]="null">
                                       Commune
                                     </option>
-                                    <option
-                                      *ngFor="let Commune of communes1"
-                                      [value]="Commune.id"
-                                    >
+                                    <option *ngFor="let Commune of communes1" [value]="Commune.id">
                                       {{ Commune?.nomcommune }}
                                     </option>
                                   </select>
@@ -666,104 +475,60 @@
 
                             <div class="">
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 20px"
-                                      src="../../../../assets/img/icons/quartier.png"
-                                      alt=""
-                                    />
+                                    <img style="width: 20px" src="../../../../assets/img/icons/quartier.png" alt="" />
                                   </div>
                                 </div>
                                 <!--<div class="flex-grow-1 ms-3">
                                                                 <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                             </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <input
-                                    type="text"
-                                    placeholder="Votre quartier"
-                                    name="quartier"
-                                    required
-                                    class="form-control"
-                                    [(ngModel)]="formModifadress.quartier"
-                                  />
+                                  <input type="text" placeholder="Votre quartier" name="quartier" required
+                                    class="form-control" [(ngModel)]="formModifadress.quartier" />
                                 </div>
                               </div>
                             </div>
 
                             <div class="">
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 20px"
-                                      src="../../../../assets/img/icons/route.png"
-                                      alt=""
-                                    />
+                                    <img style="width: 20px" src="../../../../assets/img/icons/route.png" alt="" />
                                   </div>
                                 </div>
                                 <!--<div class="flex-grow-1 ms-3">
                                                                 <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                             </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <input
-                                    type="text"
-                                    placeholder="Numéro rue"
-                                    name="rue"
-                                    required
-                                    class="form-control"
-                                    [(ngModel)]="formModifadress.rue"
-                                  />
+                                  <input type="text" placeholder="Numéro rue" name="rue" required class="form-control"
+                                    [(ngModel)]="formModifadress.rue" />
                                 </div>
                               </div>
                             </div>
                             <div class="">
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 20px"
-                                      src="../../../../assets/img/icons/porte.png"
-                                      alt=""
-                                    />
+                                    <img style="width: 20px" src="../../../../assets/img/icons/porte.png" alt="" />
                                   </div>
                                 </div>
                                 <!--<div class="flex-grow-1 ms-3">
                                                                 <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                             </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <input
-                                    [(ngModel)]="formModifadress.porte"
-                                    type="text"
-                                    required
-                                    name="porte"
-                                    class="form-control"
-                                    placeholder="Numéro porte"
-                                  />
+                                  <input [(ngModel)]="formModifadress.porte" type="text" required name="porte"
+                                    class="form-control" placeholder="Numéro porte" />
                                 </div>
                               </div>
                             </div>
                           </form>
                         </div>
                         <div class="modal-footer">
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Retour
                           </button>
-                          <button
-                            (click)="ModifierAdressUser()"
-                            type="button"
-                            class="btn btn-primary"
-                          >
+                          <button (click)="ModifierAdressUser()" type="button" class="btn btn-primary">
                             Modifier
                           </button>
                         </div>
@@ -788,79 +553,47 @@
                   <div class="form-group">
                     <label class="col-form-label">Ancien mot de passe</label>
                     <div class="pass-group group-img">
-                      <span class="lock-icon"
-                        ><i class="feather-lock"></i
-                      ></span>
-                      <input
-                        name="oldPassword"
-                        [(ngModel)]="ChangeMdpForm.oldPassword"
-                        type="password"
-                        class="form-control pass-input"
-                        placeholder="Ancien mot de passe"
-                      />
+                      <span class="lock-icon"><i class="feather-lock"></i></span>
+                      <input name="oldPassword" [(ngModel)]="ChangeMdpForm.oldPassword" type="password"
+                        class="form-control pass-input" placeholder="Ancien mot de passe" />
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-form-label">Nouveau mot de passe</label>
                     <div class="pass-group group-img">
-                      <span class="lock-icon"
-                        ><i class="feather-lock"></i
-                      ></span>
-                      <input
-                        name="newPassword"
-                        [(ngModel)]="ChangeMdpForm.newPassword"
-                        type="password"
-                        [type]="Toggledata ? 'password' : 'text'"
-                        class="form-control pass-input"
-                        placeholder="Nouveau mot de passe"
-                      />
-                      <span
-                        [ngClass]="
+                      <span class="lock-icon"><i class="feather-lock"></i></span>
+                      <input name="newPassword" [(ngModel)]="ChangeMdpForm.newPassword" type="password"
+                        [type]="Toggledata ? 'password' : 'text'" class="form-control pass-input"
+                        placeholder="Nouveau mot de passe" />
+                      <span [ngClass]="
                           Toggledata == false
                             ? 'toggle-password feather-eye'
                             : 'toggle-password feather-eye-off'
-                        "
-                        (click)="iconLogle()"
-                      ></span>
+                        " (click)="iconLogle()"></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-form-label">Confirmer Nouveau MDP</label>
                     <div class="pass-group group-img">
-                      <span class="lock-icon"
-                        ><i class="feather-lock"></i
-                      ></span>
-                      <input
-                        name="confirmPassword"
-                        [(ngModel)]="ChangeMdpForm.confirmPassword"
-                        type="password"
-                        [type]="Toggle ? 'password' : 'text'"
-                        class="form-control pass-input"
-                        placeholder="Confirmation"
-                      />
-                      <span
-                        [ngClass]="
+                      <span class="lock-icon"><i class="feather-lock"></i></span>
+                      <input name="confirmPassword" [(ngModel)]="ChangeMdpForm.confirmPassword" type="password"
+                        [type]="Toggle ? 'password' : 'text'" class="form-control pass-input"
+                        placeholder="Confirmation" />
+                      <span [ngClass]="
                           Toggle == false
                             ? 'toggle-password feather-eye'
                             : 'toggle-password feather-eye-off'
-                        "
-                        (click)="icon()"
-                      ></span>
+                        " (click)="icon()"></span>
                     </div>
                   </div>
-                  <button
-                    class="btn btn-primary"
-                    [disabled]="
+                  <button class="btn btn-primary" [disabled]="
                       !ChangeMdpForm.oldPassword ||
                       ChangeMdpForm.oldPassword.trim() === '' ||
                       !ChangeMdpForm.newPassword ||
                       ChangeMdpForm.newPassword.trim() === '' ||
                       !ChangeMdpForm.confirmPassword ||
                       ChangeMdpForm.confirmPassword.trim() === ''
-                    "
-                    (click)="ChangerMotDePasse()"
-                    type="submit"
-                  >
+                    " (click)="ChangerMotDePasse()" type="submit">
                     Changer mot de passe
                   </button>
                 </form>
@@ -881,14 +614,8 @@
                     <div class="form-group">
                       <label class="col-form-label">Facebook</label>
                       <div class="pass-group group-img">
-                        <span class="lock-icon"
-                          ><i class="fab fa-facebook-f"></i
-                        ></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          value="https://www.facebook.com/"
-                        />
+                        <span class="lock-icon"><i class="fab fa-facebook-f"></i></span>
+                        <input type="text" class="form-control" value="https://www.facebook.com/" />
                       </div>
                     </div>
                   </div>
@@ -896,14 +623,8 @@
                     <div class="form-group">
                       <label class="col-form-label">Twitter</label>
                       <div class="pass-group group-img">
-                        <span class="lock-icon"
-                          ><i class="fab fa-twitter"></i
-                        ></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          value="https://twitter.com/"
-                        />
+                        <span class="lock-icon"><i class="fab fa-twitter"></i></span>
+                        <input type="text" class="form-control" value="https://twitter.com/" />
                       </div>
                     </div>
                   </div>
@@ -911,14 +632,8 @@
                     <div class="form-group formlast-input">
                       <label class="col-form-label">Google+</label>
                       <div class="pass-group group-img">
-                        <span class="lock-icon"
-                          ><i class="fa-brands fa-google-plus-g"></i
-                        ></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          value="https://www.google.com/"
-                        />
+                        <span class="lock-icon"><i class="fa-brands fa-google-plus-g"></i></span>
+                        <input type="text" class="form-control" value="https://www.google.com/" />
                       </div>
                     </div>
                   </div>
@@ -926,14 +641,8 @@
                     <div class="form-group formlast-input">
                       <label class="col-form-label">Instagram</label>
                       <div class="pass-group group-img">
-                        <span class="lock-icon"
-                          ><i class="fab fa-instagram"></i
-                        ></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          value="https://www.instagram.com/"
-                        />
+                        <span class="lock-icon"><i class="fab fa-instagram"></i></span>
+                        <input type="text" class="form-control" value="https://www.instagram.com/" />
                       </div>
                     </div>
                   </div>

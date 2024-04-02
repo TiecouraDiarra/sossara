@@ -1122,7 +1122,7 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
-                <a (click)="goToDettailCommune(Commune.uuid)" class="crd">
+                <a (click)="goToDettailCommune(Commune.nomcommune)" class="crd">
                     <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
                         <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
                             class="commune-image img-fluid" alt="">

@@ -90,6 +90,11 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbien/parcommune/${id}`);
   }
 
+  //AFFICHER LA LISTE DES BIENS EN FONCTION DE LA COMMUNE
+  AfficherBienImmoParNomCommune(nomcommune: string): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/afficherbien/parnomcommune/${nomcommune}`);
+  }
+
   //AFFICHER UNE TRANSACTION POUR LES  VENTE EN FONCTION DE SON ID
   AfficherTransactionParId(id: number): Observable<any> {
     const headers = this.getHeaders();

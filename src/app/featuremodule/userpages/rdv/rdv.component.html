@@ -36,7 +36,7 @@
                 </li>
                 <li class="active" *ngIf="isAgence">
                     <a [routerLink]="routes.rdv">
-                        <i class="fas fa-users"></i> <span>Rendez-vous</span>
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
                     </a>
                 </li>
                 <li>
@@ -89,8 +89,9 @@
                                     <li class="review-box" *ngFor="let Rdv of rdv">
                                         <div class="review-profile">
                                             <div class="review-img">
-                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo?.nom)}}" class="img-fluid"
-                                                    alt="img" (error)="handleAuthorImageError($event)">
+                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo?.nom)}}"
+                                                    class="img-fluid" alt="img"
+                                                    (error)="handleAuthorImageError($event)">
                                             </div>
                                         </div>
                                         <div class="review-details">
@@ -133,37 +134,6 @@
                                             <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
                                         </div>
                                     </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="ligne">
-                            <div class="card-body">
-                                <ul class="review-list">
-                                    <li class="review-box" *ngFor="let Rdv of rdv">
-                                        <div class="review-profile">
-                                            <div class="review-img">
-                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo?.nom)}}" class="img-fluid"
-                                                    alt="img" (error)="handleAuthorImageError($event)">
-                                            </div>
-                                        </div>
-                                        <div class="review-details">
-                                            <h6>{{Rdv.utilisateur.nom}}</h6>
-                                            <div class="rating">
-                                                <div class="rating-star">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                </div>
-                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv.date |
-                                                    date:"dd MMM yyyy":locale}}</div>
-                                                <div>{{Rdv.heure}}</div>
-                                            </div>
-                                            <!-- <p>{{data.feedback}}</p>																	 -->
-                                        </div>
-                                    </li>
-
                                 </ul>
                             </div>
                         </div>

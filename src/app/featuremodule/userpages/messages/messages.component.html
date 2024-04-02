@@ -36,6 +36,11 @@
                         <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
+                <li *ngIf="isAgence">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+                    </a>
+                </li>
                 <li class="active">
                     <a [routerLink]="routes.messages">
                         <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -72,25 +77,28 @@
                             </div>
                         </form>
                         <div class=" cardS chat-users-list">
-                            <div class="card-body msg_card_bodyZ chat-scroll" >
+                            <div class="card-body msg_card_bodyZ chat-scroll">
                                 <a class="media d-flex" *ngFor="let Conversations of chatList | filter:searchText">
                                     <div class="media-img-wrap flex-shrink-0 crd"
-                                    (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
-                                    <div class="img_cont">
-                                        <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName!=senderCheck">
-                                          {{Conversations?.destinateurInfo.nom.substring(0,1)}}</div>
-                                        <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                        (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
+                                        <div class="img_cont">
+                                            <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName!=senderCheck">
+                                                {{Conversations?.destinateurInfo.nom.substring(0,1)}}</div>
+                                            <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
                                           {{firstUserName.substring(0,1)}}</div> -->
-                                      </div> &nbsp; &nbsp;
+                                        </div> &nbsp; &nbsp;
                                     </div>
-                                    <div class="media-body flex-grow-1 mt-4"  (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
+                                    <div class="media-body flex-grow-1 mt-4"
+                                        (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
                                         <div>
                                             <div class="user-name">{{Conversations?.destinateurInfo.nom}}</div>
                                             <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
                                         </div>
-                                        
+
                                         <div>
-                                            <div class="badge badge-success rounded-pill">{{Conversations?.messages.length}}</div>
+                                            <div class="badge badge-success rounded-pill">
+                                                {{Conversations?.messages.length}}</div>
                                         </div>
                                     </div>
                                 </a>
@@ -99,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-7" >
+                <div class="col-lg-7">
                     <div class="chat-cont-right">
                         <div class="chat-header">
                             <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
@@ -107,11 +115,12 @@
                             </a>
                             <div class="media d-flex align-items-center">
                                 <div class="img_cont">
-                                    <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName!=senderCheck">
-                                      {{secondUserName?.substring(0,1)}}</div>
+                                    <div class="rounded-circle user_img text_inside_circle1"
+                                        *ngIf="secondUserName!=senderCheck">
+                                        {{secondUserName?.substring(0,1)}}</div>
                                     <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
                                       {{firstUserName.substring(0,1)}}</div> -->
-                                  </div> &nbsp; &nbsp;
+                                </div> &nbsp; &nbsp;
                                 <div class="media-body flex-grow-1">
                                     <div class="user-name">{{secondUserName}}</div>
                                 </div>
@@ -120,53 +129,61 @@
                         <div class="chat-body">
                             <div class="card">
                                 <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-                                <ul class="list-unstyled ">
-                                    <li class="media d-flex received">
-                                        <!-- <div class="avatar flex-shrink-0">
+                                    <ul class="list-unstyled ">
+                                        <li class="media d-flex received">
+                                            <!-- <div class="avatar flex-shrink-0">
                                             <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
                                                 alt="User Image" class="avatar-img rounded-circle">
                                         </div> -->
-                                        <div class="media-body flex-grow-1">
-                                            <div class="msg-box" *ngFor="let Messages of messageList">
-                                                <!-- <div class="avatar flex-shrink-0 imagChat" *ngIf="!Messages.senderEmail==senderCheck">
+                                            <div class="media-body flex-grow-1">
+                                                <div class="msg-box" *ngFor="let Messages of messageList">
+                                                    <!-- <div class="avatar flex-shrink-0 imagChat" *ngIf="!Messages.senderEmail==senderCheck">
                                                     <img src="{{generateImageUrl(users?.photos[0].nom)}}" (error)="handleAuthorImageError($event)" alt="Image du message">
                                                 </div> -->
-                                                <div class="d-flex justify-content-end mb-2" *ngIf="Messages.senderEmail==senderCheck">
-                                                    <div class="msg_cotainer_send">
-                                                      <!-- {{msg.replymessage | json}} -->
-                                                     <p style="background-color: #e98b11; padding: 15px; border-radius: 20px; margin-right: 5px;"> {{Messages.message}}</p>
-                                                     <!-- <ul class="chat-msg-info">
+                                                    <div class="d-flex justify-content-end mb-2"
+                                                        *ngIf="Messages.senderEmail==senderCheck">
+                                                        <div class="msg_cotainer_send">
+                                                            <!-- {{msg.replymessage | json}} -->
+                                                            <p
+                                                                style="background-color: #e98b11; padding: 15px; border-radius: 20px; margin-right: 5px;">
+                                                                {{Messages.message}}</p>
+                                                            <!-- <ul class="chat-msg-info">
                                                         <li>
                                                             <div class="chat-time">
                                                                 <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
                                                             </div>
                                                         </li>
                                                     </ul> -->
-                                                      <span class="msg_time_send float-end">{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                            <span class="msg_time_send float-end">{{ Messages.time |
+                                                                date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                        </div>
+                                                        <div class="img_cont_msg">
+                                                            <span
+                                                                class="rounded-circle user_img_msg text_inside_circle4">{{Messages.senderEmail.substring(0,1)}}</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="img_cont_msg">
-                                                      <span
-                                                        class="rounded-circle user_img_msg text_inside_circle4">{{Messages.senderEmail.substring(0,1)}}</span>
-                                                    </div>
-                                                  </div>
-                                                  <div class="d-flex justify-content-start mb-2" *ngIf="Messages.senderEmail!=senderCheck">
-                                                    <div class="img_cont_msg">
-                                                      <span
-                                                        class="rounded-circle user_img_msg text_inside_circle3">{{Messages.senderEmail.substring(0,1)}}</span>
-                                                    </div>
-                                                    <div class="msg_cotainer" >
-                                                        <p style="background-color: #374b5c; padding: 15px;border-radius: 20px; margin-left: 5px;"> {{Messages.message}}</p>
-                                                        <!-- <ul class="chat-msg-info">
+                                                    <div class="d-flex justify-content-start mb-2"
+                                                        *ngIf="Messages.senderEmail!=senderCheck">
+                                                        <div class="img_cont_msg">
+                                                            <span
+                                                                class="rounded-circle user_img_msg text_inside_circle3">{{Messages.senderEmail.substring(0,1)}}</span>
+                                                        </div>
+                                                        <div class="msg_cotainer">
+                                                            <p
+                                                                style="background-color: #374b5c; padding: 15px;border-radius: 20px; margin-left: 5px;">
+                                                                {{Messages.message}}</p>
+                                                            <!-- <ul class="chat-msg-info">
                                                            <li>
                                                                <div class="chat-time">
                                                                    <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
                                                                </div>
                                                            </li>
                                                        </ul> -->
-                                                      <span class="msg_time_send">{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                            <span class="msg_time_send">{{ Messages.time | date:"dd MMM
+                                                                yyyy HH:mm":locale}}</span>
+                                                        </div>
                                                     </div>
-                                                  </div>
-                                                <!-- <div [ngClass]="{'mine-message': Messages.senderEmail==senderCheck, 'other-message': !Messages.senderEmail==senderCheck}"
+                                                    <!-- <div [ngClass]="{'mine-message': Messages.senderEmail==senderCheck, 'other-message': !Messages.senderEmail==senderCheck}"
                                                     [ngStyle]="{'background-color': Messages.senderEmail==senderCheck ? '#e98b11' : '#374b5c', 'margin-left': Messages.senderEmail==senderCheck ? '70%' : 'auto'}">
                                                   
 
@@ -180,12 +197,12 @@
                                                         </li>
                                                     </ul>
                                                 </div> -->
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="media d-flex sent">
-                                        <div class="media-body flex-grow-1">
-                                            <!-- <div class="msg-box" *ngFor="let Messages of filteredMessagesUserCurrent">
+                                        </li>
+                                        <li class="media d-flex sent">
+                                            <div class="media-body flex-grow-1">
+                                                <!-- <div class="msg-box" *ngFor="let Messages of filteredMessagesUserCurrent">
                                                 <div>
                                                     <p>{{Messages.content}}</p>
                                                     <ul class="chat-msg-info">
@@ -198,7 +215,7 @@
                                                     </ul>
                                                 </div>
                                             </div> -->
-                                            <!-- <div class="msg-box">
+                                                <!-- <div class="msg-box">
                                                 <div>
                                                     <p>OK, my name is Limingqiang. I like singing, playing basketballand so on.</p>
                                                     <ul class="chat-msg-info">
@@ -229,10 +246,10 @@
                                                     </ul>
                                                 </div>
                                             </div> -->
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="chat-footer">
@@ -251,7 +268,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

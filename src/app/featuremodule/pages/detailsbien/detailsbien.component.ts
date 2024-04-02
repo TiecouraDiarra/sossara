@@ -173,6 +173,9 @@ export class DetailsbienComponent implements AfterViewInit {
   message: string | undefined;
   periode: any;
   caracteristique: any;
+  // Déclarer une variable pour suivre l'état du collapse
+  isCollapsedModifier: boolean = false;
+  isCollapsedRepondre: boolean = false;
 
 
   commentaireForm: any = {
@@ -180,6 +183,10 @@ export class DetailsbienComponent implements AfterViewInit {
   };
   reponseForm: any = {
     contenu: null,
+  };
+
+  commForm: any = {
+    contenu: null
   };
   currentUser: any = false;
   ModifBien: any = false;
@@ -634,6 +641,142 @@ export class DetailsbienComponent implements AfterViewInit {
     //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
     //   console.log(data);
     // });
+  }
+
+  commentaireSelectionne: any;
+  afficherCommentaire(commentaireId: any) {
+    // this.isCollapsedRepondre = true; // Mettre à jour l'état du collapse
+    // Récupérer le commentaire correspondant à l'identifiant
+    this.servicecommentaire.AfficherCommentaireParid(commentaireId).subscribe((commentaire) => {
+      this.commentaireSelectionne = commentaire;
+      console.log(this.commentaireSelectionne);
+      this.commForm = {
+        contenu: this.commentaireSelectionne?.contenu
+      }
+
+    });
+  }
+  //METHODE PERMETTANT DE MODIFIER UN commentaire
+  Modifiercommentaire(id: number): void {
+    this.servicecommentaire.Modifiercommentaire(this.commForm.contenu, id)
+      .subscribe(
+        (data) => {
+          if (data.status) {
+            let timerInterval = 2000;
+            Swal.fire({
+              position: 'center',
+              text: data.message,
+              title: "Modification du commentaire",
+              icon: 'success',
+              heightAuto: false,
+              showConfirmButton: false,
+              confirmButtonColor: '#0857b5',
+              showDenyButton: false,
+              showCancelButton: false,
+              allowOutsideClick: false,
+              timer: timerInterval,
+              timerProgressBar: true,
+            }).then(() => {
+              this.commForm.contenu === '';
+              //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+              this.servicecommentaire
+                .AffichercommentaireParBien(this.id)
+                .subscribe((data) => {
+                  this.commentaire = data.reverse();
+                });
+            });
+          } else {
+            Swal.fire({
+              position: 'center',
+              text: data.message,
+              title: 'Erreur',
+              icon: 'error',
+              heightAuto: false,
+              showConfirmButton: true,
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#0857b5',
+              showDenyButton: false,
+              showCancelButton: false,
+              allowOutsideClick: false,
+            }).then((result) => { });
+          }
+        },
+        error => {
+          console.error('Erreur lors de la modification du commentaire :', error);
+          // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+        }
+      );
+  }
+
+   //METHODE PERMETTANT DE MODIFIER UN commentaire
+   SupprimerCommentaire(id: number): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false
+    })
+    swalWithBootstrapButtons.fire({
+      // title: 'Etes-vous sûre de vous déconnecter?',
+      text: "Êtes-vous sûr(e) de vouloir supprimer votre commentaire ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.servicecommentaire.SupprimerCommentaire(id)
+          .subscribe(
+            (data) => {
+              if (data.status) {
+                let timerInterval = 2000;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: "Suppression du commentaire",
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  timer: timerInterval,
+                  timerProgressBar: true,
+                }).then(() => {
+                  this.commForm.contenu === '';
+                  //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
+                  this.servicecommentaire
+                    .AffichercommentaireParBien(this.id)
+                    .subscribe((data) => {
+                      this.commentaire = data.reverse();
+                    });
+                });
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Erreur',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#0857b5',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => { });
+              }
+            },
+            error => {
+              console.error('Erreur lors de la modification du commentaire :', error);
+              // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+            }
+          );
+      }
+    })
   }
 
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS

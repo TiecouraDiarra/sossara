@@ -713,8 +713,8 @@ export class AccueilComponent {
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
-  goToDettailCommune(id: number) {
-    return this.router.navigate(['bienparcommune', id]);
+  goToDettailCommune(nomcommune: string) {
+    return this.router.navigate(['bienparcommune', nomcommune]);
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
