@@ -92,12 +92,13 @@ export class AccueilComponent {
 
   locale!: string;
   imagesCommunes = [
-    'commune1.jpeg',
-    'commune2.png',
-    'commune3.jpg',
-    'commune4.jpg',
     'commune5.jpeg',
+    'commune2.jpg',
+    'commune1.jpeg',
+    'commune4.jpg',
+    'communes5.jpg', 
     'commune6.jpeg',
+    // 'commune3.jpg',
   ];
   public universitiesCompanies: any = [];
 

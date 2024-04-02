@@ -1072,11 +1072,11 @@ export class DetailsbienComponent implements AfterViewInit {
     return this.router.navigate(['/userpages/messages']);
   }
   MessageForm: any = {
-    content: null,
+    content: "Bonjour est ce que je peut avoir plus d'information sur ce bien ?",
   }
   goToMessage(username: any) {
     this.messageObj.message = this.MessageForm.content;
-    alert(this.MessageForm.content)
+
     this.chatService
       .getChatByFirstUserNameAndSecondUserName2(username, this.users.email, this.messageObj)
       .subscribe(
