@@ -109,13 +109,12 @@
               <label class="col-form-label"
                 >Description du bien <span>*</span></label
               >
-              <textarea
-                rows="6"
-                name="description"
-                [(ngModel)]="form.description"
-                class="form-control listingdescription"
-                placeholder="Description"
-              ></textarea>
+              <div class="form-floating">
+                <quill-editor name="description"  [(ngModel)]="form.description" placeholder="Description"
+                [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
+                (onContentChanged)="onContentChanged($event)">
+            </quill-editor>              
+            </div>
             </div>
           </div>
         </div>
@@ -736,6 +735,7 @@
           </div>
         </div>
         <button class="btn btn-primary" type="submit">Ajouter bien</button>
+
       </form>
       
     </div>

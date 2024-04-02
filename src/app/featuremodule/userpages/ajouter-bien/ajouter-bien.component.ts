@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 declare var google: any;
 import * as L from 'leaflet';
 import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
+import { ContentChange, SelectionChange } from 'ngx-quill';
 
 interface Food {
   value: string | any;
@@ -487,4 +488,48 @@ export class AjouterBienComponent {
   //     this.photo = [];
   //   }
   // }
+
+  quillConfig = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['code-block'],
+       //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+       //  [{ 'direction': 'rtl' }],                         // text direction
+
+       //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'align': [] }],
+
+       //  ['clean'],                                         // remove formatting button
+
+       //  ['link'],
+        ['link', 'image', 'video']
+      ],
+    },
+ }
+
+ onSelectionChanged = (event: SelectionChange) => {
+   if(event.oldRange == null) {
+     this.onFocus();
+   }
+   if(event.range == null) {
+     this.onBlur();
+   }
+ }
+
+ onContentChanged = (event: ContentChange) => {
+   // console.log(event.html);
+ }
+
+ onFocus = () => {
+   console.log("On Focus");
+ }
+ onBlur = () => {
+   console.log("Blurred");
+ }
 }
