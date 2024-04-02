@@ -37,6 +37,13 @@ export class FactureComponent {
   isAgenceProprietaire = false;
   roles: string[] = [];
 
+  // Supposons que vous avez une image par défaut dans votre projet
+  defaultImageUrl: string = 'assets/img/typebien/villa.png';
+  setDefaultImage(event: any): void {
+    // Si le chargement de l'image échoue, utilisez l'image par défaut
+    event.target.src = this.defaultImageUrl;
+  }
+
   constructor(
     private paiementService: ModepaiementService,
     @Inject(LOCALE_ID) private localeId: string,
@@ -72,7 +79,7 @@ export class FactureComponent {
         this.isAgenceProprietaire = true;
       }
     }
-   
+
     //RECUPERER L'UUID D'UN BLOG 
     this.id = this.route.snapshot.params["uuid"]
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
@@ -85,12 +92,12 @@ export class FactureComponent {
       this.proprietaire = data?.bien?.proprietaire;
       this.transaction = data?.transaction;
       this.photoImmo = data?.bien?.photoImmos;
-     })
+    })
 
     //AFFICHER LA LISTE DES MODES DE PAIEMENTS
     this.modepaiementService.AfficherListeModePaiement().subscribe(data => {
       this.modepaiement = data.reverse();
-     }
+    }
     );
   }
   //FORMATER LE PRIX
@@ -150,7 +157,7 @@ export class FactureComponent {
                   this.proprietaire = data?.transaction?.bien?.proprietaire;
                   this.transaction = data?.transaction;
                   this.photoImmo = data?.transaction?.bien?.photoImmos;
-                 })
+                })
               })
             },
             error: (err) => {
@@ -209,21 +216,21 @@ export class FactureComponent {
           });
           break;
         default:
-           break;
+          break;
       }
     } else {
-     }
+    }
   }
 
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
   goToPageRecu(id: number) {
-     return this.router.navigate(['userpages/recufacture', id])
+    return this.router.navigate(['userpages/recufacture', id])
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
   goToListeRecu(id: number) {
-     return this.router.navigate(['userpages/liste_recu', id])
+    return this.router.navigate(['userpages/liste_recu', id])
   }
-  
+
 }

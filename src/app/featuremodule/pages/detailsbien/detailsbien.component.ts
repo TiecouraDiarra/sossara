@@ -9,6 +9,8 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { commentaireService } from 'src/app/service/commentaire/commentaire.service';
 import * as L from 'leaflet';
+// import { ShareThisService } from 'share-this';
+
 
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
 import { MessageService } from 'src/app/service/message/message.service';
@@ -17,14 +19,17 @@ import { UsageService } from 'src/app/service/usage/usage.service';
 import { Chat } from '../../userpages/message/models/chat';
 import { Message } from '../../userpages/message/models/message';
 import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
+import { Meta } from '@angular/platform-browser';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
+
 
 @Component({
   selector: 'app-detailsbien',
   templateUrl: './detailsbien.component.html',
   styleUrls: ['./detailsbien.component.css'],
+  // providers: [ShareThisService] // Ajouter le service dans les providers
 })
 export class DetailsbienComponent implements AfterViewInit {
   public routes = routes;
@@ -74,10 +79,32 @@ export class DetailsbienComponent implements AfterViewInit {
   public chatData: any;
   lesCommodites: any;
   candidaterWithModal: boolean = false;
+  bienPartage: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
   }
+
+
+  partagerSurNavigateur() {
+    //RECUPERER L'ID D'UN BIEN
+    this.id = this.route.snapshot.params['id'];
+
+    if (navigator.share) {
+      navigator.share({
+        title: 'Titre de votre bien',
+        text: 'Description de votre bien',
+        url: 'http://localhost:4200/details-bien/' + this.id
+      }).then(() => {
+        console.log('Lien partagé avec succès');
+      }).catch((error) => {
+        console.error('Erreur lors du partage du lien:', error);
+      });
+    } else {
+      console.log('L\'API Web Share n\'est pas prise en charge dans ce navigateur.');
+    }
+  }
+
 
   ngAfterViewInit() {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
@@ -285,6 +312,7 @@ export class DetailsbienComponent implements AfterViewInit {
     private servicecommentaire: commentaireService,
     private route: ActivatedRoute,
     private serviceAdresse: AdresseService,
+    private meta: Meta,
     private chatService: MessageService
   ) {
     //RECUPERER L'ID D'UN BIEN
@@ -293,6 +321,7 @@ export class DetailsbienComponent implements AfterViewInit {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
+
       this.form = {
         nom: this.bien?.nom,
         description: this.bien?.description,
@@ -347,6 +376,13 @@ export class DetailsbienComponent implements AfterViewInit {
   close(): void {
     this._lightbox.close();
   }
+
+  // Définissez votre logique pour obtenir l'URL du bien, le titre et la description ici
+  // Définissez votre logique pour obtenir l'URL du bien, le titre et la description ici
+  getShareUrl(): string {
+    const encodedUrl = encodeURIComponent('https://sossara.ml/details-bien/df3d2e3e-32c0-4dfb-9a1d-8a26accfb4d9');
+    return `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+  }
   ngOnInit(): void {
     this.users = this.storageService.getUser();
     this.senderCheck = this.users.email;
@@ -368,6 +404,10 @@ export class DetailsbienComponent implements AfterViewInit {
       this.photos = this.bien?.photos;
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
+      // Définir les métadonnées Open Graph dynamiquement
+      this.meta.updateTag({ property: 'og:title', content: this.bien.nom });
+      this.meta.updateTag({ property: 'og:description', content: this.bien.description });
+      this.meta.updateTag({ property: 'og:image', content: this.generateImageUrl(this.bien.photos[0].nom) });
 
       const currentUser = this.storageService.getUser();
 
@@ -475,8 +515,8 @@ export class DetailsbienComponent implements AfterViewInit {
       this.cercle = data;
     });
 
-     //AFFICHER LA LISTE DES CARACTERISTIQUE
-     this.caracteristiqueService.AfficherCaracteristique().subscribe((data) => {
+    //AFFICHER LA LISTE DES CARACTERISTIQUE
+    this.caracteristiqueService.AfficherCaracteristique().subscribe((data) => {
       this.caracteristique = data;
     });
 
@@ -500,9 +540,9 @@ export class DetailsbienComponent implements AfterViewInit {
     });
 
     //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-      this.typebien = data.type;
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
+    //   this.typebien = data.type;
+    // });
   }
 
   direction() {

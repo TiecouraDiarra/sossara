@@ -18,6 +18,7 @@ import { ListerecuComponent } from './listerecu/listerecu.component';
 import { ContratComponent } from './contrat/contrat.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ModifierBienComponent } from './modifier-bien/modifier-bien.component';
+import { RdvComponent } from './rdv/rdv.component';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -34,6 +35,7 @@ import { ModifierBienComponent } from './modifier-bien/modifier-bien.component';
     MessagesComponent,
     MessagesComponent,
     ContratComponent,
+    RdvComponent,
     // LocataireComponent,
     // ProprietaireComponent,
     // MesReclamationsComponent,

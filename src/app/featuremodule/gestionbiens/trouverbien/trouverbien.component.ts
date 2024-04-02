@@ -4,14 +4,14 @@ import { DataService } from 'src/app/service/data.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { CommoditeService } from 'src/app/service/commodite/commodite.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { configbienService } from 'src/app/service/configbien/configbien.service';
 import { NgForm } from '@angular/forms';
-declare var google: any;
+// declare var google: any;
 import * as L from 'leaflet';
 import { Options } from 'ng5-slider';
 
@@ -72,7 +72,7 @@ export class TrouverbienComponent implements OnInit {
   public showFilter: boolean = false;
   // Déclaration du tableau de marqueurs
   // markers: google.maps.Marker[] = [];
-  infoWindow = new google.maps.InfoWindow();
+  // infoWindow = new google.maps.InfoWindow();
   //FIN MAP
 
   // IMAGE PAR DEFAUT DES BIENS
@@ -211,8 +211,8 @@ export class TrouverbienComponent implements OnInit {
       '</ul>' +
       '</div>' +
       '</div>';
-    this.infoWindow.setContent(content);
-    this.infoWindow.open(event.map, event.overlay);
+    // this.infoWindow.setContent(content);
+    // this.infoWindow.open(event.map, event.overlay);
   }
   private initMap(): void {
     // Créer la carte Leaflet
@@ -605,7 +605,20 @@ export class TrouverbienComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.initMap();
+     // Écouter les changements de route
+     this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Vérifier si la nouvelle route est "contact"
+        if (this.router.url === '/trouverbien') {
+          // Actualiser la page
+          window.location.reload();
+        }
+      } 
+      if (!this.map) {
+        this.initMap();
+      }
+    });
+    // this.initMap();
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
     } else if (!this.storageService.isLoggedIn()) {
@@ -891,8 +904,8 @@ export class TrouverbienComponent implements OnInit {
     );
     this.cercles.forEach((el: any) => {
       this.form.regionForm = el.region.id;
-
     });
+    
   }
   onChangeCercle(newValue: any) {
     this.communes1 = this.commune.filter(

@@ -258,6 +258,8 @@ export class AgenceComponent {
   errorMessage: any = '';
   facture: any;
   bienFacture: any;
+  isLoggedIn = false;
+  isLoginFailed = true;
 
   constructor(
     private DataService: DataService,
@@ -307,6 +309,10 @@ export class AgenceComponent {
   }
   bienImmoDejaLoueNew: any[] = [];
   bienImmoDejaVenduNew: any[] = [];
+  favoriteStatus: { [key: string]: boolean } = {};
+  favoris: any;
+  searchFavoris: any;
+
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -324,6 +330,11 @@ export class AgenceComponent {
       } else {
         this.selectedTab = 'home';
       }
+    }
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+    } else if (!this.storageService.isLoggedIn()) {
+      this.isLoginFailed = false;
     }
     this.User = this.storageService.getUser().id;
 
@@ -431,6 +442,26 @@ export class AgenceComponent {
 
     });
 
+    ////AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
+    this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe(data => {
+      this.favoris = data?.reverse();
+      // Parcourir la liste des biens immobiliers
+      this.favoris.forEach((bien: {
+        bien: any;
+        favoris: any; id: string | number;
+      }) => {
+        this.NombreJaime = bien.bien.favoris?.length;
+        if (typeof bien.bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
+        }
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
+      });
+      // this.bienImmoFavoris = data?.bien?.reverse();
+      console.log(this.favoris);
+
+    });
+
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR AVEC AGENCE
     this.serviceBienImmo.AfficherBienImmoDejaVenduParAgence().subscribe(data => {
       // this.bienImmoDejaLoueNew = data;
@@ -474,7 +505,7 @@ export class AgenceComponent {
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
       // console.log(this.reclamation);
-      
+
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
@@ -925,5 +956,54 @@ export class AgenceComponent {
 
   toggleSubmenu() {
     this.isSubmenuOpen = !this.isSubmenuOpen;
+  }
+
+  //METHODE PERMETTANT D'AIMER UN BIEN 
+  AimerBien(id: any): void {
+    const user = this.storageService.getUser();
+    if (user && user.token) {
+      // Définissez le token dans le service commentaireService
+      this.serviceUser.setAccessToken(user.token);
+
+      // Appelez la méthode AimerBien() avec l'ID
+      this.serviceBienImmo.AimerBien(id).subscribe(
+        data => {
+          // Mettez à jour le nombre de favoris pour le bien immobilier actuel
+          if (this.favoriteStatus[id]) {
+            this.favoriteStatus[id] = false; // Désaimé
+            localStorage.removeItem(`favoriteStatus_${id}`);
+            this.favoritedPropertiesCount1[id]--;
+          } else {
+            this.favoriteStatus[id] = true; // Aimé
+            localStorage.setItem(`favoriteStatus_${id}`, 'true');
+            this.favoritedPropertiesCount1[id]++;
+          }
+          this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe(data => {
+            this.favoris = data?.reverse();
+            // Parcourir la liste des biens immobiliers
+            this.favoris.forEach((bien: {
+              bien: any;
+              favoris: any; id: string | number;
+            }) => {
+              this.NombreJaime = bien.bien.favoris?.length;
+              if (typeof bien.bien.id === 'number') {
+                this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
+              }
+              // Charger l'état de favori depuis localStorage
+              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
+            });
+            // this.bienImmoFavoris = data?.bien?.reverse();
+            console.log(this.favoris);
+
+          });
+        },
+        error => {
+          // console.error("Erreur lors du like :", error);
+          // Gérez les erreurs ici
+        }
+      );
+    } else {
+      // console.error("Token JWT manquant");
+    }
   }
 }

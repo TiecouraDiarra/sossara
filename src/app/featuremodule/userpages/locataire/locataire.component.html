@@ -31,6 +31,11 @@
                     [class.active]="isTabActive('facture')" (click)="changeTab('facture')" role="tab"
                     aria-controls="facture" aria-selected="false">Factures</a>
             </li>
+            <li class="nav-item crd">
+                <a class="nav-link custom-tab-link" id="favoris-tab" data-toggle="tab"
+                    [class.active]="isTabActive('favoris')" (click)="changeTab('favoris')" role="tab"
+                    aria-controls="favoris" aria-selected="false">Mes Favoris</a>
+            </li>
         </ul>
     </div>
     <div class="col-md-9 tab-content" id="myTabContent">
@@ -56,7 +61,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive" *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
+                        <div class="table-responsive"
+                            *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
                             <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                 id="listdata-table">
                                 <thead>
@@ -486,7 +492,7 @@
                             </div>
 
                         </div>
-                        <div class="table-responsive"  *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
+                        <div class="table-responsive" *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0">
                             <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
                                 id="listdata-table">
                                 <thead>
@@ -510,8 +516,32 @@
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
                                                     <ng-template #noImages>
-                                                        <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size"
-                                                            alt="default-img">
+                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Villa'">
+                                                            <img src="../../../../assets/img/typebien/villa.png"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                        </div>
+                                                        <div class="type"
+                                                            *ngIf="BienImmo.typeImmo.nom === 'Appartement'">
+                                                            <img src="../../../../assets/img/typebien/appartement.png"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                        </div>
+                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Terrain'">
+                                                            <img src="../../../../assets/img/typebien/terrain.png"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                        </div>
+                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Bureau'">
+                                                            <img src="../../../../assets/img/typebien/bureau.png"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                        </div>
+                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Champ'">
+                                                            <img src="../../../../assets/img/typebien/champ.png"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                        </div>
+                                                        <div class="type"
+                                                            *ngIf="BienImmo.typeImmo.nom === 'Commerce & Magasin'">
+                                                            <img src="../../../../assets/img/typebien/magasin.png"
+                                                                class="img-fluid image-size" alt="default-img">
+                                                        </div>
                                                     </ng-template>
                                                 </a>
                                             </div>
@@ -1045,6 +1075,141 @@
                             containerClass="pagination__container" pageClass="pagination__page"
                             activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"
                             id="facture"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin des factures  -->
+
+        <!-- Debut des favoris  -->
+        <div class="tab-pane fade show" [class.active]="isTabActive('favoris')" id="favoris" role="tabpanel"
+            aria-labelledby="favoris-tab">
+            <div class="dash-listingcontent dashboard-info">
+                <div class="dash-cards card">
+                    <div class="card-body" *ngIf="favoris && favoris.length > 0">
+                        <div class="listing-search">
+                            <h4>Mes favoris</h4>
+                            <div class="filter-content form-group">
+                                <div class="group-img">
+                                    <input [(ngModel)]="searchFavoris" type="text" class="form-control"
+                                        placeholder="Recherche...">
+                                    <i class="feather-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listmapgrid-content" style="overflow-y: auto; height: 450px; overflow-x: hidden">
+                            <div class="blog-listview">
+                                <div class="card card2" *ngFor="let slide of favoris | filter : searchFavoris">
+                                    <div class="blog-widget">
+                                        <div class="blog-img">
+                                            <a (click)="goToDettailBien(slide.uuid)">
+                                                <div *ngIf="
+                        slide.bien.photoImmos && slide.bien.photoImmos.length > 0;
+                        else noImages
+                      ">
+                                                    <img src="{{ generateImageUrl(slide.bien.photoImmos[0].nom) }}"
+                                                        class="img-fluid image-size1" alt="blog-img" />
+                                                </div>
+                                                <ng-template #noImages>
+                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Villa'">
+                                                        <img src="../../../../assets/img/typebien/villa.png"
+                                                            class="img-fluid image-size1" alt="default-img">
+                                                    </div>
+                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Appartement'">
+                                                        <img src="../../../../assets/img/typebien/appartement.png"
+                                                            class="img-fluid image-size1" alt="default-img">
+                                                    </div>
+                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Terrain'">
+                                                        <img src="../../../../assets/img/typebien/terrain.png"
+                                                            class="img-fluid image-size1" alt="default-img">
+                                                    </div>
+                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Bureau'">
+                                                        <img src="../../../../assets/img/typebien/bureau.png"
+                                                            class="img-fluid image-size1" alt="default-img">
+                                                    </div>
+                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Champ'">
+                                                        <img src="../../../../assets/img/typebien/champ.png"
+                                                            class="img-fluid image-size1" alt="default-img">
+                                                    </div>
+                                                    <div class="type"
+                                                        *ngIf="slide.bien.typeImmo.nom === 'Commerce & Magasin'">
+                                                        <img src="../../../../assets/img/typebien/magasin.png"
+                                                            class="img-fluid image-size1" alt="default-img">
+                                                    </div>
+                                                    <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
+                                                </ng-template>
+                                            </a>
+                                            <div class="fav-item">
+                                                <span [ngClass]="{
+                        statutbien: slide.bien.statut.nom === 'A vendre'
+                      }" class="Featured-text">{{ slide?.bien?.statut?.nom }}</span>
+                                                <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
+                                                    (click)="AimerBien(slide.bien.id)" [style.background-color]="
+                        favoriteStatus[slide.bien.id] ? 'white' : '#e98b11'
+                      ">
+                                                    <i [style.color]="
+                          favoriteStatus[slide.bien.id] ? 'black' : 'white'
+                        " class="feather-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="bloglist-content">
+                                            <div class="card-body">
+                                                <div class="blogfeaturelink">
+                                                    <div class="blog-features">
+                                                        <a href="javascript:void(0);"><span>
+                                                                <i class="fa-regular fa-circle-stop"></i>
+                                                                {{ slide.bien.typeImmo.nom }}</span></a>
+                                                    </div>
+                                                    <div class="blog-author">
+                                                        <div class="blog-author-img">
+                                                            <!-- <img [src]="slide.img2" alt="author" /> -->
+                                                            <img src="{{
+                              generateImageUrl(slide?.bien?.proprietaire?.photo?.nom)
+                            }}" alt="author" (error)="handleAuthorImageError($event)" />
+                                                        </div>
+                                                        <a (click)="goToDettailBien(slide.bien.uuid)">{{
+                                                            slide?.bien?.proprietaire?.nom
+                                                            }}</a>
+                                                    </div>
+                                                </div>
+                                                <h6>
+                                                    <a (click)="goToDettailBien(slide.bien.uuid)">{{
+                                                        slide.bien.nom ? slide.bien.nom : slide.bien.typeImmo.nom
+                                                        }}</a>
+                                                </h6>
+                                                <div class="blog-location-details">
+                                                    <div class="location-info">
+                                                        <i class="feather-map-pin"></i>
+                                                        {{ slide.bien.adresse.quartier }}
+                                                    </div>
+                                                    <!-- <div class="location-info">
+                        <i class="feather-phone-call"></i> 00556245562
+                      </div> -->
+                                                    <div class="location-info">
+                                                        <i class="feather-eye"></i>
+                                                        {{ favoritedPropertiesCount1[slide.bien.id] }}
+                                                    </div>
+                                                </div>
+                                                <!-- <p class="ratings">
+                      <span>4.0</span> ( 50 Reviews )
+                    </p> -->
+                                                <div class="amount-details">
+                                                    <div class="amount">
+                                                        <span class="validrate">{{ formatPrice(slide.bien.prix) }} FCFA
+                                                        </span>
+                                                        <!-- <span>{{ slide.oldamount }}</span> -->
+                                                    </div>
+                                                    <a class="crd" (click)="goToDettailBien(slide.bien.uuid)">Savoir plus</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- PAGINATION  -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

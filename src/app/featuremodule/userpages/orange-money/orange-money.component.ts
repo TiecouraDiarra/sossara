@@ -60,6 +60,12 @@ export class OrangeMoneyComponent {
   handleAuthorImageError1(event: any) {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
+  // Supposons que vous avez une image par défaut dans votre projet
+  defaultImageUrl: string = 'assets/img/typebien/villa.png';
+  setDefaultImage(event: any): void {
+    // Si le chargement de l'image échoue, utilisez l'image par défaut
+    event.target.src = this.defaultImageUrl;
+  }
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO;

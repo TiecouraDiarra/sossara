@@ -30,6 +30,12 @@ const routes: Routes = [
         // canActivate: [AuthGuard]
       },
       {
+        path: 'mes-rdv',
+        loadChildren: () =>
+          import('./rdv/rdv.module').then((m) => m.RdvModule),
+        // canActivate: [AuthGuard]
+      },
+      {
         path: 'dashboard',
         loadChildren: () =>
           import('./dashboard/dashboard.module').then((m) => m.DashboardModule),

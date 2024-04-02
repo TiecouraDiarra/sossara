@@ -1,6 +1,6 @@
-import { Component, ElementRef, NgZone } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import * as Aos from 'aos';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
@@ -29,8 +29,12 @@ interface price {
   templateUrl: './ajouter-bien.component.html',
   styleUrls: ['./ajouter-bien.component.css'],
 })
-export class AjouterBienComponent {
-    selectedCategory: any = '';
+
+// export class AjouterBienComponent {
+
+
+export class AjouterBienComponent implements OnInit{
+  selectedCategory: any = '';
   requiredFileType: any;
   maxImageCount: number = 0; // Limite maximale d'images
   isButtonDisabled: boolean = false; // Variable pour désactiver le bouton si la limite est atteinte
@@ -92,6 +96,7 @@ export class AjouterBienComponent {
   message: string | undefined;
   selectedFiles: any;
   imagesArray: string[] = []; // Array to store URLs of selected images
+  private map!: L.Map;
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
@@ -165,6 +170,8 @@ export class AjouterBienComponent {
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
 
+  
+
   initMap() {
     
     // Ajouter une couche de tuiles OpenStreetMap
@@ -181,14 +188,14 @@ export class AjouterBienComponent {
       popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
     });
     
-    const map = L.map('map').setView([12.6489, -8.0008], 14).addLayer(tiles); // Définir une vue initiale
+    this.map = L.map('map').setView([12.6489, -8.0008], 14).addLayer(tiles); // Définir une vue initiale
     
-    tiles.addTo(map);
+    tiles.addTo(this.map);
     // Créer un marqueur initial au centre de la carte
     const initialMarker = L.marker([12.6489, -8.0008], {
       icon: customIcon,
       draggable: true // Rend le marqueur draggable
-    }).addTo(map);
+    }).addTo(this.map);
 
     // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
     initialMarker.on('dragend', (markerEvent) => {
@@ -213,8 +220,24 @@ export class AjouterBienComponent {
 
     });
   }
+  
 
   ngOnInit(): void {
+    // this.initMap();
+      // Écouter les changements de route
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          // Vérifier si la nouvelle route est "contact"
+          if (this.router.url === '/userpages/ajouter-bien') {
+            // Actualiser la page
+            window.location.reload();
+          }
+        } 
+        if (!this.map) {
+          this.initMap();
+        }
+      });
+      // this.initMap();
     Aos.init({ disable: 'mobile' });
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
@@ -224,19 +247,18 @@ export class AjouterBienComponent {
       } else if (this.roles[0] == 'ROLE_AGENCE') {
         this.isAgence = true;
       }
-      this.initMap();
     }
 
     //AFFICHER LA LISTE DES COMMODITES
-    this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-      // this.les_commodite = data.commodite;
-      this.adresse = data;
-      // this.pays = data.pays;
-      // this.region = data.region;
-      // this.commune = data.commune;
-      // this.typebien = data.type;
-      this.periode = data.periode;
-    });
+    // this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
+    //   // this.les_commodite = data.commodite;
+    //   this.adresse = data;
+    //   // this.pays = data.pays;
+    //   // this.region = data.region;
+    //   // this.commune = data.commune;
+    //   // this.typebien = data.type;
+    //   this.periode = data.periode;
+    // });
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.lesCommodite = data;
     });

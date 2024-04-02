@@ -124,6 +124,9 @@ export class routes {
   public static get bookmarks(): string {
     return this.baseUrl + '/userpages/mes-agents';
   }
+  public static get rdv(): string {
+    return this.baseUrl + '/userpages/mes-rdv';
+  }
   public static get paiement(): string {
     return this.baseUrl + '/userpages/paiement';
   }

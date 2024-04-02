@@ -77,6 +77,43 @@
                         alt="default-img"
                       />
                     </div>
+                    <div
+                      class="carousel-item active"
+                      *ngIf="bien.typeImmo.nom === 'Terrain'"
+                    >
+                      <img
+                        src="../../../../assets/img/typebien/terrain.png"
+                        class="img-fluid image-size"
+                        alt="default-img"
+                      />
+                    </div>
+                    <div
+                      class="carousel-item active"
+                      *ngIf="bien.typeImmo.nom === 'Bureau'"
+                    >
+                    <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                    alt="default-img">
+                    </div>
+                    <div
+                      class="carousel-item active"
+                      *ngIf="bien.typeImmo.nom === 'Champ'"
+                    >
+                      <img
+                        src="../../../../assets/img/typebien/champ.png"
+                        class="img-fluid image-size"
+                        alt="default-img"
+                      />
+                    </div>
+                    <div
+                      class="carousel-item active"
+                      *ngIf="bien.typeImmo.nom === 'Commerce & Magasin'"
+                    >
+                      <img
+                        src="../../../../assets/img/typebien/magasin.png"
+                        class="img-fluid image-size"
+                        alt="default-img"
+                      />
+                    </div>
                   </ng-container>
                   <ng-template #imagesBlock>
                     <div

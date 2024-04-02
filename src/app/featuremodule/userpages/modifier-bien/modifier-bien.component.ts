@@ -1,6 +1,5 @@
 import { Component, ElementRef, NgZone } from '@angular/core';
 import Swal from 'sweetalert2';
-declare var google: any;
 import * as L from 'leaflet';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +10,7 @@ import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { environment } from 'src/app/environments/environment';
 import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
+import { ContentChange, SelectionChange } from 'ngx-quill';
 
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -21,6 +21,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   styleUrls: ['./modifier-bien.component.scss']
 })
 export class ModifierBienComponent {
+  selectedCategory: any = '';
   public routes = routes;
   public albumsOne: any = [];
   public albumsTwo: any = [];
@@ -69,11 +70,10 @@ export class ModifierBienComponent {
   isLocataire = false;
   isAgence = false;
   roles: string[] = [];
-  selectedStatutMensuel: string | null = null;
-  selectedStatut: string | null = null;
+  selectedStatutMensuel: any | null = null;
+  selectedStatut: any | null = null;
   photos: any;
   caracteristique: any;
-  // selectedStatut: string | null = null;
   selectedType: string | null = null;
 
   // Supposons que vous ayez une méthode pour charger les types de biens
@@ -88,13 +88,20 @@ export class ModifierBienComponent {
 
 
   //METHODE PERMETTANT DE CHANGER LES TYPES
+  // onTypeChange(event: any) {
+  //   this.selectedType = event.value;
+  //   if (this.selectedType === 3) {
+  //     this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
+  //   }
+  // }
   onTypeChange(event: any) {
     // Assurez-vous que les données du type de bien sont chargées
     // if (!this.typebien) {
     //   this.loadTypeBiens();
     //   return;
     // }
-    this.selectedType = event.target.value;
+    this.selectedType = event.value;
+    
     if (this.selectedType === '3') {
       this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
       this.form.caution = 0; // Envoyer la valeur 0 si le type de bien est un terrain
@@ -129,6 +136,8 @@ export class ModifierBienComponent {
     longitude: null,
     latitude: null,
     photo: null,
+    caution: null,
+    avance: null,
     commoditeChecked: false,
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
@@ -148,7 +157,9 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(this.bien);
+      console.log(this.bien.caution);
+
+      setTimeout(() => {
 
       this.form = {
         nom: this.bien?.nom,
@@ -172,6 +183,7 @@ export class ModifierBienComponent {
         commune: this.bien?.adresse?.commune?.id,
         pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
         region: this.bien?.adresse?.commune?.region?.id,
+        caution: this.bien?.caution,      
       };
       this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
         this.les_commodite = data;
@@ -186,6 +198,7 @@ export class ModifierBienComponent {
           );
         }
       }
+    });
     });
   }
 
@@ -206,8 +219,28 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(this.bien);
+      // console.log(this.bien);
+      this.selectedValue=this.bien?.adresse.commune?.cercle?.region?.pays?.nompays
+      this.selectedValueR=this.bien?.adresse.commune?.cercle?.region?.nomregion
+      this.selectedValueC=this.bien?.adresse.commune?.cercle?.nomcercle
+      this.selectedStatut=this.bien?.statut?.id
+      this.selectedStatutMensuel=this.bien?.periode?.id
 
+
+      // Récupération de la liste des commodités
+  this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+    this.les_commodite = data;
+
+    // Pré-remplissage des commodités
+    if (this.bien && this.bien.commodites) {
+      for (const commodite of this.les_commodite) {
+        commodite.selected = this.bien.commodites.some(
+          (bienCommodite: any) => bienCommodite.id === commodite.id
+        );
+      }
+    }
+  });
+  
       this.photos = this.bien?.photos;
       this.photos = this.bien?.photos;
       this.images1 = this.bien?.photos.map((photo: { nom: string; }) => ({ nom: photo.nom, data: this.generateImageUrl(photo.nom) }));
@@ -312,6 +345,11 @@ export class ModifierBienComponent {
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
+      if (this.selectedValueC) {
+        this.communes = this.commune.filter(
+          (el: any) => el.cercle.nomcercle == this.selectedValueC
+        );
+      }
     });
     //AFFICHER LA LISTE DES Pays
     this.serviceAdresse.AfficherListePays().subscribe((data) => {
@@ -320,6 +358,11 @@ export class ModifierBienComponent {
     //AFFICHER LA LISTE DES CERCLE
     this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
       this.cercle = data;
+      if (this.selectedValueR) {
+        this.cercles = this.cercle.filter(
+          (el: any) => el.region.nomregion == this.selectedValueR
+        );
+      }
     });
 
     //AFFICHER LA LISTE DES PERIODES
@@ -331,14 +374,21 @@ export class ModifierBienComponent {
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
       this.nombreZone = data.length;
+      if (this.selectedValue) {
+        this.regions = this.region.filter(
+          (el: any) => el.pays.nompays == this.selectedValue
+        );
+      }
     });
   }
 
   onChange(newValue: any) {
+  
     this.regions = this.region.filter(
       (el: any) => el.pays.nompays == newValue.value
     );
   }
+  
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
       (el: any) => el.region.nomregion == newValue.value
@@ -354,9 +404,9 @@ export class ModifierBienComponent {
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
     this.selectedFiles = event.target.files;
-    const reader = new FileReader();
     for (const file of this.selectedFiles) {
       if (this.images1.length < 8) {
+        const reader = new FileReader(); // Créer un nouvel objet FileReader pour chaque fichier
         reader.onload = (e: any) => {
           this.images1.push({ nom: file.name, data: e.target.result });
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
@@ -365,10 +415,11 @@ export class ModifierBienComponent {
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
-    this.form.photo = this.images;
+    this.form.photo = this.images1; // Utilisez this.images1 pour assigner les images au formulaire
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
-
+  
+  
   removeImage(index: number) {
     this.images1.splice(index, 1); // Supprime l'image du tableau
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
@@ -384,7 +435,7 @@ export class ModifierBienComponent {
 
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChangeMensuel(event: any) {
-    this.selectedStatutMensuel = event.target.value;
+    this.selectedStatutMensuel = event.value;
     if (this.selectedStatut === '2') {
       this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
       this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
@@ -393,7 +444,8 @@ export class ModifierBienComponent {
 
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
-    this.selectedStatut = event.target.value;
+    this.selectedStatut = event.value;
+    // alert(this.selectedStatut)
     if (this.selectedStatut === '2') {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
@@ -612,7 +664,7 @@ export class ModifierBienComponent {
         description: this.bien?.description,
         // Autres champs à récupérer...
       };
-
+  
       // Récupération de la liste des commodités
       this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
         this.les_commodite = data;
@@ -627,7 +679,7 @@ export class ModifierBienComponent {
       });
     });
   }
-
+  
   isCommoditeSelected(commodite: any): boolean {
     if (this.bien && this.bien.commodites) {
       return this.bien.commodites.some(
@@ -636,10 +688,12 @@ export class ModifierBienComponent {
     }
     return false;
   }
+  
 
   toggleCommodite(commodite: any) {
     if (!this.bien.commodites) {
       this.bien.commodites = [];
+      console.log(this.bien.commodites)
     }
     const index = this.bien.commodites.findIndex(
       (c: { id: any }) => c.id === commodite.id
@@ -650,7 +704,49 @@ export class ModifierBienComponent {
       this.bien.commodites.push(commodite); // Ajoute la commodité si elle n'est pas encore sélectionnée
     }
   }
+  
 
+  quillConfig = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['code-block'],
+       //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+       //  [{ 'direction': 'rtl' }],                         // text direction
 
+       //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
+        [{ 'align': [] }],
+
+       //  ['clean'],                                         // remove formatting button
+
+       //  ['link'],
+        ['link', 'image', 'video']
+      ],
+    },
+ }
+
+  onSelectionChanged = (event: SelectionChange) => {
+    if(event.oldRange == null) {
+      this.onFocus();
+    }
+    if(event.range == null) {
+      this.onBlur();
+    }
+  }
+ 
+  onContentChanged = (event: ContentChange) => {
+    // console.log(event.html);
+  }
+ 
+  onFocus = () => {
+    console.log("On Focus");
+  }
+  onBlur = () => {
+    console.log("Blurred");
+  }
 }

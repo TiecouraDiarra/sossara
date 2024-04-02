@@ -245,3 +245,24 @@
 	line-height: 30px;
 	font-weight: 800;
 }
+
+/* Media queries pour les petits écrans */
+@media screen and (min-width: 768px) {
+  .map-container {
+    width: 100%; 
+    height: 25vw; /* Réduire la hauteur pour les écrans plus petits */
+  }
+}
+
+/* Media queries pour les petits écrans */
+@media screen and (max-width: 768px) {
+  .map-container {
+    height: 50vw; /* Réduire la hauteur pour les écrans plus petits */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .map-container {
+    height: 75vw; /* Encore moins de hauteur pour les écrans très petits */
+  }
+}
