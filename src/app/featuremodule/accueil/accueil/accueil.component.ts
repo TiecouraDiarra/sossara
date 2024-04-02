@@ -600,24 +600,13 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
-      this.BienLoueRecensTotal = [
-        data.reverse()[0],
-        data.reverse()[1],
-        data.reverse()[2],
-        data.reverse()[3],
-      ];
+      this.BienLoueRecensTotal = data.reverse();
       this.BienLoueRecensTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
         if (bien.statut.nom === 'A louer') {
           this.BienLoueRecens.push(bien);
         }
 
-        // Vérifier si le bien est déjà vendu
-        // if (bien.statut.nom === "A vendre") {
-        //   this.BienVendreRecens.push(bien);
-        // }
-
-        //   // Le reste de votre logique pour traiter les favoris...
       });
       // this.nombreBienLoue = this.BienLoueRecens.length;
       // this.nombreBienVendre = this.BienVendreRecens.length;
