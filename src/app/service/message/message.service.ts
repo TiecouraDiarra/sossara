@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from '../auth/storage.service';
@@ -73,7 +73,13 @@ export class MessageService {
   getChatByFirstUserNameAndSecondUserName(firstUserName: any, secondUserName: any) {
     return this.httpClient.get<Chat>(URL_BASE + "/chats/getChatByFirstUserNameAndSecondUserName" + '?expediteur=' + firstUserName + '&destinateur=' + secondUserName)
   }
-
+  getChatByFirstUserNameAndSecondUserName2(firstUserName: string, secondUserName: string, message: Message) {
+    const params = new HttpParams()
+      .set('expediteur', firstUserName)
+      .set('destinateur', secondUserName);
+    return this.httpClient.post<Chat[]>(URL_BASE + '/chats/getChatByFirstUserNameAndSecondUserName2', message, { params });
+  }
+  
   getChatByFirstUserNameOrSecondUserName(username: any) {
     return this.httpClient.get<Chat>(URL_BASE + "/chats/allchat/" + username)
   }

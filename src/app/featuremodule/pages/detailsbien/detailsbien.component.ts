@@ -80,6 +80,7 @@ export class DetailsbienComponent implements AfterViewInit {
   lesCommodites: any;
   candidaterWithModal: boolean = false;
   bienPartage: any;
+  test: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -1070,10 +1071,14 @@ export class DetailsbienComponent implements AfterViewInit {
   goToDettailBi(email: number) {
     return this.router.navigate(['/userpages/messages']);
   }
-
+  MessageForm: any = {
+    content: null,
+  }
   goToMessage(username: any) {
+    this.messageObj.message = this.MessageForm.content;
+    alert(this.MessageForm.content)
     this.chatService
-      .getChatByFirstUserNameAndSecondUserName(username, this.users.email)
+      .getChatByFirstUserNameAndSecondUserName2(username, this.users.email, this.messageObj)
       .subscribe(
         (data) => {
           this.chat = data;
