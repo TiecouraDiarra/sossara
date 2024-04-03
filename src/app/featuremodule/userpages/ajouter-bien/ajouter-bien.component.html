@@ -43,6 +43,11 @@
             <i class="fas fa-users"></i> <span>Mes agents</span>
           </a>
         </li>
+        <li *ngIf="isAgence  || isProprietaire">
+          <a [routerLink]="routes.rdv">
+            <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+          </a>
+        </li> 
         <li>
           <a [routerLink]="routes.messages">
             <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -80,28 +85,14 @@
           <div class="card-body">
             <div class="form-group">
               <label class="col-form-label">Nom du bien <span>*</span></label>
-              <input
-                type="text"
-                class="form-control pass-input"
-                name="nom"
-                [(ngModel)]="form.nom"
-                placeholder="Nom"
-              />
+              <input type="text" class="form-control pass-input" name="nom" [(ngModel)]="form.nom" placeholder="Nom" />
             </div>
 
             <div class="form-group">
               <label class="col-form-label">Prix du bien <span>*</span></label>
               <div class="pass-group group-img">
-                <input
-                  type="number"
-                  pattern="[0-9]"
-                  name="prix"
-                  [(ngModel)]="form.prix"
-                  class="form-control pass-input"
-                  required
-                  aria-required="true"
-                  placeholder="FCFA"
-                />
+                <input type="number" pattern="[0-9]" name="prix" [(ngModel)]="form.prix" class="form-control pass-input"
+                  required aria-required="true" placeholder="FCFA" />
               </div>
             </div>
 
@@ -245,9 +236,7 @@
               <!-- Nombre de salon -->
               <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group">
-                  <label class="col-form-label"
-                    >Nombre de salon <span>*</span></label
-                  >
+                  <label class="col-form-label">Nombre de salon <span>*</span></label>
                   <div class="pass-group group-img">
                     <mat-form-field
                       class="mat-custom-select"
@@ -458,20 +447,12 @@
                 <label class="col-form-label">Commodites <span>*</span></label>
                 <div class="pass-group group-img">
                   <div class="row">
-                    <div
-                      class="col-lg-4 col-md-6"
-                      *ngFor="let item of lesCommodite"
-                    >
+                    <div class="col-lg-4 col-md-6" *ngFor="let item of lesCommodite">
                       <ul>
                         <li>
                           <label class="custom_check">
-                            <input
-                              type="checkbox"
-                              [(ngModel)]="item.selected"
-                              [value]="item.id"
-                              (change)="onChangeCommodite()"
-                              name="commodite"
-                            />
+                            <input type="checkbox" [(ngModel)]="item.selected" [value]="item.id"
+                              (change)="onChangeCommodite()" name="commodite" />
                             <span class="checkmark"></span> {{ item.nom }}
                           </label>
                         </li>
@@ -609,16 +590,9 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <div class="pass-group group-img">
-                    <label class="col-form-label"
-                      >Quartier <span>*</span></label
-                    >
-                    <input
-                      type="text"
-                      name="quartier"
-                      [(ngModel)]="form.quartier"
-                      class="form-control pass-input"
-                      placeholder="Quartier"
-                    />
+                    <label class="col-form-label">Quartier <span>*</span></label>
+                    <input type="text" name="quartier" [(ngModel)]="form.quartier" class="form-control pass-input"
+                      placeholder="Quartier" />
                   </div>
                 </div>
               </div>
@@ -629,13 +603,8 @@
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Rue <span>*</span></label>
-                    <input
-                      name="rue"
-                      [(ngModel)]="form.rue"
-                      type="text"
-                      class="form-control pass-input"
-                      placeholder="Rue"
-                    />
+                    <input name="rue" [(ngModel)]="form.rue" type="text" class="form-control pass-input"
+                      placeholder="Rue" />
                   </div>
                 </div>
               </div>
@@ -668,27 +637,15 @@
             <div class="col-lg-6 col-md-6">
               <div class="form-group">
                 <label class="col-form-label">Latitude</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  readonly
-                  placeholder="Latitude"
-                  name="latitude"
-                  [(ngModel)]="form.latitude"
-                />
+                <input type="text" class="form-control" readonly placeholder="Latitude" name="latitude"
+                  [(ngModel)]="form.latitude" />
               </div>
             </div>
             <div class="col-lg-6 col-md-6">
               <div class="form-group">
                 <label class="col-form-label">Longitude</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  readonly
-                  placeholder="Longitude"
-                  name="longitude"
-                  [(ngModel)]="form.longitude"
-                />
+                <input type="text" class="form-control" readonly placeholder="Longitude" name="longitude"
+                  [(ngModel)]="form.longitude" />
               </div>
             </div>
           </div>
@@ -703,10 +660,7 @@
               <div class="featured-img1">
                 <h6 class="media-title">Images biens <span>*</span></h6>
                 <div class="media-image">
-                  <div
-                    *ngFor="let imageUrl of image; let i = index"
-                    class="image-container m-1"
-                  >
+                  <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
                     <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
                     <button class="close-button" (click)="removeImage(i)">
                       <i class="fas fa-times close-icon"></i>

@@ -252,8 +252,7 @@ export class TrouverbienComponent implements OnInit {
       // Centrer la carte sur la position de l'utilisateur
       this.map.setView([userLat, userLng], 12);
     }, (error) => {
-      console.error('Erreur de géolocalisation :', error);
-      // Gérer les erreurs de géolocalisation
+  
     });
 
     this.route.queryParams.subscribe((params: Params) => {
@@ -627,144 +626,6 @@ export class TrouverbienComponent implements OnInit {
     this.initSliderOptions();
 
 
-    // Récupérez les données de bien immobilier depuis serviceBienImmo pour afficher sur le map
-    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-    //   if (Array.isArray(data)) {
-    //     // Assurez-vous que data.biens est un tableau avant d'appeler map
-    //     this.bienImmoMap = data?.reverse();
-
-    //     // Convertissez les données de bien immobilier en marqueurs Google Maps
-    //     this.overlays = this.bienImmoMap.map((bien: any) => {
-    //       // Vérifiez si la propriété 'photos' est un tableau non vide
-    //       const imageSrc = bien?.photos && bien?.photos?.length > 0 ? this.generateImageUrl(bien.photos[0].nom) : 'assets/img/gallery/gallery1/gallery-1.jpg';
-    //       return new google.maps.Marker({
-    //         position: { lat: bien.adresse.latitude, lng: bien.adresse.longitude },
-    //         icon: 'assets/img/icons/marker7.png',
-    //         doc_name: bien.nom,
-    //         address: bien.adresse.quartier,
-    //         amount: bien.prix,
-    //         image: imageSrc,
-    //         regions: bien?.adresse?.commune?.cercle?.region?.nomregion,
-    //         communes: bien.adresse.commune.nom,
-    //         types: bien.typeImmo.nom,
-    //         statut: bien.statut.nom,
-    //         id: bien.id
-    //       });
-    //     });
-    //     // Ajoutez un marqueur pour la position de l'utilisateur au début du tableau overlays
-    //     this.overlays.unshift(new google.maps.Marker({
-    //       position: this.userPosition,
-    //       title: 'Votre position actuelle'
-    //     }));
-    //   } else {
-    //     // console.error('Les données de biens immobiliers ne sont pas au format attendu (tableau).');
-    //   }
-    // });
-
-
-    // Récupérer la position actuelle de l'utilisateur
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //   this.userPosition = {
-    //     lat: position.coords.latitude,
-    //     lng: position.coords.longitude
-    //   };
-
-    //   // Réinitialiser les options de la carte pour centrer sur la position de l'utilisateur
-    //   this.options = {
-    //     center: this.userPosition,
-    //     zoom: 12,
-    //     scrollwheel: false,
-    //     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    //   };
-    //   // Ajouter un marqueur pour la position de l'utilisateur
-    //   this.overlays.push(new google.maps.Marker({
-    //     position: this.userPosition,
-    //     title: 'Votre position actuelle'
-    //   }));
-
-    // });
-    // this.route.queryParams.subscribe((params: Params) => {
-    //   // Initialisez les valeurs du formulaire avec les paramètres d'URL
-    //   this.form.type = params['type'] || null;
-    //   this.form.statut = params['statut'] || null;
-    //   this.form.chambre = params['chambre'] || null;
-    //   this.form.nb_piece = params['nb_piece'] || null;
-    //   this.form.toilette = params['toilette'] || null;
-    //   this.form.cuisine = params['cuisine'] || null;
-    //   this.form.commune = params['commune'] || null;
-    //   this.form.cercleForm = params['cercleForm'] || null;
-    //   this.form.regionForm = params['regionForm'] || null;
-    //   this.form.minprix = params['minprix'] || null;
-    //   this.form.maxprix = params['maxprix'] || null;
-    //   this.form.commodite = params['commodite'] || null;
-    //   // Initialisez d'autres propriétés du formulaire ici
-    // });
-
-
-
-    // //AFFICHER LA LISTE DES BIENS IMMO
-    // this.route.queryParams.subscribe(params => {
-    //   const {
-    //     type,
-    //     statut,
-    //     chambre,
-    //     nb_piece,
-    //     toilette,
-    //     cuisine,
-    //     commune,
-    //     cercleForm,
-    //     regionForm,
-    //     minprix,
-    //     maxprix,
-    //     commodite,
-    //   } = params;
-
-    //   // Appel de la méthode de recherche avec les nouveaux paramètres d'URL
-    //   this.serviceBienImmo
-    //     .faireUneRecherche(
-    //       type,
-    //       statut,
-    //       chambre,
-    //       nb_piece,
-    //       toilette,
-    //       cuisine,
-    //       commune,
-    //       cercleForm,
-    //       regionForm,
-    //       minprix,
-    //       maxprix,
-    //       commodite
-    //     )
-    //     .subscribe((data) => {
-    //       // Mise à jour de la liste des biens immobiliers
-    //       this.bienImmo = data;
-
-    //       this.bienImmo = data;
-
-    //       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
-    //       this.bienImmo.forEach((bien: {
-    //         favoris: any; id: string | number;
-    //       }) => {
-    //         // Charger le nombre de "J'aime" pour chaque bien
-    //         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-    //         this.NombreJaime = bien.favoris?.length;
-
-    //         if (typeof bien.id === 'number') {
-    //           this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-    //         }
-
-    //         // Charger l'état de favori depuis localStorage
-    //         const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-    //         if (isFavorite === 'true') {
-    //           this.favoriteStatus[bien.id] = true;
-    //         } else {
-    //           this.favoriteStatus[bien.id] = false;
-    //         }
-    //       });
-    //     });
-    // });
-
-    //AFFICHER LA LISTE DES COMMODITES ANCIEN
     this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
       this.commodite = data;
     });
@@ -943,12 +804,11 @@ export class TrouverbienComponent implements OnInit {
           }
         },
         error => {
-          // console.error("Erreur lors du like :", error);
-          // Gérez les erreurs ici
+
         }
       );
     } else {
-      // console.error("Token JWT manquant");
+      
     }
   }
 
@@ -1004,13 +864,11 @@ export class TrouverbienComponent implements OnInit {
   }
   updateMinPrice() {
     this.form.minprix = this.customHtmlMinValue;
-    // console.log('Min Price:', this.customHtmlMinValue,"customHtmlMinValue", this.form.minprix);
     this.updateUrl();
   }
 
   updateMaxPrice() {
     this.form.maxprix = this.customHtmlMaxValue;
-    // console.log('Max Price:', this.customHtmlMaxValue, " this.form.maxprix", this.form.maxprix);
     this.updateUrl();
   }
 

@@ -11,6 +11,15 @@
     margin: 0;
     padding: 0;
   }
+
+  .crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
+
   
   .pagination__page {
     margin: 0 5px;

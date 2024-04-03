@@ -342,7 +342,6 @@ export class AgenceComponent {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo);
 
 
       // Filtrer les biens immobiliers
@@ -376,7 +375,6 @@ export class AgenceComponent {
 
     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
     this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
-      console.log("Agence ", data);
 
       let totalBiensAgents: any[] = [];
       this.bienImmoAgence = data?.bienImmos;
@@ -458,7 +456,6 @@ export class AgenceComponent {
         const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
       });
       // this.bienImmoFavoris = data?.bien?.reverse();
-      console.log(this.favoris);
 
     });
 
@@ -504,7 +501,6 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
-      // console.log(this.reclamation);
 
     });
 
@@ -627,12 +623,10 @@ export class AgenceComponent {
               this.popUpConfirmation();
             },
             error => {
-              // console.error("Erreur lors de l'envoi de la reclamation :", error);
-              // Gérez les erreurs ici
+           
             }
           );
         } else {
-          // console.error("Token JWT manquant");
         }
       }
     })
@@ -709,12 +703,11 @@ export class AgenceComponent {
               this.popUpConfirmationProcessus();
             },
             error => {
-              // console.error("Erreur lors du lamcement du processus :", error);
-              // Gérez les erreurs ici
+              
             }
           );
         } else {
-          // console.error("Token JWT manquant");
+        
         }
       }
     })
@@ -807,12 +800,11 @@ export class AgenceComponent {
               this.popUpConfirmationArreteProcessus();
             },
             error => {
-              // console.error("Erreur lors de l'arret du processus :", error);
-              // Gérez les erreurs ici
+   
             }
           );
         } else {
-          // console.error("Token JWT manquant");
+         
         }
       }
     })
@@ -851,16 +843,14 @@ export class AgenceComponent {
               this.popUpConfirmationSuppression();
             },
             error: (err) => {
-              // console.error("Erreur lors de la suppression :", err);
+           
               this.errorMessage = err.error.message;
-              // console.error(this.errorMessage);
-              // this.isError = true
-              // Gérez les erreurs ici
+        
             }
           }
           );
         } else {
-          // console.error("Token JWT manquant");
+       
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         // L'utilisateur a annulé l'action
@@ -993,17 +983,15 @@ export class AgenceComponent {
               const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
             });
             // this.bienImmoFavoris = data?.bien?.reverse();
-            console.log(this.favoris);
 
           });
         },
         error => {
-          // console.error("Erreur lors du like :", error);
-          // Gérez les erreurs ici
+        
         }
       );
     } else {
-      // console.error("Token JWT manquant");
+  
     }
   }
 }

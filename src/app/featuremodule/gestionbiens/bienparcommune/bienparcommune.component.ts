@@ -48,6 +48,7 @@ export class BienparcommuneComponent {
 
   selectedType: any;
   status: any;
+  nomcommune: any;
 
 
 
@@ -133,8 +134,8 @@ export class BienparcommuneComponent {
     );
 
     //RECUPERER L'ID D'UNE COMMUNE
-    this.id = this.route.snapshot.params["id"]
-    this.serviceBienImmo.AfficherBienImmoParCommune(this.id).subscribe(data => {
+    this.nomcommune = this.route.snapshot.params["nomcommune"]
+    this.serviceBienImmo.AfficherBienImmoParNomCommune(this.nomcommune).subscribe(data => {
       this.bienImmo = data.reverse();
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: {
@@ -202,12 +203,10 @@ export class BienparcommuneComponent {
           }
         },
         error => {
-          console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
     }
   }
 

@@ -53,6 +53,7 @@ export class AjouterBienComponent implements OnInit{
   commodite2: any;
   isLocataire = false;
   isAgence = false;
+  isProprietaire= false;
   roles: string[] = [];
   commodite3: any;
   regions: any[] = [];
@@ -246,6 +247,8 @@ export class AjouterBienComponent implements OnInit{
         this.isLocataire = true;
       } else if (this.roles[0] == 'ROLE_AGENCE') {
         this.isAgence = true;
+      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
       }
     }
 
@@ -411,7 +414,7 @@ export class AjouterBienComponent implements OnInit{
       swalWithBootstrapButtons.fire(
         (this.message = ' Tous les champs sont obligatoires !')
       );
-      // console.error('Tous les champs sont obligatoires !');
+ 
     } else {
       swalWithBootstrapButtons
         .fire({
@@ -464,7 +467,7 @@ export class AjouterBienComponent implements OnInit{
                   },
                 });
             } else {
-              console.error('Token JWT manquant');
+             
             }
           }
         });
@@ -545,13 +548,10 @@ export class AjouterBienComponent implements OnInit{
  }
 
  onContentChanged = (event: ContentChange) => {
-   // console.log(event.html);
  }
 
  onFocus = () => {
-   console.log("On Focus");
  }
  onBlur = () => {
-   console.log("Blurred");
  }
 }

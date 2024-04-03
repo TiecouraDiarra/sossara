@@ -411,7 +411,7 @@ export class AccueilComponent {
     this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
       // this.customHtmlMaxValue = data[0].prix;
       this.valuesSelectPrix = data;
-      console.log(this.valuesSelectPrix)
+    
     })
     setInterval(() => {
       this.changeImage();
@@ -684,12 +684,10 @@ export class AccueilComponent {
             });
         },
         (error) => {
-          // console.error("Erreur lors du like :", error);
-          // Gérez les erreurs ici
+       
         }
       );
     } else {
-      console.error('Token JWT manquant');
     }
   }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
@@ -698,8 +696,8 @@ export class AccueilComponent {
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
-  goToDettailCommune(id: number) {
-    return this.router.navigate(['bienparcommune', id]);
+  goToDettailCommune(nomcommune: string) {
+    return this.router.navigate(['bienparcommune', nomcommune]);
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
@@ -731,14 +729,12 @@ export class AccueilComponent {
           // this.pathConversation();
         },
         error: (err) => {
-          // console.error("Erreur lors de l'ouverture de la conversation:", err);
           this.errorMessage = err.error.message;
           // this.isError = true
           // Gérez les erreurs ici
         },
       });
     } else {
-      // console.error("Token JWT manquant");
       this.router.navigateByUrl('/auth/connexion');
     }
     // if (this.storageService.isLoggedIn()) {

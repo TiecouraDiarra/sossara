@@ -83,7 +83,6 @@ export class ListerecuComponent {
       this.proprietaire = data?.bien?.proprietaire;
       this.transaction = data?.transaction;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.facture);
     })
   }
 
@@ -108,7 +107,6 @@ export class ListerecuComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
   goToPageRecu(id: number) {
-    // console.log(id);
     return this.router.navigate(['userpages/recufacture', id])
   }
 }

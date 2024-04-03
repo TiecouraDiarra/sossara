@@ -1609,56 +1609,32 @@
 <!-- /Make It Easy -->
 
 <!-- COMMUNES -->
-<section
-  class="car-location common-padding"
-  *ngIf="commune && commune.length > 0"
->
-  <div class="container">
-    <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center">
-        <div class="col-md-3"></div>
-        <div
-          class="col-md-6 aos aos-init aos-animate text-center"
-          data-aos="fade-up"
-        >
-          <h3>Nos biens a Bamako</h3>
-          <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
+<section class="car-location common-padding" *ngIf="commune && commune.length > 0">
+    <div class="container">
+        <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
+                    <h3>Nos biens a Bamako</h3>
+                    <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
+                </div>
+                <div class="col-md-3 text-md-end aos aos-init aos-animate" data-aos="fade-up">
+                    <a [routerLink]="routes.listinggridsidebar" class="btn  btn-view">Voir tous les biens</a>
+                </div>
+            </div>
         </div>
-        <div
-          class="col-md-3 text-md-end aos aos-init aos-animate"
-          data-aos="fade-up"
-        >
-          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view"
-            >Voir tous les biens</a
-          >
+        <div class="row">
+            <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
+                <a (click)="goToDettailCommune(Commune.uuid)" class="crd">
+                    <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
+                        <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
+                            class="commune-image img-fluid" alt="">
+                        <span>{{Commune.nomcommune}}</span>
+                    </div>
+                </a>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="row">
-      <div
-        class="col-lg-4 col-md-4"
-        *ngFor="let Commune of commune; let i = index"
-      >
-        <a (click)="goToDettailCommune(Commune.uuid)" class="crd">
-          <div
-            style="height: 80%"
-            class="car-location-img aos"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <img
-              width="100%"
-              [src]="'assets/img/communes/' + imagesCommunes[i]"
-              style="object-fit: fill"
-              class="commune-image img-fluid"
-              alt=""
-            />
-            <span>{{ Commune.nomcommune }}</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
 </section>
 <!-- /COMMUNES -->
 

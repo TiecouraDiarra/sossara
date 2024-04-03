@@ -71,7 +71,6 @@ export class GimComponent {
       this.candidature = data;
       this.bien = data?.bien;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.candidature);
     })
   }
   //FORMATER LE PRIX
@@ -79,19 +78,16 @@ export class GimComponent {
     return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
   onNombreMoisChange(): void {
-    console.log(this.nombreMoisChoisi);
     // const selectElement = event.target as HTMLSelectElement;
     // this.nombreMoisChoisi = parseInt(selectElement.value, 10);
   }
   onNombreJourChange(): void {
     // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-    console.log(this.nombreJourChoisi);
     // Faites tout traitement supplémentaire ici si nécessaire
   }
 
   onNombreSemaineChange(): void {
     // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-    console.log(this.nombreSemaineChoisi);
     // Faites tout traitement supplémentaire ici si nécessaire
   }
 
@@ -138,7 +134,6 @@ export class GimComponent {
             this.paiementForm.nombreAnnees = this.nombreSemaineChoisi;
             this.paiementForm.sommePayer = this.bien?.prix * this.nombreSemaineChoisi;
           }
-          console.log(this.paiementForm);
           this.paiementForm.modePaiement = 1;
           
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
@@ -179,7 +174,6 @@ export class GimComponent {
               }
             },
             error: (err) => {
-              // console.error("Erreur lors de l'envoi de la candidature :", err);
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -187,7 +181,6 @@ export class GimComponent {
           }
           );
         } else {
-          // console.error("Token JWT manquant");
         }
       }
     })

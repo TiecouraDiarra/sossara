@@ -62,7 +62,6 @@ export class ResetPasswordComponent {
     this.token = this.route.snapshot.params["token"]
     const { password} = this.form;
 
-    // alert(this.token)
     
     if (this.form.password === null || this.form.confirmPassword === null) {
       swalWithBootstrapButtons.fire(

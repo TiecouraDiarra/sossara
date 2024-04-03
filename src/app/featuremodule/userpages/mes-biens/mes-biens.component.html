@@ -35,6 +35,11 @@
                         <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
+                <li *ngIf="isAgence ||  isProprietaire">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+                    </a>
+                </li>
                 <li>
                     <a [routerLink]="routes.messages">
                         <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -59,7 +64,8 @@
         </div>
 
         <!-- Debut AGENCE ET PROPRIETAIRE  -->
-        <div class="container-fluid card shadow d-flex justify-content-center mt-5" style="width: 100%;" *ngIf="isLocataire==false">
+        <div class="container-fluid card shadow d-flex justify-content-center mt-5" style="width: 100%;"
+            *ngIf="isLocataire==false">
             <app-agence></app-agence>
         </div>
         <!-- Fin AGENCE ET PROPRIETAIRE  -->

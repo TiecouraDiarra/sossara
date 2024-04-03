@@ -42,6 +42,11 @@
             <i class="fas fa-users"></i> <span>Mes agents</span>
           </a>
         </li>
+        <li *ngIf="isAgence">
+          <a [routerLink]="routes.rdv">
+            <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+          </a>
+        </li>        
         <li>
           <a [routerLink]="routes.messages">
             <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -68,27 +73,14 @@
           <div class="card-body">
             <div class="form-group">
               <label class="col-form-label">Nom du bien <span>*</span></label>
-              <input
-                type="text"
-                name="nom"
-                [(ngModel)]="form.nom"
-                class="form-control"
-              />
+              <input type="text" name="nom" [(ngModel)]="form.nom" class="form-control" />
             </div>
 
             <div class="form-group">
               <label class="col-form-label">Prix du bien <span>*</span></label>
               <div class="pass-group group-img">
-                <input
-                  type="number"
-                  pattern="[0-9]"
-                  name="prix"
-                  [(ngModel)]="form.prix"
-                  class="form-control pass-input"
-                  required
-                  aria-required="true"
-                  placeholder="FCFA"
-                />
+                <input type="number" pattern="[0-9]" name="prix" [(ngModel)]="form.prix" class="form-control pass-input"
+                  required aria-required="true" placeholder="FCFA" />
               </div>
             </div>
 
@@ -96,13 +88,12 @@
               <label class="col-form-label"
                 >Description du bien <span>*</span></label
               >
-            
-              <div class="form-floating">
-                <quill-editor name="description"  [(ngModel)]="form.description" placeholder="Description"
-                [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
-                (onContentChanged)="onContentChanged($event)">
-            </quill-editor>              
-            </div>
+              <textarea
+                rows="3"
+                name="description"
+                [(ngModel)]="form.description"
+                class="form-control listingdescription"
+              ></textarea>
             </div>
           </div>
         </div>
@@ -118,7 +109,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Type <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       (change)="onTypeChange($event)"
                       [(ngModel)]="form.type"
                       name="type"
@@ -157,7 +148,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.statut"
                       name="statut"
                       class="form-control"
@@ -187,7 +178,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       (change)="onStatutChange($event)"
                       [(ngModel)]="form.statut"
                       name="statut"
@@ -226,7 +217,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Caracteristique <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.caracteristique"
                       name="type"
                       class="form-control"
@@ -262,11 +253,9 @@
               <!-- Nombre de salon -->
               <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group">
-                  <label class="col-form-label"
-                    >Nombre de salon <span>*</span></label
-                  >
+                  <label class="col-form-label">Nombre de salon <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.nb_piece"
                       name="nb_piece"
                       class="form-control"
@@ -301,7 +290,7 @@
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.cuisine"
                       name="cuisine"
                       class="form-control"
@@ -335,7 +324,7 @@
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Chambres <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.chambre"
                       name="chambre"
                       class="form-control"
@@ -371,7 +360,7 @@
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Toilette <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.toilette"
                       name="toilette"
                       class="form-control"
@@ -404,7 +393,7 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label"
-                    >Superficie du bien (M²) <span>*</span></label
+                    >Surface du bien (M²) <span>*</span></label
                   >
                   <input
                     type="number"
@@ -423,7 +412,7 @@
                 <div class="form-group" *ngIf="selectedStatut === 1">
                   <label class="col-form-label">Periode <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.periode"
                       name="periode"
                       class="form-control"
@@ -460,12 +449,12 @@
 
               <div
                 class="col-lg-6 col-md-6"
-                *ngIf="selectedStatutMensuel === 2"
+                *ngIf="selectedStatutMensuel === '2'"
               >
                 <div class="form-group">
                   <label class="col-form-label">Caution <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.caution"
                       name="periode"
                       class="form-control"
@@ -497,12 +486,12 @@
 
               <div
                 class="col-lg-6 col-md-6"
-                *ngIf="selectedStatutMensuel === 2"
+                *ngIf="selectedStatutMensuel === '2'"
               >
                 <div class="form-group">
                   <label class="col-form-label">Avance <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.avance"
                       name="periode"
                       class="form-control"
@@ -547,10 +536,7 @@
                 <label class="col-form-label">Commodites <span>*</span></label>
                 <div class="pass-group group-img">
                   <div class="row">
-                    <div
-                      class="col-lg-4 col-md-6"
-                      *ngFor="let item of les_commodite"
-                    >
+                    <div class="col-lg-4 col-md-6" *ngFor="let item of les_commodite">
                       <ul>
                         <li>
                           <label class="custom_check">
@@ -559,7 +545,7 @@
                               [(ngModel)]="item.selected"
                               [value]="item.id" (change)="onChangeCommodite()"
                               name="commodite"
-                              [checked]="isCommoditeSelected(item.id)"
+                              [checked]="isCommoditeSelected(item)"
                               (change)="toggleCommodite(item)"
                             />
                             <span class="checkmark"></span>{{ item.nom }}
@@ -586,28 +572,17 @@
                 <div class="form-group">
                   <label class="col-form-label">Pays <span>*</span></label>
                   <div class="pass-group group-img">
-
-                    <mat-form-field
-                    class="mat-custom-select"
-                    style="width: 100%"
-                  >
-                    <mat-label *ngIf="selectedCategory == ''">
-                      Pays</mat-label
-                    >
-                    <mat-select
-                      [(ngModel)]="selectedValue"
+                    <select
+                      class="form-control"
+                      [ngModel]="selectedValue"
                       name="pays"
-                      (selectionChange)="onChange($event)"
+                      (change)="onChange($event.target)"
                     >
-                               
-                      <mat-option
-                        *ngFor="let item of pays"
-                        [value]="item.nompays"
-                        >{{ item.nompays }}</mat-option
-                      >
-                             
-                    </mat-select>
-                  </mat-form-field>
+                      <option value="pays" selected>pays</option>
+                      <option *ngFor="let item of pays" [value]="item.nompays">
+                        {{ item.nompays }}
+                      </option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -616,7 +591,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Region <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       name="region"
                       class="form-control"
                       id=""
@@ -657,7 +632,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Cercle <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       name="region"
                       class="form-control"
                       id=""
@@ -700,7 +675,7 @@
                 <div class="form-group">
                   <label class="col-form-label">Commune <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
+                    <select
                       [(ngModel)]="form.commune"
                       name="commune"
                       class="form-control"
@@ -733,16 +708,9 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <div class="pass-group group-img">
-                    <label class="col-form-label"
-                      >Quartier <span>*</span></label
-                    >
-                    <input
-                      type="text"
-                      name="quartier"
-                      [(ngModel)]="form.quartier"
-                      class="form-control pass-input"
-                      placeholder="Yirimadio"
-                    />
+                    <label class="col-form-label">Quartier <span>*</span></label>
+                    <input type="text" name="quartier" [(ngModel)]="form.quartier" class="form-control pass-input"
+                      placeholder="Yirimadio" />
                   </div>
                 </div>
               </div>
@@ -753,13 +721,8 @@
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Rue <span>*</span></label>
-                    <input
-                      name="rue"
-                      [(ngModel)]="form.rue"
-                      type="text"
-                      class="form-control pass-input"
-                      placeholder="Rue"
-                    />
+                    <input name="rue" [(ngModel)]="form.rue" type="text" class="form-control pass-input"
+                      placeholder="Rue" />
                   </div>
                 </div>
               </div>
@@ -767,14 +730,8 @@
               <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Porte <span>*</span></label>
-                  <input
-                    type="number"
-                    pattern="[0-9]"
-                    name="porte"
-                    [(ngModel)]="form.porte"
-                    class="form-control pass-input"
-                    placeholder="9999"
-                  />
+                  <input type="number" pattern="[0-9]" name="porte" [(ngModel)]="form.porte"
+                    class="form-control pass-input" placeholder="9999" />
                 </div>
               </div>
             </div>
@@ -787,27 +744,15 @@
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label">Latitude</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    readonly
-                    placeholder="Latitude"
-                    name="latitude"
-                    [(ngModel)]="form.latitude"
-                  />
+                  <input type="text" class="form-control" readonly placeholder="Latitude" name="latitude"
+                    [(ngModel)]="form.latitude" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <label class="col-form-label">Longitude</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    readonly
-                    placeholder="Longitude"
-                    name="longitude"
-                    [(ngModel)]="form.longitude"
-                  />
+                  <input type="text" class="form-control" readonly placeholder="Longitude" name="longitude"
+                    [(ngModel)]="form.longitude" />
                 </div>
               </div>
             </div>
@@ -821,13 +766,13 @@
                   <div class="featured-img1">
                     <h6 class="media-title">Images biens <span>*</span></h6>
                     <div class="media-image">
-                        <div *ngFor="let imageUrl of images1; let i = index" class="image-container m-1">
-                            <img class="m-3" [src]="imageUrl.data" alt="Image {{ i }}" />
-                            <button class="close-button" (click)="removeImage(i)">
-                                <i class="fas fa-times close-icon"></i>
-                            </button>
-                        </div>
-                        
+                      <div *ngFor="let imageUrl of images1; let i = index" class="image-container m-1">
+                        <img class="m-3" [src]="imageUrl.data" alt="Image {{ i }}" />
+                        <button class="close-button" (click)="removeImage(i)">
+                          <i class="fas fa-times close-icon"></i>
+                        </button>
+                      </div>
+
                     </div>
                   </div>
                   <div class="settings-upload-btn">
@@ -839,7 +784,7 @@
                     multiple
                     class="hide-input image-upload"
                     [disabled]="maxImageCount >= 8"
-                    accept=".png, .jpeg, .jpg, .svg, .webp"
+                    accept=".png, .jpeg, .jpg, .svg"
                   />
                     <label for="file" class="file-upload"
                       >Ajouter l'image</label
@@ -853,11 +798,7 @@
             </div>
           </div>
         </div>
-        <button
-          class="btn btn-primary crd"
-          (click)="ModifierBien()"
-          type="submit"
-        >
+        <button class="btn btn-primary crd" (click)="ModifierBien()" type="submit">
           Modifier bien
         </button>
       </form>

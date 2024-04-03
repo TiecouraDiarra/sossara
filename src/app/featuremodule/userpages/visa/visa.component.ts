@@ -172,7 +172,7 @@ export class VisaComponent {
               }
             },
             error: (err) => {
-              // console.error("Erreur lors de l'envoi de la candidature :", err);
+              
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -180,7 +180,7 @@ export class VisaComponent {
           }
           );
         } else {
-          // console.error("Token JWT manquant");
+      
         }
       }
     })

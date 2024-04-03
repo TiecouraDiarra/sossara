@@ -98,7 +98,7 @@ const routes: Routes = [
           // canActivate: [AuthGuard]
       },
       {
-        path: 'bienparcommune/:id',
+        path: 'bienparcommune/:nomcommune',
         loadChildren: () =>
           import('./gestionbiens/bienparcommune/bienparcommune.module').then(
             (m) => m.BienparcommuneModule

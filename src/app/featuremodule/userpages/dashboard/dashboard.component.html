@@ -36,9 +36,9 @@
                         <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
-                <li *ngIf="isAgence">
+                <li *ngIf="isAgence ||   isProprietaire">
                     <a [routerLink]="routes.rdv">
-                        <i class="fas fa-users"></i> <span>Rendez-vous</span>
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
                     </a>
                 </li>
                 <li>
@@ -71,7 +71,8 @@
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
                                     <!-- <img src="assets/img/icons/verified.svg" class="img-fluid" alt=""> -->
-                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size" alt="">
+                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size"
+                                        alt="">
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -87,7 +88,8 @@
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
                                     <!-- <img src="assets/img/icons/verified.svg" class="img-fluid" alt=""> -->
-                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size" alt="">
+                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size"
+                                        alt="">
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -103,8 +105,9 @@
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
                                     <!-- <img src="assets/img/icons/verified.svg" class="img-fluid" alt=""> -->
-                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size" alt="">
-                                
+                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size"
+                                        alt="">
+
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -120,7 +123,8 @@
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
                                     <!-- <img src="assets/img/icons/verified.svg" class="img-fluid" alt=""> -->
-                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size" alt="">
+                                    <img src="../../../../assets/img/iconeBien/1.svg" class="img-fluid icon-size"
+                                        alt="">
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -135,8 +139,9 @@
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
-                                    <img src="../../../../assets/img/iconeBien/2.svg" class="img-fluid icon-size" alt="">
-                                    
+                                    <img src="../../../../assets/img/iconeBien/2.svg" class="img-fluid icon-size"
+                                        alt="">
+
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -151,8 +156,9 @@
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
-                                    <img src="../../../../assets/img/iconeBien/4.svg" class="img-fluid icon-size" alt="">
-                                    
+                                    <img src="../../../../assets/img/iconeBien/4.svg" class="img-fluid icon-size"
+                                        alt="">
+
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -167,8 +173,9 @@
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
-                                    <img src="../../../../assets/img/iconeBien/agents.svg" class="img-fluid icon-size" alt="">
-                                    
+                                    <img src="../../../../assets/img/iconeBien/agents.svg" class="img-fluid icon-size"
+                                        alt="">
+
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -184,7 +191,8 @@
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
-                                    <img src="../../../../assets/img/iconeBien/notification.svg" class="img-fluid icon-size" alt="">
+                                    <img src="../../../../assets/img/iconeBien/notification.svg"
+                                        class="img-fluid icon-size" alt="">
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -256,8 +264,9 @@
                                     <li class="review-box" *ngFor="let Rdv of rdv">
                                         <div class="review-profile">
                                             <div class="review-img">
-                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo?.nom)}}" class="img-fluid"
-                                                    alt="img" (error)="handleAuthorImageError($event)">
+                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo?.nom)}}"
+                                                    class="img-fluid" alt="img"
+                                                    (error)="handleAuthorImageError($event)">
                                             </div>
                                         </div>
                                         <div class="review-details">

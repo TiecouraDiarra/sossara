@@ -34,11 +34,7 @@ export class AproposComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    //AFFICHER LA LISTE DES COMMODITES
-    // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
-    //   this.commune = data.commune;
-    //   console.log(this.commune);
-    // });
+  
 
   }
   getNombreBiensPourCommune(communeId: number): number {
@@ -106,7 +102,6 @@ export class AproposComponent implements OnInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN EN FONCTION D'UNE COMMUNE
   goToDettailCommune(id: number) {
-    console.log(id);
     return this.router.navigate(['bienparcommune', id])
   }
 

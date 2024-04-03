@@ -90,6 +90,11 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbien/parcommune/${id}`);
   }
 
+  //AFFICHER LA LISTE DES BIENS EN FONCTION DE LA COMMUNE
+  AfficherBienImmoParNomCommune(nomcommune: string): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/afficherbien/parnomcommune/${nomcommune}`);
+  }
+
   //AFFICHER UNE TRANSACTION POUR LES  VENTE EN FONCTION DE SON ID
   AfficherTransactionParId(id: number): Observable<any> {
     const headers = this.getHeaders();
@@ -281,7 +286,6 @@ export class BienimmoService {
     photos.forEach(p => { formData.append('photoImmos', p); });
     formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
 
-    // console.log(chambre, " Chambre");
     
     return this.http.put(
       URL_BASE + '/bien/modifierbien/' + `${id}`,
