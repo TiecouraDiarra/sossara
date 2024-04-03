@@ -77,22 +77,23 @@
       </div>
       <div class="col-lg-7 col-md-7">
         <div class="contactus-form">
-          <form class="" (submit)="sendEmail($event)">
+          <form class="">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Nom" name="name" />
+              <input type="text" [(ngModel)]="form.nom" class="form-control" placeholder="Nom" name="nom" />
             </div>
             <div class="form-group me-0">
-              <input type="email" class="form-control" name="user_email" placeholder="email" />
+              <input type="email" [(ngModel)]="form.email" class="form-control" name="email" placeholder="email" />
             </div>
             <div class="form-group"> 
-              <input type="text" class="form-control" name="object" placeholder="Objet" />
+              <input type="text" [(ngModel)]="form.object" class="form-control" name="object" placeholder="Objet" />
             </div>
             <div class="form-group">
-              <textarea rows="4" class="form-control" placeholder="Description*" name="message" required></textarea>
+              <textarea rows="4" [(ngModel)]="form.description" class="form-control" placeholder="Description*" name="description" required></textarea>
             </div>
             <div class="submit-section">
-              <button class="btn btn-primary submit-btn" type="submit">
-                Envoyer
+              <button (click)="SendEmail()" class="btn btn-primary submit-btn" type="submit" [disabled]="loading">
+                <span *ngIf="!loading">Envoyer</span>
+                <span *ngIf="loading">Chargement...</span>
               </button>
             </div>
           </form>

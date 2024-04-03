@@ -88,28 +88,7 @@ export class AccueilComponent {
   nombreBienLoue: number = 0;
   nombreBienVendre: number = 0;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  valuesSelectPrix: any = [
-    '10000',
-    '20000',
-    '30000',
-    '40000',
-    '50000',
-    '60000',
-    '70000',
-    '80000',
-    '90000',
-    '100000',
-    '200000',
-    '300000',
-    '400000',
-    '500000',
-    '600000',
-    '700000',
-    '800000',
-    '900000',
-    '1000000',
-    '1500000',
-  ];
+  valuesSelectPrix: any 
 
   locale!: string;
   imagesCommunes = [
@@ -428,6 +407,11 @@ export class AccueilComponent {
   };
 
   ngOnInit(): void {
+    this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
+      // this.customHtmlMaxValue = data[0].prix;
+      this.valuesSelectPrix = data;
+      console.log(this.valuesSelectPrix)
+    })
     setInterval(() => {
       this.changeImage();
     }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)

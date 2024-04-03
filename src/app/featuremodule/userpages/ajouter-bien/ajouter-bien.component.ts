@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 declare var google: any;
 import * as L from 'leaflet';
 import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
+import { ContentChange, SelectionChange } from 'ngx-quill';
 
 interface Food {
   value: string | any;
@@ -28,7 +29,12 @@ interface price {
   templateUrl: './ajouter-bien.component.html',
   styleUrls: ['./ajouter-bien.component.css'],
 })
+
+// export class AjouterBienComponent {
+
+
 export class AjouterBienComponent implements OnInit{
+  selectedCategory: any = '';
   requiredFileType: any;
   maxImageCount: number = 0; // Limite maximale d'images
   isButtonDisabled: boolean = false; // Variable pour désactiver le bouton si la limite est atteinte
@@ -95,22 +101,26 @@ export class AjouterBienComponent implements OnInit{
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
     this.selectedFiles = event.target.files;
-    const reader = new FileReader();
-
+  
     for (const file of this.selectedFiles) {
       if (this.images.length < 8) {
+        const reader = new FileReader(); // Créez un nouvel objet FileReader pour chaque fichier
+  
         reader.onload = (e: any) => {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
           this.maxImageCount = this.image.length;
         };
+  
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
+  
     this.form.photo = this.images;
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
+  
 
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
@@ -297,7 +307,14 @@ export class AjouterBienComponent implements OnInit{
     this.regions = this.region.filter(
       (el: any) => el.pays.nompays == newValue.value
     );
+    this.cercles = this.cercle.filter(
+      (el: any) => this.regions.includes(el.region)
+    );
+    this.communes = this.commune.filter(
+      (el: any) => this.cercles.includes(el.cercle)
+    );
   }
+  
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
       (el: any) => el.region.nomregion == newValue.value
@@ -310,29 +327,29 @@ export class AjouterBienComponent implements OnInit{
     );
   }
 
-  selectedStatut: string | null = null;
-  selectedType: string | null = null;
+  selectedStatut: any | null = null;
+  selectedType: any | null = null;
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
-    this.selectedStatut = event.target.value;
-    if (this.selectedStatut === '2') {
+    this.selectedStatut = event.value;
+    if (this.selectedStatut === 2) {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
   }
 
   //METHODE PERMETTANT DE CHANGER LES TYPES
   onTypeChange(event: any) {
-    this.selectedType = event.target.value;
-    if (this.selectedType === '3') {
+    this.selectedType = event.value;
+    if (this.selectedType === 3) {
       this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
     }
   }
 
-  selectedStatutMensuel: string | null = null;
+  selectedStatutMensuel: any | null = null;
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChangeMensuel(event: any) {
-    this.selectedStatutMensuel = event.target.value;
-    if (this.selectedStatut === '2') {
+    this.selectedStatutMensuel = event.value;
+    if (this.selectedStatut === 2) {
       this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
       this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
 
@@ -384,7 +401,6 @@ export class AjouterBienComponent implements OnInit{
       this.form.caracteristique === null ||
       this.form.commune === null ||
       this.form.nom === null ||
-      this.form.surface === null ||
       this.form.prix === null ||
       this.form.statut === null ||
       this.form.description === null ||
@@ -493,4 +509,48 @@ export class AjouterBienComponent implements OnInit{
   //     this.photo = [];
   //   }
   // }
+
+  quillConfig = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['code-block'],
+       //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+       //  [{ 'direction': 'rtl' }],                         // text direction
+
+       //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'align': [] }],
+
+       //  ['clean'],                                         // remove formatting button
+
+       //  ['link'],
+        ['link', 'image', 'video']
+      ],
+    },
+ }
+
+ onSelectionChanged = (event: SelectionChange) => {
+   if(event.oldRange == null) {
+     this.onFocus();
+   }
+   if(event.range == null) {
+     this.onBlur();
+   }
+ }
+
+ onContentChanged = (event: ContentChange) => {
+   // console.log(event.html);
+ }
+
+ onFocus = () => {
+   console.log("On Focus");
+ }
+ onBlur = () => {
+   console.log("Blurred");
+ }
 }
