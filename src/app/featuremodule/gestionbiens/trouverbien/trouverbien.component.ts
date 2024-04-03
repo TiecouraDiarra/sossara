@@ -895,7 +895,7 @@ export class TrouverbienComponent implements OnInit {
   selectedStatut: string | null = null;
 
   onStatutChange(event: any) {
-    this.selectedStatut = event.target.value;
+    this.selectedStatut = event.value;
   }
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
