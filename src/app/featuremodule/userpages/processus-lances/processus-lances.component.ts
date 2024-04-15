@@ -82,12 +82,11 @@ export class ProcessusLancesComponent implements OnInit {
               this.popUpConfirmationArreteProcessus();
             },
             error => {
-              // console.error("Erreur lors de l'arret du processus :", error);
-              // Gérez les erreurs ici
+            
             }
           );
         } else {
-          // console.error("Token JWT manquant");
+
         }
       }
     })

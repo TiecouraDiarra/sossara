@@ -92,12 +92,13 @@ export class AccueilComponent {
 
   locale!: string;
   imagesCommunes = [
+    '2020-06-17.jpg',
+    'hippique.jpg',
     'commune1.jpeg',
-    'commune2.png',
-    'commune3.jpg',
     'commune4.jpg',
-    'commune5.jpeg',
+    '2022-09-26.jpg', 
     'commune6.jpeg',
+    // 'commune3.jpg',
   ];
   public universitiesCompanies: any = [];
 
@@ -410,7 +411,7 @@ export class AccueilComponent {
     this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
       // this.customHtmlMaxValue = data[0].prix;
       this.valuesSelectPrix = data;
-      console.log(this.valuesSelectPrix)
+    
     })
     setInterval(() => {
       this.changeImage();
@@ -683,12 +684,10 @@ export class AccueilComponent {
             });
         },
         (error) => {
-          // console.error("Erreur lors du like :", error);
-          // Gérez les erreurs ici
+       
         }
       );
     } else {
-      console.error('Token JWT manquant');
     }
   }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
@@ -730,14 +729,12 @@ export class AccueilComponent {
           // this.pathConversation();
         },
         error: (err) => {
-          // console.error("Erreur lors de l'ouverture de la conversation:", err);
           this.errorMessage = err.error.message;
           // this.isError = true
           // Gérez les erreurs ici
         },
       });
     } else {
-      // console.error("Token JWT manquant");
       this.router.navigateByUrl('/auth/connexion');
     }
     // if (this.storageService.isLoggedIn()) {

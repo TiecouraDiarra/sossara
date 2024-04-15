@@ -184,7 +184,6 @@ export class UserService {
     // const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('email', email);
-    console.log(email);
     return this.http.post(`${URL_BASE}/auth/forgotPassword`,
       formData
     );
@@ -195,7 +194,6 @@ export class UserService {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('token', token);
-    // console.log(token);
     formData.append('newPassword', newPassword);
     return this.http.post(URL_BASE + '/auth/resetPassword', formData);
   }

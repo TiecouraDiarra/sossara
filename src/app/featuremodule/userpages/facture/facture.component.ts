@@ -166,7 +166,6 @@ export class FactureComponent {
                 `<p style='font-size: 1em; font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;'>Erreur lors de l'enregistrement</p>`,
                 'error'
               );
-              //   console.error("Erreur lors de l'enregistrement :", err);
             }
           }
           );
@@ -176,7 +175,7 @@ export class FactureComponent {
             `<p style='font-size: 1em; font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;'>Votre session a expiré en raison d'un token périmé. Veuillez vous reconnecter pour continuer à utiliser notre application.</p>`,
             'error'
           );
-          // console.error("Token JWT manquant");
+        
         }
       }
     })

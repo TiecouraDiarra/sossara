@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
+  selectedCategory: any = '';
   public routes = routes;
   public Toggledata = true;
   public ToggledataC = true;
@@ -87,7 +88,7 @@ export class SignupComponent {
   }
 
   public typepiciesUser = [
-    'Type de pieces',
+   
     "CarteIN",
     'NINA', 
     'Passport',
@@ -95,7 +96,7 @@ export class SignupComponent {
 
   //METHODE PERMETTANT DE CHANGER LES TYPES DE DOC
   onTypePiecesChange(event: any) {
-    this.selectedTypePiece = event.target.value;
+    this.selectedTypePiece = event.value;
   }
 
   //METHODE PERMETTANT DE VERIFIER SI LES DEUX MOTS DE PASSE SONT LES MEMES
@@ -103,7 +104,7 @@ export class SignupComponent {
     return this.form.password === this.form.confirmPassword;
   }
 
-  public typepiciesAgence = ['Type de pieces', 'RCCM', 'NIF'];
+  public typepiciesAgence = [ 'RCCM', 'NIF'];
 
   constructor(public router: Router, 
     private authService: AuthService,private storageService: StorageService) {}

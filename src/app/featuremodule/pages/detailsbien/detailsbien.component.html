@@ -1031,26 +1031,20 @@
               </div>
             </div>
           
-              <div class="input-group">
-                  <div class="attach-btn">
-                      <input name="content" [(ngModel)]="MessageForm.content" type="text"
-                          class="input-msg-send form-control" placeholder="Message">
-                     
-                  </div>
-                  <!-- <button (click)="sendMessage()"
-                      [disabled]="!MessageForm.content || MessageForm.content.trim() === '' "
-                      type="button" class="btn msg-send-btn"><i class="fas fa-paper-plane"></i></button> -->
-      
-          </div>
+             
             <div
               class="submit-section mb-3"
               style="text-align: center"
               *ngIf="isLoggedIn == true && currentUser == false"
             >
+           
+              <div class="attach-btn mb-3">
+                <textarea name="content" [(ngModel)]="MessageForm.content" class="input-msg-send form-control" placeholder="Message"></textarea>
+              </div>
               <button
                 (click)="goToMessage(bien?.utilisateur?.email)"
                 [disabled]="!MessageForm.content || MessageForm.content.trim() === '' "
-                class="btn btn-primary submit-btn"
+                class="btn btn-primary submit-btn w-100"
                 type="submit"
               >
                 Envoyer un message

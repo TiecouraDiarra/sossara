@@ -69,6 +69,7 @@ export class ModifierBienComponent {
   ModifBien: any = false;
   isLocataire = false;
   isAgence = false;
+  isProprietaire= false;
   roles: string[] = [];
   selectedStatutMensuel: any | null = null;
   selectedStatut: any | null = null;
@@ -157,10 +158,7 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(this.bien.caution);
-
       setTimeout(() => {
-
       this.form = {
         nom: this.bien?.nom,
         description: this.bien?.description,
@@ -210,6 +208,8 @@ export class ModifierBienComponent {
         this.isLocataire = true;
       } else if (this.roles[0] == 'ROLE_AGENCE') {
         this.isAgence = true;
+      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
       }
     }
 
@@ -219,7 +219,6 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      // console.log(this.bien);
       this.selectedValue=this.bien?.adresse.commune?.cercle?.region?.pays?.nompays
       this.selectedValueR=this.bien?.adresse.commune?.cercle?.region?.nomregion
       this.selectedValueC=this.bien?.adresse.commune?.cercle?.nomcercle
@@ -445,7 +444,6 @@ export class ModifierBienComponent {
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.value;
-    // alert(this.selectedStatut)
     if (this.selectedStatut === '2') {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
@@ -693,7 +691,6 @@ export class ModifierBienComponent {
   toggleCommodite(commodite: any) {
     if (!this.bien.commodites) {
       this.bien.commodites = [];
-      console.log(this.bien.commodites)
     }
     const index = this.bien.commodites.findIndex(
       (c: { id: any }) => c.id === commodite.id
@@ -740,13 +737,10 @@ export class ModifierBienComponent {
   }
  
   onContentChanged = (event: ContentChange) => {
-    // console.log(event.html);
   }
  
   onFocus = () => {
-    console.log("On Focus");
   }
   onBlur = () => {
-    console.log("Blurred");
   }
 }

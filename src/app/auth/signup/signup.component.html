@@ -159,25 +159,52 @@
               
               <div class="col-md-6 form-group group-img">
                 <div class="group-img">
-                  <select class="form-control" (change)="onChange($event.target)" [(ngModel)]="form.role"
+                  <!-- <select class="form-control" (change)="onChange($event.target)" [(ngModel)]="form.role"
                   name="role">
                   <option disabled value="">Choisissez un type d'utilisateur</option>
                     <option *ngFor="let item of typeUser" [value]="item.value">
                       {{ item?.nom }}
                     </option>
-                  </select>
+                  </select> -->
+
+                  <mat-form-field
+                      class="mat-custom-select"
+                      style="width: 100%"
+                    >
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Choisissez un type d'utilisateur</mat-label
+                      >
+                      <mat-select   (selectionChange)="onChange($event)" [(ngModel)]="form.role"
+                      name="role">
+                        <mat-option
+                        *ngFor="let item of typeUser"
+                        [value]="item.value">
+                        {{ item?.nom }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
                 </div>
               </div>
               <div class="col-md-6 form-group group-img"
                 *ngIf="currentUser != 'Utilisateur'"
               >
                 <div class="group-img">
-                  <select class="form-control" (change)="onTypePiecesChange($event)" [(ngModel)]="form.nomDoc"
+    
+                  <mat-form-field
+                  class="mat-custom-select"
+                  style="width: 100%"
+                >
+                  <mat-label *ngIf="selectedCategory == ''">
+                   Type de piece</mat-label
+                  >
+                  <mat-select   (selectionChange)="onTypePiecesChange($event)" [(ngModel)]="form.nomDoc"
                   name="nomDoc">
-                    <option *ngFor="let item of typePieces" [value]="item">
-                      {{ item }}
-                    </option>
-                  </select>
+                    <mat-option
+                    *ngFor="let item of typePieces" [value]="item">
+                    {{ item }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
                 </div>
               </div>
             </div>

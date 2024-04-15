@@ -77,6 +77,7 @@ export class MessageService {
     const params = new HttpParams()
       .set('expediteur', firstUserName)
       .set('destinateur', secondUserName);
+    
     return this.httpClient.post<Chat[]>(URL_BASE + '/chats/getChatByFirstUserNameAndSecondUserName2', message, { params });
   }
   

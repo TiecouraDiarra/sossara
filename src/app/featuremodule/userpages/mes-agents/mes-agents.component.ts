@@ -221,10 +221,7 @@ export class MesAgentsComponent implements OnInit {
                     }
                   },
                   (error) => {
-                    // Gérez les erreurs ici
-                    // console.error("Erreur lors de l'ajout d'un agent :", error);
-                    // Affichez un message d'erreur à l'utilisateur si nécessaire
-                    // this.errorMessage = "Une erreur s'est produite lors de l'ajout de l'agent.";
+                  
                   }
                 );
             }
@@ -235,7 +232,6 @@ export class MesAgentsComponent implements OnInit {
         );
       }
     } else {
-      // console.error("Token JWT manquant");
     }
   }
 
@@ -311,15 +307,13 @@ export class MesAgentsComponent implements OnInit {
                 this.popUpConfirmation();
               },
               error: (err) => {
-                // console.error("Erreur lors de la suppression :", err);
+               
                 this.errorMessage = err.error.message;
-                // console.error(this.errorMessage);
-                // this.isError = true
-                // Gérez les erreurs ici
+               
               },
             });
           } else {
-            // console.error("Token JWT manquant");
+        
           }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           // L'utilisateur a annulé l'action

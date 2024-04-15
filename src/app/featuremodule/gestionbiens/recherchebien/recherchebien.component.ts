@@ -266,9 +266,7 @@ export class RecherchebienComponent {
           })
         );
       } else {
-        console.error(
-          'Les données de biens immobiliers ne sont pas au format attendu (tableau).'
-        );
+        
       }
     });
   }

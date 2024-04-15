@@ -17,6 +17,12 @@
     position: relative;
     display: inline-block;
 }
+.main-nav2 {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
 
 /* Masquez la flèche de dropdown pour l'élément <a> */

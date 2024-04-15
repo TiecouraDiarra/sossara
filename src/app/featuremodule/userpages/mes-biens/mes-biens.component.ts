@@ -45,6 +45,7 @@ export class MesBiensComponent implements OnInit {
   public albumsOne: any = [];
   isLocataire = false;
   isAgence = false;
+  isProprietaire= false;
   isAgent = false;
   roles: string[] = [];
   bienImmoDejaLoueLocataire: any[] = []
@@ -86,7 +87,10 @@ export class MesBiensComponent implements OnInit {
       } else if (this.roles.includes("ROLE_AGENCE")) {
         this.isAgence = true;
         this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else if (this.roles.includes("ROLE_AGENT")) {
+      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
+      }
+      else if (this.roles.includes("ROLE_AGENT")) {
         this.isAgent = true;
         this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
       } else {

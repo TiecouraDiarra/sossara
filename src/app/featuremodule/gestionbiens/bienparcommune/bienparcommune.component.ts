@@ -203,12 +203,10 @@ export class BienparcommuneComponent {
           }
         },
         error => {
-          console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
     }
   }
 

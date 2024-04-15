@@ -40,6 +40,7 @@ export class MessagesComponent implements OnInit {
   locale!: string;
   isLocataire = false;
   isAgence = false;
+  isProprietaire= false;
   roles: string[] = [];
   public chatData: any;
   searchText: any;
@@ -107,6 +108,8 @@ export class MessagesComponent implements OnInit {
         this.isAgence = true
       } else if (this.roles.includes("ROLE_AGENT")) {
         // this.isAgent = true
+      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
       }
     }
     this.users=this.storageService.getUser()
@@ -241,12 +244,11 @@ export class MessagesComponent implements OnInit {
           this.onConversationSelected(this.selectedConversationId)
         },
         error => {
-          // console.error("Erreur lors de l'envoi du message :", error);
-          // Gérez les erreurs ici
+        
         }
       );
     } else {
-      // console.error("Token JWT manquant");
+    
     }
 
     

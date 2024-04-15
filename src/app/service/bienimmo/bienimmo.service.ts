@@ -44,6 +44,10 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/bien/afficherbien`);
   }
 
+  AfficherLaListeBienImmo1(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/afficherbien?page=${pageNumber}&size=${pageSize}`);
+  }
+
   //AFFICHER LA LISTE PRIX DISPONIBLES
   AfficherLaListePrix(): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/sortedByPrice`);
@@ -286,7 +290,6 @@ export class BienimmoService {
     photos.forEach(p => { formData.append('photoImmos', p); });
     formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
 
-    // console.log(chambre, " Chambre");
     
     return this.http.put(
       URL_BASE + '/bien/modifierbien/' + `${id}`,

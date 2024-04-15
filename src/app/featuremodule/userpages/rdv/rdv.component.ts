@@ -26,6 +26,7 @@ export class RdvComponent {
   roles: string[] = [];
   rdv: any;
   locale!: string;
+  isProprietaire= false;
 
   constructor(
     private authService: AuthService,
@@ -47,6 +48,8 @@ export class RdvComponent {
         this.isAgence = true
       } else if (this.roles.includes("ROLE_AGENT")) {
         this.isAgent = true
+      }  else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
       }
     }
 

@@ -34,7 +34,7 @@
                         <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
-                <li class="active" *ngIf="isAgence">
+                <li class="active" *ngIf="isAgence || isProprietaire">
                     <a [routerLink]="routes.rdv">
                         <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
                     </a>

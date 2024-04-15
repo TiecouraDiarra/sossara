@@ -29,6 +29,7 @@ export class NotificationsComponent implements OnInit {
   nombreJourChoisi: number = 0;
   nombreSemaineChoisi: number = 0;
   isAgence = false;
+  isProprietaire= false;
   roles: string[] = [];
   nombreMois: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   modepaiement: any;
@@ -116,6 +117,8 @@ export class NotificationsComponent implements OnInit {
         this.isAgence = true
       } else if (this.roles.includes("ROLE_AGENT")) {
         // this.isAgent = true
+      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
       }
     }
      this.User = this.storageService.getUser().id;
@@ -238,7 +241,6 @@ export class NotificationsComponent implements OnInit {
               this.popUpConfirmation();
             },
             error: (err) => {
-              // console.error("Erreur lors de l'envoi de la candidature :", err);
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -246,7 +248,6 @@ export class NotificationsComponent implements OnInit {
           }
           );
         } else {
-          // console.error("Token JWT manquant");
         }
       }
     })
@@ -254,7 +255,6 @@ export class NotificationsComponent implements OnInit {
 
   //ID DE LA CANDIDATURE D'UN BIEN
   IdCandidaterBien(id: any): void {
-    // alert(id)
     sessionStorage.removeItem("idCandidature");
     this.idCandidature = id;
     sessionStorage.setItem('idCandidature', id)
@@ -295,7 +295,7 @@ export class NotificationsComponent implements OnInit {
               this.popUpAnnulation();
             },
             error: (err) => {
-              // console.error("Erreur lors de l'annulation de la candidature :", err);
+            
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -303,7 +303,7 @@ export class NotificationsComponent implements OnInit {
           }
           );
         } else {
-          // console.error("Token JWT manquant");
+          
         }
       }
     })

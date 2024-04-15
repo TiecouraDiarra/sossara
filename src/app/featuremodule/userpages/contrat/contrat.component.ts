@@ -201,15 +201,12 @@ export class ContratComponent {
               this.popUpAnnulation();
             },
             error: (err) => {
-              // console.error("Erreur lors de l'annulation de la candidature :", err);
-              // this.errorMessage = err.error.message;
-              // this.isError = true
-              // Gérez les erreurs ici
+            
             }
           }
           );
         } else {
-          // console.error("Token JWT manquant");
+        
         }
       }
     })
@@ -244,15 +241,12 @@ export class ContratComponent {
               this.popUpAnnulation();
             },
             error: (err) => {
-              // console.error("Erreur lors de l'annulation de la candidature :", err);
-              // this.errorMessage = err.error.message;
-              // this.isError = true
-              // Gérez les erreurs ici
+           
             }
           }
           );
         } else {
-          // console.error("Token JWT manquant");
+         
         }
       }
     })
@@ -329,7 +323,7 @@ export class ContratComponent {
               this.popUpConfirmation();
             },
             error: (err) => {
-              // console.error("Erreur lors de l'envoi de la candidature :", err);
+              
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -337,7 +331,7 @@ export class ContratComponent {
           }
           );
         } else {
-          // console.error("Token JWT manquant");
+    
         }
       }
     })
@@ -419,7 +413,7 @@ export class ContratComponent {
               this.popUpConfirmation();
             },
             error: (err) => {
-              // console.error("Erreur lors de l'envoi de la candidature :", err);
+             
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -427,7 +421,7 @@ export class ContratComponent {
           }
           );
         } else {
-          // console.error("Token JWT manquant");
+        
         }
       }
     })
@@ -460,7 +454,7 @@ export class ContratComponent {
       // Une fois la génération terminée, masquer l'indicateur de chargement
       this.loading = false;
     } catch (error) {
-      console.error('Une erreur s\'est produite lors de la génération du PDF :', error);
+  
       this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
     }
   }
@@ -481,7 +475,7 @@ export class ContratComponent {
       // Une fois la génération terminée, masquer l'indicateur de chargement
       this.loading = false;
     } catch (error) {
-      console.error('Une erreur s\'est produite lors de la génération du PDF :', error);
+     
       this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
     }
   }

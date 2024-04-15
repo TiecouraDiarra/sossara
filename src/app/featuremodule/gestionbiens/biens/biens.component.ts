@@ -34,6 +34,9 @@ export class BiensComponent {
   selectedCommune: any;
   p: number = 1;
   selectedType: any;
+  currentPage = 1;
+  itemsPerPage = 4;
+  totalPages: number = 0;
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -45,6 +48,40 @@ export class BiensComponent {
   communes: any = [];
 
   favoritedPropertiesCount: number = 0;
+
+
+  // Méthode pour changer de page
+  setCurrentPage(page: number) {
+    this.currentPage = page;
+    // this.loadCurrentPage();
+  }
+
+  pageSize: number = 4; // Nombre d'éléments par page
+  // Calcul du nombre total de pages
+  get pageCount(): number {
+    return Math.ceil(this.bienImmo.length / this.pageSize);
+  }
+
+
+  get pages(): number[] {
+    return Array.from({ length: this.pageCount }, (_, i) => i + 1);
+  }
+  // Méthode pour passer à la page précédente
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      // this.loadCurrentPage();
+    }
+  }
+
+  // Méthode pour passer à la page suivante
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.currentPage++;
+      // this.loadCurrentPage();
+    }
+  }
+
 
 
   isFavorite: boolean = false;
@@ -197,24 +234,24 @@ export class BiensComponent {
       this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: {
-        favoris: any; id: string | number; 
-}) => {
+        favoris: any; id: string | number;
+      }) => {
         // Charger le nombre de "J'aime" pour chaque bien
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = bien.favoris?.length;
-          
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-          }
+        this.NombreJaime = bien.favoris?.length;
 
-          // Charger l'état de favori depuis localStorage
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          if (isFavorite === 'true') {
-            this.favoriteStatus[bien.id] = true;
-          } else {
-            this.favoriteStatus[bien.id] = false;
-          }
-        });
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        }
+
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        if (isFavorite === 'true') {
+          this.favoriteStatus[bien.id] = true;
+        } else {
+          this.favoriteStatus[bien.id] = false;
+        }
+      });
       // });
     });
     //AFFICHER LA LISTE DES COMMODITES
@@ -284,12 +321,10 @@ export class BiensComponent {
           }
         },
         error => {
-          // console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      // console.error("Token JWT manquant");
     }
   }
 

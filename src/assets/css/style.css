@@ -11766,6 +11766,213 @@ textarea.form-control {
 	}
 }
 
+
+@media (max-width: 1400.98px) {
+	.dropdown.noti-dropdown {
+		margin-top: 0px !important;
+	}
+	.header-nav {
+		padding-left: 10px;
+        padding-right: 10px;
+	}
+	.header-navbar-rht > li.desc-list a > span {
+		display: none;
+	}
+	.header .has-arrow .dropdown-toggle::after {
+		display: none;
+	}
+	.main-nav > li {
+        margin-right: 9px;
+    }
+	.header-navbar-rht > li {
+	    padding-right: 10px;
+	}
+	.banner-imgs img {
+        max-width: 490px;
+    }
+	.arrow-img {
+		right: 72px;
+		top: 32px;
+	}
+	.search-box .search-input {
+        margin: 0 10px 19px 0;
+    }
+	.search-btn {
+		margin: 0px 0 0 0;
+    }
+	.section-search {
+        padding: 40px 0;
+    }
+	.banner-section h1 {
+	    font-size: 42px;
+	}
+	.category-section a.category-links {
+	    width: 150px;
+		margin-right: 0;
+	}
+	.cta-section h3 {
+	    font-size: 40px;
+	}
+	.viewdetails-btn {
+	    padding:10px 20px;
+	}
+	.location-info:last-child {
+	    margin-right: 0;
+	}
+	.testimonials-section .testimonial-heading {
+        padding: 60px 0 60px 46px;
+    }
+	.map-listing {
+        height: 450px;
+		margin: 0 0 25px;
+    }
+	.showfilter {
+	    display: none;
+	}
+	.header .has-arrow .dropdown-toggle:after {
+	    display: inline-block;
+	}
+	.header-navbar-rht li > a.header-login {
+	    min-width: 90px;
+		padding: 10px 16px;
+	}
+	.main-nav li a {
+	    font-size: 14px;
+	}
+	.dashboard-content ul.dashborad-menus li {
+        margin-right: 5px;
+    }
+	.dashboard-content ul.dashborad-menus li a {
+        padding: 12px 12px;
+	}
+	.chat-footer .attach-btn {
+        width: 88%;
+	}
+	.descriptionlinks ul li a {
+        font-size: 14px;
+    }
+	.details-main-wrapper .rightsidebar .card ul li {
+        font-size: 12px;
+	}
+	.details-main-wrapper .card .ratings-info p {
+        font-size: 13px;
+    }
+	.banner-section-two .search-box .form-group,
+	.banner-section-two .search-box .select2-container--default .select2-selection--single,
+	.banner-section-two .search-box .select2-container--default .select2-selection--single .select2-selection__rendered	{
+		min-width: 100px;
+		font-size: 14px;
+	}
+	.banner-section-two .search-box .search-input {
+		margin-bottom: 0;
+	}
+	.banner-section-two .search-icon {
+		width: 40px;
+		height: 40px;
+	}
+	.offer-img-left img {
+		width: 300px;
+	}
+	.offer-section {
+		padding: 20px 0 70px;
+	}
+	.offer-sec h3, .section-heading-two h2 {
+		font-size: 30px;
+	}
+	.venue-content ul li {
+		width: 32%;
+	}
+	.package-wrap .section-heading-two h2 {
+		font-size: 21px;
+	}
+	.category-item {
+		margin-bottom: 15px;
+	}
+	.category-item a {
+		font-size: 15px;
+		padding: 7px 15px;
+	}
+	.header-three .main-nav li:not(:last-child) {
+		margin-right: 12px;
+	}
+	.header-three .cta-btn a {
+		font-size: 14px;
+	}
+	h2 {
+		font-size: 28px;
+	}
+	.shadow-box h4 {
+		font-size: 18px;
+	}
+	.activities-blk .shadow-box p {
+		font-size: 14px;
+	}
+	.subscribe-blk .input-group {
+		padding: 10px;
+	}
+	.subscribe-blk .form-control {
+		min-height: 40px;
+	}
+	.gallery-blk {
+		flex-wrap: wrap;
+	}
+	.box-style .btm-box-style h3 {
+		font-size: 22px;
+	}
+	.theme-btn, .theme-btn a {
+		font-size: 15px;
+	}
+	.service-info-card .service-content .body-content {
+		margin-bottom: 20px;
+	}
+	.header-three a.nav-link.cur-link, .header-three a.nav-link.lang-link {
+		font-size: 14px;
+	}
+	.service-info-card .service-content .body-content p {
+		font-size: 14px;
+	}
+	.section-blk .service-info-card .img-blk {
+		width: 340px;
+		padding: 55px 0;
+	}
+	.section-blk .service-content {
+		padding: 30px;
+	}
+	.banner-section.banner-three {
+		background-position: 329px 0;
+	}
+	.space-content h5, .space-content .price span,
+	.city-content h5, .grid-blog .blog-title a {
+		font-size: 18px;
+	}
+	.price-four .price-head h4 {
+		font-size: 32px;
+	}
+	.price-four .price-level h6 {
+		font-size: 20px;
+	}
+	.banner-four .search-box .search-input {
+		margin: 0 10px 0 0;
+	}
+	.category-box span img {
+		width: 50px;
+	}
+	.banner-four .banner-imgs img {
+		max-width: 500px;
+	}
+	.header-four .header-navbar-rht li > a.header-login {
+		padding: 10px 12px;
+		font-size: 14px;
+		font-weight: 700;
+	}
+	.business-slider.owl-carousel .owl-nav .owl-prev {
+		left: -16px;
+	}
+	.business-slider.owl-carousel .owl-nav .owl-next {
+		right: -16px;
+	}
+}
+
 @media (max-width: 991.98px) {
 	.sidebar-overlay.opened {
 		display: block;

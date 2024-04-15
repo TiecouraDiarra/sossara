@@ -179,12 +179,10 @@ export class DetailsagentComponent implements OnInit {
           }
         },
         error => {
-          console.error("Erreur lors du like :", error);
           // Gérez les erreurs ici
         }
       );
     } else {
-      console.error("Token JWT manquant");
     }
   }
 
@@ -204,7 +202,6 @@ export class DetailsagentComponent implements OnInit {
           // this.pathConversation();
         },
         error: (err) => {
-          console.error("Erreur lors de l'ouverture de la conversation:", err);
           this.errorMessage = err.error.message;
           // this.isError = true
           // Gérez les erreurs ici
@@ -212,7 +209,6 @@ export class DetailsagentComponent implements OnInit {
       }
       );
     } else {
-      console.error("Token JWT manquant");
       this.routerr.navigateByUrl("/auth/connexion")
     }
     // if (this.storageService.isLoggedIn()) {

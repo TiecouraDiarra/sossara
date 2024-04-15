@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   locale!: string;
   isLocataire = false;
   isAgence = false;
+  isProprietaire= false;
   roles: string[] = [];
   formModifadress:any;
 
@@ -175,7 +176,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.storageService.getUser());
     
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
@@ -186,21 +186,19 @@ export class ProfileComponent implements OnInit {
         this.isAgence = true
       } else if (this.roles.includes("ROLE_AGENT")) {
         // this.isAgent = true
+      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
       }
      
     }
 
-    // this.serviceUser.AfficherPhotoUserConnecter().subscribe(
-    //   url => this.photo = url,
-    //   error => console.error('Erreur lors de la récupération de l\'URL de la photo : ', error)
-    // );
+   
 
 
       //AFFICHER LA PHOTO DE USER CONNECTER
     this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
       this.photo = data;
       console.log(this.photo);
-      
     });
 
 
@@ -211,7 +209,6 @@ export class ProfileComponent implements OnInit {
       //AFFICHER LA LISTE DES Pays
       this.serviceAdresse.AfficherListePays().subscribe((data) => {
         this.pays = data;
-        // console.log(this.pays);
         
       });
       //AFFICHER LA LISTE DES CERCLE
@@ -383,12 +380,11 @@ export class ProfileComponent implements OnInit {
               
             },
             error => {
-              // console.error("Erreur lors du changement de mot de passe :", error);
-              // Gérez les erreurs ici
+            
             }
           );
         } else {
-          // console.error("Token JWT manquant");
+         
         }
       }
     })
@@ -449,7 +445,6 @@ export class ProfileComponent implements OnInit {
         this.form.photo = selectedFile;
         this.onAdd();
       } else {
-        alert("La taille du fichier est supérieure à 5 Mo. Veuillez choisir un fichier plus petit.");
         // Réinitialiser la sélection de fichier
         event.target.value = '';
       }
@@ -484,11 +479,11 @@ export class ProfileComponent implements OnInit {
           this.reloadPage();
         },
         error => {
-          // console.error('Error while changing photo', error);
+
         }
       );
     } else {
-      // console.error('Token JWT missing or no photo selected');
+      
     }
   }
 
@@ -547,7 +542,7 @@ export class ProfileComponent implements OnInit {
           });
 
         } else {
-          // console.error("Token JWT manquant");
+        
         }
       }
     })
@@ -644,7 +639,7 @@ export class ProfileComponent implements OnInit {
               });
               
             } else {
-                console.error("Token JWT manquant");
+              
             }
         }
     });
@@ -686,7 +681,6 @@ export class ProfileComponent implements OnInit {
       const maxSize = 5 * 1024 * 1024; // Taille maximale en octets (5 Mo)
 
       if (file.size > maxSize) {
-        alert("La taille du fichier est supérieure à 5 Mo. Veuillez choisir un fichier plus petit.");
         this.renderer.setProperty(inputElement, 'value', ''); // Réinitialiser la sélection de fichier
       }
     }

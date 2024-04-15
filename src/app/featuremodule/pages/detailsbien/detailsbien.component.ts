@@ -97,12 +97,9 @@ export class DetailsbienComponent implements AfterViewInit {
         text: 'Description de votre bien',
         url: 'http://localhost:4200/details-bien/' + this.id
       }).then(() => {
-        console.log('Lien partagé avec succès');
       }).catch((error) => {
-        console.error('Erreur lors du partage du lien:', error);
       });
     } else {
-      console.log('L\'API Web Share n\'est pas prise en charge dans ce navigateur.');
     }
   }
 
@@ -155,7 +152,6 @@ export class DetailsbienComponent implements AfterViewInit {
         // Centrer la carte sur le marqueur
         map.setView([this.latitude, this.longitude]);
       } else {
-        console.error("L'élément de la carte est introuvable dans le DOM.");
       }
     });
   }
@@ -220,7 +216,6 @@ export class DetailsbienComponent implements AfterViewInit {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          // console.log(this.image);
           this.maxImageCount = this.image.length;
         };
         reader.readAsDataURL(file);
@@ -407,7 +402,6 @@ export class DetailsbienComponent implements AfterViewInit {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(data);
       this.lesCommodites = data?.commodites;
       this.photos = this.bien?.photos;
       this.latitude = this.bien.adresse.latitude;
@@ -492,7 +486,6 @@ export class DetailsbienComponent implements AfterViewInit {
     //AFFICHER LA LISTE DES USAGE
     this.serviceUsage.AfficherListeUsage().subscribe(data => {
       this.usage = data;
-      console.log(this.usage)
     }
     );
 
@@ -583,33 +576,24 @@ export class DetailsbienComponent implements AfterViewInit {
         .Fairecommentaire(this.commentaireForm.contenu, id)
         .subscribe(
           (data) => {
-            console.log('commentaire envoyé avec succès:', data);
-            // this.isSuccess = false;
-            // this.commentaire;
-            // this.commentaireForm.contenu = '';
+           
 
             //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
             this.servicecommentaire
               .AffichercommentaireParBien(this.id)
               .subscribe((data) => {
                 this.commentaire = data.reverse();
-                // console.log(this.commentaire);
                 this.commentaireForm.contenu = '';
               });
           },
           (error) => {
-            // console.error("Erreur lors de l'envoi du commentaire :", error);
             // Gérez les erreurs ici
           }
         );
     } else {
-      // console.error("Token JWT manquant");
     }
 
-    //Faire un commentaire
-    //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
-    //   console.log(data);
-    // });
+
   }
 
   //METHODE PERMETTANT DE REPONDRE A UN commentaire
@@ -630,18 +614,13 @@ export class DetailsbienComponent implements AfterViewInit {
               });
           },
           (error) => {
-            // console.error("Erreur lors de l'envoi du commentaire :", error);
             // Gérez les erreurs ici
           }
         );
     } else {
-      // console.error("Token JWT manquant");
     }
 
-    //Faire un commentaire
-    //  this.servicecommentaire.Fairecommentaire(this.commentaireForm.contenu, this.id).subscribe(data=>{
-    //   console.log(data);
-    // });
+ 
   }
 
   commentaireSelectionne: any;
@@ -650,7 +629,7 @@ export class DetailsbienComponent implements AfterViewInit {
     // Récupérer le commentaire correspondant à l'identifiant
     this.servicecommentaire.AfficherCommentaireParid(commentaireId).subscribe((commentaire) => {
       this.commentaireSelectionne = commentaire;
-      console.log(this.commentaireSelectionne);
+
       this.commForm = {
         contenu: this.commentaireSelectionne?.contenu
       }
@@ -703,8 +682,7 @@ export class DetailsbienComponent implements AfterViewInit {
           }
         },
         error => {
-          console.error('Erreur lors de la modification du commentaire :', error);
-          // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+       
         }
       );
   }
@@ -772,8 +750,7 @@ export class DetailsbienComponent implements AfterViewInit {
               }
             },
             error => {
-              console.error('Erreur lors de la modification du commentaire :', error);
-              // Gérez les erreurs ici, par exemple, affichez un message d'erreur à l'utilisateur
+            
             }
           );
       }
@@ -892,7 +869,6 @@ export class DetailsbienComponent implements AfterViewInit {
           //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
           this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
             this.idBien = data.id;
-            console.log(this.idBien);
             // Appelez la méthode PrendreRdv() avec le contenu et l'ID
             this.serviceBienImmo.CandidaterBien(this.idBien, this.formCandidater.usage, this.formCandidater.date).subscribe({
               next: (data) => {
@@ -931,7 +907,6 @@ export class DetailsbienComponent implements AfterViewInit {
                 }
               },
               error: (err) => {
-                // console.error("Erreur lors de l'envoi du rdv :", err);
                 this.errorMessage = err.error.message;
                 this.isError = true
                 // Gérez les erreurs ici
@@ -947,7 +922,6 @@ export class DetailsbienComponent implements AfterViewInit {
             );
           });
         } else {
-          // console.error("Token JWT manquant");
         }
       }
     });
@@ -994,7 +968,6 @@ export class DetailsbienComponent implements AfterViewInit {
 
   //OUVRIR UNE CONVERSATION EN FONCTION DE L'UTILISATEUR
   OuvrirConversation(id: any): void {
-    alert(id);
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -1215,13 +1188,14 @@ export class DetailsbienComponent implements AfterViewInit {
     return this.router.navigate(['/userpages/messages']);
   }
   MessageForm: any = {
-    content: null,
+    content: "Bonjour est ce que je peut avoir plus d'information sur ce bien ?",
   }
   goToMessage(username: any) {
     this.messageObj.message = this.MessageForm.content;
-    alert(this.MessageForm.content)
+
+
     this.chatService
-      .getChatByFirstUserNameAndSecondUserName2(username, this.users.email, this.messageObj)
+      .getChatByFirstUserNameAndSecondUserName2( this.users.email, username, this.messageObj)
       .subscribe(
         (data) => {
           this.chat = data;
@@ -1250,7 +1224,6 @@ export class DetailsbienComponent implements AfterViewInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
   goToModifierBien(id: number) {
-    // console.log(id);
     return this.router.navigate(['userpages/modifier-bien', id])
   }
 }

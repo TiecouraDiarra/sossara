@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
   nombreagent: number = 0
   isLocataire = false;
   isAgence = false;
+  isProprietaire= false;
   isAgent = false;
   roles: string[] = [];
   bienImmoAgence: any
@@ -167,6 +168,8 @@ export class DashboardComponent implements OnInit {
         this.isAgence = true
       } else if (this.roles.includes("ROLE_AGENT")) {
         this.isAgent = true
+      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+        this.isProprietaire = true
       }
     }
     this.User = this.storageService.getUser().id;
