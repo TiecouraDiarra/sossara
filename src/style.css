@@ -4819,6 +4819,10 @@ a:focus {
   top: -15px;
   z-index: 1029;
 }
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1029;
+}
 ul.tags {
   list-style: none;
   margin: 0;
