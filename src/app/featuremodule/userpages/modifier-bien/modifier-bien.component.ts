@@ -243,7 +243,7 @@ export class ModifierBienComponent {
       this.photos = this.bien?.photos;
       this.photos = this.bien?.photos;
       this.images1 = this.bien?.photos.map((photo: { nom: string; }) => ({ nom: photo.nom, data: this.generateImageUrl(photo.nom) }));
-
+      console.log(this.images1)
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
       const currentUser = this.storageService.getUser();
