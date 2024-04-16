@@ -198,7 +198,7 @@ export class ProfileComponent implements OnInit {
       //AFFICHER LA PHOTO DE USER CONNECTER
     this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
       this.photo = data;
-      
+      console.log(this.photo);
     });
 
 

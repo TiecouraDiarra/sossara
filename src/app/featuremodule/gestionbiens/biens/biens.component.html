@@ -30,7 +30,7 @@
                 <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
                 Filtrer
               </h4>
-              <form >
+              <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
                 <!--<div class="filter-content looking-input form-group">
                   <input type="text" class="form-control" placeholder="What are you looking for?" />
                 </div>-->
@@ -48,13 +48,13 @@
                       <mat-option [value]="Statut.nom" *ngFor="let Statut of status">{{Statut?.nom}}</mat-option>
                     </mat-select>
                   </mat-form-field>
-                </div>
+                </div> 
 
                 <div class="filter-content form-group maforme">
                   <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
                       Région</mat-label>
-                    <mat-select (change)="onChangeRegion($event.target)"
+                    <mat-select 
                       (selectionChange)="onRegionSelectionChange($event)">
                       <mat-option disabled class="search-input-option">
                         <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
@@ -71,14 +71,12 @@
                   <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
                       Cercle</mat-label>
-                    <mat-select (change)="onChangeCercle($event.target)"
+                    <mat-select 
                       (selectionChange)="onCercleSelectionChange($event)">
                       <mat-option disabled class="search-input-option">
-                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
-                            searchCategory(searchInputCategory)
-                          " class="search-input" type="text" />
+                     
                       </mat-option>
-                      <mat-option [value]="Cercle.nomcercle" *ngFor="let Cercle of cercle">{{ Cercle.nomcercle
+                      <mat-option [value]="Cercle.nomcercle" *ngFor="let Cercle of filteredCercles">{{ Cercle.nomcercle
                         }}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -87,14 +85,14 @@
                 <div class="filter-content form-group maforme">
                   <mat-form-field class="mat-custom-select" style="width: 100%;">
                     <mat-label *ngIf="selectedCategory == ''">
-                      Commune</mat-label>
+                      CommuneS</mat-label>
                     <mat-select (selectionChange)="onCommuneSelectionChange($event)">
                       <mat-option disabled class="search-input-option">
-                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                        <!-- <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
                             searchCategory(searchInputCategory)
-                          " class="search-input" type="text" />
+                          " class="search-input" type="text" /> -->
                       </mat-option>
-                      <mat-option [value]="Commune.nomcommune" *ngFor="let Commune of commune">{{Commune.nomcommune}}</mat-option>
+                      <mat-option [value]="Commune.nomcommune" *ngFor="let Commune of communes1">{{Commune.nomcommune}}</mat-option>
                     </mat-select>
                   </mat-form-field>
 
@@ -289,7 +287,10 @@
             <!-- <ng-template #loadedContent> -->
             <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
               <div class="col-lg-6 col-md-4"
-                *ngFor="let BienImo of bienImmo | filter:selectedCercle | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut | paginate:{itemsPerPage :8, currentPage:p}">
+                *ngFor="let BienImo of bienImmo.slice(
+                  (currentPage - 1) * itemsPerPage,
+                  currentPage * itemsPerPage
+              ) | filter:selectedCercle | filter:searchText | filter:selectedRegion  | filter:selectedCommune | filter:selectedType | filter:selectedStatut">
                 <div class="card">
                   <div class="blog-widget">
                     <div class="blog-img">
@@ -333,6 +334,8 @@
                         </a>
                       </div>
                     </div>
+                    <!-- Block level -->
+
                     <div class="bloglist-content">
                       <div class="card-body">
                         <div class="blogfeaturelink">
@@ -349,7 +352,7 @@
                             <span>
                               <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}
                               <!-- <i class="feather-eye"></i>{{ BienImo?.favoris?.length }} -->
-                            </span>
+                            </span> 
                           </div>
                         </div>
                         <h6 class="crd">
@@ -361,8 +364,7 @@
                             <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
                           </div>
                           <div class="location-info">
-                            <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt | date:"dd MMM
-                            yyyy":locale}}
+                            <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt | date:"dd MMM yyyy":locale}}
 
                           </div>
                         </div>
@@ -530,10 +532,25 @@
             </ul>
           </nav>
         </div> -->
-        <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event" previousLabel="Précédent"
+        <div class="pagi" style="justify-content: center; text-align: center
+        ;">
+          <div class="pagination1 p1">
+            <ul>
+              <!-- Bouton précédent -->
+          <a class="crd" (click)="previousPage()"><li><</li></a>
+          
+          <!-- Numéros de page -->
+          <a class="crd" *ngFor="let page of pages" [class.is-active]="currentPage === page" (click)="setCurrentPage(page)"><li>{{ page }}</li></a>
+          
+          <!-- Bouton suivant -->
+          <a class="crd" (click)="nextPage()"><li>></li></a>
+            </ul>
+          </div>
+        </div>
+        <!-- <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event" previousLabel="Précédent"
           nextLabel="Suivant" class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
           containerClass="pagination__container" pageClass="pagination__page" activeClassName="pagination__page--active"
-          disabledClass="pagination__page--disabled" ></pagination-controls>
+          disabledClass="pagination__page--disabled" ></pagination-controls> -->
         <!--Pagination-->
       </div>
     </div>

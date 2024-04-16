@@ -36,9 +36,9 @@
                 <mat-form-field class="mat-custom-select" style="width: 100%">
                   <mat-label *ngIf="selectedCategory == ''"> Région</mat-label>
                   <mat-select
-                    (change)="onChangeRegion($event.target)"
+                  
                     (selectionChange)="onRegionSelectionChange($event)"
-                  >
+                  > 
                     <mat-option disabled class="search-input-option">
                       <input
                         name="searchInputCategory"
@@ -60,7 +60,7 @@
                 <mat-form-field class="mat-custom-select" style="width: 100%">
                   <mat-label *ngIf="selectedCategory == ''"> Cercle</mat-label>
                   <mat-select
-                    (change)="onChangeCercle($event.target)"
+                 
                     (selectionChange)="onCercleSelectionChange($event)"
                   >
                     <mat-option disabled class="search-input-option">
@@ -74,7 +74,7 @@
                     </mat-option>
                     <mat-option
                       [value]="Cercle.nomcercle"
-                      *ngFor="let Cercle of cercle"
+                      *ngFor="let Cercle of filteredCercles"
                       >{{ Cercle.nomcercle }}</mat-option
                     >
                   </mat-select>
@@ -97,7 +97,7 @@
                     </mat-option>
                     <mat-option
                       [value]="Commune.nomcommune"
-                      *ngFor="let Commune of commune"
+                      *ngFor="let Commune of communes1"
                       >{{ Commune.nomcommune }}</mat-option
                     >
                   </mat-select>

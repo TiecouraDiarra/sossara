@@ -778,7 +778,7 @@ export class TrouverbienComponent implements OnInit {
 
     });
   }
-
+ 
 
 
   //METHODE PERMETTANT D'AIMER UN BIEN 

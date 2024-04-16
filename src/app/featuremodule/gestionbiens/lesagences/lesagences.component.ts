@@ -55,6 +55,9 @@ export class LesagencesComponent implements OnInit  {
   selectedCategory: any = '';
   categoriesDataSource = new MatTableDataSource();
   searchText: any;
+  communes1: any = [];
+  filteredCercles: any[] = []; // Déclarez cette propriété dans votre classe 'BiensComponent'
+
 
   hashString(str: string): number {
     let hash = 0;
@@ -197,13 +200,23 @@ const agenceId = hashString(agence.uuid);
     );
   }
     //RECHERCHER PAR REGION
-    onRegionSelectionChange(event: any) {
-      this.selectedRegion = event.value;
+    onRegionSelectionChange(newValue: any) {
+      this.filteredCercles = this.cercle.filter(
+        (el: any) => el.region.id == newValue.value || el.region.nomregion == newValue.value
+      );
+      this.selectedRegion = newValue.value;
     }
+    
   
     //RECHERCHER PAR CERCLE
-    onCercleSelectionChange(event: any) {
-      this.selectedCercle = event.value;
+    onCercleSelectionChange(newValue: any) {
+      this.communes1 = this.commune.filter(
+        (el: any) =>
+          el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+      );
+  
+      this.selectedCercle = newValue.value;
+      
     }
   
     searchCategory(value: any): void {

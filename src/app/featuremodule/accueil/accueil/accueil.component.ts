@@ -51,6 +51,7 @@ export class AccueilComponent {
   communes: any;
   cercles: any[] = [];
   communes1: any = [];
+  totalzone: any;
 
   changeImage() {
     this.currentImageIndex =
@@ -92,11 +93,11 @@ export class AccueilComponent {
 
   locale!: string;
   imagesCommunes = [
-    'commune5.jpeg',
-    'commune2.jpg',
+    '2020-06-17.jpg',
+    'hippique.jpg',
     'commune1.jpeg',
     'commune4.jpg',
-    'communes5.jpg', 
+    '2022-09-26.jpg', 
     'commune6.jpeg',
     // 'commune3.jpg',
   ];
@@ -448,6 +449,7 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.communes = data;
+      this.totalzone = this.communes.length
       this.commune = data.slice(0, 6);
     });
 

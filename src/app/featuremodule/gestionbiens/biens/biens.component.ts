@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { configbienService } from 'src/app/service/configbien/configbien.service';
+import { NgForm } from '@angular/forms';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -34,17 +35,86 @@ export class BiensComponent {
   selectedCommune: any;
   p: number = 1;
   selectedType: any;
+  currentPage = 1;
+  itemsPerPage = 4;
+  totalPages: number = 0;
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   // status: any = ['A louer', 'A vendre'];
 
+  communes1: any = [];
+  filteredCercles: any[] = []; // Déclarez cette propriété dans votre classe 'BiensComponent'
 
 
   regions: any = [];
   communes: any = [];
 
   favoritedPropertiesCount: number = 0;
+
+
+  // Méthode pour changer de page
+  setCurrentPage(page: number) {
+    this.currentPage = page;
+    // this.loadCurrentPage();
+  }
+
+  pageSize: number = 4; // Nombre d'éléments par page
+  // Calcul du nombre total de pages
+  get pageCount(): number {
+    return Math.ceil(this.bienImmo.length / this.pageSize);
+  }
+
+
+  get pages(): number[] {
+    return Array.from({ length: this.pageCount }, (_, i) => i + 1);
+  }
+  // Méthode pour passer à la page précédente
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      // this.loadCurrentPage();
+    }
+  }
+
+  // Méthode pour passer à la page suivante
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.currentPage++;
+      // this.loadCurrentPage();
+    }
+  }
+  onSubmit(form: NgForm): void {
+    const {
+      commodite,
+      type,
+      commune,
+      nb_piece,
+      chambre,
+      cuisine,
+      toilette,
+      regionForm,
+      cercleForm,
+      statut,
+      maxprix,
+      minprix
+    } = this.form;
+  }
+
+  form: any = {
+    commodite: null,
+    type: null,
+    commune: null,
+    nb_piece: null,
+    chambre: null,
+    cuisine: null,
+    toilette: null,
+    statut: null,
+    regionForm: null,
+    cercleForm: null,
+    maxprix: null,
+    minprix: null
+  };
 
 
   isFavorite: boolean = false;
@@ -117,13 +187,27 @@ export class BiensComponent {
   }
 
   //RECHERCHER PAR REGION
-  onRegionSelectionChange(event: any) {
-    this.selectedRegion = event.value;
+  // onRegionSelectionChange(event: any) {
+  //   this.selectedRegion = event.value;
+  // }
+  onRegionSelectionChange(newValue: any) {
+    this.filteredCercles = this.cercle.filter(
+      (el: any) => el.region.id == newValue.value || el.region.nomregion == newValue.value
+    );
+    this.selectedRegion = newValue.value;
   }
+  
 
-  //RECHERCHER PAR CERCLE
-  onCercleSelectionChange(event: any) {
-    this.selectedCercle = event.value;
+
+
+  onCercleSelectionChange(newValue: any) {
+    this.communes1 = this.commune.filter(
+      (el: any) =>
+        el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+    );
+
+    this.selectedCercle = newValue.value;
+    
   }
 
   //RECHERCHER PAR STATUT
@@ -141,6 +225,9 @@ export class BiensComponent {
   onTypeSelectionChange(event: any) {
     this.selectedType = event.value;
   }
+
+
+  
 
   //RECHERCHER PAR COMMODITE
   // onCommoditeSelectionChange(event: any) {
@@ -197,24 +284,24 @@ export class BiensComponent {
       this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: {
-        favoris: any; id: string | number; 
-}) => {
+        favoris: any; id: string | number;
+      }) => {
         // Charger le nombre de "J'aime" pour chaque bien
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = bien.favoris?.length;
-          
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-          }
+        this.NombreJaime = bien.favoris?.length;
 
-          // Charger l'état de favori depuis localStorage
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          if (isFavorite === 'true') {
-            this.favoriteStatus[bien.id] = true;
-          } else {
-            this.favoriteStatus[bien.id] = false;
-          }
-        });
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        }
+
+        // Charger l'état de favori depuis localStorage
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        if (isFavorite === 'true') {
+          this.favoriteStatus[bien.id] = true;
+        } else {
+          this.favoriteStatus[bien.id] = false;
+        }
+      });
       // });
     });
     //AFFICHER LA LISTE DES COMMODITES

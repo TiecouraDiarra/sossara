@@ -54,3 +54,9 @@
     width: 100%; /* Remplacez cette valeur par la taille souhaitée */
     height: 300px; /* Remplacez cette valeur par la taille souhaitée */
 }
+
+.ici{
+    -webkit-line-clamp: 1 !important;
+    background-color: red;
+    -webkit-box-orient: vertical;
+}

@@ -57,7 +57,7 @@ Version      : 1.0
 @import url("https://fonts.googleapis.com/css2?family=Sassy+Frass&display=swap");
 @import "~leaflet/dist/leaflet.css";
 
-body {
+body {  
   background-color: #ffffff;
   color: #666;
   font-family: "Encode Sans", sans-serif;
