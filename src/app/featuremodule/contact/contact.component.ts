@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import * as L from 'leaflet';
 import { NavigationEnd, Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { MessageService } from 'src/app/service/message/message.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,6 +15,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class ContactComponent implements OnInit {
   public routes = routes;
   currentImageIndex = 0;
+  loading: boolean = false;
   private map!: L.Map;
   carouselImages = [
     './assets/img/banner/bamako-slider.jpg',
@@ -26,7 +29,10 @@ export class ContactComponent implements OnInit {
     description: null,
   };
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private serviceMessage: MessageService
+  ) { }
 
   ngOnDestroy(): void {
     // Nettoyer la carte lors de la destruction du composant
@@ -88,7 +94,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     // Écouter les changements de route
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -103,4 +109,91 @@ export class ContactComponent implements OnInit {
       }
     });
   }
+
+
+  //METHODE PERMETTANT D'ENVOYER UN EMAIL
+  SendEmail(): void {
+    this.loading = true; // Activer le chargement
+    const { nom, email, object, description } = this.form;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn',
+        cancelButton: 'btn btn-danger',
+      },
+      heightAuto: false,
+    });
+    if (
+      this.form.nom === null ||
+      this.form.email === null ||
+      this.form.object === null ||
+      this.form.description === null
+    ) {
+      swalWithBootstrapButtons.fire(
+        "",
+        `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Tous les champs sont obligatoires !</h1>`,
+        "warning"
+      );
+    } else {
+      swalWithBootstrapButtons
+        .fire({
+          // title: 'Etes-vous sûre de vous déconnecter?',
+          text: "Etes-vous sûre d'envoyer ce message ?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Confirmer',
+          cancelButtonText: 'Annuler',
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
+            this.serviceMessage.sendEmail(nom, email, object, description).subscribe({
+              next: (data) => {
+                if (data.status) {
+                  let timerInterval = 2000;
+                  Swal.fire({
+                    position: 'center',
+                    text: data.message,
+                    title: "Envoie de message",
+                    icon: 'success',
+                    heightAuto: false,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#0857b5',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                    timer: timerInterval,
+                    timerProgressBar: true,
+                  }).then(() => {
+                    this.form.nom = '';
+                      this.form.email = '';
+                      this.form.object = '';
+                      this.form.description = '';
+                      this.loading = false; // Désactiver le chargement après l'envoi réussi
+                  });
+                } else {
+                  Swal.fire({
+                    position: 'center',
+                    text: data.message,
+                    title: 'Erreur',
+                    icon: 'error',
+                    heightAuto: false,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#0857b5',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                  }).then((result) => { });
+                }
+              },
+              error: (err) => {
+                // Gérez les erreurs ici
+              },
+            });
+          }
+        });
+    }
+  }
+
 }

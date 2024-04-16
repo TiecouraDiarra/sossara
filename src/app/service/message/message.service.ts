@@ -85,4 +85,13 @@ export class MessageService {
     return this.httpClient.get<Chat>(URL_BASE + "/chats/allchat/" + username)
   }
 
+  sendEmail(name: string, userEmail : string,object : string, message : string ): Observable<any> {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('userEmail', userEmail);
+    formData.append('object', object);
+    formData.append('message', message);
+    return this.http.post(`${URL_BASE}/mail/send-email`,formData);
+  }
+
 }

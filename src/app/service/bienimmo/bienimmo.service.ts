@@ -304,7 +304,7 @@ export class BienimmoService {
     chambre: any,
     cuisine: any,
     toilette: any,
-    surface: number,
+    surface: any,
     prix: number,
     statut: any, // Assurez-vous que le statut est envoyé en tant que chaîne de caractères
     description: string,
@@ -330,7 +330,7 @@ export class BienimmoService {
     formData.append('chambre', chambre || 0);
     formData.append('cuisine', cuisine || 0);
     formData.append('toilette', toilette || 0);
-    formData.append('surface', surface.toString());
+    formData.append('surface', surface || 0);
     formData.append('prix', prix.toString());
     formData.append('statutId', statut);
     formData.append('description', description);

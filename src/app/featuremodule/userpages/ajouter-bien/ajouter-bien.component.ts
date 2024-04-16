@@ -404,7 +404,6 @@ export class AjouterBienComponent implements OnInit{
       this.form.caracteristique === null ||
       this.form.commune === null ||
       this.form.nom === null ||
-      this.form.surface === null ||
       this.form.prix === null ||
       this.form.statut === null ||
       this.form.description === null ||
