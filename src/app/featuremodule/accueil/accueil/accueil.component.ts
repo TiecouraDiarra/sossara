@@ -15,6 +15,7 @@ import { AgenceService } from 'src/app/service/agence/agence.service';
 import { BlogService } from 'src/app/service/blog/blog.service';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
 import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -52,6 +53,7 @@ export class AccueilComponent {
   cercles: any[] = [];
   communes1: any = [];
   totalzone: any;
+  responseData: any;
 
   changeImage() {
     this.currentImageIndex =
@@ -136,6 +138,7 @@ export class AccueilComponent {
   constructor(
     private DataService: DataService,
     private router: Router,
+    private http: HttpClient,
     private storageService: StorageService,
     private serviceAdresse: AdresseService,
     private serviceCommodite: CommoditeService,
@@ -408,7 +411,32 @@ export class AccueilComponent {
     },
   };
 
+  apiUrl: string = 'https://api.sossara.ml/api';
+
+  BackLien(): string {
+    return 'https://api.sossara.ml/api';
+  }
+
+  getDataFromApi() {
+    this.http.get(this.apiUrl).subscribe(
+      (response) => {
+        this.responseData = response;
+        // console.log('Réponse de l\'API :', this.responseData);
+        // Traitez la réponse ici selon vos besoins
+      },
+      (error) => {
+        // console.error('Erreur lors de la récupération des données de l\'API :', error);
+        // Gérez l'erreur ici
+      }
+    );
+  }
   ngOnInit(): void {
+    this.getDataFromApi();
+
+    // this.apiUrl = this.BackLien();
+    // Maintenant, vous pouvez utiliser this.apiUrl comme URL dans votre composant
+    // console.log(this.apiUrl); // Pour vérifier si l'URL est correcte
+    
     this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
       // this.customHtmlMaxValue = data[0].prix;
       this.valuesSelectPrix = data;

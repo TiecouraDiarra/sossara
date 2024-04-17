@@ -117,12 +117,12 @@
           <div class="row aos" data-aos="fade-up" data-aos-delay="200">
             <ng-container
               *ngFor="
-                let Agence of agence
-                  | filter : selectedCercle
+                let Agence of agence.slice(
+                  (currentPage - 1) * itemsPerPage,
+                  currentPage * itemsPerPage) | filter : selectedCercle
                   | filter : searchText
                   | filter : selectedRegion
                   | filter : selectedCommune
-                  | paginate : { itemsPerPage: 4, currentPage: p }
               "
             >
               <div class="col-md-12">
@@ -190,7 +190,7 @@
           </div>
 
           <!-- PAGINATION -->
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-12">
               <pagination-controls
                 *ngIf="agence && agence.length > 0"
@@ -206,6 +206,29 @@
                 disabledClass="pagination__page--disabled"
               >
               </pagination-controls>
+            </div>
+          </div> -->
+          <div class="pagi" style="justify-content: center; text-align: center;">
+            <div class="pagination1 p1">
+              <ul>
+                <!-- Bouton précédent -->
+                <a class="crd" (click)="previousPage()">
+                  <li>
+                    <
+                  </li>
+                </a>
+  
+                <!-- Numéros de page -->
+                <a class="crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
+                  (click)="setCurrentPage(page)">
+                  <li>{{ page }}</li>
+                </a>
+  
+                <!-- Bouton suivant -->
+                <a class="crd" (click)="nextPage()">
+                  <li>></li>
+                </a>
+              </ul>
             </div>
           </div>
         </div>

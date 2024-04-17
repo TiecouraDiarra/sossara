@@ -56,6 +56,9 @@ export class LesagencesComponent implements OnInit  {
   categoriesDataSource = new MatTableDataSource();
   searchText: any;
   communes1: any = [];
+  currentPage = 1;
+  itemsPerPage = 4;
+  totalPages: number = 0;
   filteredCercles: any[] = []; // Déclarez cette propriété dans votre classe 'BiensComponent'
 
 
@@ -72,6 +75,40 @@ export class LesagencesComponent implements OnInit  {
     return hash;
   }
   
+
+   // Méthode pour changer de page
+   setCurrentPage(page: number) {
+    this.currentPage = page;
+  }
+
+  pageSize: number = 4; // Nombre d'éléments par page
+  // Calcul du nombre total de pages
+  get pageCount(): number {
+    // if (this.bienImmo.length === 0) {
+        // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
+    // } else {
+        return Math.ceil(this.agence.length / this.pageSize);
+    // }
+}
+
+
+
+  get pages(): number[] {
+    return Array.from({ length: this.pageCount }, (_, i) => i + 1);
+  }
+  // Méthode pour passer à la page précédente
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Méthode pour passer à la page suivante
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.currentPage++;
+    }
+  }
 
   constructor(
     private router: Router,
