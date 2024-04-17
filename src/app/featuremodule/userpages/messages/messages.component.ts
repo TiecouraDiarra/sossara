@@ -151,7 +151,7 @@ export class MessagesComponent implements OnInit {
       this.chatService.getChatById(sessionStorage.getItem("chatId")).subscribe(data => {
         this.chatData = data;
         this.messageList = this.chatData[0].messages;
-        this.secondUserName = this.chatData[0].destinateurInfo.nom;
+        this.secondUserName = this.chatData[0].expediteurInfo.nom;
         // this.firstUserName = this.chatData.firstUserName;
       });
     }, 1000);

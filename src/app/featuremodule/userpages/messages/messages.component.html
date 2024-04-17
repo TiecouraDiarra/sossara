@@ -84,7 +84,7 @@
                                         <div class="img_cont">
                                             <div class="rounded-circle user_img text_inside_circle1"
                                                 *ngIf="secondUserName!=senderCheck">
-                                                {{Conversations?.destinateurInfo.nom.substring(0,1)}}</div>
+                                                {{Conversations?.expediteurInfo.nom.substring(0,1)}}</div>
                                             <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
                                           {{firstUserName.substring(0,1)}}</div> -->
                                         </div> &nbsp; &nbsp;
@@ -92,7 +92,7 @@
                                     <div class="media-body flex-grow-1 mt-4"
                                         (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
                                         <div>
-                                            <div class="user-name">{{Conversations?.destinateurInfo.nom}}</div>
+                                            <div class="user-name">{{Conversations?.expediteurInfo.nom}}</div>
                                             <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
                                         </div>
 
