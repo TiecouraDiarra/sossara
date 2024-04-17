@@ -221,6 +221,7 @@ export class BiensComponent {
     this.selectedCommune = event.value;
   }
 
+  
   //RECHERCHER PAR TYPE
   onTypeSelectionChange(event: any) {
     this.selectedType = event.value;
