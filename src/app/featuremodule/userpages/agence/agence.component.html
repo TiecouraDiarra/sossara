@@ -286,14 +286,9 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let BienImmo of bienImmoAgenceTotal
+                      let BienImmo of (bienImmoAgenceTotal).slice((currentPage - 1) * itemsPerPage,             currentPage * itemsPerPage)
                         | filter : searchText
-                        | paginate
-                          : {
-                              itemsPerPage: 4,
-                              currentPage: p1,
-                              id: 'bienTotalAgence'
-                            }
+                       
                     "
                   >
                     <td>
@@ -447,7 +442,7 @@
                 </tbody>
               </table>
             </div>
-            <pagination-controls
+            <!-- <pagination-controls
               *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0"
               (pageChange)="p1 = $event"
               previousLabel="Précédent"
@@ -460,7 +455,30 @@
               activeClassName="pagination__page--active"
               disabledClass="pagination__page--disabled"
               id="bienTotalAgence"
-            ></pagination-controls>
+            ></pagination-controls> -->
+
+            <div class="blog-pagination">
+              <nav>
+                  <ul class="pagination">
+                      <li class="page-item previtem crd">
+                          <a class="page-link" (click)="previousPage()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
+                      </li>
+                      <li class="justify-content-center pagination-center"> 
+                          <div class="pagelink">
+                              <ul>
+                                 <li class="page-item crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
+                                  (click)="setCurrentPage(page)">
+                                      <a class="page-link">{{ page }}</a>
+                                  </li>
+                             </ul>
+                          </div>													
+                      </li>													
+                      <li class="page-item nextlink crd">
+                          <a class="page-link" (click)="nextPage()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
+                      </li>
+                  </ul>
+              </nav>
+              </div>
           </div>
         </div>
       </div>
@@ -932,14 +950,11 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let BienImmo of bienTotalAgence
+                      let BienImmo of (bienTotalAgence).slice(
+                  (currentA - 1) * itemsPerPage,
+                  currentA * itemsPerPage)
                         | filter : searchTextBienLoue
-                        | paginate
-                          : {
-                              itemsPerPage: 4,
-                              currentPage: p2,
-                              id: 'bienLoueAgence'
-                            }
+                        
                     "
                   >
                     <td>
@@ -1048,7 +1063,7 @@
                 </tbody>
               </table>
             </div>
-            <pagination-controls
+            <!-- <pagination-controls
               *ngIf="bienTotalAgence && bienTotalAgence.length > 0"
               (pageChange)="p2 = $event"
               previousLabel="Précédent"
@@ -1061,7 +1076,29 @@
               activeClassName="pagination__page--active"
               disabledClass="pagination__page--disabled"
               id="bienLoueAgence"
-            ></pagination-controls>
+            ></pagination-controls> -->
+            <div class="blog-pagination">
+              <nav>
+                  <ul class="pagination">
+                      <li class="page-item previtem crd">
+                          <a class="page-link" (click)="previousPageA()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
+                      </li>
+                      <li class="justify-content-center pagination-center"> 
+                          <div class="pagelink">
+                              <ul>
+                                 <li class="page-item crd" *ngFor="let page of pageA" [class.is-active]="currentA === page"
+                                  (click)="setCurrentPageA(page)">
+                                      <a class="page-link">{{ page }}</a>
+                                  </li>
+                             </ul>
+                          </div>													
+                      </li>													
+                      <li class="page-item nextlink crd">
+                          <a class="page-link" (click)="nextPageA()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
+                      </li>
+                  </ul>
+              </nav>
+              </div>
           </div>
         </div>
       </div>

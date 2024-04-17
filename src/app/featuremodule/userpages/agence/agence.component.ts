@@ -42,6 +42,10 @@ export class AgenceComponent {
   factureachat!: ElementRef;
   bienImmoDejaLoueLocataires: any;
   reclamationLancer: any;
+  selectedCercle: any;
+  selectedRegion: any;
+  selectedCommune: any;
+  agence: any;
 
   //GENERER FACTURE DU MOIS (LOCATION)
   genererPDFLocation() {
@@ -123,8 +127,8 @@ export class AgenceComponent {
   roles: string[] = [];
   bienImmoDejaLoueLocataire: any[] = []
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-
-
+  currentPage = 1;
+  currentA = 1;
 
 
   public electronics: any = []
@@ -994,4 +998,70 @@ export class AgenceComponent {
   
     }
   }
+
+  get pages(): number[] {
+    return Array.from({ length: this.pageCount }, (_, i) => i + 1);
+  }
+  get pageA(): number[] {
+    return Array.from({ length: this.pageAgence }, (_, i) => i + 1);
+  }
+  // Méthode pour passer à la page précédente
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  previousPageA() {
+    if (this.currentA > 1) {
+      this.currentA--;
+    }
+  }
+  
+
+  // Méthode pour passer à la page suivante
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.currentPage++;
+    }
+   
+  }
+  nextPageA() {
+    if (this.currentA < this.pageAgence) {
+      this.currentA++;
+    }
+  }
+  setCurrentPage(page: number) {
+    this.currentPage = page;
+  }
+
+  setCurrentPageA(page: number) {
+    this.currentA = page;
+  }
+  
+  pageSize: number = 4; // Nombre d'éléments par page
+
+  get pageCount(): number {
+    // if (this.bienImmo.length === 0) {
+        // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
+    // } else {
+        return Math.ceil(this.bienImmoAgenceTotal.length / this.pageSize);
+       
+    // }
+}
+
+
+get pageAgence(): number {
+  // if (this.bienImmo.length === 0) {
+      // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
+  // } else {
+      return Math.ceil(this.bienTotalAgence.length / this.pageSize);
+     
+  // }
+}
+
+
+itemsPerPage = 4;
+
+
 }

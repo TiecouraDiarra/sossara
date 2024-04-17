@@ -345,20 +345,32 @@ export class BiensComponent {
     });
   }
 
+  //Le filtre
+
+  paginateItems(items: any[], currentPage: number, itemsPerPage: number): any[] {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = currentPage * itemsPerPage;
+    return items.slice(startIndex, endIndex);
+  }
+
   applyFilters(bienImmo: any[]): any[] {
-    return bienImmo.filter((bien: any) => {
-      // Appliquer tous les critères de filtrage
+    // Appliquer les filtres
+    const filteredItems = bienImmo.filter((bien: any) => {
+      // Vos conditions de filtrage ici
       const filterCercle = !this.selectedCercle || bien.adresse.commune.cercle.nomcercle === this.selectedCercle;
       const filterRegion = !this.selectedRegion || bien.adresse.commune.cercle.region.nomregion === this.selectedRegion;
       const filterCommune = !this.selectedCommune || bien.adresse.commune.nomcommune === this.selectedCommune;
       const filterType = !this.selectedType || bien.typeImmo.nom === this.selectedType;
       const filterStatut = !this.selectedStatut || bien.statut.nom === this.selectedStatut;
       const filterSearchText = !this.searchText || bien.someProperty.includes(this.searchText); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
-  
       return filterCercle && filterRegion && filterCommune && filterType && filterStatut && filterSearchText;
     });
+
+    // Paginer les résultats filtrés
+    const paginatedItems = this.paginateItems(filteredItems, this.currentPage, this.itemsPerPage);
+    
+    return paginatedItems;
   }
-  
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {

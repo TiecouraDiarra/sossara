@@ -220,9 +220,9 @@ const agenceId = hashString(agence.uuid);
   applyFilters(agences: any[]): any[] {
     return agences.filter((agence: any) => {
       // Appliquer tous les critères de filtrage
-      const filterCercle = !this.selectedCercle || agence.adresse.commune.cercle.nomcercle === this.selectedCercle;
-      const filterRegion = !this.selectedRegion || agence.adresse.commune.cercle.region.nomregion === this.selectedRegion;
-      const filterCommune = !this.selectedCommune || agence.adresse.commune.nomcommune === this.selectedCommune;
+      const filterCercle = !this.selectedCercle || agence.adresse?.commune.cercle.nomcercle === this.selectedCercle;
+      const filterRegion = !this.selectedRegion || agence.adresse?.commune.cercle.region.nomregion === this.selectedRegion;
+      const filterCommune = !this.selectedCommune || agence.adresse?.commune.nomcommune === this.selectedCommune;
       const filterSearchText = !this.searchText || agence.someProperty.includes(this.searchText); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
   
       return filterCercle && filterRegion && filterCommune && filterSearchText;
