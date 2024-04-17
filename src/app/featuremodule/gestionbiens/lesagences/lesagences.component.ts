@@ -56,6 +56,9 @@ export class LesagencesComponent implements OnInit  {
   categoriesDataSource = new MatTableDataSource();
   searchText: any;
   communes1: any = [];
+  currentPage = 1;
+  itemsPerPage = 4;
+  totalPages: number = 0;
   filteredCercles: any[] = []; // Déclarez cette propriété dans votre classe 'BiensComponent'
 
 
@@ -72,6 +75,40 @@ export class LesagencesComponent implements OnInit  {
     return hash;
   }
   
+
+   // Méthode pour changer de page
+   setCurrentPage(page: number) {
+    this.currentPage = page;
+  }
+
+  pageSize: number = 4; // Nombre d'éléments par page
+  // Calcul du nombre total de pages
+  get pageCount(): number {
+    // if (this.bienImmo.length === 0) {
+        // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
+    // } else {
+        return Math.ceil(this.agence.length / this.pageSize);
+    // }
+}
+
+
+
+  get pages(): number[] {
+    return Array.from({ length: this.pageCount }, (_, i) => i + 1);
+  }
+  // Méthode pour passer à la page précédente
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Méthode pour passer à la page suivante
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.currentPage++;
+    }
+  }
 
   constructor(
     private router: Router,
@@ -102,6 +139,7 @@ this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       this.agence.push(user);
     }
   });
+console.log(this.agence);
 
   this.nombreAgence = this.agence?.length;
 
@@ -178,6 +216,19 @@ const agenceId = hashString(agence.uuid);
       this.commune = data;
     });
   }
+
+  applyFilters(agences: any[]): any[] {
+    return agences.filter((agence: any) => {
+      // Appliquer tous les critères de filtrage
+      const filterCercle = !this.selectedCercle || agence.adresse.commune.cercle.nomcercle === this.selectedCercle;
+      const filterRegion = !this.selectedRegion || agence.adresse.commune.cercle.region.nomregion === this.selectedRegion;
+      const filterCommune = !this.selectedCommune || agence.adresse.commune.nomcommune === this.selectedCommune;
+      const filterSearchText = !this.searchText || agence.someProperty.includes(this.searchText); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
+  
+      return filterCercle && filterRegion && filterCommune && filterSearchText;
+    });
+  }
+
   //AFFICHER REGION EN FONCTION DU PAYS
   onChange(newValue: any) {
     this.regions = this.region.filter(

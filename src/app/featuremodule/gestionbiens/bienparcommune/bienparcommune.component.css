@@ -67,3 +67,49 @@
     font-weight: 700;
     color: #131212;
   }
+
+  .pagination1{
+    padding: 30px 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination1 ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .pagination1 a{
+    display: inline-block;
+    padding: 10px 18px;
+    color: #222;
+  }
+  
+  /* ONE */
+  
+  .p1 a{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .p1 a.is-active{
+    background-color: #e98b11;
+    border-radius: 100%;
+    color: #fff;
+  }
+
+  /* .pagelink li.is-active{
+    background-color: #e98b11;
+    color: #fff;
+  } */
+
+  .pagelink  .is-active>.page-link {
+    background: #374B5C;
+    color: #fff;
+    border: 1px solid #374B5C;
+  }

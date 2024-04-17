@@ -281,7 +281,8 @@ export class BiensComponent {
     // Charger la liste des biens immobiliers
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.reverse();
-
+      console.log(this.bienImmo);
+      
       this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: {
@@ -343,6 +344,21 @@ export class BiensComponent {
       this.commune = data;
     });
   }
+
+  applyFilters(bienImmo: any[]): any[] {
+    return bienImmo.filter((bien: any) => {
+      // Appliquer tous les critères de filtrage
+      const filterCercle = !this.selectedCercle || bien.adresse.commune.cercle.nomcercle === this.selectedCercle;
+      const filterRegion = !this.selectedRegion || bien.adresse.commune.cercle.region.nomregion === this.selectedRegion;
+      const filterCommune = !this.selectedCommune || bien.adresse.commune.nomcommune === this.selectedCommune;
+      const filterType = !this.selectedType || bien.typeImmo.nom === this.selectedType;
+      const filterStatut = !this.selectedStatut || bien.statut.nom === this.selectedStatut;
+      const filterSearchText = !this.searchText || bien.someProperty.includes(this.searchText); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
+  
+      return filterCercle && filterRegion && filterCommune && filterType && filterStatut && filterSearchText;
+    });
+  }
+  
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {

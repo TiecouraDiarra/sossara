@@ -117,13 +117,9 @@
           <div class="row aos" data-aos="fade-up" data-aos-delay="200">
             <ng-container
               *ngFor="
-                let Agence of agence
-                  | filter : selectedCercle
-                  | filter : searchText
-                  | filter : selectedRegion
-                  | filter : selectedCommune
-                  | paginate : { itemsPerPage: 4, currentPage: p }
-              "
+                let Agence of applyFilters(agence).slice(
+                  (currentPage - 1) * itemsPerPage,
+                  currentPage * itemsPerPage) "
             >
               <div class="col-md-12">
                 <div class="property-item">
@@ -190,24 +186,31 @@
           </div>
 
           <!-- PAGINATION -->
-          <div class="row">
-            <div class="col-md-12">
-              <pagination-controls
-                *ngIf="agence && agence.length > 0"
-                (pageChange)="p = $event"
-                previousLabel="Précédent"
-                nextLabel="Suivant"
-                class="pagination"
-                previousClass="pagination__previous"
-                nextClass="pagination__next"
-                containerClass="pagination__container"
-                pageClass="pagination__page"
-                activeClassName="pagination__page--active"
-                disabledClass="pagination__page--disabled"
-              >
-              </pagination-controls>
-            </div>
+          
+          <!--Pagination-->
+        <div class="blog-pagination">
+          <nav>
+              <ul class="pagination">
+                  <li class="page-item previtem crd">
+                      <a class="page-link" (click)="previousPage()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
+                  </li>
+                  <li class="justify-content-center pagination-center"> 
+                      <div class="pagelink">
+                          <ul>
+                             <li class="page-item crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
+                              (click)="setCurrentPage(page)">
+                                  <a class="page-link">{{ page }}</a>
+                              </li>
+                         </ul>
+                      </div>													
+                  </li>													
+                  <li class="page-item nextlink crd">
+                      <a class="page-link" (click)="nextPage()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
+                  </li>
+              </ul>
+          </nav>
           </div>
+<!--/Pagination-->
         </div>
       </div>
       <ng-template #noAgences>
