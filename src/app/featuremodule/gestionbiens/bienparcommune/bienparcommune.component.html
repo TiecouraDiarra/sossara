@@ -70,7 +70,10 @@
             <div class="row">
               <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
                 <div class="col-lg-6 col-md-4 col-sm-6 "
-                  *ngFor="let BienImo of bienImmo  | filter : selectedType | filter : selectedStatut | paginate:{itemsPerPage :2, currentPage:p}">
+                  *ngFor="let BienImo of applyFilters(bienImmo).slice(
+                    (currentPage - 1) * itemsPerPage,
+                    currentPage * itemsPerPage
+                )">
                   <div class="card aos aos-init aos-animate" data-aos="fade-up">
                     <div class="blog-widget">
                       <div class="blog-img">
@@ -269,46 +272,29 @@
               </ng-template>
 
               <!--Pagination-->
-              <!-- <div class="blog-pagination">
+              <div class="blog-pagination">
                             <nav>
                                 <ul class="pagination">
-                                    <li class="page-item previtem">
-                                        <a class="page-link" href="javascript:void(0)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+                                    <li class="page-item previtem crd">
+                                        <a class="page-link" (click)="previousPage()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
                                     </li>
                                     <li class="justify-content-center pagination-center"> 
                                         <div class="pagelink">
                                             <ul>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)">1</a>
+                                               <li class="page-item crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
+                                                (click)="setCurrentPage(page)">
+                                                    <a class="page-link">{{ page }}</a>
                                                 </li>
-                                                <li class="page-item active">
-                                                    <a class="page-link" href="javascript:void(0)">2 <span class="visually-hidden">(current)</span></a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)">3</a>
-                                               </li>
-                                               <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)">...</a>
-                                               </li>
-                                               <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)">14</a>
-                                               </li>
                                            </ul>
                                         </div>													
                                     </li>													
-                                    <li class="page-item nextlink">
-                                        <a class="page-link" href="javascript:void(0)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+                                    <li class="page-item nextlink crd">
+                                        <a class="page-link" (click)="nextPage()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
                                     </li>
                                 </ul>
                             </nav>
-                        </div> -->
+              </div>
               <!--/Pagination-->
-              <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event"
-                previousLabel="Précédent" nextLabel="Suivant" class="pagination" previousClass="pagination__previous"
-                nextClass="pagination__next" containerClass="pagination__container" pageClass="pagination__page"
-                activeClassName="pagination__page--active"
-                disabledClass="pagination__page--disabled"></pagination-controls>
-
             </div>
           </div>
         </div>

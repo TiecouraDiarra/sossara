@@ -126,3 +126,9 @@
   border-radius: 100%;
   color: #fff;
 }
+
+.pagelink  .is-active>.page-link {
+  background: #374B5C;
+  color: #fff;
+  border: 1px solid #374B5C;
+}

@@ -63,7 +63,7 @@
                             </button>
                         </div>
                         <p class="dis my-3 info">{{bien?.nom}} </p>
-                        <p class="dis mb-3 updates">{{bien?.description}}</p>
+                        <p class="dis mb-3 updates" [innerHTML]='bien ? bien?.description : "Aucune description"'></p>
                         <p class="dis mb-3 different fw-bold">Les caracteristiques du bien :</p>
                         <div class="d-flex flex-column dis">
                             <div class="d-flex align-items-center justify-content-between mb-2"

@@ -49,6 +49,9 @@ export class BienparcommuneComponent {
   selectedType: any;
   status: any;
   nomcommune: any;
+  currentPage = 1;
+  itemsPerPage = 2;
+  totalPages: number = 0;
 
 
 
@@ -160,6 +163,19 @@ export class BienparcommuneComponent {
     })
   }
 
+  applyFilters(bienImmo: any[]): any[] {
+    return bienImmo.filter((bien: any) => {
+      // Appliquer tous les critères de filtrage
+      // const filterCercle = !this.selectedCercle || bien.adresse.commune.cercle.nomcercle === this.selectedCercle;
+      // const filterRegion = !this.selectedRegion || bien.adresse.commune.cercle.region.nomregion === this.selectedRegion;
+      // const filterCommune = !this.selectedCommune || bien.adresse.commune.nomcommune === this.selectedCommune;
+      const filterType = !this.selectedType || bien.typeImmo.nom === this.selectedType;
+      const filterStatut = !this.selectedStatut || bien.statut.nom === this.selectedStatut;
+      const filterSearchText = !this.searchText || bien.someProperty.includes(this.searchText); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
+  
+      return filterType && filterStatut && filterSearchText;
+    });
+  }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
     return this.router.navigate(['details-bien', id])
@@ -232,6 +248,38 @@ export class BienparcommuneComponent {
           this.favoriteStatus[bienId] = true; // Indiquez que ce bien a été aimé
         });
       });
+    }
+  }
+
+   // Méthode pour changer de page
+   setCurrentPage(page: number) {
+    this.currentPage = page;
+    // this.loadCurrentPage();
+  }
+
+  pageSize: number = 2; // Nombre d'éléments par page
+  // Calcul du nombre total de pages
+  get pageCount(): number {
+    return Math.ceil(this.bienImmo.length / this.pageSize);
+  }
+
+
+  get pages(): number[] {
+    return Array.from({ length: this.pageCount }, (_, i) => i + 1);
+  }
+  // Méthode pour passer à la page précédente
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      // this.loadCurrentPage();
+    }
+  }
+
+  // Méthode pour passer à la page suivante
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.currentPage++;
+      // this.loadCurrentPage();
     }
   }
 }

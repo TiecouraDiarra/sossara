@@ -104,8 +104,9 @@
                 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                   <div class="row align-items-center search-form">
                     <div class="col-12 col-lg-10 search-group">
+                        <div class="card card-body">
                       <div class="row">
-                        <div class="col-lg-4 col-xl-3">
+                        <div class="col-lg-6 col-xl-3 mb-2">
                           <div class="d-flex">
                             <div
                               class="flex-shrink-0 d-flex align-items-center"
@@ -140,7 +141,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-4 col-xl-3">
+                        <div class="col-lg-6 col-xl-3 mb-2">
                           <div class="d-flex">
                             <div
                               class="flex-shrink-0 d-flex align-items-center"
@@ -175,7 +176,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg- col-xl-2">
+                        <div class="col-lg-6 col-xl-3 mb-2">
                           <div class="d-flex">
                             <div
                               class="flex-shrink-0 d-flex align-items-center"
@@ -184,9 +185,6 @@
                                 <i class="feather-map-pin"></i>
                               </div>
                             </div>
-                            <!--<div class="flex-grow-1 ms-3">
-                                                            <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                        </div>-->
                             <div class="flex-grow-1 ms-3">
                               <mat-form-field
                                 class="mat-custom-select"
@@ -210,8 +208,17 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-3 col-xl-2">
-                          <div class="d-flex real-estate-search">
+                        <div class="col-lg-6 col-xl-3 mb-2">
+                          <div class="d-flex">
+                            <div
+                            class="flex-shrink-0 d-flex align-items-center"
+                          >
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-plus"></i>
+                            </div>
+                          </div>
+                          <!-- &nbsp; &nbsp; -->
+                          <div class="real-estate-search w-100">
                             <div class="flex-grow-1 ms-3">
                               <p>
                                 <a
@@ -227,58 +234,16 @@
                               </p>
                             </div>
                           </div>
+                          </div>
                         </div>
+                   
+                      
                       </div>
                       <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                          <!-- <div class="row"> -->
-                          <!-- <div class="col-lg-6">
-                                                            <div class="d-flex real-estate-search">
-                                                                <div class="flex-shrink-0 d-flex align-items-center">
-                                                                    <div class="icon-blk rounded-circle">
-                                                                        <img style="width: 20px;"
-                                                                            src="./assets/img/icons/floor-icon.svg"
-                                                                            alt="">
-                                                                    </div>
-                                                                </div> -->
-                          <!--<div class="flex-grow-1 ms-3">
-                                                                    <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                                </div>-->
-                          <!-- <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select"
-                                                                        [(ngModel)]="form.minprix" name="minprix"
-                                                                        (ngModelChange)="filterMaxPrix()">
-                                                                        <option selected [value]="null">Prix Minimum
-                                                                        </option>
-                                                                        <option *ngFor="let item of valuesSelectPrix"
-                                                                            [value]="item.prix">{{item.prix}}</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
-                          <!-- <div class="col-lg-6">
-                                                            <div class="d-flex real-estate-search real-select">
-                                                                <div class="flex-shrink-0 d-flex align-items-center">
-                                                                    <div class="icon-blk rounded-circle">
-                                                                        <img style="width: 20px;"
-                                                                            src="./assets/img/icons/floor-icon.svg"
-                                                                            alt="">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="flex-grow-1 ms-3">
-                                                                    <select class="form-control select category-select"
-                                                                        [(ngModel)]="form.maxprix" name="maxprix">
-                                                                        <option selected [value]="null">Prix maximum
-                                                                        </option>
-                                                                        <option *ngFor="let item of maxprix_values"
-                                                                            [value]="item.prix">{{item?.prix}}</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
+                        
+                          
                           <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6 col-xl-4 mb-2">
                               <div class="d-flex real-estate-search">
                                 <div
                                   class="flex-shrink-0 d-flex align-items-center"
@@ -314,7 +279,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6 col-xl-4 mb-2">
                               <div
                                 class="d-flex real-estate-search real-select"
                               >
@@ -353,7 +318,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6 col-xl-4 mb-2">
                               <div
                                 class="d-flex real-estate-search real-select"
                               >
@@ -390,9 +355,8 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-lg-4">
+
+                            <div class="col-lg-6 col-xl-4 mb-2">
                               <div class="d-flex real-estate-search">
                                 <div
                                   class="flex-shrink-0 d-flex align-items-center"
@@ -427,7 +391,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6 col-xl-4 mb-2">
                               <div
                                 class="d-flex real-estate-search real-select"
                               >
@@ -464,7 +428,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6 col-xl-4 mb-2">
                               <div
                                 class="d-flex real-estate-search real-select"
                               >
@@ -504,10 +468,6 @@
                               </div>
                             </div>
                           </div>
-
-                          <!--<div class="row mt-3 mb-4 fw-bold">
-                                                        Autres commodites
-                                                    </div> -->
                           <div class="flex-grow-1 ms-3">
                             <p>
                               <a
@@ -651,15 +611,13 @@
 
 <!-- Featured Listings -->
 <section
-  class="featured-listing-section common-padding"
-  *ngIf="bienImmoPlusVue && bienImmoPlusVue.length > 0"
->
+  class="featured-listing-section common-padding">
   <div class="footer-six-bg footer-nine-bg">
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center">
+      <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue.length > 0">
         <div class="col-lg-4 col-md-3"></div>
         <div
           class="col-lg-4 col-md-6 aos aos-init aos-animate text-center"
@@ -955,12 +913,10 @@
 
 <!-- Listed Properties Management Companies -->
 <div
-  class="section properties-managments common-padding"
-  *ngIf="agence && agence.length > 0"
->
+  class="section properties-managments common-padding">
   <div class="container">
     <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center">
+      <div class="row align-items-center"  *ngIf="agence && agence.length > 0">
         <div class="col-lg-4 col-md-3"></div>
         <div
           class="col-lg-4 col-md-6 aos aos-init aos-animate text-center"
@@ -1261,7 +1217,7 @@
           >
             {{ totalzone }}
           </h4>
-          <p>Nombre de zone</p>
+          <p>Nombre de commune</p>
         </div>
       </div>
     </div>
@@ -1271,15 +1227,13 @@
 
 <!-- Recent Properties for Rent -->
 <section
-  class="property-for-rent common-padding"
-  *ngIf="BienLoueRecens && BienLoueRecens.length > 0"
->
+  class="property-for-rent common-padding">
   <div class="footer-six-bg footer-nine-bg">
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center">
+      <div class="row align-items-center" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
         <div class="col-md-3"></div>
         <div
           class="col-md-6 aos aos-init aos-animate text-center"
@@ -1416,7 +1370,7 @@
                             (click)="goToDettailBien(bienRecent.uuid)"
                             class="crd"
                           >
-                            <h5>
+                            <h5 class="text-truncate crd" style="max-width: 250px;">
                               {{
                                 bienRecent.nom
                                   ? bienRecent.nom
@@ -1580,10 +1534,10 @@
 <!-- /Make It Easy -->
 
 <!-- COMMUNES -->
-<section class="car-location common-padding" *ngIf="commune && commune.length > 0">
+<section class="car-location common-padding">
     <div class="container">
         <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
-            <div class="row align-items-center">
+            <div class="row align-items-center" *ngIf="commune && commune.length > 0">
                 <div class="col-md-3"></div>
                 <div class="col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
                     <h3>Nos biens a Bamako</h3>
@@ -1596,7 +1550,7 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
-                <a (click)="goToDettailCommune(Commune.uuid)" class="crd">
+                <a (click)="goToDettailCommune(Commune.nomcommune)" class="crd">
                     <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
                         <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
                             class="commune-image img-fluid" alt="">
@@ -1763,12 +1717,10 @@
 
 <!-- Recent Articles -->
 <section
-  class="property-articles common-padding"
-  *ngIf="blog && blog.length > 0"
->
+  class="property-articles common-padding">
   <div class="container">
     <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center">
+      <div class="row align-items-center" *ngIf="blog && blog.length > 0">
         <div class="col-md-7 aos aos-init aos-animate" data-aos="fade-up">
           <h4>Articles recents</h4>
           <!-- <p>The most trendy accommodations available</p> -->
@@ -1803,7 +1755,7 @@
                           /></a>
                         </div>
                         <div class="blog-content">
-                          <h3 class="blog-title">
+                          <h3 class="blog-title text-truncate crd" style="max-width: 320px;">
                             <a [routerLink]="routes.blogdetails">{{
                               Blog.titre
                             }}</a>
