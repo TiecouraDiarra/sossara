@@ -108,6 +108,7 @@ export class ContratComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
       this.contrat = data;
+      console.log('DATA : ', data);
       this.bien = data?.bien;
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
@@ -310,9 +311,6 @@ export class ContratComponent {
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
-
-
-
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceContrat.AccepterCandidaterBien(sessionStorage.getItem("idCandidature")).subscribe({
             next: (data) => {

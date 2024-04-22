@@ -353,6 +353,7 @@ export class AgenceComponent {
         // Vérifier si le bien est déjà loué
         if (bien.is_rent === true) {
           this.bienImmoDejaLoue.push(bien);
+
         }
 
         //   // Vérifier si le bien est déjà vendu
@@ -360,8 +361,11 @@ export class AgenceComponent {
           this.bienImmoDejaVendu.push(bien);
         }
 
+        
         //   // Le reste de votre logique pour traiter les favoris...
       });
+      console.log("bien deja lou", this.bienImmoDejaLoue);
+      
 
 
       // Parcourir la liste des biens immobiliers

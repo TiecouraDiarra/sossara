@@ -107,6 +107,7 @@ export class DetailsbienComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data;
+      console.log("Le bien est : ", this.bien);
       this.photos = this.bien.photos;
       this.latitude = this.bien?.adresse?.latitude || null;
       this.longitude = this.bien?.adresse?.longitude || null;
