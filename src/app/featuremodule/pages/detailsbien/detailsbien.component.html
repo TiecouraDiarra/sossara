@@ -605,7 +605,7 @@
                 <ng-container *ngFor="let photo of photos; let i = index">
                   <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="i < 12">
                     <div class="gallery-widget">
-                      <img class="img-fluid image-size" [src]="generateImageUrl(photo.nom)"
+                      <img class="img-fluid image-size1" [src]="generateImageUrl(photo.nom)"
                         (click)="open(i, albumsOne)" />
                     </div>
                   </div>
@@ -950,20 +950,20 @@
                 Details du bien
               </h4>
               <ul>
-                <li *ngIf="bien && bien.reference">
-                  reference du bien <span>{{ bien.reference }}</span>
+                <li *ngIf="bien && bien?.reference">
+                  reference du bien <span>{{ bien?.reference }}</span>
                 </li>
-                <li *ngIf="bien && bien.caution">
-                  Caution <span>{{ bien.caution }} mois</span>
+                <li *ngIf="bien && bien?.caution">
+                  Caution <span>{{ bien?.caution }} mois</span>
                 </li>
-                <li *ngIf="bien && bien.avance">
-                  Avance <span>{{ bien.caution }} mois</span>
+                <li *ngIf="bien && bien?.avance">
+                  Avance <span>{{ bien?.caution }} mois</span>
                 </li>
-                <li *ngIf="bien && bien.typeImmo">
-                  Type du bien <span>{{ bien.typeImmo.nom }}</span>
+                <li *ngIf="bien && bien?.typeImmo">
+                  Type du bien <span>{{ bien?.typeImmo?.nom }}</span>
                 </li>
-                <li *ngIf="bien && bien.surface">
-                  Surface <span>{{ bien.surface }} M2</span>
+                <li *ngIf="bien && bien?.surface">
+                  Surface <span>{{ bien?.surface }} M2</span>
                 </li>
                 <li *ngIf="
                     bien?.caracteristique && bien?.caracteristique?.caracteristique
@@ -971,33 +971,33 @@
                   Caracteristique
                   <span>{{ bien?.caracteristique?.caracteristique }}</span>
                 </li>
-                <li *ngIf="bien.statut.nom == 'A louer'">
-                  Periode <span>{{ bien.periode.nom }}</span>
+                <li *ngIf="bien?.statut?.nom == 'A louer'">
+                  Periode <span>{{ bien?.periode?.nom }}</span>
                 </li>
-                <li *ngIf="bien && bien.adresse">
-                  Quartier <span>{{ bien.adresse.quartier }}</span>
+                <li *ngIf="bien && bien?.adresse">
+                  Quartier <span>{{ bien?.adresse?.quartier }}</span>
                 </li>
-                <li *ngIf="bien.adresse && bien.adresse.rue">
-                  Rue <span>{{ bien.adresse.rue }}</span>
+                <li *ngIf="bien?.adresse && bien?.adresse?.rue">
+                  Rue <span>{{ bien?.adresse?.rue }}</span>
                 </li>
-                <li *ngIf="bien.adresse && bien.adresse.porte">
-                  Porte <span>{{ bien.adresse.porte }}</span>
+                <li *ngIf="bien?.adresse && bien?.adresse?.porte">
+                  Porte <span>{{ bien?.adresse?.porte }}</span>
                 </li>
-                <li *ngIf="bien && bien.createdAt">
+                <li *ngIf="bien && bien?.createdAt">
                   Date de publication
-                  <span>{{ bien.createdAt | date : "dd/MM/yyyy" }}</span>
+                  <span>{{ bien?.createdAt | date : "dd/MM/yyyy" }}</span>
                 </li>
-                <li *ngIf="bien && bien.nb_piece">
-                  Salon <span>{{ bien.nb_piece }}</span>
+                <li *ngIf="bien && bien?.nb_piece">
+                  Salon <span>{{ bien?.nb_piece }}</span>
                 </li>
-                <li *ngIf="bien && bien.chambre">
-                  Chambre <span>{{ bien.nb_piece }}</span>
+                <li *ngIf="bien && bien?.chambre">
+                  Chambre <span>{{ bien?.nb_piece }}</span>
                 </li>
-                <li *ngIf="bien && bien.cuisine">
-                  Cuisine <span>{{ bien.cuisine }}</span>
+                <li *ngIf="bien && bien?.cuisine">
+                  Cuisine <span>{{ bien?.cuisine }}</span>
                 </li>
-                <li *ngIf="bien && bien.toilette">
-                  Toilette<span>{{ bien.toilette }}</span>
+                <li *ngIf="bien && bien?.toilette">
+                  Toilette<span>{{ bien?.toilette }}</span>
                 </li>
                 <!-- <li>Gadgets <span>6</span></li>
                                 <li>Home Area <span>30sqft</span></li>
@@ -1008,7 +1008,7 @@
             <!-- <div>
                             <img src="{{generateQrCodeUrl(bien.codeqr)}}" alt="QR Code">
                         </div> -->
-            <div class="card" *ngIf="bien && bien.codeqr">
+            <div class="card" *ngIf="bien && bien?.codeqr">
               <h4><i class="feather-maximize"></i> Code Qr du bien</h4>
               <!-- <div class="sidebarauthor-details align-items-center"> -->
               <img src="{{ generateQrCodeUrl(bien.codeqr) }}" alt="QR Code" />

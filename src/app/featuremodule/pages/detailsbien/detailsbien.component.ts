@@ -403,6 +403,8 @@ export class DetailsbienComponent implements AfterViewInit {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
       this.lesCommodites = data?.commodites;
+      // console.log(this.lesCommodites);
+      
       this.photos = this.bien?.photos;
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
@@ -1160,6 +1162,8 @@ export class DetailsbienComponent implements AfterViewInit {
         this.bien = data.biens[0];
         this.photos = this.bien.photos;
         this.commodite = data.commodite;
+        
+        
 
         const currentUser = this.storageService.getUser();
 

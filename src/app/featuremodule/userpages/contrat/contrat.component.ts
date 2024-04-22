@@ -531,5 +531,5 @@ export class ContratComponent {
     });
   }
 
-
+ 
 }

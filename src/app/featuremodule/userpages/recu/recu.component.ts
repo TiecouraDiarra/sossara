@@ -1,5 +1,6 @@
 import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import jsPDF from 'jspdf';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from 'src/app/service/auth/storage.service';
@@ -7,6 +8,7 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { ModepaiementService } from 'src/app/service/modepaiement/modepaiement.service';
 import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -25,6 +27,7 @@ export class RecuComponent {
   transaction: any;
   locataire: any;
   proprietaire: any;
+  loading = false;
   modePaiement: any;
 
   constructor(
@@ -154,5 +157,50 @@ export class RecuComponent {
     })
   }
 
+  async genererPDFRecu() {
+    try {
+      this.loading = true; // Affiche l'indicateur de chargement
+
+      // Créer une instance de jsPDF
+      const pdf = new jsPDF();
+
+      // Générer la première page du contrat
+      await this.generateFirstPage(pdf);
+
+      // Télécharger le PDF
+      pdf.save('recu.pdf');
+
+      // Une fois la génération terminée, masquer l'indicateur de chargement
+      this.loading = false;
+    } catch (error) {
+     
+      this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
+    }
+  }
+
+  async generateFirstPage(pdf: jsPDF) {
+    return new Promise<void>((resolve, reject) => {
+      // Obtenir le contenu HTML de la première partie du contrat
+      const firstPageContent = document.querySelector('.recu') as HTMLElement;
+
+      if (firstPageContent) {
+        // Convertir le contenu HTML en une image (utilisation de html2canvas)
+        html2canvas(firstPageContent).then((canvas) => {
+          const imgWidth = 210; // Largeur de l'image (en mm)
+          const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculer la hauteur en préservant le ratio
+
+          // Ajouter l'image convertie au PDF (première page)
+          const imgData = canvas.toDataURL('image/png');
+          pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+          // Résoudre la promesse une fois la première page générée
+          resolve();
+        }).catch(reject);
+      } else {
+        reject(new Error('Le contenu de la première page est introuvable.'));
+      }
+    });
+  }
 
 }
+
