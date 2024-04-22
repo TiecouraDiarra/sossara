@@ -344,6 +344,7 @@ export class LocataireComponent implements OnInit {
       this.bienImmo = data.reverse();
 
 
+
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
@@ -355,6 +356,8 @@ export class LocataireComponent implements OnInit {
         if (bien.is_sell === true) {
           this.bienImmoDejaVendu.push(bien);
         }
+        
+        
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
@@ -455,9 +458,11 @@ export class LocataireComponent implements OnInit {
         if (bien.bien.is_sell === true) {
           this.bienImmoUserAAcheter.push(bien);
         }
-
+        
         //   // Le reste de votre logique pour traiter les favoris...
       });
+      // console.log(this.bienImmoDejaLoueLocataire);
+
       // // Afficher les biens déjà loués et déjà vendus
       console.log( this.bienImmoDejaLoueLocataire);
       

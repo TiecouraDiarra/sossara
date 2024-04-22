@@ -1756,7 +1756,7 @@
                         </div>
                         <div class="blog-content">
                           <h3 class="blog-title text-truncate crd" style="max-width: 320px;">
-                            <a [routerLink]="routes.blogdetails">{{
+                            <a (click)="goToDettailBlog(Blog.uuid)">{{
                               Blog.titre
                             }}</a>
                           </h3>

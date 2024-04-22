@@ -37,6 +37,7 @@ export class SignupComponent {
     { nom: 'LOCATAIRE OU ACHETEUR', value: 'locataire' },
     { nom: 'PROPRIETAIRE', value: 'proprietaire' },
     { nom: 'AGENCE', value: 'agence' },
+    { nom: 'ADMIN', value: 'admin' },
   ];
 
   userName: any = {
@@ -246,7 +247,7 @@ handleFileSelection(event: any): void {
     }
   }
   onChange(typeUser: any) {
-    if (typeUser.value === "locataire" || typeUser.value === 'proprietaire') {
+    if (typeUser.value === "locataire" || typeUser.value === "admin" || typeUser.value === 'proprietaire') {
       this.typePieces = this.typepiciesUser;
       this.currentUser = typeUser.value;
       // this.currentType = typeUser.value
