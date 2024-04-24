@@ -139,7 +139,6 @@ this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       this.agence.push(user);
     }
   });
-console.log(this.agence);
 
   this.nombreAgence = this.agence?.length;
 

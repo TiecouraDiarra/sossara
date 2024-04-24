@@ -23,7 +23,9 @@
 <!--Blog Content-->
 <div class="blogdetail-content">
     <div class="container" *ngIf="blog">
-        <p>{{blog.description}}</p>
+        <!-- <p>{{blog.description}}</p> -->
+        <p [innerHTML]="blog ? blog?.description : 'Aucune description'"
+        > </p>
         <!-- <blockquote class="blog-quotes">
             <img src="assets/img/blogquote.jpg" alt="quotes">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vehicula sapien nec nisi aliquam, vitae

@@ -134,7 +134,7 @@
                   </div>
                 </div>
               </div>
-
+ 
               <!-- statut -->
               <div class="col-lg-6 col-md-6" *ngIf="selectedType === '3'">
                 <div class="form-group">
@@ -443,11 +443,9 @@
                           <label class="custom_check">
                             <input
                               type="checkbox"
-                              [(ngModel)]="item.selected"
                               [value]="item.id" (change)="onChangeCommodite()"
-                              name="commodite"
-                              [checked]="isCommoditeSelected(item)"
-                              (change)="toggleCommodite(item)"
+                              name="selectedCommoditesIds"
+                              [(ngModel)]="item.selected"
                             />
                             <span class="checkmark"></span>{{ item.nom }}
                           </label>

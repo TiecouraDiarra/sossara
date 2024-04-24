@@ -514,29 +514,29 @@
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
                                                     <ng-template #noImages>
-                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Villa'">
+                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Villa'">
                                                             <img src="../../../../assets/img/typebien/villa.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
                                                         <div class="type"
-                                                            *ngIf="BienImmo.typeImmo.nom === 'Appartement'">
+                                                            *ngIf="BienImmo?.typeImmo?.nom === 'Appartement'">
                                                             <img src="../../../../assets/img/typebien/appartement.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
-                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Terrain'">
+                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Terrain'">
                                                             <img src="../../../../assets/img/typebien/terrain.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
-                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Bureau'">
+                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Bureau'">
                                                             <img src="../../../../assets/img/typebien/bureau.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
-                                                        <div class="type" *ngIf="BienImmo.typeImmo.nom === 'Champ'">
+                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Champ'">
                                                             <img src="../../../../assets/img/typebien/champ.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
                                                         <div class="type"
-                                                            *ngIf="BienImmo.typeImmo.nom === 'Commerce & Magasin'">
+                                                            *ngIf="BienImmo?.typeImmo?.nom === 'Commerce & Magasin'">
                                                             <img src="../../../../assets/img/typebien/magasin.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
@@ -552,21 +552,21 @@
                                                 </a>
                                             </h6>
                                             <div class="listingtable-rate">
-                                                <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                                                <a *ngIf="BienImmo?.bien && BienImmo?.bien?.typeImmo"
                                                     href="javascript:void(0)" class="cat-icon">
                                                     <i class="fa-regular fa-circle-stop"></i>
-                                                    {{BienImmo.bien.typeImmo.nom}}
+                                                    {{BienImmo?.bien?.typeImmo?.nom}}
                                                 </a> <span class="discount-amt"
-                                                    *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
-                                                    formatPrice(BienImmo.bien.prix) }}
+                                                    *ngIf="BienImmo?.bien && BienImmo?.bien?.prix">{{
+                                                    formatPrice(BienImmo?.bien.prix) }}
                                                     FCFA</span>
 
                                             </div>
-                                            <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
-                                                {{BienImmo.bien.adresse.commune.region.pays.nom}} -
-                                                {{BienImmo.bien.adresse.commune.region.nom}} -
-                                                {{BienImmo.bien.adresse.commune.nom}} -
-                                                {{BienImmo.bien.adresse.quartier}}
+                                            <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
+                                                {{BienImmo?.bien?.adresse?.commune?.region?.pays?.nom}} -
+                                                {{BienImmo?.bien?.adresse?.commune?.region?.nom}} -
+                                                {{BienImmo?.bien?.adresse?.commune?.nom}} -
+                                                {{BienImmo?.bien?.adresse?.quartier}}
                                             </p>
                                         </td>
                                         <td><span class="views-count"
@@ -586,7 +586,7 @@
                                                     <div class="review-details">
                                                         <div class="tes">
                                                             <div class="views-count">
-                                                                {{BienImmo.bien.utilisateur.nom}}</div>
+                                                                {{BienImmo?.bien?.utilisateur?.nom}}</div>
                                                         </div>
                                                         <!-- <div>Tel : {{BienImmo.bien.utilisateur.telephone}}</div> -->
                                                         <!-- <p>ffff</p>																	 -->
@@ -905,11 +905,11 @@
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailFacture(Facture.uuid)">
-                                                    <div *ngIf="!Facture.statut">
+                                                    <div *ngIf="!Facture?.statut">
                                                         <img src="../../../../assets/img/Facture/4.png"
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
-                                                    <div *ngIf="Facture.statut">
+                                                    <div *ngIf="Facture?.statut">
                                                         <img src="../../../../assets/img/Facture/5.png"
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
@@ -952,11 +952,11 @@
                                                 |
                                                 date:"dd MMM yyyy":locale}}</span>
                                         </td>
-                                        <td *ngIf="Facture.bien.statut.nom === 'A vendre'"><span
-                                                [ngClass]="{'unpublish': Facture.bien.statut.nom === 'A vendre' }"
+                                        <td *ngIf="Facture?.bien?.statut?.nom === 'A vendre'"><span
+                                                [ngClass]="{'unpublish': Facture?.bien?.statut?.nom === 'A vendre' }"
                                                 class="status-text">Vente</span></td>
-                                        <td *ngIf="Facture.bien.statut.nom === 'A louer'"><span
-                                                [ngClass]="{'unpublish': Facture.bien.statut.nom === 'A vendre' }"
+                                        <td *ngIf="Facture?.bien?.statut?.nom === 'A louer'"><span
+                                                [ngClass]="{'unpublish': Facture?.bien?.statut?.nom === 'A vendre' }"
                                                 class="status-text">Location</span></td>
                                         <td>
                                             <!-- <span class="status-text">
@@ -1138,7 +1138,7 @@
                                             </a>
                                             <div class="fav-item">
                                                 <span [ngClass]="{
-                        statutbien: slide.bien.statut.nom === 'A vendre'
+                        statutbien: slide?.bien?.statut?.nom === 'A vendre'
                       }" class="Featured-text">{{ slide?.bien?.statut?.nom }}</span>
                                                 <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
                                                     (click)="AimerBien(slide.bien.id)" [style.background-color]="

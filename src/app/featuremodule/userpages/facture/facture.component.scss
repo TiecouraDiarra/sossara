@@ -23,6 +23,7 @@ Version:    1.1.0
     color: #535353;
 }
 
+  
 .invoice-content {
     font-family: 'Poppins', sans-serif;
     color: #535353;
@@ -2962,6 +2963,12 @@ p {
 }
 
 @media (max-width:768px) {
+    .telecharge-container{
+        display: block !important;
+    }
+    .telecharge{
+        margin-bottom: 20px !important;
+    }
     .container {
         max-width: 700px;
         margin: 10px auto
@@ -3026,7 +3033,7 @@ p {
 .telecharge a {
     background: #e98b11;
     color: #fff;
-    padding: 14px 58px;
+    padding: 7px 29px !important;
     border-radius: 10px;
     border: 1px solid #e98b11;
 }

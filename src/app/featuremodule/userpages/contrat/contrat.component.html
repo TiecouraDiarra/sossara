@@ -4,7 +4,7 @@
     <div class="row align-items-center text-center">
       <div class="col-md-12 col-12">
         <h2 class="breadcrumb-title" style="color: white">
-          Contrat de la candidature
+          Contrat de candidature
         </h2>
         <nav aria-label="breadcrumb" class="page-breadcrumb">
           <ol class="breadcrumb">
@@ -92,7 +92,7 @@
                 <ng-container *ngIf="photoImmo?.length === 0; else imagesBlock">
                   <div
                     class="carousel-item active"
-                    *ngIf="bien.typeImmo.nom === 'Villa'"
+                    *ngIf="bien?.typeImmo?.nom === 'Villa'"
                   >
                     <img
                       src="../../../../assets/img/typebien/villa.png"
@@ -102,7 +102,7 @@
                   </div>
                   <div
                     class="carousel-item active"
-                    *ngIf="bien.typeImmo.nom === 'Appartement'"
+                    *ngIf="bien?.typeImmo?.nom === 'Appartement'"
                   >
                     <img
                       src="../../../../assets/img/typebien/appartement.png"
@@ -112,7 +112,7 @@
                   </div>
                   <div
                     class="carousel-item active"
-                    *ngIf="bien.typeImmo.nom === 'Terrain'"
+                    *ngIf="bien?.typeImmo?.nom === 'Terrain'"
                   >
                     <img
                       src="../../../../assets/img/typebien/terrain.png"
@@ -122,7 +122,7 @@
                   </div>
                   <div
                     class="carousel-item active"
-                    *ngIf="bien.typeImmo.nom === 'Bureau'"
+                    *ngIf="bien?.typeImmo?.nom === 'Bureau'"
                   >
                     <img
                       src="../../../../assets/img/typebien/bureau.png"
@@ -132,7 +132,7 @@
                   </div>
                   <div
                     class="carousel-item active"
-                    *ngIf="bien.typeImmo.nom === 'Champ'"
+                    *ngIf="bien?.typeImmo?.nom === 'Champ'"
                   >
                     <img
                       src="../../../../assets/img/typebien/champ.png"
@@ -142,7 +142,7 @@
                   </div>
                   <div
                     class="carousel-item active"
-                    *ngIf="bien.typeImmo.nom === 'Commerce & Magasin'"
+                    *ngIf="bien?.typeImmo?.nom === 'Commerce & Magasin'"
                   >
                     <img
                       src="../../../../assets/img/typebien/magasin.png"
@@ -203,77 +203,77 @@
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien.typeImmo && bien.typeImmo.nom"
+                *ngIf="bien?.typeImmo && bien?.typeImmo?.nom"
               >
                 <p>Type du bien</p>
-                <p>{{ bien.typeImmo.nom }}</p>
+                <p>{{ bien?.typeImmo?.nom }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
                 *ngIf="
-                  bien.periode &&
-                  bien.periode.nom &&
+                  bien?.periode &&
+                  bien?.periode?.nom &&
                   bien?.statut?.nom === 'A louer'
                 "
               >
                 <p>Periode</p>
-                <p>{{ bien.periode.nom }}</p>
+                <p>{{ bien?.periode?.nom }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien.adresse && bien.adresse.quartier"
+                *ngIf="bien?.adresse && bien?.adresse?.quartier"
               >
                 <p>Quartier</p>
-                <p>{{ bien.adresse.quartier }}</p>
+                <p>{{ bien?.adresse?.quartier }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien.adresse && bien.adresse.rue"
+                *ngIf="bien?.adresse && bien?.adresse?.rue"
               >
                 <p>Rue</p>
-                <p>{{ bien.adresse.rue }}</p>
+                <p>{{ bien?.adresse?.rue }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien.adresse && bien.adresse.porte"
+                *ngIf="bien?.adresse && bien?.adresse?.porte"
               >
                 <p>Porte</p>
-                <p>{{ bien.adresse.porte }}</p>
+                <p>{{ bien?.adresse?.porte }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.createdAt"
+                *ngIf="bien && bien?.createdAt"
               >
                 <p>Date de publication</p>
-                <p>{{ bien.createdAt | date : "dd/MM/yyyy" }}</p>
+                <p>{{ bien?.createdAt | date : "dd/MM/yyyy" }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.nb_piece"
+                *ngIf="bien && bien?.nb_piece"
               >
                 <p>Salon</p>
-                <p>{{ bien.nb_piece }}</p>
+                <p>{{ bien?.nb_piece }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.chambre"
+                *ngIf="bien && bien?.chambre"
               >
                 <p>Chambre</p>
-                <p>{{ bien.chambre }}</p>
+                <p>{{ bien?.chambre }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.cuisine"
+                *ngIf="bien && bien?.cuisine"
               >
                 <p>Cuisine</p>
-                <p>{{ bien.cuisine }}</p>
+                <p>{{ bien?.cuisine }}</p>
               </div>
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.toilette"
+                *ngIf="bien && bien?.toilette"
               >
                 <p>Toilette</p>
-                <p>{{ bien.toilette }}</p>
+                <p>{{ bien?.toilette }}</p>
               </div>
             </div>
           </div>
@@ -1277,29 +1277,31 @@
             *ngIf="!isAgenceProprietaire"
           >
             <div class="telecharge-container">
-              <div class="telecharge crd">
-                <a
-                  (click)="AnnulerContratLocataire(contrat?.id)"
-                  class="action-btn btn-edit"
-                >
-                  <i style="color: white" class="fas fa-times"></i> Annuler le
-                  contrat</a
-                >
-              </div>
-              <div class="telecharge crd">
-                <a
-                  (click)="ValiderContratLocataire(contrat?.id)"
-                  class="action-btn btn-edit"
-                >
-                  <i style="color: white" class="fas fa-check"></i> Valider le contrat</a
-                >
-              </div>
-              <div class="telecharge crd">
-                <a (click)="genererPDFContrat()" class="action-btn btn-edit">
-                  <i style="color: white" class="fas fa-check"></i> Generer le
-                  contrat</a
-                >
-              </div>
+             
+                <div class=" telecharge crd" *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
+                  <a
+                    (click)="AnnulerContratLocataire(contrat?.id)"
+                    class="action-btn btn-edit"
+                  >
+                    <i style="color: white" class="fas fa-times"></i> Annuler le
+                    contrat</a
+                  >
+                </div>
+                <div class=" telecharge crd" *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
+                  <a
+                    (click)="ValiderContratLocataire(contrat?.id)"
+                    class="action-btn btn-edit"
+                  >
+                    <i style="color: white" class="fas fa-check"></i> Valider le contrat</a
+                  >
+                </div>
+                <div class=" telecharge crd">
+                  <a (click)="genererPDFContrat()" class="action-btn btn-edit">
+                    <i style="color: white" class="fas fa-check"></i> Generer le
+                    contrat</a
+                  >
+                </div>
+             
               <!-- Indicateur de chargement -->
               <div
                 *ngIf="loading"
@@ -1316,7 +1318,7 @@
             *ngIf="isAgenceProprietaire"
           >
             <div class="telecharge-container">
-              <div class="telecharge crd">
+              <div class="telecharge crd" *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
                 <a
                   (click)="AnnulerContratProprietaire(contrat?.id)"
                   class="action-btn btn-edit"
@@ -1325,7 +1327,7 @@
                   contrat</a
                 >
               </div>
-              <div class="telecharge crd">
+              <div class="telecharge crd" *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
                 <a
                   (click)="ValiderContratProprietaire()"
                   class="action-btn btn-edit"

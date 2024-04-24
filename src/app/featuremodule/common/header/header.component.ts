@@ -43,6 +43,8 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
   nombreCandidatureAccepter: number = 0
+  filteredData : number = 0
+
   nombreRdvUser: number = 0
 
   isLoggedIn = false;
@@ -106,13 +108,17 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
       //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
       this.serviceUser.AfficherLaListeRdv().subscribe(data => {
         this.nombreRdvUser = data?.length;
+
       }
       );
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
       this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
         this.nombreCandidatureBienUser = data?.length;
+        const filteredData = data.filter((item: { isAccepted: any; isCancel: any; }) => !item.isAccepted && !item.isCancel);
+          // Mettre à jour la variable avec la liste filtrée
+          this.filteredData = filteredData.length;
         // Calculer la somme des candidatures et des rendez-vous
-        this.somme = this.nombreRdvUser + this.nombreCandidatureBienUser + this.nombreCandidatureAccepter;
+        this.somme = this.nombreRdvUser + this.filteredData + this.nombreCandidatureAccepter;
 
       });
     });

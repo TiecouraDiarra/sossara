@@ -2963,6 +2963,12 @@ p {
 }
 
 @media (max-width:768px) {
+    .telecharge-container{
+        display: block !important;
+    }
+    .telecharge{
+        margin-bottom: 20px !important;
+    }
     .container {
         max-width: 700px;
         margin: 10px auto
@@ -3019,15 +3025,17 @@ p {
     margin: 10px;
 }
 
+
 .telecharge {
     margin: 10px;
     /* Supprimez les marges pour éviter l'espacement supplémentaire */
 }
 
+
 .telecharge a {
     background: #e98b11;
     color: #fff;
-    padding: 14px 58px;
+    padding: 7px 29px !important;
     border-radius: 10px;
     border: 1px solid #e98b11;
 }

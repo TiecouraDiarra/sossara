@@ -342,7 +342,7 @@ export class LocataireComponent implements OnInit {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-
+  
 
 
       // Filtrer les biens immobiliers
@@ -422,28 +422,18 @@ export class LocataireComponent implements OnInit {
 
     });
 
-    //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
-    this.serviceBienImmo.AfficherBienImmoDejaLoueParUser().subscribe(data => {
-      this.bienImmoDejaLoue = data.biens.reverse();
-    });
+  
 
-    //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR AVEC AGENCE
-    this.serviceBienImmo.AfficherBienImmoDejaLoueParAgence().subscribe(data => {
-      // this.bienImmoDejaLoueNew = data;
-      this.bienagent = data.agent_bien;
-      this.bienImmoDejaLoueAgence = data.biens;
-      // this.bienTotalAgence = [...this.bienagent, ...this.bienImmoDejaLoueAgence];
-
-    });
+  
 
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR AVEC AGENCE
-    this.serviceBienImmo.AfficherBienImmoDejaVenduParAgence().subscribe(data => {
-      // this.bienImmoDejaLoueNew = data;
-      this.bienVenduagent = data.agent_bien;
-      this.bienImmoDejaVenduAgence = data.biens;
-      // this.bienVenduTotalAgence = [...this.bienVenduagent, ...this.bienImmoDejaVenduAgence];
+    // this.serviceBienImmo.AfficherBienImmoDejaVenduParAgence().subscribe(data => {
+    //   // this.bienImmoDejaLoueNew = data;
+    //   this.bienVenduagent = data.agent_bien;
+    //   this.bienImmoDejaVenduAgence = data.biens;
+    //   // this.bienVenduTotalAgence = [...this.bienVenduagent, ...this.bienImmoDejaVenduAgence];
 
-    });
+    // });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
     this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
@@ -461,10 +451,7 @@ export class LocataireComponent implements OnInit {
         
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      // console.log(this.bienImmoDejaLoueLocataire);
-
-      // // Afficher les biens déjà loués et déjà vendus
-      console.log( this.bienImmoDejaLoueLocataire);
+    
       
  
     });
@@ -504,9 +491,9 @@ export class LocataireComponent implements OnInit {
 
 
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
-    this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
-      this.bienImmoDejaVendu = data.biens.reverse();
-    });
+    // this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
+    //   this.bienImmoDejaVendu = data.biens.reverse();
+    // });
 
     //AFFICHER LA LISTE DES FACTURES DU LOCATAIRE CONNECTE
     this.servicefacture.AfficherFactureLocataireConnecter().subscribe(data => {
@@ -826,6 +813,7 @@ export class LocataireComponent implements OnInit {
             // }
           });
         });
+        
       });
 
       //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 

@@ -52,7 +52,9 @@
                                     </ul>
                                     <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide.uuid)">{{slide?.titre}}</a>
                                     </h3>
-                                    <p class="blog-description">{{slide?.description}} </p>
+                                    
+                                    <p class="blog-description"                                 [innerHTML]="slide ? slide?.description : 'Aucune description'"
+                                    > </p>
                                     <div class="viewlink crd"><a (click)="goToDettailBlog(slide.uuid)">Voir plus <i
                                                 class="feather-arrow-right"></i></a></div>
                                 </div>

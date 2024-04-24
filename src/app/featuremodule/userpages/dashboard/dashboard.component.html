@@ -66,7 +66,7 @@
         <div class="dashboard-details">
             <div class="row">
                 <div class="col-lg-3 col-md-3" *ngIf="isLocataire">
-                    <div class="card dash-cards cad">
+                    <div class="card dash-cards cad" [routerLink]="routes.mylisting" style="cursor: pointer;">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -75,15 +75,15 @@
                                         alt="">
                                 </div>
                             </div>
-                            <div class="dash-widget-info">
-                                <h6>Biens loues</h6>
+                            <div  class="dash-widget-info">
+                                <h6>Biens loués</h6>
                                 <h3 class="counter">{{nombreBienLoue}}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3" *ngIf="isLocataire">
-                    <div class="card dash-cards cad">
+                <div class="col-lg-3 col-md-3" *ngIf="isLocataire" style="cursor: pointer;">
+                    <div class="card dash-cards cad" [routerLink]="routes.mylisting" style="cursor: pointer;">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -99,8 +99,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire && !isAgence && !isAgent">
-                    <div class="card dash-cards cad">
+                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire && !isAgence && !isAgent" style="cursor: pointer;">
+                    <div class="card dash-cards cad" [routerLink]="routes.mylisting">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -117,8 +117,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3" *ngIf="isAgence">
-                    <div class="card dash-cards cad">
+                <div class="col-lg-3 col-md-3" *ngIf="isAgence" style="cursor: pointer;">
+                    <div class="card dash-cards cad" [routerLink]="routes.mylisting" style="cursor: pointer;">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -134,8 +134,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire">
-                    <div class="card dash-cards cad">
+                <div class="col-lg-3 col-md-3" *ngIf="!isLocataire" style="cursor: pointer;">
+                    <div class="card dash-cards cad" [routerLink]="routes.rdv">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -151,8 +151,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="card dash-cards cad">
+                <div class="col-lg-3 col-md-3" style="cursor: pointer;">
+                    <div class="card dash-cards cad" [routerLink]="routes.messages">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">
@@ -168,8 +168,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3" *ngIf="isAgence">
-                    <div class="card dash-cards cad">
+                <div class="col-lg-3 col-md-3" *ngIf="isAgence"style="cursor: pointer;" >
+                    <div class="card dash-cards cad"  [routerLink]="routes.bookmarks">
                         <div class="card-body">
                             <div class="dash-top-content">
                                 <div class="dashcard-img">

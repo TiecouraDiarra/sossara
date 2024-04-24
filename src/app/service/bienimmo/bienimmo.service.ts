@@ -150,28 +150,28 @@ export class BienimmoService {
 
 
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR SANS AGENCE
-  AfficherBienImmoDejaLoueParUser(): Observable<any> {
-    const headers = this.getHeaders();
+  // AfficherBienImmoDejaLoueParUser(): Observable<any> {
+  //   const headers = this.getHeaders();
 
-    return this.http.get(`${URL_BASE}/bien/immo/get/rent`,
-      { headers });
-  }
+  //   return this.http.get(`${URL_BASE}/bien/immo/get/rent`,
+  //     { headers });
+  // }
 
   //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'AGENCE
-  AfficherBienImmoDejaLoueParAgence(): Observable<any> {
-    const headers = this.getHeaders();
+  // AfficherBienImmoDejaLoueParAgence(): Observable<any> {
+  //   const headers = this.getHeaders();
 
-    return this.http.get(`${URL_BASE}/bien/immo/agence/get/rent`,
-      { headers });
-  }
+  //   return this.http.get(`${URL_BASE}/bien/immo/agence/get/rent`,
+  //     { headers });
+  // }
 
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'AGENCE
-  AfficherBienImmoDejaVenduParAgence(): Observable<any> {
-    const headers = this.getHeaders();
+  // AfficherBienImmoDejaVenduParAgence(): Observable<any> {
+  //   const headers = this.getHeaders();
 
-    return this.http.get(`${URL_BASE}/bien/immo/agence/get/sell`,
-      { headers });
-  }
+  //   return this.http.get(`${URL_BASE}/bien/immo/agence/get/sell`,
+  //     { headers });
+  // }
 
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
   AfficherBienImmoDejaLoueParLocataire(): Observable<any> {
@@ -192,12 +192,12 @@ export class BienimmoService {
 
 
   //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
-  AfficherBienImmoDejaVenduParUser(): Observable<any> {
-    const headers = this.getHeaders();
+  // AfficherBienImmoDejaVenduParUser(): Observable<any> {
+  //   const headers = this.getHeaders();
 
-    return this.http.get(`${URL_BASE}/bien/immo/get/sell`,
-      { headers });
-  }
+  //   return this.http.get(`${URL_BASE}/bien/immo/get/sell`,
+  //     { headers });
+  // }
 
   //AFFICHER LA LISTE DES RECLAMATIONS EN FONCTION DES BIENS DE L'UTILISATEUR
   AfficherListeReclamationParUser(): Observable<any> {
@@ -290,7 +290,6 @@ export class BienimmoService {
     photos.forEach(p => { formData.append('photoImmos', p); });
     formData.append('uid', id.toString()); // Convertir l'identifiant en chaîne de caractères
 
-    
     return this.http.put(
       URL_BASE + '/bien/modifierbien/' + `${id}`,
       formData,
@@ -385,7 +384,7 @@ export class BienimmoService {
   }
 
 
-  //AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
+  // AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
   AfficherFavorisParUserConnecter(): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(`${URL_BASE}/favoris/favoris`,

@@ -198,7 +198,6 @@ export class ProfileComponent implements OnInit {
       //AFFICHER LA PHOTO DE USER CONNECTER
     this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
       this.photo = data;
-      console.log(this.photo);
     });
 
 
@@ -298,7 +297,9 @@ export class ProfileComponent implements OnInit {
         this.authService.logout().subscribe({
           next: res => {
              this.storageService.clean();
-            this.router.navigateByUrl("/auth/connexion")
+             this.router.navigate(['/auth/connexion']).then(() => {
+              window.location.reload();
+            })
           },
           error: err => {
            }
@@ -533,7 +534,11 @@ export class ProfileComponent implements OnInit {
               this.isSuccessful = true;
               this.isSignUpFailed = false;
               this.popUpModification();
-              window.location.reload();
+              this.storageService.clean();
+              this.router.navigate(['/auth/connexion']).then(() => {
+                window.location.reload();
+              })
+
             },
             error: err => {
               this.errorMessage = err.error.message;
@@ -582,7 +587,7 @@ export class ProfileComponent implements OnInit {
                   next: data => {
                        if (data) {
                           const user = this.storageService.getUser();
-              
+                       
                           if (user) {
                               if (user.adresse === null) {
                                   user.adresse = {
@@ -628,7 +633,8 @@ export class ProfileComponent implements OnInit {
                           this.isSuccessful = true;
                           this.isSignUpFailed = false;
                           this.popUpModification();
-                           window.location.reload();
+                          
+                         
                       } else {
                       }
                   },

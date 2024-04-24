@@ -277,7 +277,7 @@
                                         style="background-color: #e98b11; color: white; font-weight: bold;">
                                         <tr class="tr" style="color: white; font-weight: bold;">
                                             <th>No.</th>
-                                            <th class="pl0 text-start">Description</th>
+                                            <th class="pl0 text-start">Reference</th>
                                             <th class="text-center">Prix</th>
                                             <th class="text-center">Mois</th>
                                             <th class="text-end">Montant</th>
@@ -335,7 +335,8 @@
                                             <td></td>
                                             <td></td>
                                             <td class="text-center">Total</td>
-                                            <td class="text-end">{{formatPrice((bien?.prix !== 0 ? bien?.prix : 1) * ((bien?.avance !== 0 ? bien?.avance : 1)  + (bien?.caution !== 0 ? bien?.caution : 1)))}} FCFA</td>
+                                            <td class="text-end">{{ formatPrice((bien?.prix > 0 ? bien?.prix : 0) * ((bien?.avance > 0 ? bien?.avance : 0) + (bien?.caution > 0 ? bien?.caution : 1))) }}
+                                                FCFA</td>
                                         </tr>
                                         <!-- <tr class="tr2">
                                         <td></td>
@@ -349,7 +350,7 @@
                                             <td></td>
                                             <td></td>
                                             <td class="text-center f-w-600 active-color">Total</td>
-                                            <td class="f-w-600 text-end active-color">{{formatPrice((bien?.prix !== 0 ? bien?.prix : 1) * ((bien?.avance !== 0 ? bien?.avance : 1) + (bien?.caution !== 0 ? bien?.caution : 1)))}} FCFA</td>
+                                            <td class="f-w-600 text-end active-color">{{ formatPrice((bien?.prix > 0 ? bien?.prix : 0) * ((bien?.avance > 0 ? bien?.avance : 0) + (bien?.caution > 0 ? bien?.caution : 1))) }}FCFA</td>
 
                                         </tr>
                                     </tbody>
@@ -372,6 +373,7 @@
                     </div>
                     <div class="invoice-btn-section clearfix d-print-none" *ngIf="!isAgenceProprietaire">
                         <div class="telecharge-container">
+                            
                             <div class="telecharge crd" *ngIf="facture?.statut">
                                 <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
                                     <!-- <i class="fa fa-print"></i>  -->

@@ -146,7 +146,6 @@ export class NotificationsComponent implements OnInit {
       // this.candidature = data.reverse();
       // this.nombreRdvUser = data.length;
        // Filtrer les biens immobiliers
-       console.log(data)
       data.forEach((Candidature: any) => {
         if (Candidature.isAccepted === false && Candidature.isCancel === false) {
           this.candidature?.push(Candidature);

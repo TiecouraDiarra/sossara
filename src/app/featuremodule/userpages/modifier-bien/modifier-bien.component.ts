@@ -12,13 +12,12 @@ import { environment } from 'src/app/environments/environment';
 import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
 import { ContentChange, SelectionChange } from 'ngx-quill';
 
-
 const URL_PHOTO: string = environment.Url_PHOTO;
 
 @Component({
   selector: 'app-modifier-bien',
   templateUrl: './modifier-bien.component.html',
-  styleUrls: ['./modifier-bien.component.scss']
+  styleUrls: ['./modifier-bien.component.scss'],
 })
 export class ModifierBienComponent {
   selectedCategory: any = '';
@@ -54,9 +53,9 @@ export class ModifierBienComponent {
   nombreZone: any;
   usage: any;
   users: any;
-  latitude: any
-  longitude: any
-  description: any
+  latitude: any;
+  longitude: any;
+  description: any;
   status: any = ['A louer', 'A vendre'];
   type: any;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -69,7 +68,7 @@ export class ModifierBienComponent {
   ModifBien: any = false;
   isLocataire = false;
   isAgence = false;
-  isProprietaire= false;
+  isProprietaire = false;
   roles: string[] = [];
   selectedStatutMensuel: any | null = null;
   selectedStatut: any | null = null;
@@ -87,7 +86,6 @@ export class ModifierBienComponent {
     });
   }
 
-
   //METHODE PERMETTANT DE CHANGER LES TYPES
   // onTypeChange(event: any) {
   //   this.selectedType = event.value;
@@ -102,7 +100,7 @@ export class ModifierBienComponent {
     //   return;
     // }
     this.selectedType = event.value;
-    
+
     if (this.selectedType === '3') {
       this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
       this.form.caution = 0; // Envoyer la valeur 0 si le type de bien est un terrain
@@ -115,7 +113,6 @@ export class ModifierBienComponent {
       this.form.rue = ''; // Envoyer la valeur 0 si le type de bien est un terrain
     }
   }
-
 
   form: any = {
     commodite: null,
@@ -159,46 +156,47 @@ export class ModifierBienComponent {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
       setTimeout(() => {
-      this.form = {
-        nom: this.bien?.nom,
-        description: this.bien?.description,
-        type: this.bien?.typeImmo?.id,
-        caracteristique: this.bien?.caracteristique?.id,
-        surface: this.bien?.surface,
-        periode: this.bien?.periode?.id,
-        porte: this.bien?.adresse?.porte,
-        rue: this.bien?.adresse?.rue,
-        quartier: this.bien?.adresse?.quartier,
-        statut: this.bien?.statut?.id,
-        prix: this.bien?.prix,
-        toilette: this.bien?.toilette,
-        nb_piece: this.bien?.nb_piece,
-        cuisine: this.bien?.cuisine,
-        chambre: this.bien?.chambre,
-        reference: this.bien?.reference,
-        longitude: this.bien?.adresse?.longitude,
-        latitude: this.bien?.adresse?.latitude,
-        commune: this.bien?.adresse?.commune?.id,
-        pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
-        region: this.bien?.adresse?.commune?.region?.id,
-        caution: this.bien?.caution,      
-      };
-      this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-        this.les_commodite = data;
-      });
+        this.form = {
+          nom: this.bien?.nom,
+          description: this.bien?.description,
+          type: this.bien?.typeImmo?.id,
+          caracteristique: this.bien?.caracteristique?.id,
+          surface: this.bien?.surface,
+          periode: this.bien?.periode?.id,
+          porte: this.bien?.adresse?.porte,
+          rue: this.bien?.adresse?.rue,
+          quartier: this.bien?.adresse?.quartier,
+          statut: this.bien?.statut?.id,
+          prix: this.bien?.prix,
+          toilette: this.bien?.toilette,
+          nb_piece: this.bien?.nb_piece,
+          cuisine: this.bien?.cuisine,
+          chambre: this.bien?.chambre,
+          reference: this.bien?.reference,
+          longitude: this.bien?.adresse?.longitude,
+          latitude: this.bien?.adresse?.latitude,
+          commune: this.bien?.adresse?.commune?.id,
+          pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
+          region: this.bien?.adresse?.commune?.region?.id,
+          caution: this.bien?.caution,
+        };
+      
+        this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+          this.les_commodite = data;
 
-      if (this.bien) {
-        // Parcourez les commodités liées à bien
-        for (const item of this.les_commodite) {
-          // Vérifiez si l'ID de la commodité est dans la liste des commodités de bien
-          item.selected = this.bien.commodites.some(
-            (commodite: any) => commodite.id === item.id
-          );
-        }
-      }
-    });
+          // Parcourez les commodités et pré-sélectionnez celles liées au bien
+          for (const commodite of this.les_commodite) {
+            commodite.selected = this.bien.commodites.some(
+              (bienCommodite: any) => bienCommodite.id === commodite.id
+            );
+          }
+        });
+      });
     });
   }
+  selectedCommodites: { [key: string]: boolean } = {};
+
+
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -208,8 +206,8 @@ export class ModifierBienComponent {
         this.isLocataire = true;
       } else if (this.roles[0] == 'ROLE_AGENCE') {
         this.isAgence = true;
-      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isProprietaire = true
+      } else if (this.roles.includes('ROLE_PROPRIETAIRE')) {
+        this.isProprietaire = true;
       }
     }
 
@@ -219,31 +217,48 @@ export class ModifierBienComponent {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      this.selectedValue=this.bien?.adresse.commune?.cercle?.region?.pays?.nompays
-      this.selectedValueR=this.bien?.adresse.commune?.cercle?.region?.nomregion
-      this.selectedValueC=this.bien?.adresse.commune?.cercle?.nomcercle
-      this.selectedStatut=this.bien?.statut?.id
-      this.selectedStatutMensuel=this.bien?.periode?.id
-
+      this.selectedValue =
+        this.bien?.adresse.commune?.cercle?.region?.pays?.nompays;
+      this.selectedValueR =
+        this.bien?.adresse.commune?.cercle?.region?.nomregion;
+      this.selectedValueC = this.bien?.adresse.commune?.cercle?.nomcercle;
+      this.selectedStatut = this.bien?.statut?.id;
+      this.selectedStatutMensuel = this.bien?.periode?.id;
+    
+    
 
       // Récupération de la liste des commodités
-  this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-    this.les_commodite = data;
+      this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+        this.les_commodite = data;
 
-    // Pré-remplissage des commodités
-    if (this.bien && this.bien.commodites) {
-      for (const commodite of this.les_commodite) {
-        commodite.selected = this.bien.commodites.some(
-          (bienCommodite: any) => bienCommodite.id === commodite.id
-        );
+        if (this.bien && this.bien.commodites) {
+      
+          for (const commodite of this.les_commodite) {
+              commodite.selected = this.bien.commodites.some(
+                  (bienCommodite: any) => bienCommodite.id === commodite.id
+              );
+          }
+      
+          // Récupérer la liste des IDs des commodités sélectionnées
+          const selectedCommoditesIds = this.les_commodite
+              .filter(commodite => commodite.selected)
+              .map(commodite => commodite.id);
+      
+          // Mettre à jour this.form.commodite avec la liste des IDs
+          this.form.commodite = selectedCommoditesIds.length > 0 ? selectedCommoditesIds : null;
       }
-    }
-  });
-  
+      
+      
+     
+   
+      });
+
       this.photos = this.bien?.photos;
       this.photos = this.bien?.photos;
-      this.images1 = this.bien?.photos.map((photo: { nom: string; }) => ({ nom: photo.nom, data: this.generateImageUrl(photo.nom) }));
-      console.log(this.images1)
+      this.images1 = this.bien?.photos.map((photo: { nom: string }) => ({
+        nom: photo.nom,
+        data: this.generateImageUrl(photo.nom),
+      }));
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
       const currentUser = this.storageService.getUser();
@@ -281,24 +296,30 @@ export class ModifierBienComponent {
       };
 
       // Ajouter une couche de tuiles OpenStreetMap
-      const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      });
+      const tiles = L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          maxZoom: 18,
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }
+      );
 
       // Créer une icône personnalisée pour le marqueur
       var customIcon = L.icon({
         iconUrl: 'assets/img/iconeBien/localisations.svg',
         iconSize: [80, 80], // Taille de l'icône [largeur, hauteur]
         iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
-        popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
+        popupAnchor: [0, -38], // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
       });
-      const map = L.map('map').setView([this.latitude, this.longitude], 12).addLayer(tiles); // Définir une vue initiale;
+      const map = L.map('map')
+        .setView([this.latitude, this.longitude], 12)
+        .addLayer(tiles); // Définir une vue initiale;
       tiles.addTo(map);
       // Créer un marqueur initial au centre de la carte
       const initialMarker = L.marker([this.latitude, this.longitude], {
         icon: customIcon,
-        draggable: true // Rend le marqueur draggable
+        draggable: true, // Rend le marqueur draggable
       }).addTo(map);
       // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
       // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
@@ -306,10 +327,7 @@ export class ModifierBienComponent {
         const markerLatLng = markerEvent.target.getLatLng();
         this.form.latitude = markerLatLng.lat;
         this.form.longitude = markerLatLng.lng;
-
-
       });
-
 
       // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
       initialMarker.on('click', () => {
@@ -323,8 +341,6 @@ export class ModifierBienComponent {
         // Mettez à jour les coordonnées dans votre formulaire
         this.form.latitude = newLatLng.lat;
         this.form.longitude = newLatLng.lng;
-
-
       });
     });
     //AFFICHER LA LISTE DES PERIODES
@@ -382,12 +398,11 @@ export class ModifierBienComponent {
   }
 
   onChange(newValue: any) {
-  
     this.regions = this.region.filter(
       (el: any) => el.pays.nompays == newValue.value
     );
   }
-  
+
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
       (el: any) => el.region.nomregion == newValue.value
@@ -417,8 +432,7 @@ export class ModifierBienComponent {
     this.form.photo = this.images1; // Utilisez this.images1 pour assigner les images au formulaire
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
-  
-  
+
   removeImage(index: number) {
     this.images1.splice(index, 1); // Supprime l'image du tableau
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
@@ -466,10 +480,6 @@ export class ModifierBienComponent {
     return baseUrl + photoFileName;
   }
 
-
-
-
-
   //MODIFIER UN BIEN
   ModifierBien(): void {
     //RECUPERER L'ID D'UN BIEN
@@ -498,6 +508,7 @@ export class ModifierBienComponent {
       latitude,
       photo,
     } = this.form;
+
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -569,7 +580,7 @@ export class ModifierBienComponent {
                   next: (data) => {
                     this.isSuccess = false;
                     this.popUpConfirmationModification();
-                    this.router.navigate(['details-bien', this.id])
+                    this.router.navigate(['details-bien', this.id]);
                   },
                   error: (err) => {
                     this.errorMessage = err.error.message;
@@ -584,7 +595,9 @@ export class ModifierBienComponent {
   }
 
   // Fonction pour convertir les URLs des images en objets File
-  async convertURLsToFiles(images: { nom: string; data: string }[]): Promise<File[]> {
+  async convertURLsToFiles(
+    images: { nom: string; data: string }[]
+  ): Promise<File[]> {
     const files: File[] = [];
 
     for (const image of images) {
@@ -662,7 +675,7 @@ export class ModifierBienComponent {
         description: this.bien?.description,
         // Autres champs à récupérer...
       };
-  
+
       // Récupération de la liste des commodités
       this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
         this.les_commodite = data;
@@ -677,70 +690,46 @@ export class ModifierBienComponent {
       });
     });
   }
-  
-  isCommoditeSelected(commodite: any): boolean {
-    if (this.bien && this.bien.commodites) {
-      return this.bien.commodites.some(
-        (c: { id: any }) => c.id === commodite.id
-      );
-    }
-    return false;
-  }
+
   
 
-  toggleCommodite(commodite: any) {
-    if (!this.bien.commodites) {
-      this.bien.commodites = [];
-    }
-    const index = this.bien.commodites.findIndex(
-      (c: { id: any }) => c.id === commodite.id
-    );
-    if (index !== -1) {
-      this.bien.commodites.splice(index, 1); // Retire la commodité si elle est déjà sélectionnée
-    } else {
-      this.bien.commodites.push(commodite); // Ajoute la commodité si elle n'est pas encore sélectionnée
-    }
-  }
-  
+
 
   quillConfig = {
     toolbar: {
       container: [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
         ['code-block'],
-       //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-       //  [{ 'direction': 'rtl' }],                         // text direction
+        //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+        [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+        //  [{ 'direction': 'rtl' }],                         // text direction
 
-       //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-        [{ 'align': [] }],
+        [{ align: [] }],
 
-       //  ['clean'],                                         // remove formatting button
+        //  ['clean'],                                         // remove formatting button
 
-       //  ['link'],
-        ['link', 'image', 'video']
+        //  ['link'],
+        ['link', 'image', 'video'],
       ],
     },
- }
+  };
 
   onSelectionChanged = (event: SelectionChange) => {
-    if(event.oldRange == null) {
+    if (event.oldRange == null) {
       this.onFocus();
     }
-    if(event.range == null) {
+    if (event.range == null) {
       this.onBlur();
     }
-  }
- 
-  onContentChanged = (event: ContentChange) => {
-  }
- 
-  onFocus = () => {
-  }
-  onBlur = () => {
-  }
+  };
+
+  onContentChanged = (event: ContentChange) => {};
+
+  onFocus = () => {};
+  onBlur = () => {};
 }

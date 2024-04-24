@@ -421,11 +421,9 @@ export class AccueilComponent {
     this.http.get(this.apiUrl).subscribe(
       (response) => {
         this.responseData = response;
-        // console.log('Réponse de l\'API :', this.responseData);
         // Traitez la réponse ici selon vos besoins
       },
       (error) => {
-        // console.error('Erreur lors de la récupération des données de l\'API :', error);
         // Gérez l'erreur ici
       }
     );
@@ -435,7 +433,6 @@ export class AccueilComponent {
 
     // this.apiUrl = this.BackLien();
     // Maintenant, vous pouvez utiliser this.apiUrl comme URL dans votre composant
-    // console.log(this.apiUrl); // Pour vérifier si l'URL est correcte
     
     this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
       // this.customHtmlMaxValue = data[0].prix;
@@ -534,6 +531,8 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
+      console.log("Agence ", data);
+      
       // data.forEach((user: any) => {
       //   // Vérifier si le bien est déjà loué
       //   if (user.roles.name.imclude("ROLE_AGENCE")) {

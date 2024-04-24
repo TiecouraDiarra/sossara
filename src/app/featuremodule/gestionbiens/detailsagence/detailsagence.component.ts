@@ -145,6 +145,7 @@ export class DetailsagenceComponent implements OnInit {
     //RECUPERER L'ID D'UNE AGENCE
     this.id = this.route.snapshot.params["id"]
     this.serviceAgence.AfficherAgenceParUuId(this.id).subscribe(data => {
+
         // Initialiser une liste pour stocker tous les biens immobiliers des agents
         let totalBiensAgents: any[] = [];
          // Parcourir chaque agent

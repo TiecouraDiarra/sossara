@@ -108,7 +108,6 @@ export class ContratComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
       this.contrat = data;
-      console.log('DATA : ', data);
       this.bien = data?.bien;
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;

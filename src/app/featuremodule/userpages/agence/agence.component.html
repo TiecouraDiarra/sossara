@@ -286,9 +286,10 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let BienImmo of (bienImmoAgenceTotal).slice((currentPage - 1) * itemsPerPage,             currentPage * itemsPerPage)
-                        | filter : searchText
-                       
+                      let BienImmo of bienImmoAgenceTotal.slice(
+                        (currentPage - 1) * itemsPerPage,
+                        currentPage * itemsPerPage
+                      ) | filter : searchText
                     "
                   >
                     <td>
@@ -459,26 +460,34 @@
 
             <div class="blog-pagination">
               <nav>
-                  <ul class="pagination">
-                      <li class="page-item previtem crd">
-                          <a class="page-link" (click)="previousPage()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
-                      </li>
-                      <li class="justify-content-center pagination-center"> 
-                          <div class="pagelink">
-                              <ul>
-                                 <li class="page-item crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
-                                  (click)="setCurrentPage(page)">
-                                      <a class="page-link">{{ page }}</a>
-                                  </li>
-                             </ul>
-                          </div>													
-                      </li>													
-                      <li class="page-item nextlink crd">
-                          <a class="page-link" (click)="nextPage()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
-                      </li>
-                  </ul>
+                <ul class="pagination">
+                  <li class="page-item previtem crd">
+                    <a class="page-link" (click)="previousPage()"
+                      ><i class="fas fa-regular fa-arrow-left"></i> Prec</a
+                    >
+                  </li>
+                  <li class="justify-content-center pagination-center">
+                    <div class="pagelink">
+                      <ul>
+                        <li
+                          class="page-item crd"
+                          *ngFor="let page of pages"
+                          [class.is-active]="currentPage === page"
+                          (click)="setCurrentPage(page)"
+                        >
+                          <a class="page-link">{{ page }}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="page-item nextlink crd">
+                    <a class="page-link" (click)="nextPage()"
+                      >Suiv <i class="fas fa-regular fa-arrow-right"></i
+                    ></a>
+                  </li>
+                </ul>
               </nav>
-              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -950,11 +959,10 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let BienImmo of (bienTotalAgence).slice(
-                  (currentA - 1) * itemsPerPage,
-                  currentA * itemsPerPage)
-                        | filter : searchTextBienLoue
-                        
+                      let BienImmo of bienTotalAgence.slice(
+                        (currentA - 1) * itemsPerPage,
+                        currentA * itemsPerPage
+                      ) | filter : searchTextBienLoue
                     "
                   >
                     <td>
@@ -1079,26 +1087,34 @@
             ></pagination-controls> -->
             <div class="blog-pagination">
               <nav>
-                  <ul class="pagination">
-                      <li class="page-item previtem crd">
-                          <a class="page-link" (click)="previousPageA()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
-                      </li>
-                      <li class="justify-content-center pagination-center"> 
-                          <div class="pagelink">
-                              <ul>
-                                 <li class="page-item crd" *ngFor="let page of pageA" [class.is-active]="currentA === page"
-                                  (click)="setCurrentPageA(page)">
-                                      <a class="page-link">{{ page }}</a>
-                                  </li>
-                             </ul>
-                          </div>													
-                      </li>													
-                      <li class="page-item nextlink crd">
-                          <a class="page-link" (click)="nextPageA()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
-                      </li>
-                  </ul>
+                <ul class="pagination">
+                  <li class="page-item previtem crd">
+                    <a class="page-link" (click)="previousPageA()"
+                      ><i class="fas fa-regular fa-arrow-left"></i> Prec</a
+                    >
+                  </li>
+                  <li class="justify-content-center pagination-center">
+                    <div class="pagelink">
+                      <ul>
+                        <li
+                          class="page-item crd"
+                          *ngFor="let page of pageA"
+                          [class.is-active]="currentA === page"
+                          (click)="setCurrentPageA(page)"
+                        >
+                          <a class="page-link">{{ page }}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="page-item nextlink crd">
+                    <a class="page-link" (click)="nextPageA()"
+                      >Suiv <i class="fas fa-regular fa-arrow-right"></i
+                    ></a>
+                  </li>
+                </ul>
               </nav>
-              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1277,7 +1293,7 @@
                           <div class="review-details">
                             <div class="tes">
                               <div class="views-count">
-                                {{ BienImmo.candidatures[0].utilisateur.nom }}
+                                {{ BienImmo?.candidatures[0]?.utilisateur?.nom }}
                               </div>
                             </div>
                             <!-- <div>Tel : {{BienImmo.candidatures[0].utilisateur.telephone}}
@@ -1903,7 +1919,8 @@
                             id="staticBackdropLabel"
                           >
                             Facture du mois
-                            <span style="color: #e98b11">{{today| date: "MMMM YYYY"
+                            <span style="color: #e98b11">{{
+                              today | date : "MMMM YYYY"
                             }}</span>
                           </h5>
                           <div class="receipt-main">
@@ -2061,17 +2078,13 @@
                                     <td class="text-center">
                                       <p *ngIf="transaction">
                                         <strong>
-                                          {{
-                                            formatPrice(transaction.somme)
-                                          }}
+                                          {{ formatPrice(transaction.somme) }}
                                           FCFA</strong
                                         >
                                       </p>
                                       <p *ngIf="transaction">
                                         <strong>
-                                          {{
-                                            formatPrice(transaction.somme)
-                                          }}
+                                          {{ formatPrice(transaction.somme) }}
                                           FCFA</strong
                                         >
                                       </p>
@@ -2086,9 +2099,7 @@
                                     >
                                       <h2 *ngIf="transaction">
                                         <strong>
-                                          {{
-                                            formatPrice(transaction.somme)
-                                          }}
+                                          {{ formatPrice(transaction.somme) }}
                                           FCFA</strong
                                         >
                                       </h2>
@@ -2106,10 +2117,7 @@
                                   <div class="receipt-right">
                                     <p>
                                       <b>Date :</b>
-                                      {{
-                                        today
-                                          | date: "dd MMMM yyyy"
-                                      }}
+                                      {{ today | date : "dd MMMM yyyy" }}
                                     </p>
                                     <h5 style="color: rgb(140, 140, 140)">
                                       Merci pour la confiance.!
@@ -2621,10 +2629,7 @@
                                   <div class="receipt-right">
                                     <p>
                                       <b>Date :</b>
-                                      {{
-                                        today
-                                          | date: "dd MMMM yyyy"
-                                      }}
+                                      {{ today | date : "dd MMMM yyyy" }}
                                     </p>
                                     <h5 style="color: rgb(140, 140, 140)">
                                       Merci pour la confiance.!
@@ -2950,7 +2955,9 @@
                                   type="button"
                                   class="btn btn-outline-success"
                                   (click)="
-                                    LancerProcessusReparation(Reclamation.bien.id)
+                                    LancerProcessusReparation(
+                                      Reclamation.bien.id
+                                    )
                                   "
                                 >
                                   <i class="fas fa-times"></i> Confirmer
@@ -4676,7 +4683,7 @@
                       </div>
                     </div>
                   </div>
-                  <hr>
+                  <hr />
                 </div>
 
                 <!-- PAGINATION  -->
