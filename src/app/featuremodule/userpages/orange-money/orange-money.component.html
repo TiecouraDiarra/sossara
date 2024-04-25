@@ -133,11 +133,11 @@
             <p class="dis mb-3 updates" [innerHTML]='bien ? bien?.description : "Aucune description"'></p>
             <p class="dis mb-3 different fw-bold">Les caracteristiques du bien :</p>
             <div class="d-flex flex-column dis">
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien && bien.reference">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien && bien?.reference">
                     <p>Reference du bien</p>
                     <p>{{bien?.reference}}</p>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien.statut && bien.statut.nom">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien?.statut && bien?.statut?.nom">
                     <p>Statut du bien</p>
                     <p>{{bien?.statut?.nom}}</p>
                 </div>
@@ -145,27 +145,27 @@
                     <p>Type du bien</p>
                     <p>{{bien.typeImmo.nom}}</p>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien.statut.nom =='A louer'">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien?.statut?.nom =='A louer'">
                     <p>Periode</p>
                     <p>{{bien.periode.nom}}</p>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien.adresse && bien.adresse.quartier">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien?.adresse && bien?.adresse?.quartier">
                     <p>Quartier</p>
-                    <p>{{bien.adresse.quartier}}</p>
+                    <p>{{bien?.adresse.quartier}}</p>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien.adresse && bien.adresse.rue">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien?.adresse && bien?.adresse?.rue">
                     <p>Rue</p>
-                    <p>{{bien.adresse.rue}}</p>
+                    <p>{{bien?.adresse.rue}}</p>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien.adresse && bien.adresse.porte">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien?.adresse && bien?.adresse?.porte">
                     <p>Porte</p>
-                    <p>{{bien.adresse.porte}}</p>
+                    <p>{{bien?.adresse.porte}}</p>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien && bien.createdAt">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien && bien?.createdAt">
                     <p>Date de publication</p>
                     <p>{{bien.createdAt | date:"dd/MM/yyyy"}}</p>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien && bien.nb_piece">
+                <div class="d-flex align-items-center justify-content-between mb-2" *ngIf="bien && bien?.nb_piece">
                     <p>Salon</p>
                     <p>{{bien.nb_piece}}</p>
                 </div>
@@ -240,7 +240,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel' && bien.statut.nom ==='A louer'">
+                        <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer'">
                             <div class="d-flex flex-column dis">
                                 <!-- <div class="d-flex align-items-center justify-content-between mb-2">
                                     <p>Nombre de mois</p>
@@ -267,7 +267,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel' && bien.statut.nom ==='A vendre'">
+                        <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A vendre'">
                             <div class="d-flex flex-column dis">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <p>Prix du bien</p>
@@ -337,11 +337,11 @@
                                 {{formatPrice(bien?.prix * nombreSemaineChoisi)}}<span class="px-1">
                                     FCFA</span>
                             </div>
-                            <div (click)="FairePaiement(facture?.id)" *ngIf="bien?.periode?.nom === 'Mensuel' && bien.statut.nom ==='A louer'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
+                            <div (click)="FairePaiement(facture?.id)" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
                                 {{formatPrice(bien?.prix * (bien?.avance + bien?.caution) )}}<span class="px-1">
                                     FCFA</span>
                             </div>
-                            <div (click)="FairePaiement(facture?.id)" *ngIf="bien?.periode?.nom === 'Mensuel' && bien.statut.nom ==='A vendre'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
+                            <div (click)="FairePaiement(facture?.id)" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A vendre'" style="background-color: #e98b11; color:white" class="btn mt-2">Confirmer
                                 {{formatPrice(bien?.prix)}}<span class="px-1">
                                     FCFA</span>
                             </div>

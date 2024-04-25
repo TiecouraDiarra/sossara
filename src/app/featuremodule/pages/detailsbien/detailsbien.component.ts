@@ -294,6 +294,7 @@ export class DetailsbienComponent implements AfterViewInit {
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
 
+  selectedCategory: any = '';
   selectedStatut: string | null = null;
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {

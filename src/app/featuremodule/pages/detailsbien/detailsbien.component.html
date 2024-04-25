@@ -166,9 +166,20 @@
             </div>
           </div>
           <div class="form-group group-img">
+            <!-- <mat-form-field class="mat-custom-select" style="width: 100%">
+              <mat-label *ngIf="selectedCategory == ''">
+                Usage d'utilisation</mat-label>
+              <mat-select [(ngModel)]="formCandidater.usage" name="usage">
+                <mat-option *ngFor="let item of usage" [value]="item.id">
+                  {{ item.nom }}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
             <label for="dateMaison">Usage d'utilisation</label>
             <div class="group-img">
               <select class="form-control" [(ngModel)]="formCandidater.usage" name="usage">
+                <option value="" selected>
+                  Usage d'utilisation
+               </option>
                 <option *ngFor="let item of usage" [value]="item.id">
                   {{ item.nom }}
                 </option>
@@ -627,7 +638,7 @@
           </div>
           <div class="card-body" *ngIf="bien && bien.description">
             <p [innerHTML]='bien ? bien?.description : "Aucune description"'></p>
-          </div> 
+          </div>
         </div>
         <!-- Description -->
 
@@ -1030,23 +1041,18 @@
 
               </div>
             </div>
-          
-             
-            <div
-              class="submit-section mb-3"
-              style="text-align: center"
-              *ngIf="isLoggedIn == true && currentUser == false"
-            >
-           
+
+
+            <div class="submit-section mb-3" style="text-align: center"
+              *ngIf="isLoggedIn == true && currentUser == false">
+
               <div class="attach-btn mb-3">
-                <textarea name="content" [(ngModel)]="MessageForm.content" class="input-msg-send form-control" placeholder="Message"></textarea>
+                <textarea name="content" [(ngModel)]="MessageForm.content" class="input-msg-send form-control"
+                  placeholder="Message"></textarea>
               </div>
-              <button
-                (click)="goToMessage(bien?.utilisateur?.email)"
+              <button (click)="goToMessage(bien?.utilisateur?.email)"
                 [disabled]="!MessageForm.content || MessageForm.content.trim() === '' "
-                class="btn btn-primary submit-btn w-100"
-                type="submit"
-              >
+                class="btn btn-primary submit-btn w-100" type="submit">
                 Envoyer un message
               </button>
             </div>
