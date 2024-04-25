@@ -80,25 +80,30 @@
                             <div class="card-body msg_card_bodyZ chat-scroll">
                                 <a class="media d-flex" *ngFor="let Conversations of chatList | filter:searchText">
                                     <div class="media-img-wrap flex-shrink-0 crd"
-                                        (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
                                         <div class="img_cont">
                                             <div class="rounded-circle user_img text_inside_circle1"
-                                                *ngIf="secondUserName!=senderCheck">
-                                                {{Conversations?.expediteurInfo.nom.substring(0,1)}}</div>
+                                                *ngIf="secondUserName!= senderCheck">
+                                                {{Conversations?.expediteurInfo?.nom.substring(0,1)}}</div>
+                                                <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName == senderCheck">
+                                                {{Conversations?.destinateurInfo?.nom.substring(0,1)}}</div>
                                             <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
                                           {{firstUserName.substring(0,1)}}</div> -->
                                         </div> &nbsp; &nbsp;
                                     </div>
                                     <div class="media-body flex-grow-1 mt-4"
-                                        (click)="loadChatByEmail(Conversations.destinateur, Conversations.expediteur)">
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
                                         <div>
-                                            <div class="user-name">{{Conversations?.expediteurInfo.nom}}</div>
+                                            <div class="user-name" *ngIf="secondUserName!= senderCheck">{{Conversations?.expediteurInfo?.nom}}</div>
+                                            <div class="user-name" *ngIf="secondUserName== senderCheck">{{Conversations?.destinateurInfo?.nom}}</div>
+
                                             <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
                                         </div>
 
                                         <div>
                                             <div class="badge badge-success rounded-pill">
-                                                {{Conversations?.messages.length}}</div>
+                                                {{Conversations?.messages?.length}}</div>
                                         </div>
                                     </div>
                                 </a>
@@ -117,12 +122,17 @@
                                 <div class="img_cont">
                                     <div class="rounded-circle user_img text_inside_circle1"
                                         *ngIf="secondUserName!=senderCheck">
-                                        {{secondUserName.substring(0,1)}}</div>
+                                        {{chatData[0]?.expediteurInfo?.nom?.substring(0,1)}}</div>
+                                        <div class="rounded-circle user_img text_inside_circle1"
+                                        *ngIf="secondUserName==senderCheck">
+                                        {{chatData[0]?.destinateurInfo?.nom?.substring(0,1)}}</div>
                                     <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
                                       {{firstUserName.substring(0,1)}}</div> -->
                                 </div> &nbsp; &nbsp;
                                 <div class="media-body flex-grow-1">
-                                    <div class="user-name">{{secondUserName}}</div>
+                                    <div class="user-name"  *ngIf="secondUserName!=senderCheck">{{chatData[0]?.expediteurInfo?.nom}}</div>
+                                    <div class="user-name"  *ngIf="secondUserName==senderCheck">{{chatData[0]?.destinateurInfo?.nom}}</div>
+
                                 </div>
                             </div>
                         </div>

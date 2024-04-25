@@ -113,7 +113,7 @@ export class MessagesComponent implements OnInit {
       }
     }
     this.users=this.storageService.getUser()
-    this.senderCheck = this.users.email;
+    this.senderCheck = this.users?.email;
 
     this.mercureService.subscribeToTopic('conversation').subscribe((message: any) => {
       this.conversation.push(message);
@@ -137,6 +137,7 @@ export class MessagesComponent implements OnInit {
       // For getting all the chat list whose ever is logged in.
       this.chatService.getChatByFirstUserNameOrSecondUserName(this.senderCheck).subscribe(data => {
         this.chatData = data;
+        // console.log(this.chatData)
         
         this.chatList = this.chatData;
       });
@@ -151,8 +152,10 @@ export class MessagesComponent implements OnInit {
       this.chatService.getChatById(sessionStorage.getItem("chatId")).subscribe(data => {
         this.chatData = data;
         this.messageList = this.chatData[0].messages;
-        this.secondUserName = this.chatData[0].expediteurInfo.nom;
+        this.secondUserName = this.chatData[0].expediteurInfo.email;
+        
         // this.firstUserName = this.chatData.firstUserName;
+        // console.log(this.secondUserName)
       });
     }, 1000);
   }
