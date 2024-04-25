@@ -36,8 +36,7 @@ export class SignupComponent {
     // { nom: "Type d'Utilisateur", },
     { nom: 'LOCATAIRE OU ACHETEUR', value: 'locataire' },
     { nom: 'PROPRIETAIRE', value: 'proprietaire' },
-    { nom: 'AGENCE', value: 'agence' },
-    { nom: 'ADMIN', value: 'admin' },
+    { nom: 'AGENCE', value: 'agence' }
   ];
 
   userName: any = {

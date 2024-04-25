@@ -362,6 +362,8 @@ export class AgenceComponent {
         }
 
         
+        
+        
         //   // Le reste de votre logique pour traiter les favoris...
       });
       

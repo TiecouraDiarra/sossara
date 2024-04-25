@@ -509,8 +509,8 @@
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailBien(BienImmo.uuid)">
                                                     <div
-                                                        *ngIf="BienImmo.bien && BienImmo.bien.photos && BienImmo.bien.photos.length > 0; else noImages">
-                                                        <img src="{{ generateImageUrl(BienImmo.bien.photos[0].nom) }}"
+                                                        *ngIf="BienImmo.bien && BienImmo.bien.photoImmos && BienImmo.bien.photoImmos.length > 0; else noImages">
+                                                        <img src="{{ generateImageUrl(BienImmo.bien.photoImmos[0].nom) }}"
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
                                                     <ng-template #noImages>
@@ -586,7 +586,7 @@
                                                     <div class="review-details">
                                                         <div class="tes">
                                                             <div class="views-count">
-                                                                {{BienImmo?.bien?.utilisateur?.nom}}</div>
+                                                                {{BienImmo?.bien?.proprietaire?.nom}}</div>
                                                         </div>
                                                         <!-- <div>Tel : {{BienImmo.bien.utilisateur.telephone}}</div> -->
                                                         <!-- <p>ffff</p>																	 -->
