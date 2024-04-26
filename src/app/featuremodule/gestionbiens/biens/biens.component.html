@@ -73,7 +73,7 @@
                       <mat-option disabled class="search-input-option">
 
                       </mat-option>
-                      <mat-option [value]="Cercle.nomcercle" *ngFor="let Cercle of filteredCercles">{{ Cercle.nomcercle
+                      <mat-option [value]="Cercle.nomcercle" *ngFor="let Cercle of filteredCercles">{{ Cercle?.nomcercle
                         }}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -90,7 +90,7 @@
                           " class="search-input" type="text" /> -->
                       </mat-option>
                       <mat-option [value]="Commune.nomcommune"
-                        *ngFor="let Commune of communes1">{{Commune.nomcommune}}</mat-option>
+                        *ngFor="let Commune of communes1">{{Commune?.nomcommune}}</mat-option>
                     </mat-select>
                   </mat-form-field>
 
@@ -135,7 +135,7 @@
                             searchCategory(searchInputCategory)
                           " class="search-input" type="text" />
                       </mat-option>
-                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type?.nom
                         }}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -289,45 +289,45 @@
                 <div class="card">
                   <div class="blog-widget">
                     <div class="blog-img">
-                      <a (click)="goToDettailBien(BienImo.uuid)" class="crd">
-                        <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
-                          <img src="{{ generateImageUrl(BienImo.photos[0].nom) }}" class="img-fluid image-size"
+                      <a (click)="goToDettailBien(BienImo?.uuid)" class="crd">
+                        <div *ngIf="BienImo?.photos && BienImo?.photos?.length > 0; else noImages">
+                          <img src="{{ generateImageUrl(BienImo?.photos[0]?.nom) }}" class="img-fluid image-size"
                             alt="blog-img">
                         </div>
                         <ng-template #noImages>
-                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Villa'">
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
                             <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
                               alt="default-img">
                           </div>
-                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Appartement'">
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
                             <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
                               alt="default-img">
                           </div>
-                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Terrain'">
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
                             <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
                               alt="default-img">
                           </div>
-                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Bureau'">
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
                             <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
                               alt="default-img">
                           </div>
-                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Champ'">
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
                             <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
                               alt="default-img">
                           </div>
-                          <div class="type" *ngIf="BienImo.typeImmo.nom === 'Commerce & Magasin'">
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Commerce & Magasin'">
                             <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
                               alt="default-img">
                           </div>
                         </ng-template>
                       </a>
                       <div class="fav-item">
-                        <span [ngClass]="{'statutbien': BienImo.statut.nom === 'A vendre' }" class="Featured-text">{{
+                        <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }" class="Featured-text">{{
                           BienImo?.statut?.nom }}</span>
                         <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                          (click)="AimerBien(BienImo.id)"
-                          [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : 'white'">
-                          <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
+                          (click)="AimerBien(BienImo?.id)"
+                          [style.background-color]="favoriteStatus[BienImo?.id] ? '#e98b11' : 'white'">
+                          <i [style.color]="favoriteStatus[BienImo?.id] ? 'white' : 'black'" class="feather-heart"></i>
                         </a>
                       </div>
                     </div>
@@ -347,27 +347,27 @@
                           </div>
                           <div class="blog-author text-end">
                             <span>
-                              <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo.id] }}
+                              <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo?.id] }}
                               <!-- <i class="feather-eye"></i>{{ BienImo?.favoris?.length }} -->
                             </span>
                           </div>
                         </div>
                         <h6 class="crd">
-                          <a (click)="goToDettailBien(BienImo.uuid)">{{ BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom
+                          <a (click)="goToDettailBien(BienImo?.uuid)">{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom
                             }}</a>
                         </h6>
                         <div class="blog-location-details">
                           <div class="location-info">
-                            <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
+                            <i class="feather-map-pin"></i> {{ BienImo?.adresse?.quartier }}
                           </div>
                           <div class="location-info">
-                            <i class="fa-solid fa-calendar-days"></i>{{BienImo.createdAt | date:"dd MMM yyyy":locale}}
+                            <i class="fa-solid fa-calendar-days"></i>{{BienImo?.createdAt | date:"dd MMM yyyy":locale}}
 
                           </div>
                         </div>
                         <div class="amount-details">
                           <div class="amount">
-                            <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
+                            <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
                             <!--<span>{{ slide.oldamount }}</span>-->
                           </div>
                           <div class="ratings">

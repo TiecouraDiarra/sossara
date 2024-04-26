@@ -40,7 +40,7 @@
                                             searchCategory(searchInputCategory)
                                           " class="search-input" type="text" />
                       </mat-option>
-                      <mat-option [value]="Statut.nom" *ngFor="let Statut of status">{{Statut.nom}}</mat-option>
+                      <mat-option [value]="Statut.nom" *ngFor="let Statut of status">{{Statut?.nom}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -54,7 +54,7 @@
                                             searchCategory(searchInputCategory)
                                           " class="search-input" type="text" />
                       </mat-option>
-                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type.nom
+                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type?.nom
                         }}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -70,15 +70,15 @@
             <div class="row">
               <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
                 <div class="col-lg-6 col-md-4 col-sm-6 "
-                  *ngFor="let BienImo of applyFilters(bienImmo).slice(
+                  *ngFor="let BienImo of applyFilters(bienImmo)?.slice(
                     (currentPage - 1) * itemsPerPage,
                     currentPage * itemsPerPage
                 )">
                   <div class="card aos aos-init aos-animate" data-aos="fade-up">
                     <div class="blog-widget">
                       <div class="blog-img">
-                        <a (click)="goToDettailBien(BienImo.uuid)">
-                          <div *ngIf="BienImo.photos && BienImo.photos.length > 0; else noImages">
+                        <a (click)="goToDettailBien(BienImo?.uuid)">
+                          <div *ngIf="BienImo?.photos && BienImo?.photos?.length > 0; else noImages">
                             <img src="{{ generateImageUrl(BienImo?.photos[0]?.nom) }}" class="img-fluid image-size crd"
                               alt="blog-img">
                           </div>
@@ -113,9 +113,9 @@
                           <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }"
                             class="Featured-text">{{ BienImo?.statut?.nom }}</span>
                           <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
-                            (click)="AimerBien(BienImo.id)"
-                            [style.background-color]="favoriteStatus[BienImo.id] ? '#e98b11' : 'white'">
-                            <i [style.color]="favoriteStatus[BienImo.id] ? 'white' : 'black'" class="feather-heart"></i>
+                            (click)="AimerBien(BienImo?.id)"
+                            [style.background-color]="favoriteStatus[BienImo?.id] ? '#e98b11' : 'white'">
+                            <i [style.color]="favoriteStatus[BienImo?.id] ? 'white' : 'black'" class="feather-heart"></i>
                           </a>
                         </div>
                       </div>
@@ -132,23 +132,23 @@
                             </div>
                             <div class="blog-author text-end">
                               <span> <i class="feather-eye"></i>{{
-                                favoritedPropertiesCount1[BienImo.id] }}</span>
+                                favoritedPropertiesCount1[BienImo?.id] }}</span>
                             </div>
                           </div>
-                          <h6><a class="crd" (click)="goToDettailBien(BienImo.uuid)">{{ BienImo.nom ? BienImo.nom :
-                              BienImo.typeImmo.nom }}</a></h6>
+                          <h6><a class="crd" (click)="goToDettailBien(BienImo?.uuid)">{{ BienImo?.nom ? BienImo?.nom :
+                              BienImo?.typeImmo?.nom }}</a></h6>
                           <div class="blog-location-details">
                             <div class="location-info">
-                              <i class="feather-map-pin"></i> {{ BienImo.adresse.quartier }}
+                              <i class="feather-map-pin"></i> {{ BienImo?.adresse?.quartier }}
                             </div>
                             <div class="location-info">
-                              <i class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt |
+                              <i class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
                               date:"dd/MM/yyyy"}}
                             </div>
                           </div>
                           <div class="amount-details">
                             <div class="amount">
-                              <span class="validrate">{{ formatPrice(BienImo.prix) }} FCFA</span>
+                              <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
                               <!-- <span>{{slide.oldamount}}</span> -->
                             </div>
                             <div class="ratings">

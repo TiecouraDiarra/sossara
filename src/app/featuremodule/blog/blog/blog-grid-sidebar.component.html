@@ -27,8 +27,8 @@
                         <div class="col-lg-6 col-md-6 d-lg-flex " *ngFor="let slide of  blog | filter:searchText">
                             <div class="blog grid-blog w-100">
                                 <div class="blog-image">
-                                    <a (click)="goToDettailBlog(slide.uuid)"><img class="img-fluid image-size crd"
-                                            src="{{generateImageUrl(slide.photo)}}"
+                                    <a (click)="goToDettailBlog(slide?.uuid)"><img class="img-fluid image-size crd"
+                                            src="{{generateImageUrl(slide?.photo)}}"
                                             (error)="handleAuthorImageError($event)" alt="Post Image"></a>
                                 </div>
                                 <div class="blog-content">
@@ -48,14 +48,14 @@
                                             </div> -->
                                         </li>
                                         <li class="date-icon"><i class="fa-solid fa-calendar-days"></i>
-                                            {{slide.createdAt | date:"dd MMM yyyy":locale}}</li>
+                                            {{slide?.createdAt | date:"dd MMM yyyy":locale}}</li>
                                     </ul>
-                                    <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide.uuid)">{{slide?.titre}}</a>
+                                    <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide?.uuid)">{{slide?.titre}}</a>
                                     </h3>
                                     
-                                    <p class="blog-description"                                 [innerHTML]="slide ? slide?.description : 'Aucune description'"
+                                    <p class="blog-description" [innerHTML]="slide ? slide?.description : 'Aucune description'"
                                     > </p>
-                                    <div class="viewlink crd"><a (click)="goToDettailBlog(slide.uuid)">Voir plus <i
+                                    <div class="viewlink crd"><a (click)="goToDettailBlog(slide?.uuid)">Voir plus <i
                                                 class="feather-arrow-right"></i></a></div>
                                 </div>
                             </div>
@@ -229,15 +229,15 @@
                         <div class="card" *ngIf="bienImmo && bienImmo?.length > 0">
                             <h4><i class="feather-tag"></i> Biens recents</h4>
                             <div class="article" *ngFor="let BienImo of bienImmo">
-                                <a (click)="goToDettailBien(BienImo.uuid)" 
+                                <a (click)="goToDettailBien(BienImo?.uuid)" 
                                     class="articleimg-1 crd"
                                     [style.background-image]="BienImo?.photos[0]?.nom ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos[0]?.nom) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/typebien/villa.png)'">
                                     <ul>
                                         <li>
                                             <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>
                                         </li>
-                                        <li *ngIf="BienImo && BienImo.createdAt" class="date-icon"><i
-                                                class="fa-solid fa-calendar-days"></i> {{BienImo.createdAt |
+                                        <li *ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
+                                                class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
                                             date:"dd MMM yyyy":locale}}
                                         </li>
                                     </ul>

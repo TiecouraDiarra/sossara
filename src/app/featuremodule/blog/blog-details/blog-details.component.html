@@ -3,18 +3,18 @@
 
     <div class="blogbanner-content">
         <span class="blog-hint">Mali</span>
-        <h1 *ngIf="blog">{{blog.titre}}</h1>
+        <h1 *ngIf="blog">{{blog?.titre}}</h1>
         <ul class="entry-meta meta-item">
             <li>
                 <div class="post-author">
-                    <div class="post-author-img"  *ngIf="blog && blog.utilisateur">
-                        <img src="{{generateImageUrl(blog.utilisateur.photo)}}"
+                    <div class="post-author-img"  *ngIf="blog && blog?.utilisateur">
+                        <img src="{{generateImageUrl(blog?.utilisateur?.photo)}}"
                         (error)="handleAuthorImageError1($event)" alt="author">
                     </div>
-                    <a href="javascript:void(0)" *ngIf="blog && blog.utilisateur"><span> {{blog.utilisateur.nom}} </span></a>
+                    <a href="javascript:void(0)" *ngIf="blog && blog?.utilisateur"><span> {{blog?.utilisateur?.nom}} </span></a>
                 </div>
             </li>
-            <li class="date-icon" *ngIf="blog && blog.createdAt"><i class="fa-solid fa-calendar-days"></i> {{blog.createdAt | date:"dd MMM yyyy":locale}}</li>
+            <li class="date-icon" *ngIf="blog && blog?.createdAt"><i class="fa-solid fa-calendar-days"></i> {{blog?.createdAt | date:"dd MMM yyyy":locale}}</li>
         </ul>
     </div>
 </div>

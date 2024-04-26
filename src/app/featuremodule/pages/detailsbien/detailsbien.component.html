@@ -54,24 +54,24 @@
           <img src="{{ generateQrCodeUrl(bien?.codeqr) }}" alt="QR Code" />
         </div>
         <div class="authordetails">
-          <h5 *ngIf="bien && bien.typeImmo">
-            {{ bien.nom ? bien.nom : bien.typeImmo.nom }}
+          <h5 *ngIf="bien && bien?.typeImmo">
+            {{ bien?.nom ? bien?.nom : bien?.typeImmo?.nom }}
           </h5>
           <div class="rating">
-            <p class="blog-category" *ngIf="bien && bien.adresse">
+            <p class="blog-category" *ngIf="bien && bien?.adresse">
               <a href="javascript:void(0)"><span>{{ bien?.adresse?.commune?.cercle?.region?.pays?.nompays }}
                   -
                   {{ bien?.adresse?.commune?.cercle?.region?.nomregion }}
                 </span></a>
             </p>
-            <p class="blog-category" *ngIf="bien && bien.adresse">
+            <p class="blog-category" *ngIf="bien && bien?.adresse">
               <a href="javascript:void(0)"><span>{{ bien?.adresse?.commune?.nomcommune }} -
                   {{ bien?.adresse?.quartier }}</span></a>
             </p>
-            <p class="blog-category" *ngIf="bien && bien.adresse">
+            <p class="blog-category" *ngIf="bien && bien?.adresse">
               <a href="javascript:void(0)"><span>Rue : {{ bien?.adresse?.rue }}</span></a>
             </p>
-            <p class="blog-category" *ngIf="bien && bien.adresse">
+            <p class="blog-category" *ngIf="bien && bien?.adresse">
               <a href="javascript:void(0)"><span> Porte : {{ bien?.adresse?.porte }}</span></a>
             </p>
           </div>
@@ -94,8 +94,8 @@
           </div>
         </div>
       </div>
-      <div class="rate-details" *ngIf="bien && bien.prix">
-        <h4>{{ formatPrice(bien.prix) }} FCFA</h4>
+      <div class="rate-details" *ngIf="bien && bien?.prix">
+        <h4>{{ formatPrice(bien?.prix) }} FCFA</h4>
         <!-- CANDIDATER UN BIEN   -->
         <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" *ngIf="
             isLoggedIn == true &&
@@ -181,7 +181,7 @@
                   Usage d'utilisation
                </option>
                 <option *ngFor="let item of usage" [value]="item.id">
-                  {{ item.nom }}
+                  {{ item?.nom }}
                 </option>
               </select>
             </div>
@@ -582,25 +582,25 @@
     <div class="row">
       <div class="col-lg-9">
         <div class="author-img" *ngFor="let photo of photos; let isFirst = first">
-          <img *ngIf="isFirst" src="{{ generateImageUrl(photo.nom) }}" alt="authorimg" />
+          <img *ngIf="isFirst" src="{{ generateImageUrl(photo?.nom) }}" alt="authorimg" />
         </div>
-        <div class="author-img" *ngIf="photos && photos.length == 0">
-          <div class="type" *ngIf="bien.typeImmo.nom === 'Villa'">
+        <div class="author-img" *ngIf="photos && photos?.length == 0">
+          <div class="type" *ngIf="bien?.typeImmo?.nom === 'Villa'">
             <img src="../../../../assets/img/typebien/villa.png" class="img-fluid" alt="default-img" />
           </div>
-          <div class="type" *ngIf="bien.typeImmo.nom === 'Appartement'">
+          <div class="type" *ngIf="bien?.typeImmo?.nom === 'Appartement'">
             <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid" alt="default-img" />
           </div>
-          <div class="type" *ngIf="bien.typeImmo.nom === 'Terrain'">
+          <div class="type" *ngIf="bien?.typeImmo?.nom === 'Terrain'">
             <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size" alt="default-img">
           </div>
-          <div class="type" *ngIf="bien.typeImmo.nom === 'Bureau'">
+          <div class="type" *ngIf="bien?.typeImmo?.nom === 'Bureau'">
             <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size" alt="default-img">
           </div>
-          <div class="type" *ngIf="bien.typeImmo.nom === 'Champ'">
+          <div class="type" *ngIf="bien?.typeImmo?.nom === 'Champ'">
             <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size" alt="default-img">
           </div>
-          <div class="type" *ngIf="bien.typeImmo.nom === 'Commerce & Magasin'">
+          <div class="type" *ngIf="bien?.typeImmo?.nom === 'Commerce & Magasin'">
             <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size" alt="default-img">
           </div>
         </div>
@@ -616,7 +616,7 @@
                 <ng-container *ngFor="let photo of photos; let i = index">
                   <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="i < 12">
                     <div class="gallery-widget">
-                      <img class="img-fluid image-size1" [src]="generateImageUrl(photo.nom)"
+                      <img class="img-fluid image-size1" [src]="generateImageUrl(photo?.nom)"
                         (click)="open(i, albumsOne)" />
                     </div>
                   </div>
@@ -636,7 +636,7 @@
             </span>
             <h4>Description</h4>
           </div>
-          <div class="card-body" *ngIf="bien && bien.description">
+          <div class="card-body" *ngIf="bien && bien?.description">
             <p [innerHTML]='bien ? bien?.description : "Aucune description"'></p>
           </div>
         </div>
@@ -654,10 +654,10 @@
                 <div *ngFor="let commodite of lesCommodites"
                   class="featureslist d-flex align-items-center col-lg-3 col-md-3">
                   <div class="icone-img">
-                    <img class="icone-size" src="{{ generateImageUrl(commodite.icone) }}" alt="Room amenities" />
+                    <img class="icone-size" src="{{ generateImageUrl(commodite?.icone) }}" alt="commodite" />
                   </div>
                   <div class="features-info mt-1">
-                    <label>{{ commodite.nom }}</label>
+                    <label>{{ commodite?.nom }}</label>
                   </div>
                 </div>
               </div>
@@ -790,25 +790,25 @@
                         <i class="fa-sharp fa-solid fa-calendar-days"></i>
                         {{ commentaire?.createdAt | date : "HH:mm" }}
                         <i class="float-end fw-bold">
-                          <a *ngIf="commentaire.utilisateur.id === users.id" data-bs-toggle="collapse"
-                            [href]="'#collapseExample1-' + commentaire.id" aria-expanded="false"
-                            aria-controls="collapseExample" (click)="afficherCommentaire(commentaire.id)" role="button"
+                          <a *ngIf="commentaire?.utilisateur?.id === users?.id" data-bs-toggle="collapse"
+                            [href]="'#collapseExample1-' + commentaire?.id" aria-expanded="false"
+                            aria-controls="collapseExample" (click)="afficherCommentaire(commentaire?.id)" role="button"
                             style="margin-right: 10px"><small>Modifier</small></a>
                           <!-- Ajout de "Modifier" ici -->
-                          <a data-bs-toggle="collapse" [href]="'#collapseExample2-' + commentaire.id" role="button"
+                          <a *ngIf="isLoggedIn == true" data-bs-toggle="collapse" [href]="'#collapseExample2-' + commentaire?.id" role="button"
                             aria-expanded="false" aria-controls="collapseExample"><small style="margin-right: 10px">
                               Repondre</small></a>
-                          <a data-bs-toggle="collapse" [href]="'#collapseExample-' + commentaire.id" role="button"
+                          <a data-bs-toggle="collapse" [href]="'#collapseExample-' + commentaire?.id" role="button"
                             aria-expanded="false" aria-controls="collapseExample"><small>{{
                               commentaire?.reponses?.length
                               }}
                               Reponses</small></a>
-                          <a *ngIf="commentaire.utilisateur.id === users.id"
-                            (click)="SupprimerCommentaire(commentaire.id)"
+                          <a *ngIf="commentaire?.utilisateur?.id === users?.id"
+                            (click)="SupprimerCommentaire(commentaire?.id)"
                             style="margin-left: 10px; color: black; cursor: pointer;"><small>Supprimer</small></a>
                         </i>
                       </p>
-                      <div class="collapse" [id]="'collapseExample1-' + commentaire.id">
+                      <div class="collapse" [id]="'collapseExample1-' + commentaire?.id">
                         <div class="card card-body">
                           <div class="chat-footer">
                             <div class="input-group">
@@ -817,8 +817,8 @@
                                   class="input-msg-send form-control" placeholder="Modifier votre commentaire" />
                               </div>
                               <button (click)="Modifiercommentaire(commentaire?.id)" [disabled]="
-                                  !commForm.contenu ||
-                                  commForm.contenu.trim() === ''
+                                  !commForm?.contenu ||
+                                  commForm?.contenu?.trim() === ''
                                 " type="button" class="btn msg-send-btn">
                                 <i class="fas fa-paper-plane"></i>
                               </button>
@@ -826,7 +826,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="collapse" [id]="'collapseExample2-' + commentaire.id">
+                      <div class="collapse" [id]="'collapseExample2-' + commentaire?.id">
                         <div class="card card-body">
                           <div class="chat-footer">
                             <div class="input-group">
@@ -835,8 +835,8 @@
                                   class="input-msg-send form-control" placeholder="Repondre" />
                               </div>
                               <button (click)="Repondrecommentaire(commentaire?.id)" [disabled]="
-                                  !reponseForm.contenu ||
-                                  reponseForm.contenu.trim() === ''
+                                  !reponseForm?.contenu ||
+                                  reponseForm?.contenu?.trim() === ''
                                 " type="button" class="btn msg-send-btn">
                                 <i class="fas fa-paper-plane"></i>
                               </button>
@@ -844,7 +844,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="collapse" [id]="'collapseExample-' + commentaire.id">
+                      <div class="collapse" [id]="'collapseExample-' + commentaire?.id">
                         <div class="card card-body">
                           <ul class="comments" *ngIf="
                               commentaire?.reponses &&
@@ -913,7 +913,7 @@
                                         </div>
                                     </li>
                                 </div> -->
-                <li class="review-box feedbackbox mb-0">
+                <li class="review-box feedbackbox mb-0" *ngIf="isLoggedIn == true">
                   <div class="review-details">
                     <h6>Ecrire un commentaire</h6>
                   </div>
@@ -1022,18 +1022,18 @@
             <div class="card" *ngIf="bien && bien?.codeqr">
               <h4><i class="feather-maximize"></i> Code Qr du bien</h4>
               <!-- <div class="sidebarauthor-details align-items-center"> -->
-              <img src="{{ generateQrCodeUrl(bien.codeqr) }}" alt="QR Code" />
+              <img src="{{ generateQrCodeUrl(bien?.codeqr) }}" alt="QR Code" />
               <!-- </div> -->
             </div>
             <div class="card" *ngIf="isLoggedIn == true && currentUser == false">
               <h4><i class="feather-user"></i> Proprietaire</h4>
               <div class="sidebarauthor-details align-items-center">
-                <div class="sideauthor-img" *ngIf="bien && bien.utilisateur">
+                <div class="sideauthor-img" *ngIf="bien && bien?.utilisateur">
                   <img src="{{ generateImageUrl(bien?.utilisateur?.photo?.nom) }}" alt="author"
                     (error)="handleAuthorImageError($event)" />
                 </div>
                 <div class="sideauthor-info">
-                  <p class="authorname" *ngIf="bien && bien.utilisateur">
+                  <p class="authorname" *ngIf="bien && bien?.utilisateur">
                     {{ bien?.utilisateur?.nom }}
                   </p>
                   <!-- <p>Member since Nov 24, 2017</p> -->
@@ -1051,7 +1051,7 @@
                   placeholder="Message"></textarea>
               </div>
               <button (click)="goToMessage(bien?.utilisateur?.email)"
-                [disabled]="!MessageForm.content || MessageForm.content.trim() === '' "
+                [disabled]="!MessageForm?.content || MessageForm?.content?.trim() === '' "
                 class="btn btn-primary submit-btn w-100" type="submit">
                 Envoyer un message
               </button>

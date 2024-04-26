@@ -13,6 +13,7 @@ import { AgenceService } from 'src/app/service/agence/agence.service';
 import { MessageService } from 'src/app/service/message/message.service';
 import { Chat } from '../../userpages/message/models/chat';
 import { Message } from '../../userpages/message/models/message';
+import { AdresseService } from 'src/app/service/adresse/adresse.service';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -115,11 +116,13 @@ export class DetailsagenceComponent implements OnInit {
     floor: 0,
     ceil: 100,
   };
+  commune: any;
   constructor(
     private Dataservice: DataService,
     private serviceBienImmo: BienimmoService,
     private serviceCommodite: CommoditeService,
     private serviceAgence: AgenceService,
+    private serviceAdresse : AdresseService,
     private routerr: Router,
     private route: ActivatedRoute,
     private serviceUser: UserService,
@@ -202,6 +205,10 @@ export class DetailsagenceComponent implements OnInit {
     }
     );
 
+    //AFFICHER LA LISTE DES COMMUNES
+    this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
+      this.commune = data;
+    });
 
 
   }

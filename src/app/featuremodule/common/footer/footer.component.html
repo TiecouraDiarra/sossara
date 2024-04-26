@@ -103,7 +103,7 @@
                         <h2 class="footer-title">Top villes</h2>
                         <ul>
                             <li *ngFor="let Commune of commune">
-                                <a *ngIf="Commune && Commune.nomcommune" (click)="goToDettailCommune(Commune.uuid)">{{Commune.nomcommune}}</a>
+                                <a style="cursor: pointer;" class="crd" *ngIf="Commune && Commune?.nomcommune" (click)="goToDettailCommune(Commune?.nomcommune)">{{Commune?.nomcommune}}</a>
                             </li>
                             <!-- <li>
                                 <a href="javascript:void(0)">Commune III</a>
