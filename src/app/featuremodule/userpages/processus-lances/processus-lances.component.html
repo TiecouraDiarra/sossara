@@ -10,14 +10,14 @@
                         *ngFor="let Reclamation of reclamationProcessusLance">
                         <div class="review-profile">
                             <div class="review-img">
-                                <img src="{{generateImageUrl(Reclamation.bien.utilisateur.photo.nom)}}"
+                                <img src="{{generateImageUrl(Reclamation?.bien?.utilisateur?.photo?.nom)}}"
                                     class="img-fluid" alt="img"
                                     (error)="handleAuthorImageError($event)">
                             </div>
                         </div>
                         <div class="review-details">
                             <div class="name-and-image">
-                                <h6>{{Reclamation.bien.utilisateur.nom}}</h6>
+                                <h6>{{Reclamation?.bien?.utilisateur?.nom}}</h6>
                                 <img style="width: 47px;"
                                     src="assets/img/processus.gif" alt="">
                             </div>
@@ -29,20 +29,20 @@
                                     <i class="fas fa-star filled"></i>
                                     <i class="fas fa-star filled"></i>
                                 </div>
-                                <div *ngIf="Reclamation && Reclamation.createdAt"><i
+                                <div *ngIf="Reclamation && Reclamation?.createdAt"><i
                                         style="color: #e98b11; font-weight: bold;"
                                         class="fa-sharp fa-solid fa-calendar-days"></i>
-                                    {{Reclamation.createdAt
+                                    {{Reclamation?.createdAt
                                     |
                                     date:"dd MMM yyyy":locale}}</div>
-                                <div *ngIf="Reclamation && Reclamation.createdAt"><i
-                                        class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt
+                                <div *ngIf="Reclamation && Reclamation?.createdAt"><i
+                                        class="fa-sharp fa-solid fa-clock"></i>{{Reclamation?.createdAt
                                     |
                                     date:"HH:mm"}}
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                {{Reclamation.bien.nom}}
+                                {{Reclamation?.bien?.nom}}
                             </div>
                             <ul class="review-gallery">
                                 <li
@@ -51,7 +51,7 @@
                                         [src]="generateImageUrl(photo?.nom)">
                                 </li>
                                 <ng-container
-                                    *ngIf="Reclamation?.bien?.photos.length === 0">
+                                    *ngIf="Reclamation?.bien?.photos?.length === 0">
                                     <li *ngFor="let _ of [1, 2, 3, 4]">
 
                                         <img class="img-fluid"
@@ -100,12 +100,12 @@
                             <div class="collapse" id="quelquesimages1">
                                 <ul class="review-gallery">
                                     <li
-                                        *ngFor="let photo of Reclamation.photoReclamations.slice(0, 4); let i = index">
+                                        *ngFor="let photo of Reclamation?.photoReclamations?.slice(0, 4); let i = index">
                                         <img class="img-fluid" alt="Image"
                                             [src]="generateImageUrl(photo.nom)">
                                     </li>
                                     <ng-container
-                                        *ngIf="Reclamation.photoReclamations.length === 0">
+                                        *ngIf="Reclamation?.photoReclamations?.length === 0">
                                         <li *ngFor="let _ of [1, 2, 3, 4]">
 
                                             <img class="img-fluid"
@@ -117,7 +117,7 @@
                             </div>
                             <div class="row mt-3">
                                 <button type="button"
-                                    (click)="openProcessusModal(Reclamation.id)"
+                                    (click)="openProcessusModal(Reclamation?.id)"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalArreterProcessus1"
                                     class="btn btn-outline-success"><i
