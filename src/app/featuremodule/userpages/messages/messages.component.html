@@ -176,12 +176,12 @@
                                                         *ngIf="Messages.senderEmail!=senderCheck">
                                                         <div class="img_cont_msg">
                                                             <span
-                                                                class="rounded-circle user_img_msg text_inside_circle3">{{Messages.senderEmail.substring(0,1)}}</span>
+                                                                class="rounded-circle user_img_msg text_inside_circle3">{{Messages?.senderEmail.substring(0,1)}}</span>
                                                         </div>
                                                         <div class="msg_cotainer">
                                                             <p
                                                                 style="background-color: #374b5c; padding: 15px;border-radius: 20px; margin-left: 5px;">
-                                                                {{Messages.message}}</p>
+                                                                {{Messages?.message}}</p>
                                                             <!-- <ul class="chat-msg-info">
                                                            <li>
                                                                <div class="chat-time">
@@ -189,8 +189,7 @@
                                                                </div>
                                                            </li>
                                                        </ul> -->
-                                                            <span class="msg_time_send">{{ Messages.time | date:"dd MMM
-                                                                yyyy HH:mm":locale}}</span>
+                                                            <span class="msg_time_send">{{ Messages?.time | date:"dd MMM yyyy HH:mm":locale}}</span>
                                                         </div>
                                                     </div>
                                                     <!-- <div [ngClass]="{'mine-message': Messages.senderEmail==senderCheck, 'other-message': !Messages.senderEmail==senderCheck}"

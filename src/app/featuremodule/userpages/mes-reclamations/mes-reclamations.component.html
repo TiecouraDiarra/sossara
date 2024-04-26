@@ -9,13 +9,13 @@
                     *ngFor="let Reclamation of reclamationUser">
                     <div class="review-profile">
                         <div class="review-img">
-                            <img src="{{generateImageUrl(Reclamation.bien.utilisateur.photo.nom)}}"
+                            <img src="{{generateImageUrl(Reclamation?.bien?.utilisateur?.photo?.nom)}}"
                                 class="img-fluid" alt="img"
                                 (error)="handleAuthorImageError($event)">
                         </div>
                     </div>
                     <div class="review-details">
-                        <h6>{{Reclamation.bien.utilisateur.nom}}</h6>
+                        <h6>{{Reclamation?.bien?.utilisateur?.nom}}</h6>
                         <div class="rating">
                             <div class="rating-star">
                                 <i class="fas fa-star filled"></i>
@@ -33,7 +33,7 @@
                             </div>
                             <div *ngIf="Reclamation && Reclamation.createdAt">
                                 <i
-                                    class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt
+                                    class="fa-sharp fa-solid fa-clock"></i>{{Reclamation?.createdAt
                                 |
                                 date:"HH:mm"}}
                             </div>
@@ -41,12 +41,12 @@
                         <div class="row mb-3">
                             <div class="col"
                                 *ngIf="Reclamation && Reclamation.bien">
-                                {{Reclamation.bien.nom}}
+                                {{Reclamation?.bien?.nom}}
                             </div>
                             <div class="col"
                                 style="color: #e98b11; font-weight: bold;"
                                 *ngIf="Reclamation && Reclamation.bien">
-                                {{ formatPrice(Reclamation.bien.prix) }}
+                                {{ formatPrice(Reclamation?.bien?.prix) }}
                                 FCFA
                             </div>
                         </div>
@@ -70,19 +70,19 @@
                             *ngIf="Reclamation && Reclamation.type_probleme && Reclamation.type_probleme.nom">
                             <i style="color: #e98b11; font-weight: bold;"
                                 class="fa-solid fa-circle-exclamation"></i>
-                            Probleme : {{Reclamation.type_probleme.nom}}
+                            Probleme : {{Reclamation?.type_probleme?.nom}}
                         </div>
                         <div class="m-3"
                             *ngIf="Reclamation && Reclamation.contenu">
                             <i style="color: #e98b11; font-weight: bold;"
                                 class="fa-solid fa-check"></i>
-                            Motif : {{Reclamation.contenu}}
+                            Motif : {{Reclamation?.contenu}}
                         </div>
                         <div class="m-3" *ngIf="Reclamation && Reclamation.prix_estimatif">
                             <i style="color: #e98b11; font-weight: bold;"
                                 class="fa-solid fa-check"> </i> Cout: <span
                                 style="color: #e98b11; font-weight: bold;">
-                                {{ formatPrice(Reclamation.prix_estimatif) }}
+                                {{ formatPrice(Reclamation?.prix_estimatif) }}
                                 FCFA </span>
                         </div>
                         <div class="row mt-1">

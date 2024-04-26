@@ -196,7 +196,7 @@
             <div class="d-flex flex-column dis">
               <div
                 class="d-flex align-items-center justify-content-between mb-2"
-                *ngIf="bien && bien.reference"
+                *ngIf="bien && bien?.reference"
               >
                 <p>Reference du bien</p>
                 <p>{{ bien?.reference }}</p>
@@ -1108,7 +1108,7 @@
                                     }}</span></strong
                                   >,
                                   <strong
-                                    *ngIf="bien.adresse && bien.adresse.rue"
+                                    *ngIf="bien?.adresse && bien?.adresse?.rue"
                                   >
                                     - Rue :
                                     <span style="color: #e98b11">{{
@@ -1117,7 +1117,7 @@
                                     >,</strong
                                   >
                                   <strong
-                                    *ngIf="bien.adresse && bien.adresse.porte"
+                                    *ngIf="bien?.adresse && bien?.adresse?.porte"
                                   >
                                     - Porte :
                                     <span style="color: #e98b11">{{
@@ -1127,7 +1127,7 @@
                                   >
                                   <br />
 
-                                  <strong *ngIf="bien && bien.toilette">
+                                  <strong *ngIf="bien && bien?.toilette">
                                     - Nombre de toilette :
                                     <span style="color: #e98b11">{{
                                       bien?.toilette
@@ -1135,7 +1135,7 @@
                                     ,</strong
                                   >
                                   <br />
-                                  <strong *ngIf="bien && bien.cuisine">
+                                  <strong *ngIf="bien && bien?.cuisine">
                                     - Nombre de cuisine :
                                     <span style="color: #e98b11">{{
                                       bien?.cuisine
@@ -1158,7 +1158,7 @@
                                       >{{ bien?.surface }} </span
                                     >M²</strong
                                   >, <br />
-                                  <strong *ngIf="bien && bien.chambre">
+                                  <strong *ngIf="bien && bien?.chambre">
                                     - Nombre de salon :
                                     <span style="color: #e98b11">{{
                                       bien?.chambre
@@ -1167,7 +1167,7 @@
                                   >
                                   <br />
 
-                                  <strong *ngIf="bien && bien.nb_piece">
+                                  <strong *ngIf="bien && bien?.nb_piece">
                                     - Nombre de pièces principales :
                                     <span style="color: #e98b11"
                                       >{{ bien?.nb_piece }}
@@ -1336,13 +1336,13 @@
                   contrat</a
                 >
               </div>
-              <div class="telecharge crd" *ngIf="bien.statut.nom == 'A louer'">
+              <div class="telecharge crd" *ngIf="bien?.statut?.nom == 'A louer'">
                 <a (click)="genererPDFContrat()" class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-check"></i> Generer le
                   contrat</a
                 >
               </div>
-              <div class="telecharge crd" *ngIf="bien.statut.nom == 'A vendre'">
+              <div class="telecharge crd" *ngIf="bien?.statut?.nom == 'A vendre'">
                 <a
                   (click)="genererPDFContratVente()"
                   class="action-btn btn-edit"

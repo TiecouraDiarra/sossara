@@ -135,8 +135,8 @@
                       >
                         <mat-option
                           *ngFor="let item of typebien"
-                          [value]="item.id"
-                          >{{ item.nom }}</mat-option
+                          [value]=" item?.id"
+                          >{{ item?.nom }}</mat-option
                         >
                       </mat-select>
                     </mat-form-field>
@@ -176,8 +176,8 @@
                       class="form-control"
                       id=""
                     >
-                      <option *ngFor="let item of status" [value]="item.id">
-                        {{ item.nom }}
+                      <option *ngFor="let item of status" [value]=" item?.id">
+                        {{ item?.nom }}
                       </option>
                     </select> -->
                     <mat-form-field
@@ -194,8 +194,8 @@
                       >
                         <mat-option
                           *ngFor="let item of status"
-                          [value]="item.id"
-                          >{{ item.nom }}</mat-option
+                          [value]=" item?.id"
+                          >{{ item?.nom }}</mat-option
                         >
                       </mat-select>
                     </mat-form-field>
@@ -223,9 +223,9 @@
                       >
                         <mat-option
                           *ngFor="let item of caracteristique"
-                          [value]="item.id"
+                          [value]=" item?.id"
                         >
-                          {{ item.caracteristique }}</mat-option
+                          {{  item?.caracteristique }}</mat-option
                         >
                       </mat-select>
                     </mat-form-field>
@@ -368,9 +368,9 @@
                       >
                         <mat-option
                           *ngFor="let item of periode"
-                          [value]="item.id"
+                          [value]=" item?.id"
                         >
-                          {{ item.nom }}</mat-option
+                          {{ item?.nom }}</mat-option
                         >
                       </mat-select>
                     </mat-form-field>
@@ -451,9 +451,9 @@
                       <ul>
                         <li>
                           <label class="custom_check">
-                            <input type="checkbox" [(ngModel)]="item.selected" [value]="item.id"
+                            <input type="checkbox" [(ngModel)]=" item.selected" [value]=" item?.id"
                               (change)="onChangeCommodite()" name="commodite" />
-                            <span class="checkmark"></span> {{ item.nom }}
+                            <span class="checkmark"></span> {{ item?.nom }}
                           </label>
                         </li>
                       </ul>
@@ -494,8 +494,8 @@
                                  
                         <mat-option
                           *ngFor="let item of pays"
-                          [value]="item.nompays"
-                          >{{ item.nompays }}</mat-option
+                          [value]=" item?.nompays"
+                          >{{ item?.nompays }}</mat-option
                         >
                                
                       </mat-select>
@@ -523,8 +523,8 @@
                       >
                         <mat-option
                           *ngFor="let item of regions"
-                          [value]="item.nomregion"
-                          >{{ item.nomregion }}</mat-option
+                          [value]=" item?.nomregion"
+                          >{{ item?.nomregion }}</mat-option
                         >
                       </mat-select>
                     </mat-form-field>
@@ -550,8 +550,8 @@
                       >
                         <mat-option
                           *ngFor="let item of cercles"
-                          [value]="item.nomcercle"
-                          >{{ item.nomcercle }}</mat-option
+                          [value]=" item?.nomcercle"
+                          >{{ item?.nomcercle }}</mat-option
                         >
                       </mat-select>
                     </mat-form-field>
@@ -577,8 +577,8 @@
                       <mat-select name="commune" [(ngModel)]="form.commune">
                                  <mat-option
                           *ngFor="let item of communes"
-                          [value]="item.id"
-                          >{{ item.nomcommune }}</mat-option
+                          [value]=" item?.id"
+                          >{{ item?.nomcommune }}</mat-option
                         >
                                
                       </mat-select>

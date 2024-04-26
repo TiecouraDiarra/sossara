@@ -125,7 +125,7 @@
                         <div class="pass-group group-img">
                           <span class="lock-icon"><i class="fa-sharp fa-solid fa-calendar-days"></i></span>
                           <input type="text" class="form-control" value="{{
-                              users.dateNaissance
+                              users?.dateNaissance
                                 | date : 'dd MMM yyyy' : locale
                             }}" />
                         </div>
@@ -147,7 +147,7 @@
                         <label class="col-form-label">Type de piece</label>
                         <div class="pass-group group-img">
                           <span class="lock-icon"><i class="fas fa-id-card"></i></span>
-                          <input type="text" class="form-control" value="{{ users.documents[0].nomDoc }}" />
+                          <input type="text" class="form-control" value="{{ users?.documents[0]?.nomDoc }}" />
                         </div>
                       </div>
                     </div>
@@ -156,7 +156,7 @@
                         <label class="col-form-label">Numero de la carte</label>
                         <div class="pass-group group-img">
                           <span class="lock-icon"><i class="fas fa-file"></i></span>
-                          <input type="text" class="form-control" value="{{ users.documents[0].numDoc }}" />
+                          <input type="text" class="form-control" value="{{ users?.documents[0]?.numDoc }}" />
                         </div>
                       </div>
                     </div>
@@ -193,7 +193,7 @@
                           </div>
                           &nbsp;
                           <span class="mt-1 input">{{
-                            users.adresse.commune.cercle.region.pays.nompays
+                            users?.adresse?.commune?.cercle?.region?.pays?.nompays
                             }}</span>
                         </div>
                       </div>
@@ -208,7 +208,7 @@
                           </div>
                           &nbsp;
                           <span class="mt-1 input">{{
-                            users.adresse.commune.cercle.region.nomregion
+                            users?.adresse?.commune?.cercle?.region?.nomregion
                             }}</span>
                         </div>
                       </div>
@@ -225,7 +225,7 @@
                           </div>
                           &nbsp;
                           <span class="mt-1 input">{{
-                            users.adresse.commune.cercle.nomcercle
+                            users?.adresse?.commune?.cercle?.nomcercle
                             }}</span>
                         </div>
                       </div>
@@ -240,7 +240,7 @@
                           </div>
                           &nbsp;
                           <span class="mt-1 input">{{
-                            users.adresse.commune.nomcommune
+                            users?.adresse?.commune?.nomcommune
                             }}</span>
                         </div>
                       </div>
@@ -287,7 +287,7 @@
                           </div>
                           &nbsp;
                           <span class="mt-2 input">{{
-                            users.adresse.porte
+                            users?.adresse?.porte
                             }}</span>
                           <!-- <input style="border: none;" readonly [value]="users.adresse.porte" type="text" 
                                                         /> -->
@@ -420,7 +420,7 @@
                                       Region
                                     </option>
                                     <option *ngFor="let Region of regions1">
-                                      {{ Region.nomregion }}
+                                      {{ Region?.nomregion }}
                                     </option>
                                   </select>
                                 </div>
@@ -443,7 +443,7 @@
                                       Cercle
                                     </option>
                                     <option *ngFor="let Cercle of cercles" [value]="Cercle.id">
-                                      {{ Cercle.nomcercle }}
+                                      {{ Cercle?.nomcercle }}
                                     </option>
                                   </select>
                                 </div>

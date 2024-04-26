@@ -45,28 +45,28 @@
                             </div> -->
                             <div class="carousel-inner">
                                 <ng-container *ngIf="photoImmo?.length === 0; else imagesBlock">
-                                    <div class="carousel-item active" *ngIf="bien.typeImmo.nom === 'Villa'">
+                                    <div class="carousel-item active" *ngIf="bien?.typeImmo?.nom === 'Villa'">
                                         <img src="../../../../assets/img/typebien/villa.png"
                                             class="img-fluid image-size" alt="default-img" />
                                     </div>
-                                    <div class="carousel-item active" *ngIf="bien.typeImmo.nom === 'Appartement'">
+                                    <div class="carousel-item active" *ngIf="bien?.typeImmo?.nom === 'Appartement'">
                                         <img src="../../../../assets/img/typebien/appartement.png"
                                             class="img-fluid image-size" alt="default-img" />
                                     </div>
-                                    <div class="carousel-item active" *ngIf="bien.typeImmo.nom === 'Terrain'">
+                                    <div class="carousel-item active" *ngIf="bien?.typeImmo?.nom === 'Terrain'">
                                         <img src="../../../../assets/img/typebien/terrain.png"
                                             class="img-fluid image-size" alt="default-img" />
                                     </div>
-                                    <div class="carousel-item active" *ngIf="bien.typeImmo.nom === 'Bureau'">
+                                    <div class="carousel-item active" *ngIf="bien?.typeImmo?.nom === 'Bureau'">
                                         <img src="../../../../assets/img/typebien/bureau.png"
                                             class="img-fluid image-size" alt="default-img">
                                     </div>
-                                    <div class="carousel-item active" *ngIf="bien.typeImmo.nom === 'Champ'">
+                                    <div class="carousel-item active" *ngIf="bien?.typeImmo?.nom === 'Champ'">
                                         <img src="../../../../assets/img/typebien/champ.png"
                                             class="img-fluid image-size" alt="default-img" />
                                     </div>
                                     <div class="carousel-item active"
-                                        *ngIf="bien.typeImmo.nom === 'Commerce & Magasin'">
+                                        *ngIf="bien?.typeImmo?.nom === 'Commerce & Magasin'">
                                         <img src="../../../../assets/img/typebien/magasin.png"
                                             class="img-fluid image-size" alt="default-img" />
                                     </div>
@@ -109,52 +109,52 @@
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.typeImmo">
                                 <p>Type du bien</p>
-                                <p>{{bien.typeImmo.nom}}</p>
+                                <p>{{bien?.typeImmo?.nom}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.periode">
                                 <p>Periode</p>
-                                <p>{{bien.periode.nom}}</p>
+                                <p>{{bien?.periode?.nom}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.adresse">
                                 <p>Quartier</p>
-                                <p>{{bien.adresse.quartier}}</p>
+                                <p>{{bien?.adresse?.quartier}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.adresse">
                                 <p>Rue</p>
-                                <p>{{bien.adresse.rue}}</p>
+                                <p>{{bien?.adresse?.rue}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.adresse">
                                 <p>Porte</p>
-                                <p>{{bien.adresse.porte}}</p>
+                                <p>{{bien?.adresse?.porte}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.createdAt">
                                 <p>Date de publication</p>
-                                <p>{{bien.createdAt | date:"dd/MM/yyyy"}}</p>
+                                <p>{{bien?.createdAt | date:"dd/MM/yyyy"}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.nb_piece">
+                                *ngIf="bien && bien?.nb_piece">
                                 <p>Salon</p>
-                                <p>{{bien.nb_piece}}</p>
+                                <p>{{bien?.nb_piece}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.chambre">
                                 <p>Chambre</p>
-                                <p>{{bien.chambre}}</p>
+                                <p>{{bien?.chambre}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien && bien.cuisine">
+                                *ngIf="bien && bien?.cuisine">
                                 <p>Cuisine</p>
-                                <p>{{bien.cuisine}}</p>
+                                <p>{{bien?.cuisine}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
                                 *ngIf="bien && bien.toilette">
                                 <p>Toilette</p>
-                                <p>{{bien.toilette}}</p>
+                                <p>{{bien?.toilette}}</p>
                             </div>
                         </div>
                     </div>

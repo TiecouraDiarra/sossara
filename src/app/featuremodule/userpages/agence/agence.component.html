@@ -294,16 +294,16 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)" class="crd">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
                           <div
                             *ngIf="
-                              BienImmo.photos && BienImmo.photos.length > 0;
+                              BienImmo.photos && BienImmo?.photos?.length > 0;
                               else noImages
                             "
                           >
                             <img
                               src="{{
-                                generateImageUrl(BienImmo.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos[0].nom)
                               }}"
                               class="img-fluid image-size"
                               alt="blog-img"
@@ -312,7 +312,7 @@
                           <ng-template #noImages>
                             <div
                               class="type"
-                              *ngIf="BienImmo.typeImmo.nom === 'Villa'"
+                              *ngIf="BienImmo?.typeImmo?.nom === 'Villa'"
                             >
                               <img
                                 src="../../../../assets/img/typebien/villa.png"
@@ -322,7 +322,7 @@
                             </div>
                             <div
                               class="type"
-                              *ngIf="BienImmo.typeImmo.nom === 'Appartement'"
+                              *ngIf="BienImmo?.typeImmo?.nom === 'Appartement'"
                             >
                               <img
                                 src="../../../../assets/img/typebien/appartement.png"
@@ -332,7 +332,7 @@
                             </div>
                             <div
                               class="type"
-                              *ngIf="BienImmo.typeImmo.nom === 'Terrain'"
+                              *ngIf="BienImmo?.typeImmo?.nom === 'Terrain'"
                             >
                               <img
                                 src="../../../../assets/img/typebien/terrain.png"
@@ -342,7 +342,7 @@
                             </div>
                             <div
                               class="type"
-                              *ngIf="BienImmo.typeImmo.nom === 'Bureau'"
+                              *ngIf="BienImmo?.typeImmo?.nom === 'Bureau'"
                             >
                               <img
                                 src="../../../../assets/img/typebien/bureau.png"
@@ -352,7 +352,7 @@
                             </div>
                             <div
                               class="type"
-                              *ngIf="BienImmo.typeImmo.nom === 'Champ'"
+                              *ngIf="BienImmo?.typeImmo?.nom === 'Champ'"
                             >
                               <img
                                 src="../../../../assets/img/typebien/champ.png"
@@ -363,7 +363,7 @@
                             <div
                               class="type"
                               *ngIf="
-                                BienImmo.typeImmo.nom === 'Commerce & Magasin'
+                                BienImmo?.typeImmo?.nom === 'Commerce & Magasin'
                               "
                             >
                               <img
@@ -377,20 +377,20 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
-                            BienImmo.nom ? BienImmo.nom : BienImmo.typeImmo.nom
+                            BienImmo.nom ? BienImmo.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
                       </h6>
                       <div class="listingtable-rate">
                         <a href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.typeImmo.nom }}
+                          {{ BienImmo?.typeImmo?.nom }}
                         </a>
                         <span class="discount-amt"
-                          >{{ formatPrice(BienImmo.prix) }} FCFA</span
+                          >{{ formatPrice(BienImmo?.prix) }} FCFA</span
                         >
                       </div>
                       <p>
@@ -402,22 +402,22 @@
                         {{
                           BienImmo?.adresse?.commune?.cercle?.region?.nomregion
                         }}
-                        - {{ BienImmo?.adresse?.commune.nomcommune }} -
-                        {{ BienImmo.adresse.quartier }}
+                        - {{ BienImmo?.adresse?.commune?.nomcommune }} -
+                        {{ BienImmo?.adresse?.quartier }}
                       </p>
                     </td>
                     <td>
                       <span
                         [ngClass]="{
-                          unpublish: BienImmo.statut.nom === 'A vendre'
+                          unpublish: BienImmo?.statut?.nom === 'A vendre'
                         }"
                         class="status-text"
-                        >{{ BienImmo.statut.nom }}</span
+                        >{{ BienImmo?.statut?.nom }}</span
                       >
                     </td>
                     <td>
                       <span class="views-count">{{
-                        favoritedPropertiesCountAgence[BienImmo.id]
+                        favoritedPropertiesCountAgence[BienImmo?.id]
                       }}</span>
                     </td>
                     <td>
@@ -428,12 +428,12 @@
                           ><i class="feather-eye"></i
                         ></a>
                         <a
-                          (click)="goToModifierBien(BienImmo.uuid)"
+                          (click)="goToModifierBien(BienImmo?.uuid)"
                           class="action-btn btn-edit crd"
                           ><i class="feather-edit-3"></i
                         ></a>
                         <a
-                          (click)="SupprimerBien(BienImmo.id)"
+                          (click)="SupprimerBien(BienImmo?.id)"
                           class="action-btn btn-trash crd"
                           ><i class="feather-trash-2"></i
                         ></a>
@@ -573,16 +573,16 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)" class="crd">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
                           <div
                             *ngIf="
-                              BienImmo.photos && BienImmo.photos.length > 0;
+                              BienImmo.photos && BienImmo?.photos.length > 0;
                               else noImages
                             "
                           >
                             <img
                               src="{{
-                                generateImageUrl(BienImmo.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos[0].nom)
                               }}"
                               class="img-fluid image-size"
                               alt="blog-img"
@@ -599,60 +599,60 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
-                            BienImmo.nom ? BienImmo.nom : BienImmo.typeImmo.nom
+                            BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
                       </h6>
                       <div class="listingtable-rate">
                         <a href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.typeImmo.nom }}
+                          {{ BienImmo?.typeImmo?.nom }}
                         </a>
                         <span class="discount-amt"
-                          >{{ formatPrice(BienImmo.prix) }} FCFA</span
+                          >{{ formatPrice(BienImmo?.prix) }} FCFA</span
                         >
                       </div>
                       <p>
                         {{
-                          BienImmo.adresse.commune.cercle.region.pays.nompays
+                          BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
                         }}
                         -
-                        {{ BienImmo.adresse.commune.cercle.region.nomregion }} -
-                        {{ BienImmo.adresse.commune.nomcommune }} -
-                        {{ BienImmo.adresse.quartier }}
+                        {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
+                        {{ BienImmo?.adresse?.commune?.nomcommune }} -
+                        {{ BienImmo?.adresse?.quartier }}
                       </p>
                     </td>
                     <td>
                       <span
                         [ngClass]="{
-                          unpublish: BienImmo.statut.nom === 'A vendre'
+                          unpublish: BienImmo?.statut?.nom === 'A vendre'
                         }"
                         class="status-text"
-                        >{{ BienImmo.statut.nom }}</span
+                        >{{ BienImmo?.statut?.nom }}</span
                       >
                     </td>
                     <td>
                       <span class="views-count">{{
-                        favoritedPropertiesCount1[BienImmo.id]
+                        favoritedPropertiesCount1[BienImmo?.id]
                       }}</span>
                     </td>
                     <td>
                       <div class="action">
                         <a
-                          (click)="goToDettailBien(BienImmo.uuid)"
+                          (click)="goToDettailBien(BienImmo?.uuid)"
                           class="action-btn btn-view crd"
                           ><i class="feather-eye"></i
                         ></a>
                         <a
-                          (click)="goToModifierBien(BienImmo.uuid)"
+                          (click)="goToModifierBien(BienImmo?.uuid)"
                           class="action-btn btn-edit crd"
                           ><i class="feather-edit-3"></i
                         ></a>
                         <a
-                          (click)="SupprimerBien(BienImmo.id)"
+                          (click)="SupprimerBien(BienImmo?.id)"
                           class="action-btn btn-trash crd"
                           ><i class="feather-trash-2"></i
                         ></a>
@@ -765,16 +765,16 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div
                             *ngIf="
-                              BienImmo.photos && BienImmo.photos.length > 0;
+                              BienImmo?.photos && BienImmo?.photos.length > 0;
                               else noImages
                             "
                           >
                             <img
                               src="{{
-                                generateImageUrl(BienImmo.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos[0].nom)
                               }}"
                               class="img-fluid image-size"
                               alt="blog-img"
@@ -791,40 +791,40 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo.typeImmo">
+                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo.uuid)">{{
-                          BienImmo.nom ? BienImmo.nom : BienImmo.typeImmo.nom
+                          BienImmo.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                         }}</a>
                       </h6>
                       <div class="listingtable-rate">
                         <a
-                          *ngIf="BienImmo && BienImmo.typeImmo"
+                          *ngIf="BienImmo && BienImmo?.typeImmo"
                           href="javascript:void(0)"
                           class="cat-icon"
                         >
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.typeImmo.nom }}
+                          {{ BienImmo?.typeImmo?.nom }}
                         </a>
                         <span
                           class="discount-amt"
-                          *ngIf="BienImmo && BienImmo.prix"
-                          >{{ formatPrice(BienImmo.prix) }} FCFA</span
+                          *ngIf="BienImmo && BienImmo?.prix"
+                          >{{ formatPrice(BienImmo?.prix) }} FCFA</span
                         >
                       </div>
-                      <p *ngIf="BienImmo && BienImmo.adresse">
+                      <p *ngIf="BienImmo && BienImmo?.adresse">
                         {{
-                          BienImmo.adresse.commune.cercle.region.pays.nompays
+                          BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
                         }}
                         -
-                        {{ BienImmo.adresse.commune.cercle.region.nomregion }} -
-                        {{ BienImmo.adresse.commune.nomcommune }} -
-                        {{ BienImmo.adresse.quartier }}
+                        {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
+                        {{ BienImmo?.adresse?.commune?.nomcommune }} -
+                        {{ BienImmo?.adresse?.quartier }}
                       </p>
                     </td>
                     <td>
                       <span
                         [ngClass]="{
-                          unpublish: BienImmo.statut.nom === 'A vendre'
+                          unpublish: BienImmo?.statut?.nom === 'A vendre'
                         }"
                         class="status-text"
                         >Loué</span
@@ -833,9 +833,9 @@
                     <td>
                       <span
                         class="views-count"
-                        *ngIf="BienImmo && BienImmo.createdAt"
+                        *ngIf="BienImmo && BienImmo?.createdAt"
                         >{{
-                          BienImmo.createdAt | date : "dd MMM yyyy" : locale
+                          BienImmo?.createdAt | date : "dd MMM yyyy" : locale
                         }}</span
                       >
                     </td>
@@ -967,16 +967,16 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div
                             *ngIf="
-                              BienImmo.photos && BienImmo.photos.length > 0;
+                              BienImmo.photos && BienImmo?.photos.length > 0;
                               else noImages
                             "
                           >
                             <img
                               src="{{
-                                generateImageUrl(BienImmo.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos[0]?.nom)
                               }}"
                               class="img-fluid image-size"
                               alt="blog-img"
@@ -994,26 +994,26 @@
                     </td>
                     <td>
                       <h6 *ngIf="BienImmo && BienImmo.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">{{
-                          BienImmo.nom ? BienImmo.nom : BienImmo.typeImmo.nom
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">{{
+                          BienImmo.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                         }}</a>
                       </h6>
                       <div class="listingtable-rate">
                         <a
-                          *ngIf="BienImmo && BienImmo.typeImmo"
+                          *ngIf="BienImmo && BienImmo?.typeImmo"
                           href="javascript:void(0)"
                           class="cat-icon"
                         >
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.typeImmo.nom }}
+                          {{ BienImmo?.typeImmo?.nom }}
                         </a>
                         <span
                           class="discount-amt"
                           *ngIf="BienImmo && BienImmo.prix"
-                          >{{ formatPrice(BienImmo.prix) }} FCFA</span
+                          >{{ formatPrice(BienImmo?.prix) }} FCFA</span
                         >
                       </div>
-                      <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                      <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
                         {{
                           BienImmo?.adresse?.commune?.cercle?.region?.pays
                             ?.nompays
@@ -1029,18 +1029,18 @@
                     <td>
                       <span
                         [ngClass]="{
-                          unpublish: BienImmo.statut.nom === 'A vendre'
+                          unpublish: BienImmo?.statut?.nom === 'A vendre'
                         }"
                         class="status-text"
-                        >{{ BienImmo.statut.nom }}</span
+                        >{{ BienImmo?.statut?.nom }}</span
                       >
                     </td>
                     <td>
                       <span
                         class="views-count"
-                        *ngIf="BienImmo && BienImmo.createdAt"
+                        *ngIf="BienImmo && BienImmo?.createdAt"
                         >{{
-                          BienImmo.createdAt | date : "dd MMM yyyy" : locale
+                          BienImmo?.createdAt | date : "dd MMM yyyy" : locale
                         }}</span
                       >
                     </td>
@@ -1210,16 +1210,16 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div
                             *ngIf="
-                              BienImmo.photos && BienImmo.photos.length > 0;
+                              BienImmo.photos && BienImmo?.photos.length > 0;
                               else noImages
                             "
                           >
                             <img
                               src="{{
-                                generateImageUrl(BienImmo.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos[0].nom)
                               }}"
                               class="img-fluid image-size"
                               alt="blog-img"
@@ -1239,33 +1239,33 @@
                       <h6 *ngIf="BienImmo && BienImmo.typeImmo">
                         <a (click)="goToDettailBien(BienImmo.uuid)">
                           {{
-                            BienImmo.nom ? BienImmo.nom : BienImmo.typeImmo.nom
+                            BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
                       </h6>
                       <div class="listingtable-rate">
                         <a
-                          *ngIf="BienImmo && BienImmo.typeImmo"
+                          *ngIf="BienImmo && BienImmo?.typeImmo"
                           href="javascript:void(0)"
                           class="cat-icon"
                         >
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.typeImmo.nom }}
+                          {{ BienImmo?.typeImmo?.nom }}
                         </a>
                         <span
                           class="discount-amt"
-                          *ngIf="BienImmo && BienImmo.prix"
-                          >{{ formatPrice(BienImmo.prix) }} FCFA</span
+                          *ngIf="BienImmo && BienImmo?.prix"
+                          >{{ formatPrice(BienImmo?.prix) }} FCFA</span
                         >
                       </div>
-                      <p *ngIf="BienImmo && BienImmo.adresse">
+                      <p *ngIf="BienImmo && BienImmo?.adresse">
                         {{
-                          BienImmo.adresse.commune.cercle.region.pays.nompays
+                          BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
                         }}
                         -
-                        {{ BienImmo.adresse.commune.cercle.region.nomregion }} -
-                        {{ BienImmo.adresse.commune.nomcommune }} -
-                        {{ BienImmo.adresse.quartier }}
+                        {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
+                        {{ BienImmo?.adresse?.commune?.nomcommune }} -
+                        {{ BienImmo?.adresse?.quartier }}
                       </p>
                     </td>
                     <td>
@@ -1276,7 +1276,7 @@
                         class="views-count"
                         *ngIf="BienImmo && BienImmo.createdAt"
                         >{{
-                          BienImmo.createdAt | date : "dd MMM yyyy" : locale
+                          BienImmo?.createdAt | date : "dd MMM yyyy" : locale
                         }}</span
                       >
                     </td>
@@ -1399,16 +1399,16 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div
                             *ngIf="
-                              BienImmo.photos && BienImmo.photos.length > 0;
+                              BienImmo.photos && BienImmo?.photos?.length > 0;
                               else noImages
                             "
                           >
                             <img
                               src="{{
-                                generateImageUrl(BienImmo.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos[0]?.nom)
                               }}"
                               class="img-fluid image-size"
                               alt="blog-img"
@@ -1425,10 +1425,10 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo.typeImmo">
+                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo.uuid)">
                           {{
-                            BienImmo.nom ? BienImmo.nom : BienImmo.typeImmo.nom
+                            BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
                       </h6>
@@ -1439,7 +1439,7 @@
                           class="cat-icon"
                         >
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.typeImmo.nom }}
+                          {{ BienImmo?.typeImmo?.nom }}
                         </a>
                         <span
                           class="discount-amt"
@@ -1468,9 +1468,9 @@
                     <td>
                       <span
                         class="views-count"
-                        *ngIf="BienImmo && BienImmo.createdAt"
+                        *ngIf="BienImmo && BienImmo?.createdAt"
                         >{{
-                          BienImmo.createdAt | date : "dd MMM yyyy" : locale
+                          BienImmo?.createdAt | date : "dd MMM yyyy" : locale
                         }}</span
                       >
                     </td>
@@ -1602,10 +1602,10 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div
                             *ngIf="
-                              BienImmo?.bien.photoImmos &&
+                              BienImmo?.bien?.photoImmos &&
                                 BienImmo?.bien?.photoImmos?.length > 0;
                               else noImages
                             "
@@ -1613,7 +1613,7 @@
                             <img
                               src="{{
                                 generateImageUrl(
-                                  BienImmo?.bien?.photoImmos[0].nom
+                                  BienImmo?.bien?.photoImmos[0]?.nom
                                 )
                               }}"
                               class="img-fluid image-size"
@@ -1631,49 +1631,49 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                      <h6 *ngIf="BienImmo.bien && BienImmo?.bien?.typeImmo">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
-                            BienImmo.bien.nom
-                              ? BienImmo.bien.nom
-                              : BienImmo.bien.typeImmo.nom
+                            BienImmo?.bien?.nom
+                              ? BienImmo?.bien?.nom
+                              : BienImmo?.bien?.typeImmo?.nom
                           }}
                         </a>
                       </h6>
                       <div class="listingtable-rate">
                         <a
-                          *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                          *ngIf="BienImmo.bien && BienImmo?.bien?.typeImmo"
                           href="javascript:void(0)"
                           class="cat-icon"
                         >
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.bien.typeImmo.nom }}
+                          {{ BienImmo?.bien?.typeImmo?.nom }}
                         </a>
                         <span
                           class="discount-amt"
-                          *ngIf="BienImmo.bien && BienImmo.bien.prix"
-                          >{{ formatPrice(BienImmo.bien.prix) }} FCFA</span
+                          *ngIf="BienImmo.bien && BienImmo?.bien?.prix"
+                          >{{ formatPrice(BienImmo?.bien?.prix) }} FCFA</span
                         >
                       </div>
-                      <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                      <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
                         {{
-                          BienImmo.bien.adresse.commune.cercle.region.pays
-                            .nompays
+                          BienImmo?.bien?.adresse?.commune?.cercle?.region?.pays
+                            ?.nompays
                         }}
                         -
                         {{
-                          BienImmo.bien.adresse.commune.cercle.region.nomregion
+                          BienImmo?.bien?.adresse?.commune?.cercle?.region?.nomregion
                         }}
-                        - {{ BienImmo.bien.adresse.commune.nomcommune }} -
-                        {{ BienImmo.bien.adresse.quartier }}
+                        - {{ BienImmo?.bien?.adresse?.commune?.nomcommune }} -
+                        {{ BienImmo?.bien?.adresse?.quartier }}
                       </p>
                     </td>
                     <td>
                       <span
                         class="views-count"
-                        *ngIf="BienImmo && BienImmo.updatedAt"
+                        *ngIf="BienImmo && BienImmo?.updatedAt"
                         >{{
-                          BienImmo.updatedAt | date : "dd MMM yyyy" : locale
+                          BienImmo?.updatedAt | date : "dd MMM yyyy" : locale
                         }}</span
                       >
                     </td>
@@ -1690,7 +1690,7 @@
                           <div class="review-details">
                             <div class="tes">
                               <div class="views-count">
-                                {{ BienImmo?.bien?.proprietaire.nom }}
+                                {{ BienImmo?.bien?.proprietaire?.nom }}
                               </div>
                             </div>
                             <!-- <div>Tel : {{BienImmo?.bien?.proprietaire.telephone}}</div> -->
@@ -1708,7 +1708,7 @@
                                             </span> -->
                       <div class="action">
                         <a
-                          (click)="openReclamationModal(BienImmo.bien.id)"
+                          (click)="openReclamationModal(BienImmo?.bien?.id)"
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal"
                           class="action-btn btn-view crd"
@@ -1716,7 +1716,7 @@
                           <span class="hover-text">Faire une reclamation</span>
                         </a>
                         <a
-                          (click)="goToPageContrat(BienImmo.contrat.uuid)"
+                          (click)="goToPageContrat(BienImmo?.contrat?.uuid)"
                           class="action-btn btn-view crd"
                         >
                           <img
@@ -1776,7 +1776,7 @@
                                   *ngFor="let item of probleme"
                                   [value]="item.id"
                                 >
-                                  {{ item.nom }}
+                                  {{ item?.nom }}
                                 </option>
                               </select>
                             </div>
@@ -1928,14 +1928,14 @@
                               <div class="col-xs-7 col-sm-7 col-md-7">
                                 <div
                                   class="receipt-left"
-                                  *ngIf="transaction && transaction.utilisateur"
+                                  *ngIf="transaction && transaction?.utilisateur"
                                 >
                                   <img
                                     class="img-responsive"
                                     alt="iamgurdeeposahan"
                                     src="{{
                                       generateImageUrl(
-                                        transaction.utilisateur.photo
+                                        transaction?.utilisateur?.photo
                                       )
                                     }}"
                                     style="width: 71px; border-radius: 43px"
@@ -1950,31 +1950,31 @@
                                   <h5
                                     *ngIf="
                                       transaction &&
-                                      transaction.bien &&
-                                      transaction.bien.utilisateur
+                                      transaction?.bien &&
+                                      transaction?.bien?.utilisateur
                                     "
                                   >
-                                    {{ transaction.bien.utilisateur.nom }}
+                                    {{ transaction?.bien?.utilisateur?.nom }}
                                   </h5>
                                   <p
                                     *ngIf="
                                       transaction &&
-                                      transaction.bien &&
-                                      transaction.bien.utilisateur
+                                      transaction?.bien &&
+                                      transaction?.bien?.utilisateur
                                     "
                                   >
                                     <b>Mobile :</b>
-                                    {{ transaction.bien.utilisateur.telephone }}
+                                    {{ transaction?.bien?.utilisateur?.telephone }}
                                   </p>
                                   <p
                                     *ngIf="
                                       transaction &&
-                                      transaction.bien &&
-                                      transaction.bien.utilisateur
+                                      transaction?.bien &&
+                                      transaction?.bien?.utilisateur
                                     "
                                   >
                                     <b>Email :</b>
-                                    {{ transaction.bien.utilisateur.email }}
+                                    {{ transaction?.bien?.utilisateur?.email }}
                                   </p>
                                   <p><b>Address :</b> New York, USA</p>
                                 </div>
@@ -1986,26 +1986,26 @@
                                 <div class="receipt-right">
                                   <h5
                                     *ngIf="
-                                      transaction && transaction.utilisateur
+                                      transaction && transaction?.utilisateur
                                     "
                                   >
-                                    {{ transaction.utilisateur.nom }}
+                                    {{ transaction?.utilisateur?.nom }}
                                   </h5>
                                   <p
                                     *ngIf="
-                                      transaction && transaction.utilisateur
+                                      transaction && transaction?.utilisateur
                                     "
                                   >
                                     <b>Mobile :</b>
-                                    {{ transaction.utilisateur.telephone }}
+                                    {{ transaction?.utilisateur?.telephone }}
                                   </p>
                                   <p
                                     *ngIf="
-                                      transaction && transaction.utilisateur
+                                      transaction && transaction?.utilisateur
                                     "
                                   >
                                     <b>Email :</b>
-                                    {{ transaction.utilisateur.email }}
+                                    {{ transaction?.utilisateur?.email }}
                                   </p>
                                   <p><b>Address :</b> New York, USA</p>
                                 </div>
@@ -2016,7 +2016,7 @@
                                     style="font-size: 15px"
                                     *ngIf="transaction"
                                   >
-                                    FACTURE N 00{{ transaction.id }}
+                                    FACTURE N 00{{ transaction?.id }}
                                   </h5>
                                 </div>
                               </div>
@@ -2036,21 +2036,21 @@
                                       class="col-md-7"
                                       *ngIf="
                                         transaction &&
-                                        transaction.bien &&
-                                        transaction.bien.typeImmo
+                                        transaction?.bien &&
+                                        transaction?.bien?.typeImmo
                                       "
                                     >
                                       {{
-                                        transaction.bien.nom
-                                          ? transaction.bien.nom
-                                          : transaction.bien.typeImmo.nom
+                                        transaction?.bien?.nom
+                                          ? transaction?.bien?.nom
+                                          : transaction?.bien?.typeImmo?.nom
                                       }}
                                     </td>
                                     <td
                                       class="col-md-5 text-center"
                                       *ngIf="transaction"
                                     >
-                                      {{ formatPrice(transaction.somme) }}
+                                      {{ formatPrice(transaction?.somme) }}
                                       FCFA
                                     </td>
                                   </tr>
@@ -2078,13 +2078,13 @@
                                     <td class="text-center">
                                       <p *ngIf="transaction">
                                         <strong>
-                                          {{ formatPrice(transaction.somme) }}
+                                          {{ formatPrice(transaction?.somme) }}
                                           FCFA</strong
                                         >
                                       </p>
                                       <p *ngIf="transaction">
                                         <strong>
-                                          {{ formatPrice(transaction.somme) }}
+                                          {{ formatPrice(transaction?.somme) }}
                                           FCFA</strong
                                         >
                                       </p>
@@ -2099,7 +2099,7 @@
                                     >
                                       <h2 *ngIf="transaction">
                                         <strong>
-                                          {{ formatPrice(transaction.somme) }}
+                                          {{ formatPrice(transaction?.somme) }}
                                           FCFA</strong
                                         >
                                       </h2>
@@ -2253,7 +2253,7 @@
                   >
                     <td>
                       <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div
                             *ngIf="
                               BienImmo.bien &&
@@ -2265,7 +2265,7 @@
                             <img
                               src="{{
                                 generateImageUrl(
-                                  BienImmo?.bien?.photoImmos[0].nom
+                                  BienImmo?.bien?.photoImmos[0]?.nom
                                 )
                               }}"
                               class="img-fluid image-size"
@@ -2283,48 +2283,48 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo.uuid)">
+                      <h6 *ngIf="BienImmo?.bien && BienImmo?.bien?.typeImmo">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
-                            BienImmo.bien.nom
-                              ? BienImmo.bien.nom
-                              : BienImmo.bien.typeImmo.nom
+                            BienImmo?.bien?.nom
+                              ? BienImmo?.bien?.nom
+                              : BienImmo?.bien?.typeImmo?.nom
                           }}
                         </a>
                       </h6>
                       <div class="listingtable-rate">
                         <a
-                          *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
+                          *ngIf="BienImmo?.bien && BienImmo?.bien?.typeImmo"
                           href="javascript:void(0)"
                           class="cat-icon"
                         >
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ BienImmo.bien.typeImmo.nom }}
+                          {{ BienImmo?.bien?.typeImmo?.nom }}
                         </a>
                         <span
                           class="discount-amt"
-                          *ngIf="BienImmo.bien && BienImmo.bien.prix"
-                          >{{ formatPrice(BienImmo.bien.prix) }} FCFA</span
+                          *ngIf="BienImmo.bien && BienImmo?.bien?.prix"
+                          >{{ formatPrice(BienImmo?.bien?.prix) }} FCFA</span
                         >
                       </div>
 
-                      <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                      <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
                         {{
-                          BienImmo.bien.adresse.commune.cercle.region.pays
+                          BienImmo?.bien?.adresse?.commune?.cercle?.region?.pays
                             .nompays
                         }}
                         -
                         {{
-                          BienImmo.bien.adresse.commune.cercle.region.nomregion
+                          BienImmo?.bien?.adresse?.commune?.cercle?.region?.nomregion
                         }}
-                        - {{ BienImmo.bien.adresse.commune.nomcommune }} -
-                        {{ BienImmo.bien.adresse.quartier }}
+                        - {{ BienImmo?.bien?.adresse?.commune?.nomcommune }} -
+                        {{ BienImmo?.bien?.adresse?.quartier }}
                       </p>
                     </td>
                     <td>
                       <span
                         class="views-count"
-                        *ngIf="BienImmo && BienImmo.createdAt"
+                        *ngIf="BienImmo && BienImmo?.createdAt"
                         >{{
                           BienImmo?.updatedAt | date : "dd MMM yyyy" : locale
                         }}</span
@@ -2343,7 +2343,7 @@
                           <div class="review-details">
                             <div class="tes">
                               <div class="views-count">
-                                {{ BienImmo?.bien?.proprietaire.nom }}
+                                {{ BienImmo?.bien?.proprietaire?.nom }}
                               </div>
                             </div>
                             <!-- <div>Tel : {{BienImmo?.bien?.proprietaire.telephone}}</div> -->
@@ -2367,7 +2367,7 @@
                                                 </a> -->
                         <a
                           data-bs-toggle="modal"
-                          (click)="openFactureModalVente(BienImmo.id)"
+                          (click)="openFactureModalVente(BienImmo?.id)"
                           data-bs-target="#staticBackdrop2"
                           class="action-btn btn-edit crd"
                           ><i class="feather-edit-3"></i>
@@ -2423,7 +2423,7 @@
                                   class="receipt-left"
                                   *ngIf="
                                     transactionVendue &&
-                                    transactionVendue.utilisateur
+                                    transactionVendue?.utilisateur
                                   "
                                 >
                                   <img
@@ -2431,7 +2431,7 @@
                                     alt="iamgurdeeposahan"
                                     src="{{
                                       generateImageUrl(
-                                        transactionVendue.utilisateur.photo
+                                        transactionVendue?.utilisateur?.photo
                                       )
                                     }}"
                                     style="width: 71px; border-radius: 43px"
@@ -2446,30 +2446,30 @@
                                   <h5
                                     *ngIf="
                                       transactionVendue &&
-                                      transactionVendue.bien &&
-                                      transactionVendue.bien.utilisateur
+                                      transactionVendue?.bien &&
+                                      transactionVendue?.bien?.utilisateur
                                     "
                                   >
-                                    {{ transactionVendue.bien.utilisateur.nom }}
+                                    {{ transactionVendue?.bien?.utilisateur?.nom }}
                                   </h5>
                                   <p
                                     *ngIf="
                                       transactionVendue &&
-                                      transactionVendue.bien &&
-                                      transactionVendue.bien.utilisateur
+                                      transactionVendue?.bien &&
+                                      transactionVendue?.bien?.utilisateur
                                     "
                                   >
                                     <b>Mobile :</b>
                                     {{
-                                      transactionVendue.bien.utilisateur
+                                      transactionVendue?.bien?.utilisateur
                                         .telephone
                                     }}
                                   </p>
                                   <p
                                     *ngIf="
                                       transactionVendue &&
-                                      transactionVendue.bien &&
-                                      transactionVendue.bien.utilisateur
+                                      transactionVendue?.bien &&
+                                      transactionVendue?.bien?.utilisateur
                                     "
                                   >
                                     <b>Email :</b>
@@ -2488,30 +2488,30 @@
                                   <h5
                                     *ngIf="
                                       transactionVendue &&
-                                      transactionVendue.utilisateur
+                                      transactionVendue?.utilisateur
                                     "
                                   >
-                                    {{ transactionVendue.utilisateur.nom }}
+                                    {{ transactionVendue?.utilisateur?.nom }}
                                   </h5>
                                   <p
                                     *ngIf="
                                       transactionVendue &&
-                                      transactionVendue.utilisateur
+                                      transactionVendue?.utilisateur
                                     "
                                   >
                                     <b>Mobile :</b>
                                     {{
-                                      transactionVendue.utilisateur.telephone
+                                      transactionVendue?.utilisateur?.telephone
                                     }}
                                   </p>
                                   <p
                                     *ngIf="
                                       transactionVendue &&
-                                      transactionVendue.utilisateur
+                                      transactionVendue?.utilisateur
                                     "
                                   >
                                     <b>Email :</b>
-                                    {{ transactionVendue.utilisateur.email }}
+                                    {{ transactionVendue?.utilisateur?.email }}
                                   </p>
                                   <p><b>Address :</b> New York, USA</p>
                                 </div>
@@ -2522,7 +2522,7 @@
                                     style="font-size: 15px"
                                     *ngIf="transactionVendue"
                                   >
-                                    FACTURE N 00{{ transactionVendue.id }}
+                                    FACTURE N 00{{ transactionVendue?.id }}
                                   </h5>
                                 </div>
                               </div>
@@ -2542,21 +2542,21 @@
                                       class="col-md-7"
                                       *ngIf="
                                         transactionVendue &&
-                                        transactionVendue.bien &&
-                                        transactionVendue.bien.typeImmo
+                                        transactionVendue?.bien &&
+                                        transactionVendue?.bien?.typeImmo
                                       "
                                     >
                                       {{
-                                        transactionVendue.bien.nom
-                                          ? transactionVendue.bien.nom
-                                          : transactionVendue.bien.typeImmo.nom
+                                        transactionVendue?.bien?.nom
+                                          ? transactionVendue?.bien?.nom
+                                          : transactionVendue?.bien?.typeImmo?.nom
                                       }}
                                     </td>
                                     <td
                                       class="col-md-5 text-center"
                                       *ngIf="transactionVendue"
                                     >
-                                      {{ formatPrice(transactionVendue.somme) }}
+                                      {{ formatPrice(transactionVendue?.somme) }}
                                       FCFA
                                     </td>
                                   </tr>
@@ -2585,7 +2585,7 @@
                                       <p *ngIf="transactionVendue">
                                         <strong>
                                           {{
-                                            formatPrice(transactionVendue.somme)
+                                            formatPrice(transactionVendue?.somme)
                                           }}
                                           FCFA</strong
                                         >
@@ -2593,7 +2593,7 @@
                                       <p *ngIf="transactionVendue">
                                         <strong>
                                           {{
-                                            formatPrice(transactionVendue.somme)
+                                            formatPrice(transactionVendue?.somme)
                                           }}
                                           FCFA</strong
                                         >
@@ -2610,7 +2610,7 @@
                                       <h2 *ngIf="transactionVendue">
                                         <strong>
                                           {{
-                                            formatPrice(transactionVendue.somme)
+                                            formatPrice(transactionVendue?.somme)
                                           }}
                                           FCFA</strong
                                         >
@@ -2703,7 +2703,7 @@
           <div class="row dashboard-info reviewpage-content">
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamationUser && reclamationUser.length > 0"
+              *ngIf="reclamationUser && reclamationUser?.length > 0"
             >
               <div class="card dash-cards w-100">
                 <app-mes-reclamations></app-mes-reclamations>
@@ -2711,7 +2711,7 @@
             </div>
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamationUser && reclamationUser.length == 0"
+              *ngIf="reclamationUser && reclamationUser?.length == 0"
             >
               <div class="card dash-cards w-100">
                 <div class="card-header">
@@ -2737,7 +2737,7 @@
           <div class="row dashboard-info reviewpage-content">
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamation && reclamation.length == 0"
+              *ngIf="reclamation && reclamation?.length == 0"
             >
               <div class="card dash-cards w-100">
                 <div class="card-header">
@@ -2747,7 +2747,7 @@
             </div>
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamation && reclamation.length > 0"
+              *ngIf="reclamation && reclamation?.length > 0"
             >
               <div class="card dash-cards w-100">
                 <div class="card-header">
@@ -2766,7 +2766,7 @@
                               <img
                                 src="{{
                                   generateImageUrl(
-                                    Reclamation.utilisateur.photo?.nom
+                                    Reclamation?.utilisateur?.photo?.nom
                                   )
                                 }}"
                                 class="img-fluid"
@@ -2776,7 +2776,7 @@
                             </div>
                           </div>
                           <div class="review-details">
-                            <h6>{{ Reclamation.utilisateur.nom }}</h6>
+                            <h6>{{ Reclamation?.utilisateur?.nom }}</h6>
                             <div class="rating">
                               <div class="rating-star">
                                 <i class="fas fa-star filled"></i>
@@ -2785,19 +2785,19 @@
                                 <i class="fas fa-star filled"></i>
                                 <i class="fas fa-star filled"></i>
                               </div>
-                              <div *ngIf="Reclamation && Reclamation.createdAt">
+                              <div *ngIf="Reclamation && Reclamation?.createdAt">
                                 <i
                                   style="color: #e98b11; font-weight: bold"
                                   class="fa-sharp fa-solid fa-calendar-days"
                                 ></i>
                                 {{
-                                  Reclamation.createdAt
+                                  Reclamation?.createdAt
                                     | date : "dd MMM yyyy" : locale
                                 }}
                               </div>
-                              <div *ngIf="Reclamation && Reclamation.createdAt">
+                              <div *ngIf="Reclamation && Reclamation?.createdAt">
                                 <i class="fa-sharp fa-solid fa-clock"></i
-                                >{{ Reclamation.createdAt | date : "HH:mm" }}
+                                >{{ Reclamation?.createdAt | date : "HH:mm" }}
                               </div>
                             </div>
                             <div class="row mb-3">
@@ -2805,28 +2805,28 @@
                                 class="col"
                                 *ngIf="
                                   Reclamation &&
-                                  Reclamation.bien &&
-                                  Reclamation.bien.typeImmo
+                                  Reclamation?.bien &&
+                                  Reclamation?.bien?.typeImmo
                                 "
                               >
                                 {{
-                                  Reclamation.bien.nom
-                                    ? Reclamation.bien.nom
-                                    : Reclamation.bien.typeImmo.nom
+                                  Reclamation?.bien?.nom
+                                    ? Reclamation?.bien?.nom
+                                    : Reclamation?.bien?.typeImmo?.nom
                                 }}
                               </div>
                               <div
                                 class="col"
                                 style="color: #e98b11; font-weight: bold"
-                                *ngIf="Reclamation && Reclamation.bien"
+                                *ngIf="Reclamation && Reclamation?.bien"
                               >
-                                {{ formatPrice(Reclamation.bien.prix) }} FCFA
+                                {{ formatPrice(Reclamation?.bien?.prix) }} FCFA
                               </div>
                             </div>
                             <ul class="review-gallery">
                               <li
                                 *ngFor="
-                                  let photo of Reclamation.bien.photos.slice(
+                                  let photo of Reclamation?.bien?.photos.slice(
                                     0,
                                     4
                                   );
@@ -2836,11 +2836,11 @@
                                 <img
                                   class="img-fluid"
                                   alt="Image"
-                                  [src]="generateImageUrl(photo.nom)"
+                                  [src]="generateImageUrl(photo?.nom)"
                                 />
                               </li>
                               <ng-container
-                                *ngIf="Reclamation.bien.photos.length === 0"
+                                *ngIf="Reclamation?.bien?.photos?.length === 0"
                               >
                                 <li *ngFor="let _ of [1, 2, 3, 4]">
                                   <img
@@ -2855,29 +2855,29 @@
                               class="m-3"
                               *ngIf="
                                 Reclamation &&
-                                Reclamation.type_probleme &&
-                                Reclamation.type_probleme.nom
+                                Reclamation?.type_probleme &&
+                                Reclamation?.type_probleme?.nom
                               "
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-circle-exclamation"
                               ></i>
-                              Probleme : {{ Reclamation.type_probleme.nom }}
+                              Probleme : {{ Reclamation?.type_probleme.nom }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.contenu"
+                              *ngIf="Reclamation && Reclamation?.contenu"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-check"
                               ></i>
-                              Motif : {{ Reclamation.contenu }}
+                              Motif : {{ Reclamation?.contenu }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.prix_estimatif"
+                              *ngIf="Reclamation && Reclamation?.prix_estimatif"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
@@ -2885,7 +2885,7 @@
                               ></i>
                               Cout :
                               <span style="color: #e98b11; font-weight: bold">
-                                {{ formatPrice(Reclamation.prix_estimatif) }}
+                                {{ formatPrice(Reclamation?.prix_estimatif) }}
                                 FCFA
                               </span>
                             </div>
@@ -2907,7 +2907,7 @@
                               <ul class="review-gallery">
                                 <li
                                   *ngFor="
-                                    let photo of Reclamation.photoReclamations?.slice(
+                                    let photo of Reclamation?.photoReclamations?.slice(
                                       0,
                                       4
                                     );
@@ -2922,7 +2922,7 @@
                                 </li>
                                 <ng-container
                                   *ngIf="
-                                    Reclamation.photoReclamations?.length === 0
+                                    Reclamation?.photoReclamations?.length === 0
                                   "
                                 >
                                   <li *ngFor="let _ of [1, 2, 3, 4]">
@@ -2956,7 +2956,7 @@
                                   class="btn btn-outline-success"
                                   (click)="
                                     LancerProcessusReparation(
-                                      Reclamation.bien.id
+                                      Reclamation?.bien?.id
                                     )
                                   "
                                 >
@@ -3000,7 +3000,7 @@
               class="col-lg-12 d-flex"
               *ngIf="
                 reclamationProcessusLance &&
-                reclamationProcessusLance.length == 0
+                reclamationProcessusLance?.length == 0
               "
             >
               <div class="card dash-cards w-100">
@@ -3013,7 +3013,7 @@
               class="col-lg-12 d-flex"
               *ngIf="
                 reclamationProcessusLance &&
-                reclamationProcessusLance.length > 0
+                reclamationProcessusLance?.length > 0
               "
             >
               <div class="card dash-cards w-100">
@@ -3038,7 +3038,7 @@
           <div class="row dashboard-info reviewpage-content">
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamationLancer && reclamationLancer.length == 0"
+              *ngIf="reclamationLancer && reclamationLancer?.length == 0"
             >
               <div class="card dash-cards w-100">
                 <div class="card-header">
@@ -3048,7 +3048,7 @@
             </div>
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamationLancer && reclamationLancer.length > 0"
+              *ngIf="reclamationLancer && reclamationLancer?.length > 0"
             >
               <div class="card dash-cards w-100">
                 <div class="card-header">
@@ -3067,7 +3067,7 @@
                               <img
                                 src="{{
                                   generateImageUrl(
-                                    Reclamation.utilisateur.photo?.nom
+                                    Reclamation?.utilisateur?.photo?.nom
                                   )
                                 }}"
                                 class="img-fluid"
@@ -3078,7 +3078,7 @@
                           </div>
                           <div class="review-details">
                             <div class="name-and-image">
-                              <h6>{{ Reclamation.utilisateur.nom }}</h6>
+                              <h6>{{ Reclamation?.utilisateur?.nom }}</h6>
                               <img
                                 style="width: 47px"
                                 src="assets/img/processus.gif"
@@ -3093,19 +3093,19 @@
                                 <i class="fas fa-star filled"></i>
                                 <i class="fas fa-star filled"></i>
                               </div>
-                              <div *ngIf="Reclamation && Reclamation.createdAt">
+                              <div *ngIf="Reclamation && Reclamation?.createdAt">
                                 <i
                                   style="color: #e98b11; font-weight: bold"
                                   class="fa-sharp fa-solid fa-calendar-days"
                                 ></i>
                                 {{
-                                  Reclamation.createdAt
+                                  Reclamation?.createdAt
                                     | date : "dd MMM yyyy" : locale
                                 }}
                               </div>
-                              <div *ngIf="Reclamation && Reclamation.createdAt">
+                              <div *ngIf="Reclamation && Reclamation?.createdAt">
                                 <i class="fa-sharp fa-solid fa-clock"></i
-                                >{{ Reclamation.createdAt | date : "HH:mm" }}
+                                >{{ Reclamation?.createdAt | date : "HH:mm" }}
                               </div>
                             </div>
                             <div class="row mb-3">
@@ -3113,28 +3113,28 @@
                                 class="col"
                                 *ngIf="
                                   Reclamation &&
-                                  Reclamation.bien &&
-                                  Reclamation.bien.typeImmo
+                                  Reclamation?.bien &&
+                                  Reclamation?.bien?.typeImmo
                                 "
                               >
                                 {{
-                                  Reclamation.bien.nom
-                                    ? Reclamation.bien.nom
-                                    : Reclamation.bien.typeImmo.nom
+                                  Reclamation?.bien?.nom
+                                    ? Reclamation?.bien?.nom
+                                    : Reclamation?.bien?.typeImmo?.nom
                                 }}
                               </div>
                               <div
                                 class="col"
                                 style="color: #e98b11; font-weight: bold"
-                                *ngIf="Reclamation && Reclamation.bien"
+                                *ngIf="Reclamation && Reclamation?.bien"
                               >
-                                {{ formatPrice(Reclamation.bien.prix) }} FCFA
+                                {{ formatPrice(Reclamation?.bien?.prix) }} FCFA
                               </div>
                             </div>
                             <ul class="review-gallery">
                               <li
                                 *ngFor="
-                                  let photo of Reclamation.bien.photos.slice(
+                                  let photo of Reclamation?.bien?.photos?.slice(
                                     0,
                                     4
                                   );
@@ -3144,11 +3144,11 @@
                                 <img
                                   class="img-fluid"
                                   alt="Image"
-                                  [src]="generateImageUrl(photo.nom)"
+                                  [src]="generateImageUrl(photo?.nom)"
                                 />
                               </li>
                               <ng-container
-                                *ngIf="Reclamation.bien.photos.length === 0"
+                                *ngIf="Reclamation?.bien?.photos?.length === 0"
                               >
                                 <li *ngFor="let _ of [1, 2, 3, 4]">
                                   <img
@@ -3163,29 +3163,29 @@
                               class="m-3"
                               *ngIf="
                                 Reclamation &&
-                                Reclamation.type_probleme &&
-                                Reclamation.type_probleme.nom
+                                Reclamation?.type_probleme &&
+                                Reclamation?.type_probleme?.nom
                               "
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-circle-exclamation"
                               ></i>
-                              Probleme : {{ Reclamation.type_probleme.nom }}
+                              Probleme : {{ Reclamation?.type_probleme?.nom }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.contenu"
+                              *ngIf="Reclamation && Reclamation?.contenu"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-check"
                               ></i>
-                              Motif : {{ Reclamation.contenu }}
+                              Motif : {{ Reclamation?.contenu }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.prix_estimatif"
+                              *ngIf="Reclamation && Reclamation?.prix_estimatif"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
@@ -3193,7 +3193,7 @@
                               ></i>
                               Cout :
                               <span style="color: #e98b11; font-weight: bold">
-                                {{ formatPrice(Reclamation.prix_estimatif) }}
+                                {{ formatPrice(Reclamation?.prix_estimatif) }}
                                 FCFA
                               </span>
                             </div>
@@ -3215,7 +3215,7 @@
                               <ul class="review-gallery">
                                 <li
                                   *ngFor="
-                                    let photo of Reclamation.photoReclamations?.slice(
+                                    let photo of Reclamation?.photoReclamations?.slice(
                                       0,
                                       4
                                     );
@@ -3230,7 +3230,7 @@
                                 </li>
                                 <ng-container
                                   *ngIf="
-                                    Reclamation.photoReclamations?.length === 0
+                                    Reclamation?.photoReclamations?.length === 0
                                   "
                                 >
                                   <li *ngFor="let _ of [1, 2, 3, 4]">
@@ -3250,7 +3250,7 @@
                                   class="scroll-textl"
                                   *ngIf="
                                     Reclamation &&
-                                    Reclamation.prix_estimatif <= 10000
+                                    Reclamation?.prix_estimatif <= 10000
                                   "
                                 >
                                   Le locataire paie
@@ -3259,7 +3259,7 @@
                                   class="scroll-textl"
                                   *ngIf="
                                     Reclamation &&
-                                    Reclamation.prix_estimatif >= 10000
+                                    Reclamation?.prix_estimatif >= 10000
                                   "
                                 >
                                   C'est a votre charge
@@ -3300,7 +3300,7 @@
             </div>
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamation && reclamation.length > 0"
+              *ngIf="reclamation && reclamation?.length > 0"
             >
               <div class="card dash-cards w-100">
                 <div class="card-header">
@@ -3319,7 +3319,7 @@
                               <img
                                 src="{{
                                   generateImageUrl(
-                                    Reclamation.utilisateur.photo?.nom
+                                    Reclamation?.utilisateur?.photo?.nom
                                   )
                                 }}"
                                 class="img-fluid"
@@ -3329,7 +3329,7 @@
                             </div>
                           </div>
                           <div class="review-details">
-                            <h6>{{ Reclamation.utilisateur.nom }}</h6>
+                            <h6>{{ Reclamation?.utilisateur?.nom }}</h6>
                             <div class="rating">
                               <div class="rating-star">
                                 <i class="fas fa-star filled"></i>
@@ -3338,19 +3338,19 @@
                                 <i class="fas fa-star filled"></i>
                                 <i class="fas fa-star filled"></i>
                               </div>
-                              <div *ngIf="Reclamation && Reclamation.createdAt">
+                              <div *ngIf="Reclamation && Reclamation?.createdAt">
                                 <i
                                   style="color: #e98b11; font-weight: bold"
                                   class="fa-sharp fa-solid fa-calendar-days"
                                 ></i>
                                 {{
-                                  Reclamation.createdAt
+                                  Reclamation?.createdAt
                                     | date : "dd MMM yyyy" : locale
                                 }}
                               </div>
-                              <div *ngIf="Reclamation && Reclamation.createdAt">
+                              <div *ngIf="Reclamation && Reclamation?.createdAt">
                                 <i class="fa-sharp fa-solid fa-clock"></i
-                                >{{ Reclamation.createdAt | date : "HH:mm" }}
+                                >{{ Reclamation?.createdAt | date : "HH:mm" }}
                               </div>
                             </div>
                             <div class="row mb-3">
@@ -3358,28 +3358,28 @@
                                 class="col"
                                 *ngIf="
                                   Reclamation &&
-                                  Reclamation.bien &&
-                                  Reclamation.bien.typeImmo
+                                  Reclamation?.bien &&
+                                  Reclamation?.bien?.typeImmo
                                 "
                               >
                                 {{
-                                  Reclamation.bien.nom
-                                    ? Reclamation.bien.nom
-                                    : Reclamation.bien.typeImmo.nom
+                                  Reclamation?.bien?.nom
+                                    ? Reclamation?.bien?.nom
+                                    : Reclamation?.bien?.typeImmo?.nom
                                 }}
                               </div>
                               <div
                                 class="col"
                                 style="color: #e98b11; font-weight: bold"
-                                *ngIf="Reclamation && Reclamation.bien"
+                                *ngIf="Reclamation && Reclamation?.bien"
                               >
-                                {{ formatPrice(Reclamation.bien.prix) }} FCFA
+                                {{ formatPrice(Reclamation?.bien?.prix) }} FCFA
                               </div>
                             </div>
                             <ul class="review-gallery">
                               <li
                                 *ngFor="
-                                  let photo of Reclamation.bien.photos.slice(
+                                  let photo of Reclamation?.bien?.photos.slice(
                                     0,
                                     4
                                   );
@@ -3389,11 +3389,11 @@
                                 <img
                                   class="img-fluid"
                                   alt="Image"
-                                  [src]="generateImageUrl(photo.nom)"
+                                  [src]="generateImageUrl(photo?.nom)"
                                 />
                               </li>
                               <ng-container
-                                *ngIf="Reclamation.bien.photos.length === 0"
+                                *ngIf="Reclamation?.bien?.photos?.length === 0"
                               >
                                 <li *ngFor="let _ of [1, 2, 3, 4]">
                                   <img
@@ -3408,29 +3408,29 @@
                               class="m-3"
                               *ngIf="
                                 Reclamation &&
-                                Reclamation.type_probleme &&
-                                Reclamation.type_probleme.nom
+                                Reclamation?.type_probleme &&
+                                Reclamation?.type_probleme?.nom
                               "
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-circle-exclamation"
                               ></i>
-                              Probleme : {{ Reclamation.type_probleme.nom }}
+                              Probleme : {{ Reclamation?.type_probleme?.nom }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.contenu"
+                              *ngIf="Reclamation && Reclamation?.contenu"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-check"
                               ></i>
-                              Motif : {{ Reclamation.contenu }}
+                              Motif : {{ Reclamation?.contenu }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.prix_estimatif"
+                              *ngIf="Reclamation && Reclamation?.prix_estimatif"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
@@ -3438,7 +3438,7 @@
                               ></i>
                               Cout :
                               <span style="color: #e98b11; font-weight: bold">
-                                {{ formatPrice(Reclamation.prix_estimatif) }}
+                                {{ formatPrice(Reclamation?.prix_estimatif) }}
                                 FCFA
                               </span>
                             </div>
@@ -3460,7 +3460,7 @@
                               <ul class="review-gallery">
                                 <li
                                   *ngFor="
-                                    let photo of Reclamation.photoReclamations?.slice(
+                                    let photo of Reclamation?.photoReclamations?.slice(
                                       0,
                                       4
                                     );
@@ -3475,7 +3475,7 @@
                                 </li>
                                 <ng-container
                                   *ngIf="
-                                    Reclamation.photoReclamations?.length === 0
+                                    Reclamation?.photoReclamations?.length === 0
                                   "
                                 >
                                   <li *ngFor="let _ of [1, 2, 3, 4]">
@@ -3509,7 +3509,7 @@
                                   class="btn btn-outline-success"
                                   (click)="
                                     LancerProcessusReparation(
-                                      Reclamation.bien.id
+                                      Reclamation?.bien?.id
                                     )
                                   "
                                 >
@@ -3537,7 +3537,7 @@
               class="col-lg-12 d-flex"
               *ngIf="
                 reclamationProcessusLance &&
-                reclamationProcessusLance.length > 0
+                reclamationProcessusLance?.length > 0
               "
             >
               <div class="card dash-cards w-100">
@@ -3546,7 +3546,7 @@
             </div>
             <div
               class="col-lg-12 d-flex"
-              *ngIf="reclamationLancer && reclamationLancer.length > 0"
+              *ngIf="reclamationLancer && reclamationLancer?.length > 0"
             >
               <div class="card dash-cards w-100">
                 <div class="card-header">
@@ -3565,7 +3565,7 @@
                               <img
                                 src="{{
                                   generateImageUrl(
-                                    Reclamation.utilisateur.photo?.nom
+                                    Reclamation?.utilisateur?.photo?.nom
                                   )
                                 }}"
                                 class="img-fluid"
@@ -3576,7 +3576,7 @@
                           </div>
                           <div class="review-details">
                             <div class="name-and-image">
-                              <h6>{{ Reclamation.utilisateur.nom }}</h6>
+                              <h6>{{ Reclamation?.utilisateur?.nom }}</h6>
                               <img
                                 style="width: 47px"
                                 src="assets/img/processus.gif"
@@ -3591,19 +3591,19 @@
                                 <i class="fas fa-star filled"></i>
                                 <i class="fas fa-star filled"></i>
                               </div>
-                              <div *ngIf="Reclamation && Reclamation.createdAt">
+                              <div *ngIf="Reclamation && Reclamation?.createdAt">
                                 <i
                                   style="color: #e98b11; font-weight: bold"
                                   class="fa-sharp fa-solid fa-calendar-days"
                                 ></i>
                                 {{
-                                  Reclamation.createdAt
+                                  Reclamation?.createdAt
                                     | date : "dd MMM yyyy" : locale
                                 }}
                               </div>
                               <div *ngIf="Reclamation && Reclamation.createdAt">
                                 <i class="fa-sharp fa-solid fa-clock"></i
-                                >{{ Reclamation.createdAt | date : "HH:mm" }}
+                                >{{ Reclamation?.createdAt | date : "HH:mm" }}
                               </div>
                             </div>
                             <div class="row mb-3">
@@ -3611,28 +3611,28 @@
                                 class="col"
                                 *ngIf="
                                   Reclamation &&
-                                  Reclamation.bien &&
-                                  Reclamation.bien.typeImmo
+                                  Reclamation?.bien &&
+                                  Reclamation?.bien?.typeImmo
                                 "
                               >
                                 {{
-                                  Reclamation.bien.nom
-                                    ? Reclamation.bien.nom
-                                    : Reclamation.bien.typeImmo.nom
+                                  Reclamation?.bien?.nom
+                                    ? Reclamation?.bien?.nom
+                                    : Reclamation?.bien?.typeImmo?.nom
                                 }}
                               </div>
                               <div
                                 class="col"
                                 style="color: #e98b11; font-weight: bold"
-                                *ngIf="Reclamation && Reclamation.bien"
+                                *ngIf="Reclamation && Reclamation?.bien"
                               >
-                                {{ formatPrice(Reclamation.bien.prix) }} FCFA
+                                {{ formatPrice(Reclamation?.bien?.prix) }} FCFA
                               </div>
                             </div>
                             <ul class="review-gallery">
                               <li
                                 *ngFor="
-                                  let photo of Reclamation.bien.photos.slice(
+                                  let photo of Reclamation?.bien?.photos?.slice(
                                     0,
                                     4
                                   );
@@ -3642,11 +3642,11 @@
                                 <img
                                   class="img-fluid"
                                   alt="Image"
-                                  [src]="generateImageUrl(photo.nom)"
+                                  [src]="generateImageUrl(photo?.nom)"
                                 />
                               </li>
                               <ng-container
-                                *ngIf="Reclamation.bien.photos.length === 0"
+                                *ngIf="Reclamation?.bien?.photos?.length === 0"
                               >
                                 <li *ngFor="let _ of [1, 2, 3, 4]">
                                   <img
@@ -3661,29 +3661,29 @@
                               class="m-3"
                               *ngIf="
                                 Reclamation &&
-                                Reclamation.type_probleme &&
-                                Reclamation.type_probleme.nom
+                                Reclamation?.type_probleme &&
+                                Reclamation?.type_probleme?.nom
                               "
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-circle-exclamation"
                               ></i>
-                              Probleme : {{ Reclamation.type_probleme.nom }}
+                              Probleme : {{ Reclamation?.type_probleme?.nom }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.contenu"
+                              *ngIf="Reclamation && Reclamation?.contenu"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
                                 class="fa-solid fa-check"
                               ></i>
-                              Motif : {{ Reclamation.contenu }}
+                              Motif : {{ Reclamation?.contenu }}
                             </div>
                             <div
                               class="m-3"
-                              *ngIf="Reclamation && Reclamation.prix_estimatif"
+                              *ngIf="Reclamation && Reclamation?.prix_estimatif"
                             >
                               <i
                                 style="color: #e98b11; font-weight: bold"
@@ -3691,7 +3691,7 @@
                               ></i>
                               Cout :
                               <span style="color: #e98b11; font-weight: bold">
-                                {{ formatPrice(Reclamation.prix_estimatif) }}
+                                {{ formatPrice(Reclamation?.prix_estimatif) }}
                                 FCFA
                               </span>
                             </div>
@@ -3713,7 +3713,7 @@
                               <ul class="review-gallery">
                                 <li
                                   *ngFor="
-                                    let photo of Reclamation.photoReclamations?.slice(
+                                    let photo of Reclamation?.photoReclamations?.slice(
                                       0,
                                       4
                                     );
@@ -3728,7 +3728,7 @@
                                 </li>
                                 <ng-container
                                   *ngIf="
-                                    Reclamation.photoReclamations?.length === 0
+                                    Reclamation?.photoReclamations?.length === 0
                                   "
                                 >
                                   <li *ngFor="let _ of [1, 2, 3, 4]">
@@ -3748,7 +3748,7 @@
                                   class="scroll-textl"
                                   *ngIf="
                                     Reclamation &&
-                                    Reclamation.prix_estimatif <= 10000
+                                    Reclamation?.prix_estimatif <= 10000
                                   "
                                 >
                                   Le locataire paie
@@ -3757,7 +3757,7 @@
                                   class="scroll-textl"
                                   *ngIf="
                                     Reclamation &&
-                                    Reclamation.prix_estimatif >= 10000
+                                    Reclamation?.prix_estimatif >= 10000
                                   "
                                 >
                                   C'est a votre charge
@@ -3773,364 +3773,7 @@
               </div>
             </div>
           </div>
-          <!-- <div class="row dashboard-info reviewpage-content mt-5"> -->
-          <!-- <div class="col-lg-6 d-flex"
-                            *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0">
-                            <div class="card dash-cards w-100">
-                                <div class="card-header">
-                                    <h4>Processus de reclamations lances</h4>
-                                </div>
-                                <div class="ligne">
-                                    <div class="card-body">
-                                        <div id="review-chart">
-                                            <ul class="review-list">
-                                                <li class="review-box"
-                                                    *ngFor="let Reclamation of reclamationUser">
-                                                    <div class="review-profile">
-                                                        <div class="review-img">
-                                                            <img src="{{generateImageUrl(Reclamation.bien.utilisateur.photo)}}"
-                                                                class="img-fluid" alt="img"
-                                                                (error)="handleAuthorImageError($event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="review-details">
-                                                        <div class="name-and-image">
-                                                            <h6>{{Reclamation.bien.utilisateur.nom}}</h6>
-                                                            <img style="width: 47px;"
-                                                                src="assets/img/processus.gif" alt="">
-                                                        </div>
-                                                        <div class="rating">
-                                                            <div class="rating-star">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                            </div>
-                                                            <div *ngIf="Reclamation && Reclamation.createdAt"><i
-                                                                    style="color: #e98b11; font-weight: bold;"
-                                                                    class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                                {{Reclamation.createdAt.date
-                                                                |
-                                                                date:"dd/MM/yyyy"}}</div>
-                                                            <div *ngIf="Reclamation && Reclamation.createdAt"><i
-                                                                    class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt.date
-                                                                |
-                                                                date:"HH:mm"}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-3">
-                                                            <div class="col"
-                                                                *ngIf="Reclamation && Reclamation.bien">
-                                                                {{Reclamation.bien.nom}}
-                                                            </div>
-                                                            <div class="col"
-                                                                style="color: #e98b11; font-weight: bold;"
-                                                                *ngIf="Reclamation && Reclamation.bien">
-                                                                {{ formatPrice(Reclamation.bien.prix) }} FCFA
-                                                            </div>
-                                                        </div>
-                                                        <ul class="review-gallery">
-                                                            <li
-                                                                *ngFor="let photo of Reclamation.bien.photos.slice(0, 4); let i = index">
-                                                                <img class="img-fluid" alt="Image"
-                                                                    [src]="generateImageUrl(photo.nom)">
-                                                            </li>
-                                                            <ng-container
-                                                                *ngIf="Reclamation.bien.photos.length === 0">
-                                                                <li *ngFor="let _ of [1, 2, 3, 4]">
-    
-                                                                    <img class="img-fluid"
-                                                                        alt="Image par défaut"
-                                                                        src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                                </li>
-                                                            </ng-container>
-                                                        </ul>
-                                                        <div class="m-3"
-                                                            *ngIf="Reclamation && Reclamation.type_probleme && Reclamation.type_probleme.nom">
-                                                            <i style="color: #e98b11; font-weight: bold;"
-                                                                class="fa-regular fa-circle-exclamation"></i>
-                                                            Probleme : {{Reclamation.type_probleme.nom}}
-                                                        </div>
-                                                        <div class="m-3"
-                                                            *ngIf="Reclamation && Reclamation.contenu">
-                                                            <i style="color: #e98b11; font-weight: bold;"
-                                                                class="fa-solid fa-check"></i>
-                                                            Motif : {{Reclamation.contenu}}
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <p class="blog-category">
-                                                                    <a data-bs-toggle="collapse"
-                                                                        href="#quelquesimages" role="button"
-                                                                        aria-expanded="false"
-                                                                        aria-controls="collapseExample"><span>Quelques
-                                                                            images</span></a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="collapse" id="quelquesimages">
-                                                            <ul class="review-gallery">
-                                                                <li
-                                                                    *ngFor="let photo of Reclamation.photoReclamations.slice(0, 4); let i = index">
-                                                                    <img class="img-fluid" alt="Image"
-                                                                        [src]="generateImageUrl(photo.nom)">
-                                                                </li>
-                                                                <ng-container
-                                                                    *ngIf="Reclamation.photoReclamations.length === 0">
-                                                                    <li *ngFor="let _ of [1, 2, 3, 4]">
-    
-                                                                        <img class="img-fluid"
-                                                                            alt="Image par défaut"
-                                                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                                    </li>
-                                                                </ng-container>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-          <!-- <div class="col-lg-6 d-flex">
-                            <div class="card dash-cards w-100">
-                                <div class="card-header">
-                                    <h4>Processus de reclamations lances</h4>
-                                    <div class="card-dropdown">
-                                        <ul>
-                                            <li class="nav-item dropdown has-arrow logged-item">
-                                                <a href="#" class="dropdown-toggle pageviews-link"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span>Tout</span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="javascript:void();">Semaine
-                                                        passee</a>
-                                                    <a class="dropdown-item" href="javascript:void()">Cette
-                                                        senaine</a>
-                                                    <a class="dropdown-item" href="javascript:void()">Semaine
-                                                        prochaine</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="ligne">
-                                    <div class="card-body">
-                                        <div id="review-chart">
-                                            <ul class="review-list">
-                                                <li class="review-box" *ngFor="let Reclamation of reclamation">
-                                                    <div class="review-profile">
-                                                        <div class="review-img">
-                                                            <img src="{{generateImageUrl(Reclamation.utilisateur.photo)}}"
-                                                                class="img-fluid" alt="img"
-                                                                (error)="handleAuthorImageError($event)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="review-details">
-                                                        <h6>{{Reclamation.utilisateur.nom}}</h6>
-                                                        <div class="rating">
-                                                            <div class="rating-star">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                            </div>
-                                                            <div *ngIf="Reclamation && Reclamation.createdAt"><i
-                                                                    style="color: #e98b11; font-weight: bold;"
-                                                                    class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                                {{Reclamation.createdAt.date
-                                                                |
-                                                                date:"dd/MM/yyyy"}}</div>
-                                                            <div *ngIf="Reclamation && Reclamation.createdAt"><i
-                                                                    class="fa-sharp fa-solid fa-clock"></i>{{Reclamation.createdAt.date
-                                                                |
-                                                                date:"HH:mm"}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-3">
-                                                            <div class="col"
-                                                                *ngIf="Reclamation && Reclamation.bien">
-                                                                {{Reclamation.bien.nom}}
-                                                            </div>
-                                                            <div class="col"
-                                                                style="color: #e98b11; font-weight: bold;"
-                                                                *ngIf="Reclamation && Reclamation.bien">
-                                                                {{ formatPrice(Reclamation.bien.prix) }} FCFA
-                                                            </div>
-                                                        </div>
-                                                        <ul class="review-gallery">
-                                                            <li
-                                                                *ngFor="let photo of Reclamation.bien.photos.slice(0, 4); let i = index">
-                                                                <img class="img-fluid" alt="Image"
-                                                                    [src]="generateImageUrl(photo.nom)">
-                                                            </li>
-                                                            <ng-container
-                                                                *ngIf="Reclamation.bien.photos.length === 0">
-                                                                <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                                    
-                                                                    <img class="img-fluid"
-                                                                        alt="Image par défaut"
-                                                                        src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                                </li>
-                                                            </ng-container>
-                                                        </ul>
-                                                        <div class="m-3"
-                                                            *ngIf="Reclamation && Reclamation.type_probleme && Reclamation.type_probleme.nom">
-                                                                <i style="color: #e98b11; font-weight: bold;" class="fa-solid fa-circle-exclamation"></i>
-                                                            Probleme : {{Reclamation.type_probleme.nom}}
-                                                        </div>
-                                                        <div class="m-3"
-                                                            *ngIf="Reclamation && Reclamation.contenu">
-                                                            <i style="color: #e98b11; font-weight: bold;"
-                                                                class="fa-solid fa-check"></i>
-                                                            Motif : {{Reclamation.contenu}}
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <p class="blog-category">
-                                                                    <a data-bs-toggle="collapse"
-                                                                        href="#quelquesimages" role="button"
-                                                                        aria-expanded="false"
-                                                                        aria-controls="collapseExample"><span>Quelques
-                                                                            images</span></a>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="collapse" id="quelquesimages">
-                                                            <ul class="review-gallery">
-                                                                <li
-                                                                    *ngFor="let photo of Reclamation.photoReclamations.slice(0, 4); let i = index">
-                                                                    <img class="img-fluid" alt="Image"
-                                                                        [src]="generateImageUrl(photo.nom)">
-                                                                </li>
-                                                                <ng-container
-                                                                    *ngIf="Reclamation.photoReclamations.length === 0">
-                                                                    <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                                        
-                                                                        <img class="img-fluid"
-                                                                            alt="Image par défaut"
-                                                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                                    </li>
-                                                                </ng-container>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="row mt-3">
-                                                            <div class="col">
-                                                                <button type="button"
-                                                                    class="btn btn-outline-danger"><i
-                                                                        class="fas fa-times"></i>
-                                                                    Annuler</button>
-                                                            </div>
-                                                            <div class="col">
-                                                                <button type="button"
-                                                                    class="btn btn-outline-success"
-                                                                    (click)="openProcessusModal(Reclamation.bien.id)"
-                                                                    data-bs-toggle="modal"
-                                                                    href="#exampleModalToggle"><i
-                                                                        class="fas fa-check"></i>
-                                                                    Accepter</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal fade" id="exampleModalToggle"
-                                                            aria-hidden="true"
-                                                            aria-labelledby="exampleModalToggleLabel"
-                                                            tabindex="-1">
-                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"
-                                                                            id="exampleModalToggleLabel">
-                                                                            Processus de reparation
-                                                                        </h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form>
-                                                                            <input type="hidden"
-                                                                                [(ngModel)]="selectedBienImmoProcessusId"
-                                                                                name="selectedBienImmoProcessusId">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <div class="mb-3">
-                                                                                        <label
-                                                                                            for="recipient-name"
-                                                                                            class="col-form-label">Type
-                                                                                            de
-                                                                                            problemes <span
-                                                                                                style="color: red;">*</span></label>
-                                                                                        <div
-                                                                                            class="pass-group group-img">
-                                                                                            <select
-                                                                                                [(ngModel)]="formProcessus.type"
-                                                                                                name="type"
-                                                                                                class="form-control"
-                                                                                                id="">
-                                                                                                <option
-                                                                                                    *ngFor="let item of probleme"
-                                                                                                    [value]="item.id">
-                                                                                                    {{
-                                                                                                    item.nom}}
-                                                                                                </option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col">
-                                                                                    <div class="mb-3">
-                                                                                        <label
-                                                                                            for="recipient-name"
-                                                                                            class="col-form-label">Prix
-                                                                                            de la reparation
-                                                                                            <span
-                                                                                                style="color: red;">*</span></label>
-                                                                                        <div
-                                                                                            class="pass-group group-img">
-                                                                                            <div
-                                                                                                class="pass-group group-img">
-                                                                                                <input
-                                                                                                    type="number"
-                                                                                                    pattern="[0-9]"
-                                                                                                    name="somme"
-                                                                                                    [(ngModel)]="formProcessus.somme"
-                                                                                                    class="form-control pass-input"
-                                                                                                    required
-                                                                                                    aria-required="true"
-                                                                                                    placeholder="FCFA" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </form>
-    
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                            class="btn btn-secondary"
-                                                                            data-bs-dismiss="modal">Retour</button>
-                                                                        <button class="btn btn-primary"
-                                                                            (click)="LancerProcessusReparation()">Lancer
-                                                                            le processus de reparation</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-          <!-- </div> -->
+      
         </div>
       </div>
     </div>
@@ -4195,14 +3838,14 @@
                     <td>
                       <div class="listingtable-img">
                         <a (click)="goToDettailFacture(Facture.uuid)">
-                          <div *ngIf="!Facture.statut">
+                          <div *ngIf="!Facture?.statut">
                             <img
                               src="../../../../assets/img/Facture/4.png"
                               class="img-fluid image-size"
                               alt="blog-img"
                             />
                           </div>
-                          <div *ngIf="Facture.statut">
+                          <div *ngIf="Facture?.statut">
                             <img
                               src="../../../../assets/img/Facture/5.png"
                               class="img-fluid image-size"
@@ -4213,75 +3856,75 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="Facture.bien && Facture.bien.typeImmo">
-                        <a (click)="goToDettailFacture(Facture.bien.uuid)">
+                      <h6 *ngIf="Facture?.bien && Facture?.bien?.typeImmo">
+                        <a (click)="goToDettailFacture(Facture?.bien?.uuid)">
                           {{
-                            Facture.bien.nom
+                            Facture?.bien?.nom
                               ? Facture.bien.nom
-                              : Facture.bien.typeImmo.nom
+                              : Facture?.bien?.typeImmo?.nom
                           }}
                         </a>
                       </h6>
                       <div class="listingtable-rate">
                         <a
-                          *ngIf="Facture.bien && Facture.bien.typeImmo"
+                          *ngIf="Facture?.bien && Facture?.bien?.typeImmo"
                           href="javascript:void(0)"
                           class="cat-icon"
                         >
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ Facture.bien.typeImmo.nom }}
+                          {{ Facture?.bien?.typeImmo?.nom }}
                         </a>
                         <span
                           class="discount-amt"
-                          *ngIf="Facture.bien && Facture.bien.prix"
-                          >{{ formatPrice(Facture.bien.prix) }} FCFA</span
+                          *ngIf="Facture?.bien && Facture?.bien?.prix"
+                          >{{ formatPrice(Facture?.bien?.prix) }} FCFA</span
                         >
                       </div>
-                      <p *ngIf="Facture.bien && Facture.bien.adresse">
+                      <p *ngIf="Facture?.bien && Facture?.bien?.adresse">
                         {{
-                          Facture.bien.adresse.commune.cercle.region.pays
+                          Facture?.bien?.adresse?.commune?.cercle?.region?.pays
                             .nompays
                         }}
                         -
                         {{
-                          Facture.bien.adresse.commune.cercle.region.nomregion
+                          Facture?.bien?.adresse?.commune?.cercle?.region?.nomregion
                         }}
-                        - {{ Facture.bien.adresse.commune.nomcommune }} -
-                        {{ Facture.bien.adresse.quartier }}
+                        - {{ Facture?.bien.adresse?.commune?.nomcommune }} -
+                        {{ Facture?.bien?.adresse?.quartier }}
                       </p>
                     </td>
 
                     <td>
                       <span
                         class="views-count"
-                        *ngIf="Facture && Facture.createdAt"
+                        *ngIf="Facture && Facture?.createdAt"
                         >{{
-                          Facture.createdAt | date : "dd MMM yyyy" : locale
+                          Facture?.createdAt | date : "dd MMM yyyy" : locale
                         }}</span
                       >
                     </td>
                     <td>
                       <span
                         class="views-count"
-                        *ngIf="Facture && Facture.createdAt"
+                        *ngIf="Facture && Facture?.createdAt"
                         >{{
-                          Facture.dateEcheance | date : "dd MMM yyyy" : locale
+                          Facture?.dateEcheance | date : "dd MMM yyyy" : locale
                         }}</span
                       >
                     </td>
-                    <td *ngIf="Facture.bien.statut.nom === 'A vendre'">
+                    <td *ngIf="Facture?.bien?.statut?.nom === 'A vendre'">
                       <span
                         [ngClass]="{
-                          unpublish: Facture.bien.statut.nom === 'A vendre'
+                          unpublish: Facture?.bien?.statut?.nom === 'A vendre'
                         }"
                         class="status-text"
                         >Vente</span
                       >
                     </td>
-                    <td *ngIf="Facture.bien.statut.nom === 'A louer'">
+                    <td *ngIf="Facture?.bien?.statut?.nom === 'A louer'">
                       <span
                         [ngClass]="{
-                          unpublish: Facture.bien.statut.nom === 'A vendre'
+                          unpublish: Facture?.bien?.statut?.nom === 'A vendre'
                         }"
                         class="status-text"
                         >Location</span
@@ -4297,7 +3940,7 @@
 
                       <div class="action">
                         <a
-                          (click)="goToDettailFacture(Facture.uuid)"
+                          (click)="goToDettailFacture(Facture?.uuid)"
                           class="action-btn btn-view crd"
                           ><i class="feather-eye"></i
                         ></a>
@@ -4351,7 +3994,7 @@
                                   *ngFor="let item of probleme"
                                   [value]="item.id"
                                 >
-                                  {{ item.nom }}
+                                  {{ item?.nom }}
                                 </option>
                               </select>
                             </div>
@@ -4526,7 +4169,7 @@
                         <ng-template #noImages>
                           <div
                             class="type"
-                            *ngIf="slide.bien.typeImmo.nom === 'Villa'"
+                            *ngIf="slide?.bien?.typeImmo?.nom === 'Villa'"
                           >
                             <img
                               src="../../../../assets/img/typebien/villa.png"
@@ -4536,7 +4179,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="slide.bien.typeImmo.nom === 'Appartement'"
+                            *ngIf="slide?.bien?.typeImmo?.nom === 'Appartement'"
                           >
                             <img
                               src="../../../../assets/img/typebien/appartement.png"
@@ -4546,7 +4189,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="slide.bien.typeImmo.nom === 'Terrain'"
+                            *ngIf="slide?.bien?.typeImmo?.nom === 'Terrain'"
                           >
                             <img
                               src="../../../../assets/img/typebien/terrain.png"
@@ -4556,7 +4199,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="slide.bien.typeImmo.nom === 'Bureau'"
+                            *ngIf="slide?.bien?.typeImmo?.nom === 'Bureau'"
                           >
                             <img
                               src="../../../../assets/img/typebien/bureau.png"
@@ -4566,7 +4209,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="slide.bien.typeImmo.nom === 'Champ'"
+                            *ngIf="slide?.bien?.typeImmo?.nom === 'Champ'"
                           >
                             <img
                               src="../../../../assets/img/typebien/champ.png"
@@ -4577,7 +4220,7 @@
                           <div
                             class="type"
                             *ngIf="
-                              slide.bien.typeImmo.nom === 'Commerce & Magasin'
+                              slide?.bien?.typeImmo?.nom === 'Commerce & Magasin'
                             "
                           >
                             <img
@@ -4592,7 +4235,7 @@
                       <div class="fav-item">
                         <span
                           [ngClass]="{
-                            statutbien: slide.bien.statut.nom === 'A vendre'
+                            statutbien: slide?.bien?.statut?.nom === 'A vendre'
                           }"
                           class="Featured-text"
                           >{{ slide?.bien?.statut?.nom }}</span
@@ -4601,14 +4244,14 @@
                           href="javascript:void(0)"
                           *ngIf="isLoggedIn == true"
                           class="fav-icon"
-                          (click)="AimerBien(slide.bien.id)"
+                          (click)="AimerBien(slide?.bien?.id)"
                           [style.background-color]="
-                            favoriteStatus[slide.bien.id] ? 'white' : '#e98b11'
+                            favoriteStatus[slide?.bien?.id] ? 'white' : '#e98b11'
                           "
                         >
                           <i
                             [style.color]="
-                              favoriteStatus[slide.bien.id] ? 'black' : 'white'
+                              favoriteStatus[slide?.bien?.id] ? 'black' : 'white'
                             "
                             class="feather-heart"
                           ></i>
@@ -4622,7 +4265,7 @@
                             <a href="javascript:void(0);"
                               ><span>
                                 <i class="fa-regular fa-circle-stop"></i>
-                                {{ slide.bien.typeImmo.nom }}</span
+                                {{ slide?.bien?.typeImmo?.nom }}</span
                               ></a
                             >
                           </div>
@@ -4645,23 +4288,23 @@
                           </div>
                         </div>
                         <h6>
-                          <a (click)="goToDettailBien(slide.bien.uuid)">{{
-                            slide.bien.nom
-                              ? slide.bien.nom
-                              : slide.bien.typeImmo.nom
+                          <a (click)="goToDettailBien(slide?.bien?.uuid)">{{
+                            slide?.bien?.nom
+                              ? slide?.bien?.nom
+                              : slide?.bien?.typeImmo?.nom
                           }}</a>
                         </h6>
                         <div class="blog-location-details">
                           <div class="location-info">
                             <i class="feather-map-pin"></i>
-                            {{ slide.bien.adresse.quartier }}
+                            {{ slide?.bien?.adresse?.quartier }}
                           </div>
                           <!-- <div class="location-info">
                     <i class="feather-phone-call"></i> 00556245562
                   </div> -->
                           <div class="location-info">
                             <i class="feather-eye"></i>
-                            {{ favoritedPropertiesCount1[slide.bien.id] }}
+                            {{ favoritedPropertiesCount1[slide?.bien?.id] }}
                           </div>
                         </div>
                         <!-- <p class="ratings">
@@ -4670,13 +4313,13 @@
                         <div class="amount-details">
                           <div class="amount">
                             <span class="validrate"
-                              >{{ formatPrice(slide.bien.prix) }} FCFA
+                              >{{ formatPrice(slide?.bien?.prix) }} FCFA
                             </span>
                             <!-- <span>{{ slide.oldamount }}</span> -->
                           </div>
                           <a
                             class="crd"
-                            (click)="goToDettailBien(slide.bien.uuid)"
+                            (click)="goToDettailBien(slide?.bien?.uuid)"
                             >Savoir plus</a
                           >
                         </div>

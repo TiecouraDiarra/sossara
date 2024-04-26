@@ -162,13 +162,13 @@ export class DashboardComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes("ROLE_LOCATAIRE")) {
+      if (this.roles?.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
-      } else if (this.roles.includes("ROLE_AGENCE")) {
+      } else if (this.roles?.includes("ROLE_AGENCE")) {
         this.isAgence = true
-      } else if (this.roles.includes("ROLE_AGENT")) {
+      } else if (this.roles?.includes("ROLE_AGENT")) {
         this.isAgent = true
-      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+      } else if (this.roles?.includes("ROLE_PROPRIETAIRE")) {
         this.isProprietaire = true
       }
     }
@@ -184,12 +184,12 @@ export class DashboardComponent implements OnInit {
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
-        if (bien.bien.is_rent === true) {
+        if (bien?.bien?.is_rent === true) {
           this.bienImmoDejaLoue.push(bien);
         }
 
         //   // Vérifier si le bien est déjà vendu
-        if (bien.bien.is_sell === true) {
+        if (bien?.bien?.is_sell === true) {
           this.bienImmoDejaVendu.push(bien);
         }
 
@@ -220,14 +220,14 @@ export class DashboardComponent implements OnInit {
       // this.bienImmoAgence = data.biens_agences;
       // this.bienImmoAgent = data.biens_agents;
       // this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
-      this.nombrebien = this.bienImmoAgenceTotal.length;
-      // this.nombrebien = data.agents.length;
+      this.nombrebien = this.bienImmoAgenceTotal?.length;
+      // this.nombrebien = data.agents?.length;
      });
 
     //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
-      this.nombreBienAutre = data.length;
+      this.nombreBienAutre = data?.length;
       }
     );
 
@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit {
     //FAIT
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
-      this.nombreRdvUser = data.length;
+      this.nombreRdvUser = data?.length;
      }
     );
 
@@ -244,13 +244,13 @@ export class DashboardComponent implements OnInit {
     //FAIT
     this.serviceUser.AfficherLaListeRdvUserConnecte().subscribe(data => {
       this.rdvUserConnect = data.reverse();
-      this.nombreRdvUserConnect = data.length;
+      this.nombreRdvUserConnect = data?.length;
      }
     );
 
     //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
-      this.nombreCandidatureAccepter = data.length;
+      this.nombreCandidatureAccepter = data?.length;
       //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
       this.serviceUser.AfficherLaListeRdv().subscribe(data => {
         this.nombreRdvUser = data?.length;
@@ -267,7 +267,7 @@ export class DashboardComponent implements OnInit {
     // For getting all the chat list whose ever is logged in.
     this.serviceMessage.getChatByFirstUserNameOrSecondUserName(this.senderCheck).subscribe(data => {
       this.chatData = data;
-      this.nombreconversation = this.chatData.length;
+      this.nombreconversation = this.chatData?.length;
     });
   }
 

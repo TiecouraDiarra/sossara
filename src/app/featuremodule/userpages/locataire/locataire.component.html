@@ -82,7 +82,7 @@
                                                 <a (click)="goToDettailBien(BienImmo.bien.uuid)">
                                                     <div
                                                         *ngIf="BienImmo.bien.photoImmos && BienImmo.bien.photoImmos.length > 0; else noImages">
-                                                        <img src="{{ generateImageUrl(BienImmo.bien.photoImmos[0].nom) }}"
+                                                        <img src="{{ generateImageUrl(BienImmo?.bien?.photoImmos[0]?.nom) }}"
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
                                                     <ng-template #noImages>
@@ -96,25 +96,25 @@
                                             <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
                                                     (click)="goToDettailBien(BienImmo.bien.uuid)">
                                                     {{ BienImmo.bien.nom ? BienImmo.bien.nom :
-                                                    BienImmo.bien.typeImmo.nom }}
+                                                    BienImmo?.bien?.typeImmo?.nom }}
                                                 </a>
                                             </h6>
                                             <div class="listingtable-rate">
                                                 <a *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"
                                                     href="javascript:void(0)" class="cat-icon">
                                                     <i class="fa-regular fa-circle-stop"></i>
-                                                    {{BienImmo.bien.typeImmo.nom}}
+                                                    {{BienImmo?.bien?.typeImmo?.nom}}
                                                 </a> <span class="discount-amt"
                                                     *ngIf="BienImmo.bien && BienImmo.bien.prix">{{
-                                                    formatPrice(BienImmo.bien.prix) }}
+                                                    formatPrice(BienImmo?.bien.prix) }}
                                                     FCFA</span>
 
                                             </div>
                                             <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
-                                                {{BienImmo.bien.adresse.commune.cercle.region.pays.nompays}} -
-                                                {{BienImmo.bien.adresse.commune.cercle.region.nomregion}} -
-                                                {{BienImmo.bien.adresse.commune.nomcommune}} -
-                                                {{BienImmo.bien.adresse.quartier}}
+                                                {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.pays?.nompays}} -
+                                                {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.nomregion}} -
+                                                {{BienImmo?.bien?.adresse?.commune?.nomcommune}} -
+                                                {{BienImmo?.bien?.adresse?.quartier}}
                                             </p>
                                         </td>
 
@@ -135,7 +135,7 @@
                                                     <div class="review-details">
                                                         <div class="tes">
                                                             <div class="views-count">
-                                                                {{BienImmo.bien.proprietaire.nom}}</div>
+                                                                {{BienImmo?.bien?.proprietaire?.nom}}</div>
                                                         </div>
                                                         <!-- <div>Tel : {{BienImmo.bien.proprietaire.telephone}}</div> -->
                                                         <!-- <p>ffff</p>																	 -->
@@ -290,7 +290,7 @@
                                                                 <div class="receipt-left"
                                                                     *ngIf="transaction && transaction.utilisateur">
                                                                     <img class="img-responsive" alt="iamgurdeeposahan"
-                                                                        src="{{generateImageUrl(transaction.utilisateur.photo)}}"
+                                                                        src="{{generateImageUrl(transaction?.utilisateur?.photo)}}"
                                                                         style="width: 71px; border-radius: 43px;"
                                                                         (error)="handleAuthorImageError($event)">
                                                                 </div>
@@ -299,7 +299,7 @@
                                                                 <div class="receipt-right">
                                                                     <h5
                                                                         *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
-                                                                        {{transaction.bien.utilisateur.nom}}
+                                                                        {{transaction?.bien?.utilisateur?.nom}}
                                                                     </h5>
                                                                     <p
                                                                         *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
@@ -309,7 +309,7 @@
                                                                     <p
                                                                         *ngIf="transaction && transaction.bien && transaction.bien.utilisateur">
                                                                         <b>Email :</b>
-                                                                        {{transaction.bien.utilisateur.email}}
+                                                                        {{transaction?.bien?.utilisateur?.email}}
                                                                     </p>
                                                                     <p><b>Address :</b> New York, USA</p>
                                                                 </div>
@@ -322,14 +322,14 @@
                                                             <div class="col-xs-7 col-sm-7 col-md-7 text-left">
                                                                 <div class="receipt-right">
                                                                     <h5 *ngIf="transaction && transaction.utilisateur">
-                                                                        {{transaction.utilisateur.nom}} </h5>
+                                                                        {{transaction?.utilisateur?.nom}} </h5>
                                                                     <p *ngIf="transaction && transaction.utilisateur">
                                                                         <b>Mobile :</b>
                                                                         <!-- {{transaction.utilisateur.telephone}} -->
                                                                     </p>
                                                                     <p *ngIf="transaction && transaction.utilisateur">
                                                                         <b>Email :</b>
-                                                                        {{transaction.utilisateur.email}}
+                                                                        {{transaction?.utilisateur?.email}}
                                                                     </p>
                                                                     <p><b>Address :</b> New York, USA</p>
                                                                 </div>
@@ -339,7 +339,7 @@
                                                                     <h5 style="font-size: 15px;" *ngIf="transaction">
                                                                         FACTURE
                                                                         N 00{{
-                                                                        transaction.id }}</h5>
+                                                                        transaction?.id }}</h5>
                                                                 </div>
                                                             </div>
 
@@ -357,13 +357,13 @@
                                                                     <tr>
                                                                         <td class="col-md-7"
                                                                             *ngIf="transaction && transaction.bien && transaction.bien.typeImmo">
-                                                                            {{ transaction.bien.nom ?
-                                                                            transaction.bien.nom :
-                                                                            transaction.bien.typeImmo.nom }}
+                                                                            {{ transaction?.bien?.nom ?
+                                                                            transaction?.bien?.nom :
+                                                                            transaction?.bien?.typeImmo?.nom }}
                                                                         </td>
                                                                         <td class="col-md-5 text-center"
                                                                             *ngIf="transaction"> {{
-                                                                            formatPrice(transaction.somme) }}
+                                                                            formatPrice(transaction?.somme) }}
                                                                             FCFA
                                                                         </td>
                                                                     </tr>
@@ -393,13 +393,13 @@
                                                                             <p *ngIf="transaction">
                                                                                 <strong>
                                                                                     {{
-                                                                                    formatPrice(transaction.somme)
+                                                                                    formatPrice(transaction?.somme)
                                                                                     }} FCFA</strong>
                                                                             </p>
                                                                             <p *ngIf="transaction">
                                                                                 <strong>
                                                                                     {{
-                                                                                    formatPrice(transaction.somme)
+                                                                                    formatPrice(transaction?.somme)
                                                                                     }} FCFA</strong>
                                                                             </p>
                                                                         </td>
@@ -412,7 +412,7 @@
                                                                         <td class="text-left text-danger text-center">
                                                                             <h2 *ngIf="transaction"><strong>
                                                                                     {{
-                                                                                    formatPrice(transaction.somme)
+                                                                                    formatPrice(transaction?.somme)
                                                                                     }} FCFA</strong></h2>
                                                                         </td>
                                                                     </tr>
@@ -510,7 +510,7 @@
                                                 <a (click)="goToDettailBien(BienImmo.uuid)">
                                                     <div
                                                         *ngIf="BienImmo.bien && BienImmo.bien.photoImmos && BienImmo.bien.photoImmos.length > 0; else noImages">
-                                                        <img src="{{ generateImageUrl(BienImmo.bien.photoImmos[0].nom) }}"
+                                                        <img src="{{ generateImageUrl(BienImmo?.bien?.photoImmos[0]?.nom) }}"
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
                                                     <ng-template #noImages>
@@ -547,8 +547,8 @@
                                         <td>
                                             <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
                                                     (click)="goToDettailBien(BienImmo.uuid)">
-                                                    {{ BienImmo.bien.nom ? BienImmo.bien.nom :
-                                                    BienImmo.bien.typeImmo.nom }}
+                                                    {{ BienImmo?.bien?.nom ? BienImmo?.bien?.nom :
+                                                    BienImmo?.bien?.typeImmo?.nom }}
                                                 </a>
                                             </h6>
                                             <div class="listingtable-rate">
@@ -558,7 +558,7 @@
                                                     {{BienImmo?.bien?.typeImmo?.nom}}
                                                 </a> <span class="discount-amt"
                                                     *ngIf="BienImmo?.bien && BienImmo?.bien?.prix">{{
-                                                    formatPrice(BienImmo?.bien.prix) }}
+                                                    formatPrice(BienImmo?.bien?.prix) }}
                                                     FCFA</span>
 
                                             </div>
@@ -649,7 +649,7 @@
                                                                 <div class="receipt-left"
                                                                     *ngIf="transactionVendue && transactionVendue.utilisateur">
                                                                     <img class="img-responsive" alt="iamgurdeeposahan"
-                                                                        src="{{generateImageUrl(transactionVendue.utilisateur.photo)}}"
+                                                                        src="{{generateImageUrl(transactionVendue?.utilisateur?.photo)}}"
                                                                         style="width: 71px; border-radius: 43px;"
                                                                         (error)="handleAuthorImageError($event)">
                                                                 </div>
@@ -658,7 +658,7 @@
                                                                 <div class="receipt-right">
                                                                     <h5
                                                                         *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.utilisateur">
-                                                                        {{transactionVendue.bien.utilisateur.nom}}
+                                                                        {{transactionVendue?.bien?.utilisateur?.nom}}
                                                                     </h5>
                                                                     <p
                                                                         *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.utilisateur">
@@ -668,7 +668,7 @@
                                                                     <p
                                                                         *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.utilisateur">
                                                                         <b>Email :</b>
-                                                                        {{transactionVendue.bien.utilisateur.email}}
+                                                                        {{transactionVendue?.bien?.utilisateur?.email}}
                                                                     </p>
                                                                     <p><b>Address :</b> New York, USA</p>
                                                                 </div>
@@ -682,7 +682,7 @@
                                                                 <div class="receipt-right">
                                                                     <h5
                                                                         *ngIf="transactionVendue && transactionVendue.utilisateur">
-                                                                        {{transactionVendue.utilisateur.nom}}
+                                                                        {{transactionVendue?.utilisateur?.nom}}
                                                                     </h5>
                                                                     <p
                                                                         *ngIf="transactionVendue && transactionVendue.utilisateur">
@@ -692,7 +692,7 @@
                                                                     <p
                                                                         *ngIf="transactionVendue && transactionVendue.utilisateur">
                                                                         <b>Email :</b>
-                                                                        {{transactionVendue.utilisateur.email}}
+                                                                        {{transactionVendue?.utilisateur?.email}}
                                                                     </p>
                                                                     <p><b>Address :</b> New York, USA</p>
                                                                 </div>
@@ -702,7 +702,7 @@
                                                                     <h5 style="font-size: 15px;"
                                                                         *ngIf="transactionVendue">
                                                                         FACTURE N 00{{
-                                                                        transactionVendue.id }}</h5>
+                                                                        transactionVendue?.id }}</h5>
                                                                 </div>
                                                             </div>
 
@@ -720,14 +720,14 @@
                                                                     <tr>
                                                                         <td class="col-md-7"
                                                                             *ngIf="transactionVendue && transactionVendue.bien && transactionVendue.bien.typeImmo">
-                                                                            {{ transactionVendue.bien.nom ?
-                                                                            transactionVendue.bien.nom :
-                                                                            transactionVendue.bien.typeImmo.nom
+                                                                            {{ transactionVendue?.bien?.nom ?
+                                                                            transactionVendue?.bien?.nom :
+                                                                            transactionVendue?.bien?.typeImmo?.nom
                                                                             }}
                                                                         </td>
                                                                         <td class="col-md-5 text-center"
                                                                             *ngIf="transactionVendue"> {{
-                                                                            formatPrice(transactionVendue.somme)
+                                                                            formatPrice(transactionVendue?.somme)
                                                                             }}
                                                                             FCFA
                                                                         </td>
@@ -758,13 +758,13 @@
                                                                             <p *ngIf="transactionVendue">
                                                                                 <strong>
                                                                                     {{
-                                                                                    formatPrice(transactionVendue.somme)
+                                                                                    formatPrice(transactionVendue?.somme)
                                                                                     }} FCFA</strong>
                                                                             </p>
                                                                             <p *ngIf="transactionVendue">
                                                                                 <strong>
                                                                                     {{
-                                                                                    formatPrice(transactionVendue.somme)
+                                                                                    formatPrice(transactionVendue?.somme)
                                                                                     }} FCFA</strong>
                                                                             </p>
                                                                         </td>
@@ -778,7 +778,7 @@
                                                                             <h2 *ngIf="transactionVendue">
                                                                                 <strong>
                                                                                     {{
-                                                                                    formatPrice(transactionVendue.somme)
+                                                                                    formatPrice(transactionVendue?.somme)
                                                                                     }} FCFA</strong>
                                                                             </h2>
                                                                         </td>
@@ -918,27 +918,27 @@
                                         </td>
                                         <td>
                                             <h6 *ngIf="Facture.bien && Facture.bien.typeImmo"><a
-                                                    (click)="goToDettailFacture(Facture.bien.uuid)">
-                                                    {{ Facture.bien.nom ? Facture.bien.nom :
-                                                    Facture.bien.typeImmo.nom }}
+                                                    (click)="goToDettailFacture(Facture?.bien?.uuid)">
+                                                    {{ Facture?.bien?.nom ? Facture?.bien?.nom :
+                                                    Facture?.bien?.typeImmo?.nom }}
                                                 </a>
                                             </h6>
                                             <div class="listingtable-rate">
                                                 <a *ngIf="Facture.bien && Facture.bien.typeImmo"
                                                     href="javascript:void(0)" class="cat-icon">
                                                     <i class="fa-regular fa-circle-stop"></i>
-                                                    {{Facture.bien.typeImmo.nom}}
+                                                    {{Facture?.bien?.typeImmo?.nom}}
                                                 </a> <span class="discount-amt"
                                                     *ngIf="Facture.bien && Facture.bien.prix">{{
-                                                    formatPrice(Facture.bien.prix) }}
+                                                    formatPrice(Facture?.bien?.prix) }}
                                                     FCFA</span>
 
                                             </div>
                                             <p *ngIf="Facture.bien && Facture.bien.adresse">
-                                                {{Facture.bien.adresse.commune.cercle.region.pays.nompays}} -
-                                                {{Facture.bien.adresse.commune.cercle.region.nomregion}} -
-                                                {{Facture.bien.adresse.commune.nomcommune}} -
-                                                {{Facture.bien.adresse.quartier}}
+                                                {{Facture?.bien?.adresse?.commune?.cercle?.region?.pays?.nompays}} -
+                                                {{Facture?.bien?.adresse?.commune?.cercle?.region?.nomregion}} -
+                                                {{Facture?.bien?.adresse?.commune?.nomcommune}} -
+                                                {{Facture?.bien?.adresse?.quartier}}
                                             </p>
                                         </td>
 
@@ -1103,32 +1103,32 @@
                                                 <div *ngIf="
                         slide.bien.photoImmos && slide.bien.photoImmos.length > 0;
                         else noImages">
-                                                    <img src="{{ generateImageUrl(slide.bien.photoImmos[0].nom) }}"
+                                                    <img src="{{ generateImageUrl(slide?.bien?.photoImmos[0]?.nom) }}"
                                                         class="img-fluid image-size1" alt="blog-img" />
                                                 </div>
                                                 <ng-template #noImages>
-                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Villa'">
+                                                    <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Villa'">
                                                         <img src="../../../../assets/img/typebien/villa.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
-                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Appartement'">
+                                                    <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Appartement'">
                                                         <img src="../../../../assets/img/typebien/appartement.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
-                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Terrain'">
+                                                    <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Terrain'">
                                                         <img src="../../../../assets/img/typebien/terrain.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
-                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Bureau'">
+                                                    <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Bureau'">
                                                         <img src="../../../../assets/img/typebien/bureau.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
-                                                    <div class="type" *ngIf="slide.bien.typeImmo.nom === 'Champ'">
+                                                    <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Champ'">
                                                         <img src="../../../../assets/img/typebien/champ.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
                                                     <div class="type"
-                                                        *ngIf="slide.bien.typeImmo.nom === 'Commerce & Magasin'">
+                                                        *ngIf="slide?.bien?.typeImmo?.nom === 'Commerce & Magasin'">
                                                         <img src="../../../../assets/img/typebien/magasin.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
@@ -1155,7 +1155,7 @@
                                                     <div class="blog-features">
                                                         <a href="javascript:void(0);"><span>
                                                                 <i class="fa-regular fa-circle-stop"></i>
-                                                                {{ slide.bien.typeImmo.nom }}</span></a>
+                                                                {{ slide?.bien?.typeImmo?.nom }}</span></a>
                                                     </div>
                                                     <div class="blog-author">
                                                         <div class="blog-author-img">
@@ -1170,21 +1170,21 @@
                                                     </div>
                                                 </div>
                                                 <h6>
-                                                    <a (click)="goToDettailBien(slide.bien.uuid)">{{
-                                                        slide.bien.nom ? slide.bien.nom : slide.bien.typeImmo.nom
+                                                    <a (click)="goToDettailBien(slide?.bien?.uuid)">{{
+                                                        slide?.bien?.nom ? slide?.bien?.nom : slide?.bien?.typeImmo?.nom
                                                         }}</a>
                                                 </h6>
                                                 <div class="blog-location-details">
                                                     <div class="location-info">
                                                         <i class="feather-map-pin"></i>
-                                                        {{ slide.bien.adresse.quartier }}
+                                                        {{ slide?.bien?.adresse?.quartier }}
                                                     </div>
                                                     <!-- <div class="location-info">
                         <i class="feather-phone-call"></i> 00556245562
                       </div> -->
                                                     <div class="location-info">
                                                         <i class="feather-eye"></i>
-                                                        {{ favoritedPropertiesCount1[slide.bien.id] }}
+                                                        {{ favoritedPropertiesCount1[slide?.bien?.id] }}
                                                     </div>
                                                 </div>
                                                 <!-- <p class="ratings">
@@ -1192,11 +1192,11 @@
                     </p> -->
                                                 <div class="amount-details">
                                                     <div class="amount">
-                                                        <span class="validrate">{{ formatPrice(slide.bien.prix) }} FCFA
+                                                        <span class="validrate">{{ formatPrice(slide?.bien?.prix) }} FCFA
                                                         </span>
                                                         <!-- <span>{{ slide.oldamount }}</span> -->
                                                     </div>
-                                                    <a class="crd" (click)="goToDettailBien(slide.bien.uuid)">Savoir plus</a>
+                                                    <a class="crd" (click)="goToDettailBien(slide?.bien?.uuid)">Savoir plus</a>
                                                 </div>
                                             </div>
                                         </div>

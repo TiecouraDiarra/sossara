@@ -102,7 +102,7 @@
                                     <li
                                         *ngFor="let photo of Reclamation?.photoReclamations?.slice(0, 4); let i = index">
                                         <img class="img-fluid" alt="Image"
-                                            [src]="generateImageUrl(photo.nom)">
+                                            [src]="generateImageUrl(photo?.nom)">
                                     </li>
                                     <ng-container
                                         *ngIf="Reclamation?.photoReclamations?.length === 0">
