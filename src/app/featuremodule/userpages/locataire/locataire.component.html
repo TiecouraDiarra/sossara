@@ -76,7 +76,7 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let BienImmo of bienImmoDejaLoueLocataire | filter:searchTextBienVendu | paginate:{itemsPerPage :4, currentPage:p5,  id: 'bienLocataire'}">
+                                        *ngFor="let BienImmo of bienImmoDejaLoueLocataire | filter:searchTextBienVendu">
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailBien(BienImmo.bien.uuid)">
@@ -456,12 +456,12 @@
                                 </div>
                             </div>
                         </div>
-                        <pagination-controls *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0"
+                        <!-- <pagination-controls *ngIf="bienImmoDejaLoueLocataire && bienImmoDejaLoueLocataire.length > 0"
                             (pageChange)="p5 = $event" previousLabel="Précédent" nextLabel="Suivant" class="pagination"
                             previousClass="pagination__previous" nextClass="pagination__next"
                             containerClass="pagination__container" pageClass="pagination__page"
                             activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"
-                            id="bienLocataire"></pagination-controls>
+                            id="bienLocataire"></pagination-controls> -->
                     </div>
                 </div>
             </div>
@@ -504,7 +504,7 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let BienImmo of bienImmoUserAAcheter | filter:searchTextBienVendu | paginate:{itemsPerPage :4, currentPage:p5,  id: 'bienAcheter'}">
+                                        *ngFor="let BienImmo of bienImmoUserAAcheter | filter:searchTextBienVendu">
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailBien(BienImmo.uuid)">
@@ -825,12 +825,12 @@
 
 
                         </div>
-                        <pagination-controls *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0"
+                        <!-- <pagination-controls *ngIf="bienImmoUserAAcheter && bienImmoUserAAcheter.length > 0"
                             (pageChange)="p6 = $event" previousLabel="Précédent" nextLabel="Suivant" class="pagination"
                             previousClass="pagination__previous" nextClass="pagination__next"
                             containerClass="pagination__container" pageClass="pagination__page"
                             activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"
-                            id="bienAcheter"></pagination-controls>
+                            id="bienAcheter"></pagination-controls> -->
                     </div>
                 </div>
             </div>
@@ -901,7 +901,7 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let Facture of facture | filter:searchFacture | paginate:{itemsPerPage :4, currentPage:pfacture,  id: 'facture'}">
+                                        *ngFor="let Facture of facture | filter:searchFacture">
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailFacture(Facture.uuid)">
@@ -1066,12 +1066,12 @@
                                 </div>
                             </div>
                         </div>
-                        <pagination-controls *ngIf="facture && facture.length > 0" (pageChange)="pfacture = $event"
+                        <!-- <pagination-controls *ngIf="facture && facture.length > 0" (pageChange)="pfacture = $event"
                             previousLabel="Précédent" nextLabel="Suivant" class="pagination"
                             previousClass="pagination__previous" nextClass="pagination__next"
                             containerClass="pagination__container" pageClass="pagination__page"
                             activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"
-                            id="facture"></pagination-controls>
+                            id="facture"></pagination-controls> -->
                     </div>
                 </div>
             </div>
@@ -1102,8 +1102,7 @@
                                             <a (click)="goToDettailBien(slide.uuid)">
                                                 <div *ngIf="
                         slide.bien.photoImmos && slide.bien.photoImmos.length > 0;
-                        else noImages
-                      ">
+                        else noImages">
                                                     <img src="{{ generateImageUrl(slide.bien.photoImmos[0].nom) }}"
                                                         class="img-fluid image-size1" alt="blog-img" />
                                                 </div>
