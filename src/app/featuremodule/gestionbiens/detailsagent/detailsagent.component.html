@@ -42,8 +42,8 @@
                   <img src="{{generateImageUrl(agent?.agentPhoto?.nom)}}" class="img-radius"
                     alt="User-Profile-Image" (error)="handleAuthorImageError($event)">
                 </div>
-                <h6 class="f-w-600 m-t-25 m-b-10" *ngIf="agent && agent.nom">{{agent?.nom}}</h6>
-                <div class="row" *ngIf="agent && agent.adresse">
+                <h6 class="f-w-600 m-t-25 m-b-10" *ngIf="agent && agent?.nom">{{agent?.nom}}</h6>
+                <div class="row" *ngIf="agent && agent?.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 14px">
                     <label>Adresse :</label>
                   </div>
@@ -51,7 +51,7 @@
                     <p>{{ agent?.adresse?.commune?.cercle?.nomcercle }} - {{ agent?.adresse?.quartier }}</p>
                   </div>
                 </div>
-                <div class="row" *ngIf="agent && agent.adresse">
+                <div class="row" *ngIf="agent && agent?.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 13px">
                     <label>Rue :</label>
                   </div>
@@ -59,7 +59,7 @@
                     <p>{{agent?.adresse?.rue}}</p>
                   </div>
                 </div>
-                <div class="row" *ngIf="agent && agent.adresse">
+                <div class="row" *ngIf="agent && agent?.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 13px">
                     <label>Porte :</label>
                   </div>
@@ -92,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-                <div (click)="ContacterOrLogin(agent.id)" (click)="goToMessage(agent?.email)">
+                <div (click)="ContacterOrLogin(agent?.id)" (click)="goToMessage(agent?.email)">
                   <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
                     Contacter cet agent</a>
                 </div>
@@ -141,33 +141,33 @@
               <div class="card aos aos-init aos-animate" data-aos="fade-up">
                 <div class="blog-widget">
                   <div class="blog-img">
-                    <a (click)="goToDettailBien(data.uuid)">
-                      <div *ngIf="data.photos && data.photos.length > 0; else noImages">
-                        <img src="{{ generateImageUrl(data.photos[0].nom) }}" class="img-fluid image-size"
+                    <a (click)="goToDettailBien(data?.uuid)">
+                      <div *ngIf="data?.photos && data?.photos?.length > 0; else noImages">
+                        <img src="{{ generateImageUrl(data?.photos[0]?.nom) }}" class="img-fluid image-size"
                           alt="blog-img" />
                       </div>
                       <ng-template #noImages>
-                        <div class="type" *ngIf="data.typeImmo.nom === 'Villa'">
+                        <div class="type" *ngIf="data?.typeImmo?.nom === 'Villa'">
                           <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
                             alt="default-img">
                         </div>
-                        <div class="type" *ngIf="data.typeImmo.nom === 'Appartement'">
+                        <div class="type" *ngIf="data?.typeImmo?.nom === 'Appartement'">
                           <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
                             alt="default-img">
                         </div>
-                        <div class="type" *ngIf="data.typeImmo.nom === 'Terrain'">
+                        <div class="type" *ngIf="data?.typeImmo?.nom === 'Terrain'">
                           <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
                             alt="default-img">
                         </div>
-                        <div class="type" *ngIf="data.typeImmo.nom === 'Bureau'">
+                        <div class="type" *ngIf="data?.typeImmo?.nom === 'Bureau'">
                           <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
                             alt="default-img">
                         </div>
-                        <div class="type" *ngIf="data.typeImmo.nom === 'Champ'">
+                        <div class="type" *ngIf="data?.typeImmo?.nom === 'Champ'">
                           <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
                             alt="default-img">
                         </div>
-                        <div class="type" *ngIf="data.typeImmo.nom === 'Commerce & Magasin'">
+                        <div class="type" *ngIf="data?.typeImmo?.nom === 'Commerce & Magasin'">
                           <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
                             alt="default-img">
                         </div>
@@ -175,12 +175,12 @@
                       </ng-template>
                     </a>
                     <div class="fav-item">
-                      <span [ngClass]="{'statutbien': data.statut.nom === 'A vendre' }" class="Featured-text">{{ data?.statut?.nom
+                      <span [ngClass]="{'statutbien': data?.statut?.nom === 'A vendre' }" class="Featured-text">{{ data?.statut?.nom
                         }}</span>
                       <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                        (click)="AimerBien(data.id)"
-                        [style.background-color]="favoriteStatus[data.id] ? '#e98b11' : 'white'">
-                        <i [style.color]="favoriteStatus[data.id] ? 'white' : 'black'" class="feather-heart"></i>
+                        (click)="AimerBien(data?.id)"
+                        [style.background-color]="favoriteStatus[data?.id] ? '#e98b11' : 'white'">
+                        <i [style.color]="favoriteStatus[data?.id] ? 'white' : 'black'" class="feather-heart"></i>
                       </a>
                     </div>
                   </div>
@@ -194,25 +194,25 @@
                         </div>
                         <div class="blog-features">
                           <a href="javascript:void(0)"><span> <i
-                                class="fa-regular fa-circle-stop"></i>{{data.typeImmo.nom }}</span></a>
+                                class="fa-regular fa-circle-stop"></i>{{data?.typeImmo?.nom }}</span></a>
                         </div>
                         <div class="blog-author text-end">
-                          <span> <img src="assets/img/eye.svg" alt="vue">{{ favoritedPropertiesCount1[data.id] }}
+                          <span> <img src="assets/img/eye.svg" alt="vue">{{ favoritedPropertiesCount1[data?.id] }}
                           </span>
                         </div>
                       </div>
-                      <h6><a (click)="goToDettailBien(data.uuid)">{{ data.nom ? data.nom : data.typeImmo.nom }}</a></h6>
+                      <h6><a (click)="goToDettailBien(data?.uuid)">{{ data?.nom ? data?.nom : data?.typeImmo?.nom }}</a></h6>
                       <div class="blog-location-details">
                         <div class="location-info">
-                          <i class="feather-map-pin"></i> {{data.adresse.quartier}}
+                          <i class="feather-map-pin"></i> {{data?.adresse?.quartier}}
                         </div>
                         <div class="location-info">
-                          <i class="fa-solid fa-calendar-days"></i> {{data.createdAt | date:"dd MMM yyyy":locale}}
+                          <i class="fa-solid fa-calendar-days"></i> {{data?.createdAt | date:"dd MMM yyyy":locale}}
                         </div>
                       </div>
                       <div class="amount-details">
                         <div class="amount">
-                          <span class="validrate">{{ formatPrice(data.prix) }} FCFA</span>
+                          <span class="validrate">{{ formatPrice(data?.prix) }} FCFA</span>
                           <!-- <span>{{data.oldamount}}</span> -->
                         </div>
                         <div class="ratings">

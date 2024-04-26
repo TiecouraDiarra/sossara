@@ -39,7 +39,7 @@
                     (error)="handleAuthorImageError($event)">
                 </div>
                 <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nom}}</h6>
-                <div class="row" *ngIf="agence && agence.adresse">
+                <div class="row" *ngIf="agence && agence?.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 14px">
                     <label>Adresse :</label>
                   </div>
@@ -47,7 +47,7 @@
                     <p>{{ agence?.adresse?.commune?.cercle?.nomcercle }} - {{ agence?.adresse?.quartier }}</p>
                   </div>
                 </div>
-                <div class="row" *ngIf="agence && agence.adresse">
+                <div class="row" *ngIf="agence && agence?.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 13px">
                     <label>Rue :</label>
                   </div>
@@ -55,7 +55,7 @@
                     <p>{{agence?.adresse?.rue}}</p>
                   </div>
                 </div>
-                <div class="row" *ngIf="agence && agence.adresse">
+                <div class="row" *ngIf="agence && agence?.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 13px">
                     <label>Porte :</label>
                   </div>
@@ -90,7 +90,7 @@
                   </div>
                 </div>
                 
-                <div (click)="ContacterOrLogin(agence.id)" (click)="goToMessage(agence?.email)">
+                <div (click)="ContacterOrLogin(agence?.id)" (click)="goToMessage(agence?.email)">
                   <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
                     Contacter l'agence</a>
                 </div>
@@ -138,33 +138,33 @@
             *ngFor="let slide of bienImmo | filter:searchText | paginate:{itemsPerPage :3, currentPage:p}">
             <div class="blog-widget">
               <div class="blog-img">
-                <a (click)="goToDettailBien(slide.uuid)">
-                  <div *ngIf="slide.photos && slide.photos.length > 0; else noImages">
-                    <img src="{{ generateImageUrl(slide.photos[0].nom) }}" class="img-fluid image-size"
+                <a (click)="goToDettailBien(slide?.uuid)">
+                  <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
+                    <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
                       alt="blog-img" />
                   </div>
                   <ng-template #noImages>
-                    <div class="type" *ngIf="slide.typeImmo.nom === 'Villa'">
+                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Villa'">
                       <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
                         alt="default-img">
                     </div>
-                    <div class="type" *ngIf="slide.typeImmo.nom === 'Appartement'">
+                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Appartement'">
                       <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
                         alt="default-img">
                     </div>
-                    <div class="type" *ngIf="slide.typeImmo.nom === 'Terrain'">
+                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Terrain'">
                       <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
                         alt="default-img">
                     </div>
-                    <div class="type" *ngIf="slide.typeImmo.nom === 'Bureau'">
+                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Bureau'">
                       <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
                         alt="default-img">
                     </div>
-                    <div class="type" *ngIf="slide.typeImmo.nom === 'Champ'">
+                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Champ'">
                       <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
                         alt="default-img">
                     </div>
-                    <div class="type" *ngIf="slide.typeImmo.nom === 'Commerce & Magasin'">
+                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Commerce & Magasin'">
                       <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
                         alt="default-img">
                     </div>
@@ -172,11 +172,11 @@
                   </ng-template>
                 </a>
                 <div class="fav-item">
-                  <span [ngClass]="{'statutbien': slide.statut.nom === 'A vendre' }" class="Featured-text">{{ slide?.statut?.nom
+                  <span [ngClass]="{'statutbien': slide?.statut?.nom === 'A vendre' }" class="Featured-text">{{ slide?.statut?.nom
                     }}</span>
                   <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                    (click)="AimerBien(slide.id)" [style.background-color]="favoriteStatus[slide.id] ? '#e98b11' : 'white'">
-                    <i [style.color]="favoriteStatus[slide.id] ? 'white' : 'black'" class="feather-heart"></i>
+                    (click)="AimerBien(slide?.id)" [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
+                    <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'" class="feather-heart"></i>
                   </a>
                 </div>
               </div>
@@ -186,7 +186,7 @@
                     <div class="blog-features">
                       <a href="javascript:void(0);"><span>
                           <i class="fa-regular fa-circle-stop"></i>
-                          {{ slide.typeImmo.nom }}</span></a>
+                          {{ slide?.typeImmo?.nom }}</span></a>
                     </div>
                     <div class="blog-author">
                       <div class="blog-author-img">
@@ -194,23 +194,23 @@
                         <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
                           (error)="handleAuthorImageError($event)" />
                       </div>
-                      <a (click)="goToDettailBien(slide.uuid)">{{ slide?.utilisateur?.nom}}</a>
+                      <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom}}</a>
                     </div>
                   </div>
                   <h6>
-                    <a (click)="goToDettailBien(slide.uuid)">{{
-                      slide.nom ? slide.nom : slide.typeImmo.nom
+                    <a (click)="goToDettailBien(slide?.uuid)">{{
+                      slide?.nom ? slide?.nom : slide?.typeImmo?.nom
                       }}</a>
                   </h6>
                   <div class="blog-location-details">
                     <div class="location-info">
-                      <i class="feather-map-pin"></i> {{ slide.adresse.quartier }}
+                      <i class="feather-map-pin"></i> {{ slide?.adresse?.quartier }}
                     </div>
                     <!-- <div class="location-info">
                       <i class="feather-phone-call"></i> 00556245562
                     </div> -->
                     <div class="location-info">
-                      <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide.id] }}
+                      <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
                     </div>
                   </div>
                   <!-- <p class="ratings">
@@ -218,7 +218,7 @@
                   </p> -->
                   <div class="amount-details">
                     <div class="amount">
-                      <span class="validrate">{{ formatPrice(slide.prix) }} FCFA </span>
+                      <span class="validrate">{{ formatPrice(slide?.prix) }} FCFA </span>
                       <!-- <span>{{ slide.oldamount }}</span> -->
                     </div>
                     <a (click)="goToDettailBien(slide.id)">Savoir plus</a>
@@ -251,12 +251,7 @@
             <div class="sorting-select">
               <select class="form-control select" [(ngModel)]="searchTextAgent">
                 <option value="" selected>Tout</option>
-                <option>Commune 1</option>
-                <option>Commune 2</option>
-                <option>Commune 3</option>
-                <option>Commune 4</option>
-                <option>Commune 5</option>
-                <option>Commune 6</option>
+                <option *ngFor="let Commune of commune">{{Commune?.nomcommune}}</option>
               </select>
             </div>
           </div>
@@ -358,7 +353,7 @@
                         <i class="fa fa-star"></i>
                       </div> -->
                       <div class="mt-4 apointment">
-                        <div (click)="goToDettailAgent(Agent.uuid)">
+                        <div (click)="goToDettailAgent(Agent?.uuid)">
                           <a class="btn btn-primartd"><i class="uil uil-filter"></i>
                             Savoir plus</a>
 

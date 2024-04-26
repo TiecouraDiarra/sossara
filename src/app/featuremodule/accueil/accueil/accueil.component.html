@@ -611,18 +611,17 @@
 
 <!-- Featured Listings -->
 <section
-  class="featured-listing-section common-padding">
+  class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
   <div class="footer-six-bg footer-nine-bg">
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
-    <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue.length > 0">
+    <div class="section-heading section-heading-nine aos" >
+      <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
         <div class="col-lg-4 col-md-3"></div>
         <div
           class="col-lg-4 col-md-6 aos aos-init aos-animate text-center"
-          data-aos="fade-up"
-        >
+                  >
           <h2>Les biens</h2>
           <p>Les biens les plus vues disponibles</p>
         </div>
@@ -636,7 +635,7 @@
         </div>
       </div>
     </div>
-    <div class="row aos" data-aos="fade-up" data-aos-delay="200">
+    <div class="row aos"  data-aos-delay="200">
       <div class="col-lg-12">
         <div class="bookmarks-content grid-view featured-slider">
           <div class="row">
@@ -646,23 +645,23 @@
                   <div class=" ">
                     <div
                       class="card aos aos-init aos-animate"
-                      data-aos="fade-up"
+                     
                     >
                       <div class="blog-widget">
                         <div class="blog-img">
                           <a
-                            (click)="goToDettailBien(BienImo.uuid)"
+                            (click)="goToDettailBien(BienImo?.uuid)"
                             class="crd"
                           >
                             <div
                               *ngIf="
-                                BienImo.photos && BienImo.photos.length > 0;
+                                BienImo?.photos && BienImo?.photos?.length > 0;
                                 else noImages
                               "
                             >
                               <img
                                 src="{{
-                                  generateImageUrl(BienImo.photos[0].nom)
+                                  generateImageUrl(BienImo?.photos[0]?.nom)
                                 }}"
                                 class="img-fluid image-size"
                                 alt="blog-img"
@@ -671,7 +670,7 @@
                             <ng-template #noImages>
                               <div
                                 class="type"
-                                *ngIf="BienImo.typeImmo.nom === 'Villa'"
+                                *ngIf="BienImo?.typeImmo?.nom === 'Villa'"
                               >
                                 <img
                                   src="../../../../assets/img/typebien/villa.png"
@@ -681,7 +680,7 @@
                               </div>
                               <div
                                 class="type"
-                                *ngIf="BienImo.typeImmo.nom === 'Appartement'"
+                                *ngIf="BienImo?.typeImmo?.nom === 'Appartement'"
                               >
                                 <img
                                   src="../../../../assets/img/typebien/appartement.png"
@@ -691,7 +690,7 @@
                               </div>
                               <div
                                 class="type"
-                                *ngIf="BienImo.typeImmo.nom === 'Terrain'"
+                                *ngIf="BienImo?.typeImmo?.nom === 'Terrain'"
                               >
                                 <img
                                   src="../../../../assets/img/typebien/terrain.png"
@@ -701,7 +700,7 @@
                               </div>
                               <div
                                 class="type"
-                                *ngIf="BienImo.typeImmo.nom === 'Bureau'"
+                                *ngIf="BienImo?.typeImmo?.nom === 'Bureau'"
                               >
                                 <img
                                   src="../../../../assets/img/typebien/bureau.png"
@@ -711,7 +710,7 @@
                               </div>
                               <div
                                 class="type"
-                                *ngIf="BienImo.typeImmo.nom === 'Champ'"
+                                *ngIf="BienImo?.typeImmo?.nom === 'Champ'"
                               >
                                 <img
                                   src="../../../../assets/img/typebien/champ.png"
@@ -722,7 +721,7 @@
                               <div
                                 class="type"
                                 *ngIf="
-                                  BienImo.typeImmo.nom === 'Commerce & Magasin'
+                                  BienImo?.typeImmo?.nom === 'Commerce & Magasin'
                                 "
                               >
                                 <img
@@ -736,23 +735,23 @@
                           <div class="fav-item">
                             <span
                               [ngClass]="{
-                                statut: BienImo.statut.nom === 'A vendre'
+                                statut: BienImo?.statut?.nom === 'A vendre'
                               }"
                               class="Featured-text"
-                              >{{ BienImo.statut.nom }}</span
+                              >{{ BienImo?.statut?.nom }}</span
                             >
                             <a
                               href="javascript:void(0)"
                               *ngIf="isLoggedIn == true"
                               class="fav-icon"
-                              (click)="AimerBien(BienImo.id)"
+                              (click)="AimerBien(BienImo?.id)"
                               [style.background-color]="
-                                favoriteStatus[BienImo.id] ? '#e98b11' : 'white'
+                                favoriteStatus[BienImo?.id] ? '#e98b11' : 'white'
                               "
                             >
                               <i
                                 [style.color]="
-                                  favoriteStatus[BienImo.id] ? 'white' : 'black'
+                                  favoriteStatus[BienImo?.id] ? 'white' : 'black'
                                 "
                                 class="feather-heart"
                               ></i>
@@ -777,7 +776,7 @@
                                 <a href="javascript:void(0)"
                                   ><span>
                                     <i class="fa-regular fa-circle-stop"></i>
-                                    {{ BienImo.typeImmo.nom }}</span
+                                    {{ BienImo?.typeImmo?.nom }}</span
                                   ></a
                                 >
                               </div>
@@ -785,25 +784,25 @@
                                 <span>
                                   <i class="feather-eye"></i
                                   >{{
-                                    favoritedPropertiesCount1[BienImo.id]
+                                    favoritedPropertiesCount1[BienImo?.id]
                                   }}</span
                                 >
                               </div>
                             </div>
                             <h6 class="crd ">
-                              <a (click)="goToDettailBien(BienImo.uuid)">{{
-                                BienImo.nom ? BienImo.nom : BienImo.typeImmo.nom
+                              <a (click)="goToDettailBien(BienImo?.uuid)">{{
+                                BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom
                               }}</a>
                             </h6>
                             <div class="blog-location-details">
                               <div class="location-info">
                                 <i class="feather-map-pin"></i>
-                                {{ BienImo.adresse.quartier }}
+                                {{ BienImo?.adresse?.quartier }}
                               </div>
                               <div class="location-info">
                                 <i class="fa-solid fa-calendar-days"></i
                                 >{{
-                                  BienImo.createdAt
+                                  BienImo?.createdAt
                                     | date : "dd MMM yyyy" : locale
                                 }}
                               </div>
@@ -811,7 +810,7 @@
                             <div class="amount-details">
                               <div class="amount">
                                 <span class="validrate"
-                                  >{{ formatPrice(BienImo.prix) }} FCFA</span
+                                  >{{ formatPrice(BienImo?.prix) }} FCFA</span
                                 >
                                 <!--<span>{{slide.oldamount}}</span>-->
                               </div>
@@ -913,10 +912,10 @@
 
 <!-- Listed Properties Management Companies -->
 <div
-  class="section properties-managments common-padding">
+  class="section properties-managments common-padding" *ngIf="agence && agence.length > 0">
   <div class="container">
     <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center"  *ngIf="agence && agence.length > 0">
+      <div class="row align-items-center"  >
         <div class="col-lg-4 col-md-3"></div>
         <div
           class="col-lg-4 col-md-6 aos aos-init aos-animate text-center"
@@ -935,7 +934,7 @@
         </div>
       </div>
     </div>
-    <div class="row aos" data-aos="fade-up" data-aos-delay="200">
+    <div class="row aos"  data-aos-delay="200">
       <div class="col-lg-12">
         <div class="car-class-carousel">
           <div class="property-listing-slider">
@@ -960,8 +959,8 @@
                             </span>
                           </div>
                           <div class="companies-set-content">
-                            <h6>{{ Agence.nom }}</h6>
-                            <h5 *ngIf="Agence.adresse">
+                            <h6>{{ Agence?.nom }}</h6>
+                            <h5 *ngIf="Agence?.adresse">
                               <span
                                 >{{
                                   Agence?.adresse?.commune?.cercle?.nomcercle
@@ -977,7 +976,7 @@
                             <li>
                               <h6>
                                 {{
-                                  NombreBienCount[hashString(Agence.uuid)] || 0
+                                  NombreBienCount[hashString(Agence?.uuid)] || 0
                                 }}
                               </h6>
                               <span>Biens</span>
@@ -986,7 +985,7 @@
                               <h6>
                                 {{
                                   NombreBienLouerCount[
-                                    hashString(Agence.uuid)
+                                    hashString(Agence?.uuid)
                                   ] || 0
                                 }}
                               </h6>
@@ -996,7 +995,7 @@
                               <h6>
                                 {{
                                   NombreBienVendreCount[
-                                    hashString(Agence.uuid)
+                                    hashString(Agence?.uuid)
                                   ] || 0
                                 }}
                               </h6>
@@ -1005,7 +1004,7 @@
                             <li>
                               <h6>
                                 {{
-                                  NombreAgentCount[hashString(Agence.uuid)] || 0
+                                  NombreAgentCount[hashString(Agence?.uuid)] || 0
                                 }}
                               </h6>
                               <span>Agents</span>
@@ -1013,7 +1012,7 @@
                           </ul>
                           <div class="companies-set-btn">
                             <a
-                              (click)="goToDettailAgence(Agence.uuid)"
+                              (click)="goToDettailAgence(Agence?.uuid)"
                               class="btn btn-linebtn"
                               >Savoir plus<i
                                 class="fa fa-arrow-right ms-3"
@@ -1227,24 +1226,22 @@
 
 <!-- Recent Properties for Rent -->
 <section
-  class="property-for-rent common-padding">
-  <div class="footer-six-bg footer-nine-bg">
+  class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
+  <div class="footer-six-bg footer-nine-bg" >
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
-    <div class="section-heading section-heading-nine aos" data-aos="fade-up">
+    <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
         <div class="col-md-3"></div>
         <div
           class="col-md-6 aos aos-init aos-animate text-center"
-          data-aos="fade-up"
         >
           <h2>Biens récents à louer</h2>
           <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
         </div>
         <div
           class="col-md-3 text-md-end aos aos-init aos-animate"
-          data-aos="fade-up"
         >
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view"
             >Voir tous les biens</a
@@ -1255,22 +1252,22 @@
     <div class="row">
       <div class="col-md-12">
         <div class="car-class-carousel">
-          <div class="top-listings-rent-slider" data-aos="fade-right">
+          <div class="top-listings-rent-slider">
             <owl-carousel-o [options]="recentpropertiesOwlOptions">
               <ng-container *ngFor="let bienRecent of BienLoueRecens">
                 <ng-template carouselSlide>
                   <div class="top-rent-room">
                     <div class="top-room-img">
-                      <a (click)="goToDettailBien(bienRecent.uuid)" class="crd">
+                      <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
                         <div
                           *ngIf="
-                            bienRecent.photos && bienRecent.photos.length > 0;
+                            bienRecent?.photos && bienRecent?.photos?.length > 0;
                             else noImages
                           "
                         >
                           <img
                             src="{{
-                              generateImageUrl(bienRecent.photos[0].nom)
+                              generateImageUrl(bienRecent?.photos[0]?.nom)
                             }}"
                             class="img-fluid image-sizeresents"
                             alt="blog-img"
@@ -1279,7 +1276,7 @@
                         <ng-template #noImages>
                           <div
                             class="type"
-                            *ngIf="bienRecent.typeImmo.nom === 'Villa'"
+                            *ngIf="bienRecent?.typeImmo?.nom === 'Villa'"
                           >
                             <img
                               src="../../../../assets/img/typebien/villa.png"
@@ -1289,7 +1286,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="bienRecent.typeImmo.nom === 'Appartement'"
+                            *ngIf="bienRecent?.typeImmo?.nom === 'Appartement'"
                           >
                             <img
                               src="../../../../assets/img/typebien/appartement.png"
@@ -1299,7 +1296,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="bienRecent.typeImmo.nom === 'Terrain'"
+                            *ngIf="bienRecent?.typeImmo?.nom === 'Terrain'"
                           >
                             <img
                               src="../../../../assets/img/typebien/terrain.png"
@@ -1309,7 +1306,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="bienRecent.typeImmo.nom === 'Bureau'"
+                            *ngIf="bienRecent?.typeImmo?.nom === 'Bureau'"
                           >
                             <img
                               src="../../../../assets/img/typebien/bureau.png"
@@ -1319,7 +1316,7 @@
                           </div>
                           <div
                             class="type"
-                            *ngIf="bienRecent.typeImmo.nom === 'Champ'"
+                            *ngIf="bienRecent?.typeImmo?.nom === 'Champ'"
                           >
                             <img
                               src="../../../../assets/img/typebien/champ.png"
@@ -1330,7 +1327,7 @@
                           <div
                             class="type"
                             *ngIf="
-                              bienRecent.typeImmo.nom === 'Commerce & Magasin'
+                              bienRecent?.typeImmo?.nom === 'Commerce & Magasin'
                             "
                           >
                             <img
@@ -1357,24 +1354,24 @@
                       </div>
                     </div>
                     <div class="pent-house">
-                      <span>{{ bienRecent.statut.nom }}</span>
+                      <span>{{ bienRecent?.statut?.nom }}</span>
                     </div>
                     <div class="top-rent-room-info">
                       <div class="top-rent-room-location">
                         <div class="room-address">
                           <span
                             ><i class="fa-solid fa-location-dot"></i
-                            >{{ bienRecent.adresse.quartier }}</span
+                            >{{ bienRecent?.adresse?.quartier }}</span
                           >
                           <a
-                            (click)="goToDettailBien(bienRecent.uuid)"
+                            (click)="goToDettailBien(bienRecent?.uuid)"
                             class="crd"
                           >
                             <h5 class="text-truncate crd" style="max-width: 250px;">
                               {{
-                                bienRecent.nom
-                                  ? bienRecent.nom
-                                  : bienRecent.typeImmo.nom
+                                bienRecent?.nom
+                                  ? bienRecent?.nom
+                                  : bienRecent?.typeImmo?.nom
                               }}
                             </h5>
                           </a>
@@ -1386,7 +1383,7 @@
                                                         <i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i></span> -->
                           <p>
-                            <span>{{ formatPrice(bienRecent.prix) }} FCFA</span>
+                            <span>{{ formatPrice(bienRecent?.prix) }} FCFA</span>
                           </p>
                         </div>
                       </div>
@@ -1397,7 +1394,7 @@
                               src="assets/img/icons/bed-icon.svg"
                               class="img-fluid"
                               alt=""
-                            />{{ bienRecent.typeImmo.nom }}</span
+                            />{{ bienRecent?.typeImmo?.nom }}</span
                           >
                         </div>
                         <div class="area">
@@ -1406,7 +1403,7 @@
                               src="assets/img/icons/area-icon.svg"
                               class="img-fluid"
                               alt=""
-                            />Surface:{{ bienRecent.surface }}/m2</span
+                            />Surface:{{ bienRecent?.surface }}/m2</span
                           >
                         </div>
                         <!--<div class="area">
@@ -1419,7 +1416,7 @@
                               src="assets/img/icons/floor-icon.svg"
                               class="img-fluid"
                               alt=""
-                            />Chambre:{{ bienRecent.nb_piece }}</span
+                            />Chambre:{{ bienRecent?.nb_piece }}</span
                           >
                         </div>
                         <!--<div class="area">
@@ -1534,10 +1531,10 @@
 <!-- /Make It Easy -->
 
 <!-- COMMUNES -->
-<section class="car-location common-padding">
+<section class="car-location common-padding" *ngIf="commune && commune.length > 0">
     <div class="container">
-        <div class="section-heading section-heading-nine  aos" data-aos="fade-up">
-            <div class="row align-items-center" *ngIf="commune && commune.length > 0">
+        <div class="section-heading section-heading-nine  aos">
+            <div class="row align-items-center" >
                 <div class="col-md-3"></div>
                 <div class="col-md-6 aos aos-init aos-animate text-center" data-aos="fade-up">
                     <h3>Nos biens a Bamako</h3>
@@ -1550,11 +1547,11 @@
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
-                <a (click)="goToDettailCommune(Commune.nomcommune)" class="crd">
-                    <div style="height: 80%;" class="car-location-img aos" data-aos="fade-up" data-aos-delay="200">
+                <a (click)="goToDettailCommune(Commune?.nomcommune)" class="crd">
+                    <div style="height: 80%;" class="car-location-img aos" >
                         <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
                             class="commune-image img-fluid" alt="">
-                        <span>{{Commune.nomcommune}}</span>
+                        <span>{{Commune?.nomcommune}}</span>
                     </div>
                 </a>
             </div>
@@ -1717,17 +1714,17 @@
 
 <!-- Recent Articles -->
 <section
-  class="property-articles common-padding">
+  class="property-articles common-padding" *ngIf="blog && blog.length > 0">
   <div class="container">
-    <div class="section-heading section-heading-nine aos" data-aos="fade-up">
-      <div class="row align-items-center" *ngIf="blog && blog.length > 0">
-        <div class="col-md-7 aos aos-init aos-animate" data-aos="fade-up">
+    <div class="section-heading section-heading-nine aos" >
+      <div class="row align-items-center" >
+        <div class="col-md-7 aos aos-init aos-animate" >
           <h4>Articles recents</h4>
           <!-- <p>The most trendy accommodations available</p> -->
         </div>
         <div
           class="col-md-5 text-md-end aos aos-init aos-animate"
-          data-aos="fade-up"
+          
         >
           <a [routerLink]="routes.blog" class="btn btn-view"
             >Voir tous les articles</a
@@ -1738,40 +1735,40 @@
     <div class="bloglist-section bloggrid-sidebar">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12 aos" data-aos="fade-up">
+          <div class="col-lg-12 aos" >
             <div class="car-class-carousel">
               <div class="blog-slider">
                 <owl-carousel-o [options]="recentarticleOwlOptions">
                   <ng-container *ngFor="let Blog of blog">
                     <ng-template carouselSlide>
-                      <div class="blog grid-blog aos" data-aos="fade-up">
+                      <div class="blog grid-blog aos" >
                         <div class="blog-image">
-                          <a (click)="goToDettailBlog(Blog.uuid)"
+                          <a (click)="goToDettailBlog(Blog?.uuid)"
                             ><img
                               class="img-fluid image-sizeblog crd"
-                              src="{{ generateImageUrl(Blog.photo) }}"
+                              src="{{ generateImageUrl(Blog?.photo) }}"
                               (error)="handleBlogImageError($event)"
                               alt="Post Image"
                           /></a>
                         </div>
                         <div class="blog-content">
                           <h3 class="blog-title text-truncate crd" style="max-width: 320px;">
-                            <a (click)="goToDettailBlog(Blog.uuid)">{{
-                              Blog.titre
+                            <a (click)="goToDettailBlog(Blog?.uuid)">{{
+                              Blog?.titre
                             }}</a>
                           </h3>
                           <ul class="entry-meta meta-item">
                             <li class="date-icon">
                               <i class="feather-calendar"></i>
                               {{
-                                Blog.createdAt | date : "dd MMM yyyy" : locale
+                                Blog?.createdAt | date : "dd MMM yyyy" : locale
                               }}
                             </li>
                           </ul>
                           <p class="blog-description" [innerHTML]="Blog ? Blog?.description : 'Aucune description'"
                           > </p>
                           <div class="viewlink crd">
-                            <a (click)="goToDettailBlog(Blog.uuid)"
+                            <a (click)="goToDettailBlog(Blog?.uuid)"
                               >Voir plus</a
                             >
                           </div>

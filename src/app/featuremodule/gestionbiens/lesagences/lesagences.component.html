@@ -75,7 +75,7 @@
                     <mat-option
                       [value]="Cercle.nomcercle"
                       *ngFor="let Cercle of filteredCercles"
-                      >{{ Cercle.nomcercle }}</mat-option
+                      >{{ Cercle?.nomcercle }}</mat-option
                     >
                   </mat-select>
                 </mat-form-field>
@@ -98,7 +98,7 @@
                     <mat-option
                       [value]="Commune.nomcommune"
                       *ngFor="let Commune of communes1"
-                      >{{ Commune.nomcommune }}</mat-option
+                      >{{ Commune?.nomcommune }}</mat-option
                     >
                   </mat-select>
                 </mat-form-field>
@@ -114,10 +114,10 @@
         *ngIf="agence && agence.length > 0; else noAgences"
       >
         <div class="container">
-          <div class="row aos" data-aos="fade-up" data-aos-delay="200">
+          <div class="row aos" data-aos-delay="200">
             <ng-container
               *ngFor="
-                let Agence of applyFilters(agence).slice(
+                let Agence of applyFilters(agence)?.slice(
                   (currentPage - 1) * itemsPerPage,
                   currentPage * itemsPerPage) "
             >
@@ -139,7 +139,7 @@
                         </div>
                         <div class="companies-set-content">
                           <h4>{{ Agence.nom }}</h4>
-                          <h5 *ngIf="Agence.adresse">
+                          <h5 *ngIf="Agence?.adresse">
                             {{ Agence?.adresse?.commune?.cercle?.nomcercle }} - {{ Agence?.adresse?.quartier }}
                             <!-- <span>{{ Agence?.telephone }}</span> -->
                           </h5>
@@ -149,19 +149,19 @@
                         <div class="tst" style="background-color: white; margin-bottom: 8px;">
                           <ul>
                             <li>
-                              <h6>{{ NombreBienCount[hashString(Agence.uuid)] || 0 }}</h6>
+                              <h6>{{ NombreBienCount[hashString(Agence?.uuid)] || 0 }}</h6>
                               <span>Biens</span>
                             </li>
                             <li>
-                              <h6>{{ NombreBienLouerCount[hashString(Agence.uuid)] || 0 }}</h6>
+                              <h6>{{ NombreBienLouerCount[hashString(Agence?.uuid)] || 0 }}</h6>
                               <span>Louer</span>
                             </li>
                             <li>
-                              <h6>{{ NombreBienVendreCount[hashString(Agence.uuid)] || 0 }}</h6>
+                              <h6>{{ NombreBienVendreCount[hashString(Agence?.uuid)] || 0 }}</h6>
                               <span>Vendre</span>
                             </li>
                             <li>
-                              <h6>{{ NombreAgentCount[hashString(Agence.uuid)] || 0 }}</h6>
+                              <h6>{{ NombreAgentCount[hashString(Agence?.uuid)] || 0 }}</h6>
                               <span>Agents</span>
                             </li>
                             
@@ -169,7 +169,7 @@
                         </div>
                         <div class="companies-set-btn">
                           <a
-                            (click)="goToDettailAgence(Agence.uuid)"
+                            (click)="goToDettailAgence(Agence?.uuid)"
                             class="btn btn-linebtn"
                             >Savoir plus<i
                               class="fa fa-arrow-right ms-3"

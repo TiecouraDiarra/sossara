@@ -1100,9 +1100,7 @@
                                     <div class="blog-widget">
                                         <div class="blog-img">
                                             <a (click)="goToDettailBien(slide.uuid)">
-                                                <div *ngIf="
-                        slide.bien.photoImmos && slide.bien.photoImmos.length > 0;
-                        else noImages">
+                                                <div *ngIf="slide.bien.photoImmos && slide.bien.photoImmos.length > 0; else noImages">
                                                     <img src="{{ generateImageUrl(slide.bien.photoImmos[0].nom) }}"
                                                         class="img-fluid image-size1" alt="blog-img" />
                                                 </div>
