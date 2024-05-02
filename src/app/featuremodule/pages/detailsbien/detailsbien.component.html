@@ -582,7 +582,7 @@
     <div class="row">
       <div class="col-lg-9">
         <div class="author-img" *ngFor="let photo of photos; let isFirst = first">
-          <img *ngIf="isFirst" src="{{ generateImageUrl(photo?.nom) }}" alt="authorimg" />
+          <img class="image-size3" *ngIf="isFirst" src="{{ generateImageUrl(photo?.nom) }}" alt="authorimg" />
         </div>
         <div class="author-img" *ngIf="photos && photos?.length == 0">
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Villa'">

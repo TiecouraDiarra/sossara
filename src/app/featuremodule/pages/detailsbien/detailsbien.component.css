@@ -149,6 +149,11 @@
   width: 100%; /* Remplacez cette valeur par la taille souhaitée */
   height: 150px;
 }
+.image-size3{
+  width: 1000px !important;
+  height: 400px !important;
+  object-fit: cover;
+}
 
 .icone-size {
   width: 30%;

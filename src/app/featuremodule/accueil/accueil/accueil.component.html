@@ -642,7 +642,7 @@
             <owl-carousel-o [options]="listingOwlOptions">
               <ng-container *ngFor="let BienImo of bienImmoPlusVue">
                 <ng-template carouselSlide>
-                  <div class=" ">
+                  <div class=" " [style.width]="bienImmoPlusVue.length < 2 ? '50%' : ''">
                     <div
                       class="card aos aos-init aos-animate"
                      
@@ -862,7 +862,8 @@
           <span><img src="assets/img/icons/achat.svg" alt="img" /></span>
           <h6>Achat</h6>
           <p>
-            Vous avez un projet d'investissement immobilier ? Alors,
+            Vous avez un projet d'investissement immobilier ?  
+            Alors,
             <span style="color: #e98b11; font-weight: bold">Sossara</span> vous
             propose des biens immobiliers classés par types et catégories par
             zones géographiques
@@ -941,7 +942,7 @@
             <owl-carousel-o [options]="managementcomponiesOwlOptions">
               <ng-container *ngFor="let Agence of agence">
                 <ng-template carouselSlide>
-                  <div class="property-item">
+                  <div class="property-item" [style.width]="agence.length < 2 ? '50%' : ''">
                     <a>
                       <div class="companies-set mb-4">
                         <div class="companies-set-head">
@@ -1256,7 +1257,7 @@
             <owl-carousel-o [options]="recentpropertiesOwlOptions">
               <ng-container *ngFor="let bienRecent of BienLoueRecens">
                 <ng-template carouselSlide>
-                  <div class="top-rent-room">
+                  <div class="top-rent-room" [style.width]="BienLoueRecens.length < 2 ? '50%' : ''">
                     <div class="top-room-img">
                       <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
                         <div
@@ -1353,9 +1354,9 @@
                         />
                       </div>
                     </div>
-                    <div class="pent-house">
+                    <!-- <div class="pent-house">
                       <span>{{ bienRecent?.statut?.nom }}</span>
-                    </div>
+                    </div> -->
                     <div class="top-rent-room-info">
                       <div class="top-rent-room-location">
                         <div class="room-address">
