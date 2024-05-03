@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lightbox } from 'ngx-lightbox';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -32,6 +32,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   // providers: [ShareThisService] // Ajouter le service dans les providers
 })
 export class DetailsbienComponent implements AfterViewInit {
+  locale!: string;
   public routes = routes;
   public albumsOne: any = [];
   public albumsTwo: any = [];
@@ -81,6 +82,8 @@ export class DetailsbienComponent implements AfterViewInit {
   candidaterWithModal: boolean = false;
   bienPartage: any;
   test: any;
+  bienImmoSuivant: any;
+  bienImmoPrecedent: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -317,50 +320,18 @@ export class DetailsbienComponent implements AfterViewInit {
     private route: ActivatedRoute,
     private serviceAdresse: AdresseService,
     private meta: Meta,
-    private chatService: MessageService
+    private chatService: MessageService,
+    @Inject(LOCALE_ID) private localeId: string,
   ) {
+    this.locale = localeId;
+
+
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params['id'];
 
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
-      this.bien = data;
-
-      this.form = {
-        nom: this.bien?.nom,
-        description: this.bien?.description,
-        type: this.bien?.typeImmo.id,
-        surface: this.bien?.surface,
-        periode: this.bien?.periode?.id,
-        porte: this.bien?.adresse?.porte,
-        rue: this.bien?.adresse?.rue,
-        quartier: this.bien?.adresse?.quartier,
-        statut: this.bien?.statut?.id,
-        prix: this.bien?.prix,
-        toilette: this.bien?.toilette,
-        nb_piece: this.bien?.nb_piece,
-        cuisine: this.bien?.cuisine,
-        chambre: this.bien?.chambre,
-        longitude: this.bien?.adresse?.longitude,
-        latitude: this.bien?.adresse?.latitude,
-        commune: this.bien?.adresse?.commune?.id,
-        pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
-        region: this.bien?.adresse?.commune?.region?.id,
-      };
-      this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-        this.les_commodite = data;
-      });
-
-      if (this.bien) {
-        // Parcourez les commodités liées à bien
-        for (const item of this.les_commodite) {
-          // Vérifiez si l'ID de la commodité est dans la liste des commodités de bien
-          item.selected = this.bien.commodites.some(
-            (commodite: any) => commodite.id === item.id
-          );
-        }
-      }
-    });
+   
+ 
   }
   open(index: number, albumArray: Array<any>): void {
     this._lightbox.open(albumArray, index);
@@ -398,92 +369,16 @@ export class DetailsbienComponent implements AfterViewInit {
       this.isLoginFailed = false;
     }
     //RECUPERER L'ID D'UN BIEN
-    this.id = this.route.snapshot.params['id'];
-
-    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
-      this.bien = data;
-      this.lesCommodites = data?.commodites;
-      
-      this.photos = this.bien?.photos;
-      this.latitude = this.bien.adresse.latitude;
-      this.longitude = this.bien.adresse.longitude;
-      // Définir les métadonnées Open Graph dynamiquement
-      this.meta.updateTag({ property: 'og:title', content: this.bien.nom });
-      this.meta.updateTag({ property: 'og:description', content: this.bien.description });
-      this.meta.updateTag({ property: 'og:image', content: this.generateImageUrl(this.bien.photos[0].nom) });
-
-      const currentUser = this.storageService.getUser();
-
-      if (
-        currentUser &&
-        this.bien &&
-        currentUser?.id === this.bien?.utilisateur?.id
-      ) {
-        this.currentUser = true;
-        this.ModifBien = true;
-      }
-
-      for (const photo of this.photos) {
-        const src = this.generateImageUrl(photo.nom); // Utilisez 'this.generateImageUrl'
-        const caption = 'Caption for ' + photo.nom;
-
-        this.albumsOne.push({ src: src, caption: caption });
-        this.albumsTwo.push({ src: src, caption: caption });
-      }
-
-      // Vérifiez si la latitude est null, si c'est le cas, utilisez une valeur par défaut
-      if (this.latitude == null) {
-        this.latitude = 12.639231999999997;
-      }
-
-      // Vérifiez si la longitude est null, si c'est le cas, utilisez une valeur par défaut
-      if (this.longitude == null) {
-        this.longitude = -7.998184000000001;
-      }
-
-      // Options de la carte
-      const mapOptions = {
-        center: { lat: this.latitude, lng: this.longitude }, // Coordonnées du centre de la carte
-        zoom: 15, // Niveau de zoom initial
-      };
-      // Initialiser la carte dans l'élément avec l'ID "map"
-      const mapElement = document.getElementById('map');
-      const map = new google.maps.Map(mapElement, mapOptions);
-      // Créer un marqueur initial au centre de la carte
-      const initialMarker = new google.maps.Marker({
-        position: mapOptions.center,
-        map: map,
-        draggable: true, // Rend le marqueur draggable
-      });
-      // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
-      google.maps.event.addListener(
-        initialMarker,
-        'dragend',
-        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
-          this.form.latitude = markerEvent.latLng.lat();
-          this.form.longitude = markerEvent.latLng.lng();
-        }
-      );
-
-      // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
-      google.maps.event.addListener(
-        initialMarker,
-        'click',
-        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
-          const newLatLng = new google.maps.LatLng(
-            initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
-            initialMarker.getPosition().lng() + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
-          );
-
-          initialMarker.setPosition(newLatLng);
-
-          // Mettez à jour les coordonnées dans votre formulaire
-          this.form.latitude = newLatLng.lat();
-          this.form.longitude = newLatLng.lng();
-        }
-      );
-    });
+   
+    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+    //   // Tri des biens immobiliers par ordre décroissant de la date de création
+    
+    //   // Extraction des trois biens immobiliers les plus récents
+    //   this.bienImmoSuivant = data.slice(0, 1);
+    //   console.log(this.bienImmoSuivant)
+    this. bienparid()
+    
+    // });
 
     //AFFICHER LA LISTE DES USAGE
     this.serviceUsage.AfficherListeUsage().subscribe(data => {
@@ -957,7 +852,7 @@ export class DetailsbienComponent implements AfterViewInit {
       // Après avoir réussi à candidater, mettez à jour l'état de la candidature
     });
   }
-
+  
   //METHODE PERMETTANT D'ACTUALISER LA PAGE
   reloadPage(): void {
     window.location.reload();
@@ -1026,115 +921,7 @@ export class DetailsbienComponent implements AfterViewInit {
   }
 
   //MODIFIER UN BIEN
-  ModifierBien(): void {
-    //RECUPERER L'ID D'UN BIEN
-    this.id = this.route.snapshot.params['id'];
-    const {
-      commodite,
-      type,
-      caracteristique,
-      commune,
-      nb_piece,
-      nom,
-      chambre,
-      cuisine,
-      toilette,
-      surface,
-      prix,
-      statut,
-      description,
-      quartier,
-      rue,
-      porte,
-      periode,
-      caution,
-      avance,
-      longitude,
-      latitude,
-      photo,
-    } = this.form;
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
-      },
-      heightAuto: false,
-    });
-
-    if (
-      this.form.commodite === null ||
-      this.form.type === null ||
-      this.form.caracteristique === null ||
-      this.form.commune === null ||
-      this.form.nom === null ||
-      this.form.surface === null ||
-      this.form.prix === null ||
-      this.form.statut === null ||
-      this.form.description === null ||
-      this.form.quartier === null ||
-      this.form.photo === null
-    ) {
-      swalWithBootstrapButtons.fire(
-        (this.message = ' Tous les champs sont obligatoires !')
-      );
-    } else {
-      swalWithBootstrapButtons
-        .fire({
-          text: 'Etes-vous sûre de bien vouloir modifier ce bien ?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Confirmer',
-          cancelButtonText: 'Annuler',
-          reverseButtons: true,
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            const user = this.storageService.getUser();
-            if (user && user.token) {
-              this.serviceBienImmo.setAccessToken(user.token);
-              this.serviceBienImmo
-                .ModifierBien(
-                  commodite,
-                  type,
-                  caracteristique,
-                  commune,
-                  nb_piece,
-                  nom,
-                  chambre,
-                  cuisine,
-                  toilette,
-                  surface,
-                  prix,
-                  statut,
-                  description,
-                  quartier,
-                  rue,
-                  porte,
-                  periode,
-                  caution,
-                  avance,
-                  longitude,
-                  latitude,
-                  photo,
-                  this.id
-                )
-                .subscribe({
-                  next: (data) => {
-                    this.isSuccess = false;
-                    this.popUpConfirmationModification();
-                  },
-                  error: (err) => {
-                    this.errorMessage = err.error.message;
-                    this.isSuccess = true;
-                  },
-                });
-            } else {
-            }
-          }
-        });
-    }
-  }
-
+ 
   //POPUP APRES CONFIRMATION
   popUpConfirmationModification() {
     let timerInterval = 2000;
@@ -1229,5 +1016,128 @@ export class DetailsbienComponent implements AfterViewInit {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
   goToModifierBien(id: number) {
     return this.router.navigate(['userpages/modifier-bien', id])
+  }
+  goToDettailBien(id: number) {
+    return this.router.navigate(['details-bien', id]).then(() => {
+        this.bienparid();
+        window.location.reload();    });
+}
+
+
+
+  bienparid(){
+    this.id = this.route.snapshot.params['id'];
+
+    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
+      this.bien = data;
+   
+    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+      // Trier les biens par date de création décroissante
+      data.sort((a: any, b: any) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
+    
+      // Filtrer les biens par date de création supérieure à this.bien.createdAt
+      const biensFiltres = data.filter((bien: { createdAt: string | number | Date; }) => {
+        return new Date(bien.createdAt) > new Date(this.bien.createdAt);
+      });
+      const biensFiltres2 = data.filter((bien: { createdAt: string | number | Date; }) => {
+        return new Date(bien.createdAt) < new Date(this.bien.createdAt);
+      });
+    
+      // Afficher la liste des biens filtrés
+     // Inverser l'ordre de la liste filtrée
+     biensFiltres.reverse();
+     biensFiltres2;
+
+  // Récupérer le premier élément de la liste inversée
+      this.bienImmoSuivant = biensFiltres.slice(0, 1);
+      this.bienImmoPrecedent = biensFiltres2.slice(0, 1);
+
+      
+    });
+    
+      console.log(this.bien)
+      this.lesCommodites = data?.commodites;
+      this.photos = this.bien?.photos;
+      this.latitude = this.bien.adresse.latitude;
+      this.longitude = this.bien.adresse.longitude;
+      // Définir les métadonnées Open Graph dynamiquement
+      this.meta.updateTag({ property: 'og:title', content: this.bien.nom });
+      this.meta.updateTag({ property: 'og:description', content: this.bien.description });
+      this.meta.updateTag({ property: 'og:image', content: this.generateImageUrl(this.bien.photos[0].nom) });
+
+      const currentUser = this.storageService.getUser();
+
+      if (
+        currentUser &&
+        this.bien &&
+        currentUser?.id === this.bien?.utilisateur?.id
+      ) {
+        this.currentUser = true;
+        this.ModifBien = true;
+      }
+
+      for (const photo of this.photos) {
+        const src = this.generateImageUrl(photo.nom); // Utilisez 'this.generateImageUrl'
+        const caption = 'Caption for ' + photo.nom;
+
+        this.albumsOne.push({ src: src, caption: caption });
+        this.albumsTwo.push({ src: src, caption: caption });
+      }
+
+      // Vérifiez si la latitude est null, si c'est le cas, utilisez une valeur par défaut
+      if (this.latitude == null) {
+        this.latitude = 12.639231999999997;
+      }
+
+      // Vérifiez si la longitude est null, si c'est le cas, utilisez une valeur par défaut
+      if (this.longitude == null) {
+        this.longitude = -7.998184000000001;
+      }
+
+      // Options de la carte
+      const mapOptions = {
+        center: { lat: this.latitude, lng: this.longitude }, // Coordonnées du centre de la carte
+        zoom: 15, // Niveau de zoom initial
+      };
+      // Initialiser la carte dans l'élément avec l'ID "map"
+      const mapElement = document.getElementById('map');
+      const map = new google.maps.Map(mapElement, mapOptions);
+      // Créer un marqueur initial au centre de la carte
+      const initialMarker = new google.maps.Marker({
+        position: mapOptions.center,
+        map: map,
+        draggable: true, // Rend le marqueur draggable
+      });
+      // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
+      google.maps.event.addListener(
+        initialMarker,
+        'dragend',
+        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+          this.form.latitude = markerEvent.latLng.lat();
+          this.form.longitude = markerEvent.latLng.lng();
+        }
+      );
+
+      // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
+      google.maps.event.addListener(
+        initialMarker,
+        'click',
+        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+          const newLatLng = new google.maps.LatLng(
+            initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
+            initialMarker.getPosition().lng() + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
+          );
+
+          initialMarker.setPosition(newLatLng);
+
+          // Mettez à jour les coordonnées dans votre formulaire
+          this.form.latitude = newLatLng.lat();
+          this.form.longitude = newLatLng.lng();
+        }
+      );
+    });
   }
 }
