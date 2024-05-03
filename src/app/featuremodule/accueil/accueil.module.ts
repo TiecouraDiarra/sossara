@@ -5,16 +5,8 @@ import { HomeRoutingModule } from './accueil-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AccueilComponent } from './accueil.component';
 
-
-
 @NgModule({
-  declarations: [
-    AccueilComponent
-  ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    HttpClientModule
-  ]
+  declarations: [AccueilComponent],
+  imports: [CommonModule, HomeRoutingModule, HttpClientModule],
 })
-export class AccueilModule { }
+export class AccueilModule {}

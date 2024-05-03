@@ -1,29 +1,16 @@
 <app-header-accueil></app-header-accueil>
 <!-- Banner -->
-<section
-  class="banner-section banner-nine"
-  [ngStyle]="{
+<section class="banner-section banner-nine" [ngStyle]="{
     'background-image': 'url(' + carouselImages[currentImageIndex] + ')'
-  }"
->
+  }">
   <div class="container">
     <div class="row">
       <div class="col-lg-6">
         <div class="banner-contents">
-          <h2
-            style="color: #e98b11"
-            class="aos"
-           
-            data-aos-duration="1200"
-            data-aos-anchor-placement="top-bottom"
-          >
+          <h2 style="color: #e98b11" class="aos" data-aos-duration="1200" data-aos-anchor-placement="top-bottom">
             Trouvez la maison de vos rêves
           </h2>
-          <h6
-            class="mb-0 aos"
-           
-            data-aos-anchor-placement="top-bottom"
-          >
+          <h6 class="mb-0 aos" data-aos-anchor-placement="top-bottom">
             Seule plateforme immobilière avec plus de 10 000 vendeurs hautement
             cotés
           </h6>
@@ -32,20 +19,10 @@
             particuliers et des programmes immo de professionnels.
           </p>
           <div class="banner-nine-btn-group">
-            <a
-              (click)="AjouterBienOrLogin()"
-              class="aos crd"
-             
-              data-aos-delay="300"
-            >
+            <a (click)="AjouterBienOrLogin()" class="aos crd" data-aos-delay="300">
               <span>Ajouter un bien</span>
             </a>
-            <a
-              [routerLink]="routes.listingmapgrid"
-              class="aos"
-             
-              data-aos-delay="300"
-            >
+            <a [routerLink]="routes.listingmapgrid" class="aos" data-aos-delay="300">
               <span>Rechercher un bien</span>
             </a>
           </div>
@@ -57,27 +34,15 @@
 <!-- /Banner -->
 
 <!-- Search Filter Section -->
-<section
-  class="car-search-filter realestate-search-filter aos"
- 
-  data-aos-delay="400"
->
+<section class="car-search-filter realestate-search-filter aos" data-aos-delay="400">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <div class="car-filter-section">
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-home"
-                type="button"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="true"
-              >
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+                type="button" role="tab" aria-controls="pills-home" aria-selected="true">
                 Trouver un bien
               </button>
             </li>
@@ -93,161 +58,103 @@
                         </li>-->
           </ul>
           <div class="tab-content" id="pills-tabContent">
-            <div
-              class="tab-pane fade show active"
-              id="pills-home"
-              role="tabpanel"
-              aria-labelledby="pills-home-tab"
-              tabindex="0"
-            >
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+              tabindex="0">
               <div class="search-tab-col">
                 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                   <div class="row align-items-center search-form">
                     <div class="col-12 col-lg-10 search-group">
-                        <div class="card card-body">
-                      <div class="row">
-                        <div class="col-lg-6 col-xl-3 mb-2">
-                          <div class="d-flex">
-                            <div
-                              class="flex-shrink-0 d-flex align-items-center"
-                            >
-                              <div class="icon-blk rounded-circle">
-                                <i class="feather-map-pin"></i>
+                      <div class="card card-body">
+                        <div class="row">
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-map-pin"></i>
+                                </div>
                               </div>
-                            </div>
-                            <!--<div class="flex-grow-1 ms-3">
+                              <!--<div class="flex-grow-1 ms-3">
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
-                            <div class="flex-grow-1 ms-3">
-                              <mat-form-field
-                                class="mat-custom-select"
-                                style="width: 98%"
-                              >
-                                <mat-label *ngIf="selectedCategory == ''"
-                                  >Region</mat-label
-                                >
-                                <mat-select
-                                  name="region"
-                                  (selectionChange)="onChangeRegion($event)"
-                                >
-                                  <mat-option
-                                    *ngFor="let Region of region"
-                                    [value]="Region.nomregion"
-                                  >
-                                    {{ Region.nomregion }}</mat-option
-                                  >
-                                </mat-select>
-                              </mat-form-field>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-3 mb-2">
-                          <div class="d-flex">
-                            <div
-                              class="flex-shrink-0 d-flex align-items-center"
-                            >
-                              <div class="icon-blk rounded-circle">
-                                <i class="feather-map-pin"></i>
+                              <div class="flex-grow-1 ms-3">
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                  <mat-label *ngIf="selectedCategory == ''">Region</mat-label>
+                                  <mat-select name="region" (selectionChange)="onChangeRegion($event)">
+                                    <mat-option *ngFor="let Region of region" [value]="Region.nomregion">
+                                      {{ Region.nomregion }}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
                               </div>
                             </div>
-                            <!--<div class="flex-grow-1 ms-3">
+                          </div>
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-map-pin"></i>
+                                </div>
+                              </div>
+                              <!--<div class="flex-grow-1 ms-3">
                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
-                            <div class="flex-grow-1 ms-3">
-
-                              <mat-form-field
-                                class="mat-custom-select"
-                                style="width: 100%"
-                              >
-                                <mat-label *ngIf="selectedCategory == ''"
-                                  >Cercle</mat-label
-                                >
-                                <mat-select
-                                  name="cercle"
-                                  (selectionChange)="onChangeCercle($event)"
-                                >
-                                  <mat-option
-                                    *ngFor="let Cercle of cercles"
-                                    [value]="Cercle.id"
-                                    >{{ Cercle.nomcercle }}</mat-option
-                                  >
-                                </mat-select>
-                              </mat-form-field>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-xl-3 mb-2">
-                          <div class="d-flex">
-                            <div
-                              class="flex-shrink-0 d-flex align-items-center"
-                            >
-                              <div class="icon-blk rounded-circle">
-                                <i class="feather-map-pin"></i>
+                              <div class="flex-grow-1 ms-3">
+                                <mat-form-field class="mat-custom-select" style="width: 100%">
+                                  <mat-label *ngIf="selectedCategory == ''">Cercle</mat-label>
+                                  <mat-select name="cercle" (selectionChange)="onChangeCercle($event)">
+                                    <mat-option *ngFor="let Cercle of cercles" [value]="Cercle.id">{{ Cercle.nomcercle
+                                      }}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
                               </div>
                             </div>
-                            <div class="flex-grow-1 ms-3">
-                              <mat-form-field
-                                class="mat-custom-select"
-                                style="width: 100%"
-                              >
-                                <mat-label *ngIf="selectedCategory == ''">
-                                  Commune</mat-label
-                                >
-                                <mat-select
-                                  name="commune"
-                                  [(ngModel)]="form.commune"
-                                >
-                                           <mat-option
-                                    *ngFor="let Commune of communes1"
-                                    [value]="Commune.id"
-                                    >{{ Commune.nomcommune }}</mat-option
-                                  >
-                                         
-                                </mat-select>
-                              </mat-form-field>
+                          </div>
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-map-pin"></i>
+                                </div>
+                              </div>
+                              <div class="flex-grow-1 ms-3">
+                                <mat-form-field class="mat-custom-select" style="width: 100%">
+                                  <mat-label *ngIf="selectedCategory == ''">
+                                    Commune</mat-label>
+                                  <mat-select name="commune" [(ngModel)]="form.commune">
+                                             <mat-option *ngFor="let Commune of communes1" [value]="Commune.id">{{
+                                      Commune.nomcommune }}</mat-option>
+                                           
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-plus"></i>
+                                </div>
+                              </div>
+                              <!-- &nbsp; &nbsp; -->
+                              <div class="real-estate-search w-100">
+                                <div class="flex-grow-1 ms-3">
+                                  <p>
+                                    <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse"
+                                      href="#collapseExample" role="button" aria-expanded="false"
+                                      aria-controls="collapseExample">
+                                      Plus de recherche
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-6 col-xl-3 mb-2">
-                          <div class="d-flex">
-                            <div
-                            class="flex-shrink-0 d-flex align-items-center"
-                          >
-                            <div class="icon-blk rounded-circle">
-                              <i class="feather-plus"></i>
-                            </div>
-                          </div>
-                          <!-- &nbsp; &nbsp; -->
-                          <div class="real-estate-search w-100">
-                            <div class="flex-grow-1 ms-3">
-                              <p>
-                                <a
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                  data-bs-toggle="collapse"
-                                  href="#collapseExample"
-                                  role="button"
-                                  aria-expanded="false"
-                                  aria-controls="collapseExample"
-                                >
-                                  Plus de recherche
-                                </a>
-                              </p>
-                            </div>
-                          </div>
-                          </div>
-                        </div>
-                   
-                      
-                      </div>
-                      <div class="collapse" id="collapseExample">
-                        
-                          
+                        <div class="collapse" id="collapseExample">
                           <div class="row">
                             <div class="col-lg-6 col-xl-4 mb-2">
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
                                     <i class="feather-home"></i>
                                   </div>
@@ -256,100 +163,51 @@
                                                                     <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                                 </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                 
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
                                     <mat-label *ngIf="selectedCategory == ''">
-                                      Type</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.type"
-                                      name="type"
-                                    >
-                                      <mat-option
-                                        *ngFor="let Type of typebien"
-                                        [value]="Type.id"
-                                      >
-                                        {{ Type.nom }}</mat-option
-                                      >
+                                      Type</mat-label>
+                                    <mat-select [(ngModel)]="form.type" name="type">
+                                      <mat-option *ngFor="let Type of typebien" [value]="Type.id">
+                                        {{ Type.nom }}</mat-option>
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
                               </div>
                             </div>
                             <div class="col-lg-6 col-xl-4 mb-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 20px"
-                                      src="./assets/img/icons/fax-icon.png"
-                                      alt=""
-                                    />
+                                    <img style="width: 20px" src="./assets/img/icons/fax-icon.png" alt="" />
                                   </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
                                     <mat-label *ngIf="selectedCategory == ''">
-                                      Statut</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.statut"
-                                      name="statut"
-                                      (selectionChange)="onStatutChange($event)"
-                                    >
-                                      <mat-option
-                                        *ngFor="let Statut of statut"
-                                        [value]="Statut.id"
-                                      >
-                                        {{ Statut.nom }}</mat-option
-                                      >
+                                      Statut</mat-label>
+                                    <mat-select [(ngModel)]="form.statut" name="statut"
+                                      (selectionChange)="onStatutChange($event)">
+                                      <mat-option *ngFor="let Statut of statut" [value]="Statut.id">
+                                        {{ Statut.nom }}</mat-option>
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
                               </div>
                             </div>
                             <div class="col-lg-6 col-xl-4 mb-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      src="./assets/img/icons/bath-icon.svg"
-                                      alt=""
-                                    />
+                                    <img src="./assets/img/icons/bath-icon.svg" alt="" />
                                   </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
                                     <mat-label *ngIf="selectedCategory == ''">
-                                      Chambres</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.chambre"
-                                      name="chambre"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
+                                      Chambres</mat-label>
+                                    <mat-select [(ngModel)]="form.chambre" name="chambre">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
@@ -358,110 +216,56 @@
 
                             <div class="col-lg-6 col-xl-4 mb-2">
                               <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      src="./assets/img/icons/bed-icon.svg"
-                                      alt=""
-                                    />
+                                    <img src="./assets/img/icons/bed-icon.svg" alt="" />
                                   </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
                                     <mat-label *ngIf="selectedCategory == ''">
-                                      Nombre de salon</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.nb_piece"
-                                      name="nb_piece"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
+                                      Nombre de salon</mat-label>
+                                    <mat-select [(ngModel)]="form.nb_piece" name="nb_piece">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
                               </div>
                             </div>
                             <div class="col-lg-6 col-xl-4 mb-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      src="./assets/img/icons/area-icon.svg"
-                                      alt=""
-                                    />
+                                    <img src="./assets/img/icons/area-icon.svg" alt="" />
                                   </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
                                     <mat-label *ngIf="selectedCategory == ''">
-                                      Toilette</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.toilette"
-                                      name="toilette"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
+                                      Toilette</mat-label>
+                                    <mat-select [(ngModel)]="form.toilette" name="toilette">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
                               </div>
                             </div>
                             <div class="col-lg-6 col-xl-4 mb-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 20px"
-                                      src="./assets/img/icons/649395.png"
-                                      alt=""
-                                    />
+                                    <img style="width: 20px" src="./assets/img/icons/649395.png" alt="" />
                                   </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                       
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
                                     <mat-label *ngIf="selectedCategory == ''">
-                                      Cuisines</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.cuisine"
-                                      name="cuisine"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
+                                      Cuisines</mat-label>
+                                    <mat-select [(ngModel)]="form.cuisine" name="cuisine">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
@@ -470,14 +274,8 @@
                           </div>
                           <div class="flex-grow-1 ms-3">
                             <p>
-                              <a
-                                class="row mt-3 fw-bold"
-                                data-bs-toggle="collapse"
-                                href="#cautrecomm"
-                                role="button"
-                                aria-expanded="false"
-                                aria-controls="collapseExample"
-                              >
+                              <a class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
+                                aria-expanded="false" aria-controls="collapseExample">
                                 Autres commodites
                               </a>
                             </p>
@@ -485,25 +283,12 @@
                           <div class="collapse" id="cautrecomm">
                             <div class="card card-body">
                               <div class="row">
-                                <div
-                                  class="col-3"
-                                  *ngFor="let Commodite of commodite"
-                                >
+                                <div class="col-3" *ngFor="let Commodite of commodite">
                                   <div class="form-check mb-2">
-                                    <input
-                                      class="form-check-input"
-                                      type="checkbox"
-                                      value=""
-                                      [(ngModel)]="Commodite.selected"
-                                      [value]="Commodite.id"
-                                      id="flexCheckDefault"
-                                      (change)="onChangeCommodite()"
-                                      name="commodite"
-                                    />
-                                    <label
-                                      class="form-check-label"
-                                      for="flexCheckDefault"
-                                    >
+                                    <input class="form-check-input" type="checkbox" value=""
+                                      [(ngModel)]="Commodite.selected" [value]="Commodite.id" id="flexCheckDefault"
+                                      (change)="onChangeCommodite()" name="commodite" />
+                                    <label class="form-check-label" for="flexCheckDefault">
                                       {{ Commodite.nom }}
                                     </label>
                                   </div>
@@ -610,32 +395,24 @@
 <!-- /Search Filter Section -->
 
 <!-- Featured Listings -->
-<section
-  class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
+<section class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
   <div class="footer-six-bg footer-nine-bg">
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
-    <div class="section-heading section-heading-nine aos" >
+    <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
         <div class="col-lg-4 col-md-3"></div>
-        <div
-          class="col-lg-4 col-md-6 aos aos-init aos-animate text-center"
-                  >
+        <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
           <h2>Les biens</h2>
           <p>Les biens les plus vues disponibles</p>
         </div>
-        <div
-          class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate"
-         
-        >
-          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view"
-            >Voir tous les biens</a
-          >
+        <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
+          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
       </div>
     </div>
-    <div class="row aos"  data-aos-delay="200">
+    <div class="row aos" data-aos-delay="200">
       <div class="col-lg-12">
         <div class="bookmarks-content grid-view featured-slider">
           <div class="row">
@@ -643,118 +420,63 @@
               <ng-container *ngFor="let BienImo of bienImmoPlusVue">
                 <ng-template carouselSlide>
                   <div class=" " [style.width]="bienImmoPlusVue.length < 2 ? '50%' : ''">
-                    <div
-                      class="card aos aos-init aos-animate"
-                     
-                    >
+                    <div class="card aos aos-init aos-animate">
                       <div class="blog-widget">
                         <div class="blog-img">
-                          <a
-                            (click)="goToDettailBien(BienImo?.uuid)"
-                            class="crd"
-                          >
-                            <div
-                              *ngIf="
+                          <a (click)="goToDettailBien(BienImo?.uuid)" class="crd">
+                            <div *ngIf="
                                 BienImo?.photos && BienImo?.photos?.length > 0;
                                 else noImages
-                              "
-                            >
-                              <img
-                                src="{{
+                              ">
+                              <img src="{{
                                   generateImageUrl(BienImo?.photos[0]?.nom)
-                                }}"
-                                class="img-fluid image-size"
-                                alt="blog-img"
-                              />
+                                }}" class="img-fluid image-size" alt="blog-img" />
                             </div>
                             <ng-template #noImages>
-                              <div
-                                class="type"
-                                *ngIf="BienImo?.typeImmo?.nom === 'Villa'"
-                              >
-                                <img
-                                  src="../../../../assets/img/typebien/villa.png"
-                                  class="img-fluid image-size"
-                                  alt="default-img"
-                                />
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                  alt="default-img" />
                               </div>
-                              <div
-                                class="type"
-                                *ngIf="BienImo?.typeImmo?.nom === 'Appartement'"
-                              >
-                                <img
-                                  src="../../../../assets/img/typebien/appartement.png"
-                                  class="img-fluid image-size"
-                                  alt="default-img"
-                                />
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                  alt="default-img" />
                               </div>
-                              <div
-                                class="type"
-                                *ngIf="BienImo?.typeImmo?.nom === 'Terrain'"
-                              >
-                                <img
-                                  src="../../../../assets/img/typebien/terrain.png"
-                                  class="img-fluid image-size"
-                                  alt="default-img"
-                                />
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                  alt="default-img" />
                               </div>
-                              <div
-                                class="type"
-                                *ngIf="BienImo?.typeImmo?.nom === 'Bureau'"
-                              >
-                                <img
-                                  src="../../../../assets/img/typebien/bureau.png"
-                                  class="img-fluid image-size"
-                                  alt="default-img"
-                                />
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                  alt="default-img" />
                               </div>
-                              <div
-                                class="type"
-                                *ngIf="BienImo?.typeImmo?.nom === 'Champ'"
-                              >
-                                <img
-                                  src="../../../../assets/img/typebien/champ.png"
-                                  class="img-fluid image-size"
-                                  alt="default-img"
-                                />
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                  alt="default-img" />
                               </div>
-                              <div
-                                class="type"
-                                *ngIf="
-                                  BienImo?.typeImmo?.nom === 'Commerce & Magasin'
-                                "
-                              >
-                                <img
-                                  src="../../../../assets/img/typebien/magasin.png"
-                                  class="img-fluid image-size"
-                                  alt="default-img"
-                                />
+                              <div class="type" *ngIf="
+                                  BienImo?.typeImmo?.nom ===
+                                  'Commerce & Magasin'
+                                ">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                  alt="default-img" />
                               </div>
                             </ng-template>
                           </a>
                           <div class="fav-item">
-                            <span
-                              [ngClass]="{
+                            <span [ngClass]="{
                                 statut: BienImo?.statut?.nom === 'A vendre'
-                              }"
-                              class="Featured-text"
-                              >{{ BienImo?.statut?.nom }}</span
-                            >
-                            <a
-                              href="javascript:void(0)"
-                              *ngIf="isLoggedIn == true"
-                              class="fav-icon"
-                              (click)="AimerBien(BienImo?.id)"
-                              [style.background-color]="
-                                favoriteStatus[BienImo?.id] ? '#e98b11' : 'white'
-                              "
-                            >
-                              <i
-                                [style.color]="
-                                  favoriteStatus[BienImo?.id] ? 'white' : 'black'
-                                "
-                                class="feather-heart"
-                              ></i>
+                              }" class="Featured-text">{{ BienImo?.statut?.nom }}</span>
+                            <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
+                              (click)="AimerBien(BienImo?.id)" [style.background-color]="
+                                favoriteStatus[BienImo?.id]
+                                  ? '#e98b11'
+                                  : 'white'
+                              ">
+                              <i [style.color]="
+                                  favoriteStatus[BienImo?.id]
+                                    ? 'white'
+                                    : 'black'
+                                " class="feather-heart"></i>
                             </a>
                           </div>
                         </div>
@@ -762,37 +484,30 @@
                           <div class="card-body">
                             <div class="blogfeaturelink">
                               <div class="grid-author">
-                                <img
-                                  src="{{
+                                <img src="{{
                                     generateImageUrl(
                                       BienImo?.utilisateur?.photo?.nom
                                     )
-                                  }}"
-                                  alt="author"
-                                  (error)="handleAuthorImageError($event)"
-                                />
+                                  }}" alt="author" (error)="handleAuthorImageError($event)" />
                               </div>
                               <div class="blog-features">
-                                <a href="javascript:void(0)"
-                                  ><span>
+                                <a href="javascript:void(0)"><span>
                                     <i class="fa-regular fa-circle-stop"></i>
-                                    {{ BienImo?.typeImmo?.nom }}</span
-                                  ></a
-                                >
+                                    {{ BienImo?.typeImmo?.nom }}</span></a>
                               </div>
                               <div class="blog-author text-end">
                                 <span>
-                                  <i class="feather-eye"></i
-                                  >{{
-                                    favoritedPropertiesCount1[BienImo?.id]
-                                  }}</span
-                                >
+                                  <i class="feather-eye"></i>{{
+                                  favoritedPropertiesCount1[BienImo?.id]
+                                  }}</span>
                               </div>
                             </div>
-                            <h6 class="crd ">
+                            <h6 class="crd">
                               <a (click)="goToDettailBien(BienImo?.uuid)">{{
-                                BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom
-                              }}</a>
+                                BienImo?.nom
+                                ? BienImo?.nom
+                                : BienImo?.typeImmo?.nom
+                                }}</a>
                             </h6>
                             <div class="blog-location-details">
                               <div class="location-info">
@@ -800,18 +515,15 @@
                                 {{ BienImo?.adresse?.quartier }}
                               </div>
                               <div class="location-info">
-                                <i class="fa-solid fa-calendar-days"></i
-                                >{{
-                                  BienImo?.createdAt
-                                    | date : "dd MMM yyyy" : locale
+                                <i class="fa-solid fa-calendar-days"></i>{{
+                                BienImo?.createdAt
+                                | date : "dd MMM yyyy" : locale
                                 }}
                               </div>
                             </div>
                             <div class="amount-details">
                               <div class="amount">
-                                <span class="validrate"
-                                  >{{ formatPrice(BienImo?.prix) }} FCFA</span
-                                >
+                                <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
                                 <!--<span>{{slide.oldamount}}</span>-->
                               </div>
                               <div class="ratings">
@@ -843,17 +555,11 @@
     <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center">
         <div class="col-md-3"></div>
-        <div
-          class="col-md-6 aos aos-init aos-animate text-center"
-         
-        >
+        <div class="col-md-6 aos aos-init aos-animate text-center">
           <h2>Pourquoi nous choisir ?</h2>
           <p>Nous fournissons un service complet à chaque étape.</p>
         </div>
-        <div
-          class="col-md-3 text-md-end aos aos-init aos-animate"
-         
-        ></div>
+        <div class="col-md-3 text-md-end aos aos-init aos-animate"></div>
       </div>
     </div>
     <div class="row aos" data-aos-delay="200">
@@ -862,8 +568,7 @@
           <span><img src="assets/img/icons/achat.svg" alt="img" /></span>
           <h6>Achat</h6>
           <p>
-            Vous avez un projet d'investissement immobilier ?  
-            Alors,
+            Vous avez un projet d'investissement immobilier ? Alors,
             <span style="color: #e98b11; font-weight: bold">Sossara</span> vous
             propose des biens immobiliers classés par types et catégories par
             zones géographiques
@@ -912,30 +617,21 @@
 <!-- /Why Choose Us -->
 
 <!-- Listed Properties Management Companies -->
-<div
-  class="section properties-managments common-padding" *ngIf="agence && agence.length > 0">
+<div class="section properties-managments common-padding" *ngIf="agence && agence.length > 0">
   <div class="container">
     <div class="section-heading section-heading-nine aos">
-      <div class="row align-items-center"  >
+      <div class="row align-items-center">
         <div class="col-lg-4 col-md-3"></div>
-        <div
-          class="col-lg-4 col-md-6 aos aos-init aos-animate text-center"
-         
-        >
+        <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
           <h2>Les Agences</h2>
           <p>Sociétés de Gestion de biens</p>
         </div>
-        <div
-          class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate"
-         
-        >
-          <a [routerLink]="routes.agences" class="btn btn-view"
-            >Voir toutes les agences</a
-          >
+        <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
+          <a [routerLink]="routes.agences" class="btn btn-view">Voir toutes les agences</a>
         </div>
       </div>
     </div>
-    <div class="row aos"  data-aos-delay="200">
+    <div class="row aos" data-aos-delay="200">
       <div class="col-lg-12">
         <div class="car-class-carousel">
           <div class="property-listing-slider">
@@ -948,26 +644,20 @@
                         <div class="companies-set-head">
                           <div class="companies-set-logo">
                             <span>
-                              <img
-                                src="{{
+                              <img src="{{
                                   generateImageUrl(
                                     Agence?.utilisateurPhoto?.nom
                                   )
-                                }}"
-                                alt="img"
-                                (error)="handleAuthorImageError($event)"
-                              />
+                                }}" alt="img" (error)="handleAuthorImageError($event)" />
                             </span>
                           </div>
                           <div class="companies-set-content">
                             <h6>{{ Agence?.nom }}</h6>
                             <h5 *ngIf="Agence?.adresse">
-                              <span
-                                >{{
-                                  Agence?.adresse?.commune?.cercle?.nomcercle
+                              <span>{{
+                                Agence?.adresse?.commune?.cercle?.nomcercle
                                 }}
-                                - {{ Agence?.adresse?.quartier }}</span
-                              >
+                                - {{ Agence?.adresse?.quartier }}</span>
                             </h5>
                             <!-- <h5><span>{{ NombreBienCount[Agence.id] }}</span>Biens</h5> -->
                           </div>
@@ -977,7 +667,7 @@
                             <li>
                               <h6>
                                 {{
-                                  NombreBienCount[hashString(Agence?.uuid)] || 0
+                                NombreBienCount[hashString(Agence?.uuid)] || 0
                                 }}
                               </h6>
                               <span>Biens</span>
@@ -985,9 +675,9 @@
                             <li>
                               <h6>
                                 {{
-                                  NombreBienLouerCount[
-                                    hashString(Agence?.uuid)
-                                  ] || 0
+                                NombreBienLouerCount[
+                                hashString(Agence?.uuid)
+                                ] || 0
                                 }}
                               </h6>
                               <span>Louer</span>
@@ -995,9 +685,9 @@
                             <li>
                               <h6>
                                 {{
-                                  NombreBienVendreCount[
-                                    hashString(Agence?.uuid)
-                                  ] || 0
+                                NombreBienVendreCount[
+                                hashString(Agence?.uuid)
+                                ] || 0
                                 }}
                               </h6>
                               <span>Vendre</span>
@@ -1005,21 +695,16 @@
                             <li>
                               <h6>
                                 {{
-                                  NombreAgentCount[hashString(Agence?.uuid)] || 0
+                                NombreAgentCount[hashString(Agence?.uuid)] ||
+                                0
                                 }}
                               </h6>
                               <span>Agents</span>
                             </li>
                           </ul>
                           <div class="companies-set-btn">
-                            <a
-                              (click)="goToDettailAgence(Agence?.uuid)"
-                              class="btn btn-linebtn"
-                              >Savoir plus<i
-                                class="fa fa-arrow-right ms-3"
-                                aria-hidden="true"
-                              ></i
-                            ></a>
+                            <a (click)="goToDettailAgence(Agence?.uuid)" class="btn btn-linebtn">Savoir plus<i
+                                class="fa fa-arrow-right ms-3" aria-hidden="true"></i></a>
                           </div>
                         </div>
                       </div>
@@ -1159,10 +844,7 @@
 
 <!-- Counter -->
 <!-- <section class="property-counter common-padding position-relative"> -->
-<section
-  class="property-counter common-padding position-relative"
-  *ngIf="BienTotal && BienTotal.length > 0"
->
+<section class="property-counter common-padding position-relative" *ngIf="BienTotal && BienTotal.length > 0">
   <div class="property-counter-float-bg">
     <img src="./assets/img/bg/counter-bg.png" alt="" />
   </div>
@@ -1172,11 +854,7 @@
         <div class="property-counter-list text-center">
           <!-- <h4 class="counterUp " [countUp]="66180" [options]="{ duration: 30 }">{{nombreBienLoue}}</h4> -->
           <!-- <h4 class="counterUp " >{{nombreBienLoue}}</h4> -->
-          <h4
-            class="counterUp"
-            [countUp]="nombreBienLoue"
-            [options]="{ duration: 10 }"
-          >
+          <h4 class="counterUp" [countUp]="nombreBienLoue" [options]="{ duration: 10 }">
             {{ nombreBienLoue }}
           </h4>
           <p>Nombre de Biens a louer</p>
@@ -1184,11 +862,7 @@
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="property-counter-list text-center">
-          <h4
-            class="counterUp"
-            [countUp]="nombreBienVendre"
-            [options]="{ duration: 10 }"
-          >
+          <h4 class="counterUp" [countUp]="nombreBienVendre" [options]="{ duration: 10 }">
             {{ nombreBienVendre }}
           </h4>
           <!-- <h4 class="counterUp" >{{nombreBienVendre}}</h4> -->
@@ -1197,11 +871,7 @@
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="property-counter-list text-center">
-          <h4
-            class="counterUp"
-            [countUp]="nombreAgence"
-            [options]="{ duration: 10 }"
-          >
+          <h4 class="counterUp" [countUp]="nombreAgence" [options]="{ duration: 10 }">
             {{ nombreAgence }}
           </h4>
           <!-- <h4 class="counterUp" >{{nombreAgence}}</h4> -->
@@ -1210,11 +880,7 @@
       </div>
       <div class="col-md-3 col-sm-6">
         <div class="property-counter-list text-center">
-          <h4
-            class="counterUp"
-            [countUp]="totalzone"
-            [options]="{ duration: 10 }"
-          >
+          <h4 class="counterUp" [countUp]="totalzone" [options]="{ duration: 10 }">
             {{ totalzone }}
           </h4>
           <p>Nombre de commune</p>
@@ -1226,27 +892,20 @@
 <!-- /Counter -->
 
 <!-- Recent Properties for Rent -->
-<section
-  class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
-  <div class="footer-six-bg footer-nine-bg" >
+<section class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
+  <div class="footer-six-bg footer-nine-bg">
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
         <div class="col-md-3"></div>
-        <div
-          class="col-md-6 aos aos-init aos-animate text-center"
-        >
+        <div class="col-md-6 aos aos-init aos-animate text-center">
           <h2>Biens récents à louer</h2>
           <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
         </div>
-        <div
-          class="col-md-3 text-md-end aos aos-init aos-animate"
-        >
-          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view"
-            >Voir tous les biens</a
-          >
+        <div class="col-md-3 text-md-end aos aos-init aos-animate">
+          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
       </div>
     </div>
@@ -1260,98 +919,52 @@
                   <div class="top-rent-room" [style.width]="BienLoueRecens.length < 2 ? '50%' : ''">
                     <div class="top-room-img">
                       <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
-                        <div
-                          *ngIf="
-                            bienRecent?.photos && bienRecent?.photos?.length > 0;
+                        <div *ngIf="
+                            bienRecent?.photos &&
+                              bienRecent?.photos?.length > 0;
                             else noImages
-                          "
-                        >
-                          <img
-                            src="{{
+                          ">
+                          <img src="{{
                               generateImageUrl(bienRecent?.photos[0]?.nom)
-                            }}"
-                            class="img-fluid image-sizeresents"
-                            alt="blog-img"
-                          />
+                            }}" class="img-fluid image-sizeresents" alt="blog-img" />
                         </div>
                         <ng-template #noImages>
-                          <div
-                            class="type"
-                            *ngIf="bienRecent?.typeImmo?.nom === 'Villa'"
-                          >
-                            <img
-                              src="../../../../assets/img/typebien/villa.png"
-                              class="img-fluid image-sizeresents"
-                              alt="default-img"
-                            />
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Villa'">
+                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-sizeresents"
+                              alt="default-img" />
                           </div>
-                          <div
-                            class="type"
-                            *ngIf="bienRecent?.typeImmo?.nom === 'Appartement'"
-                          >
-                            <img
-                              src="../../../../assets/img/typebien/appartement.png"
-                              class="img-fluid image-sizeresents"
-                              alt="default-img"
-                            />
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Appartement'">
+                            <img src="../../../../assets/img/typebien/appartement.png"
+                              class="img-fluid image-sizeresents" alt="default-img" />
                           </div>
-                          <div
-                            class="type"
-                            *ngIf="bienRecent?.typeImmo?.nom === 'Terrain'"
-                          >
-                            <img
-                              src="../../../../assets/img/typebien/terrain.png"
-                              class="img-fluid image-size"
-                              alt="default-img"
-                            />
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Terrain'">
+                            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                              alt="default-img" />
                           </div>
-                          <div
-                            class="type"
-                            *ngIf="bienRecent?.typeImmo?.nom === 'Bureau'"
-                          >
-                            <img
-                              src="../../../../assets/img/typebien/bureau.png"
-                              class="img-fluid image-size"
-                              alt="default-img"
-                            />
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Bureau'">
+                            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                              alt="default-img" />
                           </div>
-                          <div
-                            class="type"
-                            *ngIf="bienRecent?.typeImmo?.nom === 'Champ'"
-                          >
-                            <img
-                              src="../../../../assets/img/typebien/champ.png"
-                              class="img-fluid image-size"
-                              alt="default-img"
-                            />
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Champ'">
+                            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                              alt="default-img" />
                           </div>
-                          <div
-                            class="type"
-                            *ngIf="
+                          <div class="type" *ngIf="
                               bienRecent?.typeImmo?.nom === 'Commerce & Magasin'
-                            "
-                          >
-                            <img
-                              src="../../../../assets/img/typebien/magasin.png"
-                              class="img-fluid image-size"
-                              alt="default-img"
-                            />
+                            ">
+                            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                              alt="default-img" />
                           </div>
                         </ng-template>
                       </a>
                     </div>
                     <div class="top-listing-rounded-img">
                       <div class="favourite-small-user">
-                        <img
-                          class="img-fluid"
-                          src="{{
+                        <img class="img-fluid" src="{{
                             generateImageUrl(
                               bienRecent?.utilisateur?.photo?.nom
                             )
-                          }}"
-                          alt=""
-                          (error)="handleAuthorImageError($event)"
-                        />
+                          }}" alt="" (error)="handleAuthorImageError($event)" />
                       </div>
                     </div>
                     <!-- <div class="pent-house">
@@ -1360,19 +973,13 @@
                     <div class="top-rent-room-info">
                       <div class="top-rent-room-location">
                         <div class="room-address">
-                          <span
-                            ><i class="fa-solid fa-location-dot"></i
-                            >{{ bienRecent?.adresse?.quartier }}</span
-                          >
-                          <a
-                            (click)="goToDettailBien(bienRecent?.uuid)"
-                            class="crd"
-                          >
-                            <h5 class="text-truncate crd" style="max-width: 250px;">
+                          <span><i class="fa-solid fa-location-dot"></i>{{ bienRecent?.adresse?.quartier }}</span>
+                          <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
+                            <h5 class="text-truncate crd" style="max-width: 250px">
                               {{
-                                bienRecent?.nom
-                                  ? bienRecent?.nom
-                                  : bienRecent?.typeImmo?.nom
+                              bienRecent?.nom
+                              ? bienRecent?.nom
+                              : bienRecent?.typeImmo?.nom
                               }}
                             </h5>
                           </a>
@@ -1390,35 +997,20 @@
                       </div>
                       <div class="top-room-details">
                         <div class="area">
-                          <span
-                            ><img
-                              src="assets/img/icons/bed-icon.svg"
-                              class="img-fluid"
-                              alt=""
-                            />{{ bienRecent?.typeImmo?.nom }}</span
-                          >
+                          <span><img src="assets/img/icons/bed-icon.svg" class="img-fluid" alt="" />{{
+                            bienRecent?.typeImmo?.nom }}</span>
                         </div>
                         <div class="area">
-                          <span
-                            ><img
-                              src="assets/img/icons/area-icon.svg"
-                              class="img-fluid"
-                              alt=""
-                            />Surface:{{ bienRecent?.surface }}/m2</span
-                          >
+                          <span><img src="assets/img/icons/area-icon.svg" class="img-fluid" alt="" />Surface:{{
+                            bienRecent?.surface }}/m2</span>
                         </div>
                         <!--<div class="area">
                                                     <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
                                                             alt="">{{slide.nb_piece}}</span>
                                                 </div>-->
                         <div class="area">
-                          <span
-                            ><img
-                              src="assets/img/icons/floor-icon.svg"
-                              class="img-fluid"
-                              alt=""
-                            />Chambre:{{ bienRecent?.nb_piece }}</span
-                          >
+                          <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid" alt="" />Chambre:{{
+                            bienRecent?.nb_piece }}</span>
                         </div>
                         <!--<div class="area">
                                                     <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
@@ -1533,31 +1125,31 @@
 
 <!-- COMMUNES -->
 <section class="car-location common-padding" *ngIf="commune && commune.length > 0">
-    <div class="container">
-        <div class="section-heading section-heading-nine  aos">
-            <div class="row align-items-center" >
-                <div class="col-md-3"></div>
-                <div class="col-md-6 aos aos-init aos-animate text-center">
-                    <h3>Nos biens a Bamako</h3>
-                    <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
-                </div>
-                <div class="col-md-3 text-md-end aos aos-init aos-animate">
-                    <a [routerLink]="routes.listinggridsidebar" class="btn  btn-view">Voir tous les biens</a>
-                </div>
-            </div>
+  <div class="container">
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 aos aos-init aos-animate text-center">
+          <h3>Nos biens a Bamako</h3>
+          <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
-                <a (click)="goToDettailCommune(Commune?.nomcommune)" class="crd">
-                    <div style="height: 80%;" class="car-location-img aos" >
-                        <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
-                            class="commune-image img-fluid" alt="">
-                        <span>{{Commune?.nomcommune}}</span>
-                    </div>
-                </a>
-            </div>
+        <div class="col-md-3 text-md-end aos aos-init aos-animate">
+          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune; let i = index">
+        <a (click)="goToDettailCommune(Commune?.nomcommune)" class="crd">
+          <div style="height: 80%" class="car-location-img aos">
+            <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill"
+              class="commune-image img-fluid" alt="" />
+            <span>{{ Commune?.nomcommune }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- /COMMUNES -->
 
@@ -1714,64 +1306,53 @@
 <!-- /Join Us -->
 
 <!-- Recent Articles -->
-<section
-  class="property-articles common-padding" *ngIf="blog && blog.length > 0">
+<section class="property-articles common-padding" *ngIf="blog && blog.length > 0">
   <div class="container">
-    <div class="section-heading section-heading-nine aos" >
-      <div class="row align-items-center" >
-        <div class="col-md-7 aos aos-init aos-animate" >
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center">
+        <div class="col-md-7 aos aos-init aos-animate">
           <h4>Articles recents</h4>
           <!-- <p>The most trendy accommodations available</p> -->
         </div>
-        <div
-          class="col-md-5 text-md-end aos aos-init aos-animate"
-          
-        >
-          <a [routerLink]="routes.blog" class="btn btn-view"
-            >Voir tous les articles</a
-          >
+        <div class="col-md-5 text-md-end aos aos-init aos-animate">
+          <a [routerLink]="routes.blog" class="btn btn-view">Voir tous les articles</a>
         </div>
       </div>
     </div>
     <div class="bloglist-section bloggrid-sidebar">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12 aos" >
+          <div class="col-lg-12 aos">
             <div class="car-class-carousel">
               <div class="blog-slider">
                 <owl-carousel-o [options]="recentarticleOwlOptions">
                   <ng-container *ngFor="let Blog of blog">
                     <ng-template carouselSlide>
-                      <div class="blog grid-blog aos" >
+                      <div class="blog grid-blog aos">
                         <div class="blog-image">
-                          <a (click)="goToDettailBlog(Blog?.uuid)"
-                            ><img
-                              class="img-fluid image-sizeblog crd"
-                              src="{{ generateImageUrl(Blog?.photo) }}"
-                              (error)="handleBlogImageError($event)"
-                              alt="Post Image"
-                          /></a>
+                          <a (click)="goToDettailBlog(Blog?.uuid)"><img class="img-fluid image-sizeblog crd"
+                              src="{{ generateImageUrl(Blog?.photo) }}" (error)="handleBlogImageError($event)"
+                              alt="Post Image" /></a>
                         </div>
                         <div class="blog-content">
-                          <h3 class="blog-title text-truncate crd" style="max-width: 320px;">
+                          <h3 class="blog-title text-truncate crd" style="max-width: 320px">
                             <a (click)="goToDettailBlog(Blog?.uuid)">{{
                               Blog?.titre
-                            }}</a>
+                              }}</a>
                           </h3>
                           <ul class="entry-meta meta-item">
                             <li class="date-icon">
                               <i class="feather-calendar"></i>
                               {{
-                                Blog?.createdAt | date : "dd MMM yyyy" : locale
+                              Blog?.createdAt | date : "dd MMM yyyy" : locale
                               }}
                             </li>
                           </ul>
-                          <p class="blog-description" [innerHTML]="Blog ? Blog?.description : 'Aucune description'"
-                          > </p>
+                          <p class="blog-description" [innerHTML]="
+                              Blog ? Blog?.description : 'Aucune description'
+                            "></p>
                           <div class="viewlink crd">
-                            <a (click)="goToDettailBlog(Blog?.uuid)"
-                              >Voir plus</a
-                            >
+                            <a (click)="goToDettailBlog(Blog?.uuid)">Voir plus</a>
                           </div>
                         </div>
                       </div>
@@ -1812,7 +1393,12 @@
 <!-- /Become Agent -->
 
 <!-- Partners Section -->
+
 <div class="partners-section">
+
+
+
+
   <div class="container">
     <p class="partners-heading">Nos partenaires</p>
     <owl-carousel-o [options]="universitiesCompaniesOwlOptions">
@@ -1820,12 +1406,8 @@
         <ng-template carouselSlide>
           <ul class="partnerslist d-flex">
             <li>
-              <a href="javascript:void(0);"
-                ><img
-                  class="img-fluid image-sizeparter"
-                  [src]="slide.img"
-                  alt="partners"
-              /></a>
+              <a href="javascript:void(0);"><img class="img-fluid image-sizeparter" [src]="slide.img"
+                  alt="partners" /></a>
             </li>
           </ul>
         </ng-template>
