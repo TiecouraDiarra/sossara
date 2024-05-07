@@ -1328,7 +1328,7 @@
                 <owl-carousel-o [options]="recentarticleOwlOptions">
                   <ng-container *ngFor="let Blog of blog">
                     <ng-template carouselSlide>
-                      <div class="blog grid-blog aos">
+                      <div class="blog grid-blog aos" class="property-item" [style.width]="blog.length < 2 ? '50%' : ''">
                         <div class="blog-image">
                           <a (click)="goToDettailBlog(Blog?.uuid)"><img class="img-fluid image-sizeblog crd"
                               src="{{ generateImageUrl(Blog?.photo) }}" (error)="handleBlogImageError($event)"
@@ -1351,9 +1351,9 @@
                           <p class="blog-description" [innerHTML]="
                               Blog ? Blog?.description : 'Aucune description'
                             "></p>
-                          <div class="viewlink crd">
+                          <!-- <div class="viewlink crd">
                             <a (click)="goToDettailBlog(Blog?.uuid)">Voir plus</a>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </ng-template>

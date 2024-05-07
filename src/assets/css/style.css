@@ -12474,13 +12474,13 @@ textarea.form-control {
 	.chat-footer .attach-btn {
         width: 88%;
 	}
-	.chat-cont-right {
+	/* .chat-cont-right {
 		position: absolute;
 		right: -100%;
 		top: 0;
 		opacity: 0;
 		visibility: hidden;
-	}
+	} */
 	.details-main-wrapper .rightsidebar .card ul li {
         font-size: 16px;
 	}
