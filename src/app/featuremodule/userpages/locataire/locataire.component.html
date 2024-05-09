@@ -563,14 +563,14 @@
 
                                             </div>
                                             <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
-                                                {{BienImmo?.bien?.adresse?.commune?.region?.pays?.nom}} -
-                                                {{BienImmo?.bien?.adresse?.commune?.region?.nom}} -
-                                                {{BienImmo?.bien?.adresse?.commune?.nom}} -
+                                                {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.pays?.nompays}} -
+                                                {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.nomregion}} -
+                                                {{BienImmo?.bien?.adresse?.commune?.nomcommune}} -
                                                 {{BienImmo?.bien?.adresse?.quartier}}
                                             </p>
                                         </td>
                                         <td><span class="views-count"
-                                                *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt.date
+                                                *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt
                                                 |
                                                 date:"dd MMM yyyy":locale}}</span></td>
                                         <td>
@@ -608,11 +608,18 @@
                                                     class="action-btn btn-view crd"><i class="feather-eye"></i>
                                                     <span class="hover-text">Faire une reclamation</span>
                                                 </a> -->
-                                                <a data-bs-toggle="modal" (click)="openFactureModalVente(BienImmo.id)"
+                                                <!-- <a data-bs-toggle="modal" (click)="openFactureModalVente(BienImmo.id)"
                                                     data-bs-target="#staticBackdrop3" class="action-btn btn-edit crd"><i
                                                         class="feather-edit-3"></i>
                                                     <span class="hover-text">Facture</span>
-                                                </a>
+                                                </a> -->
+                                                <a (click)="goToListeRecu(BienImmo?.bien?.contrat[0]?.facture[0]?.uuid)"
+                                                class="action-btn btn-view crd">
+                                                <img class="icone-size"
+                                                    src="../../../../assets/img/iconeBien/contrat.png"
+                                                    alt="Room amenities">
+                                                <span class="hover-text">Voir le reçu</span>
+                                            </a>
                                             </div>
                                         </td>
                                     </tr>

@@ -178,7 +178,7 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.setAccessToken(token);
 
 
-    this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
+    this.serviceBienImmo.AfficherBienLoueEtAcheterParUserConnecter().subscribe(data => {
       this.bienImmo = data.reverse();
 
       // Filtrer les biens immobiliers

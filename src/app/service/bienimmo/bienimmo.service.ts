@@ -176,10 +176,16 @@ export class BienimmoService {
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
   AfficherBienImmoDejaLoueParLocataire(): Observable<any> {
     const headers = this.getHeaders();
-
     return this.http.get(`${URL_BASE}/candidature/immo/get/rent/mine`,
       { headers });
   }
+
+    //AFFICHER LA LISTE DES BIENS LOUES ET ACHETES DE USER CONNECTE
+    AfficherBienLoueEtAcheterParUserConnecter(): Observable<any> {
+      const headers = this.getHeaders();
+      return this.http.get(`${URL_BASE}/candidature/immo/get/rentasell/mine`,
+        { headers });
+    }
 
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
   AfficherBienImmoUserAcheter(): Observable<any> {

@@ -134,7 +134,7 @@ export class OrangeMoneyComponent {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
 
-          if (this.bien?.periode?.nom === 'Mensuel') {
+          if (this.bien.statut.nom === 'A louer' && this.bien?.periode?.nom === 'Mensuel') {
             this.paiementForm.nombreMois = this.bien?.avance + this.bien?.caution;
             this.paiementForm.sommePayer = this.bien?.prix * this.paiementForm.nombreMois
           } else if (this.bien?.periode?.nom === 'Journalier') {
@@ -143,6 +143,8 @@ export class OrangeMoneyComponent {
           } else if (this.bien?.periode?.nom === 'Hebdomadaire') {
             this.paiementForm.nombreAnnees = this.nombreSemaineChoisi;
             this.paiementForm.sommePayer = this.bien?.prix * this.nombreSemaineChoisi;
+          } else if(this.bien.statut.nom === 'A vendre' && this.bien?.periode?.nom === 'Mensuel'){
+            this.paiementForm.sommePayer = this.bien?.prix;
           }
            this.paiementForm.modePaiement = 1;
 
