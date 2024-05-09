@@ -22,11 +22,7 @@
         <div class="row">
             <div class="col-lg-5">
                 <div class="container">
-                    <!-- <div class="d-flex align-items-center mb-3">
-                        <img src="{{generateImageUrl(bien?.proprietaire?.photo?.nom)}}" (error)="handleAuthorImageError($event)"
-                            class="pic rounded-circle" alt="">
-                        <p class="ps-2 name">{{bien?.proprietaire?.nom}}</p>
-                    </div> -->
+       
                     <div class="box-inner-1 pb-3 mb-3 ">
                         <div class="d-flex justify-content-between mb-3 userdetails" style="font-size: 14px;">
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Journalier'">Prix journalier</p>
@@ -36,20 +32,13 @@
                         </div>
                         <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel"
                             data-bs-interval="2000">
-                            <!-- <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#my" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#my" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#my" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div> -->
+              
                             <div class="carousel-inner">
                                 <div *ngFor="let photo of photoImmo; let i = index" class="carousel-item"
                                     [class.active]="i === 0">
                                     <img src="{{generateImageUrl(photo?.nom)}}" class="d-block w-100">
                                 </div>
-                                <!-- <div class="carousel-item"> <img src="https://images.pexels.com/photos/270694/pexels-photo-270694.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="d-block w-100">
-                                </div>
-                                <div class="carousel-item"> <img src="https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="d-block w-100">
-                                </div> -->
+                             
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#my"
                                 data-bs-slide="prev">
@@ -127,14 +116,14 @@
             </div>
             <div class="col-lg-7">
                 <div class="table-responsive">
-                    <table matSort (matSortChange)="sortData($event)" class="listing-table datatable"
-                        id="listdata-table">
+                    <table class="listing-table datatable"
+                        id="listdata-table" [style.display]="isMobile ? 'none' : 'block'">
                         <thead>
                             <tr>
-                                <th mat-sort-header="img" class="no-sort">Numero transaction</th>
-                                <th mat-sort-header="date">Date du paimement</th>
-                                <th mat-sort-header="dateecheance">Montant payé</th>
-                                <th mat-sort-header="Action">Action</th>
+                                <th >Numero transaction</th>
+                                <th >Date du paimement</th>
+                                <th >Montant payé</th>
+                                <th >Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -158,6 +147,42 @@
 
                         </tbody>
                     </table>
+
+                    <table   class="listing-table datatable w-100"
+                    id="listdata-table" [style.display]="!isMobile ? 'none' : 'block'">
+                 
+                    <tbody  *ngFor="let Paiement of paiement">
+                        <tr style="border-bottom: 2px solid #2b3b56"
+                           >
+                            <td>Numero transaction</td>
+                            <td><span class="views-count">#{{Paiement?.transaction?.numeroTransaction}}</span></td>
+                           
+                        </tr>
+                        <tr style="border-bottom: 2px solid #2b3b56">
+                            <td >Date du paimement</td>
+                        <td><span class="views-count"
+                            *ngIf="Paiement && Paiement?.createdAt">{{Paiement?.createdAt
+                            |
+                            date:"dd MMM yyyy":locale}}</span></td>
+                    </tr>
+                    <tr style="border-bottom: 2px solid #2b3b56">
+                        <td >Montant payé</td>
+                    <td><span class="views-count">{{formatPrice(Paiement?.sommePayer)}} FCFA</span></td>
+                    
+                </tr>
+                <tr style="border-bottom: 2px solid #2b3b56">
+                    <td >Action</td>
+                    <td>
+
+                    <div class="action">
+                        <a (click)="goToPageRecu(Paiement?.uuid)"
+                            class="action-btn btn-view crd"><i class="feather-eye"></i></a>
+                    </div>
+                </td>
+            </tr>
+
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>

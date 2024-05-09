@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, HostListener, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -39,9 +39,16 @@ export class FactureComponent {
 
   // Supposons que vous avez une image par défaut dans votre projet
   defaultImageUrl: string = 'assets/img/typebien/villa.png';
+ 
   setDefaultImage(event: any): void {
     // Si le chargement de l'image échoue, utilisez l'image par défaut
     event.target.src = this.defaultImageUrl;
+  }
+  isMobile= false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 767;
+   
   }
 
   constructor(

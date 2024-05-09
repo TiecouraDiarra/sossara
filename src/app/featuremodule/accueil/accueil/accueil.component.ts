@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, HostListener, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -54,7 +54,7 @@ export class AccueilComponent {
   communes1: any = [];
   totalzone: any;
   responseData: any;
-
+  isMobile = false;
   changeImage() {
     this.currentImageIndex =
       (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -159,6 +159,11 @@ export class AccueilComponent {
       (this.recentarticle = this.DataService.recentarticle);
 
     this.universitiesCompanies = this.DataService.universitiesCompanies;
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 767;
+   
   }
   searchCategory(value: any): void {
     const filterValue = value;

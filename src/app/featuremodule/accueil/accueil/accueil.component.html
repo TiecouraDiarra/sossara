@@ -419,7 +419,7 @@
             <owl-carousel-o [options]="listingOwlOptions">
               <ng-container *ngFor="let BienImo of bienImmoPlusVue">
                 <ng-template carouselSlide>
-                  <div class=" " [style.width]="bienImmoPlusVue.length < 2 ? '50%' : ''">
+                  <div class=" " [style.width]="isMobile ? '100%' : bienImmoPlusVue.length < 2 ? '50%' : ''">
                     <div class="card aos aos-init aos-animate">
                       <div class="blog-widget">
                         <div class="blog-img">
@@ -638,7 +638,7 @@
             <owl-carousel-o [options]="managementcomponiesOwlOptions">
               <ng-container *ngFor="let Agence of agence">
                 <ng-template carouselSlide>
-                  <div class="property-item" [style.width]="agence.length < 2 ? '50%' : ''">
+                  <div class="property-item" [style.width]="isMobile ? '100%' : agence.length < 2 ? '50%' : ''">
                     <a>
                       <div class="companies-set mb-4">
                         <div class="companies-set-head">
@@ -916,7 +916,7 @@
             <owl-carousel-o [options]="recentpropertiesOwlOptions">
               <ng-container *ngFor="let bienRecent of BienLoueRecens">
                 <ng-template carouselSlide>
-                  <div class="top-rent-room" [style.width]="BienLoueRecens.length < 2 ? '50%' : ''">
+                  <div class="top-rent-room" [style.width]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '50%' : ''">
                     <div class="top-room-img">
                       <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
                         <div *ngIf="
@@ -1328,7 +1328,7 @@
                 <owl-carousel-o [options]="recentarticleOwlOptions">
                   <ng-container *ngFor="let Blog of blog">
                     <ng-template carouselSlide>
-                      <div class="blog grid-blog aos" class="property-item" [style.width]="blog.length < 2 ? '50%' : ''">
+                      <div class="blog grid-blog aos" class="property-item" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
                         <div class="blog-image">
                           <a (click)="goToDettailBlog(Blog?.uuid)"><img class="img-fluid image-sizeblog crd"
                               src="{{ generateImageUrl(Blog?.photo) }}" (error)="handleBlogImageError($event)"
@@ -1348,7 +1348,7 @@
                               }}
                             </li>
                           </ul>
-                          <p class="blog-description" [innerHTML]="
+                          <p class="blog-description" style="  font-size: 15px;" [innerHTML]="
                               Blog ? Blog?.description : 'Aucune description'
                             "></p>
                           <!-- <div class="viewlink crd">

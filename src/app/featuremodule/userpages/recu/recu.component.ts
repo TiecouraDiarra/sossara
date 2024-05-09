@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, HostListener, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -29,6 +29,12 @@ export class RecuComponent {
   proprietaire: any;
   loading = false;
   modePaiement: any;
+
+  isMobile= false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) { 
+    this.isMobile = event.target.innerWidth <= 767;
+  }
 
   constructor(
     private paiementService: ModepaiementService,

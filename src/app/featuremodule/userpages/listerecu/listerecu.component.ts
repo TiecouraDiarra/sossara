@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, HostListener, Inject, LOCALE_ID } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -38,7 +38,11 @@ export class ListerecuComponent {
   CandidatureUser: any;
   public electronics: any = []
 
-
+  isMobile= false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) { 
+    this.isMobile = event.target.innerWidth <= 767;
+  }
   constructor(
     private paiementService: ModepaiementService,
     @Inject(LOCALE_ID) private localeId: string,

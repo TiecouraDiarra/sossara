@@ -22,11 +22,6 @@
         <div class="row">
             <div class="col-lg-5">
                 <div class="container">
-                    <!-- <div class="d-flex align-items-center mb-3">
-                        <img src="{{generateImageUrl(bien?.proprietaire?.photo?.nom)}}" (error)="handleAuthorImageError($event)"
-                            class="pic rounded-circle" alt="">
-                        <p class="ps-2 name">{{bien?.proprietaire?.nom}}</p>
-                    </div> -->
                     <div class="box-inner-1 pb-3 mb-3 ">
                         <div class="d-flex justify-content-between mb-3 userdetails" style="font-size: 14px;">
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Journalier'">Prix journalier</p>
@@ -41,16 +36,7 @@
                         </div>
                         <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel"
                             data-bs-interval="2000">
-                            <!-- <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#my" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#my" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#my" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div> -->
                             <div class="carousel-inner">
-                                <!-- <div *ngFor="let photo of photoImmo; let i = index" class="carousel-item"
-                                    [class.active]="i === 0">
-                                    <img src="{{generateImageUrl(photo?.nom)}}" class="d-block w-100">
-                                </div> -->
                                 <ng-container *ngIf="photoImmo?.length === 0; else imagesBlock">
                                     <div
                                       class="carousel-item active"
@@ -270,7 +256,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="invoice-center">
+                        <div class="invoice-center"  [style.display]="isMobile ? 'none' : 'block'">
                             <div class="table-responsive">
                                 <table class="table mb-0 table-striped invoice-table">
                                     <thead class="bg-active"
@@ -278,9 +264,9 @@
                                         <tr class="tr" style="color: white; font-weight: bold;">
                                             <th>No.</th>
                                             <th class="pl0 text-start">Reference</th>
-                                            <th class="text-center">Prix</th>
+                                            <th class="text-center">Prix en FCFA</th>
                                             <th class="text-center">Mois</th>
-                                            <th class="text-end">Montant</th>
+                                            <th class="text-end">Montant en FCFA</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -291,9 +277,9 @@
                                                 </div>
                                             </td>
                                             <td class="pl0">{{bien?.reference}}</td>
-                                            <td class="text-center">{{formatPrice(bien?.prix)}} FCFA</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix)}} FCFA</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix)}} </td>
                                         </tr>
                                         <tr class="bg-grea">
                                             <td>
@@ -303,9 +289,9 @@
                                                 </div>
                                             </td>
                                             <td class="pl0">Caution</td>
-                                            <td class="text-center">{{formatPrice(bien?.prix)}} FCFA</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
                                             <td class="text-center">{{bien?.caution}}</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix * bien?.caution)}} FCFA</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix * bien?.caution)}}</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -314,9 +300,9 @@
                                                 </div>
                                             </td>
                                             <td class="pl0">Avance</td>
-                                            <td class="text-center">{{formatPrice(bien?.prix)}} FCFA</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
                                             <td class="text-center">{{bien?.avance}}</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix * bien?.avance)}} FCFA</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix * bien?.avance)}}</td>
                                         </tr>
 
                                         <!-- <tr>
@@ -357,6 +343,54 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="invoice-center"  [style.display]="!isMobile ? 'none' : 'block'">
+                            <div class="table-responsive">
+                                <table class="table mb-0 table-striped invoice-table">
+                                    
+                                    <tbody>
+                                        <tr class="tr">
+                                            <th class="text-start" style="color: #e98b11;  font-weight: bold;">
+                                                <div class="item-desc-1">
+                                                    <span>Reference</span>
+                                                </div>
+                                            </th>
+                                            <td class="text-start pl0">{{bien?.reference}}</td>
+                                           
+                                        </tr>
+                                        <tr class="tr">
+                                            <th class="text-start" style="color: #e98b11;  font-weight: bold;">
+                                                <div class="item-desc-1">
+                                                    <span>Avance {{bien?.avance}} mois</span>
+                                                </div>
+                                            </th>
+                                            <td class="text-start pl0">{{formatPrice(bien?.prix * bien?.avance)}} FCFA</td>
+                                           
+                                        </tr>
+                                        <tr class="tr">
+                                            <th class="text-start" style="color: #e98b11; font-weight: bold;">
+                                                <div class="item-desc-1">
+                                                    <span>Caution {{bien?.caution}} mois</span>
+                                                </div>
+                                            </th>
+                                            <td class="text-start pl0">{{formatPrice(bien?.prix * bien?.caution)}} FCFA</td>
+                                           
+                                        </tr>
+                                        <tr class="tr">
+                                            <th class="text-start" style="color: #e98b11;  font-weight: bold;">
+                                                <div class="item-desc-1">
+                                                    <span>Total</span>
+                                                </div>
+                                            </th>
+                                            <td class="f-w-600 text-start active-color">{{ formatPrice((bien?.prix > 0 ? bien?.prix : 0) * ((bien?.avance > 0 ? bien?.avance : 0) + (bien?.caution > 0 ? bien?.caution : 1))) }} FCFA</td>
+                                           
+                                        </tr>
+                                       
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
                         <div class="invoice-contact clearfix">
                             <div class="row g-0">
                                 <div class="col-lg-12 col-md-11 col-sm-12">

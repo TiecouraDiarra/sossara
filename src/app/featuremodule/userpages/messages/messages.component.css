@@ -138,3 +138,13 @@ div.avatar.flex-shrink-0.imagChat img {
   border: 1.5px solid #f5f6fa;
 
 }
+
+@media (max-width: 667.98px) {
+.chat-users-list {
+  max-height: calc(100vh - 92px);
+  overflow: auto;
+  /* background: red; */
+  width: 120%;
+  margin-left: -10%;
+}
+}
