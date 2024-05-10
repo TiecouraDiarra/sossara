@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, LOCALE_ID } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lightbox } from 'ngx-lightbox';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -305,6 +305,13 @@ export class DetailsbienComponent implements AfterViewInit {
     if (this.selectedStatut === '2') {
       this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
     }
+  }
+
+  isMobile= false;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 991;
+   
   }
 
   constructor(
