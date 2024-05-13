@@ -2,7 +2,7 @@
 <header class="header">
   <div class="container">
     <nav class="navbar navbar-expand-lg header-nav">
-      <div class="navbar-header">
+      <div class="navbar-header w-100">
         <a (click)="toggleSidebar()" id="mobile_btn" href="javascript:void(0);">
             <span class="bar-icon">
                 <span></span>
@@ -10,12 +10,12 @@
                 <span></span>
             </span>
         </a>
-        <a [routerLink]="routes.home9" class="navbar-brand logo">
+        <a [routerLink]="routes.home9" class="navbar-brand logo"  *ngIf="isMobile">
             <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
             <!-- Sossara -->
         </a>
-        <!-- Deuxième élément à ajouter -->
-        <li style="text-decoration: none; list-style: none;" class="nav-item dropdown has-arrow logged-item" *ngIf="users && users?.nom && isMobile">
+        <!-- Troisième élément à ajouter -->
+        <li style="text-decoration: none; list-style: none;" class="nav-item dropdown has-arrow logged-item ms-auto" *ngIf="users && users?.nom && isMobile">
             <a href="javascript:void(0);" class="dropdown-toggle profile-userlink test" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <img src="{{generateImageUrl(users?.utilisateurPhoto?.nom)}}" (error)="handleAuthorImageError($event)" alt="">
@@ -27,6 +27,7 @@
             </div>
         </li>
     </div>
+    
     
       <div class="main-menu-wrapper">
         <div class="menu-header">
@@ -128,35 +129,25 @@
       </div>
 
 
-      <ul class="nav header-navbar-rht " *ngIf="nav == true">
-        <li class="nav-item" *ngIf="isLoginFailed == false">
+      <ul class="nav header-navbar-rht " *ngIf="nav == true ">
+        <li class="nav-item" *ngIf="isLoginFailed == false && !isMobile">
           <a class="nav-link header-reg" [routerLink]="routes.signup">Inscription</a>
         </li>
-        <li class="nav-item" *ngIf="isLoginFailed == false">
+        <li class="nav-item" *ngIf="isLoginFailed == false && !isMobile">
           <a class="nav-link header-login" [routerLink]="routes.login"> Connexion</a>
         </li>
         <li class="nav-item" *ngIf="!isLocataire">
           <a class="nav-link header-login add-listing" (click)="AjouterBienOrLogin()"><i class="fa-solid fa-plus"></i>
             Ajouter un bien</a>
         </li>
-        <li class="nav-item dropdown has-arrow logged-item" *ngIf="isLoginFailed == true">
+        <li class="nav-item dropdown has-arrow logged-item" *ngIf="isLoginFailed == true && !isMobile">
           <a [routerLink]="routes.reviews">
             <div class="dropdown-toggle profile-userlink notif crd" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-bell fa-2x mr-3"></i>
               <span class="badge rounded-pill badge-notification bg-danger mr-6">{{somme}}</span>
             </div>
           </a>
-          <!-- <div class="dropdown-menu dropdown-menu-end">
-            <div class="notification-item">
-              <div class="notification-content">Votre candidature a été acceptée avec succès</div>
-            </div>
-            <div class="notification-item">
-              <div class="notification-content">Le propriétaire du bien a lancé le processus de réparation</div>
-            </div>
-            <div class="notification-item">
-              <div class="notification-content">Nouveau message de la part de <span style="color: #e98b11;">Tiecoura DIARRA</span></div>
-            </div>
-          </div> -->
+          
         </li>
         <!-- <li class="nav-item">
           <div class="language-selector">
@@ -168,7 +159,7 @@
           </div>
         </li> -->
 
-        <li class="nav-item dropdown has-arrow logged-item">
+        <li class="nav-item dropdown has-arrow logged-item" *ngIf="!isMobile">
           <a href="javascript:void(0);" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown"
             aria-expanded="false" *ngIf="users && users.nom">
             <img src="{{generateImageUrl(users?.utilisateurPhoto?.nom)}}" (error)="handleAuthorImageError($event)"
@@ -184,7 +175,7 @@
 
       </ul>
 
-      <ul class="nav header-navbar-rht" *ngIf="nav == false">
+      <ul class="nav header-navbar-rht"   *ngIf="nav == false && !isMobile">
         <li class="nav-item" *ngIf="!isLocataire">
           <a class="nav-link header-login add-listing crd" (click)="AjouterBienOrLogin()"><i
               class="fa-solid fa-plus"></i>

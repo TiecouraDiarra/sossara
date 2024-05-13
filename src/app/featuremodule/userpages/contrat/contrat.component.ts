@@ -55,6 +55,7 @@ export class ContratComponent {
   isError: any = false;
   @ViewChild('contratlocation')
   contratlocation!: ElementRef;
+  emailProprietaire : any
 
   loading = false;
 
@@ -89,9 +90,7 @@ export class ContratComponent {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes("ROLE_AGENCE") || this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isAgenceProprietaire = true;
-      }
+      
 
       // if (this.roles.includes("ROLE_PROPRIETAIRE")) {
       //   this.isProprietaire = true;
@@ -112,6 +111,10 @@ export class ContratComponent {
       this.bien = data?.bien;
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
+      this.emailProprietaire = this.storageService.getUser().email
+      if (this.emailProprietaire == this.proprietaire.email) {
+        this.isAgenceProprietaire = true;
+      }
       this.photoImmo = data?.bien?.photoImmos;
    
     })
