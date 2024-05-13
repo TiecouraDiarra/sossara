@@ -252,7 +252,7 @@ export class TrouverbienComponent implements OnInit {
       // Centrer la carte sur la position de l'utilisateur
       this.map.setView([userLat, userLng], 12);
     }, (error) => {
-  
+
     });
 
     this.route.queryParams.subscribe((params: Params) => {
@@ -334,9 +334,9 @@ export class TrouverbienComponent implements OnInit {
                       ${bien.nom}
                     </a>
                   </h3>`;
-                  // Vérifiez le statut du bien immobilier
-                  if (bien.statut.nom === 'A vendre') {
-                      content += `
+              // Vérifiez le statut du bien immobilier
+              if (bien.statut.nom === 'A vendre') {
+                content += `
                         <div class="row">
                           <div class="col">
                             <span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">
@@ -349,8 +349,8 @@ export class TrouverbienComponent implements OnInit {
                             </span>
                           </div>
                         </div>`;
-                  } else if (bien.statut.nom === 'A louer') {
-                      content += `
+              } else if (bien.statut.nom === 'A louer') {
+                content += `
                         <div class="row">
                           <div class="col-6">
                             <span class="Featured-text" style="font-weight: bold;">
@@ -363,7 +363,7 @@ export class TrouverbienComponent implements OnInit {
                               </span>
                           </div>
                         </div>`;
-                  }
+              }
               // Ajoutez les informations supplémentaires telles que l'adresse et le prix
               content += `
       <ul class="available-info mt-3">
@@ -383,15 +383,15 @@ export class TrouverbienComponent implements OnInit {
               marker.bindPopup(content);
 
               // Ajoutez le contenu du popup au marqueur
-            //   marker.bindPopup(content).on('click', () => {
-            //     this.goToDettailBien(bien.uuid);
-            // });
-            // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
-          
-          
+              //   marker.bindPopup(content).on('click', () => {
+              //     this.goToDettailBien(bien.uuid);
+              // });
+              // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
 
-            // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
-            // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
+
+
+              // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
+              // Ajoutez un écouteur d'événements de clic au nom du bien immobilier
 
               return marker;
             })
@@ -604,15 +604,15 @@ export class TrouverbienComponent implements OnInit {
 
 
   ngOnInit(): void {
-     // Écouter les changements de route
-     this.router.events.subscribe(event => {
+    // Écouter les changements de route
+    this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Vérifier si la nouvelle route est "contact"
         if (this.router.url === '/trouverbien') {
           // Actualiser la page
           window.location.reload();
         }
-      } 
+      }
       if (!this.map) {
         this.initMap();
       }
@@ -766,7 +766,7 @@ export class TrouverbienComponent implements OnInit {
     this.cercles.forEach((el: any) => {
       this.form.regionForm = el.region.id;
     });
-    
+
   }
   onChangeCercle(newValue: any) {
     this.communes1 = this.commune.filter(
@@ -778,7 +778,7 @@ export class TrouverbienComponent implements OnInit {
 
     });
   }
- 
+
 
 
   //METHODE PERMETTANT D'AIMER UN BIEN 
@@ -808,7 +808,7 @@ export class TrouverbienComponent implements OnInit {
         }
       );
     } else {
-      
+
     }
   }
 
@@ -857,7 +857,7 @@ export class TrouverbienComponent implements OnInit {
         floor: this.customHtmlMinValue,
         ceil: this.customHtmlMaxValue,
         translate: (value: number): string => {
-          return this.formatPrice(value) +' FCFA';
+          return this.formatPrice(value) + ' FCFA';
         }
       };
     });
