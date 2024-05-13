@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, HostListener, Inject, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -54,7 +54,7 @@ export class AccueilComponent {
   communes1: any = [];
   totalzone: any;
   responseData: any;
-
+  isMobile = false;
   changeImage() {
     this.currentImageIndex =
       (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -91,7 +91,7 @@ export class AccueilComponent {
   nombreBienLoue: number = 0;
   nombreBienVendre: number = 0;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  valuesSelectPrix: any 
+  valuesSelectPrix: any;
 
   locale!: string;
   imagesCommunes = [
@@ -99,13 +99,12 @@ export class AccueilComponent {
     'hippique.jpg',
     'commune1.jpeg',
     'commune4.jpg',
-    '2022-09-26.jpg', 
+    '2022-09-26.jpg',
     'commune6.jpeg',
     // 'commune3.jpg',
   ];
   public universitiesCompanies: any = [];
 
-  
   hashString(str: string): number {
     let hash = 0;
     if (str.length === 0) {
@@ -113,12 +112,12 @@ export class AccueilComponent {
     }
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
     return hash;
   }
-  
+
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO;
@@ -160,6 +159,11 @@ export class AccueilComponent {
       (this.recentarticle = this.DataService.recentarticle);
 
     this.universitiesCompanies = this.DataService.universitiesCompanies;
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 767;
+   
   }
   searchCategory(value: any): void {
     const filterValue = value;
@@ -433,12 +437,11 @@ export class AccueilComponent {
 
     // this.apiUrl = this.BackLien();
     // Maintenant, vous pouvez utiliser this.apiUrl comme URL dans votre composant
-    
-    this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
+
+    this.serviceBienImmo.AfficherLaListePrix().subscribe((data) => {
       // this.customHtmlMaxValue = data[0].prix;
       this.valuesSelectPrix = data;
-    
-    })
+    });
     setInterval(() => {
       this.changeImage();
     }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)
@@ -474,7 +477,7 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.communes = data;
-      this.totalzone = this.communes.length
+      this.totalzone = this.communes.length;
       this.commune = data.slice(0, 6);
     });
 
@@ -531,8 +534,8 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
-      console.log("Agence ", data);
-      
+      console.log('Agence ', data);
+
       // data.forEach((user: any) => {
       //   // Vérifier si le bien est déjà loué
       //   if (user.roles.name.imclude("ROLE_AGENCE")) {
@@ -554,61 +557,63 @@ export class AccueilComponent {
 
       // Parcourir la liste des biens immobiliers
       this.agence?.forEach((agence: { uuid: string }) => {
-        this.serviceAgence.AfficherAgenceParId(agence?.uuid).subscribe((data) => {
-          this.bienImmoAgence = data?.bienImmos;
-          this.bienImmoAgent = data?.agents;
-          // Initialiser une liste pour stocker tous les biens immobiliers des agents
-          let totalBiensAgents: any[] = [];
+        this.serviceAgence
+          .AfficherAgenceParId(agence?.uuid)
+          .subscribe((data) => {
+            this.bienImmoAgence = data?.bienImmos;
+            this.bienImmoAgent = data?.agents;
+            // Initialiser une liste pour stocker tous les biens immobiliers des agents
+            let totalBiensAgents: any[] = [];
 
-          // Parcourir chaque agent
-          data.agents.forEach((agent: any) => {
-            // Ajouter les biens immobiliers de l'agent à la liste totale
-            totalBiensAgents.push(...agent.bienImmosAgents);
-          });
+            // Parcourir chaque agent
+            data.agents.forEach((agent: any) => {
+              // Ajouter les biens immobiliers de l'agent à la liste totale
+              totalBiensAgents.push(...agent.bienImmosAgents);
+            });
 
-          this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
-          this.NombreBienParAgence = this.bienImmo.length;
-          this.NombreAgentParAgence = data.agents.length;
-          // Initialisation des compteurs
-          let nombreLouerParAgence = 0;
-          let nombreVendreParAgence = 0;
+            this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
+            this.NombreBienParAgence = this.bienImmo.length;
+            this.NombreAgentParAgence = data.agents.length;
+            // Initialisation des compteurs
+            let nombreLouerParAgence = 0;
+            let nombreVendreParAgence = 0;
 
-          // Parcourir chaque bien immobilier
-          this.bienImmo.forEach((bien: any) => {
-            // Vérifier le statut du bien immobilier
-            if (bien?.statut?.nom === 'A louer') {
-              this.bienImmoLouer.push(bien);
-              nombreLouerParAgence++;
-            } else if (bien?.statut?.nom === 'A vendre') {
-              this.bienImmoVendre.push(bien);
-              nombreVendreParAgence++;
-            }
-          });
-          // Assigner les compteurs
-          this.NombreLouerParAgence = nombreLouerParAgence;
-          this.NombreVendreParAgence = nombreVendreParAgence;
+            // Parcourir chaque bien immobilier
+            this.bienImmo.forEach((bien: any) => {
+              // Vérifier le statut du bien immobilier
+              if (bien?.statut?.nom === 'A louer') {
+                this.bienImmoLouer.push(bien);
+                nombreLouerParAgence++;
+              } else if (bien?.statut?.nom === 'A vendre') {
+                this.bienImmoVendre.push(bien);
+                nombreVendreParAgence++;
+              }
+            });
+            // Assigner les compteurs
+            this.NombreLouerParAgence = nombreLouerParAgence;
+            this.NombreVendreParAgence = nombreVendreParAgence;
 
-          function hashString(str: string): number {
-            let hash = 0;
-            if (str.length === 0) {
+            function hashString(str: string): number {
+              let hash = 0;
+              if (str.length === 0) {
+                return hash;
+              }
+              for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = (hash << 5) - hash + char;
+                hash = hash & hash; // Convertir en entier 32 bits
+              }
               return hash;
             }
-            for (let i = 0; i < str.length; i++) {
-              const char = str.charCodeAt(i);
-              hash = (hash << 5) - hash + char;
-              hash = hash & hash; // Convertir en entier 32 bits
+            // Utilisation de la fonction de hachage pour convertir l'UUID en number
+            const agenceId = hashString(agence.uuid);
+            if (typeof agence.uuid === 'string') {
+              this.NombreBienCount[agenceId] = this.NombreBienParAgence;
+              this.NombreAgentCount[agenceId] = this.NombreAgentParAgence;
+              this.NombreBienLouerCount[agenceId] = this.NombreLouerParAgence;
+              this.NombreBienVendreCount[agenceId] = this.NombreVendreParAgence;
             }
-            return hash;
-          }
-          // Utilisation de la fonction de hachage pour convertir l'UUID en number
-          const agenceId = hashString(agence.uuid);
-          if (typeof agence.uuid === 'string') {
-            this.NombreBienCount[agenceId] = this.NombreBienParAgence;
-            this.NombreAgentCount[agenceId] = this.NombreAgentParAgence;
-            this.NombreBienLouerCount[agenceId] = this.NombreLouerParAgence;
-            this.NombreBienVendreCount[agenceId] = this.NombreVendreParAgence;
-          }
-        });
+          });
       });
     });
 
@@ -620,7 +625,6 @@ export class AccueilComponent {
         if (bien.statut.nom === 'A louer') {
           this.BienLoueRecens.push(bien);
         }
-
       });
       // this.nombreBienLoue = this.BienLoueRecens.length;
       // this.nombreBienVendre = this.BienVendreRecens.length;
@@ -712,9 +716,7 @@ export class AccueilComponent {
               );
             });
         },
-        (error) => {
-       
-        }
+        (error) => {}
       );
     } else {
     }

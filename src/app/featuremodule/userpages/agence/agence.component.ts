@@ -469,7 +469,7 @@ export class AgenceComponent {
     // });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
-    this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
+    this.serviceBienImmo.AfficherBienLoueEtAcheterParUserConnecter().subscribe(data => {
       this.bienImmoDejaLoueLocataires = data.reverse();
       this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
@@ -549,6 +549,10 @@ export class AgenceComponent {
     return this.router.navigate(['details-bien', id])
   }
 
+        //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
+        goToListeRecu(id: number) {
+          return this.router.navigate(['userpages/liste_recu', id])
+        }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
   goToModifierBien(id: number) {
     return this.router.navigate(['userpages/modifier-bien', id])

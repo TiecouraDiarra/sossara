@@ -1,5 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  LOCALE_ID,
+  OnInit,
+  Output,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -22,7 +33,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 @Component({
   selector: 'app-locataire',
   templateUrl: './locataire.component.html',
-  styleUrls: ['./locataire.component.scss']
+  styleUrls: ['./locataire.component.scss'],
 })
 export class LocataireComponent implements OnInit {
   // Référence au modal que vous souhaitez convertir en PDF
@@ -34,7 +45,6 @@ export class LocataireComponent implements OnInit {
   prendEnCharge = false;
   locale!: string;
   selectedTab: string = 'home'; // Déclaration de la variable selectedTab avec la valeur par défaut 'home'
-
 
   @ViewChild('factureachat')
   factureachat!: ElementRef;
@@ -125,13 +135,10 @@ export class LocataireComponent implements OnInit {
   isAgence = false;
   isAgent = false;
   roles: string[] = [];
-  bienImmoDejaLoueLocataire: any[] = []
+  bienImmoDejaLoueLocataire: any[] = [];
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
-
-
-
-  public electronics: any = []
+  public electronics: any = [];
 
   today: Date;
 
@@ -149,8 +156,8 @@ export class LocataireComponent implements OnInit {
     const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
-  reclamationUser: any
-  transactionVendue: any
+  reclamationUser: any;
+  transactionVendue: any;
   photos: any;
   maxImageCount: number = 0; // Limite maximale d'images
   selectedFiles: any;
@@ -171,15 +178,13 @@ export class LocataireComponent implements OnInit {
 
   factureNumber: number = 1; // Numéro de facture initial
 
-
-
-
   // IMAGE PAR DEFAUT DES BIENS
   DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
-    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+    event.target.src =
+      'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
   // Déclarez une variable pour stocker l'ID du BienImmo sélectionné
   selectedBienImmoId: any;
@@ -189,18 +194,17 @@ export class LocataireComponent implements OnInit {
 
   selectedFactureId: any;
   reclamationProcessusLance: any;
-  transaction: any
+  transaction: any;
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   favoritedPropertiesCountAgence: { [bienId: number]: number } = {};
-  bienImmoUserAAcheter: any[] = []
-  bienImmoAgenceTotal: any
+  bienImmoUserAAcheter: any[] = [];
+  bienImmoAgenceTotal: any;
 
-  bienagent: any
-  bienVenduagent: any
-  bienTotalAgence: any[] = []
-  bienVenduTotalAgence: any[] = []
-  bienImmoDejaVenduAgence: any
-
+  bienagent: any;
+  bienVenduagent: any;
+  bienTotalAgence: any[] = [];
+  bienVenduTotalAgence: any[] = [];
+  bienImmoDejaVenduAgence: any;
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openReclamationModal(bienImmoId: number) {
@@ -216,13 +220,12 @@ export class LocataireComponent implements OnInit {
 
   formFiche: any = {
     photo: null,
-  }
+  };
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openProcessusModal(bienImmoId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoProcessusId = bienImmoId;
-
   }
 
   // Fonction pour ouvrir le modal avec l'ID de la vente
@@ -234,10 +237,11 @@ export class LocataireComponent implements OnInit {
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
     this.factureNumber++;
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    this.serviceBienImmo.AfficherTransactionParId(this.selectedBienImmoVenduId).subscribe(data => {
-      this.transactionVendue = data.biens[0];
-    });
-
+    this.serviceBienImmo
+      .AfficherTransactionParId(this.selectedBienImmoVenduId)
+      .subscribe((data) => {
+        this.transactionVendue = data.biens[0];
+      });
   }
 
   // Fonction pour ouvrir le modal avec l'ID de la transaction
@@ -249,16 +253,17 @@ export class LocataireComponent implements OnInit {
     // Incrémentez le numéro de facture à chaque fois que cette fonction est appelée
     this.factureNumber++;
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-    this.serviceBienImmo.AfficherCandidatureAccepter(this.selectedFactureId).subscribe(data => {
-      this.transaction = data.biens[0];
-    });
-
+    this.serviceBienImmo
+      .AfficherCandidatureAccepter(this.selectedFactureId)
+      .subscribe((data) => {
+        this.transaction = data.biens[0];
+      });
   }
-  NombreJaime: number = 0
-  NombreJaimeAgence: number = 0
-  bienImmoAgence: any
-  bienImmoAgent: any
-  test: any
+  NombreJaime: number = 0;
+  NombreJaimeAgence: number = 0;
+  bienImmoAgence: any;
+  bienImmoAgent: any;
+  test: any;
   errorMessage: any = '';
   isLoggedIn = false;
   isLoginFailed = true;
@@ -273,11 +278,11 @@ export class LocataireComponent implements OnInit {
     private serviceUser: UserService,
     @Inject(LOCALE_ID) private localeId: string,
     private renderer: Renderer2,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.locale = localeId;
-    this.electronics = this.DataService.electronicsList,
-      this.User = this.storageService.getUser();
+    (this.electronics = this.DataService.electronicsList),
+      (this.User = this.storageService.getUser());
     this.today = new Date();
     // egisterLocaleData(localeFr); // Enregistrez la locale française
   }
@@ -293,7 +298,7 @@ export class LocataireComponent implements OnInit {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          this.maxImageCount = this.image.length
+          this.maxImageCount = this.image.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
@@ -317,13 +322,13 @@ export class LocataireComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes("ROLE_LOCATAIRE")) {
+      if (this.roles.includes('ROLE_LOCATAIRE')) {
         this.isLocataire = true;
         this.selectedTab = 'home';
-      } else if (this.roles.includes("ROLE_AGENCE")) {
+      } else if (this.roles.includes('ROLE_AGENCE')) {
         this.isAgence = true;
         this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else if (this.roles.includes("ROLE_AGENT")) {
+      } else if (this.roles.includes('ROLE_AGENT')) {
         this.isAgent = true;
         this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
       } else {
@@ -340,10 +345,8 @@ export class LocataireComponent implements OnInit {
 
     //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
     //FAIT
-    this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
+    this.serviceBienImmo.AfficherBienImmoParUser().subscribe((data) => {
       this.bienImmo = data.reverse();
-  
-
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -356,17 +359,12 @@ export class LocataireComponent implements OnInit {
         if (bien.is_sell === true) {
           this.bienImmoDejaVendu.push(bien);
         }
-        
-        
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
 
-
       // Parcourir la liste des biens immobiliers
-      this.bienImmo.forEach((bien: {
-        favoris: any; id: string | number;
-      }) => {
+      this.bienImmo.forEach((bien: { favoris: any; id: string | number }) => {
         this.NombreJaime = bien.favoris?.length;
         if (typeof bien.id === 'number') {
           this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
@@ -376,11 +374,11 @@ export class LocataireComponent implements OnInit {
       });
     });
 
-    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
-    this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
+    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE
+    this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe((data) => {
       this.test = data;
       this.bienImmoAgenceTotal = data.reverse();
-    
+
       // Filtrer les biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué AGENCE
@@ -394,37 +392,33 @@ export class LocataireComponent implements OnInit {
         }
 
         //   // Le reste de votre logique pour traiter les favoris...
-
       });
       // Parcourir la liste des biens immobiliers
-      this.bienImmoAgenceTotal.forEach((bien: {
-        favoris: any; id: string | number;
-      }) => {
-        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-        this.NombreJaimeAgence = bien.favoris.length;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
+      this.bienImmoAgenceTotal.forEach(
+        (bien: { favoris: any; id: string | number }) => {
+          // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.NombreJaimeAgence = bien.favoris.length;
+          if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCountAgence[bien.id] =
+              this.NombreJaimeAgence;
+          }
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          // });
         }
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-        // });
-      });
+      );
     });
 
     //AFFICHER LA LISTE DES PROBLEMES
-    this.serviceBienImmo.AfficherLIsteProbleme().subscribe(data => {
+    this.serviceBienImmo.AfficherLIsteProbleme().subscribe((data) => {
       this.probleme = data;
-      
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
-    this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
-      this.reclamationProcessusLance = data.reverse();
-
-    });
-
-  
-
-  
+    this.serviceBienImmo
+      .AfficherLIsteReclamationProcessusLance()
+      .subscribe((data) => {
+        this.reclamationProcessusLance = data.reverse();
+      });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR AVEC AGENCE
     // this.serviceBienImmo.AfficherBienImmoDejaVenduParAgence().subscribe(data => {
@@ -436,60 +430,56 @@ export class LocataireComponent implements OnInit {
     // });
 
     //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A LOUER
-    this.serviceBienImmo.AfficherBienImmoDejaLoueParLocataire().subscribe(data => {
-      this.bienImmoDejaLoueLocataires = data.reverse();
-      this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
-        // Vérifier si le bien est déjà loué
-        if (bien.bien.is_rent === true) {
-          this.bienImmoDejaLoueLocataire.push(bien);
-        }
+    this.serviceBienImmo
+      .AfficherBienLoueEtAcheterParUserConnecter()
+      .subscribe((data) => {
+        this.bienImmoDejaLoueLocataires = data.reverse();
+        this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
+          // Vérifier si le bien est déjà loué
+          if (bien.bien.is_rent === true) {
+            this.bienImmoDejaLoueLocataire.push(bien);
+          }
 
-        //   // Vérifier si le bien est déjà vendu
-        if (bien.bien.is_sell === true) {
-          this.bienImmoUserAAcheter.push(bien);
-        }
-        
-        //   // Le reste de votre logique pour traiter les favoris...
+          //   // Vérifier si le bien est déjà vendu
+          if (bien.bien.is_sell === true) {
+            this.bienImmoUserAAcheter.push(bien);
+          }
+
+          //   // Le reste de votre logique pour traiter les favoris...
+        });
+        console.log("Bien Acheter ", this.bienImmoUserAAcheter);
       });
-      console.log("Bien Acheter ", this.bienImmoUserAAcheter);
-    
-      
- 
-    });
-
-
 
     ////AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
-    this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe(data => {
+    this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe((data) => {
       this.favoris = data?.reverse();
       // Parcourir la liste des biens immobiliers
-      this.favoris.forEach((bien: {
-        bien: any;
-        favoris: any; id: string | number;
-      }) => {
-        this.NombreJaime = bien.bien.favoris?.length;
-        if (typeof bien.bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
+      this.favoris.forEach(
+        (bien: { bien: any; favoris: any; id: string | number }) => {
+          this.NombreJaime = bien.bien.favoris?.length;
+          if (typeof bien.bien.id === 'number') {
+            this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
+          }
+          // Charger l'état de favori depuis localStorage
+          const isFavorite = localStorage.getItem(
+            `favoriteStatus_${bien.bien.id}`
+          );
         }
-        // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
-      });
-
-
+      );
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
-    this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
+    this.serviceBienImmo.AfficherListeReclamationParUser().subscribe((data) => {
       this.reclamation = data.reverse();
     });
 
     //AFFICHER LA LISTE DES RECLAMATIONS FAITES PAR UTILISATEUR
-    this.serviceBienImmo.AfficherListeReclamationFaitesParUser().subscribe(data => {
-      this.reclamationUser = data.reverse();
-      // this.photos = this.reclamation.bien;
-
-    });
-
+    this.serviceBienImmo
+      .AfficherListeReclamationFaitesParUser()
+      .subscribe((data) => {
+        this.reclamationUser = data.reverse();
+        // this.photos = this.reclamation.bien;
+      });
 
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
     // this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
@@ -497,12 +487,12 @@ export class LocataireComponent implements OnInit {
     // });
 
     //AFFICHER LA LISTE DES FACTURES DU LOCATAIRE CONNECTE
-    this.servicefacture.AfficherFactureLocataireConnecter().subscribe(data => {
-      this.facture = data?.reverse();
-      this.bienFacture = data?.bien;
-  
-    });
-
+    this.servicefacture
+      .AfficherFactureLocataireConnecter()
+      .subscribe((data) => {
+        this.facture = data?.reverse();
+        this.bienFacture = data?.bien;
+      });
   }
 
   removeImage(index: number) {
@@ -527,12 +517,17 @@ export class LocataireComponent implements OnInit {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
-    return this.router.navigate(['details-bien', id])
+    return this.router.navigate(['details-bien', id]);
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS Facture
   goToDettailFacture(id: number) {
-    return this.router.navigate(['userpages/facturepaiement', id])
+    return this.router.navigate(['userpages/facturepaiement', id]);
+  }
+
+      //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
+  goToListeRecu(id: number) {
+    return this.router.navigate(['userpages/liste_recu', id])
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -542,33 +537,33 @@ export class LocataireComponent implements OnInit {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
-    swalWithBootstrapButtons.fire({
-      // title: 'Etes-vous sûre de vous déconnecter?',
-      text: "Etes-vous sûre de vous déconnecter?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.authService.logout().subscribe({
-          next: res => {
-            this.storageService.clean();
-            this.router.navigateByUrl("/auth/connexion")
-          },
-          error: err => {
-          }
-        });
-      }
-    })
-
+      heightAuto: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        // title: 'Etes-vous sûre de vous déconnecter?',
+        text: 'Etes-vous sûre de vous déconnecter?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.authService.logout().subscribe({
+            next: (res) => {
+              this.storageService.clean();
+              this.router.navigateByUrl('/auth/connexion');
+            },
+            error: (err) => {},
+          });
+        }
+      });
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
   //FAIRE RECLAMATION
@@ -578,41 +573,45 @@ export class LocataireComponent implements OnInit {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
+      heightAuto: false,
+    });
 
-    swalWithBootstrapButtons.fire({
-      text: "Etes-vous sûre de bien vouloir faire une reclamation ?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const user = this.storageService.getUser();
-        if (user && user.token) {
-          // Définissez le token dans le service commentaireService
-          this.serviceUser.setAccessToken(user.token);
+    swalWithBootstrapButtons
+      .fire({
+        text: 'Etes-vous sûre de bien vouloir faire une reclamation ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            // Définissez le token dans le service commentaireService
+            this.serviceUser.setAccessToken(user.token);
 
-
-
-          // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-          this.serviceBienImmo.FaireReclamation(this.form.contenu, this.form.type, this.form.prix_estimatif, this.selectedBienImmoId, this.form.photo).subscribe(
-            data => {
-              // this.isSuccess = false;
-              this.popUpConfirmation();
-            },
-            error => {
-              
-            }
-          );
-        } else {
+            // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
+            this.serviceBienImmo
+              .FaireReclamation(
+                this.form.contenu,
+                this.form.type,
+                this.form.prix_estimatif,
+                this.selectedBienImmoId,
+                this.form.photo
+              )
+              .subscribe(
+                (data) => {
+                  // this.isSuccess = false;
+                  this.popUpConfirmation();
+                },
+                (error) => {}
+              );
+          } else {
+          }
         }
-      }
-    })
-
-
+      });
   }
 
   //POPUP APRES CONFIRMATION
@@ -631,8 +630,7 @@ export class LocataireComponent implements OnInit {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then(() => {
       // Fermez le modal après avoir envoyé la réclamation
       // Fermez le modal sans utiliser jQuery
@@ -649,7 +647,7 @@ export class LocataireComponent implements OnInit {
       this.form.contenu = ''; // Réinitialisez la valeur de form.contenu
       this.form.prix_estimatif = ''; // Réinitialisez la valeur de form.contenu
       this.image = []; // Réinitialisez le tableau d'images
-    })
+    });
   }
 
   //LANCER LE PROCESSUS DE REPARATION
@@ -659,41 +657,37 @@ export class LocataireComponent implements OnInit {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
+      heightAuto: false,
+    });
 
-    swalWithBootstrapButtons.fire({
-      text: "Etes-vous sûre de bien vouloir lancer le processus de reclamation ?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const user = this.storageService.getUser();
-        if (user && user.token) {
-          // Définissez le token dans le service commentaireService
-          this.serviceUser.setAccessToken(user.token);
+    swalWithBootstrapButtons
+      .fire({
+        text: 'Etes-vous sûre de bien vouloir lancer le processus de reclamation ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            // Définissez le token dans le service commentaireService
+            this.serviceUser.setAccessToken(user.token);
 
-
-
-          // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
-          this.serviceBienImmo.LancerProcessusReparation(id).subscribe(
-            data => {
-              // this.isSuccess = false;
-              this.popUpConfirmationProcessus();
-            },
-            error => {
-             
-            }
-          );
-        } else {
+            // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
+            this.serviceBienImmo.LancerProcessusReparation(id).subscribe(
+              (data) => {
+                // this.isSuccess = false;
+                this.popUpConfirmationProcessus();
+              },
+              (error) => {}
+            );
+          } else {
+          }
         }
-      }
-    })
-
-
+      });
   }
 
   //POPUP APRES CONFIRMATION PROCESSUS
@@ -712,11 +706,10 @@ export class LocataireComponent implements OnInit {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then(() => {
       this.formProcessus.somme = ''; // Réinitialisez la valeur de form.contenu
-    })
+    });
   }
 
   //METHODE PERMETTANT DE SUPPRIMER UN BIEN
@@ -726,51 +719,49 @@ export class LocataireComponent implements OnInit {
         confirmButton: 'btn',
         cancelButton: 'btn btn-danger',
       },
-      heightAuto: false
-    })
-    swalWithBootstrapButtons.fire({
-      // title: 'Etes-vous sûre de vous déconnecter?',
-      text: "Etes-vous sûre de suppimer ce bien ?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Supprimer',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const user = this.storageService.getUser();
-        if (user && user.token) {
-          // Définissez le token dans le service serviceUser
-          this.serviceUser.setAccessToken(user.token);
+      heightAuto: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        // title: 'Etes-vous sûre de vous déconnecter?',
+        text: 'Etes-vous sûre de suppimer ce bien ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Supprimer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            // Définissez le token dans le service serviceUser
+            this.serviceUser.setAccessToken(user.token);
 
-          // Appelez la méthode PrendreRdv() avec le contenu et l'ID
-          this.serviceBienImmo.SupprimerBien(id).subscribe({
-            next: (data) => {
-   
-              this.popUpConfirmationSuppression();
-            },
-            error: (err) => {
-              this.errorMessage = err.error.message;
-           
-            }
+            // Appelez la méthode PrendreRdv() avec le contenu et l'ID
+            this.serviceBienImmo.SupprimerBien(id).subscribe({
+              next: (data) => {
+                this.popUpConfirmationSuppression();
+              },
+              error: (err) => {
+                this.errorMessage = err.error.message;
+              },
+            });
+          } else {
           }
-          );
-        } else {
-         
-        }
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // L'utilisateur a annulé l'action
-        const cancelNotification = Swal.fire({
-          title: "Action annulée",
-          text: "Vous avez annulé la suppression du bien.",
-          icon: "info",
-          showConfirmButton: false, // Supprime le bouton "OK"
-          timer: 2000, // Durée en millisecondes (par exemple, 3000 ms pour 3 secondes)
-        });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // L'utilisateur a annulé l'action
+          const cancelNotification = Swal.fire({
+            title: 'Action annulée',
+            text: 'Vous avez annulé la suppression du bien.',
+            icon: 'info',
+            showConfirmButton: false, // Supprime le bouton "OK"
+            timer: 2000, // Durée en millisecondes (par exemple, 3000 ms pour 3 secondes)
+          });
 
-        // Vous n'avez pas besoin de setTimeout pour fermer cette notification, car "timer" le fait automatiquement après la durée spécifiée.
-      }
-    })
+          // Vous n'avez pas besoin de setTimeout pour fermer cette notification, car "timer" le fait automatiquement après la durée spécifiée.
+        }
+      });
   }
 
   //POPUP APRES CONFIRMATION DE SUPPRESSION
@@ -789,59 +780,70 @@ export class LocataireComponent implements OnInit {
       showCancelButton: false,
       allowOutsideClick: false,
       timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true // ajouter la barre de progression du temps
-
+      timerProgressBar: true, // ajouter la barre de progression du temps
     }).then((result) => {
       // Après avoir réussi à supprimer, mettez à jour l'état de la page
       //AFFICHER LA LISTE DES BIENS PAR UTILISATEUR
-      this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
+      this.serviceBienImmo.AfficherBienImmoParUser().subscribe((data) => {
         this.bienImmo = data.biens.reverse();
         // Parcourir la liste des biens immobiliers
-        this.bienImmo.forEach((bien: { id: string | number; }) => {
+        this.bienImmo.forEach((bien: { id: string | number }) => {
           // Charger le nombre de "J'aime" pour chaque bien
-          this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-            this.NombreJaime = data.vues;
-            if (typeof bien.id === 'number') {
-              this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-            }
+          this.serviceBienImmo
+            .ListeAimerBienParId(bien.id)
+            .subscribe((data) => {
+              this.NombreJaime = data.vues;
+              if (typeof bien.id === 'number') {
+                this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+              }
 
-            // Charger l'état de favori depuis localStorage
-            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-            // if (isFavorite === 'true') {
-            //   this.favoriteStatus[bien.id] = true;
-            // } else {
-            //   this.favoriteStatus[bien.id] = false;
-            // }
-          });
-        });
-        
-      });
-
-      //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
-      this.serviceBienImmo.AfficherBienImmoParUserConnecte().subscribe(data => {
-        this.test = data;
-        this.bienImmoAgence = data.biens_agences;
-        this.bienImmoAgent = data.biens_agents;
-        this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
-
-        // Parcourir la liste des biens immobiliers
-        this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
-          this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-            this.NombreJaimeAgence = data.vues;
-            if (typeof bien.id === 'number') {
-              this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
-            }
-            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          });
+              // Charger l'état de favori depuis localStorage
+              const isFavorite = localStorage.getItem(
+                `favoriteStatus_${bien.id}`
+              );
+              // if (isFavorite === 'true') {
+              //   this.favoriteStatus[bien.id] = true;
+              // } else {
+              //   this.favoriteStatus[bien.id] = false;
+              // }
+            });
         });
       });
 
-    })
+      //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE
+      this.serviceBienImmo
+        .AfficherBienImmoParUserConnecte()
+        .subscribe((data) => {
+          this.test = data;
+          this.bienImmoAgence = data.biens_agences;
+          this.bienImmoAgent = data.biens_agents;
+          this.bienImmoAgenceTotal = [
+            ...this.bienImmoAgence,
+            ...this.bienImmoAgent,
+          ];
+
+          // Parcourir la liste des biens immobiliers
+          this.bienImmoAgenceTotal.forEach((bien: { id: string | number }) => {
+            this.serviceBienImmo
+              .ListeAimerBienParId(bien.id)
+              .subscribe((data) => {
+                this.NombreJaimeAgence = data.vues;
+                if (typeof bien.id === 'number') {
+                  this.favoritedPropertiesCountAgence[bien.id] =
+                    this.NombreJaimeAgence;
+                }
+                const isFavorite = localStorage.getItem(
+                  `favoriteStatus_${bien.id}`
+                );
+              });
+          });
+        });
+    });
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE CONTRAT
   goToPageContrat(id: number) {
-    return this.router.navigate(['userpages/contrat', id])
+    return this.router.navigate(['userpages/contrat', id]);
   }
 
   isSubmenuOpen: boolean = false;
@@ -850,7 +852,7 @@ export class LocataireComponent implements OnInit {
     this.isSubmenuOpen = !this.isSubmenuOpen;
   }
 
-  //METHODE PERMETTANT D'AIMER UN BIEN 
+  //METHODE PERMETTANT D'AIMER UN BIEN
   AimerBien(id: any): void {
     const user = this.storageService.getUser();
     if (user && user.token) {
@@ -859,7 +861,7 @@ export class LocataireComponent implements OnInit {
 
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
-        data => {
+        (data) => {
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
             this.favoriteStatus[id] = false; // Désaimé
@@ -870,31 +872,29 @@ export class LocataireComponent implements OnInit {
             localStorage.setItem(`favoriteStatus_${id}`, 'true');
             this.favoritedPropertiesCount1[id]++;
           }
-          this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe(data => {
-            this.favoris = data?.reverse();
-            // Parcourir la liste des biens immobiliers
-            this.favoris.forEach((bien: {
-              bien: any;
-              favoris: any; id: string | number;
-            }) => {
-              this.NombreJaime = bien.bien.favoris?.length;
-              if (typeof bien.bien.id === 'number') {
-                this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
-              }
-              // Charger l'état de favori depuis localStorage
-              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
+          this.serviceBienImmo
+            .AfficherFavorisParUserConnecter()
+            .subscribe((data) => {
+              this.favoris = data?.reverse();
+              // Parcourir la liste des biens immobiliers
+              this.favoris.forEach(
+                (bien: { bien: any; favoris: any; id: string | number }) => {
+                  this.NombreJaime = bien.bien.favoris?.length;
+                  if (typeof bien.bien.id === 'number') {
+                    this.favoritedPropertiesCount1[bien.bien.id] =
+                      this.NombreJaime;
+                  }
+                  // Charger l'état de favori depuis localStorage
+                  const isFavorite = localStorage.getItem(
+                    `favoriteStatus_${bien.bien.id}`
+                  );
+                }
+              );
             });
-      
-      
-          });
         },
-        error => {
-       
-        }
+        (error) => {}
       );
     } else {
-     
     }
   }
-
 }

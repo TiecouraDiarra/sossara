@@ -2941,3 +2941,17 @@ p {
 .crd {
     cursor: pointer;
 }
+
+@media (max-width: 667.98px) {
+    .telecharge-container {
+        display: block ;
+        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+       
+      }
+      .telecharge{
+        margin-bottom: 40px;
+      }
+    }

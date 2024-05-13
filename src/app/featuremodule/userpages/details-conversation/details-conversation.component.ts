@@ -26,13 +26,12 @@ interface Conversation {
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
-
 @Component({
-  selector: 'app-messages',
-  templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css']
+  selector: 'app-details-conversation',
+  templateUrl: './details-conversation.component.html',
+  styleUrls: ['./details-conversation.component.scss']
 })
-export class MessagesComponent implements OnInit {
+export class DetailsConversationComponent {
   public routes = routes;
   messages: any
   conversation: any
@@ -45,6 +44,7 @@ export class MessagesComponent implements OnInit {
   public chatData: any;
   searchText: any;
   secondUserName = "";
+  isMobile = false;
 
   chatId: any = localStorage.getItem('chatId');
 
@@ -77,9 +77,14 @@ export class MessagesComponent implements OnInit {
   public chatList: any = [];
 
   timesRun2 = 0;
-  isMobile = false;
+
   selectConversation(conversation: Conversation) {
     this.selectedConversation = conversation;
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth <= 767;
+   
   }
   constructor(
     private dataservice: DataService,
@@ -96,11 +101,6 @@ export class MessagesComponent implements OnInit {
     this.chatForm = new FormGroup({
       replymessage: new FormControl()
     });
-  }
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.isMobile = event.target.innerWidth <= 767;
-   
   }
   ngOnInit(): void {
 

@@ -23,33 +23,13 @@
 </div>
 <!-- /Breadscrumb Section -->
 
-<!--Galler Slider Section-->
-<!-- <div class="bannergallery-section">
-    <div class="gallery-slider d-flex">
-
-        <ng-container *ngFor="let photo of photos; let i = index">
-            <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="gallery-widget" *ngIf="i<5">
-                    <img [src]="getFullImagePath(photo.nom)" alt="Photo {{ i }}" (click)="open(i, photo)" />
-                </div>
-
-            </div>
-        </ng-container>
-        <div class="showphotos">
-            <a href="javascript:void(0)" (click)="openAll(albumsOne)">... Voir les Photos</a>
-        </div>
-    </div>
-</div> -->
-<!--/Galler Slider Section-->
 
 <!--Details Description  Section-->
 <section class="details-description">
   <div class="container">
     <div class="about-details">
       <div class="about-headings">
-        <!-- <div class="author-img" *ngFor="let photo of photos; let isFirst = first">
-                    <img *ngIf="isFirst" src="{{ generateImageUrl(photo.nom) }}" alt="authorimg">
-                </div> -->
+
         <div class="author-img">
           <img src="{{ generateQrCodeUrl(bien?.codeqr) }}" alt="QR Code" />
         </div>
@@ -76,12 +56,7 @@
             </p>
           </div>
           <div class="rating">
-            <!-- <i class="fas fa-star filled"></i>
-                        <i class="fas fa-star filled"></i>
-                        <i class="fas fa-star filled"></i>
-                        <i class="fas fa-star filled"></i>
-                        <i class="fa-regular fa-star rating-color"></i>
-                        <span class="d-inline-block average-rating"> 4.5 </span> -->
+
             <div class="blog-category" style="margin-right: 10px">
               <span class="Featured-text" style="background-color: #374b5c">{{
                 bien?.typeImmo?.nom
@@ -121,24 +96,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="descriptionlinks">
-            <div class="row">
-                <div class="col-lg-7">
-                </div>
-                <div class="col-lg-5" *ngIf="isLoggedIn == true && currentUser == false">
-                    <div class="callnow crd">
-                        <a (click)="CandidaterBien()" class="action-btn btn-edit"> <i
-                                class="feather-edit-3"></i>Candidater pour ce bien</a>
-                    </div>
-                </div>
-                <div class="col-lg-5" *ngIf="isLoggedIn == true && currentUser == true">
-                    <div class="callnow crd" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <a class="action-btn btn-edit"> <i
-                                class="feather-edit-3"></i>Modifier ce bien</a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+
   </div>
 </section>
 <!--/Details Description  Section-->
@@ -177,9 +135,7 @@
             <label for="dateMaison">Usage d'utilisation</label>
             <div class="group-img">
               <select class="form-control" [(ngModel)]="formCandidater.usage" name="usage">
-                <option value="" selected>
-                  Usage d'utilisation
-               </option>
+                <option value="" selected>Usage d'utilisation</option>
                 <option *ngFor="let item of usage" [value]="item.id">
                   {{ item?.nom }}
                 </option>
@@ -200,381 +156,6 @@
   </div>
 </div>
 <!-- Modal Modifier un bien -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modifier un bien</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form class="messages-form" enctype="multipart/form-data">
-          <div class="card">
-            <div class="card-header">
-              <h4>Information de base</h4>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label class="col-form-label">Nom du bien <span>*</span></label>
-                <input type="text" name="nom" [(ngModel)]="form.nom" class="form-control" />
-              </div>
-
-              <div class="form-group">
-                <label class="col-form-label">Description du bien <span>*</span></label>
-                <textarea rows="3" name="description" [(ngModel)]="form.description"
-                  class="form-control listingdescription"></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <h4>Information de base</h4>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <!-- statut -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Statut <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select (change)="onStatutChange($event)" [(ngModel)]="form.statut" name="statut"
-                        class="form-control" id="">
-                        <option *ngFor="let item of status" [value]="item.id">
-                          {{ item?.nom }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Type -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Type <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select name="type" [(ngModel)]="form.type" class="form-control" id="">
-                        <option *ngFor="let item of typebien" [value]="item.id">
-                          {{ item.nom }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <!-- prix du bien -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Prix du bien <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <input type="number" pattern="[0-9]" name="prix" [(ngModel)]="form.prix"
-                        class="form-control pass-input" required aria-required="true" placeholder="FCFA" />
-                    </div>
-                  </div>
-                </div>
-                <!-- Nombre de salon -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Nombre de salon <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select [(ngModel)]="form.nb_piece" name="nb_piece" class="form-control" id="">
-                        <option *ngFor="let item of valuesSelect" [value]="item">
-                          {{ item }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <!-- Nombre de cuisine -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group formlast-input lat-input">
-                    <label class="col-form-label">Cuisines <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select [(ngModel)]="form.cuisine" name="cuisine" class="form-control" id="">
-                        <option *ngFor="let item of valuesSelect" [value]="item">
-                          {{ item }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Nombre de chambre -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group formlast-input">
-                    <label class="col-form-label">Chambres <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select [(ngModel)]="form.chambre" name="chambre" class="form-control" id="">
-                        <option *ngFor="let item of valuesSelect" [value]="item">
-                          {{ item }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br />
-
-              <div class="row">
-                <!-- Nombre de toilette -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group formlast-input">
-                    <label class="col-form-label">Toilette <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select [(ngModel)]="form.toilette" name="toilette" class="form-control" id="">
-                        <option *ngFor="let item of valuesSelect" [value]="item">
-                          {{ item }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Nombre de surface -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Surface du bien <span>*</span></label>
-                    <input type="number" pattern="[0-9]" name="surface" [(ngModel)]="form.surface"
-                      class="form-control pass-input" required aria-required="true" placeholder="000000" />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group" *ngIf="selectedStatut === '1'">
-                    <label class="col-form-label">Periode <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select [(ngModel)]="form.periode" name="periode" class="form-control" id=""
-                        (change)="onStatutChangeMensuel($event)">
-                        <option *ngFor="let item of periode" [value]="item.id">
-                          {{ item.nom }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6" *ngIf="selectedStatutMensuel === '2'">
-                <div class="form-group">
-                  <label class="col-form-label">Caution <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <select [(ngModel)]="form.caution" name="periode" class="form-control" id="">
-                      <option *ngFor="let item of valuesSelect" [value]="item">
-                        {{ item }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-6 col-md-6" *ngIf="selectedStatutMensuel === '2'">
-                <div class="form-group">
-                  <label class="col-form-label">Avance <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <select [(ngModel)]="form.avance" name="periode" class="form-control" id="">
-                      <option *ngFor="let item of valuesSelect" [value]="item">
-                        {{ item }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <h4>Les commodites</h4>
-            </div>
-            <div class="card-body">
-              <br />
-              <div class="row social-info">
-                <!-- <div class="col-lg-6 col-md-6"> -->
-                <div class="form-group formlast-input lat-input">
-                  <label class="col-form-label">Commodites <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <div class="row">
-                      <div class="col-lg-4 col-md-6" *ngFor="let item of les_commodite">
-                        <ul>
-                          <li>
-                            <label class="custom_check">
-                              <input type="checkbox" [(ngModel)]="item.selected" [value]="item.id"
-                                (change)="onChangeCommodite()" name="commodite" />
-                              <span class="checkmark"></span>{{ item.nom }}
-                            </label>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- </div> -->
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              <h4>Location information</h4>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <!-- Pays  -->
-                <div class="col-lg-4 col-md-4">
-                  <div class="form-group">
-                    <label class="col-form-label">Pays <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select class="form-control" [ngModel]="selectedValue" name="pays"
-                        (change)="onChange($event.target)">
-                        <option value="pays" selected>pays</option>
-                        <option *ngFor="let item of pays" [value]="item.nompays">
-                          {{ item.nompays }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Region  -->
-                <div class="col-lg-4 col-md-4">
-                  <div class="form-group">
-                    <label class="col-form-label">Region <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select name="region" class="form-control" id="" [ngModel]="selectedValueR"
-                        (change)="onChangeRegion($event.target)">
-                        <option *ngFor="let item of regions" [value]="item.nomregion">
-                          {{ item.nomregion }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- CERCLE  -->
-                <div class="col-lg-4 col-md-4">
-                  <div class="form-group">
-                    <label class="col-form-label">Cercle <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select name="region" class="form-control" id="" [ngModel]="selectedValueC"
-                        (change)="onChangeCercle($event.target)">
-                        <option *ngFor="let item of cercles" [value]="item.nomcercle">
-                          {{ item.nomcercle }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <!-- Commune  -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Commune <span>*</span></label>
-                    <div class="pass-group group-img">
-                      <select [(ngModel)]="form.commune" name="commune" class="form-control" id="">
-                        <option *ngFor="let item of communes" [value]="item.id">
-                          {{ item.nomcommune }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!-- Quartier  -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <div class="pass-group group-img">
-                      <label class="col-form-label">Quartier <span>*</span></label>
-                      <input type="text" name="quartier" [(ngModel)]="form.quartier" class="form-control pass-input"
-                        placeholder="Yirimadio" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <!-- Rue  -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <div class="pass-group group-img">
-                      <label class="col-form-label">Rue <span>*</span></label>
-                      <input name="rue" [(ngModel)]="form.rue" type="text" class="form-control pass-input"
-                        placeholder="Rue" />
-                    </div>
-                  </div>
-                </div>
-                <!-- Porte  -->
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group formlast-input">
-                    <label class="col-form-label">Porte <span>*</span></label>
-                    <input type="number" pattern="[0-9]" name="porte" [(ngModel)]="form.porte"
-                      class="form-control pass-input" placeholder="9999" />
-                  </div>
-                </div>
-              </div>
-              <!-- map  -->
-              <div class="listing-map">
-                <div id="map" style="width: 100%; height: 60vw"></div>
-              </div>
-              <!-- MAP ADRESSE  -->
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Latitude</label>
-                    <input type="text" class="form-control" readonly placeholder="Latitude" name="latitude"
-                      [(ngModel)]="form.latitude" />
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <label class="col-form-label">Longitude</label>
-                    <input type="text" class="form-control" readonly placeholder="Longitude" name="longitude"
-                      [(ngModel)]="form.longitude" />
-                  </div>
-                </div>
-              </div>
-              <!-- Image  -->
-              <div class="card media-section">
-                <div class="card-header">
-                  <h4>Media Information</h4>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="featured-img1">
-                      <h6 class="media-title">Images biens <span>*</span></h6>
-                      <div class="media-image">
-                        <div *ngFor="let imageUrl of image; let i = index" class="image-container m-1">
-                          <img class="m-3" [src]="imageUrl" alt="Image {{ i }}" />
-                          <button class="close-button" (click)="removeImage(i)">
-                            <i class="fas fa-times close-icon"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="settings-upload-btn">
-                      <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
-                        class="hide-input image-upload" [disabled]="maxImageCount >= 8"
-                        accept=".png, .jpeg, .jpg, .svg" />
-                      <label for="file" class="file-upload">Ajouter l'image</label>
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
-                  {{ errorMessage }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Annuler
-        </button>
-        <button type="button" (click)="ModifierBien()" class="btn btn-primary">
-          Modifier ce bien
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!--Details Main  Section-->
 <div class="details-main-wrapper">
@@ -582,7 +163,7 @@
     <div class="row">
       <div class="col-lg-9">
         <div class="author-img" *ngFor="let photo of photos; let isFirst = first">
-          <img *ngIf="isFirst" src="{{ generateImageUrl(photo?.nom) }}" alt="authorimg" />
+          <img class="image-size3" *ngIf="isFirst" src="{{ generateImageUrl(photo?.nom) }}" alt="authorimg" />
         </div>
         <div class="author-img" *ngIf="photos && photos?.length == 0">
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Villa'">
@@ -592,16 +173,16 @@
             <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid" alt="default-img" />
           </div>
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Terrain'">
-            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size" alt="default-img">
+            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size" alt="default-img" />
           </div>
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Bureau'">
-            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size" alt="default-img">
+            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size" alt="default-img" />
           </div>
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Champ'">
-            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size" alt="default-img">
+            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size" alt="default-img" />
           </div>
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Commerce & Magasin'">
-            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size" alt="default-img">
+            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size" alt="default-img" />
           </div>
         </div>
         <!--Gallery Section-->
@@ -637,9 +218,207 @@
             <h4>Description</h4>
           </div>
           <div class="card-body" *ngIf="bien && bien?.description">
-            <p [innerHTML]='bien ? bien?.description : "Aucune description"'></p>
+            <p [innerHTML]="bien ? bien?.description : 'Aucune description'"></p>
           </div>
         </div>
+
+        <div class="" [style.display]="!isMobile ? 'none' : 'block'">
+          <div class="stickybar">
+            <div class="rightsidebar">
+              <div class="card">
+                <h4>
+                  <img style="width: 27px" src="assets/img/details-icon.svg" alt="details-icon" />
+                  Details du bien
+                </h4>
+                <ul>
+                  <li *ngIf="bien && bien?.reference">
+                    reference du bien <span>{{ bien?.reference }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.caution">
+                    Caution <span>{{ bien?.caution }} mois</span>
+                  </li>
+                  <li *ngIf="bien && bien?.avance">
+                    Avance <span>{{ bien?.caution }} mois</span>
+                  </li>
+                  <li *ngIf="bien && bien?.typeImmo">
+                    Type du bien <span>{{ bien?.typeImmo?.nom }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.surface">
+                    Surface <span>{{ bien?.surface }} M2</span>
+                  </li>
+                  <li *ngIf="
+                      bien?.caracteristique &&
+                      bien?.caracteristique?.caracteristique
+                    ">
+                    Caracteristique
+                    <span>{{ bien?.caracteristique?.caracteristique }}</span>
+                  </li>
+                  <li *ngIf="bien?.statut?.nom == 'A louer'">
+                    Periode <span>{{ bien?.periode?.nom }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.adresse">
+                    Quartier <span>{{ bien?.adresse?.quartier }}</span>
+                  </li>
+                  <li *ngIf="bien?.adresse && bien?.adresse?.rue">
+                    Rue <span>{{ bien?.adresse?.rue }}</span>
+                  </li>
+                  <li *ngIf="bien?.adresse && bien?.adresse?.porte">
+                    Porte <span>{{ bien?.adresse?.porte }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.createdAt">
+                    Date de publication
+                    <span>{{ bien?.createdAt | date : "dd/MM/yyyy" }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.nb_piece">
+                    Salon <span>{{ bien?.nb_piece }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.chambre">
+                    Chambre <span>{{ bien?.nb_piece }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.cuisine">
+                    Cuisine <span>{{ bien?.cuisine }}</span>
+                  </li>
+                  <li *ngIf="bien && bien?.toilette">
+                    Toilette<span>{{ bien?.toilette }}</span>
+                  </li>
+                  <!-- <li>Gadgets <span>6</span></li>
+                                  <li>Home Area <span>30sqft</span></li>
+                                  <li>Lot Dimensions <span>30*30*20 ft</span></li>
+                                  <li class="p-0">Lot Area <span>50 ft</span></li> -->
+                </ul>
+              </div>
+              <!-- <div>
+                              <img src="{{generateQrCodeUrl(bien.codeqr)}}" alt="QR Code">
+                          </div> -->
+              <div class="card" *ngIf="bien && bien?.codeqr">
+                <h4><i class="feather-maximize"></i> Code Qr du bien</h4>
+                <!-- <div class="sidebarauthor-details align-items-center"> -->
+                <img src="{{ generateQrCodeUrl(bien?.codeqr) }}" alt="QR Code" />
+                <!-- </div> -->
+              </div>
+              <div class="card" *ngIf="isLoggedIn == true && currentUser == false">
+                <h4><i class="feather-user"></i> Proprietaire</h4>
+                <div class="sidebarauthor-details align-items-center">
+                  <div class="sideauthor-img" *ngIf="bien && bien?.utilisateur">
+                    <img src="{{ generateImageUrl(bien?.utilisateur?.photo?.nom) }}" alt="author"
+                      (error)="handleAuthorImageError($event)" />
+                  </div>
+                  <div class="sideauthor-info">
+                    <p class="authorname" *ngIf="bien && bien?.utilisateur">
+                      {{ bien?.utilisateur?.nom }}
+                    </p>
+                    <!-- <p>Member since Nov 24, 2017</p> -->
+                  </div>
+                </div>
+              </div>
+  
+              <div class="submit-section mb-3" style="text-align: center"
+                *ngIf="isLoggedIn == true && currentUser == false">
+                <div class="attach-btn mb-3">
+                  <textarea name="content" [(ngModel)]="MessageForm.content" class="input-msg-send form-control"
+                    placeholder="Message"></textarea>
+                </div>
+                <button (click)="goToMessage(bien?.utilisateur?.email)" [disabled]="
+                    !MessageForm?.content || MessageForm?.content?.trim() === ''
+                  " class="btn btn-primary submit-btn w-100" type="submit">
+                  Envoyer un message
+                </button>
+              </div>
+              <div class="card">
+                <!-- <h4><i class="feather-briefcase"></i>Info Entreprise</h4> -->
+                <div class="map-details">
+                  <!-- <div class="map-frame">
+                                      <iframe
+                                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2238528387797!2d-122.41637708468208!3d37.78479337975754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858090475dcdc3%3A0x417fdbbd16e076ed!2s484%20Ellis%20St%2C%20San%20Francisco%2C%20CA%2094102%2C%20USA!5e0!3m2!1sen!2sin!4v1669879954211!5m2!1sen!2sin"
+                                          width="200" height="160" style="border:0;" allowfullscreen="" loading="lazy"
+                                          referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                  </div> -->
+                  <ul class="info-list">
+                    <!-- <li><i class="feather-map-pin"></i> {{bien.adresse.quartier}},<br>Rue : {{bien.adresse.rue}},
+                                          Porte :{{bien.adresse.porte}}</li> -->
+                    <!-- <li *ngIf="bien && bien.utilisateur"><i class="feather-phone-call"></i>
+                                          {{bien?.utilisateur?.telephone}}</li>
+                                      <li *ngIf="bien && bien.utilisateur"><i class="feather-mail"></i>
+                                          {{bien?.utilisateur?.email}}</li> -->
+                    <!-- <li><img src="assets/img/website.svg" alt="website"> www.listee.com</li> -->
+                    <h4><i class="fas fa-share-alt"></i>Partager</h4>
+                    <li class="socialicons pb-0">
+                      <a [href]="
+                          'https://www.facebook.com/sharer/sharer.php?u=https://sossara.ml/details-bien/' +
+                          bien?.uuid
+                        " target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a [href]="
+                          'https://twitter.com/intent/tweet?url=https://sossara.ml/details-bien/' +
+                          bien?.uuid
+                        " target="_blank">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a [href]="
+                          'https://www.pinterest.com/pin/create/button/?url=https://sossara.ml/details-bien/' +
+                          bien?.uuid
+                        " target="_blank">
+                        <i class="fab fa-pinterest"></i>
+                      </a>
+                      <!-- <a href="#" target="_blank"
+                        ><i class="fab fa-instagram"></i
+                      ></a> -->
+                      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sossara.ml/details-bien/{{
+                          bien?.uuid
+                        }}" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- <button (click)="ClickFun()"
+                  class="btn btn-primary submit-btn"
+                  type="submit">Partager le bien</button> -->
+                </div>
+              </div>
+              <!--<div class="card">
+                          <h4><img src="assets/img/statistic-icon.svg" alt="location"> Statisfic</h4>
+                          <ul class="statistics-list">
+                              <li><div class="statistic-details"><span class="icons"><i class="fa-regular fa-eye"></i></span>
+                                 Views </div><span class="text-end"> 453563</span></li>
+                              <li><div class="statistic-details"><span class="icons"><i class="feather-star"></i></span>
+                                 Ratings </div><span class="text-end"> 153</span></li>
+                              <li><div class="statistic-details"><span class="icons"><i class="feather-heart"></i></span>
+                                   Favuorites </div><span class="text-end"> 123</span></li>
+                              <li class="mb-0"><div class="statistic-details"><span class="icons"><i class="feather-share-2"></i></span>
+                                   Shares </div><span class="text-end"> 50</span></li>
+                          </ul>
+                      </div>-->
+  
+              <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false">
+                <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
+                <form class="contactbusinessform">
+                  <div class="form-group">
+                    <label for="datePicker">Date :</label>
+                    <input type="date" class="form-control" id="datePicker" name="date" [(ngModel)]="RdvForm.date"
+                      min="{{ getCurrentDate() }}" />
+                  </div>
+                  <div class="form-group">
+                    <label for="timePicker">Heure :</label>
+                    <input type="time" class="form-control" id="timePicker" name="heure" [(ngModel)]="RdvForm.heure" />
+                  </div>
+                  <div *ngIf="isSuccess" class="alert alert-success" role="alert">
+                    {{ errorMessage }}
+                  </div>
+                  <div *ngIf="isError" class="alert alert-danger" role="alert">
+                    {{ errorMessage }}
+                  </div>
+                  <div class="submit-section">
+                    <button (click)="PrendreRvd(bien?.id)" class="btn btn-primary submit-btn" type="submit">
+                      Envoyer
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Description -->
 
         <!--Commodites-->
@@ -679,87 +458,75 @@
             </div>
           </div>
         </div>
-        <!--/Map Section-->
 
-        <!--Ratings Section-->
-        <!--<div class="card ">
-                   <div class="card-header  align-items-center">
-                       <i class="feather-star"></i>
-                       <h4>Ratings</h4>
-                   </div>
-                   <div class="card-body">
-                       <div class="ratings-content">											
-                           <div class="row">
-                               <div class="col-lg-3">
-                                 <div class="ratings-info">
-                                    <p class="ratings-score"><span>4</span>/5</p>
-                                   <p>OVERALL</p>
-                                   <p> <i class="fas fa-star filled"></i>
-                                       <i class="fas fa-star filled"></i>
-                                       <i class="fas fa-star filled"></i>
-                                       <i class="fas fa-star filled"></i>
-                                       <i class="fa-regular fa-star"></i></p>
-                                   <p>Based on Listing</p>
-                                  </div>   
-                               </div>
-                               <div class="col-lg-9">
-                                  <div class="ratings-table table-responsive">
-                                    <table class="">
-                                       <tr>
-                                          <td class="star-ratings"><i class="fas fa-star filled"></i>
-                                           <i class="fas fa-star filled"></i>
-                                           <i class="fas fa-star filled"></i>
-                                           <i class="fas fa-star filled"></i>
-                                           <i class="fas fa-star filled"></i></td>
-                                           <td class="scrore-width"><span> </span></td>
-                                           <td> 0</td>														   
-                                       </tr>
-                                       <tr>
-                                           <td class="star-ratings" ><i class="fas fa-star filled"></i>
-                                               <i class="fas fa-star filled"></i>
-                                               <i class="fas fa-star filled"></i>
-                                               <i class="fas fa-star filled"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                           <td class="scrore-width selected"><span> </span></td>
-                                           <td> 1</td>														   
-                                       </tr>
-                                       <tr>
-                                           <td class="star-ratings"><i class="fas fa-star filled"></i>
-                                               <i class="fas fa-star filled"></i>
-                                               <i class="fas fa-star filled"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                               <i class="fa-regular fa-star rating-color"></i></td>
-                                           <td class="scrore-width"><span> </span></td>
-                                           <td> 0</td>														   
-                                       </tr>
-                                       <tr>
-                                           <td class="star-ratings"><i class="fas fa-star filled"></i>
-                                               <i class="fas fa-star filled"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                           <td class="scrore-width"><span> </span></td>
-                                           <td> 0</td>														   
-                                       </tr>
-                                       <tr>
-                                           <td class="star-ratings"><i class="fas fa-star filled"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                               <i class="fa-regular fa-star rating-color"></i>
-                                               <i class="fa-regular fa-star rating-color"></i></td>
-                                           <td class="scrore-width"><span> </span></td>
-                                           <td> 0</td>														   
-                                       </tr>
-                                   </table>
-                                 </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>-->
-        <!--/Ratings Section-->
+        <div class="card">
 
-        <!--Review  Section-->
+          <div class="container">
+            <div class="about-details">
+              <div class="about-headings">
+                <div class="col-lg-5 theiaStickySidebar ml-auto">
+                  <div class="stickybar">
+                    <div class="rightsidebar">
+                      <div class="card" *ngIf="bienImmoPrecedent && bienImmoPrecedent?.length > 0"
+                        (click)="goToDettailBien(bienImmoPrecedent[0]?.uuid)">
+                        <h4 style="cursor: pointer;"><i class="feather-arrow-left"></i> Bien Précédent</h4>
+                        <div class="article" *ngFor="let BienImo of bienImmoPrecedent">
+                          <a (click)="goToDettailBien(BienImo?.uuid)" class="articleimg-1 crd"
+                            [style.background-image]="BienImo?.photos[0]?.nom ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos[0]?.nom) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/typebien/villa.png)'">
+                            <ul>
+                              <li>
+                                <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>
+                              </li>
+                              <li *ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
+                                  class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
+                                date:"dd MMM yyyy":locale}}
+                              </li>
+                            </ul>
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="rate-details" *ngIf="bienImmoSuivant && bienImmoSuivant?.length > 0">
+
+
+                <div class="col-lg-12 theiaStickySidebar">
+                  <div class="stickybar">
+                    <div class="rightsidebar">
+                      <div class="card" *ngIf="bienImmoSuivant && bienImmoSuivant?.length > 0"
+                        (click)="goToDettailBien(bienImmoSuivant[0]?.uuid)">
+                        <h4 style="cursor: pointer;"><i class="feather-arrow-right"></i>Bien Suivant</h4>
+                        <div class="article" *ngFor="let BienImo of bienImmoSuivant">
+                          <a (click)="goToDettailBien(BienImo?.uuid)" class="articleimg-1 crd"
+                            [style.background-image]="BienImo?.photos[0]?.nom ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos[0]?.nom) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/typebien/villa.png)'">
+                            <ul>
+                              <li>
+                                <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>
+                              </li>
+                              <li *ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
+                                  class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
+                                date:"dd MMM yyyy":locale}}
+                              </li>
+                            </ul>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
         <div class="card review-sec mb-0">
           <div class="card-header align-items-center" *ngIf="commentaire && commentaire.length > 0">
             <i class="fa-regular fa-comment-dots"></i>
@@ -772,7 +539,7 @@
                                     <div class="col-md-12"> -->
               <div class="blog-comment">
                 <ul class="comments" *ngIf="commentaire && commentaire.length > 0">
-                  <li class="clearfix" *ngFor="let commentaire of commentaire">
+                  <li class="clearfix " *ngFor="let commentaire of commentaire">
                     <img [src]="
                         generateImageUrl(commentaire?.utilisateur?.photo?.nom)
                       " (error)="handleAuthorImageError($event)" class="avatar" alt="" />
@@ -783,9 +550,7 @@
                       </p>
                       <p class="heure">
                         <i class="fa-sharp fa-solid fa-calendar-days"></i>
-                        {{
-                        commentaire?.createdAt | date : "dd/MM/yyyy"
-                        }}
+                        {{ commentaire?.createdAt | date : "dd/MM/yyyy" }}
                         &nbsp;&nbsp;
                         <i class="fa-sharp fa-solid fa-calendar-days"></i>
                         {{ commentaire?.createdAt | date : "HH:mm" }}
@@ -795,8 +560,9 @@
                             aria-controls="collapseExample" (click)="afficherCommentaire(commentaire?.id)" role="button"
                             style="margin-right: 10px"><small>Modifier</small></a>
                           <!-- Ajout de "Modifier" ici -->
-                          <a *ngIf="isLoggedIn == true" data-bs-toggle="collapse" [href]="'#collapseExample2-' + commentaire?.id" role="button"
-                            aria-expanded="false" aria-controls="collapseExample"><small style="margin-right: 10px">
+                          <a *ngIf="isLoggedIn == true" data-bs-toggle="collapse"
+                            [href]="'#collapseExample2-' + commentaire?.id" role="button" aria-expanded="false"
+                            aria-controls="collapseExample"><small style="margin-right: 10px">
                               Repondre</small></a>
                           <a data-bs-toggle="collapse" [href]="'#collapseExample-' + commentaire?.id" role="button"
                             aria-expanded="false" aria-controls="collapseExample"><small>{{
@@ -804,8 +570,11 @@
                               }}
                               Reponses</small></a>
                           <a *ngIf="commentaire?.utilisateur?.id === users?.id"
-                            (click)="SupprimerCommentaire(commentaire?.id)"
-                            style="margin-left: 10px; color: black; cursor: pointer;"><small>Supprimer</small></a>
+                            (click)="SupprimerCommentaire(commentaire?.id)" style="
+                              margin-left: 10px;
+                              color: black;
+                              cursor: pointer;
+                            "><small>Supprimer</small></a>
                         </i>
                       </p>
                       <div class="collapse" [id]="'collapseExample1-' + commentaire?.id">
@@ -827,7 +596,7 @@
                         </div>
                       </div>
                       <div class="collapse" [id]="'collapseExample2-' + commentaire?.id">
-                        <div class="card card-body">
+                        <div class="card card-body macard ">
                           <div class="chat-footer">
                             <div class="input-group">
                               <div class="attach-btn">
@@ -952,7 +721,7 @@
         </div>
         <!--/Review Section-->
       </div>
-      <div class="col-lg-3 theiaStickySidebar">
+      <div class="col-lg-3 theiaStickySidebar" [style.display]="isMobile ? 'none' : 'block'">
         <div class="stickybar">
           <div class="rightsidebar">
             <div class="card">
@@ -977,7 +746,8 @@
                   Surface <span>{{ bien?.surface }} M2</span>
                 </li>
                 <li *ngIf="
-                    bien?.caracteristique && bien?.caracteristique?.caracteristique
+                    bien?.caracteristique &&
+                    bien?.caracteristique?.caracteristique
                   ">
                   Caracteristique
                   <span>{{ bien?.caracteristique?.caracteristique }}</span>
@@ -1038,25 +808,22 @@
                   </p>
                   <!-- <p>Member since Nov 24, 2017</p> -->
                 </div>
-
               </div>
             </div>
 
-
             <div class="submit-section mb-3" style="text-align: center"
               *ngIf="isLoggedIn == true && currentUser == false">
-
               <div class="attach-btn mb-3">
                 <textarea name="content" [(ngModel)]="MessageForm.content" class="input-msg-send form-control"
                   placeholder="Message"></textarea>
               </div>
-              <button (click)="goToMessage(bien?.utilisateur?.email)"
-                [disabled]="!MessageForm?.content || MessageForm?.content?.trim() === '' "
-                class="btn btn-primary submit-btn w-100" type="submit">
+              <button (click)="goToMessage(bien?.utilisateur?.email)" [disabled]="
+                  !MessageForm?.content || MessageForm?.content?.trim() === ''
+                " class="btn btn-primary submit-btn w-100" type="submit">
                 Envoyer un message
               </button>
             </div>
-            <div class="card" *ngIf="isLoggedIn == true && currentUser == false">
+            <div class="card">
               <!-- <h4><i class="feather-briefcase"></i>Info Entreprise</h4> -->
               <div class="map-details">
                 <!-- <div class="map-frame">
@@ -1075,23 +842,30 @@
                   <!-- <li><img src="assets/img/website.svg" alt="website"> www.listee.com</li> -->
                   <h4><i class="fas fa-share-alt"></i>Partager</h4>
                   <li class="socialicons pb-0">
-                    <a [href]="'https://www.facebook.com/sharer/sharer.php?u=https://sossara.ml/details-bien/' + bien?.uuid"
-                      target="_blank">
+                    <a [href]="
+                        'https://www.facebook.com/sharer/sharer.php?u=https://sossara.ml/details-bien/' +
+                        bien?.uuid
+                      " target="_blank">
                       <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a [href]="'https://twitter.com/intent/tweet?url=https://sossara.ml/details-bien/' + bien?.uuid"
-                      target="_blank">
+                    <a [href]="
+                        'https://twitter.com/intent/tweet?url=https://sossara.ml/details-bien/' +
+                        bien?.uuid
+                      " target="_blank">
                       <i class="fab fa-twitter"></i>
                     </a>
-                    <a [href]="'https://www.pinterest.com/pin/create/button/?url=https://sossara.ml/details-bien/' + bien?.uuid"
-                      target="_blank">
+                    <a [href]="
+                        'https://www.pinterest.com/pin/create/button/?url=https://sossara.ml/details-bien/' +
+                        bien?.uuid
+                      " target="_blank">
                       <i class="fab fa-pinterest"></i>
                     </a>
                     <!-- <a href="#" target="_blank"
                       ><i class="fab fa-instagram"></i
                     ></a> -->
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sossara.ml/details-bien/{{bien?.uuid}}"
-                      target="_blank">
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sossara.ml/details-bien/{{
+                        bien?.uuid
+                      }}" target="_blank">
                       <i class="fab fa-linkedin-in"></i>
                     </a>
                   </li>

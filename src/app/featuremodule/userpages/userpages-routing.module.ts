@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth.guard';
 import { UserpagesComponent } from './userpages.component';
+import { MobileRedirectService } from 'src/app/MobileRedirectService.guard';
 
 const routes: Routes = [
   {
@@ -107,6 +108,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./contrat/contrat-routing.module').then((m) => m.ContratRoutingModule),
         // canActivate: [AuthGuard]
+      },
+      {
+        path: 'details-conversation',
+        loadChildren: () =>
+          import('./details-conversation/details-conversation.module').then((m) => m.DetailsConversationModule),
+        canActivate: [MobileRedirectService]
       },
 
     ]

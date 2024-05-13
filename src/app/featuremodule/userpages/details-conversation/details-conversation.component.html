@@ -65,7 +65,7 @@
         </div>
         <div class="profile-content">
             <div class="row dashboard-info chat-window">
-                <div class="col-lg-5">
+                <div class="col-lg-5" [style.display]="isMobile ? 'none' : 'block'">
                     <div class="chat-cont-left">
                         <form class="chat-search">
                             <div class="form-group">
@@ -77,7 +77,7 @@
                             </div>
                         </form>
 
-                        <div class=" card chat-users-list" [style.display]="isMobile ? 'none' : 'block'">
+                        <div class=" card chat-users-list">
                             <div class="card-body msg_card_bodyZ chat-scroll">
                                 <a class="media d-flex" *ngFor="let Conversations of chatList | filter:searchText">
                                     <div class="media-img-wrap flex-shrink-0 crd"
@@ -110,46 +110,13 @@
                                 </a>
                             </div>
                         </div>
-                        <div class=" card chat-users-list" [style.display]="!isMobile ? 'none' : 'block'">
-                            <div class="card-body msg_card_bodyZ chat-scroll">
-                                <a class="media d-flex" [routerLink]="'/userpages/details-conversation'" *ngFor="let Conversations of chatList | filter:searchText">
-                                    <div class="media-img-wrap flex-shrink-0 crd"
-                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
-                                        <div class="img_cont">
-                                            <div class="rounded-circle user_img text_inside_circle1"
-                                                *ngIf="secondUserName!= senderCheck">
-                                                {{Conversations?.expediteurInfo?.nom.substring(0,1)}}</div>
-                                                <div class="rounded-circle user_img text_inside_circle1"
-                                                *ngIf="secondUserName == senderCheck">
-                                                {{Conversations?.destinateurInfo?.nom.substring(0,1)}}</div>
-                                            <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
-                                          {{firstUserName.substring(0,1)}}</div> -->
-                                        </div> &nbsp; &nbsp;
-                                    </div>
-                                    <div class="media-body flex-grow-1 mt-4"
-                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
-                                        <div>
-                                            <div class="user-name" *ngIf="secondUserName!= senderCheck">{{Conversations?.expediteurInfo?.nom}}vc</div>
-                                            <div class="user-name" *ngIf="secondUserName== senderCheck">{{Conversations?.destinateurInfo?.nom}}</div>
-
-                                            <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
-                                        </div>
-
-                                        <div>
-                                            <div class="badge badge-success rounded-pill">
-                                                {{Conversations?.messages?.length}}</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-7" [style.display]="isMobile ? 'none' : 'block'">
+                <div class="col-lg-7">
                     <div class="chat-cont-right">
                         <div class="chat-header">
-                            <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
+                            <a id="back_user_list" [routerLink]="'/userpages/messages'" class="back-user-list">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </a>
                             <div class="media d-flex align-items-center">
