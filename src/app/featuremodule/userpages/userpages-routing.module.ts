@@ -104,6 +104,12 @@ const routes: Routes = [
         // canActivate: [AuthGuard]
       },
       {
+        path: 'liste_facture/:uuid',
+        loadChildren: () =>
+          import('./listefacture/listefacture-routing.module').then((m) => m.ListfactureRoutingModule),
+        // canActivate: [AuthGuard]
+      },
+      {
         path: 'contrat/:uuid',
         loadChildren: () =>
           import('./contrat/contrat-routing.module').then((m) => m.ContratRoutingModule),

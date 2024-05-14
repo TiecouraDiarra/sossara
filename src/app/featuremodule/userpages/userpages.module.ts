@@ -20,6 +20,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { ModifierBienComponent } from './modifier-bien/modifier-bien.component';
 import { RdvComponent } from './rdv/rdv.component';
 import { DetailsConversationComponent } from './details-conversation/details-conversation.component';
+import { ListefactureComponent } from './listefacture/listefacture.component';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -38,6 +39,7 @@ import { DetailsConversationComponent } from './details-conversation/details-con
     ContratComponent,
     RdvComponent,
     DetailsConversationComponent,
+    ListefactureComponent,
     // LocataireComponent,
     // ProprietaireComponent,
     // MesReclamationsComponent,

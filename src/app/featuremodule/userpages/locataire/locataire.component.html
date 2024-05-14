@@ -155,15 +155,19 @@
                                             <div class="action">
                                                 <a (click)="openReclamationModal(BienImmo.bien.id)"
                                                     data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                    class="action-btn btn-view crd"><i class="feather-eye"></i>
+                                                    class="action-btn btn-view crd"><img
+                                                    class="icone-size"
+                                                    src="../../../../assets/img/iconeBien/réclamation.png"
+                                                    alt="Room amenities"
+                                                  />
                                                     <span class="hover-text">Faire une reclamation</span>
                                                 </a>
-                                                <a (click)="goToPageContrat(BienImmo?.bien?.contrat?.uuid)"
+                                                <a (click)="goToListeFacture(BienImmo?.bien?.uuid)"
                                                     class="action-btn btn-view crd">
                                                     <img class="icone-size"
                                                         src="../../../../assets/img/iconeBien/contrat.png"
                                                         alt="Room amenities">
-                                                    <span class="hover-text">Voir le contrat</span>
+                                                    <span class="hover-text">Voir les factures</span>
                                                 </a>
                                                 <!-- <a (click)="goToPageContrat(BienImmo.contrat.uuid)" class="action-btn btn-edit crd">
                                                     <img class="icone-size" src="../../../../assets/img/iconeBien/contrat2.png" alt="Room amenities">
@@ -616,7 +620,7 @@
                                                 <a (click)="goToListeRecu(BienImmo?.bien?.contrat[0]?.facture[0]?.uuid)"
                                                 class="action-btn btn-view crd">
                                                 <img class="icone-size"
-                                                    src="../../../../assets/img/iconeBien/contrat.png"
+                                                    src="../../../../assets/img/iconeBien/reçu.png"
                                                     alt="Room amenities">
                                                 <span class="hover-text">Voir le reçu</span>
                                             </a>

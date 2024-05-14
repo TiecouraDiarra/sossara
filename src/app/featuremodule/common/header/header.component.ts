@@ -37,8 +37,9 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
   }
 
   checkScreenWidth() {
-    this.isMobile = window.innerWidth < 768; // Vous pouvez ajuster la valeur (768) selon vos besoins
+    this.isMobile = window.innerWidth < 992; // Vous pouvez ajuster la valeur (768) selon vos besoins
   }
+  
 
   public somme: number = 0
   nombreCandidatureBienUser: number = 0

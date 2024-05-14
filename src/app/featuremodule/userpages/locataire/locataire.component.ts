@@ -525,7 +525,11 @@ export class LocataireComponent implements OnInit {
     return this.router.navigate(['userpages/facturepaiement', id]);
   }
 
-      //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA LISTE DES FACTURES
+  goToListeFacture(id: number) {
+    return this.router.navigate(['userpages/liste_facture', id])
+  }
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
   goToListeRecu(id: number) {
     return this.router.navigate(['userpages/liste_recu', id])
   }
@@ -556,7 +560,7 @@ export class LocataireComponent implements OnInit {
               this.storageService.clean();
               this.router.navigateByUrl('/auth/connexion');
             },
-            error: (err) => {},
+            error: (err) => { },
           });
         }
       });
@@ -606,7 +610,7 @@ export class LocataireComponent implements OnInit {
                   // this.isSuccess = false;
                   this.popUpConfirmation();
                 },
-                (error) => {}
+                (error) => { }
               );
           } else {
           }
@@ -682,7 +686,7 @@ export class LocataireComponent implements OnInit {
                 // this.isSuccess = false;
                 this.popUpConfirmationProcessus();
               },
-              (error) => {}
+              (error) => { }
             );
           } else {
           }
@@ -892,7 +896,7 @@ export class LocataireComponent implements OnInit {
               );
             });
         },
-        (error) => {}
+        (error) => { }
       );
     } else {
     }

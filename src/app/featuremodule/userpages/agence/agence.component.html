@@ -176,17 +176,41 @@
                         aria-controls="reclamation" aria-selected="false">Reclamations</a>
                 </li> -->
       <li class="nav-item crd">
-        <a
-          class="nav-link custom-tab-link"
-          id="facture-tab"
-          data-toggle="tab"
-          [class.active]="isTabActive('facture')"
-          (click)="changeTab('facture')"
-          role="tab"
-          aria-controls="facture"
-          aria-selected="false"
-          >Factures</a
+        <a class="nav-link custom-tab-link" (click)="toggleSubmenuFacture()"
+          >Factures <i class="feather-chevron-down"></i></a
         >
+        <ul
+          class="submenu"
+          style="margin-left: 20px"
+          [ngClass]="{ collapse: !isSubmenuOpenFacture }"
+        >
+        <li>
+          <a
+            class="nav-link custom-tab-link"
+            id="facture-tab"
+            data-toggle="tab"
+            [class.active]="isTabActive('facture')"
+            (click)="changeTab('facture')"
+            role="tab"
+            aria-controls="facture"
+            aria-selected="false"
+            >Mes factures</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav-link custom-tab-link"
+            id="factureBien-tab"
+            data-toggle="tab"
+            [class.active]="isTabActive('factureBien')"
+            (click)="changeTab('factureBien')"
+            role="tab"
+            aria-controls="factureBien"
+            aria-selected="false"
+            >Factures de mes biens</a
+          >
+        </li>
+      </ul>
       </li>
       <li class="nav-item crd">
         <a
@@ -1712,19 +1736,23 @@
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal"
                           class="action-btn btn-view crd"
-                          ><i class="feather-eye"></i>
+                          > <img
+                          class="icone-size"
+                          src="../../../../assets/img/iconeBien/réclamation.png"
+                          alt="Room amenities"
+                        />
                           <span class="hover-text">Faire une reclamation</span>
                         </a>
                         <a
-                          (click)="goToPageContrat(BienImmo?.contrat?.uuid)"
+                          (click)="goToListeFacture(BienImmo?.bien?.uuid)"
                           class="action-btn btn-view crd"
                         >
                           <img
                             class="icone-size"
-                            src="../../../../assets/img/iconeBien/contrat.png"
+                            src="../../../../assets/img/iconeBien/facture1.png"
                             alt="Room amenities"
                           />
-                          <span class="hover-text">Voir le contrat</span>
+                          <span class="hover-text">Voir les factures</span>
                         </a>
                       </div>
                     </td>
@@ -2368,7 +2396,7 @@
                                                 <a (click)="goToListeRecu(BienImmo?.bien?.contrat[0]?.facture[0]?.uuid)"
                                                 class="action-btn btn-view crd">
                                                 <img class="icone-size"
-                                                    src="../../../../assets/img/iconeBien/contrat.png"
+                                                    src="../../../../assets/img/iconeBien/reçu.png"
                                                     alt="Room amenities">
                                                 <span class="hover-text">Voir le reçu</span>
                                             </a>
@@ -3787,7 +3815,7 @@
     >
       <div class="dash-listingcontent dashboard-info">
         <div class="dash-cards card">
-          <div class="card-body" *ngIf="facture && facture.length > 0">
+          <div class="card-body" *ngIf="factureBien && factureBien.length > 0">
             <div class="listing-search">
               <h4>Mes factures</h4>
               <div class="filter-content form-group">
@@ -3824,13 +3852,13 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let Facture of facture
+                      let Facture of factureBien
                         | filter : searchFacture
                         | paginate
                           : {
                               itemsPerPage: 4,
-                              currentPage: pfacture,
-                              id: 'facture'
+                              currentPage: pfacturebien,
+                              id: 'factureBiens'
                             }
                     "
                   >
@@ -3938,11 +3966,13 @@
                                             </span> -->
 
                       <div class="action">
-                        <a
-                          (click)="goToDettailFacture(Facture?.uuid)"
-                          class="action-btn btn-view crd"
-                          ><i class="feather-eye"></i
-                        ></a>
+                        <a (click)="goToDettailFacture(Facture.uuid)"
+                        class="action-btn btn-view crd">
+                        <img class="icone-size"
+                            src="../../../../assets/img/iconeBien/facture.png"
+                            alt="Room amenities">
+                        <span class="hover-text">Voir la facture</span>
+                    </a>
                       </div>
                     </td>
                   </tr>
@@ -4094,8 +4124,8 @@
               </div>
             </div>
             <pagination-controls
-              *ngIf="facture && facture.length > 0"
-              (pageChange)="pfacture = $event"
+              *ngIf="factureBien && factureBien.length > 0"
+              (pageChange)="pfacturebien = $event"
               previousLabel="Précédent"
               nextLabel="Suivant"
               class="pagination"
@@ -4105,13 +4135,349 @@
               pageClass="pagination__page"
               activeClassName="pagination__page--active"
               disabledClass="pagination__page--disabled"
-              id="facture"
+              id="factureBiens"
             ></pagination-controls>
           </div>
         </div>
       </div>
     </div>
     <!-- Fin des Factures  -->
+
+     <!-- Debut de Factures de mes bien  -->
+     <div
+     class="tab-pane fade show"
+     [class.active]="isTabActive('factureBien')"
+     id="factureBien"
+     role="tabpanel"
+     aria-labelledby="factureBien-tab"
+   >
+     <div class="dash-listingcontent dashboard-info">
+       <div class="dash-cards card">
+         <div class="card-body" *ngIf="facture && facture.length > 0">
+           <div class="listing-search">
+             <h4>Mes factures</h4>
+             <div class="filter-content form-group">
+               <div class="group-img">
+                 <input
+                   [(ngModel)]="searchFacture"
+                   type="text"
+                   class="form-control"
+                   placeholder="Recherche..."
+                 />
+                 <i class="feather-search"></i>
+               </div>
+             </div>
+           </div>
+           <div class="table-responsive">
+             <table
+               matSort
+               (matSortChange)="sortData($event)"
+               class="listing-table datatable"
+               id="listdata-table"
+             >
+               <thead>
+                 <tr>
+                   <th mat-sort-header="img" class="no-sort">Image</th>
+                   <th mat-sort-header="details" class="no-sort">
+                     Details du bien
+                   </th>
+                   <th mat-sort-header="date">Date</th>
+                   <th mat-sort-header="dateecheance">Date d'echeance</th>
+                   <th mat-sort-header="status">Statuts</th>
+                   <th mat-sort-header="Action">Action</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr
+                   *ngFor="
+                     let Facture of facture
+                       | filter : searchFacture
+                       | paginate
+                         : {
+                             itemsPerPage: 4,
+                             currentPage: pfacture,
+                             id: 'facture'
+                           }
+                   "
+                 >
+                   <td>
+                     <div class="listingtable-img">
+                       <a (click)="goToDettailFacture(Facture.uuid)">
+                         <div *ngIf="!Facture?.statut">
+                           <img
+                             src="../../../../assets/img/Facture/4.png"
+                             class="img-fluid image-size"
+                             alt="blog-img"
+                           />
+                         </div>
+                         <div *ngIf="Facture?.statut">
+                           <img
+                             src="../../../../assets/img/Facture/5.png"
+                             class="img-fluid image-size"
+                             alt="blog-img"
+                           />
+                         </div>
+                       </a>
+                     </div>
+                   </td>
+                   <td>
+                     <h6 *ngIf="Facture?.bien && Facture?.bien?.typeImmo">
+                       <a (click)="goToDettailFacture(Facture?.bien?.uuid)">
+                         {{
+                           Facture?.bien?.nom
+                             ? Facture.bien.nom
+                             : Facture?.bien?.typeImmo?.nom
+                         }}
+                       </a>
+                     </h6>
+                     <div class="listingtable-rate">
+                       <a
+                         *ngIf="Facture?.bien && Facture?.bien?.typeImmo"
+                         href="javascript:void(0)"
+                         class="cat-icon"
+                       >
+                         <i class="fa-regular fa-circle-stop"></i>
+                         {{ Facture?.bien?.typeImmo?.nom }}
+                       </a>
+                       <span
+                         class="discount-amt"
+                         *ngIf="Facture?.bien && Facture?.bien?.prix"
+                         >{{ formatPrice(Facture?.bien?.prix) }} FCFA</span
+                       >
+                     </div>
+                     <p *ngIf="Facture?.bien && Facture?.bien?.adresse">
+                       {{
+                         Facture?.bien?.adresse?.commune?.cercle?.region?.pays
+                           .nompays
+                       }}
+                       -
+                       {{
+                         Facture?.bien?.adresse?.commune?.cercle?.region?.nomregion
+                       }}
+                       - {{ Facture?.bien.adresse?.commune?.nomcommune }} -
+                       {{ Facture?.bien?.adresse?.quartier }}
+                     </p>
+                   </td>
+
+                   <td>
+                     <span
+                       class="views-count"
+                       *ngIf="Facture && Facture?.createdAt"
+                       >{{
+                         Facture?.createdAt | date : "dd MMM yyyy" : locale
+                       }}</span
+                     >
+                   </td>
+                   <td>
+                     <span
+                       class="views-count"
+                       *ngIf="Facture && Facture?.createdAt"
+                       >{{
+                         Facture?.dateEcheance | date : "dd MMM yyyy" : locale
+                       }}</span
+                     >
+                   </td>
+                   <td *ngIf="Facture?.bien?.statut?.nom === 'A vendre'">
+                     <span
+                       [ngClass]="{
+                         unpublish: Facture?.bien?.statut?.nom === 'A vendre'
+                       }"
+                       class="status-text"
+                       >Vente</span
+                     >
+                   </td>
+                   <td *ngIf="Facture?.bien?.statut?.nom === 'A louer'">
+                     <span
+                       [ngClass]="{
+                         unpublish: Facture?.bien?.statut?.nom === 'A vendre'
+                       }"
+                       class="status-text"
+                       >Location</span
+                     >
+                   </td>
+                   <td>
+                     <!-- <span class="status-text">
+                                               <button type="button" class="btn btn-primary"
+                                                   (click)="openReclamationModal(BienImmo.bien.id)"
+                                                   data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                   data-bs-whatever="@fat">Reclamation</button>
+                                           </span> -->
+
+                     <div class="action">
+                       <a
+                         (click)="goToDettailFacture(Facture?.uuid)"
+                         class="action-btn btn-view crd"
+                         ><i class="feather-eye"></i
+                       ></a>
+                     </div>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>
+             <!-- Modal pour faire une reclamation  -->
+             <div
+               class="modal fade my-custom-modal"
+               id="exampleModal"
+               tabindex="-1"
+               aria-labelledby="exampleModalLabel"
+               aria-hidden="true"
+             >
+               <div class="modal-dialog">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">
+                       Faire une reclamation
+                     </h5>
+                     <button
+                       type="button"
+                       class="btn-close"
+                       data-bs-dismiss="modal"
+                       aria-label="Close"
+                     ></button>
+                   </div>
+                   <div class="modal-body" id="modalContent">
+                     <form>
+                       <input
+                         type="hidden"
+                         [(ngModel)]="selectedBienImmoId"
+                         name="selectedBienImmoId"
+                       />
+                       <div class="row">
+                         <div class="col-md-6 mb-3">
+                           <label for="recipient-name" class="col-form-label"
+                             >Type de probleme
+                             <span style="color: red">*</span></label
+                           >
+                           <div class="pass-group group-img">
+                             <select
+                               [(ngModel)]="form.type"
+                               name="type"
+                               class="form-control"
+                               id=""
+                             >
+                               <option
+                                 *ngFor="let item of probleme"
+                                 [value]="item.id"
+                               >
+                                 {{ item?.nom }}
+                               </option>
+                             </select>
+                           </div>
+                         </div>
+                         <div class="col-md-6 mb-3">
+                           <label class="col-form-label"
+                             >Prix estimatif <span>*</span></label
+                           >
+                           <input
+                             type="number"
+                             pattern="[0-9]"
+                             class="form-control pass-input"
+                             name="prix_estimatif"
+                             [(ngModel)]="form.prix_estimatif"
+                             placeholder="FCFA"
+                           />
+                         </div>
+                       </div>
+                       <div class="mb-3">
+                         <label for="message-text" class="col-form-label"
+                           >Description de la reclamation
+                           <span style="color: red">*</span></label
+                         >
+                         <textarea
+                           name="contenu"
+                           [(ngModel)]="form.contenu"
+                           class="form-control"
+                           id="message-text"
+                           placeholder="Description"
+                         ></textarea>
+                       </div>
+                       <div class="mb-3">
+                         <div class="row">
+                           <div class="featured-img1">
+                             <h6 class="media-title">
+                               Images biens <span>*</span>
+                             </h6>
+                             <div class="media-image">
+                               <div class="row">
+                                 <div
+                                   *ngFor="
+                                     let imageUrl of image;
+                                     let i = index
+                                   "
+                                   class="col-lg-3 col-md-6 image-container m-1"
+                                 >
+                                   <img
+                                     class="image-size m-3"
+                                     [src]="imageUrl"
+                                     alt="Image {{ i }}"
+                                   />
+                                   <button
+                                     class="close-button"
+                                     (click)="removeImage(i)"
+                                   >
+                                     <i class="fas fa-times close-icon"></i>
+                                   </button>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                           <div class="settings-upload-btn">
+                             <input
+                               type="file"
+                               id="photo"
+                               name="photo"
+                               (change)="onFileSelected($event)"
+                               multiple
+                               class="hide-input image-upload"
+                               [disabled]="maxImageCount >= 4"
+                             />
+                             <label for="file" class="file-upload"
+                               >Ajouter l'image</label
+                             >
+                           </div>
+                         </div>
+                       </div>
+                     </form>
+                   </div>
+                   <div class="modal-footer">
+                     <button
+                       type="button"
+                       class="btn btn-secondary"
+                       data-bs-dismiss="modal"
+                     >
+                       Annuler
+                     </button>
+                     <button
+                       type="button"
+                       class="btn btn-primary"
+                       (click)="FaireReclamation()"
+                     >
+                       Envoyer
+                     </button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <pagination-controls
+             *ngIf="facture && facture.length > 0"
+             (pageChange)="pfacture = $event"
+             previousLabel="Précédent"
+             nextLabel="Suivant"
+             class="pagination"
+             previousClass="pagination__previous"
+             nextClass="pagination__next"
+             containerClass="pagination__container"
+             pageClass="pagination__page"
+             activeClassName="pagination__page--active"
+             disabledClass="pagination__page--disabled"
+             id="facture"
+           ></pagination-controls>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!-- Fin des Factures de mes biens  -->
 
     <!-- Debut des favoris  -->
     <div

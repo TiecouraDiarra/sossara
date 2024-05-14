@@ -39,6 +39,7 @@ export class FactureComponent {
 
   // Supposons que vous avez une image par défaut dans votre projet
   defaultImageUrl: string = 'assets/img/typebien/villa.png';
+  emailProprietaire: any;
  
   setDefaultImage(event: any): void {
     // Si le chargement de l'image échoue, utilisez l'image par défaut
@@ -82,9 +83,7 @@ export class FactureComponent {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes("ROLE_AGENCE") || this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isAgenceProprietaire = true;
-      }
+      
     }
 
     //RECUPERER L'UUID D'UN BLOG 
@@ -98,6 +97,10 @@ export class FactureComponent {
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
       this.transaction = data?.transaction;
+      this.emailProprietaire = this.storageService.getUser().email
+      if (this.emailProprietaire == this.proprietaire.email) {
+        this.isAgenceProprietaire = true;
+      }
       this.photoImmo = data?.bien?.photoImmos;
     })
 

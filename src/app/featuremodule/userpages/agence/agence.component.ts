@@ -32,6 +32,7 @@ export class AgenceComponent {
   loading = false;
   searchFacture: any;
   pfacture: number = 1;
+  pfacturebien : number = 1;
   bonAccord = false;
   prendEnCharge = false;
   locale!: string;
@@ -46,6 +47,7 @@ export class AgenceComponent {
   selectedRegion: any;
   selectedCommune: any;
   agence: any;
+  factureBien: any;
 
   //GENERER FACTURE DU MOIS (LOCATION)
   genererPDFLocation() {
@@ -485,6 +487,8 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
       });
       // // Afficher les biens déjà loués et déjà vendus
+      console.log(this.bienImmoDejaLoueLocataire);
+      
 
     });
 
@@ -519,6 +523,12 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE
     this.servicefacture.AfficherFactureProprietaireConnecter().subscribe(data => {
       this.facture = data?.reverse();
+      this.bienFacture = data?.bien;
+    });
+
+    //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE MES FATURES LOCATAIRE
+    this.servicefacture.AfficherFactureLocataireConnecter().subscribe(data => {
+      this.factureBien = data?.reverse();
       this.bienFacture = data?.bien;
     });
 
@@ -941,15 +951,26 @@ export class AgenceComponent {
     return this.router.navigate(['userpages/facturepaiement', id])
   }
 
+
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE CONTRAT
   goToPageContrat(id: number) {
     return this.router.navigate(['userpages/contrat', id])
   }
 
+   //LA METHODE PERMETTANT DE NAVIGUER VERS LA LISTE DES FACTURES
+   goToListeFacture(id: number) {
+    return this.router.navigate(['userpages/liste_facture', id])
+  }
+
   isSubmenuOpen: boolean = false;
+  isSubmenuOpenFacture: boolean = false;
 
   toggleSubmenu() {
     this.isSubmenuOpen = !this.isSubmenuOpen;
+  }
+
+  toggleSubmenuFacture() {
+    this.isSubmenuOpenFacture = !this.isSubmenuOpenFacture;
   }
 
   //METHODE PERMETTANT D'AIMER UN BIEN 
