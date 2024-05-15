@@ -36,10 +36,10 @@ export class AdresseService {
     return this.http.get(`${URL_BASE}/periode/afficher`, { headers });
   }
 
-  //AFFICHER LA LISTE DES PAYS
+  //AFFICHER LA LISTE DES PAYS ACTIF
   AfficherListePays(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(`${URL_BASE}/pays/afficher`, { headers });
+    return this.http.get(`${URL_BASE}/pays/afficherPaysActif`, { headers });
   }
 
    //AFFICHER LA LISTE DES REGIONS

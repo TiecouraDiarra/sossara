@@ -146,7 +146,7 @@
                                 <p>{{bien?.typeImmo?.nom}}</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-2"
-                                *ngIf="bien.statut.nom =='A louer'">
+                                *ngIf="bien?.statut?.nom =='A louer'">
                                 <p>Periode</p>
                                 <p>{{bien?.periode?.nom}}</p>
                             </div>
@@ -265,7 +265,9 @@
                                             <th>No.</th>
                                             <th class="pl0 text-start">Reference</th>
                                             <th class="text-center">Prix en FCFA</th>
-                                            <th class="text-center">Mois</th>
+                                            <th *ngIf="bien?.periode?.nom === 'Journalier'" class="text-center">Jour</th>
+                                            <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'" class="text-center">Mois</th>
+                                            <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'" class="text-center">Tranche</th>
                                             <th class="text-end">Montant en FCFA</th>
                                         </tr>
                                     </thead>
@@ -281,7 +283,7 @@
                                             <td class="text-center">1</td>
                                             <td class="text-end">{{formatPrice(bien?.prix)}} </td>
                                         </tr>
-                                        <tr class="bg-grea">
+                                        <tr class="bg-grea" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                             <td>
                                                 <div class="item-desc-1">
                                                     <span>02</span>
@@ -293,7 +295,7 @@
                                             <td class="text-center">{{bien?.caution}}</td>
                                             <td class="text-end">{{formatPrice(bien?.prix * bien?.caution)}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                             <td>
                                                 <div class="item-desc-1">
                                                     <span>03</span>

@@ -170,6 +170,7 @@ export class NotificationsComponent implements OnInit {
     //fait
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.reverse();
+      console.log(this.bienImmoLoueCandidatureAccepter)
      });
   }
 

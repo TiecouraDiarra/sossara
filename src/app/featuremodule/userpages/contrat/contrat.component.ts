@@ -55,7 +55,7 @@ export class ContratComponent {
   isError: any = false;
   @ViewChild('contratlocation')
   contratlocation!: ElementRef;
-  emailProprietaire : any
+  emailProprietaire: any
 
   loading = false;
 
@@ -90,7 +90,7 @@ export class ContratComponent {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.roles = this.storageService.getUser().roles;
-      
+
 
       // if (this.roles.includes("ROLE_PROPRIETAIRE")) {
       //   this.isProprietaire = true;
@@ -107,8 +107,8 @@ export class ContratComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
       this.contrat = data;
-      console.log(this.contrat);
       this.bien = data?.bien;
+      // console.log(this.bien?.contrat[0]?.facture[0]);
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
       this.emailProprietaire = this.storageService.getUser().email
@@ -116,7 +116,7 @@ export class ContratComponent {
         this.isAgenceProprietaire = true;
       }
       this.photoImmo = data?.bien?.photoImmos;
-   
+
     })
   }
   //FORMATER LE PRIX
@@ -134,7 +134,7 @@ export class ContratComponent {
   openPaiementModal(candidatureId: number) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = candidatureId;
- 
+
   }
 
 
@@ -205,12 +205,12 @@ export class ContratComponent {
               this.popUpAnnulation();
             },
             error: (err) => {
-            
+
             }
           }
           );
         } else {
-        
+
         }
       }
     })
@@ -245,12 +245,12 @@ export class ContratComponent {
               this.popUpAnnulation();
             },
             error: (err) => {
-           
+
             }
           }
           );
         } else {
-         
+
         }
       }
     })
@@ -276,16 +276,16 @@ export class ContratComponent {
 
     }).then((result) => {
       //RECUPERER L'UUID D'UN CONTRAT 
-    this.id = this.route.snapshot.params["uuid"]
-    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
-    this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
-      this.contrat = data;
-      this.bien = data?.bien;
-      this.locataire = data?.locataire;
-      this.proprietaire = data?.bien?.proprietaire;
-      this.photoImmo = data?.bien?.photoImmos;
-    
-    })
+      this.id = this.route.snapshot.params["uuid"]
+      //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+      this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+        this.contrat = data;
+        this.bien = data?.bien;
+        this.locataire = data?.locataire;
+        this.proprietaire = data?.bien?.proprietaire;
+        this.photoImmo = data?.bien?.photoImmos;
+
+      })
     })
 
   }
@@ -324,7 +324,7 @@ export class ContratComponent {
               this.popUpConfirmation();
             },
             error: (err) => {
-              
+
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -332,13 +332,13 @@ export class ContratComponent {
           }
           );
         } else {
-    
+
         }
       }
     })
   }
 
-  //POPUP APRES CONFIRMATION DE CANDIDATURE
+  //POPUP APRES CONFIRMATION DE CANDIDATURE PROPRIETAIRE
   popUpConfirmation() {
     let timerInterval = 2000;
     Swal.fire({
@@ -358,22 +358,63 @@ export class ContratComponent {
 
     }).then((result) => {
       //RECUPERER L'UUID D'UN CONTRAT 
-    this.id = this.route.snapshot.params["uuid"]
-    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
-    this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
-      this.contrat = data;
-      this.bien = data?.bien;
-      this.locataire = data?.locataire;
-      this.proprietaire = data?.bien?.proprietaire;
-      this.photoImmo = data?.bien?.photoImmos;
-      // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
-      //   this.isProprietaire = true;
-      // }
+      this.id = this.route.snapshot.params["uuid"]
+      //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+      this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+        this.contrat = data;
+        this.bien = data?.bien;
+        this.locataire = data?.locataire;
+        this.proprietaire = data?.bien?.proprietaire;
+        this.photoImmo = data?.bien?.photoImmos;
+        // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
+        //   this.isProprietaire = true;
+        // }
 
-      // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
-      //   this.isAgence = true;
-      // }
+        // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
+        //   this.isAgence = true;
+        // }
+      })
     })
+
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS Facture
+  goToDettailFacture(id: number) {
+    return this.router.navigate(['userpages/facturepaiement', id]);
+  }
+
+  //POPUP APRES CONFIRMATION DE CANDIDATURE LOCATAIRE
+  popUpConfirmationLocataire() {
+    // let timerInterval = 2000;
+    Swal.fire({
+      position: 'center',
+      text: 'Le contrat a été validé avec succès.',
+      title: 'Contrat validé',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: true,
+      confirmButtonText: "OK",    
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+      // timer: timerInterval, // ajouter le temps d'attente
+      // timerProgressBar: true // ajouter la barre de progression du temps
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //RECUPERER L'UUID D'UN CONTRAT 
+        this.id = this.route.snapshot.params["uuid"]
+        //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+        this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+          this.contrat = data;
+          this.bien = data?.bien;
+          this.locataire = data?.locataire;
+          this.proprietaire = data?.bien?.proprietaire;
+          this.photoImmo = data?.bien?.photoImmos;
+          this.goToDettailFacture(this.bien?.contrat[0]?.facture[0]?.uuid)
+        })
+      }
     })
 
   }
@@ -401,9 +442,6 @@ export class ContratComponent {
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
-
-
-
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
           this.serviceContrat.ValiderContratBien(id).subscribe({
             next: (data) => {
@@ -411,10 +449,10 @@ export class ContratComponent {
               this.errorMessage = 'Contrat acceptée avec succès';
 
               // Afficher le premier popup de succès
-              this.popUpConfirmation();
+              this.popUpConfirmationLocataire();
             },
             error: (err) => {
-             
+
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -422,7 +460,7 @@ export class ContratComponent {
           }
           );
         } else {
-        
+
         }
       }
     })
@@ -455,7 +493,7 @@ export class ContratComponent {
       // Une fois la génération terminée, masquer l'indicateur de chargement
       this.loading = false;
     } catch (error) {
-  
+
       this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
     }
   }
@@ -476,7 +514,7 @@ export class ContratComponent {
       // Une fois la génération terminée, masquer l'indicateur de chargement
       this.loading = false;
     } catch (error) {
-     
+
       this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
     }
   }
@@ -532,5 +570,5 @@ export class ContratComponent {
     });
   }
 
- 
+
 }

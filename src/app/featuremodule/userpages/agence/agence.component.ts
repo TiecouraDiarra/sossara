@@ -957,6 +957,11 @@ export class AgenceComponent {
     return this.router.navigate(['userpages/contrat', id])
   }
 
+   //LA METHODE PERMETTANT DE NAVIGUER VERS LA LISTE DES FACTURES
+   goToListeFacture(id: number) {
+    return this.router.navigate(['userpages/liste_facture', id])
+  }
+
   isSubmenuOpen: boolean = false;
   isSubmenuOpenFacture: boolean = false;
 
