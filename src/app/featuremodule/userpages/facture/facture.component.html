@@ -29,9 +29,9 @@
                             <p class="fw-bold"
                                 *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">Prix mensuel
                             </p>
-                            <p class="fw-bold"
-                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">Prix du
-                                bien</p>
+                                <p class="fw-bold"
+                                    *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">Prix du
+                                    bien</p>
                             <p class="fw-lighter">{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
                         </div>
                         <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel"
@@ -359,7 +359,7 @@
                                             <td class="text-start pl0">{{bien?.reference}}</td>
                                            
                                         </tr>
-                                        <tr class="tr">
+                                        <tr class="tr" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                             <th class="text-start" style="color: #e98b11;  font-weight: bold;">
                                                 <div class="item-desc-1">
                                                     <span>Avance {{bien?.avance}} mois</span>
@@ -368,7 +368,7 @@
                                             <td class="text-start pl0">{{formatPrice(bien?.prix * bien?.avance)}} FCFA</td>
                                            
                                         </tr>
-                                        <tr class="tr">
+                                        <tr class="tr" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                             <th class="text-start" style="color: #e98b11; font-weight: bold;">
                                                 <div class="item-desc-1">
                                                     <span>Caution {{bien?.caution}} mois</span>
@@ -472,7 +472,7 @@
                                                     <!-- <p class="text-center">Created with bootsrap
                                                     button and using radio button</p> -->
                                                 </div>
-                                                <div class="row paymentWrap">
+                                                <div class="row paymentWrap" style="margin-top: 20px;">
                                                     <div class="btn-group paymentBtnGroup btn-group-justified"
                                                         data-toggle="buttons">
                                                         <label class="btn paymentMethod"
@@ -483,7 +483,6 @@
                                                             </div>
                                                             <input type="radio" name="options">
                                                         </label>
-
                                                     </div>
                                                 </div>
                                             </div>

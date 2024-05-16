@@ -1023,6 +1023,7 @@ export class AgenceComponent {
   get pages(): number[] {
     return Array.from({ length: this.pageCount }, (_, i) => i + 1);
   }
+  
   get pageA(): number[] {
     return Array.from({ length: this.pageAgence }, (_, i) => i + 1);
   }

@@ -29,7 +29,10 @@
                         <div class="d-flex justify-content-between mb-3 userdetails" style="font-size: 14px;">
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Journalier'">Prix journalier</p>
                             <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">Prix hebdomendaire</p>
-                            <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Mensuel'">Prix mensuel</p>
+                            <p class="fw-bold" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">Prix mensuel</p>
+                            <p class="fw-bold"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">Prix du
+                                bien</p>
                             <p class="fw-lighter">{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
                         </div>
                         <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel"
@@ -212,7 +215,9 @@
                                                 <th>No.</th>
                                                 <th class="pl0 text-start">Reference</th>
                                                 <th class="text-center">Prix en FCFA</th>
-                                                <th class="text-center">Mois</th>
+                                                <th *ngIf="bien?.periode?.nom === 'Journalier'" class="text-center">Jour</th>
+                                                <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'" class="text-center">Mois</th>
+                                                <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'" class="text-center">Tranche</th>
                                                 <th class="text-end">Montant en FCFA</th>
                                             </tr>
                                         </thead>
@@ -228,7 +233,7 @@
                                                 <td class="text-center">-</td>
                                                 <td class="text-end">{{formatPrice(bien?.prix)}}</td>
                                             </tr>
-                                            <tr class="bg-grea">
+                                            <tr class="bg-grea" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                                 <td>
                                                     <div class="item-desc-1">
                                                         <span>02</span>
@@ -240,7 +245,7 @@
                                                 <td class="text-center">{{bien?.caution}}</td>
                                                 <td class="text-end">{{formatPrice(bien?.prix * bien?.caution)}}</td>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                                 <td>
                                                     <div class="item-desc-1">
                                                         <span>03</span>
@@ -308,7 +313,7 @@
                                                 <td class="text-start pl0">{{bien?.reference}}</td>
 
                                             </tr>
-                                            <tr class="tr">
+                                            <tr class="tr" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                                 <th class="text-start" style="color: #e98b11;  font-weight: bold;">
                                                     <div class="item-desc-1">
                                                         <span>Avance {{bien?.avance}} mois</span>
@@ -318,7 +323,7 @@
                                                     FCFA</td>
 
                                             </tr>
-                                            <tr class="tr">
+                                            <tr class="tr" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                                 <th class="text-start" style="color: #e98b11; font-weight: bold;">
                                                     <div class="item-desc-1">
                                                         <span>Caution {{bien?.caution}} mois</span>
