@@ -551,8 +551,9 @@ export class BienimmoService {
 
   //FAIRE UNE RECLAMATION
   ArreterProcessusNew(
-    idRec: number,
-    photo: File,
+    bienImmoId: number,
+    problemeId: number,
+    photos: File[],
     // photo: File // Liste de photos
   ): Observable<any> {
     const headers = this.getHeaders();
@@ -560,11 +561,12 @@ export class BienimmoService {
 
     const formData = new FormData();
 
-    formData.append('idRec', idRec.toString());
-    formData.append('photo', photo);
+    formData.append('bienImmoId', bienImmoId.toString());
+    formData.append('problemeId', problemeId.toString());
+    photos.forEach(p => { formData.append('photoJustificatives', p) });
 
     return this.http.post(
-      URL_BASE + '/reparation/confirmer/list/' + `${idRec}`,
+      URL_BASE + '/probleme/arretprocessus',
       formData,
       { headers }
     );

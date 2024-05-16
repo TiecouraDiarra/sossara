@@ -14,6 +14,7 @@ declare var google: any;
 import * as L from 'leaflet';
 import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
 import { ContentChange, SelectionChange } from 'ngx-quill';
+import { HttpClient } from '@angular/common/http';
 
 interface Food {
   value: string | any;
@@ -33,7 +34,7 @@ interface price {
 // export class AjouterBienComponent {
 
 
-export class AjouterBienComponent implements OnInit{
+export class AjouterBienComponent implements OnInit {
   selectedCategory: any = '';
   requiredFileType: any;
   maxImageCount: number = 0; // Limite maximale d'images
@@ -53,7 +54,7 @@ export class AjouterBienComponent implements OnInit{
   commodite2: any;
   isLocataire = false;
   isAgence = false;
-  isProprietaire= false;
+  isProprietaire = false;
   roles: string[] = [];
   commodite3: any;
   regions: any[] = [];
@@ -73,6 +74,7 @@ export class AjouterBienComponent implements OnInit{
   constructor(
     private DataService: DataService,
     public router: Router,
+    private http: HttpClient,
     private serviceCommodite: CommoditeService,
     private storageService: StorageService,
     private userService: UserService,
@@ -98,23 +100,40 @@ export class AjouterBienComponent implements OnInit{
   selectedFiles: any;
   imagesArray: string[] = []; // Array to store URLs of selected images
   private map!: L.Map;
+  currentPolygon!: L.Polygon;
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
-    this.selectedFiles = event.target.files;
+    const selectedFiles = event.target.files;
   
-    for (const file of this.selectedFiles) {
+    for (const file of selectedFiles) {
       if (this.images.length < 8) {
         const reader = new FileReader(); // Créez un nouvel objet FileReader pour chaque fichier
   
         reader.onload = (e: any) => {
-          this.images.push(file);
-          this.image.push(e.target.result);
-          this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          this.maxImageCount = this.image.length;
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0, img.width, img.height);
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  const webpFile = new File([blob], 'photo.webp', { type: 'image/webp' });
+                  this.images.push(webpFile);
+                  this.image.push(e.target.result); 
+                  this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
+                  this.maxImageCount = this.image.length;
+                }
+              }, 'image/webp', 0.8);
+            }
+          };
+          img.src = e.target.result as string;
         };
   
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file); 
       } // Vérifiez si la limite n'a pas été atteinte
     }
   
@@ -122,6 +141,7 @@ export class AjouterBienComponent implements OnInit{
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
   
+
 
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
@@ -147,7 +167,7 @@ export class AjouterBienComponent implements OnInit{
   form: any = {
     commodite: null,
     type: null,
-    caracteristique :null,
+    caracteristique: null,
     commune: null,
     nb_piece: null,
     nom: null,
@@ -171,10 +191,10 @@ export class AjouterBienComponent implements OnInit{
     selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
   };
 
-  
+
 
   initMap() {
-    
+
     // Ajouter une couche de tuiles OpenStreetMap
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -188,9 +208,9 @@ export class AjouterBienComponent implements OnInit{
       iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
       popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
     });
-    
+
     this.map = L.map('map').setView([12.6489, -8.0008], 14).addLayer(tiles); // Définir une vue initiale
-    
+
     tiles.addTo(this.map);
     // Créer un marqueur initial au centre de la carte
     const initialMarker = L.marker([12.6489, -8.0008], {
@@ -221,24 +241,24 @@ export class AjouterBienComponent implements OnInit{
 
     });
   }
-  
+
 
   ngOnInit(): void {
     // this.initMap();
-      // Écouter les changements de route
-      this.router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          // Vérifier si la nouvelle route est "contact"
-          if (this.router.url === '/userpages/ajouter-bien') {
-            // Actualiser la page
-            window.location.reload();
-          }
-        } 
-        if (!this.map) {
-          this.initMap();
+    // Écouter les changements de route
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Vérifier si la nouvelle route est "contact"
+        if (this.router.url === '/userpages/ajouter-bien') {
+          // Actualiser la page
+          window.location.reload();
         }
-      });
-      // this.initMap();
+      }
+      if (!this.map) {
+        this.initMap();
+      }
+    });
+    // this.initMap();
     Aos.init({ disable: 'mobile' });
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
@@ -306,28 +326,98 @@ export class AjouterBienComponent implements OnInit{
 
   }
 
-  onChange(newValue: any) {
+  selectedCountry: any
+  selectedRegion: any
+  selectedCercle: any
+  selectedCommune: any
+
+  onChange(event: any) {
+    this.selectedCountry = event.value;
     this.regions = this.region.filter(
-      (el: any) => el.pays.nompays == newValue.value
+      (el: any) => el.pays.nompays === this.selectedCountry
     );
-    this.cercles = this.cercle.filter(
-      (el: any) => this.regions.includes(el.region)
-    );
-    this.communes = this.commune.filter(
-      (el: any) => this.cercles.includes(el.cercle)
-    );
-  }
-  
-  onChangeRegion(newValue: any) {
-    this.cercles = this.cercle.filter(
-      (el: any) => el.region.nomregion == newValue.value
-    );
+    this.cercles = [];
+    this.communes = [];
+
+    this.updateMapWithPolygon(`country=${this.selectedCountry}`, 6);
   }
 
-  onChangeCercle(newValue: any) {
-    this.communes = this.commune.filter(
-      (el: any) => el.cercle.nomcercle == newValue.value
+  onChangeRegion(event: any) {
+    this.selectedRegion = event.value;
+    this.cercles = this.cercle.filter(
+      (el: any) => el.region.nomregion === this.selectedRegion
     );
+    this.communes = [];
+
+    this.updateMapWithPolygon(`state=${this.selectedRegion}`, 12);
+  }
+
+  onChangeCercle(event: any) {
+    this.selectedCercle = event.value;
+    this.communes = this.commune.filter(
+      (el: any) => el.cercle.nomcercle === this.selectedCercle
+    );
+
+    this.updateMapWithPolygon(`city=${this.selectedCercle}`, 12);
+  }
+
+  onChangeCommune(event: any) {
+    this.selectedCommune = event.value;
+    const selectedCercle = this.selectedCercle; // Récupérez le cercle sélectionné à partir d'une variable définie dans votre composant
+    const selectedRegion = this.selectedRegion; // Récupérez la région sélectionnée à partir d'une variable définie dans votre composant
+    const selectedCountry = this.selectedCountry; // Récupérez le pays sélectionné à partir d'une variable définie dans votre composant
+
+    const query = `country=${selectedCountry}&state=${selectedRegion}&city=${selectedCercle},${this.selectedCommune}`;
+    this.updateMapWithPolygon(query, 14);
+  }
+
+  onChangeQuartier(event: any) {
+    const selectedQuartier = event.target.value;
+    const selectedRegion = this.selectedRegion; // Récupérez la région sélectionnée à partir d'une variable définie dans votre composant
+    const selectedCountry = this.selectedCountry; // Récupérez le pays sélectionné à partir d'une variable définie dans votre composant
+    console.log("Quartier ", selectedQuartier);
+
+    const query = `country=${selectedCountry}&state=${selectedRegion}&city=${selectedQuartier}`;
+    this.updateMapWithPolygon(query, 12);
+  }
+
+
+  updateMapWithPolygon(query: string, zoomLevel: number) {
+    const url = `https://nominatim.openstreetmap.org/search?${query}&format=json&polygon_geojson=1&limit=1`;
+
+    this.http.get(url).subscribe((response: any) => {
+      if (response && response.length > 0) {
+        // Créer une icône personnalisée pour le marqueur
+        const coordinates = response[0];
+        const lat = coordinates.lat;
+        const lon = coordinates.lon;
+        const geojson = coordinates.geojson;
+
+        this.map.setView([lat, lon], zoomLevel);
+
+        if (this.currentPolygon) {
+          this.map.removeLayer(this.currentPolygon);
+        }
+
+        // Créer une icône personnalisée pour le marqueur
+        // var customIcon = L.icon({
+        //   iconUrl: 'assets/img/iconeBien/localite.png',
+        //   iconSize: [80, 80], // Taille de l'icône [largeur, hauteur]
+        //   iconAnchor: [19, 38], // Point d'ancrage de l'icône [position X, position Y], généralement la moitié de la largeur et la hauteur de l'icône
+        //   popupAnchor: [0, -38] // Point d'ancrage du popup [position X, position Y], généralement en haut de l'icône
+        // });
+
+        // // Ajouter un marqueur aux coordonnées
+        // const marker = L.marker([lat, lon], {
+        //   icon: customIcon,
+        // }).addTo(this.map);
+
+        if (geojson && geojson.type === 'Polygon') {
+          this.currentPolygon = L.polygon(geojson.coordinates[0].map((coord: number[]) => [coord[1], coord[0]]));
+          this.currentPolygon.addTo(this.map);
+        }
+      }
+    });
   }
 
   selectedStatut: any | null = null;
@@ -413,7 +503,7 @@ export class AjouterBienComponent implements OnInit{
       swalWithBootstrapButtons.fire(
         (this.message = ' Tous les champs sont obligatoires !')
       );
- 
+
     } else {
       swalWithBootstrapButtons
         .fire({
@@ -466,7 +556,7 @@ export class AjouterBienComponent implements OnInit{
                   },
                 });
             } else {
-             
+
             }
           }
         });
@@ -518,39 +608,39 @@ export class AjouterBienComponent implements OnInit{
       container: [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
         ['code-block'],
-       //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-       //  [{ 'direction': 'rtl' }],                         // text direction
+        //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        //  [{ 'direction': 'rtl' }],                         // text direction
 
-       //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
         [{ 'align': [] }],
 
-       //  ['clean'],                                         // remove formatting button
+        //  ['clean'],                                         // remove formatting button
 
-       //  ['link'],
+        //  ['link'],
         ['link', 'image', 'video']
       ],
     },
- }
+  }
 
- onSelectionChanged = (event: SelectionChange) => {
-   if(event.oldRange == null) {
-     this.onFocus();
-   }
-   if(event.range == null) {
-     this.onBlur();
-   }
- }
+  onSelectionChanged = (event: SelectionChange) => {
+    if (event.oldRange == null) {
+      this.onFocus();
+    }
+    if (event.range == null) {
+      this.onBlur();
+    }
+  }
 
- onContentChanged = (event: ContentChange) => {
- }
+  onContentChanged = (event: ContentChange) => {
+  }
 
- onFocus = () => {
- }
- onBlur = () => {
- }
+  onFocus = () => {
+  }
+  onBlur = () => {
+  }
 }

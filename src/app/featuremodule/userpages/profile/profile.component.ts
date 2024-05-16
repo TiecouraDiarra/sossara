@@ -434,23 +434,45 @@ export class ProfileComponent implements OnInit {
 
   onPhotoChange(event: any): void {
     const selectedFile = event.target.files[0];
-
+    
     if (selectedFile) {
       const maxSize = 5 * 1024 * 1024; // Taille maximale en octets (5 Mo)
-
+  
       if (selectedFile.size <= maxSize) {
-        // Vous pouvez également afficher des informations sur le fichier si nécessaire
-        
-
-        // Ajoutez le fichier au formulaire et exécutez votre logique d'ajout ici
-        this.form.photo = selectedFile;
-        this.onAdd();
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (event.target) { // Vérification de nullité pour event.target
+            // Convertir l'image en WebP
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext('2d');
+              if (ctx) {
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+                canvas.toBlob((blob) => {
+                  if (blob) { // Vérification de nullité pour blob
+                    const webpFile = new File([blob], 'photo.webp', { type: 'image/webp' });
+                    // Ajouter le fichier WebP au formulaire et exécuter votre logique d'ajout ici
+                    this.form.photo = webpFile;
+                    this.onAdd();
+                  }
+                }, 'image/webp', 0.8);
+              }
+            };
+            img.src = event.target.result as string;
+          }
+        };
+        reader.readAsDataURL(selectedFile);
       } else {
         // Réinitialiser la sélection de fichier
         event.target.value = '';
       }
     }
   }
+  
+  
 
   //AJOUTER LA PHOTO DE PROFIL
   onAdd(): void {
@@ -459,24 +481,6 @@ export class ProfileComponent implements OnInit {
     if (this.users && photo) {
       this.serviceUser.changerPhoto(photo).subscribe(
         successResponse => {
-           // this.User.photos[0] = photo.name;
-          // user.photos[0].nom = successResponse?.message;
-          // if (this.users.utilisateurPhoto?.length > 0) {
-          //   this.users.utilisateurPhoto.nom = successResponse?.message;
-          // } else {
-          //   this.users.utilisateurPhoto = [{ nom: successResponse?.message }];
-          // }
-          // this.storageService.setUser(user);
-           // Mettre à jour l'URL de l'image affichée côté front-end
-        // this.profileImageUrl = this.generateImageUrl(user.utilisateurPhoto.nom) + '?timestamp=' + new Date().getTime();
-           // this.User.photos[0].nom = photo.name;
-          // this.generateImageUrl(photo.name);
-          // Mettez à jour le chemin de l'image de profil
-          // this.profileImageUrl = this.generateImageUrl(photo.name) + '?timestamp=' + new Date().getTime();
-          // const uniqueFileName = photo.name + `?timestamp=${new Date().getTime()}`;
-          // if (this.User.photos?.length > 0 || this.User.photos.length === 0) {
-          //   this.User.photos[0].nom = uniqueFileName;
-          // }
           this.reloadPage();
         },
         error => {

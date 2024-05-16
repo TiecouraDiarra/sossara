@@ -117,7 +117,7 @@
                             </div>
                             <div class="row mt-3">
                                 <button type="button"
-                                    (click)="openProcessusModal(Reclamation?.id)"
+                                    (click)="openProcessusModal(Reclamation?.id, Reclamation?.bien?.id)"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalArreterProcessus1"
                                     class="btn btn-outline-success"><i
@@ -173,6 +173,7 @@
                                                                 (change)="onFileSelected($event)"
                                                                 multiple
                                                                 class="hide-input image-upload"
+                                                                accept=".png, .jpeg, .jpg, .svg, .webp"
                                                                 [disabled]="maxImageCount >=1" />
                                                             <label for="file"
                                                                 class="file-upload">Ajouter

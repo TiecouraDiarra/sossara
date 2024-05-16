@@ -598,7 +598,7 @@
                       <mat-label *ngIf="selectedCategory == ''">
                         Commune</mat-label
                       >
-                      <mat-select name="commune" [(ngModel)]="form.commune">
+                      <mat-select name="commune" [(ngModel)]="form.commune" (selectionChange)="onChangeCommune($event)">
                                  <mat-option
                           *ngFor="let item of communes"
                           [value]=" item?.id"
@@ -615,7 +615,7 @@
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Quartier <span>*</span></label>
-                    <input type="text" name="quartier" [(ngModel)]="form.quartier" class="form-control pass-input"
+                    <input type="text" name="quartier" [(ngModel)]="form.quartier" (input)="onChangeQuartier($event)" class="form-control pass-input"
                       placeholder="Quartier" />
                   </div>
                 </div>

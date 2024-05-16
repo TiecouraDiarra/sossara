@@ -1916,7 +1916,7 @@
             <div class="col-lg-12 d-flex" *ngIf="reclamation && reclamation?.length == 0">
               <div class="card dash-cards w-100">
                 <div class="card-header">
-                  <h4>Pas de reclamations dur vos biens</h4>
+                  <h4>Pas de reclamations sur vos biens</h4>
                 </div>
               </div>
             </div>
@@ -2063,10 +2063,10 @@
                               <div class="col">
                                 <button type="button" class="btn btn-outline-success" (click)="
                                     LancerProcessusReparation(
-                                      Reclamation?.bien?.id
+                                      Reclamation?.id
                                     )
                                   ">
-                                  <i class="fas fa-times"></i> Confirmer
+                                  <i class="fas fa-times"></i> ConfirmerA
                                 </button>
                               </div>
                               <!-- <div class="col"
@@ -2445,7 +2445,7 @@
                               <div class="col">
                                 <button type="button" class="btn btn-outline-success" (click)="
                                     LancerProcessusReparation(
-                                      Reclamation?.bien?.id
+                                      Reclamation?.id
                                     )
                                   ">
                                   <i class="fas fa-times"></i> Confirmer
@@ -2802,7 +2802,7 @@
                           <div class="row">
                             <div class="featured-img1">
                               <h6 class="media-title">
-                                Images biens <span>*</span>
+                                Images reclamation <span>*</span>
                               </h6>
                               <div class="media-image">
                                 <div class="row">
@@ -2820,7 +2820,7 @@
                             </div>
                             <div class="settings-upload-btn">
                               <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
-                                class="hide-input image-upload" [disabled]="maxImageCount >= 4" />
+                                class="hide-input image-upload" accept=".png, .jpeg, .jpg, .svg, .webp" [disabled]="maxImageCount >= 4" />
                               <label for="file" class="file-upload">Ajouter l'image</label>
                             </div>
                           </div>
