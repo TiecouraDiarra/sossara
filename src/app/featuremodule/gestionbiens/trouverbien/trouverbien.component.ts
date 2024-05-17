@@ -293,6 +293,7 @@ export class TrouverbienComponent implements OnInit {
 
       // Appel de la méthode de recherche avec les nouveaux paramètres d'URL
       this.serviceBienImmo
+
         .faireUneRecherche(
           type,
           statut,
@@ -308,6 +309,7 @@ export class TrouverbienComponent implements OnInit {
           commodite
         )
         .subscribe((data) => {
+
 
           if (Array.isArray(data) && data.length > 0) {
             // Assurez-vous que data.biens est un tableau avant d'appeler map

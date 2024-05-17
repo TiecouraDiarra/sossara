@@ -467,6 +467,46 @@ export class BienimmoService {
 
   //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES agences proprietaire
   // ...
+  // faireUneRecherche(
+  //   typeImmo?: any,
+  //   statut?: any,
+  //   chambre?: any,
+  //   nb_piece?: any,
+  //   toilette?: any,
+  //   cuisine?: any,
+  //   commune?: any,
+  //   cercle?: any,
+  //   region?: any,
+  //   minprix?: any,
+  //   maxprix?: any,
+  //   commodites?: any[]
+  // ): Observable<any> {
+  //   const headers = this.getHeaders(); // Supposons que cette méthode renvoie les en-têtes appropriés
+
+  //   alert(maxprix)
+  //   alert(minprix)
+  //   // Construisez les paramètres de l'URL
+  //   let params = new HttpParams();
+  //   if (typeImmo) params = params.append('typeImmo', typeImmo);
+  //   if (statut) params = params.append('statut', statut);
+  //   if (chambre) params = params.append('chambre', chambre);
+  //   if (nb_piece) params = params.append('nb_piece', nb_piece);
+  //   if (toilette) params = params.append('toilette', toilette);
+  //   if (cuisine) params = params.append('cuisine', cuisine);
+  //   if (commune) params = params.append('commune', commune);
+  //   if (cercle) params = params.append('cercle', cercle);
+  //   if (region) params = params.append('region', region);
+  //   if (chambre) params = params.append('minprix', minprix);
+  //   if (nb_piece) params = params.append('maxprix', maxprix);
+  //   if (commodites) {
+  //     commodites.forEach(commodite => {
+  //       params = params.append('commodites', commodite);
+  //     });
+  //   }
+
+  //   return this.http.get(`${URL_BASE}/bien/biens`, { headers, params });
+  // }
+
   faireUneRecherche(
     typeImmo?: any,
     statut?: any,
@@ -482,7 +522,9 @@ export class BienimmoService {
     commodites?: any[]
   ): Observable<any> {
     const headers = this.getHeaders(); // Supposons que cette méthode renvoie les en-têtes appropriés
+  
 
+  
     // Construisez les paramètres de l'URL
     let params = new HttpParams();
     if (typeImmo) params = params.append('typeImmo', typeImmo);
@@ -494,16 +536,17 @@ export class BienimmoService {
     if (commune) params = params.append('commune', commune);
     if (cercle) params = params.append('cercle', cercle);
     if (region) params = params.append('region', region);
-    if (chambre) params = params.append('minprix', minprix);
-    if (nb_piece) params = params.append('maxprix', maxprix);
+    if (minprix) params = params.append('minprix', minprix);
+    if (maxprix) params = params.append('maxprix', maxprix);
     if (commodites) {
       commodites.forEach(commodite => {
         params = params.append('commodites', commodite);
       });
     }
-
+  
     return this.http.get(`${URL_BASE}/bien/biens`, { headers, params });
   }
+  
 
 
   //FAIRE UNE RECLAMATION
