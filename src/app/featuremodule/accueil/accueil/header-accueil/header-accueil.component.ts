@@ -67,7 +67,7 @@ export class HeaderAccueilComponent {
         this.isLoggedIn = true;
         // this.roles = this.storageService.getUser().roles;
         this.roles = this.storageService.getUser().roles;
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
+      if (this.  roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
       }
       }else if (!this.storageService.isLoggedIn()) {

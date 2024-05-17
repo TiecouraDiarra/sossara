@@ -726,9 +726,27 @@ changeExtension(filename: string, newExtension: string): string {
     });
   }
 
+  onKeyPress(event: any) {
+    const pattern = /[0-9\ \+\-]/;
+    let inputChar = String.fromCharCode(event.charCode);
   
-
-
+    if (!pattern.test(inputChar)) {
+      // Caractère non numérique, empêcher l'entrée
+      event.preventDefault();
+    }
+  
+    // Insérer un espace après chaque trio de chiffres
+    let inputValue = event.target.value.replace(/\s/g, ''); // Supprimer les espaces existants
+    let formattedValue = '';
+    for (let i = inputValue.length; i > 0; i -= 3) {
+      formattedValue = ',' + inputValue.slice(Math.max(i - 3, 0), i) + formattedValue;
+    }
+    // Supprimer l'espace initial s'il dépasse la limite de 1000 caractères
+    formattedValue = formattedValue.slice(0, 1000);
+  
+    // Mettre à jour la valeur dans l'input
+    event.target.value = formattedValue;
+  }
 
   quillConfig = {
     toolbar: {

@@ -93,7 +93,8 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      if (this.roles[0] == "ROLE_LOCATAIRE") {
+      this.roles = this.storageService.getUser().roles;
+      if (this.  roles.includes("ROLE_LOCATAIRE")) {
         this.isLocataire = true
       }
       // this.roles = this.storageService.getUser().roles;
