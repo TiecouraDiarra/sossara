@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, NgZone, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import * as Aos from 'aos';
@@ -81,10 +81,28 @@ export class AjouterBienComponent implements OnInit {
     private caracteristiqueService: CaracteristiqueService,
     private elRef: ElementRef,
     private ngZone: NgZone,
+    private el: ElementRef,
     private serviceAdresse: AdresseService,
 
     private serviceBienImmo: BienimmoService
   ) { }
+
+  @HostListener('input', ['$event']) onInputChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/,/g, ''); // Remove existing commas
+    
+    // Format the number with commas as thousand separators
+    value = this.formatNumber(value);
+
+    input.value = value;
+  }
+
+  private formatNumber(value: string): string {
+    if (!value) return '';
+    const parts = value.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  }
 
   public routes = routes;
   selectedValue: string | any = 'pays';
@@ -488,6 +506,8 @@ export class AjouterBienComponent implements OnInit {
       heightAuto: false,
     });
 
+
+
     if (
       this.form.commodite === null ||
       this.form.type === null ||
@@ -519,8 +539,7 @@ export class AjouterBienComponent implements OnInit {
             const user = this.storageService.getUser();
 
             if (user && user.token) {
-              const numeroPaiementSansTiret = prix.replace(/\ /g, '');
-              alert(numeroPaiementSansTiret)
+              const monprix = prix.replace(/\,/g, '');
               this.serviceBienImmo.setAccessToken(user.token);
               this.serviceBienImmo
                 .registerBien(
@@ -534,7 +553,7 @@ export class AjouterBienComponent implements OnInit {
                   cuisine,
                   toilette,
                   surface,
-                  numeroPaiementSansTiret,
+                  monprix,
                   statut,
                   description,
                   quartier,
@@ -615,7 +634,7 @@ export class AjouterBienComponent implements OnInit {
     let inputValue = event.target.value.replace(/\s/g, ''); // Supprimer les espaces existants
     let formattedValue = '';
     for (let i = inputValue.length; i > 0; i -= 3) {
-      formattedValue = ' ' + inputValue.slice(Math.max(i - 3, 0), i) + formattedValue;
+      formattedValue = ',' + inputValue.slice(Math.max(i - 3, 0), i) + formattedValue;
     }
     // Supprimer l'espace initial s'il dépasse la limite de 1000 caractères
     formattedValue = formattedValue.slice(0, 1000);

@@ -559,31 +559,28 @@
                             <div class="collapse" id="cautrecomm">
                               <div class="card card-body">
                                 <div class="row">
-                                  <div
-                                    class="col-md-2"
-                                    *ngFor="let Commodite of commodite"
-                                  >
+                                  <div class="col-md-2" *ngFor="let Commodite of commodite; let i = index">
                                     <div class="form-check mb-2">
                                       <input
                                         class="form-check-input"
                                         type="checkbox"
-                                        value=""
                                         [(ngModel)]="Commodite.selected"
                                         [value]="Commodite.id"
-                                        id="flexCheckDefault"
+                                        [id]="'flexCheckDefault' + i"
                                         (change)="onChangeCommodite()"
                                         name="commodite"
                                         (change)="updateUrl()"
                                       />
                                       <label
                                         class="form-check-label"
-                                        for="flexCheckDefault"
+                                        [for]="'flexCheckDefault' + i"
                                       >
                                         {{ Commodite?.nom }}
                                       </label>
                                     </div>
                                   </div>
                                 </div>
+                                
                               </div>
                             </div>
                             <!-- <div class="flex-grow-1 ms-3">
