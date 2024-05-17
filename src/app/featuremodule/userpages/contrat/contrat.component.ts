@@ -58,6 +58,9 @@ export class ContratComponent {
   emailProprietaire: any
 
   loading = false;
+  loadingAnnuler = false;
+  loadingValiderLocataire = false;
+  loadingValiderProprietaire = false;
 
   constructor(
     private paiementService: ModepaiementService,
@@ -202,6 +205,7 @@ export class ContratComponent {
           // Appelez la méthode AnnulerContratLocataire() avec le contenu et l'ID
           this.serviceContrat.AnnulerContratLocataire(id).subscribe({
             next: (data) => {
+              this.loadingAnnuler = true; // Affiche l'indicateur de chargement
               this.popUpAnnulation();
             },
             error: (err) => {
@@ -242,6 +246,7 @@ export class ContratComponent {
           // Appelez la méthode AnnulerContratLocataire() avec le contenu et l'ID
           this.serviceContrat.AnnulerContratProprietaire(id).subscribe({
             next: (data) => {
+              this.loadingAnnuler = true; // Affiche l'indicateur de chargement
               this.popUpAnnulation();
             },
             error: (err) => {
@@ -286,6 +291,7 @@ export class ContratComponent {
         this.photoImmo = data?.bien?.photoImmos;
 
       })
+      this.loadingAnnuler = false; // Affiche l'indicateur de chargement
     })
 
   }
@@ -319,7 +325,7 @@ export class ContratComponent {
             next: (data) => {
               this.isSuccess = true;
               this.errorMessage = 'Candidature acceptée avec succès';
-
+              this.loadingValiderProprietaire = true;
               // Afficher le premier popup de succès
               this.popUpConfirmation();
             },
@@ -374,6 +380,8 @@ export class ContratComponent {
         //   this.isAgence = true;
         // }
       })
+
+      this.loadingValiderProprietaire = false;
     })
 
   }
@@ -414,6 +422,8 @@ export class ContratComponent {
           this.photoImmo = data?.bien?.photoImmos;
           this.goToDettailFacture(this.bien?.contrat[0]?.facture[0]?.uuid)
         })
+
+        this.loadingValiderLocataire = false;
       }
     })
 
@@ -447,6 +457,7 @@ export class ContratComponent {
             next: (data) => {
               this.isSuccess = true;
               this.errorMessage = 'Contrat acceptée avec succès';
+              this.loadingValiderLocataire = true;
 
               // Afficher le premier popup de succès
               this.popUpConfirmationLocataire();

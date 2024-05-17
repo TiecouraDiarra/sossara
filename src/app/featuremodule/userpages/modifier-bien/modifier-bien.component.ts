@@ -417,21 +417,56 @@ export class ModifierBienComponent {
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
-    this.selectedFiles = event.target.files;
-    for (const file of this.selectedFiles) {
+    const selectedFiles = event.target.files;
+  
+    for (const file of selectedFiles) {
       if (this.images1.length < 8) {
-        const reader = new FileReader(); // Créer un nouvel objet FileReader pour chaque fichier
+        const reader = new FileReader(); // Créez un nouvel objet FileReader pour chaque fichier
+  
         reader.onload = (e: any) => {
-          this.images1.push({ nom: file.name, data: e.target.result });
-          this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          this.maxImageCount = this.images1.length;
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0, img.width, img.height);
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  // Change l'extension du fichier en WebP
+                  const webpFile = new File([blob], this.changeExtension(file.name, 'webp'), { type: 'image/webp' });
+                  const readerWebp = new FileReader();
+                  readerWebp.onload = (eWebp: any) => {
+                    this.images1.push({ nom: webpFile.name, data: eWebp.target.result });
+                    this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
+                    this.maxImageCount = this.images1.length;
+                  };
+                  readerWebp.readAsDataURL(webpFile);
+                }
+              }, 'image/webp', 0.8);
+            }
+          };
+          img.src = e.target.result as string;
         };
+  
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
+  
     this.form.photo = this.images1; // Utilisez this.images1 pour assigner les images au formulaire
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
+    
+  // Fonction pour changer l'extension du fichier
+changeExtension(filename: string, newExtension: string): string {
+  const lastDotIndex = filename.lastIndexOf('.');
+  if (lastDotIndex === -1) {
+    return filename + '.' + newExtension;
+  } else {
+    return filename.substr(0, lastDotIndex) + '.' + newExtension;
+  }
+}
 
   removeImage(index: number) {
     this.images1.splice(index, 1); // Supprime l'image du tableau

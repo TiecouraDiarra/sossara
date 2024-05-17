@@ -16,6 +16,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 export class ProcessusLancesComponent implements OnInit {
   reclamationProcessusLance: any;
   selectedBienImmoProcessusId: any;
+  selectedReclamationId: any;
   maxImageCount: number = 0; // Limite maximale d'images
   selectedFiles: any;
   image: File[] = [];
@@ -76,7 +77,8 @@ export class ProcessusLancesComponent implements OnInit {
           // Définissez le token dans le service commentaireService
           this.serviceUser.setAccessToken(user.token);
           // Appelez la méthode ArreterProcessus() avec l'ID
-          this.serviceBienImmo.ArreterProcessusNew(this.selectedBienImmoProcessusId, photo).subscribe(
+          
+          this.serviceBienImmo.ArreterProcessusNew(this.selectedReclamationId, this.selectedBienImmoProcessusId, photo).subscribe(
             data => {
                // this.isSuccess = false;
               this.popUpConfirmationArreteProcessus();
@@ -121,23 +123,44 @@ export class ProcessusLancesComponent implements OnInit {
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
-    this.selectedFiles = event.target.files;
-    const reader = new FileReader();
-
-    for (const file of this.selectedFiles) {
+    const selectedFiles = event.target.files;
+  
+    for (const file of selectedFiles) {
       if (this.images.length < 8) {
+        const reader = new FileReader(); // Créez un nouvel objet FileReader pour chaque fichier
+  
         reader.onload = (e: any) => {
-          this.images.push(file);
-          this.image.push(e.target.result);
-          this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-           this.maxImageCount = this.image.length
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0, img.width, img.height);
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  const webpFile = new File([blob], 'photo.webp', { type: 'image/webp' });
+                  this.images.push(webpFile);
+                  this.image.push(e.target.result);
+                  this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
+                  this.maxImageCount = this.image.length;
+                }
+              }, 'image/webp', 0.8);
+            }
+          };
+          img.src = e.target.result;
         };
+  
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
+  
     this.form.photo = this.images;
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
+  
+  
 
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
@@ -154,9 +177,10 @@ export class ProcessusLancesComponent implements OnInit {
   }
 
     // Fonction pour ouvrir le modal avec l'ID du BienImmo
-    openProcessusModal(bienImmoId: number) {
+    openProcessusModal(bienImmoId: number, ReclamationId :number) {
       // Stockez l'ID du BienImmo sélectionné dans la variable
       this.selectedBienImmoProcessusId = bienImmoId;
+      this.selectedReclamationId = ReclamationId;
    
     }
 

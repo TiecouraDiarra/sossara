@@ -287,16 +287,32 @@ export class AgenceComponent {
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
-    this.selectedFiles = event.target.files;
+    const selectedFiles = event.target.files;
     const reader = new FileReader();
-
-    for (const file of this.selectedFiles) {
+  
+    for (const file of selectedFiles) {
       if (this.images.length < 8) {
         reader.onload = (e: any) => {
-          this.images.push(file);
-          this.image.push(e.target.result);
-          this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          this.maxImageCount = this.image.length
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(img, 0, 0, img.width, img.height);
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  const webpFile = new File([blob], 'photo.webp', { type: 'image/webp' });
+                  this.images.push(webpFile);
+                  this.image.push(e.target.result);
+                  this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
+                  this.maxImageCount = this.image.length;
+                }
+              }, 'image/webp', 0.8);
+            }
+          };
+          img.src = e.target.result as string;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
@@ -304,7 +320,7 @@ export class AgenceComponent {
     this.form.photo = this.images;
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
-
+  
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
     if (this.images.length >= 8) {
@@ -505,6 +521,8 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
+      // console.log(this.reclamation);
+      
 
     });
 
@@ -627,9 +645,6 @@ export class AgenceComponent {
         if (user && user.token) {
           // Définissez le token dans le service commentaireService
           this.serviceUser.setAccessToken(user.token);
-
-
-
           // Appelez la méthode Fairecommentaire() avec le contenu et l'ID
           this.serviceBienImmo.FaireReclamation(this.form.contenu, this.form.type, this.form.prix_estimatif, this.selectedBienImmoId, this.form.photo).subscribe(
             data => {
@@ -781,48 +796,48 @@ export class AgenceComponent {
   }
 
   //METHODE PERMETTANT D'ARRETER LE PROCESSUS DE REPARATION
-  ArreterProcessus(): void {
-    const { photo } = this.form;
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
-      },
-      heightAuto: false
-    })
+  // ArreterProcessus(): void {
+  //   const { photo } = this.form;
+  //   const swalWithBootstrapButtons = Swal.mixin({
+  //     customClass: {
+  //       confirmButton: 'btn',
+  //       cancelButton: 'btn btn-danger',
+  //     },
+  //     heightAuto: false
+  //   })
 
-    swalWithBootstrapButtons.fire({
-      text: "Etes-vous sûre de bien vouloir arreter le processus de reclamation ?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Confirmer',
-      cancelButtonText: 'Annuler',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const user = this.storageService.getUser();
-        if (user && user.token) {
-          // Définissez le token dans le service commentaireService
-          this.serviceUser.setAccessToken(user.token);
+  //   swalWithBootstrapButtons.fire({
+  //     text: "Etes-vous sûre de bien vouloir arreter le processus de reclamation ?",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Confirmer',
+  //     cancelButtonText: 'Annuler',
+  //     reverseButtons: true
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       const user = this.storageService.getUser();
+  //       if (user && user.token) {
+  //         // Définissez le token dans le service commentaireService
+  //         this.serviceUser.setAccessToken(user.token);
 
 
 
-          // Appelez la méthode ArreterProcessus() avec l'ID
-          this.serviceBienImmo.ArreterProcessusNew(this.selectedBienImmoProcessusId, photo).subscribe(
-            data => {
-              // this.isSuccess = false;
-              this.popUpConfirmationArreteProcessus();
-            },
-            error => {
+  //         // Appelez la méthode ArreterProcessus() avec l'ID
+  //         this.serviceBienImmo.ArreterProcessusNew(this.selectedBienImmoProcessusId, photo).subscribe(
+  //           data => {
+  //             // this.isSuccess = false;
+  //             this.popUpConfirmationArreteProcessus();
+  //           },
+  //           error => {
    
-            }
-          );
-        } else {
+  //           }
+  //         );
+  //       } else {
          
-        }
-      }
-    })
-  }
+  //       }
+  //     }
+  //   })
+  // }
 
   //METHODE PERMETTANT DE SUPPRIMER UN BIEN
   SupprimerBien(id: number): void {
@@ -1023,6 +1038,7 @@ export class AgenceComponent {
   get pages(): number[] {
     return Array.from({ length: this.pageCount }, (_, i) => i + 1);
   }
+  
   get pageA(): number[] {
     return Array.from({ length: this.pageAgence }, (_, i) => i + 1);
   }

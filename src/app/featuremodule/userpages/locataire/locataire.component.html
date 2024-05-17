@@ -75,8 +75,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        *ngFor="let BienImmo of bienImmoDejaLoueLocataire | filter:searchTextBienVendu">
+                                    <tr *ngFor="let BienImmo of bienImmoDejaLoueLocataire | filter:searchTextBienVendu">
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailBien(BienImmo.bien.uuid)">
@@ -155,17 +154,15 @@
                                             <div class="action">
                                                 <a (click)="openReclamationModal(BienImmo.bien.id)"
                                                     data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                    class="action-btn btn-view crd"><img
-                                                    class="icone-size"
-                                                    src="../../../../assets/img/iconeBien/réclamation.png"
-                                                    alt="Room amenities"
-                                                  />
+                                                    class="action-btn btn-view crd"><img class="icone-size"
+                                                        src="../../../../assets/img/iconeBien/réclamation.png"
+                                                        alt="Room amenities" />
                                                     <span class="hover-text">Faire une reclamation</span>
                                                 </a>
                                                 <a (click)="goToListeFacture(BienImmo?.bien?.uuid)"
                                                     class="action-btn btn-view crd">
                                                     <img class="icone-size"
-                                                        src="../../../../assets/img/iconeBien/contrat.png"
+                                                        src="../../../../assets/img/iconeBien/facture1.png"
                                                         alt="Room amenities">
                                                     <span class="hover-text">Voir les factures</span>
                                                 </a>
@@ -285,7 +282,8 @@
                                                 <div class="row">
                                                     <h5 style="font-size: 15px;" class="modal-title text-center"
                                                         id="staticBackdropLabel">Facture du mois
-                                                        <span style="color: #e98b11">{{ today | date: 'MMMM YYYY' }}</span>
+                                                        <span style="color: #e98b11">{{ today | date: 'MMMM YYYY'
+                                                            }}</span>
                                                     </h5>
                                                     <div class="receipt-main ">
                                                         <div class="row">
@@ -429,7 +427,8 @@
                                                                 class="receipt-header receipt-header-mid receipt-footer">
                                                                 <div>
                                                                     <div class="receipt-right">
-                                                                        <p><b>Date :</b> {{ today | date: 'dd MMMM yyyy' }}</p>
+                                                                        <p><b>Date :</b> {{ today | date: 'dd MMMM yyyy'
+                                                                            }}</p>
                                                                         <h5 style="color: rgb(140, 140, 140);">
                                                                             Merci pour la confiance.!</h5>
                                                                     </div>
@@ -507,8 +506,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        *ngFor="let BienImmo of bienImmoUserAAcheter | filter:searchTextBienVendu">
+                                    <tr *ngFor="let BienImmo of bienImmoUserAAcheter | filter:searchTextBienVendu">
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailBien(BienImmo.uuid)">
@@ -617,13 +615,20 @@
                                                         class="feather-edit-3"></i>
                                                     <span class="hover-text">Facture</span>
                                                 </a> -->
+                                                <a (click)="goToPageContrat(BienImmo?.bien?.contrat[0]?.uuid)"
+                                                    class="action-btn btn-view crd">
+                                                    <img class="icone-size"
+                                                        src="../../../../assets/img/iconeBien/contrat.png"
+                                                        alt="Room amenities">
+                                                    <span class="hover-text">Voir le contrat</span>
+                                                </a>
                                                 <a (click)="goToListeRecu(BienImmo?.bien?.contrat[0]?.facture[0]?.uuid)"
-                                                class="action-btn btn-view crd">
-                                                <img class="icone-size"
-                                                    src="../../../../assets/img/iconeBien/reçu.png"
-                                                    alt="Room amenities">
-                                                <span class="hover-text">Voir le reçu</span>
-                                            </a>
+                                                    class="action-btn btn-view crd">
+                                                    <img class="icone-size"
+                                                        src="../../../../assets/img/iconeBien/reçu.png"
+                                                        alt="Room amenities">
+                                                    <span class="hover-text">Voir le reçu</span>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -803,7 +808,8 @@
                                                                 class="receipt-header receipt-header-mid receipt-footer">
                                                                 <div>
                                                                     <div class="receipt-right">
-                                                                        <p><b>Date :</b> {{ today | date: 'dd MMMM yyyy' }}</p>
+                                                                        <p><b>Date :</b> {{ today | date: 'dd MMMM yyyy'
+                                                                            }}</p>
                                                                         <h5 style="color: rgb(140, 140, 140);">
                                                                             Merci pour la confiance.!</h5>
                                                                     </div>
@@ -911,8 +917,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr
-                                        *ngFor="let Facture of facture | filter:searchFacture">
+                                    <tr *ngFor="let Facture of facture | filter:searchFacture">
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailFacture(Facture.uuid)">
@@ -981,7 +986,7 @@
                                                 <a (click)="goToDettailFacture(Facture.uuid)"
                                                     class="action-btn btn-view crd">
                                                     <img class="icone-size"
-                                                        src="../../../../assets/img/iconeBien/facture.png"
+                                                        src="../../../../assets/img/iconeBien/facture1.png"
                                                         alt="Room amenities">
                                                     <span class="hover-text">Voir la facture</span>
                                                 </a>
@@ -1122,7 +1127,8 @@
                                                         <img src="../../../../assets/img/typebien/villa.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
-                                                    <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Appartement'">
+                                                    <div class="type"
+                                                        *ngIf="slide?.bien?.typeImmo?.nom === 'Appartement'">
                                                         <img src="../../../../assets/img/typebien/appartement.png"
                                                             class="img-fluid image-size1" alt="default-img">
                                                     </div>
@@ -1203,11 +1209,13 @@
                     </p> -->
                                                 <div class="amount-details">
                                                     <div class="amount">
-                                                        <span class="validrate">{{ formatPrice(slide?.bien?.prix) }} FCFA
+                                                        <span class="validrate">{{ formatPrice(slide?.bien?.prix) }}
+                                                            FCFA
                                                         </span>
                                                         <!-- <span>{{ slide.oldamount }}</span> -->
                                                     </div>
-                                                    <a class="crd" (click)="goToDettailBien(slide?.bien?.uuid)">Savoir plus</a>
+                                                    <a class="crd" (click)="goToDettailBien(slide?.bien?.uuid)">Savoir
+                                                        plus</a>
                                                 </div>
                                             </div>
                                         </div>

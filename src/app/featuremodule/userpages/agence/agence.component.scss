@@ -82,7 +82,7 @@
     
   }
   .img-fluid{
-    height: 120px !important;
+    height: 100px !important;
   }
   
   .sidebar1 {
@@ -186,13 +186,13 @@
     cursor: pointer;
   }
   
-  .review-img img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 20px;
-  }
+  // .review-img img {
+  //   width: 80px;
+  //   height: 40px;
+  //   border-radius: 50%;
+  //   object-fit: cover;
+  //   margin-right: 20px;
+  // }
   
   /* Style de la liste des avis */
   .review-list {
@@ -212,8 +212,8 @@
   
   /* Style de l'image de profil */
   .review-img img {
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 4px;
