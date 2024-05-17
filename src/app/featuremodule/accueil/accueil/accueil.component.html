@@ -552,6 +552,16 @@
 </section>
 <!-- /Featured Listings -->
 
+<!-- Make It Easy -->
+<!-- <section class="make-it-easy common-padding">
+  <div class="container">
+      <h2 class="mb-0">Nous facilitons la recherche de votre logement idéal parmi plus d'un million de locations.</h2>
+      <p>Circumstances certain circumstances and owing.</p>
+      <a [routerLink]="routes.agences">Search Properties</a>
+  </div>
+</section> -->
+<!-- /Make It Easy -->
+
 <!-- Why Choose Us -->
 <section class="real-why-us common-padding position-relative">
   <div class="real-why-us-floating-bg">
@@ -1119,15 +1129,7 @@
 </section>-->
 <!-- /Premium and essential services -->
 
-<!-- Make It Easy -->
-<!--<section class="make-it-easy common-padding">
-    <div class="container">
-        <h2 class="mb-0">We make it easy to find your perfect fit with over a million available rentals.</h2>
-        <p>Circumstances certain circumstances and owing.</p>
-        <a [routerLink]="routes.categories">Search Properties</a>
-    </div>
-</section> -->
-<!-- /Make It Easy -->
+
 
 <!-- COMMUNES -->
 <section class="car-location common-padding" *ngIf="commune && commune.length > 0">
@@ -1300,15 +1302,15 @@
 <!-- /Our Testimonials -->
 
 <!-- Join Us -->
-<!--<section class="buy-property aos">
+<section class="buy-property aos">
     <div class="container">
         <div class="buy-property-content">
-            <h2 class="aos" data-aos-delay="200">Join the millions getting more from their home.</h2>
-            <p class="aos" data-aos-delay="400">With Listee, you can track properties you’re interested in and use our price estimates to help you decide when to move. And get expert tips on making the most of your space.</p>
-            <a  [routerLink]="routes.mylisting">List Your Space</a>
+            <h2 class="aos" data-aos-delay="200">Rejoignez les millions de personnes qui tirent davantage de leur domicile.</h2>
+            <p class="aos" data-aos-delay="400">Sossara offre une interface conviviale pour les propriétaires, gestionnaires immobiliers et locataires, facilitant l'accès aux informations essentielles et la gestion des contrats de location.</p>
+            <!-- <a  [routerLink]="routes.mylisting">Savoir plus</a> -->
         </div>
     </div>
-</section>-->
+</section>
 <!-- /Join Us -->
 
 <!-- Recent Articles -->
@@ -1328,14 +1330,14 @@
     <div class="bloglist-section bloggrid-sidebar">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12 aos">
+          <div class="col-lg-12">
             <div class="car-class-carousel">
               <div class="blog-slider">
                 <owl-carousel-o [options]="recentarticleOwlOptions">
-                  <ng-container *ngFor="let Blog of blog">
+                  <ng-container *ngFor="let slide  of blog">
                     <ng-template carouselSlide>
-                      <div class="blog grid-blog aos" class="property-item" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
-                        <div class="blog-img">
+                      <!-- <div class="blog grid-blog aos" class="property-item" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
+                        <div class="blog-image">
                           <a (click)="goToDettailBlog(Blog?.uuid)"><img class="img-fluid image-sizeblog crd"
                               src="{{ generateImageUrl(Blog?.photo) }}" (error)="handleBlogImageError($event)"
                               alt="Post Image" /></a>
@@ -1361,10 +1363,38 @@
                             <a (click)="goToDettailBlog(Blog?.uuid)">Voir plus</a>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
+                     
+                        <div class="blog grid-blog" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
+                            <div class="blog-image">
+                                <a (click)="goToDettailBlog(slide?.uuid)"><img class="img-fluid image-size crd"
+                                        src="{{generateImageUrl(slide?.photo)}}"
+                                        (error)="handleAuthorImageError($event)" alt="Post Image"></a>
+                            </div>
+                            <div class="blog-content">
+                              
+                                <ul class="entry-meta meta-item">
+                                    <li>
+                                       
+                                    </li>
+                                    <li class="date-icon"><i class="fa-solid fa-calendar-days"></i>
+                                        {{slide?.createdAt | date:"dd MMM yyyy":locale}}</li>
+                                </ul>
+                                <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide?.uuid)">{{slide?.titre}}</a>
+                                </h3>
+                                
+                                <p class="blog-description" [innerHTML]="slide ? slide?.description : 'Aucune description'"
+                                > </p>
+                                <div class="viewlink crd"><a (click)="goToDettailBlog(slide?.uuid)">Voir plus <i
+                                            class="feather-arrow-right"></i></a></div>
+                            </div>
+                        </div>
+                  
                     </ng-template>
                   </ng-container>
                 </owl-carousel-o>
+
+                
               </div>
             </div>
           </div>
@@ -1401,9 +1431,6 @@
 <!-- Partners Section -->
 
 <div class="partners-section">
-
-
-
 
   <div class="container">
     <p class="partners-heading">Nos partenaires</p>

@@ -506,6 +506,8 @@ export class AjouterBienComponent implements OnInit {
       heightAuto: false,
     });
 
+
+
     if (
       this.form.commodite === null ||
       this.form.type === null ||
@@ -537,8 +539,7 @@ export class AjouterBienComponent implements OnInit {
             const user = this.storageService.getUser();
 
             if (user && user.token) {
-              const numeroPaiementSansTiret = prix.replace(/\ /g, '');
-              alert(numeroPaiementSansTiret)
+              const monprix = prix.replace(/\,/g, '');
               this.serviceBienImmo.setAccessToken(user.token);
               this.serviceBienImmo
                 .registerBien(
@@ -552,7 +553,7 @@ export class AjouterBienComponent implements OnInit {
                   cuisine,
                   toilette,
                   surface,
-                  numeroPaiementSansTiret,
+                  monprix,
                   statut,
                   description,
                   quartier,

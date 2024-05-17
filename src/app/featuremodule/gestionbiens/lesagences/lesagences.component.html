@@ -138,7 +138,7 @@
                           </span>
                         </div>
                         <div class="companies-set-content">
-                          <h4>{{ Agence.nom }}</h4>
+                          <h4>{{ Agence?.nomAgence }}</h4>
                           <h5 *ngIf="Agence?.adresse">
                             {{ Agence?.adresse?.commune?.cercle?.nomcercle }} - {{ Agence?.adresse?.quartier }}
                             <!-- <span>{{ Agence?.telephone }}</span> -->
