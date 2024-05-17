@@ -39,6 +39,13 @@
             <i class="fas fa-times"></i></a>
         </div>
         <ul class="main-nav">
+          <li>
+
+            <a [routerLink]="routes.home9" class="menu-logo" *ngIf="!isMobile">
+              <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+              <!-- Sossara -->
+            </a>
+          </li>
           <ng-container *ngFor="let mainMenus of header">
             <ng-container *ngIf="mainMenus.separateRoute == true">
               <li [class.active]="base === mainMenus.base ">
