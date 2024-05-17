@@ -489,6 +489,12 @@
                                       BienImo?.utilisateur?.photo?.nom
                                     )
                                   }}" alt="author" (error)="handleAuthorImageError($event)" />
+                                  <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else NoAgenceTemplate">
+                                    <a>{{ BienImo?.utilisateur?.nomAgence }}</a>
+                                  </ng-container>
+                                  <ng-template #NoAgenceTemplate>
+                                    <a>{{ BienImo?.utilisateur?.nom }}</a>
+                                  </ng-template> -->
                               </div>
                               <div class="blog-features">
                                 <a href="javascript:void(0)"><span>
@@ -623,7 +629,7 @@
       <div class="row align-items-center">
         <div class="col-lg-4 col-md-3"></div>
         <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
-          <h2>Les Agences</h2>
+          <h2>Les agences</h2>
           <p>Sociétés de Gestion de biens</p>
         </div>
         <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
@@ -652,7 +658,7 @@
                             </span>
                           </div>
                           <div class="companies-set-content">
-                            <h6>{{ Agence?.nom }}</h6>
+                            <h6>{{ Agence?.nomAgence }}</h6>
                             <h5 *ngIf="Agence?.adresse">
                               <span>{{
                                 Agence?.adresse?.commune?.cercle?.nomcercle
@@ -1329,7 +1335,7 @@
                   <ng-container *ngFor="let Blog of blog">
                     <ng-template carouselSlide>
                       <div class="blog grid-blog aos" class="property-item" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
-                        <div class="blog-image">
+                        <div class="blog-img">
                           <a (click)="goToDettailBlog(Blog?.uuid)"><img class="img-fluid image-sizeblog crd"
                               src="{{ generateImageUrl(Blog?.photo) }}" (error)="handleBlogImageError($event)"
                               alt="Post Image" /></a>
@@ -1351,9 +1357,9 @@
                           <p class="blog-description" style="  font-size: 15px;" [innerHTML]="
                               Blog ? Blog?.description : 'Aucune description'
                             "></p>
-                          <!-- <div class="viewlink crd">
+                          <div class="viewlink crd">
                             <a (click)="goToDettailBlog(Blog?.uuid)">Voir plus</a>
-                          </div> -->
+                          </div>
                         </div>
                       </div>
                     </ng-template>
@@ -1370,7 +1376,7 @@
 <!-- /Recent Articles -->
 
 <!-- Become Agent -->
-<!--<section class="join-us-dealer common-padding">
+<section class="join-us-dealer common-padding">
     <div class="join-us-dealer-bg home-nine-bg">
         <img src="./assets/img/bg/agent-bg.png" alt="">
     </div>
@@ -1378,18 +1384,18 @@
         <div class="row align-items-center aos">
             <div class="col-lg-6 col-md-12">
                 <div class="joinus-dealer-content">
-                    <h3 class="aos" data-aos-delay="200">Become a Real Estate Agent</h3>
-                    <p class="aos" data-aos-delay="300">Premium and essential services in Listee, contributing to enhancing residents' life experience</p>
+                    <h3 class="aos" style="font-size: 23px;" data-aos-delay="200">Simplifiez vos démarches immobilières dès maintenant !</h3>
+                    <p class="aos" data-aos-delay="300">Avec <span style="font-weight: bold;">Sossara</span>, gérez vos biens immobiliers en toute confiance et libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="join-as-dealer-btn">
-                    <a [routerLink]="routes.signup">View all Prroperties</a>
+                    <a [routerLink]="routes.about">Savoir plus</a>
                 </div>
             </div>
         </div>
     </div>
-</section>-->
+</section>
 <!-- /Become Agent -->
 
 <!-- Partners Section -->

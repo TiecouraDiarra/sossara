@@ -803,9 +803,15 @@
                     (error)="handleAuthorImageError($event)" />
                 </div>
                 <div class="sideauthor-info">
-                  <p class="authorname" *ngIf="bien && bien?.utilisateur">
+                  <!-- <p class="authorname" *ngIf="bien && bien?.utilisateur">
                     {{ bien?.utilisateur?.nom }}
-                  </p>
+                  </p> -->
+                  <ng-container *ngIf="hasRole('ROLE_AGENCE'); else noAgenceTemplate">
+                    <p class="authorname" *ngIf="bien && bien?.utilisateur">{{ bien?.utilisateur?.nomAgence }}</p>
+                  </ng-container>
+                  <ng-template #noAgenceTemplate>
+                    <p class="authorname" *ngIf="bien && bien?.utilisateur">{{ bien?.utilisateur?.nom }}</p>
+                  </ng-template>
                   <!-- <p>Member since Nov 24, 2017</p> -->
                 </div>
               </div>

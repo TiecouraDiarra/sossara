@@ -383,7 +383,7 @@ export class DetailsbienComponent implements AfterViewInit {
     //   // Extraction des trois biens immobiliers les plus récents
     //   this.bienImmoSuivant = data.slice(0, 1);
     //   console.log(this.bienImmoSuivant)
-    this. bienparid()
+    this.bienparid()
     
     // });
 
@@ -450,6 +450,7 @@ export class DetailsbienComponent implements AfterViewInit {
     // });
   }
 
+ 
   direction() {
     this.router.navigate([routes.servicedetails]);
   }
@@ -1030,7 +1031,7 @@ export class DetailsbienComponent implements AfterViewInit {
         window.location.reload();    });
 }
 
-
+userRoles: { id: number; name: string }[] = [];
 
   bienparid(){
     this.id = this.route.snapshot.params['id'];
@@ -1146,5 +1147,12 @@ export class DetailsbienComponent implements AfterViewInit {
         }
       );
     });
+  }
+
+  hasRole(roleName: string): boolean {
+    if (this.bien && this.bien.utilisateur && Array.isArray(this.bien.utilisateur.roles)) {
+      return this.bien.utilisateur.roles.some((role: { name: string }) => role.name === roleName);
+    }
+    return false;
   }
 }

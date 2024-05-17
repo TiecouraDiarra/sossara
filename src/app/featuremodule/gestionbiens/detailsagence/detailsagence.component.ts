@@ -166,6 +166,8 @@ export class DetailsagenceComponent implements OnInit {
       
       this.NombreAgent = this.agent.length;
       this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
+      console.log(this.bienImmo);
+      
       this.NombreBienAgence = this.bienImmo.length;
       
     
@@ -211,6 +213,10 @@ export class DetailsagenceComponent implements OnInit {
     });
 
 
+  }
+
+  hasRole(roleName: string): boolean {
+    return this.bienImmo.some((role: { name: string; }) => role.name === roleName);
   }
 
   // IMAGE PAR DEFAUT DES BIENS

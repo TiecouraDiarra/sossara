@@ -185,6 +185,32 @@
                     </mat-form-field>
                 </div>
               </div>
+              <div class="col-md-6 form-group group-img" *ngIf="currentUser === 'agence'">
+                <div class="group-img" id="datepicker">
+                  <i class="feather-user"></i>
+                  <input
+                    placeholder="Nom de l'agence"
+                    name="nomAgence"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="form.nomAgence"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6 form-group group-img" *ngIf="currentUser === 'agence'">
+                <div class="group-img">
+                  <i class="feather-mail"></i>
+                  <input
+                    type="email"
+                    placeholder="Email Agence"
+                    name="emailAgence"
+                    required
+                    class="form-control"
+                    [(ngModel)]="form.emailAgence"
+                  />
+                </div>
+              </div>
               <div class="col-md-6 form-group group-img"
                 *ngIf="currentUser != 'Utilisateur'"
               >
