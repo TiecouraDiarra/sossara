@@ -48,14 +48,12 @@ export class ModepaiementService {
   ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-
     formData.append('nombreMois', nombreMois || 0);
     formData.append('nombreAnnees', nombreAnnees || 0);
     formData.append('nombreJours', nombreJours || 0);
     formData.append('sommePayer', sommePayer);
     formData.append('modePaiement', modePaiement);
     formData.append('numeroPaiement', numeroPaiement);
-
   
     return this.http.post(`${URL_BASE}/paiement/fairepaiement/${id}`, formData, { headers });
   }

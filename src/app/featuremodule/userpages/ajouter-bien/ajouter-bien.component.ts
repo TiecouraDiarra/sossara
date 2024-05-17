@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, NgZone, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import * as Aos from 'aos';
@@ -81,10 +81,28 @@ export class AjouterBienComponent implements OnInit {
     private caracteristiqueService: CaracteristiqueService,
     private elRef: ElementRef,
     private ngZone: NgZone,
+    private el: ElementRef,
     private serviceAdresse: AdresseService,
 
     private serviceBienImmo: BienimmoService
   ) { }
+
+  @HostListener('input', ['$event']) onInputChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/,/g, ''); // Remove existing commas
+    
+    // Format the number with commas as thousand separators
+    value = this.formatNumber(value);
+
+    input.value = value;
+  }
+
+  private formatNumber(value: string): string {
+    if (!value) return '';
+    const parts = value.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  }
 
   public routes = routes;
   selectedValue: string | any = 'pays';
@@ -519,6 +537,8 @@ export class AjouterBienComponent implements OnInit {
             const user = this.storageService.getUser();
 
             if (user && user.token) {
+              const numeroPaiementSansTiret = prix.replace(/\ /g, '');
+              alert(numeroPaiementSansTiret)
               this.serviceBienImmo.setAccessToken(user.token);
               this.serviceBienImmo
                 .registerBien(
@@ -532,7 +552,7 @@ export class AjouterBienComponent implements OnInit {
                   cuisine,
                   toilette,
                   surface,
-                  prix,
+                  numeroPaiementSansTiret,
                   statut,
                   description,
                   quartier,
@@ -562,6 +582,82 @@ export class AjouterBienComponent implements OnInit {
         });
     }
   }
+  // onKeyPress(event: any) {
+  //   const pattern = /[0-9\ \+\-]/; // Inclure l'espace dans le pattern
+  //   let inputChar = String.fromCharCode(event.charCode);
+  
+  //   if (!pattern.test(inputChar)) {
+  //     // Caractère non numérique, espace ou signe, empêcher l'entrée
+  //     event.preventDefault();
+  //   }
+  
+  //   // Supprimer les espaces existants
+  //   let inputValue = event.target.value.replace(/\s/g, '');
+  
+  //   // Ajouter des zéros au début jusqu'à ce que le nombre total de chiffres soit un multiple de trois plus deux
+  //   while ((inputValue.length - 2) % 3 !== 0) {
+  //     inputValue = '0' + inputValue;
+  //   }
+  
+  //   // Inverser la chaîne d'entrée
+  //   inputValue = inputValue.split('').reverse().join('');
+  
+  //   let formattedValue = '';
+  //   let groupCount = 0;
+  //   for (let i = 0; i < inputValue.length; i++) {
+  //     formattedValue += inputValue.charAt(i);
+  //     groupCount++;
+  
+  //     // Ajouter un espace après chaque groupe de deux chiffres pour le premier groupe,
+  //     // puis ajouter un espace après chaque groupe de trois chiffres pour le reste
+  //     if ((i < 2 && groupCount % 2 === 0 && i < inputValue.length - 1) || 
+  //         (i >= 2 && groupCount % 3 === 0 && i < inputValue.length - 1)) {
+  //       formattedValue += ' ';
+  //     }
+  //   }
+  
+  //   // Inverser la chaîne formatée et mettre à jour la valeur dans l'input
+  //   event.target.value = formattedValue.split('').reverse().join('');
+  // }
+
+  onKeyPress(event: any) {
+    const pattern = /[0-9\ \+\-]/;
+    let inputChar = String.fromCharCode(event.charCode);
+  
+    if (!pattern.test(inputChar)) {
+      // Caractère non numérique, empêcher l'entrée
+      event.preventDefault();
+    }
+  
+    // Insérer un espace après chaque trio de chiffres
+    let inputValue = event.target.value.replace(/\s/g, ''); // Supprimer les espaces existants
+    let formattedValue = '';
+    for (let i = inputValue.length; i > 0; i -= 3) {
+      formattedValue = ',' + inputValue.slice(Math.max(i - 3, 0), i) + formattedValue;
+    }
+    // Supprimer l'espace initial s'il dépasse la limite de 1000 caractères
+    formattedValue = formattedValue.slice(0, 1000);
+  
+    // Mettre à jour la valeur dans l'input
+    event.target.value = formattedValue;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  formatPrice(price: number): string {
+    return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+
+  
 
   //POPUP APRES CONFIRMATION
   popUpConfirmation() {

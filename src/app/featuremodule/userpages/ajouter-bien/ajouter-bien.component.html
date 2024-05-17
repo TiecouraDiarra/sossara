@@ -47,7 +47,7 @@
           <a [routerLink]="routes.rdv">
             <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
           </a>
-        </li> 
+        </li>
         <li>
           <a [routerLink]="routes.messages">
             <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
@@ -72,12 +72,7 @@
       </ul>
     </div>
     <div class="profile-content">
- <form
-        (ngSubmit)="onSubmit(f)"
-        #f="ngForm"
-        class="messages-form"
-        enctype="multipart/form-data"
-      >
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="messages-form" enctype="multipart/form-data">
         <div class="card">
           <div class="card-header">
             <h4>Information de base</h4>
@@ -91,21 +86,22 @@
             <div class="form-group">
               <label class="col-form-label">Prix du bien <span>*</span></label>
               <div class="pass-group group-img">
-                <input type="number" pattern="[0-9]" name="prix" [(ngModel)]="form.prix" class="form-control pass-input"
-                  required aria-required="true" placeholder="FCFA" />
+                <!-- <input type="text" name="prix" [(ngModel)]="form.prix" class="form-control pass-input" required
+                  aria-required="true" placeholder="FCFA" appThousandSeparator /> -->
+
+                <input type="text" (keypress)="onKeyPress($event)" name="prix" [(ngModel)]="form.prix"
+                  class="form-control pass-input" required aria-required="true" placeholder="FCFA" />
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-form-label"
-                >Description du bien <span>*</span></label
-              >
+              <label class="col-form-label">Description du bien <span>*</span></label>
               <div class="form-floating">
-                <quill-editor name="description"  [(ngModel)]="form.description" placeholder="Description"
-                [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
-                (onContentChanged)="onContentChanged($event)">
-            </quill-editor>              
-            </div>
+                <quill-editor name="description" [(ngModel)]="form.description" placeholder="Description"
+                  [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
+                  (onContentChanged)="onContentChanged($event)">
+                </quill-editor>
+              </div>
             </div>
           </div>
         </div>
@@ -121,23 +117,11 @@
                 <div class="form-group">
                   <label class="col-form-label">Type <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Type</mat-label
-                      >
-                      <mat-select
-                        [(ngModel)]="form.type"
-                        name="type"
-                        (selectionChange)="onTypeChange($event)"
-                      >
-                        <mat-option
-                          *ngFor="let item of typebien"
-                          [value]=" item?.id"
-                          >{{ item?.nom }}</mat-option
-                        >
+                        Type</mat-label>
+                      <mat-select [(ngModel)]="form.type" name="type" (selectionChange)="onTypeChange($event)">
+                        <mat-option *ngFor="let item of typebien" [value]=" item?.id">{{ item?.nom }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -149,13 +133,9 @@
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Statut</mat-label
-                      >
+                        Statut</mat-label>
                       <mat-select [(ngModel)]="form.statut" name="statut">
                         <mat-option [value]="2">A vendre</mat-option>
                       </mat-select>
@@ -180,23 +160,11 @@
                         {{ item?.nom }}
                       </option>
                     </select> -->
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Statut</mat-label
-                      >
-                      <mat-select
-                        [(ngModel)]="form.statut"
-                        name="statut"
-                        (selectionChange)="onStatutChange($event)"
-                      >
-                        <mat-option
-                          *ngFor="let item of status"
-                          [value]=" item?.id"
-                          >{{ item?.nom }}</mat-option
-                        >
+                        Statut</mat-label>
+                      <mat-select [(ngModel)]="form.statut" name="statut" (selectionChange)="onStatutChange($event)">
+                        <mat-option *ngFor="let item of status" [value]=" item?.id">{{ item?.nom }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -206,27 +174,14 @@
               <!-- caracteristique -->
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                  <label class="col-form-label"
-                    >Caracteristique <span>*</span></label
-                  >
+                  <label class="col-form-label">Caracteristique <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Caracteristique</mat-label
-                      >
-                      <mat-select
-                        [(ngModel)]="form.caracteristique"
-                        name="caracteristique"
-                      >
-                        <mat-option
-                          *ngFor="let item of caracteristique"
-                          [value]=" item?.id"
-                        >
-                          {{  item?.caracteristique }}</mat-option
-                        >
+                        Caracteristique</mat-label>
+                      <mat-select [(ngModel)]="form.caracteristique" name="caracteristique">
+                        <mat-option *ngFor="let item of caracteristique" [value]=" item?.id">
+                          {{ item?.caracteristique }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -238,20 +193,12 @@
                 <div class="form-group">
                   <label class="col-form-label">Nombre de salon <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Nombre de salon</mat-label
-                      >
+                        Nombre de salon</mat-label>
                       <mat-select [(ngModel)]="form.nb_piece" name="nb_piece">
-                        <mat-option
-                          *ngFor="let item of valuesSelect"
-                          [value]="item"
-                        >
-                          {{ item }}</mat-option
-                        >
+                        <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                          {{ item }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -263,20 +210,12 @@
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Cuisines</mat-label
-                      >
+                        Cuisines</mat-label>
                       <mat-select [(ngModel)]="form.cuisine" name="cuisine">
-                        <mat-option
-                          *ngFor="let item of valuesSelect"
-                          [value]="item"
-                        >
-                          {{ item }}</mat-option
-                        >
+                        <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                          {{ item }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -287,20 +226,12 @@
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Chambres <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Chambres</mat-label
-                      >
+                        Chambres</mat-label>
                       <mat-select [(ngModel)]="form.chambre" name="chambre">
-                        <mat-option
-                          *ngFor="let item of valuesSelect"
-                          [value]="item"
-                        >
-                          {{ item }}</mat-option
-                        >
+                        <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                          {{ item }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -311,26 +242,18 @@
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Toilette <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Toilette</mat-label
-                      >
+                        Toilette</mat-label>
                       <mat-select [(ngModel)]="form.toilette" name="toilette">
-                        <mat-option
-                          *ngFor="let item of valuesSelect"
-                          [value]="item"
-                        >
-                          {{ item }}</mat-option
-                        >
+                        <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                          {{ item }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
               </div>
-            
+
 
               <!-- Nombre de toilette -->
               <!-- <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
@@ -359,97 +282,54 @@
               <!-- Nombre de surface -->
               <div class="col-lg-6 col-md-6" *ngIf="selectedStatut != 1">
                 <div class="form-group">
-                  <label class="col-form-label"
-                    >Superficie du bien (M²) <span>*</span></label
-                  >
-                  <input
-                    type="number"
-                    pattern="[0-9]"
-                    name="surface"
-                    [(ngModel)]="form.surface"
-                    class="form-control pass-input"
-                    required
-                    aria-required="true"
-                    placeholder="000000"
-                  />
+                  <label class="col-form-label">Superficie du bien (M²) <span>*</span></label>
+                  <input type="number" pattern="[0-9]" name="surface" [(ngModel)]="form.surface"
+                    class="form-control pass-input" required aria-required="true" placeholder="000000" />
                 </div>
               </div>
               <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 1">
                 <div class="form-group">
                   <label class="col-form-label">Periode <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Periode</mat-label
-                      >
-                      <mat-select
-                        [(ngModel)]="form.periode"
-                        name="periode"
-                        (selectionChange)="onStatutChangeMensuel($event)"
-                      >
-                        <mat-option
-                          *ngFor="let item of periode"
-                          [value]=" item?.id"
-                        >
-                          {{ item?.nom }}</mat-option
-                        >
+                        Periode</mat-label>
+                      <mat-select [(ngModel)]="form.periode" name="periode"
+                        (selectionChange)="onStatutChangeMensuel($event)">
+                        <mat-option *ngFor="let item of periode" [value]=" item?.id">
+                          {{ item?.nom }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
               </div>
 
-              <div
-                class="col-lg-6 col-md-6"
-                *ngIf="selectedStatutMensuel === 2"
-              >
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatutMensuel === 2">
                 <div class="form-group">
                   <label class="col-form-label">Caution <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Caution</mat-label
-                      >
+                        Caution</mat-label>
                       <mat-select [(ngModel)]="form.caution" name="caution">
-                        <mat-option
-                          *ngFor="let item of valuesSelect"
-                          [value]="item"
-                        >
-                          {{ item }}</mat-option
-                        >
+                        <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                          {{ item }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
               </div>
 
-              <div
-                class="col-lg-6 col-md-6"
-                *ngIf="selectedStatutMensuel === 2"
-              >
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatutMensuel === 2">
                 <div class="form-group">
                   <label class="col-form-label">Avance <span>*</span></label>
                   <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Avance</mat-label
-                      >
+                        Avance</mat-label>
                       <mat-select [(ngModel)]="form.avance" name="avance">
-                        <mat-option
-                          *ngFor="let item of valuesSelect"
-                          [value]="item"
-                        >
-                          {{ item }}</mat-option
-                        >
+                        <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                          {{ item }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -497,30 +377,18 @@
           <div class="card-body">
             <div class="row">
               <!-- Pays  -->
-   
+
 
               <div class="col-lg-4 col-md-4">
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Pays <span>*</span></label>
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Pays</mat-label
-                      >
-                      <mat-select
-                        [(ngModel)]="selectedValue"
-                        name="pays"
-                        (selectionChange)="onChange($event)"
-                      >
+                        Pays</mat-label>
+                      <mat-select [(ngModel)]="selectedValue" name="pays" (selectionChange)="onChange($event)">
                                  
-                        <mat-option
-                          *ngFor="let item of pays"
-                          [value]=" item?.nompays"
-                          >{{ item?.nompays }}</mat-option
-                        >
+                        <mat-option *ngFor="let item of pays" [value]=" item?.nompays">{{ item?.nompays }}</mat-option>
                                
                       </mat-select>
                     </mat-form-field>
@@ -533,23 +401,11 @@
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Region <span>*</span></label>
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
-                      <mat-label *ngIf="selectedCategory == ''"
-                        >Region</mat-label
-                      >
-                      <mat-select
-                        [(ngModel)]="selectedValueR"
-                        name="region"
-                        (selectionChange)="onChangeRegion($event)"
-                      >
-                        <mat-option
-                          *ngFor="let item of regions"
-                          [value]=" item?.nomregion"
-                          >{{ item?.nomregion }}</mat-option
-                        >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
+                      <mat-label *ngIf="selectedCategory == ''">Region</mat-label>
+                      <mat-select [(ngModel)]="selectedValueR" name="region" (selectionChange)="onChangeRegion($event)">
+                        <mat-option *ngFor="let item of regions" [value]=" item?.nomregion">{{ item?.nomregion
+                          }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -560,23 +416,11 @@
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Cercle <span>*</span></label>
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
-                      <mat-label *ngIf="selectedCategory == ''"
-                        >Cercle</mat-label
-                      >
-                      <mat-select
-                        [(ngModel)]="selectedValueC"
-                        name="cercle"
-                        (selectionChange)="onChangeCercle($event)"
-                      >
-                        <mat-option
-                          *ngFor="let item of cercles"
-                          [value]=" item?.nomcercle"
-                          >{{ item?.nomcercle }}</mat-option
-                        >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
+                      <mat-label *ngIf="selectedCategory == ''">Cercle</mat-label>
+                      <mat-select [(ngModel)]="selectedValueC" name="cercle" (selectionChange)="onChangeCercle($event)">
+                        <mat-option *ngFor="let item of cercles" [value]=" item?.nomcercle">{{ item?.nomcercle
+                          }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -591,19 +435,12 @@
                   <div class="pass-group group-img">
                     <label class="col-form-label">Commune <span>*</span></label>
 
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Commune</mat-label
-                      >
+                        Commune</mat-label>
                       <mat-select name="commune" [(ngModel)]="form.commune" (selectionChange)="onChangeCommune($event)">
-                                 <mat-option
-                          *ngFor="let item of communes"
-                          [value]=" item?.id"
-                          >{{ item?.nomcommune }}</mat-option
-                        >
+                                 <mat-option *ngFor="let item of communes" [value]=" item?.id">{{ item?.nomcommune
+                          }}</mat-option>
                                
                       </mat-select>
                     </mat-form-field>
@@ -615,8 +452,8 @@
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Quartier <span>*</span></label>
-                    <input type="text" name="quartier" [(ngModel)]="form.quartier" (input)="onChangeQuartier($event)" class="form-control pass-input"
-                      placeholder="Quartier" />
+                    <input type="text" name="quartier" [(ngModel)]="form.quartier" (input)="onChangeQuartier($event)"
+                      class="form-control pass-input" placeholder="Quartier" />
                   </div>
                 </div>
               </div>
@@ -636,14 +473,8 @@
               <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Porte <span>*</span></label>
-                  <input
-                    type="text"
-                   
-                    name="porte"
-                    [(ngModel)]="form.porte"
-                    class="form-control pass-input"
-                    placeholder="9999"
-                  />
+                  <input type="text" name="porte" [(ngModel)]="form.porte" class="form-control pass-input"
+                    placeholder="9999" />
                 </div>
               </div>
             </div>
@@ -693,19 +524,12 @@
                 </div>
               </div>
               <div class="settings-upload-btn">
-                <input
-                  type="file"
-                  id="photo"
-                  name="photo"
-                  (change)="onFileSelected($event)"
-                  multiple
-                  class="hide-input image-upload"
-                  [disabled]="maxImageCount >= 8"
-                  accept=".png, .jpeg, .jpg, .svg, .webp"
-                />
+                <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
+                  class="hide-input image-upload" [disabled]="maxImageCount >= 8"
+                  accept=".png, .jpeg, .jpg, .svg, .webp" />
                 <label for="photo" class="file-upload">Ajouter l'image</label>
               </div>
-              
+
             </div>
           </div>
           <div *ngIf="isSuccess" class="alert alert-danger" role="alert">
@@ -715,7 +539,7 @@
         <button class="btn btn-primary" type="submit">Ajouter bien</button>
 
       </form>
-      
+
     </div>
   </div>
 </div>

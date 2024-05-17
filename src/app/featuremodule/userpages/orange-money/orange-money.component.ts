@@ -103,15 +103,7 @@ export class OrangeMoneyComponent {
 
   //FAIRE LE PAIEMENT AVEC ORANGE MONEY
   FairePaiement(id: any): void {
-    const {
-      contenu,
-      nombreMois,
-      nombreAnnees,
-      nombreJours,
-      sommePayer,
-      numeroPaiement,
-      modePaiement,
-    } = this.paiementForm;
+    const {contenu, nombreMois,nombreAnnees,nombreJours,sommePayer,numeroPaiement,modePaiement,} = this.paiementForm;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -119,6 +111,27 @@ export class OrangeMoneyComponent {
       },
       heightAuto: false
     })
+    const numeroPaiementSansTiret = numeroPaiement.replace(/\-/g, '');
+   
+  if (!/^7|^8[0-4]|^9[0-4]/.test(numeroPaiementSansTiret)) {
+    Swal.fire({
+      position: 'center',
+      text: "Veuillez saisir un numéro orange valide",
+      title: 'Erreur',
+      icon: 'error',
+      heightAuto: false,
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+    })
+    return; // Sortez de la fonction pour éviter d'exécuter le reste du code
+}
+
+
+
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
       text: "Etes-vous sûre de faire le paiement?",
@@ -149,7 +162,7 @@ export class OrangeMoneyComponent {
            this.paiementForm.modePaiement = 1;
 
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
-          this.paiementService.FairePaiement(id, this.paiementForm.nombreMois, nombreAnnees, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiement, 1).subscribe({
+          this.paiementService.FairePaiement(id, this.paiementForm.nombreMois, nombreAnnees, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1).subscribe({
             next: (data) => {
               if (data.status) {
                 let timerInterval = 2000;
@@ -199,6 +212,30 @@ export class OrangeMoneyComponent {
     })
   }
 
+  onKeyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+  
+    if (!pattern.test(inputChar)) {
+      // Caractère non numérique, empêcher l'entrée
+      event.preventDefault();
+    }
+  
+    // Insérer un tiret après chaque paire de chiffres
+    const inputValue = event.target.value.replace(/\-/g, ''); // Supprimer les tirets existants
+    let formattedValue = '';
+    for (let i = 0; i < inputValue.length; i += 2) {
+      formattedValue += inputValue.slice(i, i + 2) + '-';
+    }
+    // Supprimer le tiret final s'il dépasse la limite de 8 caractères
+    formattedValue = formattedValue.slice(0, 10);
+  
+    // Mettre à jour la valeur dans l'input
+    event.target.value = formattedValue;
+  }
+  
+  
+  
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
   goToPageRecu(id: number) {
      return this.router.navigate(['userpages/recufacture', id])
