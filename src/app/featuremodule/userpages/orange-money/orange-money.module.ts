@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrangeMoneyComponent } from './orange-money.component';
 import { ProprietaireRoutingModule } from './orange-money-routing.module';
 
@@ -14,7 +14,9 @@ import { ProprietaireRoutingModule } from './orange-money-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    ProprietaireRoutingModule
+    ProprietaireRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class OrangeMoneyModule { }
