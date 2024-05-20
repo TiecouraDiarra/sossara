@@ -58,11 +58,6 @@
             <i class="fa-solid fa-user"></i> <span>Profil</span>
           </a>
         </li>
-        <!-- <li class="crd">
-                    <a (click)="logout()">
-                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
-                    </a>
-                </li> -->
       </ul>
     </div>
     <div class="profile-content">
@@ -161,12 +156,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="form-group">
-                                        <label class="col-form-label">Notes</label>
-                                        <div class="pass-group group-img">
-                                            <textarea rows="4" class="form-control">Mauris vestibulum lorem a condimentum vulputate. Integer vitae turpis turpis. Cras at tincidunt urna. Aenean leo justo, congue et felis a, elementum rutrum felis. Fusce rutrum ipsum eu pretium faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean leo justo, congue et felis a.  Aenean leo justo, congue et felis a.	</textarea>												
-                                        </div>
-                                    </div> -->
                   <div class="mb-3">
                     <div class="d-flex real-estate-search">
                       <div class="flex-grow-1 ms-3">
@@ -388,9 +377,6 @@
                                   <i class="feather-map-pin"></i>
                                 </div>
                               </div>
-                              <!--<div class="flex-grow-1 ms-3">
-                                                            <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                        </div>-->
                               <div class="flex-grow-1 ms-3">
                                 <select class="form-control" [ngModel]="selectedValue" name="pays"
                                   (change)="onChange2($event.target)">
@@ -410,9 +396,6 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-                                <!--<div class="flex-grow-1 ms-3">
-                                                                <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                            </div>-->
                                 <div class="flex-grow-1 ms-3">
                                   <select class="form-control select category-select"
                                     (change)="onChangeRegion($event.target)">
@@ -433,9 +416,6 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-                                <!--<div class="flex-grow-1 ms-3">
-                                                                <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                            </div>-->
                                 <div class="flex-grow-1 ms-3">
                                   <select class="form-control select category-select"
                                     (change)="onChangeCercle($event.target)">
@@ -513,9 +493,6 @@
                                     <img style="width: 20px" src="../../../../assets/img/icons/porte.png" alt="" />
                                   </div>
                                 </div>
-                                <!--<div class="flex-grow-1 ms-3">
-                                                                <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                            </div>-->
                                 <div class="flex-grow-1 ms-3">
                                   <input [(ngModel)]="formModifadress.porte" type="text" required name="porte"
                                     class="form-control" placeholder="Numéro porte" />
