@@ -782,6 +782,10 @@ export class TrouverbienComponent implements OnInit {
   }
 
 
+  hasRole(roleName: string): boolean {
+    return this.bienImmo.utilisateur.roles.some((role: { name: string; }) => role.name === roleName);
+  }
+
 
   //METHODE PERMETTANT D'AIMER UN BIEN 
   AimerBien(id: any): void {
