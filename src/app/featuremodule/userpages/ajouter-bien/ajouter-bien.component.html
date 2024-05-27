@@ -240,11 +240,11 @@
 
               <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
                 <div class="form-group formlast-input">
-                  <label class="col-form-label">Toilette <span>*</span></label>
+                  <label class="col-form-label">Toilettes <span>*</span></label>
                   <div class="pass-group group-img">
                     <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
-                        Toilette</mat-label>
+                        Toilettes</mat-label>
                       <mat-select [(ngModel)]="form.toilette" name="toilette">
                         <mat-option *ngFor="let item of valuesSelect" [value]="item">
                           {{ item }}</mat-option>
