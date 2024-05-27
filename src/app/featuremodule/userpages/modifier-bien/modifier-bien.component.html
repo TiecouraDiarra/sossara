@@ -79,7 +79,7 @@
             <div class="form-group">
               <label class="col-form-label">Prix du bien <span>*</span></label>
               <div class="pass-group group-img">
-                <input type="number" pattern="[0-9]" name="prix" [(ngModel)]="form.prix" class="form-control pass-input"
+                <input type="text" (keypress)="onKeyPress($event)" name="form.prix" [(ngModel)]="form.prix" class="form-control pass-input"
                   required aria-required="true" placeholder="FCFA" />
               </div>
             </div>
