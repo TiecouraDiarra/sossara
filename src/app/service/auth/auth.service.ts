@@ -45,6 +45,8 @@ export class AuthService {
   register(
     nom: string,
     email: string,
+    nomAgence: string,
+    emailAgence: string,
     password: string,
     telephone: string,
     dateNaissance: string,
@@ -56,6 +58,8 @@ export class AuthService {
     const formData = new FormData();
     formData.append('nom', nom);
     formData.append('email', email);
+    formData.append('nomAgence', nomAgence);
+    formData.append('emailAgence', emailAgence);
     formData.append('password', password);
     formData.append('telephone', telephone);
     formData.append('dateNaissance', dateNaissance);

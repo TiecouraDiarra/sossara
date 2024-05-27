@@ -489,6 +489,12 @@
                                       BienImo?.utilisateur?.photo?.nom
                                     )
                                   }}" alt="author" (error)="handleAuthorImageError($event)" />
+                                  <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else NoAgenceTemplate">
+                                    <a>{{ BienImo?.utilisateur?.nomAgence }}</a>
+                                  </ng-container>
+                                  <ng-template #NoAgenceTemplate>
+                                    <a>{{ BienImo?.utilisateur?.nom }}</a>
+                                  </ng-template> -->
                               </div>
                               <div class="blog-features">
                                 <a href="javascript:void(0)"><span>
@@ -545,6 +551,16 @@
   </div>
 </section>
 <!-- /Featured Listings -->
+
+<!-- Make It Easy -->
+<!-- <section class="make-it-easy common-padding">
+  <div class="container">
+      <h2 class="mb-0">Nous facilitons la recherche de votre logement idéal parmi plus d'un million de locations.</h2>
+      <p>Circumstances certain circumstances and owing.</p>
+      <a [routerLink]="routes.agences">Search Properties</a>
+  </div>
+</section> -->
+<!-- /Make It Easy -->
 
 <!-- Why Choose Us -->
 <section class="real-why-us common-padding position-relative">
@@ -623,7 +639,7 @@
       <div class="row align-items-center">
         <div class="col-lg-4 col-md-3"></div>
         <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
-          <h2>Les Agences</h2>
+          <h2>Les agences</h2>
           <p>Sociétés de Gestion de biens</p>
         </div>
         <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
@@ -652,7 +668,7 @@
                             </span>
                           </div>
                           <div class="companies-set-content">
-                            <h6>{{ Agence?.nom }}</h6>
+                            <h6>{{ Agence?.nomAgence }}</h6>
                             <h5 *ngIf="Agence?.adresse">
                               <span>{{
                                 Agence?.adresse?.commune?.cercle?.nomcercle
@@ -1113,15 +1129,7 @@
 </section>-->
 <!-- /Premium and essential services -->
 
-<!-- Make It Easy -->
-<!--<section class="make-it-easy common-padding">
-    <div class="container">
-        <h2 class="mb-0">We make it easy to find your perfect fit with over a million available rentals.</h2>
-        <p>Circumstances certain circumstances and owing.</p>
-        <a [routerLink]="routes.categories">Search Properties</a>
-    </div>
-</section> -->
-<!-- /Make It Easy -->
+
 
 <!-- COMMUNES -->
 <section class="car-location common-padding" *ngIf="commune && commune.length > 0">
@@ -1294,15 +1302,15 @@
 <!-- /Our Testimonials -->
 
 <!-- Join Us -->
-<!--<section class="buy-property aos">
+<section class="buy-property aos">
     <div class="container">
         <div class="buy-property-content">
-            <h2 class="aos" data-aos-delay="200">Join the millions getting more from their home.</h2>
-            <p class="aos" data-aos-delay="400">With Listee, you can track properties you’re interested in and use our price estimates to help you decide when to move. And get expert tips on making the most of your space.</p>
-            <a  [routerLink]="routes.mylisting">List Your Space</a>
+            <h2 class="aos" data-aos-delay="200">Rejoignez les millions de personnes qui tirent davantage de leur domicile.</h2>
+            <p class="aos" data-aos-delay="400">Sossara offre une interface conviviale pour les propriétaires, gestionnaires immobiliers et locataires, facilitant l'accès aux informations essentielles et la gestion des contrats de location.</p>
+            <!-- <a  [routerLink]="routes.mylisting">Savoir plus</a> -->
         </div>
     </div>
-</section>-->
+</section>
 <!-- /Join Us -->
 
 <!-- Recent Articles -->
@@ -1398,7 +1406,7 @@
 <!-- /Recent Articles -->
 
 <!-- Become Agent -->
-<!-- <section class="join-us-dealer common-padding">
+<section class="join-us-dealer common-padding">
     <div class="join-us-dealer-bg home-nine-bg">
         <img src="./assets/img/bg/agent-bg.png" alt="">
     </div>
@@ -1406,18 +1414,18 @@
         <div class="row align-items-center aos">
             <div class="col-lg-6 col-md-12">
                 <div class="joinus-dealer-content">
-                    <h3 class="aos" data-aos-delay="200">Become a Real Estate Agent</h3>
-                    <p class="aos" data-aos-delay="300">Premium and essential services in Listee, contributing to enhancing residents' life experience</p>
+                    <h3 class="aos" style="font-size: 23px;" data-aos-delay="200">Simplifiez vos démarches immobilières dès maintenant !</h3>
+                    <p class="aos" data-aos-delay="300">Avec <span style="font-weight: bold;">Sossara</span>, gérez vos biens immobiliers en toute confiance et libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="join-as-dealer-btn">
-                    <a [routerLink]="routes.signup">View all Prroperties</a>
+                    <a [routerLink]="routes.about">Savoir plus</a>
                 </div>
             </div>
         </div>
     </div>
-</section>-->
+</section>
 <!-- /Become Agent -->
 
 <!-- Partners Section -->

@@ -208,11 +208,13 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label class="col-form-label">Prix estimatif
                                                             <span>*</span></label>
+                                                        <!-- <input type="text" (keypress)="onKeyPress($event)" name="prix_estimatif"
+                                                            [(ngModel)]="form.prix_estimatif" class="form-control pass-input"
+                                                            required aria-required="true" placeholder="FCFA" /> -->
                                                         <input type="number" pattern="[0-9]"
                                                             class="form-control pass-input" name="prix_estimatif"
                                                             [(ngModel)]="form.prix_estimatif" placeholder="FCFA" />
                                                     </div>
-
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="message-text" class="col-form-label">Description

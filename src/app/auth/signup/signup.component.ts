@@ -47,6 +47,8 @@ export class SignupComponent {
   form: any = {
     nom: null,
     email: null,
+    nomAgence: null,
+    emailAgence: null,
     password: null,
     telephone: null,
     confirmPassword: null,
@@ -159,7 +161,7 @@ handleFileSelection(event: any): void {
       });
       return; // Sortir de la fonction si les mots de passe ne correspondent pas
     }
-    const { nom, email, password, telephone, dateNaissance,  nomDoc,numDoc, role,photo} = this.form;
+    const { nom, email,nomAgence, emailAgence, password, telephone, dateNaissance,  nomDoc,numDoc, role,photo} = this.form;
     
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -193,7 +195,7 @@ handleFileSelection(event: any): void {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-          this.authService.register(nom, email, password, telephone, dateNaissance, nomDoc,numDoc,role,photo).subscribe({
+          this.authService.register(nom, email, nomAgence, emailAgence, password, telephone, dateNaissance, nomDoc,numDoc,role,photo).subscribe({
             next: (data) => {
               // this.storageService.saveUser(data);
               this.isSuccessful = true;

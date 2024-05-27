@@ -534,7 +534,7 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
-      console.log('Agence ', data);
+      // console.log('Agence ', data);
 
       // data.forEach((user: any) => {
       //   // Vérifier si le bien est déjà loué
@@ -663,6 +663,10 @@ export class AccueilComponent {
       this.blog = data;
     });
   }
+
+  // hasRole(roleName: string): boolean {
+  //   return this.bienImmoPlusVue.some((role: { name: string; }) => role.name === roleName);
+  // }
 
   //METHODE PERMETTANT D'AIMER UN BIEN
   AimerBien(id: any): void {

@@ -45,7 +45,7 @@ export class ContratComponent {
 
   isProprietaire(roles: any[]): boolean {
     return roles?.some(role => role.name === 'ROLE_PROPRIETAIRE');
-  }
+  } 
 
   isAgence(roles: any[]): boolean {
     return roles?.some(role => role.name === 'ROLE_AGENCE');

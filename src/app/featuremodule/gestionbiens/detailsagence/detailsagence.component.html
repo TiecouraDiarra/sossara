@@ -12,7 +12,7 @@
             <li class="breadcrumb-item">
               <a [routerLink]="routes.agences">agences</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{{agence?.nom}}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{agence?.nomAgence}}</li>
           </ol>
         </nav>
       </div>
@@ -38,7 +38,7 @@
                   <img src="{{generateImageUrl(agence?.agencePhoto?.nom)}}" class="img-radius" alt="User-Profile-Image"
                     (error)="handleAuthorImageError($event)">
                 </div>
-                <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nom}}</h6>
+                <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nomAgence}}</h6>
                 <div class="row" *ngIf="agence && agence?.adresse">
                   <div class="col-5" style="font-weight: bold;font-size: 14px">
                     <label>Adresse :</label>
@@ -194,7 +194,12 @@
                         <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
                           (error)="handleAuthorImageError($event)" />
                       </div>
-                      <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom}}</a>
+                      <ng-container *ngIf="hasRole('ROLE_AGENT'); else agenceTemplate">
+                        <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
+                      </ng-container>
+                      <ng-template #agenceTemplate>
+                        <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
+                      </ng-template>
                     </div>
                   </div>
                   <h6>
@@ -236,7 +241,7 @@
         </div>
       </div>
     </div>
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5" *ngIf="agent && agent.length > 0">
       <h5 class="section-title h1">Ses agents</h5>
       <div class="listing-search">
         <div class="filter-content form-group">

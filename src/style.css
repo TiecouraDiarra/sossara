@@ -13045,6 +13045,7 @@ button.btn.car-search-icon:hover {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-color: #435d73;
 }
 .make-it-easy h2 {
   max-width: 710px;
@@ -13227,6 +13228,7 @@ button.btn.car-search-icon:hover {
 }
 .buy-property-content {
   /* background: url('assets/img/bg/join-us.jpg'); */
+  background-color: #374b5c;
   border-radius: 10px;
   background-repeat: no-repeat;
   background-size: cover;
