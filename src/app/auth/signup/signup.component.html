@@ -211,10 +211,11 @@
                 <div class="form-group group-img">
                   <div class="group-img">
                     <i class="feather-user"></i>
-                    <input type="text" [(ngModel)]="form.numDoc" pattern="^[A-Za-z][0-9][A-Za-z][A-Za-z][0-9]$"
-                      maxlength="5" name="numDoc" class="form-control" placeholder="N de la carte" #numDoc="ngModel" />
-                    <div *ngIf="numDoc.errors?.['pattern'] && numDoc.dirty" class="text-danger">
-                      Le numéro de CarteIN doit être dans le format A1A1A (où A est une lettre et 1 est un chiffre).
+                    <input type="text" [(ngModel)]="form.numDoc" name="numDoc" class="form-control pass-input"
+                      placeholder="N de la carte" #numDoc="ngModel"
+                      [ngClass]="{'is-invalid': form.numDoc && !isValidNumDoc(form.numDoc)}" />
+                      <div *ngIf="form.numDoc && !isValidNumDoc(form.numDoc)" class="invalid-feedback" style="display:block;">
+                        Le numéro de CarteIN doit être dans le format A1A1A (où A est une lettre et 1 est un chiffre).
                     </div>
                   </div>
                 </div>

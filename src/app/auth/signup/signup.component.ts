@@ -383,4 +383,11 @@ export class SignupComponent {
     // Mettre à jour la valeur dans l'input
     event.target.value = formattedValue;
   }
+
+  // Fonction de validation du numéro de CarteIN
+  isValidNumDoc(numDoc: string): boolean {
+    // Expression régulière pour valider le format du numéro de CarteIN
+    const regex = /^[A-Za-z][0-9][A-Za-z][A-Za-z][0-9]$/;
+    return regex.test(numDoc);
+  }
 }
