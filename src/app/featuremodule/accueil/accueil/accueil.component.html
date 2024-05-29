@@ -394,150 +394,132 @@
 </section>
 <!-- /Search Filter Section -->
 
-<!-- Featured Listings -->
-<section class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
+
+<!-- Recent Properties for Rent -->
+<section class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
   <div class="footer-six-bg footer-nine-bg">
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
-      <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
-        <div class="col-lg-4 col-md-3"></div>
-        <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
-          <h2>Les biens</h2>
-          <p>Les biens les plus vues disponibles</p>
+      <div class="row align-items-center" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 aos aos-init aos-animate text-center">
+          <h2>Biens récents à louer</h2>
+          <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
         </div>
-        <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
+        <div class="col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
       </div>
     </div>
-    <div class="row aos" data-aos-delay="200">
-      <div class="col-lg-12">
-        <div class="bookmarks-content grid-view featured-slider">
-          <div class="row">
-            <owl-carousel-o [options]="listingOwlOptions">
-              <ng-container *ngFor="let BienImo of bienImmoPlusVue">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="car-class-carousel">
+          <div class="top-listings-rent-slider">
+            <owl-carousel-o [options]="recentpropertiesOwlOptions">
+              <ng-container *ngFor="let bienRecent of BienLoueRecens?.slice(0, 6)">
                 <ng-template carouselSlide>
-                  <div class=" " [style.width]="isMobile ? '100%' : bienImmoPlusVue.length < 2 ? '50%' : ''">
-                    <div class="card aos aos-init aos-animate">
-                      <div class="blog-widget">
-                        <div class="blog-img">
-                          <a (click)="goToDettailBien(BienImo?.uuid)" class="crd">
-                            <div *ngIf="
-                                BienImo?.photos && BienImo?.photos?.length > 0;
-                                else noImages
-                              ">
-                              <img src="{{
-                                  generateImageUrl(BienImo?.photos[0]?.nom)
-                                }}" class="img-fluid image-size" alt="blog-img" />
-                            </div>
-                            <ng-template #noImages>
-                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
-                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
-                                  alt="default-img" />
-                              </div>
-                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
-                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
-                                  alt="default-img" />
-                              </div>
-                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
-                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
-                                  alt="default-img" />
-                              </div>
-                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
-                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
-                                  alt="default-img" />
-                              </div>
-                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
-                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
-                                  alt="default-img" />
-                              </div>
-                              <div class="type" *ngIf="
-                                  BienImo?.typeImmo?.nom ===
-                                  'Commerce & Magasin'
-                                ">
-                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
-                                  alt="default-img" />
-                              </div>
-                            </ng-template>
+                  <div class="top-rent-room" [style.width]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '50%' : ''">
+                    <div class="top-room-img">
+                      <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
+                        <div *ngIf="
+                            bienRecent?.photos &&
+                              bienRecent?.photos?.length > 0;
+                            else noImages
+                          ">
+                          <img src="{{
+                              generateImageUrl(bienRecent?.photos[0]?.nom)
+                            }}" class="img-fluid image-sizeresents" alt="blog-img" />
+                        </div>
+                        <ng-template #noImages>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Villa'">
+                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-sizeresents"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Appartement'">
+                            <img src="../../../../assets/img/typebien/appartement.png"
+                              class="img-fluid image-sizeresents" alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Terrain'">
+                            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Bureau'">
+                            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Champ'">
+                            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="
+                              bienRecent?.typeImmo?.nom === 'Commerce & Magasin'
+                            ">
+                            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                        </ng-template>
+                      </a>
+                    </div>
+                    <div class="top-listing-rounded-img">
+                      <div class="favourite-small-user">
+                        <img class="img-fluid" src="{{
+                            generateImageUrl(
+                              bienRecent?.utilisateur?.photo?.nom
+                            )
+                          }}" alt="" (error)="handleAuthorImageError($event)" />
+                      </div>
+                    </div>
+                    <!-- <div class="pent-house">
+                      <span>{{ bienRecent?.statut?.nom }}</span>
+                    </div> -->
+                    <div class="top-rent-room-info">
+                      <div class="top-rent-room-location">
+                        <div class="room-address">
+                          <span><i class="fa-solid fa-location-dot"></i>{{ bienRecent?.adresse?.quartier }}</span>
+                          <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
+                            <h5 class="text-truncate crd" style="max-width: 250px">
+                              {{
+                              bienRecent?.nom
+                              ? bienRecent?.nom
+                              : bienRecent?.typeImmo?.nom
+                              }}
+                            </h5>
                           </a>
-                          <div class="fav-item">
-                            <span [ngClass]="{
-                                statut: BienImo?.statut?.nom === 'A vendre'
-                              }" class="Featured-text">{{ BienImo?.statut?.nom }}</span>
-                            <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
-                              (click)="AimerBien(BienImo?.id)" [style.background-color]="
-                                favoriteStatus[BienImo?.id]
-                                  ? '#e98b11'
-                                  : 'white'
-                              ">
-                              <i [style.color]="
-                                  favoriteStatus[BienImo?.id]
-                                    ? 'white'
-                                    : 'black'
-                                " class="feather-heart"></i>
-                            </a>
-                          </div>
                         </div>
-                        <div class="bloglist-content">
-                          <div class="card-body">
-                            <div class="blogfeaturelink">
-                              <div class="grid-author">
-                                <img src="{{
-                                    generateImageUrl(
-                                      BienImo?.utilisateur?.photo?.nom
-                                    )
-                                  }}" alt="author" (error)="handleAuthorImageError($event)" />
-                                  <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else NoAgenceTemplate">
-                                    <a>{{ BienImo?.utilisateur?.nomAgence }}</a>
-                                  </ng-container>
-                                  <ng-template #NoAgenceTemplate>
-                                    <a>{{ BienImo?.utilisateur?.nom }}</a>
-                                  </ng-template> -->
-                              </div>
-                              <div class="blog-features">
-                                <a href="javascript:void(0)"><span>
-                                    <i class="fa-regular fa-circle-stop"></i>
-                                    {{ BienImo?.typeImmo?.nom }}</span></a>
-                              </div>
-                              <div class="blog-author text-end">
-                                <span>
-                                  <i class="feather-eye"></i>{{
-                                  favoritedPropertiesCount1[BienImo?.id]
-                                  }}</span>
-                              </div>
-                            </div>
-                            <h6 class="crd">
-                              <a (click)="goToDettailBien(BienImo?.uuid)">{{
-                                BienImo?.nom
-                                ? BienImo?.nom
-                                : BienImo?.typeImmo?.nom
-                                }}</a>
-                            </h6>
-                            <div class="blog-location-details">
-                              <div class="location-info">
-                                <i class="feather-map-pin"></i>
-                                {{ BienImo?.adresse?.quartier }}
-                              </div>
-                              <div class="location-info">
-                                <i class="fa-solid fa-calendar-days"></i>{{
-                                BienImo?.createdAt
-                                | date : "dd MMM yyyy" : locale
-                                }}
-                              </div>
-                            </div>
-                            <div class="amount-details">
-                              <div class="amount">
-                                <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
-                                <!--<span>{{slide.oldamount}}</span>-->
-                              </div>
-                              <div class="ratings">
-                                <!--<span>{{slide.rating}}</span> {{slide.rating1}}-->
-                              </div>
-                            </div>
-                          </div>
+                        <div class="star-rated">
+                          <!-- <span><i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i></span> -->
+                          <p>
+                            <span style="font-weight: bold; font-size: 17px;">{{ formatPrice(bienRecent?.prix) }} FCFA</span>
+                          </p>
                         </div>
+                      </div>
+                      <div class="top-room-details">
+                        <div class="area">
+                          <span><img src="assets/img/icons/bed-icon.svg" class="img-fluid" alt="" />{{
+                            bienRecent?.typeImmo?.nom }}</span>
+                        </div>
+                        <div class="area">
+                          <span><img src="assets/img/icons/area-icon.svg" class="img-fluid" alt="" />Surface:{{
+                            bienRecent?.surface }}/m2</span>
+                        </div>
+                        <!--<div class="area">
+                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
+                                                            alt="">{{slide.nb_piece}}</span>
+                                                </div>-->
+                        <div class="area">
+                          <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid" alt="" />Chambre:{{
+                            bienRecent?.nb_piece }}</span>
+                        </div>
+                        <!--<div class="area">
+                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
+                                                            alt="">{{slide.adresse.commune.nom}}</span>
+                                                </div>-->
                       </div>
                     </div>
                   </div>
@@ -550,7 +532,7 @@
     </div>
   </div>
 </section>
-<!-- /Featured Listings -->
+<!-- /Recent Properties for Rent -->
 
 <!-- Make It Easy -->
 <!-- <section class="make-it-easy common-padding">
@@ -907,131 +889,150 @@
 </section>
 <!-- /Counter -->
 
-<!-- Recent Properties for Rent -->
-<section class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
+<!-- Featured Listings -->
+<section class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
   <div class="footer-six-bg footer-nine-bg">
     <img src="./assets/img/bg/feature-bg.png" alt="" />
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
-      <div class="row align-items-center" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 aos aos-init aos-animate text-center">
-          <h2>Biens récents à louer</h2>
-          <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
+      <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
+        <div class="col-lg-4 col-md-3"></div>
+        <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
+          <h2>Les biens</h2>
+          <p>Les biens les plus vues disponibles</p>
         </div>
-        <div class="col-md-3 text-md-end aos aos-init aos-animate">
+        <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="car-class-carousel">
-          <div class="top-listings-rent-slider">
-            <owl-carousel-o [options]="recentpropertiesOwlOptions">
-              <ng-container *ngFor="let bienRecent of BienLoueRecens">
+    <div class="row aos" data-aos-delay="200">
+      <div class="col-lg-12">
+        <div class="bookmarks-content grid-view featured-slider">
+          <div class="row">
+            <owl-carousel-o [options]="listingOwlOptions">
+              <ng-container *ngFor="let BienImo of bienImmoPlusVue">
                 <ng-template carouselSlide>
-                  <div class="top-rent-room" [style.width]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '50%' : ''">
-                    <div class="top-room-img">
-                      <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
-                        <div *ngIf="
-                            bienRecent?.photos &&
-                              bienRecent?.photos?.length > 0;
-                            else noImages
-                          ">
-                          <img src="{{
-                              generateImageUrl(bienRecent?.photos[0]?.nom)
-                            }}" class="img-fluid image-sizeresents" alt="blog-img" />
-                        </div>
-                        <ng-template #noImages>
-                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Villa'">
-                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-sizeresents"
-                              alt="default-img" />
-                          </div>
-                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Appartement'">
-                            <img src="../../../../assets/img/typebien/appartement.png"
-                              class="img-fluid image-sizeresents" alt="default-img" />
-                          </div>
-                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Terrain'">
-                            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
-                              alt="default-img" />
-                          </div>
-                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Bureau'">
-                            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
-                              alt="default-img" />
-                          </div>
-                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Champ'">
-                            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
-                              alt="default-img" />
-                          </div>
-                          <div class="type" *ngIf="
-                              bienRecent?.typeImmo?.nom === 'Commerce & Magasin'
-                            ">
-                            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
-                              alt="default-img" />
-                          </div>
-                        </ng-template>
-                      </a>
-                    </div>
-                    <div class="top-listing-rounded-img">
-                      <div class="favourite-small-user">
-                        <img class="img-fluid" src="{{
-                            generateImageUrl(
-                              bienRecent?.utilisateur?.photo?.nom
-                            )
-                          }}" alt="" (error)="handleAuthorImageError($event)" />
-                      </div>
-                    </div>
-                    <!-- <div class="pent-house">
-                      <span>{{ bienRecent?.statut?.nom }}</span>
-                    </div> -->
-                    <div class="top-rent-room-info">
-                      <div class="top-rent-room-location">
-                        <div class="room-address">
-                          <span><i class="fa-solid fa-location-dot"></i>{{ bienRecent?.adresse?.quartier }}</span>
-                          <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
-                            <h5 class="text-truncate crd" style="max-width: 250px">
-                              {{
-                              bienRecent?.nom
-                              ? bienRecent?.nom
-                              : bienRecent?.typeImmo?.nom
-                              }}
-                            </h5>
+                  <div class=" " [style.width]="isMobile ? '100%' : bienImmoPlusVue.length < 2 ? '50%' : ''">
+                    <div class="card aos aos-init aos-animate">
+                      <div class="blog-widget">
+                        <div class="blog-img">
+                          <a (click)="goToDettailBien(BienImo?.uuid)" class="crd">
+                            <div *ngIf="
+                                BienImo?.photos && BienImo?.photos?.length > 0;
+                                else noImages
+                              ">
+                              <img src="{{
+                                  generateImageUrl(BienImo?.photos[0]?.nom)
+                                }}" class="img-fluid image-size" alt="blog-img" />
+                            </div>
+                            <ng-template #noImages>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="
+                                  BienImo?.typeImmo?.nom ===
+                                  'Commerce & Magasin'
+                                ">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                            </ng-template>
                           </a>
+                          <div class="fav-item">
+                            <span [ngClass]="{
+                                statut: BienImo?.statut?.nom === 'A vendre'
+                              }" class="Featured-text">{{ BienImo?.statut?.nom }}</span>
+                            <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
+                              (click)="AimerBien(BienImo?.id)" [style.background-color]="
+                                favoriteStatus[BienImo?.id]
+                                  ? '#e98b11'
+                                  : 'white'
+                              ">
+                              <i [style.color]="
+                                  favoriteStatus[BienImo?.id]
+                                    ? 'white'
+                                    : 'black'
+                                " class="feather-heart"></i>
+                            </a>
+                          </div>
                         </div>
-                        <div class="star-rated">
-                          <!-- <span><i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i></span> -->
-                          <p>
-                            <span>{{ formatPrice(bienRecent?.prix) }} FCFA</span>
-                          </p>
+                        <div class="bloglist-content">
+                          <div class="card-body">
+                            <div class="blogfeaturelink">
+                              <div class="grid-author">
+                                <img src="{{
+                                    generateImageUrl(
+                                      BienImo?.utilisateur?.photo?.nom
+                                    )
+                                  }}" alt="author" (error)="handleAuthorImageError($event)" />
+                                  <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else NoAgenceTemplate">
+                                    <a>{{ BienImo?.utilisateur?.nomAgence }}</a>
+                                  </ng-container>
+                                  <ng-template #NoAgenceTemplate>
+                                    <a>{{ BienImo?.utilisateur?.nom }}</a>
+                                  </ng-template> -->
+                              </div>
+                              <div class="blog-features">
+                                <a href="javascript:void(0)"><span>
+                                    <i class="fa-regular fa-circle-stop"></i>
+                                    {{ BienImo?.typeImmo?.nom }}</span></a>
+                              </div>
+                              <div class="blog-author text-end">
+                                <span>
+                                  <i class="feather-eye"></i>{{
+                                  favoritedPropertiesCount1[BienImo?.id]
+                                  }}</span>
+                              </div>
+                            </div>
+                            <h6 class="crd">
+                              <a (click)="goToDettailBien(BienImo?.uuid)">{{
+                                BienImo?.nom
+                                ? BienImo?.nom
+                                : BienImo?.typeImmo?.nom
+                                }}</a>
+                            </h6>
+                            <div class="blog-location-details">
+                              <div class="location-info">
+                                <i class="feather-map-pin"></i>
+                                {{ BienImo?.adresse?.quartier }}
+                              </div>
+                              <div class="location-info">
+                                <i class="fa-solid fa-calendar-days"></i>{{
+                                BienImo?.createdAt
+                                | date : "dd MMM yyyy" : locale
+                                }}
+                              </div>
+                            </div>
+                            <div class="amount-details">
+                              <div class="amount">
+                                <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
+                                <!--<span>{{slide.oldamount}}</span>-->
+                              </div>
+                              <div class="ratings">
+                                <!--<span>{{slide.rating}}</span> {{slide.rating1}}-->
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="top-room-details">
-                        <div class="area">
-                          <span><img src="assets/img/icons/bed-icon.svg" class="img-fluid" alt="" />{{
-                            bienRecent?.typeImmo?.nom }}</span>
-                        </div>
-                        <div class="area">
-                          <span><img src="assets/img/icons/area-icon.svg" class="img-fluid" alt="" />Surface:{{
-                            bienRecent?.surface }}/m2</span>
-                        </div>
-                        <!--<div class="area">
-                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
-                                                            alt="">{{slide.nb_piece}}</span>
-                                                </div>-->
-                        <div class="area">
-                          <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid" alt="" />Chambre:{{
-                            bienRecent?.nb_piece }}</span>
-                        </div>
-                        <!--<div class="area">
-                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
-                                                            alt="">{{slide.adresse.commune.nom}}</span>
-                                                </div>-->
                       </div>
                     </div>
                   </div>
@@ -1044,7 +1045,7 @@
     </div>
   </div>
 </section>
-<!-- /Recent Properties for Rent -->
+<!-- /Featured Listings -->
 
 <!-- Premium and essential services -->
 <!--<section class="premium-and-essential-services common-padding position-relative">
@@ -1369,7 +1370,7 @@
                             <div class="blog-image">
                                 <a (click)="goToDettailBlog(slide?.uuid)"><img class="img-fluid image-size crd"
                                         src="{{generateImageUrl(slide?.photo)}}"
-                                        (error)="handleAuthorImageError($event)" alt="Post Image"></a>
+                                        (error)="handleAuthorImageError1($event)" alt="Post Image"></a>
                             </div>
                             <div class="blog-content">
                               

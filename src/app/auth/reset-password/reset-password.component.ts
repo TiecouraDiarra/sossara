@@ -122,4 +122,14 @@ export class ResetPasswordComponent {
 
   }
 
+  validatePassword(password: string): boolean {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  }
+
+  passwordsMatch(): boolean {
+    return this.form.password === this.form.confirmPassword;
+  }
+
+
 }

@@ -25,6 +25,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 export class ProfileComponent implements OnInit {
   public routes = routes;
   public Toggledata = true;
+  public Toggledataold = true;
   public Toggle = true;
   User: any;
   documents: any;
@@ -347,7 +348,9 @@ export class ProfileComponent implements OnInit {
                       timerProgressBar: true,
                     }).then(() => {
                       this.storageService.clean();
-                      this.router.navigateByUrl('/auth/connexion');
+                      this.router.navigate(['/auth/connexion']).then(() => {
+                        window.location.reload();
+                      });
                     });
                   } else {
                     Swal.fire({
@@ -497,7 +500,7 @@ export class ProfileComponent implements OnInit {
           if (user && user.token) {
             // Définissez le token dans le service serviceUser
             this.serviceUser.setAccessToken(user.token);
-            alert(dateNaissance)
+            // alert(dateNaissance)
             this.serviceUser
               .modifierProfil(nom, telephone, email, dateNaissance)
               .subscribe({
@@ -692,4 +695,20 @@ export class ProfileComponent implements OnInit {
   icon() {
     this.Toggle = !this.Toggle;
   }
+
+  iconold() {
+    this.Toggledataold = !this.Toggledataold;
+  }
+
+  
+  validatePassword(newPassword: string): boolean {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(newPassword);
+  }
+  
+  passwordsMatch(): boolean {
+    return this.ChangeMdpForm.newPassword === this.ChangeMdpForm.confirmPassword;
+  }
+  
+
 }

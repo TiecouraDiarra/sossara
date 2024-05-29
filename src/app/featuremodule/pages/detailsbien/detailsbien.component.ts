@@ -214,12 +214,12 @@ export class DetailsbienComponent implements AfterViewInit {
     const reader = new FileReader();
 
     for (const file of this.selectedFiles) {
-      if (this.images.length < 8) {
+      if (this.images?.length < 8) {
         reader.onload = (e: any) => {
           this.images.push(file);
           this.image.push(e.target.result);
           this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          this.maxImageCount = this.image.length;
+          this.maxImageCount = this.image?.length;
         };
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
@@ -241,7 +241,7 @@ export class DetailsbienComponent implements AfterViewInit {
   }
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
-    if (this.images.length >= 8) {
+    if (this.images?.length >= 8) {
       this.isButtonDisabled = true;
     } else {
       this.isButtonDisabled = false;
@@ -428,7 +428,7 @@ export class DetailsbienComponent implements AfterViewInit {
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
-      this.nombreZone = data.length;
+      this.nombreZone = data?.length;
     });
     //AFFICHER LA LISTE DES TYPEBIEN
     this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
@@ -999,7 +999,7 @@ export class DetailsbienComponent implements AfterViewInit {
         (data) => {
           this.chat = data;
 
-          if (this.chat.length > 0) {
+          if (this.chat?.length > 0) {
             this.chatId = this.chat[0].chatId;
             sessionStorage.setItem('chatId', this.chatId);
             this.router.navigate(['/userpages/messages']);

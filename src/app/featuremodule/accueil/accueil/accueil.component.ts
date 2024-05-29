@@ -742,7 +742,7 @@ export class AccueilComponent {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
   AjouterBienOrLogin() {
     if (this.storageService.isLoggedIn()) {
-      this.router.navigateByUrl('/userpages/ajouter-propriete');
+      this.router.navigateByUrl('/userpages/ajouter-bien');
     } else {
       this.router.navigateByUrl('/auth/connexion');
     }
