@@ -103,33 +103,36 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
     }
 
 
-
-    //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
-    this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
-      this.nombreCandidatureAccepter = data?.length;
-      //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
-      this.serviceUser.AfficherLaListeRdv().subscribe(data => {
-        this.nombreRdvUser = data?.length;
-
-      }
-      );
-      //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-      this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-        this.nombreCandidatureBienUser = data?.length;
-        const filteredData = data.filter((item: { isAccepted: any; isCancel: any; }) => !item.isAccepted && !item.isCancel);
-          // Mettre à jour la variable avec la liste filtrée
-          this.filteredData = filteredData.length;
-        // Calculer la somme des candidatures et des rendez-vous
-        this.somme = this.nombreRdvUser + this.filteredData + this.nombreCandidatureAccepter;
-
+    if (this.storageService.isLoggedIn()) {
+      //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
+      this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
+        this.nombreCandidatureAccepter = data?.length;
+        //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
+        this.serviceUser.AfficherLaListeRdv().subscribe(data => {
+          this.nombreRdvUser = data?.length;
+  
+        }
+        );
+        //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+        this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+          this.nombreCandidatureBienUser = data?.length;
+          const filteredData = data.filter((item: { isAccepted: any; isCancel: any; }) => !item.isAccepted && !item.isCancel);
+            // Mettre à jour la variable avec la liste filtrée
+            this.filteredData = filteredData.length;
+          // Calculer la somme des candidatures et des rendez-vous
+          this.somme = this.nombreRdvUser + this.filteredData + this.nombreCandidatureAccepter;
+  
+        });
       });
-    });
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.users = data[0];
+      });
+
+    }
 
 
 
-    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-      this.users = data[0];
-    });
+
   }
   private getroutes(route: any): void {
     let splitVal = route.url.split('/');

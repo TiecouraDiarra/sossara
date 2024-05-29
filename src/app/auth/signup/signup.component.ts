@@ -53,16 +53,16 @@ export class SignupComponent {
     telephone: null,
     confirmPassword: null,
     dateNaissance: null,
-    nomDoc : "Type de pieces",
-    numDoc : null,
-    role : "Choisissez un type d'utilisateur",
-    photo:null,
+    nomDoc: "Type de pieces",
+    numDoc: null,
+    role: "Choisissez un type d'utilisateur",
+    photo: null,
   };
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
   message: string | undefined;
-  selectedFiles : any;
+  selectedFiles: any;
   image: File[] = [];
   images: File[] = [];
   maxImageCount: number = 0; // Limite maximale d'images
@@ -78,9 +78,9 @@ export class SignupComponent {
       if (this.images.length < 2) {
         reader.onload = (e: any) => {
           this.images.push(file);
-          this.image.push(e.target.result);       
+          this.image.push(e.target.result);
         };
-        this.maxImageCount =file.length
+        this.maxImageCount = file.length
         reader.readAsDataURL(file);
       }
     }
@@ -90,9 +90,9 @@ export class SignupComponent {
   }
 
   public typepiciesUser = [
-   
+
     "CarteIN",
-    'NINA', 
+    'NINA',
     'Passport',
   ];
 
@@ -106,10 +106,10 @@ export class SignupComponent {
     return this.form.password === this.form.confirmPassword;
   }
 
-  public typepiciesAgence = [ 'RCCM', 'NIF'];
+  public typepiciesAgence = ['RCCM', 'NIF'];
 
-  constructor(public router: Router, 
-    private authService: AuthService,private storageService: StorageService) {}
+  constructor(public router: Router,
+    private authService: AuthService, private storageService: StorageService) { }
   path() {
     this.router.navigate([routes.login]);
   }
@@ -121,36 +121,36 @@ export class SignupComponent {
   nomPhoto: File | null = null;
 
 
- // Fonction pour gérer la sélection de fichiers dans votre composant
-onFileSelected(event: any): void {
-  // Mettre à jour la propriété "photo" de votre objet formulaire avec le premier fichier sélectionné
-  this.form.photo = event.target.files[0] as File;
-  // Appeler la fonction pour traiter la sélection de fichiers
-  this.handleFileSelection(event);
-}
+  // Fonction pour gérer la sélection de fichiers dans votre composant
+  onFileSelected(event: any): void {
+    // Mettre à jour la propriété "photo" de votre objet formulaire avec le premier fichier sélectionné
+    this.form.photo = event.target.files[0] as File;
+    // Appeler la fonction pour traiter la sélection de fichiers
+    this.handleFileSelection(event);
+  }
 
-// Fonction pour traiter la sélection de fichiers
-handleFileSelection(event: any): void {
-  // Récupérer les fichiers sélectionnés
-  this.selectedFiles = event.target.files;
-  const reader = new FileReader();
-  // Parcourir chaque fichier sélectionné
-  for (const file of this.selectedFiles) {
+  // Fonction pour traiter la sélection de fichiers
+  handleFileSelection(event: any): void {
+    // Récupérer les fichiers sélectionnés
+    this.selectedFiles = event.target.files;
+    const reader = new FileReader();
+    // Parcourir chaque fichier sélectionné
+    for (const file of this.selectedFiles) {
       // Vérifier si le nombre d'images chargées est inférieur à 2
       if (this.images.length < 1) {
-          // Définir la fonction de rappel onload pour lire le contenu du fichier
-          reader.onload = (e: any) => {
-              // Ajouter le fichier à la liste des images
-              this.images.push(file);
-              // Ajouter les données de l'image à la liste d'URL d'image
-              this.image.push(e.target.result);
-              // Afficher les URLs des images dans la console
-          };
-          // Démarrer la lecture du contenu du fichier en tant qu'URL de données
-          reader.readAsDataURL(file);
+        // Définir la fonction de rappel onload pour lire le contenu du fichier
+        reader.onload = (e: any) => {
+          // Ajouter le fichier à la liste des images
+          this.images.push(file);
+          // Ajouter les données de l'image à la liste d'URL d'image
+          this.image.push(e.target.result);
+          // Afficher les URLs des images dans la console
+        };
+        // Démarrer la lecture du contenu du fichier en tant qu'URL de données
+        reader.readAsDataURL(file);
       }
+    }
   }
-}
 
   onSubmit(): void {
     if (this.form.password !== this.form.confirmPassword) {
@@ -161,8 +161,8 @@ handleFileSelection(event: any): void {
       });
       return; // Sortir de la fonction si les mots de passe ne correspondent pas
     }
-    const { nom, email,nomAgence, emailAgence, password, telephone, dateNaissance,  nomDoc,numDoc, role,photo} = this.form;
-    
+    const { nom, email, nomAgence, emailAgence, password, telephone, dateNaissance, nomDoc, numDoc, role, photo } = this.form;
+
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -181,7 +181,7 @@ handleFileSelection(event: any): void {
       || this.form.role == "Type d'Utilisateur"
       || this.form.photo === null
 
-      ) {
+    ) {
       swalWithBootstrapButtons.fire(
         this.message = " Tous les champs sont obligatoires !",
       )
@@ -195,12 +195,12 @@ handleFileSelection(event: any): void {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-          this.authService.register(nom, email, nomAgence, emailAgence, password, telephone, dateNaissance, nomDoc,numDoc,role,photo).subscribe({
+          this.authService.register(nom, email, nomAgence, emailAgence, password, telephone, dateNaissance, nomDoc, numDoc, role, photo).subscribe({
             next: (data) => {
               // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
-              if(data.status){
+              if (data.status) {
                 Swal.fire({
                   position: 'center',
                   text: data.message,
@@ -226,7 +226,7 @@ handleFileSelection(event: any): void {
                     this.form.confirmPassword = '';
                     this.form.role = "Type d'Utilisateur";
                     this.form.photo = null;
-                
+
                     // Naviguer vers la page de connexion et recharger la page
                     this.router.navigate(['/auth/connexion']).then(() => {
                       window.location.reload();
@@ -235,7 +235,7 @@ handleFileSelection(event: any): void {
                 });
               }
               // this.popUpConfirmation()
-             
+
             },
             error: (err) => {
               this.errorMessage = err.error.message;
@@ -262,13 +262,13 @@ handleFileSelection(event: any): void {
       // this.currentType = 'Type';
     }
   }
-  
+
 
   onChangeTypeUser(typePiece: any) {
     if (typePiece.value === "Carte d'identite") {
       this.typePieces = this.typepiciesUser;
       this.currentType = typePiece.value;
-    }else if (typePiece.value === 'NINA ou Biometrique') {
+    } else if (typePiece.value === 'NINA ou Biometrique') {
       this.typePieces = this.typepiciesUser;
       this.currentUser = typePiece.value;
     } else {
@@ -283,10 +283,10 @@ handleFileSelection(event: any): void {
   getMaximumDate(): string {
     // Obtenir la date du jour
     const today = new Date();
-  
+
     // Soustraire 18 ans à la date du jour
     const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-  
+
     // Formater la date au format ISO (AAAA-MM-JJ)
     return maximumDate.toISOString().split("T")[0];
   }
@@ -295,53 +295,53 @@ handleFileSelection(event: any): void {
     return regex.test(password);
   }
 
-  
-    
- //POPUP APRES CONFIRMATION
- popUpConfirmation() {
-  // let timerInterval = 2000;
-  // Messages à afficher dans la boîte de dialogue
-  const messages = [
-    'Le compte a été envoyé avec succès.',
-    'Pour vous connecter, allez-y confirmer dans votre mail'
-  ];
-  // Créez un seul texte en concaténant les messages avec des sauts de ligne
-  const messageText = messages.join('\n');
-  
-  Swal.fire({
-    position: 'center',
-    text: messageText,
-    title: 'Creation de compte',
-    icon: 'success',
-    heightAuto: false,
-    showConfirmButton: true,
-    confirmButtonText: "OK",
-    confirmButtonColor: '#0857b5',
-    showDenyButton: false,
-    showCancelButton: false,
-    allowOutsideClick: false,
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Réinitialisation des valeurs du formulaire après confirmation
-      this.form.nom = '';
-      this.form.email = '';
-      this.form.password = '';
-      this.form.telephone = '';
-      this.form.dateNaissance = '';
-      this.form.nomDoc = "Type de pieces";
-      this.form.numDoc = '';
-      this.form.confirmPassword = '';
-      this.form.role = "Type d'Utilisateur";
-      this.form.photo = null;
-  
-      // Naviguer vers la page de connexion et recharger la page
-      this.router.navigate(['/auth/connexion']).then(() => {
-        window.location.reload();
-      });
-    }
-  });
-}
-  
+
+
+  //POPUP APRES CONFIRMATION
+  popUpConfirmation() {
+    // let timerInterval = 2000;
+    // Messages à afficher dans la boîte de dialogue
+    const messages = [
+      'Le compte a été envoyé avec succès.',
+      'Pour vous connecter, allez-y confirmer dans votre mail'
+    ];
+    // Créez un seul texte en concaténant les messages avec des sauts de ligne
+    const messageText = messages.join('\n');
+
+    Swal.fire({
+      position: 'center',
+      text: messageText,
+      title: 'Creation de compte',
+      icon: 'success',
+      heightAuto: false,
+      showConfirmButton: true,
+      confirmButtonText: "OK",
+      confirmButtonColor: '#0857b5',
+      showDenyButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Réinitialisation des valeurs du formulaire après confirmation
+        this.form.nom = '';
+        this.form.email = '';
+        this.form.password = '';
+        this.form.telephone = '';
+        this.form.dateNaissance = '';
+        this.form.nomDoc = "Type de pieces";
+        this.form.numDoc = '';
+        this.form.confirmPassword = '';
+        this.form.role = "Type d'Utilisateur";
+        this.form.photo = null;
+
+        // Naviguer vers la page de connexion et recharger la page
+        this.router.navigate(['/auth/connexion']).then(() => {
+          window.location.reload();
+        });
+      }
+    });
+  }
+
 
   iconLogleC() {
     this.ToggledataC = !this.ToggledataC;
@@ -352,14 +352,35 @@ handleFileSelection(event: any): void {
     this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
   }
-  
-    // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
-checkImageCount(): void {
-  if (this.images.length >= 3) {
-    this.isButtonDisabled = true;
-  } else {
-    this.isButtonDisabled = false;
-  }
-}
 
+  // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
+  checkImageCount(): void {
+    if (this.images.length >= 3) {
+      this.isButtonDisabled = true;
+    } else {
+      this.isButtonDisabled = false;
+    }
+  }
+
+  onKeyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // Caractère non numérique, empêcher l'entrée
+      event.preventDefault();
+    }
+
+    // Insérer un tiret après chaque paire de chiffres
+    const inputValue = event.target.value.replace(/\-/g, ''); // Supprimer les tirets existants
+    let formattedValue = '';
+    for (let i = 0; i < inputValue.length; i += 2) {
+      formattedValue += inputValue.slice(i, i + 2) + '-';
+    }
+    // Supprimer le tiret final s'il dépasse la limite de 8 caractères
+    formattedValue = formattedValue.slice(0, 10);
+
+    // Mettre à jour la valeur dans l'input
+    event.target.value = formattedValue;
+  }
 }

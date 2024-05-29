@@ -71,28 +71,37 @@
       </div>
       <div class="rate-details" *ngIf="bien && bien?.prix">
         <h4>{{ formatPrice(bien?.prix) }} FCFA</h4>
-        <!-- CANDIDATER UN BIEN   -->
-        <div class="callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" *ngIf="
-            isLoggedIn == true &&
-            currentUser == false &&
-            candidaterWithModal == true
-          ">
-          <a class="action-btn btn-edit">
-            <i class="feather-edit-3"></i>Candidater pour ce bien</a>
-        </div>
-        <div class="callnow crd mt-5" *ngIf="
-            isLoggedIn == true &&
-            currentUser == false &&
-            candidaterWithModal == false
-          ">
-          <a (click)="CandidaterBien()" class="action-btn btn-edit">
-            <i class="feather-edit-3"></i>Candidater pour ce bien</a>
-        </div>
-        <!-- BOUTON MODIFIER UN BIEN -->
-        <div class="callnow crd mt-5" (click)="goToModifierBien(bien.uuid)"
-          *ngIf="isLoggedIn == true && currentUser == true">
-          <a class="action-btn btn-edit">
-            <i class="feather-edit-3"></i>Modifier ce bien</a>
+        <div class="row">
+          <div class="col callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" *ngIf="
+              isLoggedIn == true &&
+              currentUser == false
+            ">
+            <a class="action-btn btn-edit">
+              <i class="feather-phone-call"></i>Prendre Rendez-vous</a>
+          </div>
+          <!-- CANDIDATER UN BIEN   -->
+          <div class="col callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" *ngIf="
+              isLoggedIn == true &&
+              currentUser == false &&
+              candidaterWithModal == true
+            ">
+            <a class="action-btn btn-edit">
+              <i class="feather-edit-3"></i>Candidater pour ce bien</a>
+          </div>
+          <div class="col callnow crd mt-5" *ngIf="
+              isLoggedIn == true &&
+              currentUser == false &&
+              candidaterWithModal == false
+            ">
+            <a (click)="CandidaterBien()" class="action-btn btn-edit">
+              <i class="feather-edit-3"></i>Candidater pour ce bien</a>
+          </div>
+          <!-- BOUTON MODIFIER UN BIEN -->
+          <div class="col callnow crd mt-5" (click)="goToModifierBien(bien.uuid)"
+            *ngIf="isLoggedIn == true && currentUser == true">
+            <a class="action-btn btn-edit">
+              <i class="feather-edit-3"></i>Modifier ce bien</a>
+          </div>
         </div>
       </div>
     </div>
@@ -156,6 +165,49 @@
   </div>
 </div>
 <!-- Modal Modifier un bien -->
+
+<!-- Modal POUR PRENDRE RENDEZ-VOUS -->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Prendre Rendez-vous pour ce bien
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="contactbusinessform">
+          <div class="form-group">
+            <label for="datePicker">Date :</label>
+            <input type="date" class="form-control" id="datePicker" name="date" [(ngModel)]="RdvForm.date"
+              min="{{ getCurrentDate() }}" />
+          </div>
+          <div class="form-group">
+            <label for="timePicker">Heure :</label>
+            <input type="time" class="form-control" id="timePicker" name="heure" [(ngModel)]="RdvForm.heure" />
+          </div>
+          <div *ngIf="isSuccess" class="alert alert-success" role="alert">
+            {{ errorMessage }}
+          </div>
+          <div *ngIf="isError" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Retour
+        </button>
+        <button (click)="PrendreRvd(bien?.id)" type="button" class="btn btn-primary">
+          Envoyer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal POUR PRENDRE RENDEZ-VOUS -->
 
 <!--Details Main  Section-->
 <div class="details-main-wrapper">
@@ -311,7 +363,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="submit-section mb-3" style="text-align: center"
                 *ngIf="isLoggedIn == true && currentUser == false">
                 <div class="attach-btn mb-3">
@@ -389,7 +441,7 @@
                                    Shares </div><span class="text-end"> 50</span></li>
                           </ul>
                       </div>-->
-  
+
               <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false">
                 <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
                 <form class="contactbusinessform">
