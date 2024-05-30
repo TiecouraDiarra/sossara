@@ -408,6 +408,8 @@ export class TrouverbienComponent implements OnInit {
           this.bienImmo = data;
 
           this.bienImmo = data;
+          console.log(this.bienImmo);
+          
 
           // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
           this.bienImmo.forEach((bien: {
@@ -782,8 +784,11 @@ export class TrouverbienComponent implements OnInit {
   }
 
 
-  hasRole(roleName: string): boolean {
-    return this.bienImmo.utilisateur.roles.some((role: { name: string; }) => role.name === roleName);
+  // hasRole(roleName: string): boolean {
+  //   return this.bienImmo.utilisateur.roles.some((role: { name: string; }) => role.name === roleName);
+  // }
+  hasRole(bien: any, roleName: string): boolean {
+    return bien?.utilisateur?.roles?.some((role: { name: string }) => role.name === roleName);
   }
 
 

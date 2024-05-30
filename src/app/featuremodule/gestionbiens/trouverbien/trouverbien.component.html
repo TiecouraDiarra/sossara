@@ -710,15 +710,15 @@
                             (error)="handleAuthorImageError($event)"
                           />
                         </div>
-                        <!-- <ng-container *ngIf="hasRole('ROLE_AGENT'); else agenceTemplate">
+                        <ng-container *ngIf="hasRole(slide,'ROLE_AGENT'); else agenceTemplate">
                           <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
-                        </ng-container> 
+                        </ng-container>
                         <ng-template #agenceTemplate>
                           <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
-                        </ng-template> -->
-                        <a (click)="goToDettailBien(slide?.uuid)">{{
+                        </ng-template>
+                        <!-- <a (click)="goToDettailBien(slide?.uuid)">{{
                           slide?.utilisateur?.nom
-                        }}</a>
+                        }}</a> -->
                       </div>
                     </div>
                     <h6>

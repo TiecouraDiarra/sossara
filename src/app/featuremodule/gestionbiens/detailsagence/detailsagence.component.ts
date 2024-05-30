@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { DataService } from 'src/app/service/data.service';
 import { Options } from '@angular-slider/ngx-slider';
@@ -14,9 +14,25 @@ import { MessageService } from 'src/app/service/message/message.service';
 import { Chat } from '../../userpages/message/models/chat';
 import { Message } from '../../userpages/message/models/message';
 import { AdresseService } from 'src/app/service/adresse/adresse.service';
+import { ApexChart, ApexLegend, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive, ChartComponent } from 'ng-apexcharts';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
+
+export type ChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+  legend: ApexLegend;
+};
+
+export type ChartOptionsA = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  labels: string[];
+  plotOptions: ApexPlotOptions;
+};
 
 @Component({
   selector: 'app-detailsagence',
@@ -24,6 +40,11 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   styleUrls: ['./detailsagence.component.css']
 })
 export class DetailsagenceComponent implements OnInit {
+  @ViewChild("chart") chart!: ChartComponent;
+  // public chartOptions: Partial<ChartOptions> | undefined;
+  public chartOptions: ChartOptions;
+  public chartOptionsType: ChartOptions;
+  public chartOptionsA: ChartOptionsA;
   public routes = routes;
   public listsidebar: any = [];
   slidevalue: number = 55;
@@ -40,6 +61,8 @@ export class DetailsagenceComponent implements OnInit {
   bienImmoAgent: any;
   bienImmoAgence: any;
   p: number = 1;
+  p2: number = 1;
+  p3: number = 1;
   errorMessage = '';
   NombreJaime: number = 0
   totalLikes: number = 0
@@ -55,6 +78,7 @@ export class DetailsagenceComponent implements OnInit {
   chatObj: Chat = new Chat();
   messageObj: Message = new Message('', '', '');
   public chatData: any;
+  totalBiensAgents: any[] = [];
 
 
   public listingOwlOptions: OwlOptions = {
@@ -122,7 +146,7 @@ export class DetailsagenceComponent implements OnInit {
     private serviceBienImmo: BienimmoService,
     private serviceCommodite: CommoditeService,
     private serviceAgence: AgenceService,
-    private serviceAdresse : AdresseService,
+    private serviceAdresse: AdresseService,
     private routerr: Router,
     private route: ActivatedRoute,
     private serviceUser: UserService,
@@ -131,7 +155,85 @@ export class DetailsagenceComponent implements OnInit {
     private storageService: StorageService) {
     this.listsidebar = this.Dataservice.listsidebarList,
       this.locale = localeId;
-      
+
+      this.chartOptions = {
+        series: [44, 55],
+        chart: {
+          width: 380,
+          type: 'pie'
+        },
+        labels: ['A louer', 'A vendre'],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }
+        ],
+        legend: {
+          position: 'bottom'
+        }
+      };
+
+    this.chartOptionsType = {
+      series: [44, 55],
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: ["Appart", "A vendre"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ],
+      legend: {
+        position: 'bottom'
+      }
+      // colors: ['#008FFB', '#00E396']  // Définir les couleurs des sections du graphique
+    };
+
+    this.chartOptionsA = {
+      series: [44, 55, 67, 83],
+      chart: {
+        height: 350,
+        type: "radialBar"
+      },
+      plotOptions: {
+        radialBar: {
+          dataLabels: {
+            name: {
+              fontSize: "20px"
+            },
+            value: {
+              fontSize: "14px"
+            },
+            total: {
+              show: true,
+              label: "Total",
+              formatter: function (w) {
+                return "249";
+              }
+            }
+          }
+        }
+      },
+      labels: ["Apples", "Oranges", "Bananas", "Berries"]
+    };
   }
 
 
@@ -149,57 +251,54 @@ export class DetailsagenceComponent implements OnInit {
     this.id = this.route.snapshot.params["id"]
     this.serviceAgence.AfficherAgenceParUuId(this.id).subscribe(data => {
 
-        // Initialiser une liste pour stocker tous les biens immobiliers des agents
-        let totalBiensAgents: any[] = [];
-         // Parcourir chaque agent
-         data.agents.forEach((agent: any) => {
-          // Ajouter les biens immobiliers de l'agent à la liste totale
-          totalBiensAgents.push(...agent.bienImmosAgents);
-        });
+      // Parcourir chaque agent
+      data.agents.forEach((agent: any) => {
+        // Ajouter les biens immobiliers de l'agent à la liste totale
+        this.totalBiensAgents.push(...agent.bienImmosAgents);
+      });
 
-        // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
+      // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
 
-      
       this.agence = data?.agence;
       this.bienImmoAgence = data?.bienImmos;
       this.agent = data?.agents.reverse();
-      
+
       this.NombreAgent = this.agent.length;
-      this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
+      this.bienImmo = [...this.bienImmoAgence, ...this.totalBiensAgents];
       console.log(this.bienImmo);
-      
+
       this.NombreBienAgence = this.bienImmo.length;
-      
-    
+
+
       // Initialisez une variable pour stocker le nombre total de "J'aime".
       // let totalLikes = 0;
-      console.log(this.bienImmo);
-    
-      this.bienImmo.forEach((bien: {favoris: any; id: string | number; }) => {
+      // console.log(this.bienImmo);
+
+      this.bienImmo.forEach((bien: { favoris: any; id: string | number; }) => {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-          this.NombreJaime = bien.favoris.length;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-            // Ajoutez le nombre de "J'aime" au total.
-            this.totalLikes += this.NombreJaime;
-          }
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-          if (isFavorite === 'true') {
-            this.favoriteStatus[bien.id] = true;
-          } else {
-            this.favoriteStatus[bien.id] = false;
-          }
+        this.NombreJaime = bien.favoris.length;
+        if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+          // Ajoutez le nombre de "J'aime" au total.
+          this.totalLikes += this.NombreJaime;
+        }
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        if (isFavorite === 'true') {
+          this.favoriteStatus[bien.id] = true;
+        } else {
+          this.favoriteStatus[bien.id] = false;
+        }
         // })
       });
     });
-    
+
 
 
     //AFFICHER LA LISTE DES BIENS IMMO
     this.serviceBienImmo.AfficherLaListeBienImmoTotal().subscribe(data => {
       // this.bienImmo = data.biens;
       this.NombreTotalBien = data?.length;
-   
+
       const tauxActivite = (this.NombreBienAgence * 100) / this.NombreTotalBien;
       // Arrondir le résultat à deux décimales et le stocker en tant que nombre
       // Arrondir le résultat à l'entier supérieur
@@ -214,10 +313,22 @@ export class DetailsagenceComponent implements OnInit {
 
 
   }
+  selectedTab: string = 'tout'; // Déclaration de la variable selectedTab avec la valeur par défaut 'home'
 
-  hasRole(roleName: string): boolean {
-    return this.bienImmo.some((role: { name: string; }) => role.name === roleName);
+  // Méthode pour changer l'onglet sélectionné
+  changeTab(tab: string) {
+    this.selectedTab = tab;
   }
+
+  // Méthode pour vérifier si un onglet est actif
+  isTabActive(tab: string): boolean {
+    return this.selectedTab === tab;
+  }
+
+  hasRole(bien: any, roleName: string): boolean {
+    return bien?.utilisateur?.roles?.some((role: { name: string }) => role.name === roleName);
+  }
+
 
   // IMAGE PAR DEFAUT DES BIENS
   DEFAULT_IMAGE_URL = 'assets/img/gallery/gallery1/gallery-1.jpg';
@@ -265,12 +376,12 @@ export class DetailsagenceComponent implements OnInit {
           }
         },
         error => {
-        
+
           // Gérez les erreurs ici
         }
       );
     } else {
-    
+
     }
   }
 

@@ -154,10 +154,10 @@ this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
 
       this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
       this.NombreBienParAgence = this.bienImmo.length;
-      this.NombreAgentParAgence = data.agents.length;
+      this.NombreAgentParAgence = data.agents?.length;
       let nombreLouerParAgence = 0;
       let nombreVendreParAgence = 0;
-
+      
       this.bienImmo.forEach((bien: any) => {
         if (bien?.statut?.nom === 'A louer') {
           this.bienImmoLouer.push(bien);
@@ -222,7 +222,7 @@ const agenceId = hashString(agence.uuid);
       const filterCercle = !this.selectedCercle || agence.adresse?.commune.cercle.nomcercle === this.selectedCercle;
       const filterRegion = !this.selectedRegion || agence.adresse?.commune.cercle.region.nomregion === this.selectedRegion;
       const filterCommune = !this.selectedCommune || agence.adresse?.commune.nomcommune === this.selectedCommune;
-      const filterSearchText = !this.searchText || agence.someProperty.includes(this.searchText); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
+      const filterSearchText = !this.searchText || agence.nomAgence.toLowerCase().includes(this.searchText.toLowerCase()); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
   
       return filterCercle && filterRegion && filterCommune && filterSearchText;
     });
@@ -282,6 +282,10 @@ const agenceId = hashString(agence.uuid);
   handleAuthorImageError(event: any) {
     event.target.src =
       'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  }
+  handleAuthorImageErrorAgence(event: any) {
+    event.target.src =
+      'assets/img/logo.png';
   }
   goToDettailAgence(id: number) {
     return this.router.navigate(['detailsagence', id]);
