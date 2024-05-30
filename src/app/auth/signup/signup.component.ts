@@ -418,34 +418,24 @@ validateEmail(email: string): boolean {
   onKeyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
     let inputChar = String.fromCharCode(event.charCode);
-  
+
     if (!pattern.test(inputChar)) {
       // Caractère non numérique, empêcher l'entrée
       event.preventDefault();
     }
-  
+
     // Insérer un tiret après chaque paire de chiffres
-    let inputValue = event.target.value.replace(/\-/g, ''); // Supprimer les tirets existants
-    if (event.keyCode === 8) { // Si l'utilisateur appuie sur la touche de suppression
-      inputValue = inputValue.slice(0, -1); // Supprimer le dernier chiffre
-    } else {
-      inputValue += inputChar; // Ajouter le nouveau chiffre
-    }
-  
+    const inputValue = event.target.value.replace(/\-/g, ''); // Supprimer les tirets existants
     let formattedValue = '';
     for (let i = 0; i < inputValue.length; i += 2) {
       formattedValue += inputValue.slice(i, i + 2) + '-';
     }
-    // Supprimer le tiret final s'il n'est pas nécessaire
-    if (formattedValue.endsWith('-') && formattedValue.length > 10) {
-      formattedValue = formattedValue.slice(0, -1);
-    }
-  
+    // Supprimer le tiret final s'il dépasse la limite de 8 caractères
+    formattedValue = formattedValue.slice(0, 10);
+
     // Mettre à jour la valeur dans l'input
     event.target.value = formattedValue;
   }
-  
-
   
 
   // Fonction de validation du numéro de CarteIN
@@ -492,9 +482,10 @@ validateEmail(email: string): boolean {
  
   
   islongNom(nom: string): boolean {
-    const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ]*$/; // Inclure les lettres accentuées
+    const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/; // Inclure les lettres accentuées et les espaces
     return nom.length <= 40 && regex.test(nom);
   }
+  
   islongNumero(telephone: string): boolean {
     const regex = /^[0-9-]+$/; // Expression régulière pour vérifier que le numéro contient uniquement des chiffres et des tirets
         return telephone.length === 11 && regex.test(telephone);

@@ -150,7 +150,7 @@
                   <div class="group-img">
                     <i class="feather-user"></i>
                     <input type="text" [(ngModel)]="form.numDoc" name="numDoc"  class="form-control"
-                      placeholder="N du NINA" [ngClass]="{'is-invalid': form.numDoc && !isValidNumDocNina(form.numDoc)}" />
+                      placeholder="N du NINA" [ngClass]="{'is-invalid': form.numDoc && !isValidNumDocNina(form.numDoc)}" maxlength="15" />
                       <div *ngIf="form.numDoc && !isValidNumDocNina(form.numDoc)" class="invalid-feedback" style="display:block;">
                         Le numéro de CarteIN doit contenir exactement 14 chiffres suivis d'une lettre majuscule.
                       </div>
@@ -187,7 +187,7 @@
                     <i class="feather-user"></i>
                     <input type="text" [(ngModel)]="form.numDoc" name="numDoc" class="form-control pass-input"
                       placeholder="N de la carte" #numDoc="ngModel"
-                      [ngClass]="{'is-invalid': form.numDoc && !isValidNumDoc(form.numDoc)}" />
+                      [ngClass]="{'is-invalid': form.numDoc && !isValidNumDoc(form.numDoc)}" maxlength="7" />
                       <div *ngIf="form.numDoc && !isValidNumDoc(form.numDoc)" class="invalid-feedback" style="display:block;">
                         Le numéro de CarteIN doit contenir exactement 7 chiffres.
                     </div>
@@ -224,8 +224,8 @@
                   <div class="group-img">
                     <i class="feather-user"></i>
                     <input type="text" [(ngModel)]="form.numDoc" name="numDoc"  
-                      class="form-control" placeholder="N du Passport" [ngClass]="{'is-invalid': form.numDoc && !isValidMalianPassport(form.numDoc)}"  />
-                      <div *ngIf="form.numDoc && !isValidMalianPassport(form.numDoc)" class="invalid-feedback" style="display:block;">
+                      class="form-control" placeholder="N du Passport" [ngClass]="{'is-invalid': form.numDoc && !isValidMalianPassport(form.numDoc)}" maxlength="8"  />
+                      <div *ngIf="form.numDoc && !isValidMalianPassport(form.numDoc)" class="invalid-feedback" style="display:block;" >
                         Le numéro de passeport doit contenir une lettre majuscule suivie de 8 chiffres.
                     </div>
                     
@@ -264,7 +264,7 @@
                   <div class="group-img">
                     <i class="feather-user"></i>
                     <input type="text" [(ngModel)]="form.numDoc" name="numDoc" class="form-control"
-                      placeholder="N du RCCM" [ngClass]="{'is-invalid': form.numDoc && !isValidRccm(form.numDoc)}" />
+                      placeholder="N du RCCM" [ngClass]="{'is-invalid': form.numDoc && !isValidRccm(form.numDoc)}" maxlength="15"/>
                       <div *ngIf="form.numDoc && !isValidRccm(form.numDoc)" class="invalid-feedback" style="display:block;">
                         Le numéro RCCM doit contenir exactement 15 caractères alphanumériques.
                     </div>
@@ -301,7 +301,7 @@
                   <div class="group-img">
                     <i class="feather-user"></i>
                     <input type="text" [(ngModel)]="form.numDoc" name="numDoc" class="form-control"
-                      placeholder="N du NIF"  [ngClass]="{'is-invalid': form.numDoc && !isValidNif(form.numDoc)}"/>
+                      placeholder="N du NIF"  [ngClass]="{'is-invalid': form.numDoc && !isValidNif(form.numDoc)}" maxlength="10"/>
                       <div *ngIf="form.numDoc && !isValidNif(form.numDoc)" class="invalid-feedback" style="display:block;">
                         Le numéro de NIF doit contenir exactement 9 chiffres suivis d'une lettre majuscule.
                     </div>
