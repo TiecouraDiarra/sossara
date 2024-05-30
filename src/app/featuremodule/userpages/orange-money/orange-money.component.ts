@@ -229,7 +229,7 @@ export class OrangeMoneyComponent {
     }
     // Supprimer le tiret final s'il dépasse la limite de 8 caractères
     formattedValue = formattedValue.slice(0, 10);
-  
+   
     // Mettre à jour la valeur dans l'input
     event.target.value = formattedValue;
   }
