@@ -29,3 +29,12 @@
     background-repeat: no-repeat;
     height: 110% !important;
   }
+
+  .loading-spinner {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    z-index: 9999; /* Assure que le spinner est au-dessus de tout le contenu */
+  }
+  

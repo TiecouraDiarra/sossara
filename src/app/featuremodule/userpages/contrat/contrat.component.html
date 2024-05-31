@@ -950,7 +950,7 @@
           <div class="invoice-btn-section clearfix d-print-none" *ngIf="!isAgenceProprietaire">
             <div class="telecharge-container">
 
-              <div class=" telecharge crd"
+              <div class=" telecharge crd" 
                 *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
                 <a (click)="AnnulerContratLocataire(contrat?.id)" class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-times"></i> Annuler le

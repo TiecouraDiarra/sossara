@@ -171,8 +171,22 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Annuler</button>
-                                                <button type="button" (click)="AjouterAgent()"
+                                                <!-- <button type="button" (click)="AjouterAgent()"
                                                     class="btn btn-primary">Ajouter</button>
+                                                <div *ngIf="loading" class="spinner-border" style="color: #374b5c;" role="status">
+                                                    <span class="sr-only">Chargement en cours...</span>
+                                                </div> -->
+                                                <button style="padding: 2px 34px;" type="button"
+                                                    (click)="AjouterAgent()" class="btn btn-primary"
+                                                    [disabled]="loading">
+                                                    <ng-container *ngIf="!loading">Ajouter</ng-container>
+                                                    <ng-container *ngIf="loading">
+                                                        <div class="spinner-border"
+                                                            style="color: #374b5c;font-size: 13px;" role="status">
+                                                            <span class="sr-only">Chargement en cours...</span>
+                                                        </div>
+                                                    </ng-container>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -190,8 +204,8 @@
                 <tr>
                     <th mat-sort-header="img" class="no-sort">Image</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
-                    <!-- <th mat-sort-header="status">Statut</th> -->
                     <th mat-sort-header="adresse">Adresse</th>
+                    <th mat-sort-header="status">Statut</th>
                     <!-- <th mat-sort-header="nombrebien">Adresse</th> -->
                     <th mat-sort-header="Action">Action</th>
                 </tr>
@@ -227,12 +241,17 @@
                                 adresse disponible' }}</span>
                         </span>
                     </td>
-                    <!-- <td>
+                    <td>
                         <span>
-                            <span class="status-text" style="color: #374b5c;">{{ favoritedPropertiesCount1[Agent.id]
-                            }}</span>
+                            <div class="media-body text-end icon-state">
+                                <label class="switch">
+                                    <input type="checkbox" [checked]="Agent?.statut">
+                                    <span class="switch-state" [class.active]="Agent?.statut"></span>
+                                </label>
+                            </div>
                         </span>
-                    </td> -->
+                    </td>
+
                     <td>
                         <div class="action">
                             <a (click)="goToDettailAgent(Agent.uuid)" class="action-btn btn-view crd"><i

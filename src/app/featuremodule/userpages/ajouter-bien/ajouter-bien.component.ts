@@ -359,7 +359,7 @@ export class AjouterBienComponent implements OnInit {
 
     this.updateMapWithPolygon(`country=${this.selectedCountry}`, 6);
   }
-
+ 
   onChangeRegion(event: any) {
     this.selectedRegion = event.value;
     this.cercles = this.cercle.filter(

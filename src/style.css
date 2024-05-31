@@ -13235,6 +13235,7 @@ button.btn.car-search-icon:hover {
   background-repeat: no-repeat;
   background-size: cover;
   padding: 80px 200px ;
+  margin-bottom: 13px;
 }
 .buy-property-content h2 {
   font-weight: 800;

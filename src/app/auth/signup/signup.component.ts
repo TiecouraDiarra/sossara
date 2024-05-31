@@ -7,6 +7,9 @@ import { StorageService } from 'src/app/service/auth/storage.service';
 import Swal from 'sweetalert2';
 
 
+
+
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -25,12 +28,9 @@ export class SignupComponent {
   public currentUser = 'Utilisateur';
   public currentType = 'Type';
   public TYpePie = 'TypePiece';
-  // public typeUser = [
-  //   "Type d'Utilisateur",
-  //   'LOCATAIRE OU ACHETEUR',
-  //   'PROPRIETAIRE',
-  //   'AGENCE',
-  // ];
+  
+  sendRegister = false;
+
 
   public typeUser: any[] = [
     // { nom: "Type d'Utilisateur", },
@@ -67,27 +67,39 @@ export class SignupComponent {
   images: File[] = [];
   maxImageCount: number = 0; // Limite maximale d'images
   isButtonDisabled: boolean = false; // Variable pour désactiver le bouton si la limite est atteinte
+  dateError: string = '';
+validateEmail(email: string): boolean {
+  // Option 1: Using built-in Angular email validator
+  // return Validators.email(email) !== null;  // Returns true/false
 
+  // Option 2: Using regular expression (more strict validation)
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return emailRegex.test(email);
+}
 
 
   //CHARGER L'IMAGE
   onFileSelected1(event: any): void {
     this.selectedFiles = event.target.files;
     const reader = new FileReader();
-    for (const file of this.selectedFiles) {
-      if (this.images.length < 2) {
-        reader.onload = (e: any) => {
-          this.images.push(file);
-          this.image.push(e.target.result);
-        };
-        this.maxImageCount = file.length
-        reader.readAsDataURL(file);
-      }
-    }
-    this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
-    this.form.photo = this.images;
+    reader.onload = (e: any) => {
+      // Ajoutez la nouvelle image à la liste des images
+      this.images.push(this.selectedFiles[0]);
+      // Affichez uniquement la nouvelle image dans la vue
+      this.image = [e.target.result];
+      this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
+      this.form.photo = this.images;
+      this.form.photo = event.target.files[0] as File;
+      // Appeler la fonction pour traiter la sélection de fichiers
+      this.handleFileSelection(event);
+    };
+    this.form.photo = event.target.files[0] as File;
+    reader.readAsDataURL(this.selectedFiles[0]); // Chargez seulement le premier fichier sélectionné
 
   }
+
+
+  
 
   public typepiciesUser = [
 
@@ -99,7 +111,17 @@ export class SignupComponent {
   //METHODE PERMETTANT DE CHANGER LES TYPES DE DOC
   onTypePiecesChange(event: any) {
     this.selectedTypePiece = event.value;
+    this.resetNumdoc();
+    this.removeImages(); // Appel de la fonction removeImage
   }
+  
+  removeImages() {
+    // Votre logique pour supprimer l'image sans utiliser l'index
+    this.image.splice(0, 1); // Supprime la première image du tableau
+    this.images.splice(0, 1); // Supprime le premier fichier du tableau 'images'
+    this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
+  }
+  
 
   //METHODE PERMETTANT DE VERIFIER SI LES DEUX MOTS DE PASSE SONT LES MEMES
   passwordsMatch(): boolean {
@@ -127,7 +149,9 @@ export class SignupComponent {
     this.form.photo = event.target.files[0] as File;
     // Appeler la fonction pour traiter la sélection de fichiers
     this.handleFileSelection(event);
-  }
+
+}
+
 
   // Fonction pour traiter la sélection de fichiers
   handleFileSelection(event: any): void {
@@ -144,7 +168,6 @@ export class SignupComponent {
           this.images.push(file);
           // Ajouter les données de l'image à la liste d'URL d'image
           this.image.push(e.target.result);
-          // Afficher les URLs des images dans la console
         };
         // Démarrer la lecture du contenu du fichier en tant qu'URL de données
         reader.readAsDataURL(file);
@@ -162,6 +185,7 @@ export class SignupComponent {
       return; // Sortir de la fonction si les mots de passe ne correspondent pas
     }
     const { nom, email, nomAgence, emailAgence, password, telephone, dateNaissance, nomDoc, numDoc, role, photo } = this.form;
+    const numero= telephone.replace(/\-/g, '');
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -195,12 +219,17 @@ export class SignupComponent {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-          this.authService.register(nom, email, nomAgence, emailAgence, password, telephone, dateNaissance, nomDoc, numDoc, role, photo).subscribe({
+          this.sendRegister = true;
+          this.authService.register(nom, email, nomAgence, emailAgence, password, numero, dateNaissance, nomDoc, numDoc, role, photo).subscribe({
             next: (data) => {
+              
+
               // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
+         
               if (data.status) {
+                this.sendRegister = false;
                 Swal.fire({
                   position: 'center',
                   text: data.message,
@@ -214,6 +243,7 @@ export class SignupComponent {
                   showCancelButton: false,
                   allowOutsideClick: false,
                 }).then((result) => {
+                  this.sendRegister = false;
                   if (result.isConfirmed) {
                     // Réinitialisation des valeurs du formulaire après confirmation
                     this.form.nom = '';
@@ -228,6 +258,8 @@ export class SignupComponent {
                     this.form.photo = null;
 
                     // Naviguer vers la page de connexion et recharger la page
+                    
+
                     this.router.navigate(['/auth/connexion']).then(() => {
                       window.location.reload();
                     });
@@ -238,8 +270,11 @@ export class SignupComponent {
 
             },
             error: (err) => {
+
               this.errorMessage = err.error.message;
               this.isSignUpFailed = true;
+              this.sendRegister = false;
+
             },
           });
         }
@@ -261,10 +296,13 @@ export class SignupComponent {
       this.currentUser = 'Utilisateur';
       // this.currentType = 'Type';
     }
+    this.resetNomAgence(); // Appel de la fonction pour réinitialiser le champ nomAgence
+
   }
 
 
   onChangeTypeUser(typePiece: any) {
+
     if (typePiece.value === "Carte d'identite") {
       this.typePieces = this.typepiciesUser;
       this.currentType = typePiece.value;
@@ -275,6 +313,7 @@ export class SignupComponent {
       // this.typePieces = [];
       this.currentType = 'Type';
     }
+   
   }
   iconLogle() {
     this.Toggledata = !this.Toggledata;
@@ -294,9 +333,25 @@ export class SignupComponent {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
   }
-
-
-
+  validateDate(date: string): boolean {
+    if (!date) {
+      this.dateError = 'La date de naissance est requise.';
+      return false;
+    }
+    const birthDate = new Date(date);
+    const today = new Date();
+    // Vérifie si la date est valide
+    if (isNaN(birthDate.getTime())) {
+      this.dateError = 'Veuillez entrer une date valide.';
+      return false;
+    }
+    if (birthDate >= today) {
+      this.dateError = 'La date de naissance doit être dans le passé.';
+      return false;
+    }
+    this.dateError = '';
+    return true;
+  }
   //POPUP APRES CONFIRMATION
   popUpConfirmation() {
     // let timerInterval = 2000;
@@ -355,7 +410,7 @@ export class SignupComponent {
 
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
-    if (this.images.length >= 3) {
+    if (this.images.length >= 30) {
       this.isButtonDisabled = true;
     } else {
       this.isButtonDisabled = false;
@@ -383,11 +438,61 @@ export class SignupComponent {
     // Mettre à jour la valeur dans l'input
     event.target.value = formattedValue;
   }
+  
 
   // Fonction de validation du numéro de CarteIN
   isValidNumDoc(numDoc: string): boolean {
-    // Expression régulière pour valider le format du numéro de CarteIN
-    const regex = /^[A-Za-z][0-9][A-Za-z][A-Za-z][0-9]$/;
+    // Expression régulière pour valider que numDoc contient exactement 7 chiffres
+    const regex = /^\d{7}$/;
     return regex.test(numDoc);
   }
+  isValidNumDocNina(numDoc: string): boolean {
+    // Expression régulière pour valider que numDoc contient exactement 14 chiffres suivis d'une lettre majuscule
+    const regex = /^\d{14}[A-Z]$/;
+    return regex.test(numDoc);
+  }
+
+  isValidMalianPassport(numDoc: string): boolean {
+    // Expression régulière pour valider le numéro de passeport malien
+    const regex = /^[A-Z][0-9]{8}$/;
+    return regex.test(numDoc);
+  }
+  isValidNif(numDoc: string): boolean {
+    // Expression régulière pour valider le numéro de NIF
+    const regex = /^\d{9}[A-Z]$/;
+    return regex.test(numDoc);
+  }
+  isValidRccm(numDoc: string): boolean {
+    // Expression régulière pour valider le numéro de RCCM
+    const regex = /^[A-Za-z0-9]{15}$/;
+    return regex.test(numDoc);
+  }
+  resetNomAgence() {
+    if (this.currentUser !== 'agence') {
+      this.form.nomAgence = ''; // Réinitialise le champ nomAgence*
+      this.form.emailAgence=''
+    }
+
+  }
+  resetNumdoc() {
+      this.form.numDoc = ''; // Réinitialise le champ nomAgence*
+  }
+  onCurrentUserChange() {
+    this.resetNomAgence(); // Appel de la fonction pour réinitialiser le champ nomAgence
+  }
+
+ 
+  
+  islongNom(nom: string): boolean {
+    const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/; // Inclure les lettres accentuées et les espaces
+    return nom.length <= 40 && regex.test(nom);
+  }
+
+  islongNumero(telephone: string): boolean {
+    const regex = /^[0-9-]+$/; // Expression régulière pour vérifier que le numéro contient uniquement des chiffres et des tirets
+        return telephone.length === 8 && regex.test(telephone);
+  }
+
+
+  
 }

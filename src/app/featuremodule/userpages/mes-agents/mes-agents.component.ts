@@ -44,6 +44,7 @@ export class MesAgentsComponent implements OnInit {
   public electronics: any = [];
   agent: any;
   MotdePasseAgent: any;
+  loading = false;
   searchText: any;
   message: string | undefined;
   nomAgence: any;
@@ -110,6 +111,8 @@ export class MesAgentsComponent implements OnInit {
     //AFFICHER LA LISTE DES AGENTS PAR AGENCE
     this.agenceService.ListeAgentParAgence().subscribe((data) => {
       this.agent = data.agents.reverse();
+      console.log(this.agent);
+      
     });
 
     
@@ -161,6 +164,7 @@ export class MesAgentsComponent implements OnInit {
           })
           .then((result) => {
             if (result.isConfirmed) {
+              this.loading = true; // Affiche l'indicateur de chargement
               // Appelez la méthode AjouterAgent() avec les données du formulaire
               this.agenceService
                 .AjouterAgent(
@@ -172,14 +176,12 @@ export class MesAgentsComponent implements OnInit {
                 .subscribe(
                   (data) => {
                     // La réponse de la requête réussie est gérée ici
-               
-
                     if (data.status) {
                       let timerInterval = 2000;
                       Swal.fire({
                         position: 'center',
                         text: data.message,
-                        title: "Ajout d'une éducation",
+                        title: "Ajout d'un agent",
                         icon: 'success',
                         heightAuto: false,
                         showConfirmButton: false,
@@ -192,11 +194,14 @@ export class MesAgentsComponent implements OnInit {
                       }).then(() => {
                         // Réinitialisez le formulaire d'ajout d'agent après un succès
                         this.agentForm = {
-                          nom: '',
+                          nom: '', 
                           email: '',
                           telephone: '',
                           quartier: '',
                         };
+                        // Une fois la génération terminée, masquez l'indicateur de chargement
+                        this.loading = false;
+                        window.location.reload();
                         //AFFICHER LA LISTE DES AGENTS PAR AGENCE
                         this.agenceService
                           .ListeAgentParAgence()
@@ -217,7 +222,10 @@ export class MesAgentsComponent implements OnInit {
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
-                      }).then((result) => {});
+                      }).then((result) => {
+                        // Une fois la génération terminée, masquez l'indicateur de chargement
+                        this.loading = false;
+                      });
                     }
                   },
                   (error) => {

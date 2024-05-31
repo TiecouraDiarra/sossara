@@ -316,7 +316,12 @@
                               <div class="group-img" id="datepicker">
                                 <i class="feather-user"></i>
                                 <input placeholder="Prenom et Nom" name="nom" type="text" class="form-control"
-                                  [(ngModel)]="formModif.nom" required />
+                                  [(ngModel)]="formModif.nom" required
+                                  [ngClass]="{'is-invalid': formModif.nom && !islongNom(formModif.nom)}" />
+                              </div>
+                              <div *ngIf="formModif.nom && !islongNom(formModif.nom)" class="invalid-feedback"
+                                style="display:block;">
+                                Le nom complet ne doit pas dépasser 40 caractères et ne doit contenir que des lettres.
                               </div>
                             </div>
                             <!-- email  -->
@@ -324,15 +329,25 @@
                               <div class="group-img">
                                 <i class="feather-mail"></i>
                                 <input type="email" placeholder="Adresse Email" name="email" required
-                                  class="form-control" [(ngModel)]="formModif.email" />
+                                  class="form-control" [(ngModel)]="formModif.email"
+                                  [ngClass]="{'is-invalid': formModif.email && !validateEmail(formModif.email)}" />
+                              </div>
+                              <div *ngIf="formModif.email && !validateEmail(formModif.email)" class="invalid-feedback"
+                                style="display:block;">
+                                Votre adresse email n'est pas valide.
                               </div>
                             </div>
                             <!-- telephone  -->
                             <div class="form-group group-img">
                               <div class="group-img">
                                 <i class="feather-phone"></i>
-                                <input [(ngModel)]="formModif.telephone" type="text" required name="telephone"
-                                  class="form-control" placeholder="Numero de Telephone" />
+                                <input [(ngModel)]="formModif.telephone" maxlength="8" type="text" required
+                                  name="telephone" class="form-control" placeholder="Numero de Telephone"
+                                  [ngClass]="{'is-invalid': formModif.telephone && !islongNumero(formModif.telephone)}" />
+                              </div>
+                              <div *ngIf="formModif.telephone && !islongNumero(formModif.telephone)"
+                                class="invalid-feedback" style="display:block;">
+                                Le numero de telephone doit etre exactement 8 chiffres.
                               </div>
                             </div>
                             <!-- date de naissance  -->
@@ -342,7 +357,7 @@
                                 <i class="feather-calendar"></i>
                                 <!-- Utilisation d'une icône de calendrier pour représenter la date de naissance -->
                                 <input [(ngModel)]="formModif.dateNaissance" type="date" required name="dateNaissance"
-                                  class="form-control" placeholder="Date de Naissance" />
+                                  class="form-control" [max]="getMaximumDate()" placeholder="Date de Naissance" />
                               </div>
                             </div>
 
@@ -355,6 +370,10 @@
                           <button (click)="ModifierProfilUser()" type="button" class="btn btn-primary">
                             Modifier
                           </button>
+                          <!-- Indicateur de chargement -->
+                          <div *ngIf="loading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Chargement en cours...</span>
+                          </div> 
                         </div>
                       </div>
                     </div>
@@ -388,6 +407,23 @@
                                 </select>
                               </div>
                             </div>
+                            <!-- <div class="d-flex real-estate-search"> -->
+                            <!-- <div class="form-group">
+                              <div class="pass-group group-img">
+                                <mat-form-field class="mat-custom-select" style="width: 100%">
+                                  <mat-label *ngIf="selectedCategory == ''">
+                                    Pays</mat-label>
+                                  <mat-select [(ngModel)]="selectedValue" name="pays"
+                                    (selectionChange)="onChange2($event)">
+                                             
+                                    <mat-option *ngFor="let item of pays" [value]=" item?.nompays">{{ item?.nompays
+                                      }}</mat-option>
+                                           
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div> -->
+                            <!-- </div> -->
                             <!-- nom et prenom  -->
 
                             <div>
