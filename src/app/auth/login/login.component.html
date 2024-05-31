@@ -52,7 +52,7 @@
                 <i class="feather-lock"></i>
                 <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'"
                   class="form-control pass-input" placeholder="Mot de passe" [(ngModel)]="form.password" required
-                  minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+                #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
                 <span [ngClass]="
                     Toggledata == true
                       ? 'toggle-password feather-eye-off'
@@ -60,9 +60,7 @@
                   " (click)="iconLogle()"></span>
                 <div *ngIf="password.errors && f.submitted" class="invalid-feedback text-center">
                   <div *ngIf="password.errors['required']">Mot de passe obligatoire</div>
-                  <div *ngIf="password.errors['minlength']">
-                    Mot de passe minimun 6 caractères
-                  </div>
+              
                 </div>
               </div>
             </div>
