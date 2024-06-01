@@ -372,82 +372,28 @@ export class DetailsbienComponent implements AfterViewInit {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       // this.roles = this.storageService.getUser().roles;
+       //AFFICHER LA LISTE DES USAGE
+    this.serviceUsage.AfficherListeUsage().subscribe(data => {
+      this.usage = data;
+    });
+
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
     }
-    //RECUPERER L'ID D'UN BIEN
-   
-    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-    //   // Tri des biens immobiliers par ordre décroissant de la date de création
-    
-    //   // Extraction des trois biens immobiliers les plus récents
-    //   this.bienImmoSuivant = data.slice(0, 1);
-    //   console.log(this.bienImmoSuivant)
+
     this.bienparid()
     
-    // });
 
-    //AFFICHER LA LISTE DES USAGE
-    this.serviceUsage.AfficherListeUsage().subscribe(data => {
-      this.usage = data;
-    }
-    );
-
+   
     const Users = this.storageService.getUser();
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
 
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
-    this.servicecommentaire
-      .AffichercommentaireParBien(this.id)
-      .subscribe((data) => {
+    this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe((data) => {
         this.commentaire = data.reverse();
       });
-    this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-      this.les_commodite = data;
-    });
-
-    //AFFICHER LA LISTE DES COMMUNES
-    this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
-      this.commune = data;
-    });
-    //AFFICHER LA LISTE DES Pays
-    this.serviceAdresse.AfficherListePays().subscribe((data) => {
-      this.pays = data;
-    });
-    //AFFICHER LA LISTE DES CERCLE
-    this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
-      this.cercle = data;
-    });
-
-    //AFFICHER LA LISTE DES CARACTERISTIQUE
-    this.caracteristiqueService.AfficherCaracteristique().subscribe((data) => {
-      this.caracteristique = data;
-    });
-
-    //AFFICHER LA LISTE DES REGIONS
-    this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
-      this.region = data;
-      this.nombreZone = data?.length;
-    });
-    //AFFICHER LA LISTE DES TYPEBIEN
-    this.serviceAdresse.AfficherListeTypeBien().subscribe((data) => {
-      this.typebien = data;
-    });
-
-    //AFFICHER LA LISTE DES PERIODES
-    this.serviceAdresse.AfficherListePeriode().subscribe((data) => {
-      this.periode = data;
-    });
-    //AFFICHER LA LISTE DES PERIODES
-    this.serviceAdresse.AfficherListeStatutBien().subscribe((data) => {
-      this.status = data;
-    });
-
-    //AFFICHER LA LISTE DES COMMODITES
-    // this.serviceCommodite.AfficherLaListeCommodite().subscribe((data) => {
-    //   this.typebien = data.type;
-    // });
+      
   }
 
  
@@ -1039,6 +985,8 @@ userRoles: { id: number; name: string }[] = [];
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
+
+      
    
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       // Trier les biens par date de création décroissante
@@ -1065,8 +1013,7 @@ userRoles: { id: number; name: string }[] = [];
 
       
     });
-    
-      console.log(this.bien)
+
       this.lesCommodites = data?.commodites;
       this.photos = this.bien?.photos;
       this.latitude = this.bien.adresse.latitude;

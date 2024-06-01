@@ -17,8 +17,8 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   templateUrl: './lesagences.component.html',
   styleUrls: ['./lesagences.component.scss']
 })
-export class LesagencesComponent implements OnInit  {
- 
+export class LesagencesComponent implements OnInit {
+
   public routes = routes;
   nombreAgence: number = 0;
   agence: any[] = [];
@@ -38,7 +38,7 @@ export class LesagencesComponent implements OnInit  {
   NombreBienLouerCount: { [agenceId: number]: number } = {};
   NombreBienVendreCount: { [agenceId: number]: number } = {};
   p: number = 1; // Numéro de page actuelle pour la pagination
-  
+
   regions: any = [];
   communes: any = [];
   cercles: any = [];
@@ -47,7 +47,7 @@ export class LesagencesComponent implements OnInit  {
   region: any
   commune: any
   typebien: any
-  cercle:any
+  cercle: any
   selectedRegion: any;
   selectedCommune: any;
   selectedCercle: any;
@@ -74,10 +74,10 @@ export class LesagencesComponent implements OnInit  {
     }
     return hash;
   }
-  
 
-   // Méthode pour changer de page
-   setCurrentPage(page: number) {
+
+  // Méthode pour changer de page
+  setCurrentPage(page: number) {
     this.currentPage = page;
   }
 
@@ -85,11 +85,11 @@ export class LesagencesComponent implements OnInit  {
   // Calcul du nombre total de pages
   get pageCount(): number {
     // if (this.bienImmo.length === 0) {
-        // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
+    // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
     // } else {
-        return Math.ceil(this.agence.length / this.pageSize);
+    return Math.ceil(this.agence.length / this.pageSize);
     // }
-}
+  }
 
 
 
@@ -129,76 +129,13 @@ export class LesagencesComponent implements OnInit  {
   locale!: string;
 
   ngOnInit(): void {
-    
-// AFFICHER LA LISTE DES AGENCES
-this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
-  data.forEach((user: any) => {
-    const userRoles = user.roles.map((role: { name: any }) => role.name);
 
-    if (userRoles.includes('ROLE_AGENCE')) {
-      this.agence.push(user);
-    }
-  });
-
-  this.nombreAgence = this.agence?.length;
-
-  this.agence?.forEach((agence: { uuid: string }) => {
-    this.serviceAgence.AfficherAgenceParId(agence?.uuid).subscribe((data) => {
-      this.bienImmoAgence = data?.bienImmos;
-      this.bienImmoAgent = data?.agents;
-      let totalBiensAgents: any[] = [];
-
-      data.agents.forEach((agent: any) => {
-        totalBiensAgents.push(...agent.bienImmosAgents);
-      });
-
-      this.bienImmo = [...this.bienImmoAgence, ...totalBiensAgents];
-      this.NombreBienParAgence = this.bienImmo.length;
-      this.NombreAgentParAgence = data.agents?.length;
-      let nombreLouerParAgence = 0;
-      let nombreVendreParAgence = 0;
-      
-      this.bienImmo.forEach((bien: any) => {
-        if (bien?.statut?.nom === 'A louer') {
-          this.bienImmoLouer.push(bien);
-          nombreLouerParAgence++;
-        } else if (bien?.statut?.nom === 'A vendre') {
-          this.bienImmoVendre.push(bien);
-          nombreVendreParAgence++;
-        }
-      });
-
-      this.NombreLouerParAgence = nombreLouerParAgence;
-      this.NombreVendreParAgence = nombreVendreParAgence;
-
-
-      // Convertir l'UUID de type string en type number avec une fonction de hachage
-function hashString(str: string): number {
-  let hash = 0;
-  if (str.length === 0) {
-    return hash;
-  }
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convertir en entier 32 bits
-  }
-  return hash;
-}
-
-// Utilisation de la fonction de hachage pour convertir l'UUID en number
-const agenceId = hashString(agence.uuid);
-      if (typeof agence.uuid === 'string') {
-        this.NombreBienCount[agenceId] = this.NombreBienParAgence;
-        this.NombreAgentCount[agenceId] = this.NombreAgentParAgence;
-        this.NombreBienLouerCount[agenceId] = this.NombreLouerParAgence;
-        this.NombreBienVendreCount[agenceId] = this.NombreVendreParAgence;
-      }
+    // AFFICHER LA LISTE DES AGENCES
+    this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
+      this.agence = data;
     });
-  });
-});
 
-       //AFFICHER LA LISTE DES REGIONS
+    //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe(data => {
       this.region = data;
     }
@@ -223,7 +160,7 @@ const agenceId = hashString(agence.uuid);
       const filterRegion = !this.selectedRegion || agence.adresse?.commune.cercle.region.nomregion === this.selectedRegion;
       const filterCommune = !this.selectedCommune || agence.adresse?.commune.nomcommune === this.selectedCommune;
       const filterSearchText = !this.searchText || agence.nomAgence.toLowerCase().includes(this.searchText.toLowerCase()); // Remplacez someProperty par la propriété sur laquelle vous souhaitez effectuer la recherche
-  
+
       return filterCercle && filterRegion && filterCommune && filterSearchText;
     });
   }
@@ -249,31 +186,31 @@ const agenceId = hashString(agence.uuid);
       (el: any) => el.cercle.nomcercle == newValue.value
     );
   }
-    //RECHERCHER PAR REGION
-    onRegionSelectionChange(newValue: any) {
-      this.filteredCercles = this.cercle.filter(
-        (el: any) => el.region.id == newValue.value || el.region.nomregion == newValue.value
-      );
-      this.selectedRegion = newValue.value;
-    }
-    
-  
-    //RECHERCHER PAR CERCLE
-    onCercleSelectionChange(newValue: any) {
-      this.communes1 = this.commune.filter(
-        (el: any) =>
-          el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
-      );
-  
-      this.selectedCercle = newValue.value;
-      
-    }
-  
-    searchCategory(value: any): void {
-      const filterValue = value;
-      this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
-      this.categories = this.categoriesDataSource.filteredData;
-    }
+  //RECHERCHER PAR REGION
+  onRegionSelectionChange(newValue: any) {
+    this.filteredCercles = this.cercle.filter(
+      (el: any) => el.region.id == newValue.value || el.region.nomregion == newValue.value
+    );
+    this.selectedRegion = newValue.value;
+  }
+
+
+  //RECHERCHER PAR CERCLE
+  onCercleSelectionChange(newValue: any) {
+    this.communes1 = this.commune.filter(
+      (el: any) =>
+        el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+    );
+
+    this.selectedCercle = newValue.value;
+
+  }
+
+  searchCategory(value: any): void {
+    const filterValue = value;
+    this.categoriesDataSource.filter = filterValue.trim().toLowerCase();
+    this.categories = this.categoriesDataSource.filteredData;
+  }
 
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO;
@@ -290,8 +227,8 @@ const agenceId = hashString(agence.uuid);
   goToDettailAgence(id: number) {
     return this.router.navigate(['detailsagence', id]);
   }
-   // Méthode pour gérer le changement de page de la pagination
-   onPageChange(pageNumber: number) {
+  // Méthode pour gérer le changement de page de la pagination
+  onPageChange(pageNumber: number) {
     this.p = pageNumber; // Mettez à jour le numéro de page actuelle
   }
   //RECHERCHER PAR COMMUNE

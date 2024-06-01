@@ -16,7 +16,9 @@ import { QuillModule } from 'ngx-quill';
     CommonModule,
     FormsModule,
     SharedModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    QuillModule.forRoot(), // ngx-quill
+
   ]
 })
 export class ProfileModule { }

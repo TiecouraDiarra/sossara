@@ -447,7 +447,6 @@ export class LocataireComponent implements OnInit {
 
           //   // Le reste de votre logique pour traiter les favoris...
         });
-        console.log("Bien Acheter ", this.bienImmoUserAAcheter);
       });
 
     ////AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE

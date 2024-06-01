@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate {
         this.isLoginFailed = false;
       }
 
-      console.log(this.storageService.getUser().roles);
       //const isAuthenticated = true; // Remplacez ceci par votre propre logique d'authentification
       const roles = this.storageService.getUser().roles;
 

@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, interval, throwError } from 'rxjs';
-import { catchError, startWith, switchMap } from 'rxjs/operators';
+import { catchError, startWith, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../service/auth/auth.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../service/auth/storage.service';
+import { environment } from '../environments/environment';
+const URL_BASE: string = environment.Url_BASE
+import { CookieService } from 'ngx-cookie-service'; // Importez le service CookieService
+
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   users: any;
 
   constructor(private authService: AuthService, private router: Router,  private storageService: StorageService ,
-    private storagservice:StorageService,
+    private storagservice:StorageService, private cookieService: CookieService
   ) {
     this.users=storagservice?.getUser().token
   
@@ -85,6 +89,28 @@ export class JwtInterceptor implements HttpInterceptor {
         })
       );
       
+    }
+
+
+    intercept2(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      // Vérifiez si la requête est la requête de connexion
+      if (req.url === URL_BASE + '/auth/signin') {
+        // Interceptez la réponse
+        return next.handle(req).pipe(
+          tap((event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+              // Accédez au cookie de session dans les en-têtes de réponse
+              const cookie = event.headers.get('Set-Cookie');
+  
+              // Stockez le cookie dans le service de stockage approprié (par exemple, localStorage ou un service de gestion des cookies dédié)
+              this.cookieService.set('session_cookie', cookie);
+            }
+          })
+        );
+      }
+  
+      // Passez la requête au prochain intercepteur ou au gestionnaire
+      return next.handle(req);
     }
     
 }

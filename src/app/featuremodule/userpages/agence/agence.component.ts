@@ -503,7 +503,6 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
       });
       // // Afficher les biens déjà loués et déjà vendus
-      console.log(this.bienImmoDejaLoueLocataire);
       
 
     });
@@ -521,8 +520,6 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
-      // console.log(this.reclamation);
-      
 
     });
 

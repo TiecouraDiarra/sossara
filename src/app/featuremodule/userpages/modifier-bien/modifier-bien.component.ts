@@ -393,7 +393,7 @@ export class ModifierBienComponent {
         this.regions = this.region.filter(
           (el: any) => el.pays.nompays == this.selectedValue
         );
-        console.log(this.selectedValue)
+
       }
     });
   }

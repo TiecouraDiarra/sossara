@@ -249,7 +249,7 @@ export class DetailsagenceComponent implements OnInit {
 
     //RECUPERER L'ID D'UNE AGENCE
     this.id = this.route.snapshot.params["id"]
-    this.serviceAgence.AfficherAgenceParUuId(this.id).subscribe(data => {
+    this.serviceAgence.AfficherAgenceParNom(this.id).subscribe(data => {
 
       // Parcourir chaque agent
       data.agents.forEach((agent: any) => {
@@ -265,14 +265,13 @@ export class DetailsagenceComponent implements OnInit {
 
       this.NombreAgent = this.agent.length;
       this.bienImmo = [...this.bienImmoAgence, ...this.totalBiensAgents];
-      console.log(this.bienImmo);
+  
 
       this.NombreBienAgence = this.bienImmo.length;
 
 
       // Initialisez une variable pour stocker le nombre total de "J'aime".
       // let totalLikes = 0;
-      // console.log(this.bienImmo);
 
       this.bienImmo.forEach((bien: { favoris: any; id: string | number; }) => {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {

@@ -375,7 +375,7 @@ export class TrouverbienComponent implements OnInit {
           this.bienImmo = data;
 
           this.bienImmo = data;
-          console.log(this.bienImmo);
+
           
 
           // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.

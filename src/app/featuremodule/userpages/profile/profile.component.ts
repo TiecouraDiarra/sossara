@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
 import Swal from 'sweetalert2';
+import { ContentChange, SelectionChange } from 'ngx-quill';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -78,6 +79,7 @@ export class ProfileComponent implements OnInit {
   regions1: any = [];
   users: any;
   photo: any;
+  hasRoleAgence: any;
 
   onChange(typeUser: any) {
     if (
@@ -131,12 +133,14 @@ export class ProfileComponent implements OnInit {
       telephone: '',
       email: '',
       dateNaissance: '',
+      description: ''
     };
     this.formModifadress = {
       quartier: '',
       rue: '',
       porte: '',
       communeform: '',
+      description :'',
     };
   }
 
@@ -185,17 +189,22 @@ export class ProfileComponent implements OnInit {
         // Récupérer les données de l'utilisateur connecté
         this.serviceUser.AfficherUserConnecter().subscribe((data) => {
           this.users = data[0];
+          console.log(this.users);
+          
           this.selectedValue =
             this.users.adresse?.commune?.cercle?.region.pays?.nompays;
             this.selectedValueR =
             this.users.adresse?.commune?.cercle?.region.nomregion;
             this.selectedValueC =
             this.users.adresse?.commune?.cercle?.nomcercle;
+            this.hasRoleAgence = this.users.roles.some((role: any) => role.name === 'ROLE_AGENCE');
+
           this.formModifadress = {
             quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
             rue: this.users.adresse?.rue || '',
             porte: this.users.adresse?.porte || '',
-            communeform:this.users.adresse?.commune?.id
+            communeform:this.users.adresse?.commune?.id,
+            description :this.users?.description || '',
      
           };
         
@@ -642,7 +651,7 @@ export class ProfileComponent implements OnInit {
 
 
   ModifierAdressUser() {
-    const { quartier, rue, porte, communeform } = this.formModifadress;
+    const { quartier, rue, porte, communeform, description } = this.formModifadress;
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -668,7 +677,7 @@ export class ProfileComponent implements OnInit {
           if (user && user.token) {
             this.serviceUser.setAccessToken(user.token);
             this.serviceUser
-              .modifierAdress(quartier, rue, porte, communeform)
+              .modifierAdress(quartier, rue, porte, communeform, description)
               .subscribe({
                 next: (data) => {
                   if (data.status) {
@@ -784,5 +793,46 @@ export class ProfileComponent implements OnInit {
     return this.ChangeMdpForm.newPassword === this.ChangeMdpForm.confirmPassword;
   }
 
+  quillConfig = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['code-block'],
+        //  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        //  [{ 'direction': 'rtl' }],                         // text direction
+
+        //  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ 'align': [] }],
+
+        //  ['clean'],                                         // remove formatting button
+
+        //  ['link'],
+        ['link', 'image', 'video']
+      ],
+    },
+  }
+
+  onSelectionChanged = (event: SelectionChange) => {
+    if (event.oldRange == null) {
+      this.onFocus();
+    }
+    if (event.range == null) {
+      this.onBlur();
+    }
+  }
+
+
+  onContentChanged = (event: ContentChange) => {
+  }
+
+  onFocus = () => {
+  }
+  onBlur = () => {
+  }
 
 }
