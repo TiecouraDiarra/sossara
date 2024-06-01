@@ -32,21 +32,16 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      withCredentials: true  // Indique au navigateur d'inclure les cookies dans la requête
-    };
-
-    const body = { email, password }; // Corps de la requête POST
-
-    return this.http.post<any>(
+    return this.http.post(
       URL_BASE + '/auth/signin',
-      body,
-      httpOptions  // Options HTTP avec withCredentials: true
+      {
+        email,
+        password,
+      },
+      httpOptions
     );
   }
+
   register(
     nom: string,
     email: string,
