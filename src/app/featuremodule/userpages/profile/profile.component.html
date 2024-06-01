@@ -316,7 +316,12 @@
                               <div class="group-img" id="datepicker">
                                 <i class="feather-user"></i>
                                 <input placeholder="Prenom et Nom" name="nom" type="text" class="form-control"
-                                  [(ngModel)]="formModif.nom" required />
+                                  [(ngModel)]="formModif.nom" required
+                                  [ngClass]="{'is-invalid': formModif.nom && !islongNom(formModif.nom)}" />
+                              </div>
+                              <div *ngIf="formModif.nom && !islongNom(formModif.nom)" class="invalid-feedback"
+                                style="display:block;">
+                                Le nom complet ne doit pas dépasser 40 caractères et ne doit contenir que des lettres.
                               </div>
                             </div>
                             <!-- email  -->
@@ -324,15 +329,25 @@
                               <div class="group-img">
                                 <i class="feather-mail"></i>
                                 <input type="email" placeholder="Adresse Email" name="email" required
-                                  class="form-control" [(ngModel)]="formModif.email" />
+                                  class="form-control" [(ngModel)]="formModif.email"
+                                  [ngClass]="{'is-invalid': formModif.email && !validateEmail(formModif.email)}" />
+                              </div>
+                              <div *ngIf="formModif.email && !validateEmail(formModif.email)" class="invalid-feedback"
+                                style="display:block;">
+                                Votre adresse email n'est pas valide.
                               </div>
                             </div>
                             <!-- telephone  -->
                             <div class="form-group group-img">
                               <div class="group-img">
                                 <i class="feather-phone"></i>
-                                <input [(ngModel)]="formModif.telephone" type="text" required name="telephone"
-                                  class="form-control" placeholder="Numero de Telephone" />
+                                <input [(ngModel)]="formModif.telephone" maxlength="8" type="text" required
+                                  name="telephone" class="form-control" placeholder="Numero de Telephone"
+                                  [ngClass]="{'is-invalid': formModif.telephone && !islongNumero(formModif.telephone)}" />
+                              </div>
+                              <div *ngIf="formModif.telephone && !islongNumero(formModif.telephone)"
+                                class="invalid-feedback" style="display:block;">
+                                Le numero de telephone doit etre exactement 8 chiffres.
                               </div>
                             </div>
                             <!-- date de naissance  -->
@@ -342,7 +357,7 @@
                                 <i class="feather-calendar"></i>
                                 <!-- Utilisation d'une icône de calendrier pour représenter la date de naissance -->
                                 <input [(ngModel)]="formModif.dateNaissance" type="date" required name="dateNaissance"
-                                  class="form-control" placeholder="Date de Naissance" />
+                                  class="form-control" [max]="getMaximumDate()" placeholder="Date de Naissance" />
                               </div>
                             </div>
 
@@ -355,6 +370,10 @@
                           <button (click)="ModifierProfilUser()" type="button" class="btn btn-primary">
                             Modifier
                           </button>
+                          <!-- Indicateur de chargement -->
+                          <div *ngIf="loading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Chargement en cours...</span>
+                          </div> 
                         </div>
                       </div>
                     </div>
@@ -378,55 +397,48 @@
                                   <i class="feather-map-pin"></i>
                                 </div>
                               </div>
+                           
                               <div class="flex-grow-1 ms-3">
-                                <select class="form-control" [ngModel]="selectedValue" name="pays"
-                                  (change)="onChange2($event.target)">
-                                  <option value="pays" selected>pays</option>
-                                  <option *ngFor="let item of pays" [value]="item.nompays">
-                                    {{ item.nompays }}
-                                  </option>
-                                </select>
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                  <mat-label *ngIf="selectedCategory == ''">pays</mat-label>
+                                  <mat-select name="pays" (selectionChange)="onChange2($event)"   [(ngModel)]="selectedValue">
+                                    <mat-option *ngFor="let item of pays" [value]="item.nompays">
+                                      {{ item.nompays }}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
                               </div>
                             </div>
-                            <!-- nom et prenom  -->
+                        
+                            <div>
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                               
 
-                            <div>
-                              <div class="d-flex real-estate-search">
-                                <div class="flex-shrink-0 d-flex align-items-center">
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-map-pin"></i>
-                                  </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                  <select class="form-control select category-select"
-                                    (change)="onChangeRegion($event.target)">
-                                    <option selected [value]="null">
-                                      Region
-                                    </option>
-                                    <option *ngFor="let Region of regions1">
-                                      {{ Region?.nomregion }}
-                                    </option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div>
-                              <div class="d-flex real-estate-search">
-                                <div class="flex-shrink-0 d-flex align-items-center">
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-map-pin"></i>
-                                  </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                  <select class="form-control select category-select"
-                                    (change)="onChangeCercle($event.target)">
-                                    <option selected [value]="null">
-                                      Cercle
-                                    </option>
-                                    <option *ngFor="let Cercle of cercles" [value]="Cercle.id">
-                                      {{ Cercle?.nomcercle }}
-                                    </option>
-                                  </select>
+                                  <mat-form-field
+                                  class="mat-custom-select"
+                                  style="width: 98%"
+                                >
+                                  <mat-label *ngIf="selectedCategory == ''"
+                                    >Region</mat-label
+                                  >
+                                  <mat-select
+                                    name="region"
+                                    (selectionChange)="onChangeRegion($event)"
+                                    [(ngModel)]="selectedValueR"
+                                  >
+                                    <mat-option
+                                      *ngFor="let Region of regions"
+                                      [value]="Region.nomregion"
+                                    >
+                                      {{ Region?.nomregion }}</mat-option
+                                    >
+                                  </mat-select>
+                                </mat-form-field>
                                 </div>
                               </div>
                             </div>
@@ -437,20 +449,68 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-                                <!--<div class="flex-grow-1 ms-3">
-                                                                <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                            </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <select class="form-control select category-select"
-                                    [(ngModel)]="formModifadress.communeform" name="communeform">
-                                    <option selected [value]="null">
-                                      Commune
-                                    </option>
-                                    <option *ngFor="let Commune of communes1" [value]="Commune.id">
-                                      {{ Commune?.nomcommune }}
-                                    </option>
-                                  </select>
+                               
+
+
+                                  <mat-form-field
+                                  class="mat-custom-select"
+                                  style="width: 98%"
+                                >
+                                  <mat-label *ngIf="selectedCategory == ''"
+                                    >Cercle</mat-label
+                                  >
+                                  <mat-select
+                                    name="cercle"
+                                    (selectionChange)="onChangeCercle($event)"
+                                    [(ngModel)]="selectedValueC"
+
+                                  >
+                                    <mat-option
+                                      *ngFor="let Cercle of cercles"
+                                      [value]="Cercle.nomcercle"
+                                    >
+                                    {{ Cercle?.nomcercle }}
+                                    </mat-option
+                                    >
+                                  </mat-select>
+                                </mat-form-field>
                                 </div>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+                         
+                                <div class="flex-grow-1 ms-3">
+                                  
+
+                                <mat-form-field
+                                class="mat-custom-select"
+                                style="width: 98%"
+                              >
+                                <mat-label *ngIf="selectedCategory == ''"
+                                  >Commune</mat-label
+                                >
+                                <mat-select
+                                  name="communeform"
+                                  [(ngModel)]="formModifadress.communeform" 
+                                >
+                                  <mat-option
+                                  *ngFor="let Commune of communes"
+                                    [value]="Commune.id"
+                                    
+                                  >
+                                  {{ Commune?.nomcommune }}
+                                  </mat-option
+                                  >
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
                               </div>
                             </div>
 
@@ -514,6 +574,7 @@
                     </div>
                   </div>
                 </form>
+               
               </div>
             </div>
           </div>

@@ -24,6 +24,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 })
 export class ProfileComponent implements OnInit {
   public routes = routes;
+  selectedCategory: any = '';
   public Toggledata = true;
   public Toggledataold = true;
   public Toggle = true;
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
   isLocataire = false;
   isAgence = false;
   isProprietaire = false;
+  loading = false;
   roles: string[] = [];
   formModifadress: any;
 
@@ -67,13 +69,12 @@ export class ProfileComponent implements OnInit {
   cercle: any;
   region: any;
   nombreZone: any;
-  selectedValue: string = '';
+  selectedValue: string | any = 'pays';
   selectedValueR: string | any = 'region';
   selectedValueC: string | any = 'cercle';
-  regions: any[] = [];
+  regions: any = [];
   cercles: any[] = [];
   communes: any = [];
-  communes1: any = [];
   regions1: any = [];
   users: any;
   photo: any;
@@ -123,6 +124,7 @@ export class ProfileComponent implements OnInit {
   ) {
     this.locale = localeId;
     this.User = this.storageService.getUser();
+   
 
     this.formModif = {
       nom: '',
@@ -158,13 +160,7 @@ export class ProfileComponent implements OnInit {
     const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
-  // generateImageUrl(photoFileName: string): string {
-  //   const baseUrl = URL_PHOTO;
-  //   // this.cdr.detectChanges();
-  //   const timestamp = new Date().getTime(); // Obtenez un horodatage unique
-  //   return `${baseUrl}${photoFileName}?timestamp=${timestamp}`;
-  // }
-
+  
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
     event.target.src =
@@ -186,6 +182,25 @@ export class ProfileComponent implements OnInit {
       }
     }
 
+        // Récupérer les données de l'utilisateur connecté
+        this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+          this.users = data[0];
+          this.selectedValue =
+            this.users.adresse?.commune?.cercle?.region.pays?.nompays;
+            this.selectedValueR =
+            this.users.adresse?.commune?.cercle?.region.nomregion;
+            this.selectedValueC =
+            this.users.adresse?.commune?.cercle?.nomcercle;
+          this.formModifadress = {
+            quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
+            rue: this.users.adresse?.rue || '',
+            porte: this.users.adresse?.porte || '',
+            communeform:this.users.adresse?.commune?.id
+     
+          };
+        
+        });
+
     //AFFICHER LA PHOTO DE USER CONNECTER
     this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
       this.photo = data;
@@ -194,68 +209,57 @@ export class ProfileComponent implements OnInit {
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
+      if (this.selectedValueC) {
+        this.communes = this.commune.filter(
+          (el: any) => el.cercle.nomcercle == this.selectedValueC
+        );
+      }
     });
     //AFFICHER LA LISTE DES Pays
     this.serviceAdresse.AfficherListePays().subscribe((data) => {
       this.pays = data;
+
     });
     //AFFICHER LA LISTE DES CERCLE
     this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
       this.cercle = data;
+      if (this.selectedValueR) {
+        this.cercles = this.cercle.filter(
+          (el: any) => el.region.nomregion == this.selectedValueR
+        );
+      }
     });
 
     //AFFICHER LA LISTE DES REGIONS
+
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
-      this.region = data;
-      this.nombreZone = data?.length;
-    });
-
-    // Récupérer les données de l'utilisateur connecté
-    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-      this.users = data[0];
-      this.formModif = {
-        nom: this.users?.nom || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
-        telephone: this.users.telephone || '',
-        email: this.users.email || '',
-        dateNaissance: this.users.dateNaissance || '',
-      };
-      this.selectedValue =
-        this.users.adresse?.commune?.cercle?.region.pays?.nompays;
-
-      this.formModifadress = {
-        quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
-        rue: this.users.adresse?.rue || '',
-        porte: this.users.adresse?.porte || '',
-        communeform: this.users.adresse?.commune?.nomcommune || '',
-      };
+      this.region = data; 
+      this.nombreZone = data.length;
+      if (this.selectedValue) {
+        this.regions = this.region.filter(
+          (el: any) => el.pays.nompays == this.selectedValue
+        );
+      }
     });
   }
   // Méthode pour charger la liste des pays
 
+
   onChange2(newValue: any) {
-    this.regions1 = this.region.filter(
-      (el: any) =>
-        el.pays.id == newValue.value || el.pays.nompays == newValue.value
+    this.regions = this.region.filter(
+      (el: any) => el.pays.nompays == newValue.value
     );
-    this.regions1.forEach((el: any) => {});
   }
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
-      (el: any) =>
-        el.region.id == newValue.value || el.region.nomregion == newValue.value
+      (el: any) => el.region.nomregion == newValue.value
     );
-    this.cercles.forEach((el: any) => {
-      this.form.regionForm = el.region.id;
-    });
   }
+  
   onChangeCercle(newValue: any) {
-    this.communes1 = this.commune.filter(
-      (el: any) =>
-        el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+    this.communes = this.commune.filter(
+      (el: any) => el.cercle.nomcercle == newValue.value
     );
-    this.communes1.forEach((el: any) => {
-      this.form.cercleForm = el.cercle.id;
-    });
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -286,7 +290,7 @@ export class ProfileComponent implements OnInit {
                 window.location.reload();
               });
             },
-            error: (err) => {},
+            error: (err) => { },
           });
         }
       });
@@ -365,10 +369,10 @@ export class ProfileComponent implements OnInit {
                       showDenyButton: false,
                       showCancelButton: false,
                       allowOutsideClick: false,
-                    }).then((result) => {});
+                    }).then((result) => { });
                   }
                 },
-                (error) => {}
+                (error) => { }
               );
           } else {
           }
@@ -400,7 +404,7 @@ export class ProfileComponent implements OnInit {
           this.storageService.clean();
           this.router.navigateByUrl('/auth/connexion');
         },
-        error: (err) => {},
+        error: (err) => { },
       });
     });
   }
@@ -467,7 +471,7 @@ export class ProfileComponent implements OnInit {
         (successResponse) => {
           this.reloadPage();
         },
-        (error) => {}
+        (error) => { }
       );
     } else {
     }
@@ -483,7 +487,7 @@ export class ProfileComponent implements OnInit {
       },
       heightAuto: false,
     });
-  
+
     swalWithBootstrapButtons
       .fire({
         // title: 'Etes-vous sûre de vous déconnecter?',
@@ -496,6 +500,7 @@ export class ProfileComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
+          this.loading = true; // Affiche l'indicateur de chargement
           const user = this.storageService.getUser();
           if (user && user.token) {
             // Définissez le token dans le service serviceUser
@@ -505,35 +510,97 @@ export class ProfileComponent implements OnInit {
               .modifierProfil(nom, telephone, email, dateNaissance)
               .subscribe({
                 next: (data) => {
-                  // Mise à jour des données utilisateur dans le sessionStorage
-                  // const updatedUser = this.storageService.getUser(); // Récupérez l'utilisateur du sessionStorage
-                  // if (updatedUser) {
-                  //   // Mise à jour des données de l'utilisateur avec les données mises à jour du serveur
-                  //   // updatedUser.user.username = data.user.username;
-                  //   // updatedUser.user.email = data.user.email;
-                  //   // updatedUser.user.telephone = data.user.telephone;
-                  //   // updatedUser.user.dateNaissance = data.user.dateNaissance;
-
-                  //   // Mise à jour des données dans le sessionStorage avec les données mises à jour
-                  //   this.storageService.setUser(updatedUser); // Utilisez l'utilisateur mis à jour
-                  // }
-
                   this.isSuccessful = true;
                   this.isSignUpFailed = false;
-                  this.popUpModification();
-                  console.log(this.storageService.getUser().email);
+
+                  // this.popUpModification();
 
                   if (this.storageService.getUser().email !== email) {
                     // Utilisation correcte de la comparaison
-                    console.log(this.storageService.getUser().email);
-
-                    this.storageService.clean();
-                    this.router.navigate(['/auth/connexion']).then(() => {
-                      window.location.reload();
-                    });
-                    this.popUpModification();
+                    // this.popUpModification();
+                    if (data.status) {
+                      let timerInterval = 2000;
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: "Modification de profil",
+                        icon: 'success',
+                        heightAuto: false,
+                        showConfirmButton: false,
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        timer: timerInterval,
+                        timerProgressBar: true,
+                      }).then(() => {
+                        // Une fois la génération terminée, masquez l'indicateur de chargement
+                        this.loading = false;
+                        this.storageService.clean();
+                        this.router.navigate(['/auth/connexion']).then(() => {
+                          window.location.reload();
+                        });
+                      });
+                    } else {
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: 'Erreur',
+                        icon: 'error',
+                        heightAuto: false,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                      }).then((result) => {
+                        // Une fois la génération terminée, masquez l'indicateur de chargement
+                        this.loading = false;
+                      });
+                    }
+                    // Une fois la génération terminée, masquez l'indicateur de chargement
+                    this.loading = false;
                   } else {
-                    window.location.reload();
+                    // window.location.reload();
+                    if (data.status) {
+                      let timerInterval = 2000;
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: "Modification de profil",
+                        icon: 'success',
+                        heightAuto: false,
+                        showConfirmButton: false,
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        timer: timerInterval,
+                        timerProgressBar: true,
+                      }).then(() => {
+                        // Une fois la génération terminée, masquez l'indicateur de chargement
+                        this.loading = false;
+                        window.location.reload();
+                      });
+                    } else {
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: 'Erreur',
+                        icon: 'error',
+                        heightAuto: false,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                      }).then((result) => {
+                        // Une fois la génération terminée, masquez l'indicateur de chargement
+                        this.loading = false;
+                      });
+                    }
                   }
                 },
                 error: (err) => {
@@ -546,6 +613,33 @@ export class ProfileComponent implements OnInit {
         }
       });
   }
+  
+
+  islongNom(nom: string): boolean {
+    const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/; // Inclure les lettres accentuées et les espaces
+    return nom.length <= 40 && regex.test(nom);
+  }
+
+  validateEmail(email: string): boolean {    
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return emailRegex.test(email);
+  }
+
+  getMaximumDate(): string {
+    const today = new Date();
+
+    // Soustraire 18 ans à la date du jour
+    const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+    // Formater la date au format ISO (AAAA-MM-JJ)
+    return maximumDate.toISOString().split("T")[0];
+  }
+
+  islongNumero(telephone: string): boolean {
+    const regex = /^[0-9-]+$/; // Expression régulière pour vérifier que le numéro contient uniquement des chiffres et des tirets
+    return telephone.length === 8 && regex.test(telephone);
+  }
+
 
   ModifierAdressUser() {
     const { quartier, rue, porte, communeform } = this.formModifadress;
@@ -577,62 +671,42 @@ export class ProfileComponent implements OnInit {
               .modifierAdress(quartier, rue, porte, communeform)
               .subscribe({
                 next: (data) => {
-                  if (data) {
-                    const user = this.storageService.getUser();
-
-                    if (user) {
-                      if (user.adresse === null) {
-                        user.adresse = {
-                          id: data.id,
-                          rue: rue,
-                          porte: porte,
-                          quartier: quartier,
-                          latitude: null,
-                          longitude: null,
-                          commune: {
-                            id: data.commune.id,
-                            nomcommune: data.commune.nomcommune,
-                            cercle: {
-                              id: data.commune.cercle.id,
-                              nomcercle: data.commune.cercle.nomcercle,
-                              region: {
-                                id: data.commune.cercle.region.id,
-                                nomregion: data.commune.cercle.region.nomregion,
-                                pays: {
-                                  id: data.commune.cercle.region.pays.id,
-                                  nompays:
-                                    data.commune.cercle.region.pays.nompays,
-                                },
-                              },
-                            },
-                          },
-                          status: true,
-                        };
-                      } else {
-                        user.adresse.quartier = quartier;
-                        user.adresse.rue = rue;
-                        user.adresse.porte = porte;
-                        user.adresse.commune.id = data.commune.id;
-                        user.adresse.commune.nomcommune =
-                          data.commune.nomcommune;
-                        user.adresse.commune.cercle.id = data.commune.cercle.id;
-                        user.adresse.commune.cercle.nomcercle =
-                          data.commune.cercle.nomcercle;
-                        user.adresse.commune.cercle.region.id =
-                          data.commune.cercle.region.id;
-                        user.adresse.commune.cercle.region.nomregion =
-                          data.commune.cercle.region.nomregion;
-                        user.adresse.commune.cercle.region.pays.id =
-                          data.commune.cercle.region.pays.id;
-                        user.adresse.commune.cercle.region.pays.nompays =
-                          data.commune.cercle.region.pays.nompays;
-                      }
-                      this.storageService.setUser(user);
-                    }
-                    this.isSuccessful = true;
-                    this.isSignUpFailed = false;
-                    this.popUpModification();
+                  if (data.status) {
+                    let timerInterval = 2000;
+                    Swal.fire({
+                      position: 'center',
+                      text: data.message,
+                      title: "Modification de profil",
+                      icon: 'success',
+                      heightAuto: false,
+                      showConfirmButton: false,
+                      confirmButtonColor: '#0857b5',
+                      showDenyButton: false,
+                      showCancelButton: false,
+                      allowOutsideClick: false,
+                      timer: timerInterval,
+                      timerProgressBar: true,
+                    }).then(() => {
+                      this.formModifadress.communeform; // Réinitialisez la valeur de formModif.username
+                      this.formModifadress.quartier; // Réinitialisez la valeur de formModif.telephone
+                      this.formModifadress.rue; // Réinitialisez la valeur de formModif.email
+                      this.formModifadress.porte; // Réinitialisez la valeur de formModif.dateNaissance
+                      window.location.reload();
+                    });
                   } else {
+                    Swal.fire({
+                      position: 'center',
+                      text: data.message,
+                      title: 'Erreur',
+                      icon: 'error',
+                      heightAuto: false,
+                      showConfirmButton: true,
+                      confirmButtonText: 'OK',
+                      confirmButtonColor: '#0857b5',
+                      showDenyButton: false,
+                      showCancelButton: false,
+                      allowOutsideClick: false,
+                    }).then((result) => { });
                   }
                 },
                 error: (err) => {
@@ -700,15 +774,15 @@ export class ProfileComponent implements OnInit {
     this.Toggledataold = !this.Toggledataold;
   }
 
-  
+
   validatePassword(newPassword: string): boolean {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(newPassword);
   }
-  
+
   passwordsMatch(): boolean {
     return this.ChangeMdpForm.newPassword === this.ChangeMdpForm.confirmPassword;
   }
-  
+
 
 }

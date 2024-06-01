@@ -24,7 +24,8 @@
 <!-- Main Content Section -->
 <div class="list-content">
   <div class="container">
-    <div class="row">
+    <!-- DEBUT ANCIEN  -->
+    <!-- <div class="row">
       <div class="col-lg-4 theiaStickySidebar">
         <div class="stickybar">
           <div class="listings-sidebar">
@@ -89,7 +90,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div (click)="ContacterOrLogin(agence?.id)" (click)="goToMessage(agence?.email)">
                   <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
                     Contacter l'agence</a>
@@ -99,149 +100,14 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8" *ngIf="bienImmo && bienImmo.length > 0">
-        <div class="row sorting-div">
-          <!-- <div class="col-lg-4 col-sm-4 align-items-center d-flex">
-            <div class="count-search">
-              <p>Showing <span>1-8</span> of 10 Results</p>
-            </div>
-          </div> -->
-          <div class="col-lg-8 col-sm-8 align-items-center">
-            <div class="sortbyset">
-              <span class="sortbytitle">Trier par</span>
-              <div class="sorting-select">
-                <select class="form-control select" [(ngModel)]="searchText">
-                  <option value="" selected>Tout</option>
-                  <option>A louer</option>
-                  <option>A vendre</option>
-                </select>
-              </div>
-            </div>
-            <div class="grid-listview">
-              <ul>
-                <li>
-                  <a [routerLink]="routes.listinglistsidebar" class="active">
-                    <i class="feather-list"></i>
-                  </a>
-                </li>
-                <!-- <li>
-                  <a [routerLink]="routes.listinggridsidebar">
-                    <i class="feather-grid"></i>
-                  </a>
-                </li> -->
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="blog-listview">
-          <div class="card card2"
-            *ngFor="let slide of bienImmo | filter:searchText | paginate:{itemsPerPage :3, currentPage:p}">
-            <div class="blog-widget">
-              <div class="blog-img">
-                <a (click)="goToDettailBien(slide?.uuid)">
-                  <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
-                    <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
-                      alt="blog-img" />
-                  </div>
-                  <ng-template #noImages>
-                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Villa'">
-                      <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
-                        alt="default-img">
-                    </div>
-                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Appartement'">
-                      <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
-                        alt="default-img">
-                    </div>
-                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Terrain'">
-                      <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
-                        alt="default-img">
-                    </div>
-                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Bureau'">
-                      <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
-                        alt="default-img">
-                    </div>
-                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Champ'">
-                      <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
-                        alt="default-img">
-                    </div>
-                    <div class="type" *ngIf="slide?.typeImmo?.nom === 'Commerce & Magasin'">
-                      <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
-                        alt="default-img">
-                    </div>
-                    <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
-                  </ng-template>
-                </a>
-                <div class="fav-item">
-                  <span [ngClass]="{'statutbien': slide?.statut?.nom === 'A vendre' }" class="Featured-text">{{ slide?.statut?.nom
-                    }}</span>
-                  <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                    (click)="AimerBien(slide?.id)" [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
-                    <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'" class="feather-heart"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="bloglist-content">
-                <div class="card-body">
-                  <div class="blogfeaturelink">
-                    <div class="blog-features">
-                      <a href="javascript:void(0);"><span>
-                          <i class="fa-regular fa-circle-stop"></i>
-                          {{ slide?.typeImmo?.nom }}</span></a>
-                    </div>
-                    <div class="blog-author">
-                      <div class="blog-author-img">
-                        <!-- <img [src]="slide.img2" alt="author" /> -->
-                        <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
-                          (error)="handleAuthorImageError($event)" />
-                      </div>
-                      <ng-container *ngIf="hasRole('ROLE_AGENT'); else agenceTemplate">
-                        <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
-                      </ng-container> 
-                      <ng-template #agenceTemplate>
-                        <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
-                      </ng-template>  
-                    </div>
-                  </div>
-                  <h6>
-                    <a (click)="goToDettailBien(slide?.uuid)">{{
-                      slide?.nom ? slide?.nom : slide?.typeImmo?.nom
-                      }}</a>
-                  </h6>
-                  <div class="blog-location-details">
-                    <div class="location-info">
-                      <i class="feather-map-pin"></i> {{ slide?.adresse?.quartier }}
-                    </div>
-                    <!-- <div class="location-info">
-                      <i class="feather-phone-call"></i> 00556245562
-                    </div> -->
-                    <div class="location-info">
-                      <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
-                    </div>
-                  </div>
-                  <!-- <p class="ratings">
-                    <span>4.0</span> ( 50 Reviews )
-                  </p> -->
-                  <div class="amount-details">
-                    <div class="amount">
-                      <span class="validrate">{{ formatPrice(slide?.prix) }} FCFA </span>
-                      <!-- <span>{{ slide.oldamount }}</span> -->
-                    </div>
-                    <a (click)="goToDettailBien(slide.id)">Savoir plus</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="col-lg-8">
 
-          <!-- PAGINATION  -->
-          <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event"
-            previousLabel="Précédent" nextLabel="Suivant" class="pagination" previousClass="pagination__previous"
-            nextClass="pagination__next" containerClass="pagination__container" pageClass="pagination__page"
-            activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"></pagination-controls>
-        </div>
       </div>
-    </div>
-    <div class="container mt-5 mb-5" *ngIf="agent && agent.length > 0">
+    </div> -->
+    <!-- DEBUT ANCIEN  -->
+
+    <!-- ANCIENNE PARTIE AGENT  -->
+    <!-- <div class="container mt-5 mb-5" *ngIf="agent && agent.length > 0">
       <h5 class="section-title h1">Ses agents</h5>
       <div class="listing-search">
         <div class="filter-content form-group">
@@ -262,76 +128,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="d-flex justify-content-between mb-3"> <span>Doctors</span> <button class="btn btn-success add">Add Doctors</button> </div> -->
-      <!-- <owl-carousel-o [options]="listingOwlOptions">
-        <ng-container>
-          <ng-template carouselSlide>
-            <div class="row g-2">
-              <div class="col-md-3">
-                  <div class="card p-2 py-3 text-center card1">
-                      <div class="img mb-2"> <img src="https://i.imgur.com/LohyFIN.jpg" width="70" class="rounded-circle"> </div>
-                      <h5 class="mb-0">Patey Cruiser</h5> <small>Neurosurgeon</small>
-                      <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                      <div class="mt-4 apointment"> <button class="btn btn-success text-uppercase">Book Appointment</button> </div>
-                  </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="card p-2 py-3 text-center card1">
-                      <div class="img mb-2"> <img src="https://i.imgur.com/o5uMfKo.jpg" width="70" class="rounded-circle"> </div>
-                      <h5 class="mb-0">Mario Speedway</h5> <small>Cardiologist</small>
-                      <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                      <div class="mt-4 apointment"> <button class="btn btn-success text-uppercase">Book Appointment</button> </div>
-                  </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="card p-2 py-3 text-center card1">
-                      <div class="img mb-2"> <img src="https://i.imgur.com/tmdHXOY.jpg" width="70" class="rounded-circle "> </div>
-                      <h5 class="mb-0">Anna Sthesia</h5> <small>Surgeon</small>
-                      <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                      <div class="mt-4 apointment"> <button class="btn btn-success text-uppercase">Book Appointment</button> </div>
-                  </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="card p-2 py-3 text-center card1">
-                      <div class="img mb-2"> <img src="https://i.imgur.com/C4egmYM.jpg" width="70" class="rounded-circle"> </div>
-                      <h5 class="mb-0">Paul Moliv</h5> <small>Dentist</small>
-                      <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                      <div class="mt-4 apointment"> <button class="btn btn-success text-uppercase">Book Appointment</button> </div>
-                  </div>
-              </div>
-          </div>
-          </ng-template>
-        </ng-container>
-      </owl-carousel-o> -->
-
-      <!-- <div class="row g-2">
-        <div class="col-md-3" *ngFor="let Agent of agent | filter : searchTextAgent">
-          <div class="card p-2 py-3 text-center card1">
-            <div class="img mb-2" *ngIf="Agent"> <img src="{{generateImageUrl(Agent.photo)}}"
-                (error)="handleAuthorImageError($event)" width="70" class="rounded-circle"> </div>
-            <h5 class="mb-0">{{Agent.username}}</h5>
-            <small style="margin-top: 8px !important;"
-              *ngIf="Agent.adresse && Agent.adresse.length > 0; else noAddress">
-              {{ Agent.adresse[0]?.nom }}
-            </small>
-            <ng-template #noAddress>
-              <small style="margin-top: 8px !important;">Pas d'adresse</small>
-            </ng-template>
-
-            <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <div class="mt-4 apointment">
-              <div (click)="goToDettailAgent(Agent.id)">
-                <a class="btn btn-primartd"><i class="uil uil-filter"></i>
-                  Savoir plus</a>
-               
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div> -->
 
       <div class="row g-2">
         <div class="col-lg-12 aos" data-aos="fade-up">
@@ -342,21 +138,15 @@
                   <ng-template carouselSlide>
                     <div class="card p-2 py-3 text-center card1">
                       <div class=" mb-2 image-sizeagent">
-                        <img src="{{generateImageUrl(Agent?.photo?.nom)}}" (error)="handleAuthorImageError($event)" width="70"
-                          class="">
+                        <img src="{{generateImageUrl(Agent?.photo?.nom)}}" (error)="handleAuthorImageError($event)"
+                          width="70" class="">
                       </div>
                       <h5 class="mb-0">{{Agent?.nom}}</h5>
                       <small *ngIf="Agent.adresse" style="margin-top: 8px !important;">
                         {{ Agent?.adresse?.quartier }}
                       </small>
-                    
-                        <small *ngIf="!Agent.adresse" style="margin-top: 8px !important;">Pas d'adresse</small>
-                   
 
-                      <!-- <div class="ratings mt-2"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                          class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                      </div> -->
+                      <small *ngIf="!Agent.adresse" style="margin-top: 8px !important;">Pas d'adresse</small>
                       <div class="mt-4 apointment">
                         <div (click)="goToDettailAgent(Agent?.uuid)">
                           <a class="btn btn-primartd"><i class="uil uil-filter"></i>
@@ -373,6 +163,638 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
+    <!-- ANCIENNE PARTIE AGENT  -->
+
+    <!-- content -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row gx-5">
+          <aside class="col-lg-4">
+            <div class="stickybar">
+              <div class="listings-sidebar">
+                <div class="card user-card">
+                  <h4>
+                    <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
+                    Details Agence
+                  </h4>
+                  <div class="card-block">
+                    <div class="user-image">
+                      <img src="{{generateImageUrl(agence?.agencePhoto?.nom)}}" class="img-radius"
+                        alt="User-Profile-Image" (error)="handleAuthorImageError($event)">
+                    </div>
+                    <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nomAgence}}</h6>
+                    <div class="row" *ngIf="agence && agence?.adresse">
+                      <div class="col-5" style="font-weight: bold;font-size: 14px">
+                        <label>Adresse :</label>
+                      </div>
+                      <div class="col-7" style="font-size: 12px;">
+                        <p>{{ agence?.adresse?.commune?.cercle?.nomcercle }} - {{ agence?.adresse?.quartier }}</p>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="agence && agence?.adresse">
+                      <div class="col-5" style="font-weight: bold;font-size: 13px">
+                        <label>Rue :</label>
+                      </div>
+                      <div class="col-7">
+                        <p>{{agence?.adresse?.rue}}</p>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="agence && agence?.adresse">
+                      <div class="col-5" style="font-weight: bold;font-size: 13px">
+                        <label>Porte :</label>
+                      </div>
+                      <div class="col-7">
+                        <p>{{agence?.adresse?.porte}}</p>
+                      </div>
+                    </div>
+                    <hr>
+
+                    <p class="text-muted m-t-15">Taux d'activite: {{TauxActivite}}%</p>
+                    <ul class="list-unstyled activity-leval">
+                      <li class="active"></li>
+                      <li class="active"></li>
+                      <li class="active"></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                    <div class="bg-c-green counter-block m-t-10 p-20">
+                      <div class="row">
+                        <div class="col-4">
+                          <i class="feather-home"></i>
+                          <p>{{NombreBienAgence}}</p>
+                        </div>
+                        <div class="col-4">
+                          <i class="feather-user"></i>
+                          <p>{{NombreAgent}}</p>
+                        </div>
+                        <div class="col-4">
+                          <i class="fas fa-thumbs-up"></i>
+                          <p>{{totalLikes}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div (click)="ContacterOrLogin(agence?.id)" (click)="goToMessage(agence?.email)">
+                      <a class="btn btn-primartd mt-3"><i class="uil uil-filter"></i>
+                        Contacter l'agence</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- thumbs-wrap.// -->
+            <!-- gallery-wrap .end// -->
+          </aside>
+          <main class="col-lg-8">
+            <div class="ps-lg-3">
+              <h4 class="title text-dark">
+                Quality Men's Hoodie for Winter, Men's Fashion
+              </h4>
+              <div class="d-flex flex-row my-3">
+                <div class="text-warning mb-1 me-2">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span class="ms-1">
+                    4.5
+                  </span>
+                </div>
+              </div>
+              <p>
+                Modern look and quality demo item is a streetwear-inspired collection that continues to break away from
+                the conventions of mainstream fashion. Made in Italy, these black and brown clothing low-top shirts for
+                men.
+              </p>
+
+
+              <hr />
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card">
+                    <h2 class="card-title">Statistique par statut</h2>
+                    <div id="chart">
+                      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                        [labels]="chartOptions.labels" [responsive]="chartOptions.responsive"></apx-chart>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <h2 class="card-title">Statistique par type</h2>
+                    <div id="chart">
+                      <apx-chart [series]="chartOptionsType.series" [chart]="chartOptionsType.chart" [labels]="chartOptionsType.labels"
+                        [responsive]="chartOptionsType.responsive"></apx-chart>
+                    </div>
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <!-- <div id="chart">
+                      <apx-chart [series]="chartOptionsA.series" [chart]="chartOptionsA.chart"
+                        [plotOptions]="chartOptionsA.plotOptions" [labels]="chartOptionsA.labels"></apx-chart>
+                    </div> -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+    <!-- content -->
+
+    <section class="bg-light border-top py-4">
+      <div class="container">
+        <div class="row gx-4">
+          <div class="col-lg-8 mb-4">
+            <div class="border rounded-2 px-3 py-2 bg-white">
+              <!-- Pills navs -->
+              <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                <li class="nav-item d-flex crd me-2" role="tout">
+                  <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-1"
+                    data-mdb-toggle="pill" [class.active]="isTabActive('tout')" (click)="changeTab('tout')" role="tab"
+                    aria-controls="ex1-pills-1" aria-selected="true">Tous les biens</a>
+                </li>
+                <li class="nav-item d-flex crd me-2" role="agence">
+                  <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-2"
+                    data-mdb-toggle="pill" [class.active]="isTabActive('agence')" (click)="changeTab('agence')"
+                    role="tab" aria-controls="ex1-pills-2" aria-selected="false">Par l'agence</a>
+                </li>
+                <li class="nav-item d-flex crd me-2" role="agent">
+                  <a class="nav-link d-flex align-items-center justify-content-center w-100" id="ex1-tab-3"
+                    data-mdb-toggle="pill" [class.active]="isTabActive('agent')" (click)="changeTab('agent')" role="tab"
+                    aria-controls="ex1-pills-3" aria-selected="false">Par les agents</a>
+                </li>
+              </ul>
+              <!-- Pills navs -->
+
+              <!-- Pills content -->
+              <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade show" id="ex1-pills-1" [class.active]="isTabActive('tout')" role="tabpanel"
+                  aria-labelledby="ex1-tab-1">
+                  <div class="row sorting-div">
+                    <div class="col-lg-8 col-sm-8 align-items-center">
+                      <div class="sortbyset">
+                        <span class="sortbytitle">Trier par</span>
+                        <div class="sorting-select">
+                          <select class="form-control select" [(ngModel)]="searchText">
+                            <option value="" selected>Tout</option>
+                            <option>A louer</option>
+                            <option>A vendre</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="grid-listview">
+                        <ul>
+                          <li>
+                            <a class="active">
+                              <i class="feather-list"></i>
+                            </a>
+                          </li>
+                          <!-- <li>
+                            <a [routerLink]="routes.listinggridsidebar">
+                              <i class="feather-grid"></i>
+                            </a>
+                          </li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="blog-listview">
+                    <div class="card card2"
+                      *ngFor="let slide of bienImmo | filter:searchText | paginate:{itemsPerPage :3, currentPage:p, id:'Tout'}">
+                      <div class="blog-widget">
+                        <div class="blog-img">
+                          <a (click)="goToDettailBien(slide?.uuid)">
+                            <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
+                              <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
+                                alt="blog-img" />
+                            </div>
+                            <ng-template #noImages>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Commerce & Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
+                            </ng-template>
+                          </a>
+                          <div class="fav-item">
+                            <span [ngClass]="{'statutbien': slide?.statut?.nom === 'A vendre' }"
+                              class="Featured-text">{{
+                              slide?.statut?.nom
+                              }}</span>
+                            <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
+                              (click)="AimerBien(slide?.id)"
+                              [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
+                              <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'"
+                                class="feather-heart"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="bloglist-content">
+                          <div class="card-body">
+                            <div class="blogfeaturelink">
+                              <div class="blog-features">
+                                <a href="javascript:void(0);"><span>
+                                    <i class="fa-regular fa-circle-stop"></i>
+                                    {{ slide?.typeImmo?.nom }}</span></a>
+                              </div>
+                              <div class="blog-author">
+                                <div class="blog-author-img">
+                                  <!-- <img [src]="slide.img2" alt="author" /> -->
+                                  <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
+                                    (error)="handleAuthorImageError($event)" />
+                                </div>
+                                <ng-container *ngIf="hasRole(slide,'ROLE_AGENT'); else agenceTemplate">
+                                  <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
+                                </ng-container>
+                                <ng-template #agenceTemplate>
+                                  <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
+                                </ng-template>
+                              </div>
+                            </div>
+                            <h6>
+                              <a (click)="goToDettailBien(slide?.uuid)">{{
+                                slide?.nom ? slide?.nom : slide?.typeImmo?.nom
+                                }}</a>
+                            </h6>
+                            <div class="blog-location-details">
+                              <div class="location-info">
+                                <i class="feather-map-pin"></i> {{ slide?.adresse?.quartier }}
+                              </div>
+                              <!-- <div class="location-info">
+                                <i class="feather-phone-call"></i> 00556245562
+                              </div> -->
+                              <div class="location-info">
+                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
+                              </div>
+                            </div>
+                            <!-- <p class="ratings">
+                              <span>4.0</span> ( 50 Reviews )
+                            </p> -->
+                            <div class="amount-details">
+                              <div class="amount">
+                                <span class="validrate">{{ formatPrice(slide?.prix) }} FCFA </span>
+                                <!-- <span>{{ slide.oldamount }}</span> -->
+                              </div>
+                              <a (click)="goToDettailBien(slide.id)">Savoir plus</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PAGINATION  -->
+                    <pagination-controls *ngIf="bienImmo && bienImmo.length > 0" (pageChange)="p = $event"
+                      previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                      previousClass="pagination__previous" nextClass="pagination__next"
+                      containerClass="pagination__container" pageClass="pagination__page"
+                      activeClassName="pagination__page--active" id="Tout"
+                      disabledClass="pagination__page--disabled"></pagination-controls>
+                  </div>
+                </div>
+                <div class="tab-pane fade show mb-2" id="ex1-pills-2" [class.active]="isTabActive('agence')"
+                  role="tabpanel" aria-labelledby="ex1-tab-2">
+                  <div class="row sorting-div">
+                    <div class="col-lg-8 col-sm-8 align-items-center">
+                      <div class="sortbyset">
+                        <span class="sortbytitle">Trier par</span>
+                        <div class="sorting-select">
+                          <select class="form-control select" [(ngModel)]="searchText">
+                            <option value="" selected>Tout</option>
+                            <option>A louer</option>
+                            <option>A vendre</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="grid-listview">
+                        <ul>
+                          <li>
+                            <a class="active">
+                              <i class="feather-list"></i>
+                            </a>
+                          </li>
+                          <!-- <li>
+                            <a [routerLink]="routes.listinggridsidebar">
+                              <i class="feather-grid"></i>
+                            </a>
+                          </li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="blog-listview">
+                    <div class="card card2"
+                      *ngFor="let slide of bienImmoAgence | filter:searchText | paginate:{itemsPerPage :3, currentPage:p2, id:'Agence'}">
+                      <div class="blog-widget">
+                        <div class="blog-img">
+                          <a (click)="goToDettailBien(slide?.uuid)">
+                            <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
+                              <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
+                                alt="blog-img" />
+                            </div>
+                            <ng-template #noImages>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Commerce & Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
+                            </ng-template>
+                          </a>
+                          <div class="fav-item">
+                            <span [ngClass]="{'statutbien': slide?.statut?.nom === 'A vendre' }"
+                              class="Featured-text">{{
+                              slide?.statut?.nom
+                              }}</span>
+                            <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
+                              (click)="AimerBien(slide?.id)"
+                              [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
+                              <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'"
+                                class="feather-heart"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="bloglist-content">
+                          <div class="card-body">
+                            <div class="blogfeaturelink">
+                              <div class="blog-features">
+                                <a href="javascript:void(0);"><span>
+                                    <i class="fa-regular fa-circle-stop"></i>
+                                    {{ slide?.typeImmo?.nom }}</span></a>
+                              </div>
+                              <div class="blog-author">
+                                <div class="blog-author-img">
+                                  <!-- <img [src]="slide.img2" alt="author" /> -->
+                                  <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
+                                    (error)="handleAuthorImageError($event)" />
+                                </div>
+                                <!-- <ng-container *ngIf="hasRole('ROLE_AGENT'); else agenceTemplate">
+                                  <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
+                                </ng-container> -->
+                                <!-- <ng-template #agenceTemplate> -->
+                                <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
+                                <!-- </ng-template> -->
+                              </div>
+                            </div>
+                            <h6>
+                              <a (click)="goToDettailBien(slide?.uuid)">{{
+                                slide?.nom ? slide?.nom : slide?.typeImmo?.nom
+                                }}</a>
+                            </h6>
+                            <div class="blog-location-details">
+                              <div class="location-info">
+                                <i class="feather-map-pin"></i> {{ slide?.adresse?.quartier }}
+                              </div>
+                              <!-- <div class="location-info">
+                                <i class="feather-phone-call"></i> 00556245562
+                              </div> -->
+                              <div class="location-info">
+                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
+                              </div>
+                            </div>
+                            <!-- <p class="ratings">
+                              <span>4.0</span> ( 50 Reviews )
+                            </p> -->
+                            <div class="amount-details">
+                              <div class="amount">
+                                <span class="validrate">{{ formatPrice(slide?.prix) }} FCFA </span>
+                                <!-- <span>{{ slide.oldamount }}</span> -->
+                              </div>
+                              <a (click)="goToDettailBien(slide.id)">Savoir plus</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PAGINATION  -->
+                    <pagination-controls *ngIf="bienImmoAgence && bienImmoAgence.length > 0" (pageChange)="p2 = $event"
+                      previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                      previousClass="pagination__previous" nextClass="pagination__next"
+                      containerClass="pagination__container" pageClass="pagination__page"
+                      activeClassName="pagination__page--active" id="Agence"
+                      disabledClass="pagination__page--disabled"></pagination-controls>
+                  </div>
+                </div>
+                <div class="tab-pane fade show mb-2" id="ex1-pills-3" [class.active]="isTabActive('agent')"
+                  role="tabpanel" aria-labelledby="ex1-tab-3">
+                  <div class="row sorting-div">
+                    <div class="col-lg-8 col-sm-8 align-items-center">
+                      <div class="sortbyset">
+                        <span class="sortbytitle">Trier par</span>
+                        <div class="sorting-select">
+                          <select class="form-control select" [(ngModel)]="searchText">
+                            <option value="" selected>Tout</option>
+                            <option>A louer</option>
+                            <option>A vendre</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="grid-listview">
+                        <ul>
+                          <li>
+                            <a class="active">
+                              <i class="feather-list"></i>
+                            </a>
+                          </li>
+                          <!-- <li>
+                            <a [routerLink]="routes.listinggridsidebar">
+                              <i class="feather-grid"></i>
+                            </a>
+                          </li> -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="blog-listview">
+                    <div class="card card2"
+                      *ngFor="let slide of totalBiensAgents | filter:searchText | paginate:{itemsPerPage :3, currentPage:p3, id:'Agent'}">
+                      <div class="blog-widget">
+                        <div class="blog-img">
+                          <a (click)="goToDettailBien(slide?.uuid)">
+                            <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
+                              <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
+                                alt="blog-img" />
+                            </div>
+                            <ng-template #noImages>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="slide?.typeImmo?.nom === 'Commerce & Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                  alt="default-img">
+                              </div>
+                              <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
+                            </ng-template>
+                          </a>
+                          <div class="fav-item">
+                            <span [ngClass]="{'statutbien': slide?.statut?.nom === 'A vendre' }"
+                              class="Featured-text">{{
+                              slide?.statut?.nom
+                              }}</span>
+                            <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
+                              (click)="AimerBien(slide?.id)"
+                              [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
+                              <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'"
+                                class="feather-heart"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="bloglist-content">
+                          <div class="card-body">
+                            <div class="blogfeaturelink">
+                              <div class="blog-features">
+                                <a href="javascript:void(0);"><span>
+                                    <i class="fa-regular fa-circle-stop"></i>
+                                    {{ slide?.typeImmo?.nom }}</span></a>
+                              </div>
+                              <div class="blog-author">
+                                <div class="blog-author-img">
+                                  <!-- <img [src]="slide.img2" alt="author" /> -->
+                                  <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
+                                    (error)="handleAuthorImageError($event)" />
+                                </div>
+                                <!-- <ng-container *ngIf="hasRole('ROLE_AGENT'); else agenceTemplate"> -->
+                                <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
+                                <!-- </ng-container> -->
+                                <!-- <ng-template #agenceTemplate>
+                                  <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
+                                </ng-template> -->
+                              </div>
+                            </div>
+                            <h6>
+                              <a (click)="goToDettailBien(slide?.uuid)">{{
+                                slide?.nom ? slide?.nom : slide?.typeImmo?.nom
+                                }}</a>
+                            </h6>
+                            <div class="blog-location-details">
+                              <div class="location-info">
+                                <i class="feather-map-pin"></i> {{ slide?.adresse?.quartier }}
+                              </div>
+                              <!-- <div class="location-info">
+                                <i class="feather-phone-call"></i> 00556245562
+                              </div> -->
+                              <div class="location-info">
+                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
+                              </div>
+                            </div>
+                            <!-- <p class="ratings">
+                              <span>4.0</span> ( 50 Reviews )
+                            </p> -->
+                            <div class="amount-details">
+                              <div class="amount">
+                                <span class="validrate">{{ formatPrice(slide?.prix) }} FCFA </span>
+                                <!-- <span>{{ slide.oldamount }}</span> -->
+                              </div>
+                              <a (click)="goToDettailBien(slide.id)">Savoir plus</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PAGINATION  -->
+                    <pagination-controls *ngIf="totalBiensAgents && totalBiensAgents.length > 0"
+                      (pageChange)="p3 = $event" previousLabel="Précédent" nextLabel="Suivant" class="pagination"
+                      previousClass="pagination__previous" nextClass="pagination__next"
+                      containerClass="pagination__container" pageClass="pagination__page"
+                      activeClassName="pagination__page--active" id="Agent"
+                      disabledClass="pagination__page--disabled"></pagination-controls>
+                  </div>
+                </div>
+              </div>
+              <!-- Pills content -->
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="px-0 border rounded-2 shadow-0">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Agents</h5>
+                  <div class="d-flex mb-3" *ngFor="let Agent of agent | filter : searchTextAgent">
+                    <a href="#" class="me-3">
+                      <img src="{{generateImageUrl(Agent?.photo?.nom)}}" (error)="handleAuthorImageError($event)"
+                        style="width: 95px; height: 95px;" class="img-md img-thumbnail" />
+                    </a>
+                    <div class="info mt-3">
+                      <!-- <h5 class="mb-0">{{Agent?.nom}}</h5> -->
+                      <a (click)="goToDettailAgent(Agent?.uuid)"
+                        style="background-color: initial !important;color: initial !important;"
+                        class="nav-link mb-1 crd">
+                        {{Agent?.nom}}
+                      </a>
+                      <small *ngIf="Agent.adresse" style="margin-top: 8px !important;">
+                        <strong class="text-dark">{{ Agent?.adresse?.quartier }}</strong>
+                      </small>
+
+                      <small *ngIf="!Agent.adresse" style="margin-top: 8px !important;">
+                        <strong class="text-dark">Pas d'adresse </strong></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
   <!-- /Main Content Section -->

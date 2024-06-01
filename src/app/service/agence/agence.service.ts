@@ -58,7 +58,7 @@ export class AgenceService {
   //AFFICHER UN AGENT EN FONCTION DE SON ID
   AfficherAgentParId(id: number): Observable<any> {
     return this.http.get(`${URL_BASE}/user/agentparuuid/${id}`);
-  }
+  } 
 
   //AFFICHER UN UTILISATEUR EN FONCTION DE SON ID
   AfficherUserParId(id: number): Observable<any> {

@@ -1887,6 +1887,10 @@ table.dataTable thead .sorting_desc_disabled:after {
 .menu-opened .main-menu-wrapper {
     transform: translateX(0);
 }
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 1229;
+  }
 .menu-header {
 	-webkit-box-align: center;
 	-ms-flex-align: center;

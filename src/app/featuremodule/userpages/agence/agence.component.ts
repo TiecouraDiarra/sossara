@@ -30,7 +30,7 @@ export class AgenceComponent {
   facturelocation!: ElementRef;
 
   loading = false;
-  searchFacture: any;
+  searchFacture: any; 
   pfacture: number = 1;
   pfacturebien : number = 1;
   bonAccord = false;

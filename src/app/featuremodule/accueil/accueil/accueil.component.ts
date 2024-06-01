@@ -415,25 +415,8 @@ export class AccueilComponent {
     },
   };
 
-  apiUrl: string = 'https://api.sossara.ml/api';
 
-  BackLien(): string {
-    return 'https://api.sossara.ml/api';
-  }
-
-  getDataFromApi() {
-    this.http.get(this.apiUrl).subscribe(
-      (response) => {
-        this.responseData = response;
-        // Traitez la réponse ici selon vos besoins
-      },
-      (error) => {
-        // Gérez l'erreur ici
-      }
-    );
-  }
   ngOnInit(): void {
-    this.getDataFromApi();
 
     // this.apiUrl = this.BackLien();
     // Maintenant, vous pouvez utiliser this.apiUrl comme URL dans votre composant

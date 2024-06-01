@@ -143,7 +143,7 @@ export class AjouterBienComponent implements OnInit {
                   this.images.push(webpFile);
                   this.image.push(e.target.result); 
                   this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-                  this.maxImageCount = this.image.length;
+                  // this.maxImageCount = this.image.length;
                 }
               }, 'image/webp', 0.8);
             }
@@ -359,7 +359,7 @@ export class AjouterBienComponent implements OnInit {
 
     this.updateMapWithPolygon(`country=${this.selectedCountry}`, 6);
   }
-
+ 
   onChangeRegion(event: any) {
     this.selectedRegion = event.value;
     this.cercles = this.cercle.filter(

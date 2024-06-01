@@ -229,6 +229,7 @@ validateEmail(email: string): boolean {
               this.isSignUpFailed = false;
          
               if (data.status) {
+                this.sendRegister = false;
                 Swal.fire({
                   position: 'center',
                   text: data.message,
@@ -242,6 +243,7 @@ validateEmail(email: string): boolean {
                   showCancelButton: false,
                   allowOutsideClick: false,
                 }).then((result) => {
+                  this.sendRegister = false;
                   if (result.isConfirmed) {
                     // Réinitialisation des valeurs du formulaire après confirmation
                     this.form.nom = '';
@@ -256,7 +258,7 @@ validateEmail(email: string): boolean {
                     this.form.photo = null;
 
                     // Naviguer vers la page de connexion et recharger la page
-                    this.sendRegister = false;
+                    
 
                     this.router.navigate(['/auth/connexion']).then(() => {
                       window.location.reload();
@@ -485,10 +487,10 @@ validateEmail(email: string): boolean {
     const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/; // Inclure les lettres accentuées et les espaces
     return nom.length <= 40 && regex.test(nom);
   }
-  
+
   islongNumero(telephone: string): boolean {
     const regex = /^[0-9-]+$/; // Expression régulière pour vérifier que le numéro contient uniquement des chiffres et des tirets
-        return telephone.length === 11 && regex.test(telephone);
+        return telephone.length === 8 && regex.test(telephone);
   }
 
 

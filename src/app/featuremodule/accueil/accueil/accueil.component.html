@@ -74,7 +74,7 @@
                                 </div>
                               </div>
                               <!--<div class="flex-grow-1 ms-3">
-                                                            <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
+                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                               <div class="flex-grow-1 ms-3">
                                 <mat-form-field class="mat-custom-select" style="width: 98%">
@@ -405,8 +405,8 @@
       <div class="row align-items-center" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
         <div class="col-md-3"></div>
         <div class="col-md-6 aos aos-init aos-animate text-center">
-          <h2>Biens récents à louer</h2>
-          <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
+          <h3>Ils sont tout frais !!</h3>
+          <p>Découvrez les nouveaux venus sur <span style="color: #e98b11; font-weight: bold;">Sossara</span> ! Des propriétés uniques pour tous les goûts.</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
@@ -430,7 +430,7 @@
                           ">
                           <img src="{{
                               generateImageUrl(bienRecent?.photos[0]?.nom)
-                            }}" class="img-fluid image-sizeresents" alt="blog-img" />
+                            }}" class="img-fluid image-size" alt="blog-img" />
                         </div>
                         <ng-template #noImages>
                           <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Villa'">
@@ -504,7 +504,7 @@
                           <span><img src="assets/img/icons/bed-icon.svg" class="img-fluid" alt="" />{{
                             bienRecent?.typeImmo?.nom }}</span>
                         </div>
-                        <div class="area">
+                        <div class="area" *ngIf="bienRecent?.surface">
                           <span><img src="assets/img/icons/area-icon.svg" class="img-fluid" alt="" />Surface:{{
                             bienRecent?.surface }}/m2</span>
                         </div>
@@ -554,8 +554,8 @@
       <div class="row align-items-center">
         <div class="col-md-3"></div>
         <div class="col-md-6 aos aos-init aos-animate text-center">
-          <h2>Pourquoi nous choisir ?</h2>
-          <p>Nous fournissons un service complet à chaque étape.</p>
+          <h3>Pourquoi choisir SOSSARA ?</h3>
+          <p><span style="color: #e98b11; font-weight: bold;">SOSSARA</span> est votre partenaire de confiance pour une expérience complète, sur mesure et sans faille, parce que chez nous, votre satisfaction est notre combat.</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate"></div>
       </div>
@@ -621,8 +621,9 @@
       <div class="row align-items-center">
         <div class="col-lg-4 col-md-3"></div>
         <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
-          <h2>Les agences</h2>
-          <p>Sociétés de Gestion de biens</p>
+          <h3>Agences Partenaires</h3>
+          <p>Les Agences Partenaires Certifiées chez SOSSARA sont Sélectionnées à travers un processus de vérification rigoureux pour une expérience immobilière de premier choix.
+            Parce que votre confort nous est inestimable nous ne traitons qu'avec les meilleurs.</p>
         </div>
         <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.agences" class="btn btn-view">Voir toutes les agences</a>
@@ -897,12 +898,12 @@
   <div class="container">
     <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
-        <div class="col-lg-4 col-md-3"></div>
-        <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
-          <h2>Les biens</h2>
-          <p>Les biens les plus vues disponibles</p>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 aos aos-init aos-animate text-center">
+          <h3>À ne pas manquer sur Sossara</h3>
+          <p>Découvrez les biens immobiliers triés spécialement sur le volet pour faire votre <span style="color: #e98b11; font-weight: bold;">bonheur</span>.</p>
         </div>
-        <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
+        <div class="col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
       </div>
@@ -1139,8 +1140,8 @@
       <div class="row align-items-center">
         <div class="col-md-3"></div>
         <div class="col-md-6 aos aos-init aos-animate text-center">
-          <h3>Nos biens a Bamako</h3>
-          <!--<p>Sense Solutions For All Aspects near your Location.</p>-->
+          <h3>Laquelle de ces communes vous séduit elle à Bamako ?</h3>
+          <p>Alors vous n'avez plus qu'a découvrir ce qu'elle vous réserve. Nous en sommes convaincu, vous allez adorer !</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
@@ -1306,8 +1307,17 @@
 <section class="buy-property aos">
     <div class="container">
         <div class="buy-property-content">
-            <h2 class="aos" data-aos-delay="200">Rejoignez les millions de personnes qui tirent davantage de leur domicile.</h2>
-            <p class="aos" data-aos-delay="400">Sossara offre une interface conviviale pour les propriétaires, gestionnaires immobiliers et locataires, facilitant l'accès aux informations essentielles et la gestion des contrats de location.</p>
+            <h4 style="color: white; font-size: 26px;" class="aos mb-3" data-aos-delay="200">Rejoignez les millions de personnes qui tirent davantage de leur domicile.</h4>
+            <!-- <p class="aos" data-aos-delay="400">Sossara offre une interface conviviale pour les propriétaires, gestionnaires immobiliers et locataires, facilitant l'accès aux informations essentielles et la gestion des contrats de location :</p> -->
+            <div class="row mb-2" style="color: white;">
+              <div class="col-12 col-md-12">
+                <ul class="list-unstyled mb-0">
+                  <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Simplifiez la gestion de vos propriétés avec Sossara.</li>
+                  <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Trouvez le locataire idéal pour votre propriété en quelques clics.</li>
+                  <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Communiquez facilement avec vos locataires et gérez vos contrats de location et vos paiement en toute sécurité: Quittance, reçu, facture, tout y passe nous avons tout prévu.</li>
+                </ul>
+              </div>
+            </div>
             <!-- <a  [routerLink]="routes.mylisting">Savoir plus</a> -->
         </div>
     </div>
@@ -1320,7 +1330,7 @@
     <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center">
         <div class="col-md-7 aos aos-init aos-animate">
-          <h4>Articles recents</h4>
+          <h3>Articles recents</h3>
           <!-- <p>The most trendy accommodations available</p> -->
         </div>
         <div class="col-md-5 text-md-end aos aos-init aos-animate">

@@ -1898,7 +1898,7 @@ table.dataTable thead .sorting_desc_disabled:after {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1039;
+  z-index: 1060;
   opacity: 0.6;
 }
 .menu-opened .main-menu-wrapper {
@@ -13235,6 +13235,7 @@ button.btn.car-search-icon:hover {
   background-repeat: no-repeat;
   background-size: cover;
   padding: 80px 200px ;
+  margin-bottom: 13px;
 }
 .buy-property-content h2 {
   font-weight: 800;
@@ -16703,6 +16704,10 @@ section.advertisement {
     top: 100%;
     visibility: hidden;
     z-index: 1000;
+  }
+  .cdk-overlay-container {
+    position: fixed;
+    z-index: 1229;
   }
   .main-nav li.has-submenu:hover > .submenu {
     visibility: visible;
