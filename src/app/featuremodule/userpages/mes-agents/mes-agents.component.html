@@ -80,15 +80,14 @@
                                 <form action="#" class="">
                                     <div class="g-2 row">
                                         <!-- Nom Agence  -->
-                                        <div class="col-lg-3">
+                                        <!-- <div class="col-lg-3">
                                             <div class="filler-job-form">
-                                                <i class="uil uil-briefcase-alt"></i><input readonly
-                                                    id="exampleFormControlInput1" placeholder="{{nomAgence}}"
-                                                    type="search"
-                                                    class="form-control filler-job-input-box form-control" />
+                                                <i class="uil uil-briefcase-alt"></i>
+                                                <div class="agency-name">{{ nomAgence }}</div>
                                             </div>
-                                        </div>
-                                        <!-- Par nom  -->
+                                        </div> -->
+                                        
+                                        <!-- Recherche Par nom  -->
                                         <div class="col-lg-3">
                                             <div class="filler-job-form">
                                                 <i class="uil uil-briefcase-alt"></i><input name="searchText"
@@ -97,23 +96,32 @@
                                                     class="form-control filler-job-input-box form-control" />
                                             </div>
                                         </div>
+                                        <!-- Par Etat  -->
+                                        <div class="col-lg-3">
+                                            <mat-form-field class="mat-custom-select" style="width: 100%;">
+                                                <mat-label *ngIf="selectedCategory == ''">État</mat-label>
+                                                <mat-select (selectionChange)="onStateSelectionChange($event)">
+                                                    <mat-option [value]="null">Tous</mat-option>
+                                                    <mat-option [value]="true">Actif</mat-option>
+                                                    <mat-option [value]="false">Inactif</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>                                            
+                                        </div>
                                         <!-- Par commune  -->
                                         <div class="col-lg-3">
-                                            <div class="filler-job-form">
-                                                <i class="uil uil-location-point"></i>
-                                                <select class="form-select selectForm__inner py-2"
-                                                    [(ngModel)]="searchText" data-trigger="true"
-                                                    name="choices-single-location" id="choices-single-location"
-                                                    aria-label="Default select example">
-                                                    <option value="" selected>Tout</option>
-                                                    <option>Commune I</option>
-                                                    <option>Commune II</option>
-                                                    <option>Commune III</option>
-                                                    <option>Commune IV</option>
-                                                    <option>Commune V</option>
-                                                    <option>Commune VI</option>
-                                                </select>
-                                            </div>
+                                            <mat-form-field class="mat-custom-select" style="width: 100%;">
+                                                <mat-label *ngIf="selectedCategory == ''">
+                                                  Commune</mat-label>
+                                                <mat-select (selectionChange)="onCommuneSelectionChange($event)">
+                                                  <mat-option disabled class="search-input-option">
+                                                    <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                                        searchCategory(searchInputCategory)
+                                                      " class="search-input" type="text" />
+                                                  </mat-option>
+                                                  <mat-option [value]="">Toutes</mat-option>
+                                                  <mat-option [value]="Commune.nomcommune" *ngFor="let Commune of commune">{{Commune?.nomcommune}}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
                                         </div>
                                         <div class="col-lg-3 text-center">
                                             <div>
@@ -206,12 +214,11 @@
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="adresse">Adresse</th>
                     <th mat-sort-header="status">Statut</th>
-                    <!-- <th mat-sort-header="nombrebien">Adresse</th> -->
                     <th mat-sort-header="Action">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let Agent of agent | filter:searchText | paginate:{itemsPerPage :4, currentPage:p1}">
+                <tr *ngFor="let Agent of filterAgentsByState(agent) | filter:searchText | filter :selectedCommune | paginate:{itemsPerPage :4, currentPage:p1}">
                     <td>
                         <div class="candidate-list-images">
                             <a href="#"><img src="{{generateImageUrl(Agent?.photo?.nom)}}" alt=""
@@ -222,15 +229,12 @@
                     <td>
                         <div class="candidate-list-content mt-3 mt-lg-0">
                             <h5 class="fs-19 mb-0">
-                                <a class="primary-link" href="#">{{Agent?.nomZ}}</a>
-                                <!-- <span class="badge bg-success ms-1"><i
-                                        class="mdi mdi-star align-middle"></i>4.8</span> -->
+                                <a class="primary-link">{{Agent?.nom}}</a>
                             </h5>
                             <p class="text-muted mb-2">{{Agent?.email}}</p>
                             <ul class="list-inline mb-0 text-muted">
                                 <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{Agent?.telephone}}
                                 </li>
-                                <!-- <li class="list-inline-item"><i class="mdi mdi-wallet"></i> $650 / hours</li> -->
                             </ul>
                         </div>
                     </td>
@@ -243,12 +247,15 @@
                     </td>
                     <td>
                         <span>
-                            <div class="media-body text-end icon-state">
-                                <label class="switch">
-                                    <input type="checkbox" [checked]="Agent?.statut">
-                                    <span class="switch-state" [class.active]="Agent?.statut"></span>
-                                </label>
-                            </div>
+                            <label (click)="openIsActiveModal(Agent.id)" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" class="toggle-switchy"
+                                [for]="'example_colors_' + Agent.id" data-size="sm" data-style="rounded"
+                                data-color="orange">
+                                <input [checked]="Agent?.etat" type="checkbox" [id]="'example_colors_' + Agent.id">
+                                <span class="toggle" [class.active]="Agent?.etat">
+                                    <span class="switch"></span>
+                                </span>
+                            </label>
                         </span>
                     </td>
 
@@ -267,6 +274,58 @@
             nextLabel="Suivant" class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
             containerClass="pagination__container" pageClass="pagination__page"
             activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"></pagination-controls>
+
+        <!-- Modal pour desactiver un agent  -->
+        <div class="modal fade my-custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Verification
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                        <p>Veuillez confirmer votre mot de passe pour désactiver cet agent.</p>
+                        <!-- Login Form -->
+                        <form>
+                            <div class="form-group">
+                                <div class="pass-group group-img">
+                                    <i class="feather-lock"></i>
+                                    <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'"
+                                        class="form-control pass-input" placeholder="Mot de passe"
+                                        [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+                                    <span [ngClass]="
+                                      Toggledata == true
+                                        ? 'toggle-password feather-eye-off'
+                                        : 'toggle-password feather-eye'
+                                    " (click)="iconLogle()"></span>
+                                    <!-- <div *ngIf="password.errors && f.submitted" class="invalid-feedback text-center">
+                                        <div *ngIf="password.errors['required']">Mot de passe obligatoire</div>
+                                        <div *ngIf="password.errors['minlength']">
+                                            Mot de passe minimun 6 caractères
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <!-- <button type="button" (click)="Bannir()" class="btn btn-primary">Envoyer</button> -->
+                        <button style="padding: 2px 34px;" type="button" (click)="Active()"
+                            class="btn btn-primary" [disabled]="loading">
+                            <ng-container *ngIf="!loading">Desactiver</ng-container>
+                            <ng-container *ngIf="loading">
+                                <div class="spinner-border" style="color: #374b5c;font-size: 13px;" role="status">
+                                    <span class="sr-only">Chargement en cours...</span>
+                                </div>
+                            </ng-container>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- <div class="row"> -->
         <!-- <div class="col-lg-4 col-md-4 col-sm-6 " *ngFor="let data of Bookmarksdata">
                     <div class="card aos aos-init aos-animate" data-aos="fade-up">

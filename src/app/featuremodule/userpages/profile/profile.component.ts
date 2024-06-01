@@ -196,7 +196,7 @@ export class ProfileComponent implements OnInit {
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
-    });
+    }); 
     //AFFICHER LA LISTE DES Pays
     this.serviceAdresse.AfficherListePays().subscribe((data) => {
       this.pays = data;

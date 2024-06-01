@@ -198,6 +198,9 @@ export class UserService {
     return this.http.post(URL_BASE + '/auth/resetPassword', formData);
   }
 
-
+  active(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put(`${URL_BASE}/user/active/${id}`, null, { headers });
+  }
 
 }

@@ -666,7 +666,7 @@
                             <li>
                               <h6>
                                 {{
-                                NombreBienCount[hashString(Agence?.uuid)] || 0
+                                  Agence?.nombreBienAgence
                                 }}
                               </h6>
                               <span>Biens</span>
@@ -674,9 +674,7 @@
                             <li>
                               <h6>
                                 {{
-                                NombreBienLouerCount[
-                                hashString(Agence?.uuid)
-                                ] || 0
+                                  Agence?.nombreBiensALouerAgence
                                 }}
                               </h6>
                               <span>Louer</span>
@@ -684,9 +682,7 @@
                             <li>
                               <h6>
                                 {{
-                                NombreBienVendreCount[
-                                hashString(Agence?.uuid)
-                                ] || 0
+                                  Agence?.nombreBiensAVendreAgence
                                 }}
                               </h6>
                               <span>Vendre</span>
@@ -694,8 +690,7 @@
                             <li>
                               <h6>
                                 {{
-                                NombreAgentCount[hashString(Agence?.uuid)] ||
-                                0
+                                  Agence?.nombreAgents
                                 }}
                               </h6>
                               <span>Agents</span>
