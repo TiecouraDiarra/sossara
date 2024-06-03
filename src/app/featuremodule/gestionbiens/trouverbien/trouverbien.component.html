@@ -1,566 +1,446 @@
 <!-- Main Content Section -->
 <div class="list-content listmap-grid">
   <div class="container-fluid">
-    <div class="listingmappage-content">
-      <div class="listmapgrid-content">
-        <div class="mt-5"> 
-          <div class="col-lg-12">
-            <div class="car-filter-section">
-              <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link active"
-                    id="pills-home-tab"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-home"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-home"
-                    aria-selected="true"
-                  >
-                    Trouver un bien
-                  </button>
-                </li>
-              </ul>
-              <div class="tab-content" id="pills-tabContent">
-                <div
-                  class="tab-pane fade show active"
-                  id="pills-home"
-                  role="tabpanel"
-                  aria-labelledby="pills-home-tab"
-                  tabindex="0"
-                >
-                  <div class="search-tab-col">
-                    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-                      <div class="row align-items-center search-form">
-                        <div class="col-12 col-lg-12 search-group">
-                          <div class="row">
-                            <div class="col-lg-4 col-xl-2">
-                              <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-map-pin"></i>
-                                  </div>
-                                </div>
 
-                               
-                                <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 98%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''"
-                                      >Region</mat-label
-                                    >
-                                    <mat-select
-                                      name="region"
-                                      (selectionChange)="onChangeRegion($event);updateUrl()"
-                                    >
-                                      <mat-option
-                                        *ngFor="let Region of region"
-                                        [value]="Region.nomregion"
-                                      >
-                                        {{ Region?.nomregion }}</mat-option
-                                      >
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-xl-2">
-                              <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-map-pin"></i>
-                                  </div>
-                                </div>
-                               
-                                <div class="flex-grow-1 ms-3">
+    <div class="row">
 
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''"
-                                      >Cercle</mat-label
+      <div class="col-lg-6 grid-view listgrid-sidebar mt-5 ">
+        <div class="listingmappage-content car-filter-section  mt-5 mb-2">               
+                  <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link active"
+                        id="pills-home-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-home"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-home"
+                        aria-selected="true"
+                      >
+                        Trouver un bien
+                      </button>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                    <div
+                      class="tab-pane fade show active"
+                      id="pills-home"
+                      role="tabpanel"
+                      aria-labelledby="pills-home-tab"
+                      tabindex="0"
+                    >
+                      <div class="search-tab-col">
+                        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                          <div class="row align-items-center search-form">
+                            <div class="col-12 col-lg-12 search-group">
+                              <div class="row">
+                                <div class="  col-xl-4">
+                                  <div class="d-flex real-estate-search">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
                                     >
-                                    <mat-select
-                                      name="cercle"
-                                      (selectionChange)="onChangeCercle($event); updateUrl()"
-                           
-                                    >
-                                      <mat-option
-                                        *ngFor="let Cercle of cercles"
-                                        [value]="Cercle.id"
-                                        >{{ Cercle?.nomcercle }}</mat-option
+                                      <div class="icon-blk rounded-circle">
+                                        <i class="feather-map-pin"></i>
+                                      </div>
+                                    </div>
+    
+                                   
+                                    <div class="flex-grow-1 ms-3">
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 98%"
                                       >
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-xl-2">
-                              <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-map-pin"></i>
-                                  </div>
-                                </div>
-                               
-                                <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''">
-                                      Commune</mat-label
-                                    >
-                                    <mat-select
-                                      name="commune"
-                                      [(ngModel)]="form.commune" (selectionChange)="updateUrl()"
-                                    >
-                                               <mat-option
-                                        *ngFor="let Commune of communes1"
-                                        [value]="Commune.id"
-                                        >{{ Commune?.nomcommune }}</mat-option
-                                      >
-                                             
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-xl-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 20px"
-                                      src="./assets/img/icons/fax-icon.png"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                                <!-- <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    (change)="onStatutChange($event)"
-                                    [(ngModel)]="form.statut"
-                                    name="statut"
-                                    (change)="updateUrl()"
-                                  >
-                                    <option selected [value]="null">
-                                      Statut
-                                    </option>
-                                    <option
-                                      *ngFor="let Statut of status"
-                                      [value]="Statut.id"
-                                    >
-                                      {{ Statut.nom }}
-                                    </option>
-                                  </select>
-                                </div> -->
-                                <div class="flex-grow-1 ms-3">
-                                  <mat-form-field class="mat-custom-select" style="width: 100%">
-                                    <mat-label *ngIf="selectedCategory == ''">Statut</mat-label>
-                                    <mat-select [(ngModel)]="form.statut" name="statut" (selectionChange)="onStatutChange($event); ">
-                                      <mat-option *ngFor="let Statut of status" [value]="Statut.id">
-                                        {{ Statut?.nom }}
-                                      </mat-option>
-                                    </mat-select>
-                                  </mat-form-field>
-                                  
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-lg-4 col-xl-2">
-                              <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-home"></i>
-                                  </div>
-                                </div>
-
-                                <!-- <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    [(ngModel)]="form.type"
-                                    name="type"
-                                    class="form-control"
-                                    id=""
-                                    (change)="updateUrl()"
-                                  >
-                                    <option selected [value]="null">
-                                      Type
-                                    </option>
-                                    <option
-                                      *ngFor="let Type of typebien"
-                                      [value]="Type.id"
-                                    >
-                                      {{ Type.nom }}
-                                    </option>
-                                  </select>
-                                </div> -->
-                                <div class="flex-grow-1 ms-3">
-                                 
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''">
-                                      Type</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.type"
-                                      name="type" (selectionChange)="updateUrl()"
-                                    >
-                                      <mat-option
-                                        *ngFor="let Type of typebien"
-                                        [value]="Type.id"
-                                      >
-                                        {{ Type?.nom }}</mat-option
-                                      >
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-xl-2">
-                              <div class="d-flex real-estate-search">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <img
-                                      src="./assets/img/icons/bed-icon.svg"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                                <!-- <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    [(ngModel)]="form.chambre"
-                                    name="chambre"
-                                    (change)="updateUrl()"
-                                  >
-                                    <option selected [value]="null">
-                                      Nombre de chambre
-                                    </option>
-                                    <option
-                                      *ngFor="let item of valuesSelect"
-                                      [value]="item"
-                                    >
-                                      {{ item }}
-                                    </option>
-                                  </select>
-                                </div> -->
-                                <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''">
-                                      Chambres</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.chambre"
-                                      name="chambre" (selectionChange)="updateUrl()"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-8 col-xl-4 mt-2">
-                              <div class="d-flex ">
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 30px"
-                                      src="./assets/img/icons/prix.jpg"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                                &nbsp; &nbsp;
-                                <div class="monslider">
-                                  <ng5-slider
-                                    [(value)]="customHtmlMinValue"
-                                    (valueChange)="updateMinPrice()"
-                                    [(highValue)]="customHtmlMaxValue"
-                                    (highValueChange)="updateMaxPrice()"
-                                    [options]="customHtmlSliderOptions"
-                                  ></ng5-slider>
-                                </div>
-                              </div>
-                            </div>
-
-                        
-                            <div class="col-lg-4 col-xl-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <img
-                                      src="./assets/img/icons/area-icon.svg"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                                <!-- <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    [(ngModel)]="form.nb_piece"
-                                    name="nb_piece"
-                                    (change)="updateUrl()"
-                                  >
-                                    <option selected [value]="null">
-                                      Nomre de salon
-                                    </option>
-                                    <option
-                                      *ngFor="let item of valuesSelect"
-                                      [value]="item"
-                                    >
-                                      {{ item }}
-                                    </option>
-                                  </select>
-                                </div> -->
-
-                                <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''">
-                                      Nombre de salon</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.nb_piece"
-                                      name="nb_piece"
-                                      (selectionChange)="updateUrl()"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-lg-4 col-xl-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <img
-                                      src="./assets/img/icons/bath-icon.svg"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                                <!-- <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    [(ngModel)]="form.toilette"
-                                    name="toilette"
-                                    (change)="updateUrl()"
-                                  >
-                                    <option selected [value]="null">
-                                      Nombre de Toilette
-                                    </option>
-                                    <option
-                                      *ngFor="let item of valuesSelect"
-                                      [value]="item"
-                                    >
-                                      {{ item }}
-                                    </option>
-                                  </select>
-                                </div> -->
-                                <div class="flex-grow-1 ms-3">
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''">
-                                      Toilette</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.toilette"
-                                      name="toilette"
-                                      (selectionChange)="updateUrl()"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-xl-2">
-                              <div
-                                class="d-flex real-estate-search real-select"
-                              >
-                                <div
-                                  class="flex-shrink-0 d-flex align-items-center"
-                                >
-                                  <div class="icon-blk rounded-circle">
-                                    <img
-                                      style="width: 20px"
-                                      src="./assets/img/icons/649395.png"
-                                      alt=""
-                                    />
-                                  </div>
-                                </div>
-                                <!-- <div class="flex-grow-1 ms-3">
-                                  <select
-                                    class="form-control select category-select"
-                                    [(ngModel)]="form.cuisine"
-                                    name="cuisine"
-                                    (change)="updateUrl()"
-                                  >
-                                    <option selected [value]="null">
-                                      Nombre de cuisine
-                                    </option>
-                                    <option
-                                      *ngFor="let item of valuesSelect"
-                                      [value]="item"
-                                    >
-                                      {{ item }}
-                                    </option>
-                                  </select>
-                                </div> -->
-                                <div class="flex-grow-1 ms-3">
-                       
-                                  <mat-form-field
-                                    class="mat-custom-select"
-                                    style="width: 100%"
-                                  >
-                                    <mat-label *ngIf="selectedCategory == ''">
-                                      Cuisines</mat-label
-                                    >
-                                    <mat-select
-                                      [(ngModel)]="form.cuisine"
-                                      name="cuisine"
-                                      (selectionChange)="updateUrl()"
-                                    >
-                                      <mat-option
-                                        *ngFor="let item of valuesSelect"
-                                        [value]="item"
-                                      >
-                                        {{ item }}</mat-option
-                                      >
-                                    </mat-select>
-                                  </mat-form-field>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-lg-4 col-xl-2 flex-grow-1">
-                              <p>
-                                <a
-                                  class="row mt-3 fw-bold"
-                                  data-bs-toggle="collapse"
-                                  href="#cautrecomm"
-                                  role="button"
-                                  aria-expanded="false"
-                                  aria-controls="collapseExample"
-                                >
-                                  Autres commodites
-                                </a>
-                              </p>
-                            </div>
-                            <div class="collapse" id="cautrecomm">
-                              <div class="card card-body">
-                                <div class="row">
-                                  <div class="col-md-2" *ngFor="let Commodite of commodite; let i = index">
-                                    <div class="form-check mb-2">
-                                      <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        [(ngModel)]="Commodite.selected"
-                                        [value]="Commodite.id"
-                                        [id]="'flexCheckDefault' + i"
-                                        (change)="onChangeCommodite()"
-                                        name="commodite"
-                                        (change)="updateUrl()"
-                                      />
-                                      <label
-                                        class="form-check-label"
-                                        [for]="'flexCheckDefault' + i"
-                                      >
-                                        {{ Commodite?.nom }}
-                                      </label>
+                                        <mat-label *ngIf="selectedCategory == ''"
+                                          >Region</mat-label
+                                        >
+                                        <mat-select
+                                          name="region"
+                                          (selectionChange)="onChangeRegion($event);updateUrl()"
+                                        >
+                                          <mat-option
+                                            *ngFor="let Region of region"
+                                            [value]="Region.nomregion"
+                                          >
+                                            {{ Region?.nomregion }}</mat-option
+                                          >
+                                        </mat-select>
+                                      </mat-form-field>
                                     </div>
                                   </div>
                                 </div>
-                                
+                                <div class=" col-xl-4">
+                                  <div class="d-flex real-estate-search">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <i class="feather-map-pin"></i>
+                                      </div>
+                                    </div>
+                                   
+                                    <div class="flex-grow-1 ms-3">
+    
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 100%"
+                                      >
+                                        <mat-label *ngIf="selectedCategory == ''"
+                                          >Cercle</mat-label
+                                        >
+                                        <mat-select
+                                          name="cercle"
+                                          (selectionChange)="onChangeCercle($event); updateUrl()"
+                               
+                                        >
+                                          <mat-option
+                                            *ngFor="let Cercle of cercles"
+                                            [value]="Cercle.id"
+                                            >{{ Cercle?.nomcercle }}</mat-option
+                                          >
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class=" col-xl-4">
+                                  <div class="d-flex real-estate-search">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <i class="feather-map-pin"></i>
+                                      </div>
+                                    </div>
+                                   
+                                    <div class="flex-grow-1 ms-3">
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 100%"
+                                      >
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                          Commune</mat-label
+                                        >
+                                        <mat-select
+                                          name="commune"
+                                          [(ngModel)]="form.commune" (selectionChange)="updateUrl()"
+                                        >
+                                                   <mat-option
+                                            *ngFor="let Commune of communes1"
+                                            [value]="Commune.id"
+                                            >{{ Commune?.nomcommune }}</mat-option
+                                          >
+                                                 
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class=" col-xl-4">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          style="width: 20px"
+                                          src="./assets/img/icons/fax-icon.png"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="flex-grow-1 ms-3">
+                                      <mat-form-field class="mat-custom-select" style="width: 100%">
+                                        <mat-label *ngIf="selectedCategory == ''">Statut</mat-label>
+                                        <mat-select [(ngModel)]="form.statut" name="statut" (selectionChange)="onStatutChange($event); ">
+                                          <mat-option *ngFor="let Statut of status" [value]="Statut.id">
+                                            {{ Statut?.nom }}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+    
+                                <div class=" col-xl-4">
+                                  <div class="d-flex real-estate-search">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <i class="feather-home"></i>
+                                      </div>
+                                    </div>
+    
+                                   
+                                    <div class="flex-grow-1 ms-3">
+                                     
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 100%"
+                                      >
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                          Type</mat-label
+                                        >
+                                        <mat-select
+                                          [(ngModel)]="form.type"
+                                          name="type" (selectionChange)="updateUrl()"
+                                        >
+                                          <mat-option
+                                            *ngFor="let Type of typebien"
+                                            [value]="Type.id"
+                                          >
+                                            {{ Type?.nom }}</mat-option
+                                          >
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class=" col-xl-4">
+                                  <div class="d-flex real-estate-search">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          src="./assets/img/icons/bed-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="flex-grow-1 ms-3">
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 100%"
+                                      >
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                          Chambres</mat-label
+                                        >
+                                        <mat-select
+                                          [(ngModel)]="form.chambre"
+                                          name="chambre" (selectionChange)="updateUrl()"
+                                        >
+                                          <mat-option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}</mat-option
+                                          >
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                    
+                            
+                                <div class="col-xl-4">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          src="./assets/img/icons/area-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    
+    
+                                    <div class="flex-grow-1 ms-3">
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 100%"
+                                      >
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                          Nombre de salon</mat-label
+                                        >
+                                        <mat-select
+                                          [(ngModel)]="form.nb_piece"
+                                          name="nb_piece"
+                                          (selectionChange)="updateUrl()"
+                                        >
+                                          <mat-option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}</mat-option
+                                          >
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+    
+                                <div class=" col-xl-4">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          src="./assets/img/icons/bath-icon.svg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="flex-grow-1 ms-3">
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 100%"
+                                      >
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                          Toilette</mat-label
+                                        >
+                                        <mat-select
+                                          [(ngModel)]="form.toilette"
+                                          name="toilette"
+                                          (selectionChange)="updateUrl()"
+                                        >
+                                          <mat-option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}</mat-option
+                                          >
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class=" col-xl-4">
+                                  <div
+                                    class="d-flex real-estate-search real-select"
+                                  >
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          style="width: 20px"
+                                          src="./assets/img/icons/649395.png"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                  
+                                    <div class="flex-grow-1 ms-3">
+                           
+                                      <mat-form-field
+                                        class="mat-custom-select"
+                                        style="width: 100%"
+                                      >
+                                        <mat-label *ngIf="selectedCategory == ''">
+                                          Cuisines</mat-label
+                                        >
+                                        <mat-select
+                                          [(ngModel)]="form.cuisine"
+                                          name="cuisine"
+                                          (selectionChange)="updateUrl()"
+                                        >
+                                          <mat-option
+                                            *ngFor="let item of valuesSelect"
+                                            [value]="item"
+                                          >
+                                            {{ item }}</mat-option
+                                          >
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class=" col-xl-8 mt-2 ">
+                                  <div class="d-flex w-100 ">
+                                    <div
+                                      class="flex-shrink-0 d-flex align-items-center"
+                                    >
+                                      <div class="icon-blk rounded-circle">
+                                        <img
+                                          style="width: 30px"
+                                          src="./assets/img/icons/prix.jpg"
+                                          alt=""
+                                        />
+                                      </div>
+                                    </div>
+                                    &nbsp; &nbsp;
+                                    <div class="monslider ">
+                                      <ng5-slider
+                                        [(value)]="customHtmlMinValue"
+                                        (valueChange)="updateMinPrice()"
+                                        [(highValue)]="customHtmlMaxValue"
+                                        (highValueChange)="updateMaxPrice()"
+                                        [options]="customHtmlSliderOptions"
+                                      ></ng5-slider>
+                                    </div>
+                                  </div>
+                                </div>
+    
+    
+                                <div class=" col-xl-4 flex-grow-1">
+                                  <div class="">
+                                    <p>
+                                   <a
+                                        class="row mt-3 fw-bold"
+                                        data-bs-toggle="collapse"
+                                        href="#cautrecomm"
+                                        role="button"
+                                        aria-expanded="false"
+                                        aria-controls="collapseExample"
+                                      >
+                                        Autres commodites
+                                      </a>
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="collapse" id="cautrecomm">
+                                  <div class="card card-body">
+                                    <div class="row">
+                                      <div class="col-md-2" *ngFor="let Commodite of commodite; let i = index">
+                                        <div class="form-check mb-2">
+                                          <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            [(ngModel)]="Commodite.selected"
+                                            [value]="Commodite.id"
+                                            [id]="'flexCheckDefault' + i"
+                                            (change)="onChangeCommodite()"
+                                            name="commodite"
+                                            (change)="updateUrl()"
+                                          />
+                                          <label
+                                            class="form-check-label"
+                                            [for]="'flexCheckDefault' + i"
+                                          >
+                                            {{ Commodite?.nom }}
+                                          </label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+
                               </div>
                             </div>
-                            <!-- <div class="flex-grow-1 ms-3">
-<input type="number" class="form-control" [(ngModel)]="customHtmlMinValue" name="customHtmlMinValue" (change)="updateMinPrice(); updateUrl()">
-                              </div>
-                              <div class="flex-grow-1 ms-3">
-                                <input type="number" class="form-control" [(ngModel)]="customHtmlMaxValue" name="customHtmlMaxValue" (change)="updateMaxPrice(); updateUrl()">
-                              </div> -->
+                           
                           </div>
-                        </div>
-                        <!-- <div class="col-12 col-lg-1 real-search-bar">
-                          <button
-                            class="btn car-search-icon float-end"
-                            type="submit"
-                          >
-                            Rechercher
-                          </button>
-                        </div> -->
+                        </form>
                       </div>
-                    </form>
+                    </div>
                   </div>
-                </div>
-              </div>
+             
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-
-      <div class="col-lg-6 grid-view listgrid-sidebar">
         <div class="row">
           <!-- <ng-template #loadedContent> -->
           <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
