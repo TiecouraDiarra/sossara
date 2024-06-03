@@ -43,14 +43,14 @@ const routes: Routes = [
           import('./userpages/userpages.module').then((m) => m.UserpagesModule),
           canActivate: [AuthGuard]
       },
-      // {
-      //   path: 'trouverbien',
-      //   loadChildren: () =>
-      //     import('./gestionbiens/trouverbien/trouverbien.module').then(
-      //       (m) => m.TrouverbienModule
-      //     ),
-      //     // canActivate: [AuthGuard]
-      // },
+      {
+        path: 'trouverbien',
+        loadChildren: () =>
+          import('./gestionbiens/trouverbien/trouverbien.module').then(
+            (m) => m.TrouverbienModule
+          ),
+          // canActivate: [AuthGuard]
+      },
       // {
       //   path: 'agences',
       //   loadChildren: () =>
