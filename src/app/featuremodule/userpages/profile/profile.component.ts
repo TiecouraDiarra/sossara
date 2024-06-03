@@ -198,6 +198,13 @@ export class ProfileComponent implements OnInit {
             this.selectedValueC =
             this.users.adresse?.commune?.cercle?.nomcercle;
             this.hasRoleAgence = this.users.roles.some((role: any) => role.name === 'ROLE_AGENCE');
+            this.formModif = {
+              nom:this.users?.nom || '',
+              telephone: this.users?.telephone || '',
+              email:this.users?.email || '',
+              dateNaissance:this.users?.dateNaissance || '',
+             
+            };
 
           this.formModifadress = {
             quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
