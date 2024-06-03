@@ -231,7 +231,7 @@
                             <div class="article" *ngFor="let BienImo of bienImmo">
                                 <a (click)="goToDettailBien(BienImo?.uuid)" 
                                     class="articleimg-1 crd"
-                                    [style.background-image]="BienImo?.photos[0]?.nom ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos[0]?.nom) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/typebien/villa.png)'">
+                                    [style.background-image]="BienImo?.photos ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/typebien/villa.png)'">
                                     <ul>
                                         <li>
                                             <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>

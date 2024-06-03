@@ -127,12 +127,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-6 col-md-6" *ngIf="User.roles && User.roles[0]">
+                    <div class="col-lg-6 col-md-6" *ngIf="users.profil">
                       <div class="form-group">
                         <label class="col-form-label">Statut</label>
                         <div class="pass-group group-img">
                           <span class="lock-icon"><i class="fas fa-info-circle"></i></span>
-                          <input type="text" class="form-control" readonly [value]="getRoleLabel()" />
+                          <input type="text" class="form-control" readonly [value]="users?.profil" />
                         </div>
                       </div>
                     </div>
@@ -397,72 +397,48 @@
                                   <i class="feather-map-pin"></i>
                                 </div>
                               </div>
+                           
                               <div class="flex-grow-1 ms-3">
-                                <select class="form-control" [ngModel]="selectedValue" name="pays"
-                                  (change)="onChange2($event.target)">
-                                  <option value="pays" selected>pays</option>
-                                  <option *ngFor="let item of pays" [value]="item.nompays">
-                                    {{ item.nompays }}
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <!-- <div class="d-flex real-estate-search"> -->
-                            <!-- <div class="form-group">
-                              <div class="pass-group group-img">
-                                <mat-form-field class="mat-custom-select" style="width: 100%">
-                                  <mat-label *ngIf="selectedCategory == ''">
-                                    Pays</mat-label>
-                                  <mat-select [(ngModel)]="selectedValue" name="pays"
-                                    (selectionChange)="onChange2($event)">
-                                             
-                                    <mat-option *ngFor="let item of pays" [value]=" item?.nompays">{{ item?.nompays
-                                      }}</mat-option>
-                                           
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                  <mat-label *ngIf="selectedCategory == ''">pays</mat-label>
+                                  <mat-select name="pays" (selectionChange)="onChange2($event)"   [(ngModel)]="selectedValue">
+                                    <mat-option *ngFor="let item of pays" [value]="item.nompays">
+                                      {{ item.nompays }}</mat-option>
                                   </mat-select>
                                 </mat-form-field>
                               </div>
-                            </div> -->
-                            <!-- </div> -->
-                            <!-- nom et prenom  -->
+                            </div>
+                        
+                            <div>
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                               
 
-                            <div>
-                              <div class="d-flex real-estate-search">
-                                <div class="flex-shrink-0 d-flex align-items-center">
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-map-pin"></i>
-                                  </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                  <select class="form-control select category-select"
-                                    (change)="onChangeRegion($event.target)">
-                                    <option selected [value]="null">
-                                      Region
-                                    </option>
-                                    <option *ngFor="let Region of regions1">
-                                      {{ Region?.nomregion }}
-                                    </option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div>
-                              <div class="d-flex real-estate-search">
-                                <div class="flex-shrink-0 d-flex align-items-center">
-                                  <div class="icon-blk rounded-circle">
-                                    <i class="feather-map-pin"></i>
-                                  </div>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                  <select class="form-control select category-select"
-                                    (change)="onChangeCercle($event.target)">
-                                    <option selected [value]="null">
-                                      Cercle
-                                    </option>
-                                    <option *ngFor="let Cercle of cercles" [value]="Cercle.id">
-                                      {{ Cercle?.nomcercle }}
-                                    </option>
-                                  </select>
+                                  <mat-form-field
+                                  class="mat-custom-select"
+                                  style="width: 98%"
+                                >
+                                  <mat-label *ngIf="selectedCategory == ''"
+                                    >Region</mat-label
+                                  >
+                                  <mat-select
+                                    name="region"
+                                    (selectionChange)="onChangeRegion($event)"
+                                    [(ngModel)]="selectedValueR"
+                                  >
+                                    <mat-option
+                                      *ngFor="let Region of regions"
+                                      [value]="Region.nomregion"
+                                    >
+                                      {{ Region?.nomregion }}</mat-option
+                                    >
+                                  </mat-select>
+                                </mat-form-field>
                                 </div>
                               </div>
                             </div>
@@ -473,20 +449,68 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-                                <!--<div class="flex-grow-1 ms-3">
-                                                                <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                            </div>-->
                                 <div class="flex-grow-1 ms-3">
-                                  <select class="form-control select category-select"
-                                    [(ngModel)]="formModifadress.communeform" name="communeform">
-                                    <option selected [value]="null">
-                                      Commune
-                                    </option>
-                                    <option *ngFor="let Commune of communes1" [value]="Commune.id">
-                                      {{ Commune?.nomcommune }}
-                                    </option>
-                                  </select>
+                               
+
+
+                                  <mat-form-field
+                                  class="mat-custom-select"
+                                  style="width: 98%"
+                                >
+                                  <mat-label *ngIf="selectedCategory == ''"
+                                    >Cercle</mat-label
+                                  >
+                                  <mat-select
+                                    name="cercle"
+                                    (selectionChange)="onChangeCercle($event)"
+                                    [(ngModel)]="selectedValueC"
+
+                                  >
+                                    <mat-option
+                                      *ngFor="let Cercle of cercles"
+                                      [value]="Cercle.nomcercle"
+                                    >
+                                    {{ Cercle?.nomcercle }}
+                                    </mat-option
+                                    >
+                                  </mat-select>
+                                </mat-form-field>
                                 </div>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+                         
+                                <div class="flex-grow-1 ms-3">
+                                  
+
+                                <mat-form-field
+                                class="mat-custom-select"
+                                style="width: 98%"
+                              >
+                                <mat-label *ngIf="selectedCategory == ''"
+                                  >Commune</mat-label
+                                >
+                                <mat-select
+                                  name="communeform"
+                                  [(ngModel)]="formModifadress.communeform" 
+                                >
+                                  <mat-option
+                                  *ngFor="let Commune of communes"
+                                    [value]="Commune.id"
+                                    
+                                  >
+                                  {{ Commune?.nomcommune }}
+                                  </mat-option
+                                  >
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
                               </div>
                             </div>
 
@@ -550,6 +574,7 @@
                     </div>
                   </div>
                 </form>
+               
               </div>
             </div>
           </div>

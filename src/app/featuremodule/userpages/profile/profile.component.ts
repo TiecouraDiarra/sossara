@@ -69,16 +69,16 @@ export class ProfileComponent implements OnInit {
   cercle: any;
   region: any;
   nombreZone: any;
-  selectedValue: string = '';
+  selectedValue: string | any = 'pays';
   selectedValueR: string | any = 'region';
   selectedValueC: string | any = 'cercle';
-  regions: any[] = [];
+  regions: any = [];
   cercles: any[] = [];
   communes: any = [];
-  communes1: any = [];
   regions1: any = [];
   users: any;
   photo: any;
+  profil: any;
 
   onChange(typeUser: any) {
     if (
@@ -126,6 +126,7 @@ export class ProfileComponent implements OnInit {
     this.locale = localeId;
     this.User = this.storageService.getUser();
 
+
     this.formModif = {
       nom: '',
       telephone: '',
@@ -160,12 +161,6 @@ export class ProfileComponent implements OnInit {
     const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
-  // generateImageUrl(photoFileName: string): string {
-  //   const baseUrl = URL_PHOTO;
-  //   // this.cdr.detectChanges();
-  //   const timestamp = new Date().getTime(); // Obtenez un horodatage unique
-  //   return `${baseUrl}${photoFileName}?timestamp=${timestamp}`;
-  // }
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -175,28 +170,55 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
+      // Récupérer les données de l'utilisateur connecté
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        console.log(data[0]);
+        this.users = data[0];
+        this.profil = this.users?.profil;
+        this.selectedValue =
+          this.users.adresse?.commune?.cercle?.region.pays?.nompays;
+        this.selectedValueR =
+          this.users.adresse?.commune?.cercle?.region.nomregion;
+        this.selectedValueC =
+          this.users.adresse?.commune?.cercle?.nomcercle;
+        this.formModifadress = {
+          quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
+          rue: this.users.adresse?.rue || '',
+          porte: this.users.adresse?.porte || '',
+          communeform: this.users.adresse?.commune?.id
+
+        };
+
+      });
+
+      //AFFICHER LA PHOTO DE USER CONNECTER
+      this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
+        this.photo = data;
+      });
       // this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes('ROLE_LOCATAIRE')) {
+      if (this.profil == 'LOCATAIRE') {
         this.isLocataire = true;
-      } else if (this.roles.includes('ROLE_AGENCE')) {
+      } else if (this.profil == 'AGENCE' ) {
         this.isAgence = true;
-      } else if (this.roles.includes('ROLE_AGENT')) {
+      } else if (this.profil == 'AGENT') {
         // this.isAgent = true
-      } else if (this.roles.includes('ROLE_PROPRIETAIRE')) {
+      } else if (this.profil == 'PROPRIETAIRE') {
         this.isProprietaire = true;
       }
     }
 
-    //AFFICHER LA PHOTO DE USER CONNECTER
-    this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
-      this.photo = data;
-    });
+
 
     //AFFICHER LA LISTE DES COMMUNES
     this.serviceAdresse.AfficherListeCommune().subscribe((data) => {
       this.commune = data;
-    }); 
+      if (this.selectedValueC) {
+        this.communes = this.commune.filter(
+          (el: any) => el.cercle.nomcercle == this.selectedValueC
+        );
+      }
+    });
     //AFFICHER LA LISTE DES Pays
     this.serviceAdresse.AfficherListePays().subscribe((data) => {
       this.pays = data;
@@ -205,66 +227,43 @@ export class ProfileComponent implements OnInit {
     //AFFICHER LA LISTE DES CERCLE
     this.serviceAdresse.AfficherListeCercle().subscribe((data) => {
       this.cercle = data;
+      if (this.selectedValueR) {
+        this.cercles = this.cercle.filter(
+          (el: any) => el.region.nomregion == this.selectedValueR
+        );
+      }
     });
 
     //AFFICHER LA LISTE DES REGIONS
+
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
-      this.nombreZone = data?.length;
-    });
-
-    // Récupérer les données de l'utilisateur connecté
-    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-      this.users = data[0];
-      this.formModif = {
-        nom: this.users?.nom || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
-        telephone: this.users.telephone || '',
-        email: this.users.email || '',
-        dateNaissance: this.users.dateNaissance || '',
-      };
-      this.selectedValue =
-        this.users.adresse?.commune?.cercle?.region.pays?.nompays;
-
-      this.formModifadress = {
-        quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
-        rue: this.users.adresse?.rue || '',
-        porte: this.users.adresse?.porte || '',
-        communeform: this.users.adresse?.commune?.nomcommune || '',
-      };
-      // Si selectedValue est défini, mettez à jour les régions correspondantes
-      // if (this.selectedValue) {
-      //   this.onChange2({ value: this.selectedValue });
-      // }
+      this.nombreZone = data.length;
+      if (this.selectedValue) {
+        this.regions = this.region.filter(
+          (el: any) => el.pays.nompays == this.selectedValue
+        );
+      }
     });
   }
   // Méthode pour charger la liste des pays
 
 
   onChange2(newValue: any) {
-    this.regions1 = this.region.filter(
-      (el: any) => el.pays.id == newValue.value || el.pays.nompays == newValue.value
+    this.regions = this.region.filter(
+      (el: any) => el.pays.nompays == newValue.value
     );
-    this.regions1.forEach((el: any) => {
-      console.log(el); // Ajout d'un log pour vérifier les valeurs filtrées
-    });
   }
   onChangeRegion(newValue: any) {
     this.cercles = this.cercle.filter(
-      (el: any) =>
-        el.region.id == newValue.value || el.region.nomregion == newValue.value
+      (el: any) => el.region.nomregion == newValue.value
     );
-    this.cercles.forEach((el: any) => {
-      this.form.regionForm = el.region.id;
-    });
   }
+
   onChangeCercle(newValue: any) {
-    this.communes1 = this.commune.filter(
-      (el: any) =>
-        el.cercle.id == newValue.value || el.cercle.nomcercle == newValue.value
+    this.communes = this.commune.filter(
+      (el: any) => el.cercle.nomcercle == newValue.value
     );
-    this.communes1.forEach((el: any) => {
-      this.form.cercleForm = el.cercle.id;
-    });
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
@@ -519,11 +518,9 @@ export class ProfileComponent implements OnInit {
                   this.isSignUpFailed = false;
 
                   // this.popUpModification();
-                  // console.log(this.storageService.getUser().email);
 
                   if (this.storageService.getUser().email !== email) {
                     // Utilisation correcte de la comparaison
-                    // console.log(this.storageService.getUser().email);
                     // this.popUpModification();
                     if (data.status) {
                       let timerInterval = 2000;
@@ -621,22 +618,18 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+
   islongNom(nom: string): boolean {
     const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/; // Inclure les lettres accentuées et les espaces
     return nom.length <= 40 && regex.test(nom);
   }
 
   validateEmail(email: string): boolean {
-    // Option 1: Using built-in Angular email validator
-    // return Validators.email(email) !== null;  // Returns true/false
-
-    // Option 2: Using regular expression (more strict validation)
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return emailRegex.test(email);
   }
 
   getMaximumDate(): string {
-    // Obtenir la date du jour
     const today = new Date();
 
     // Soustraire 18 ans à la date du jour

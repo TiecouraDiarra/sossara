@@ -92,6 +92,8 @@ export class AccueilComponent {
   nombreBienVendre: number = 0;
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   valuesSelectPrix: any;
+  derniersBiens: any[] = [];
+  topFavorisBiens: any[] = [];
 
   locale!: string;
   imagesCommunes = [
@@ -421,10 +423,9 @@ export class AccueilComponent {
     // this.apiUrl = this.BackLien();
     // Maintenant, vous pouvez utiliser this.apiUrl comme URL dans votre composant
 
-    this.serviceBienImmo.AfficherLaListePrix().subscribe((data) => {
-      // this.customHtmlMaxValue = data[0].prix;
-      this.valuesSelectPrix = data;
-    });
+    // this.serviceBienImmo.AfficherLaListePrix().subscribe((data) => {
+    //   this.valuesSelectPrix = data;
+    // });
     setInterval(() => {
       this.changeImage();
     }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)
@@ -489,6 +490,7 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
     this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe((data) => {
       this.bienImmoPlusVue = data;
+      // console.log(this.bienImmoPlusVue);
       this.NombreFavory = data.nombreDeFavoris;
 
       // Suppose que BienImo est un élément de votre bienImmo
@@ -518,27 +520,30 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       this.agence = data;
-      console.log(this.agence);
-      
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
-      this.BienLoueRecensTotal = data.reverse();
-      this.BienLoueRecensTotal.forEach((bien: any) => {
-        // Vérifier si le bien est déjà loué
-        if (bien.statut.nom === 'A louer') {
-          this.BienLoueRecens.push(bien);
-        }
-      });
-      // this.nombreBienLoue = this.BienLoueRecens.length;
-      // this.nombreBienVendre = this.BienVendreRecens.length;
-      // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
+    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
+    //   this.BienLoueRecensTotal = data.reverse();
+    //   this.BienLoueRecensTotal.forEach((bien: any) => {
+    //     // Vérifier si le bien est déjà loué
+    //     if (bien.statut.nom === 'A louer') {
+    //       this.BienLoueRecens.push(bien);
+    //     }
+    //   });
+     
+    // });
+
+    this.serviceBienImmo.trouverTop6BiensRecemmentAjoutes().subscribe((data) => {
+      this.BienLoueRecens = data;
+      // console.log(this.BienLoueRecens);
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
       this.BienTotal = data;
+      this.getDerniersBiens();
+      this.getTopFavorisBiens();
       this.BienTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
         if (bien.statut.nom === 'A louer') {
@@ -566,7 +571,22 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe((data) => {
       this.blog = data;
+      
     });
+  }
+
+  getDerniersBiens() {
+    this.derniersBiens = this.BienTotal
+      .sort((a: { dateAjout: string | number | Date; }, b: { dateAjout: string | number | Date; }) => new Date(b.dateAjout).getTime() - new Date(a.dateAjout).getTime())
+      .slice(0, 6);
+      console.log("Derniers biens ajoutés :", this.derniersBiens);
+  }
+
+  getTopFavorisBiens() {
+    this.topFavorisBiens = this.BienTotal
+      .sort((a: { nombreFavoris: number; }, b: { nombreFavoris: number; }) => b.nombreFavoris - a.nombreFavoris)
+      .slice(0, 6);
+      console.log("Top biens basés sur les favoris :", this.topFavorisBiens);
   }
 
   // hasRole(roleName: string): boolean {
@@ -598,6 +618,7 @@ export class AccueilComponent {
             .AfficherLaListeBienImmoPlusVue()
             .subscribe((data) => {
               this.bienImmoPlusVue = data;
+              
               this.NombreFavory = data.nombreDeFavoris;
               // Suppose que BienImo est un élément de votre bienImmo
               // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
@@ -685,7 +706,7 @@ export class AccueilComponent {
   }
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS AGENCE
-  goToDettailAgence(id: number) {
+  goToDettailAgence(id: string) {
     return this.router.navigate(['detailsagence', id]);
   }
 

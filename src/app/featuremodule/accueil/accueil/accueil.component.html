@@ -74,7 +74,7 @@
                                 </div>
                               </div>
                               <!--<div class="flex-grow-1 ms-3">
-                                                            <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
+                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
                                                         </div>-->
                               <div class="flex-grow-1 ms-3">
                                 <mat-form-field class="mat-custom-select" style="width: 98%">
@@ -406,7 +406,8 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 aos aos-init aos-animate text-center">
           <h3>Ils sont tout frais !!</h3>
-          <p>Découvrez les nouveaux venus sur <span style="color: #e98b11; font-weight: bold;">Sossara</span> ! Des propriétés uniques pour tous les goûts.</p>
+          <p>Découvrez les nouveaux venus sur <span style="color: #e98b11; font-weight: bold;">Sossara</span> ! Des
+            propriétés uniques pour tous les goûts.</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
@@ -424,22 +425,21 @@
                     <div class="top-room-img">
                       <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
                         <div *ngIf="
-                            bienRecent?.photos &&
-                              bienRecent?.photos?.length > 0;
+                            bienRecent?.photos;
                             else noImages
                           ">
                           <img src="{{
-                              generateImageUrl(bienRecent?.photos[0]?.nom)
+                              generateImageUrl(bienRecent?.photos)
                             }}" class="img-fluid image-size" alt="blog-img" />
                         </div>
                         <ng-template #noImages>
                           <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Villa'">
-                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-sizeresents"
+                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
                               alt="default-img" />
                           </div>
                           <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Appartement'">
-                            <img src="../../../../assets/img/typebien/appartement.png"
-                              class="img-fluid image-sizeresents" alt="default-img" />
+                            <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                              alt="default-img" />
                           </div>
                           <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Terrain'">
                             <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
@@ -471,9 +471,11 @@
                           }}" alt="" (error)="handleAuthorImageError($event)" />
                       </div>
                     </div>
-                    <!-- <div class="pent-house">
-                      <span>{{ bienRecent?.statut?.nom }}</span>
-                    </div> -->
+                    <!-- <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }" class="Featured-text">{{
+                      BienImo?.statut?.nom }}</span> -->
+                    <div class="pent-house Featured-text" [ngClass]="{'statutbien': bienRecent?.statut?.nom === 'A vendre' }">
+                      <span class="" >{{ bienRecent?.statut?.nom }}</span>
+                    </div>
                     <div class="top-rent-room-info">
                       <div class="top-rent-room-location">
                         <div class="room-address">
@@ -495,7 +497,8 @@
                                                         <i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i></span> -->
                           <p>
-                            <span style="font-weight: bold; font-size: 17px;">{{ formatPrice(bienRecent?.prix) }} FCFA</span>
+                            <span style="font-weight: bold; font-size: 17px;">{{ formatPrice(bienRecent?.prix) }}
+                              FCFA</span>
                           </p>
                         </div>
                       </div>
@@ -512,9 +515,9 @@
                                                     <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
                                                             alt="">{{slide.nb_piece}}</span>
                                                 </div>-->
-                        <div class="area">
+                        <div class="area" *ngIf="bienRecent?.chambre">
                           <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid" alt="" />Chambre:{{
-                            bienRecent?.nb_piece }}</span>
+                            bienRecent?.chambre }}</span>
                         </div>
                         <!--<div class="area">
                                                     <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
@@ -555,7 +558,9 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 aos aos-init aos-animate text-center">
           <h3>Pourquoi choisir SOSSARA ?</h3>
-          <p><span style="color: #e98b11; font-weight: bold;">SOSSARA</span> est votre partenaire de confiance pour une expérience complète, sur mesure et sans faille, parce que chez nous, votre satisfaction est notre combat.</p>
+          <p><span style="color: #e98b11; font-weight: bold;">SOSSARA</span> est votre partenaire de confiance pour une
+            expérience complète, sur mesure et sans faille, parce que chez nous, votre satisfaction est notre combat.
+          </p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate"></div>
       </div>
@@ -622,7 +627,8 @@
         <div class="col-lg-4 col-md-3"></div>
         <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
           <h3>Agences Partenaires</h3>
-          <p>Les Agences Partenaires Certifiées chez SOSSARA sont Sélectionnées à travers un processus de vérification rigoureux pour une expérience immobilière de premier choix.
+          <p>Les Agences Partenaires Certifiées chez SOSSARA sont Sélectionnées à travers un processus de vérification
+            rigoureux pour une expérience immobilière de premier choix.
             Parce que votre confort nous est inestimable nous ne traitons qu'avec les meilleurs.</p>
         </div>
         <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
@@ -666,7 +672,7 @@
                             <li>
                               <h6>
                                 {{
-                                  Agence?.nombreBienAgence
+                                Agence?.nombreBienAgence
                                 }}
                               </h6>
                               <span>Biens</span>
@@ -674,7 +680,7 @@
                             <li>
                               <h6>
                                 {{
-                                  Agence?.nombreBiensALouerAgence
+                                Agence?.nombreBiensALouerAgence
                                 }}
                               </h6>
                               <span>Louer</span>
@@ -682,7 +688,7 @@
                             <li>
                               <h6>
                                 {{
-                                  Agence?.nombreBiensAVendreAgence
+                                Agence?.nombreBiensAVendreAgence
                                 }}
                               </h6>
                               <span>Vendre</span>
@@ -690,14 +696,14 @@
                             <li>
                               <h6>
                                 {{
-                                  Agence?.nombreAgents
+                                Agence?.nombreAgents
                                 }}
                               </h6>
                               <span>Agents</span>
                             </li>
                           </ul>
                           <div class="companies-set-btn">
-                            <a (click)="goToDettailAgence(Agence?.uuid)" class="btn btn-linebtn">Savoir plus<i
+                            <a (click)="goToDettailAgence(Agence?.nomAgence)" class="btn btn-linebtn">Savoir plus<i
                                 class="fa fa-arrow-right ms-3" aria-hidden="true"></i></a>
                           </div>
                         </div>
@@ -896,7 +902,8 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 aos aos-init aos-animate text-center">
           <h3>À ne pas manquer sur Sossara</h3>
-          <p>Découvrez les biens immobiliers triés spécialement sur le volet pour faire votre <span style="color: #e98b11; font-weight: bold;">bonheur</span>.</p>
+          <p>Découvrez les biens immobiliers triés spécialement sur le volet pour faire votre <span
+              style="color: #e98b11; font-weight: bold;">bonheur</span>.</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
@@ -916,11 +923,11 @@
                         <div class="blog-img">
                           <a (click)="goToDettailBien(BienImo?.uuid)" class="crd">
                             <div *ngIf="
-                                BienImo?.photos && BienImo?.photos?.length > 0;
+                                BienImo?.photos;
                                 else noImages
                               ">
                               <img src="{{
-                                  generateImageUrl(BienImo?.photos[0]?.nom)
+                                  generateImageUrl(BienImo?.photos)
                                 }}" class="img-fluid image-size" alt="blog-img" />
                             </div>
                             <ng-template #noImages>
@@ -977,10 +984,10 @@
                               <div class="grid-author">
                                 <img src="{{
                                     generateImageUrl(
-                                      BienImo?.utilisateur?.photo?.nom
+                                      BienImo?.proprietaire?.photo
                                     )
                                   }}" alt="author" (error)="handleAuthorImageError($event)" />
-                                  <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else NoAgenceTemplate">
+                                <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else NoAgenceTemplate">
                                     <a>{{ BienImo?.utilisateur?.nomAgence }}</a>
                                   </ng-container>
                                   <ng-template #NoAgenceTemplate>
@@ -995,7 +1002,7 @@
                               <div class="blog-author text-end">
                                 <span>
                                   <i class="feather-eye"></i>{{
-                                  favoritedPropertiesCount1[BienImo?.id]
+                                  BienImo?.nombreDeFavoris
                                   }}</span>
                               </div>
                             </div>
@@ -1136,7 +1143,8 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 aos aos-init aos-animate text-center">
           <h3>Laquelle de ces communes vous séduit elle à Bamako ?</h3>
-          <p>Alors vous n'avez plus qu'a découvrir ce qu'elle vous réserve. Nous en sommes convaincu, vous allez adorer !</p>
+          <p>Alors vous n'avez plus qu'a découvrir ce qu'elle vous réserve. Nous en sommes convaincu, vous allez adorer
+            !</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate">
           <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
@@ -1300,22 +1308,27 @@
 
 <!-- Join Us -->
 <section class="buy-property aos">
-    <div class="container">
-        <div class="buy-property-content">
-            <h4 style="color: white; font-size: 26px;" class="aos mb-3" data-aos-delay="200">Rejoignez les millions de personnes qui tirent davantage de leur domicile.</h4>
-            <!-- <p class="aos" data-aos-delay="400">Sossara offre une interface conviviale pour les propriétaires, gestionnaires immobiliers et locataires, facilitant l'accès aux informations essentielles et la gestion des contrats de location :</p> -->
-            <div class="row mb-2" style="color: white;">
-              <div class="col-12 col-md-12">
-                <ul class="list-unstyled mb-0">
-                  <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Simplifiez la gestion de vos propriétés avec Sossara.</li>
-                  <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Trouvez le locataire idéal pour votre propriété en quelques clics.</li>
-                  <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Communiquez facilement avec vos locataires et gérez vos contrats de location et vos paiement en toute sécurité: Quittance, reçu, facture, tout y passe nous avons tout prévu.</li>
-                </ul>
-              </div>
-            </div>
-            <!-- <a  [routerLink]="routes.mylisting">Savoir plus</a> -->
+  <div class="container">
+    <div class="buy-property-content">
+      <h4 style="color: white; font-size: 26px;" class="aos mb-3" data-aos-delay="200">Rejoignez les millions de
+        personnes qui tirent davantage de leur domicile.</h4>
+      <!-- <p class="aos" data-aos-delay="400">Sossara offre une interface conviviale pour les propriétaires, gestionnaires immobiliers et locataires, facilitant l'accès aux informations essentielles et la gestion des contrats de location :</p> -->
+      <div class="row mb-2" style="color: white;">
+        <div class="col-12 col-md-12">
+          <ul class="list-unstyled mb-0">
+            <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Simplifiez
+              la gestion de vos propriétés avec Sossara.</li>
+            <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Trouvez le
+              locataire idéal pour votre propriété en quelques clics.</li>
+            <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Communiquez
+              facilement avec vos locataires et gérez vos contrats de location et vos paiement en toute sécurité:
+              Quittance, reçu, facture, tout y passe nous avons tout prévu.</li>
+          </ul>
         </div>
+      </div>
+      <!-- <a  [routerLink]="routes.mylisting">Savoir plus</a> -->
     </div>
+  </div>
 </section>
 <!-- /Join Us -->
 
@@ -1370,37 +1383,37 @@
                           </div>
                         </div>
                       </div> -->
-                     
-                        <div class="blog grid-blog" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
-                            <div class="blog-image">
-                                <a (click)="goToDettailBlog(slide?.uuid)"><img class="img-fluid image-size crd"
-                                        src="{{generateImageUrl(slide?.photo)}}"
-                                        (error)="handleAuthorImageError1($event)" alt="Post Image"></a>
-                            </div>
-                            <div class="blog-content">
-                              
-                                <ul class="entry-meta meta-item">
-                                    <li>
-                                       
-                                    </li>
-                                    <li class="date-icon"><i class="fa-solid fa-calendar-days"></i>
-                                        {{slide?.createdAt | date:"dd MMM yyyy":locale}}</li>
-                                </ul>
-                                <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide?.uuid)">{{slide?.titre}}</a>
-                                </h3>
-                                
-                                <p class="blog-description" [innerHTML]="slide ? slide?.description : 'Aucune description'"
-                                > </p>
-                                <div class="viewlink crd"><a (click)="goToDettailBlog(slide?.uuid)">Voir plus <i
-                                            class="feather-arrow-right"></i></a></div>
-                            </div>
+
+                      <div class="blog grid-blog" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
+                        <div class="blog-image">
+                          <a (click)="goToDettailBlog(slide?.uuid)"><img class="img-fluid image-size crd"
+                              src="{{generateImageUrl(slide?.photo)}}" (error)="handleAuthorImageError1($event)"
+                              alt="Post Image"></a>
                         </div>
-                  
+                        <div class="blog-content">
+
+                          <ul class="entry-meta meta-item">
+                            <li>
+
+                            </li>
+                            <li class="date-icon"><i class="fa-solid fa-calendar-days"></i>
+                              {{slide?.createdAt | date:"dd MMM yyyy":locale}}</li>
+                          </ul>
+                          <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide?.uuid)">{{slide?.titre}}</a>
+                          </h3>
+
+                          <p class="blog-description" [innerHTML]="slide ? slide?.description : 'Aucune description'">
+                          </p>
+                          <div class="viewlink crd"><a (click)="goToDettailBlog(slide?.uuid)">Voir plus <i
+                                class="feather-arrow-right"></i></a></div>
+                        </div>
+                      </div>
+
                     </ng-template>
                   </ng-container>
                 </owl-carousel-o>
 
-                
+
               </div>
             </div>
           </div>
@@ -1413,24 +1426,27 @@
 
 <!-- Become Agent -->
 <section class="join-us-dealer common-padding">
-    <div class="join-us-dealer-bg home-nine-bg">
-        <img src="./assets/img/bg/agent-bg.png" alt="">
-    </div>
-    <div class="container">
-        <div class="row align-items-center aos">
-            <div class="col-lg-6 col-md-12">
-                <div class="joinus-dealer-content">
-                    <h3 class="aos" style="font-size: 23px;" data-aos-delay="200">Simplifiez vos démarches immobilières dès maintenant !</h3>
-                    <p class="aos" data-aos-delay="300">Avec <span style="font-weight: bold;">Sossara</span>, gérez vos biens immobiliers en toute confiance et libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.</p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="join-as-dealer-btn">
-                    <a [routerLink]="routes.about">Savoir plus</a>
-                </div>
-            </div>
+  <div class="join-us-dealer-bg home-nine-bg">
+    <img src="./assets/img/bg/agent-bg.png" alt="">
+  </div>
+  <div class="container">
+    <div class="row align-items-center aos">
+      <div class="col-lg-6 col-md-12">
+        <div class="joinus-dealer-content">
+          <h3 class="aos" style="font-size: 23px;" data-aos-delay="200">Simplifiez vos démarches immobilières dès
+            maintenant !</h3>
+          <p class="aos" data-aos-delay="300">Avec <span style="font-weight: bold;">Sossara</span>, gérez vos biens
+            immobiliers en toute confiance et libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.
+          </p>
         </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="join-as-dealer-btn">
+          <a [routerLink]="routes.about">Savoir plus</a>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 <!-- /Become Agent -->
 

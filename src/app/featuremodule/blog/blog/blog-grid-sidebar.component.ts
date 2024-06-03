@@ -66,14 +66,19 @@ export class BlogGridSidebarComponent {
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      // Tri des biens immobiliers par ordre décroissant de la date de création
-      data.sort((a: { createdAt: string | number | Date; }, b: { createdAt:string | number | Date; }) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+    //   // Tri des biens immobiliers par ordre décroissant de la date de création
+    //   data.sort((a: { createdAt: string | number | Date; }, b: { createdAt:string | number | Date; }) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     
-      // Extraction des trois biens immobiliers les plus récents
+    //   // Extraction des trois biens immobiliers les plus récents
+    //   this.bienImmo = data.slice(0, 3);
+    
+    
+    // });
+
+    this.serviceBienImmo.trouverTop6BiensRecemmentAjoutes().subscribe((data) => {
       this.bienImmo = data.slice(0, 3);
-    
-    
+      // console.log(this.BienLoueRecens);
     });
     
   }

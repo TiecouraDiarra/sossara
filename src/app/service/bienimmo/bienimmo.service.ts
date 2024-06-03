@@ -65,6 +65,11 @@ export class BienimmoService {
     return this.http.get(`${URL_BASE}/favoris/top6biens`);
   }
 
+  //AFFICHER LA LISTE DES BIENS IMMO RECEMMENT
+  trouverTop6BiensRecemmentAjoutes(): Observable<any> {
+    return this.http.get(`${URL_BASE}/bien/top6biensRecemment`);
+  }
+
   //AFFICHER LA LISTE DE TOUS LES BIENS IMMO AIMES
   AfficherLaListeBienImmoAimer(): Observable<any> {
     return this.http.get(`${URL_BASE}/bien/immo/favoris/get`);

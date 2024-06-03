@@ -256,6 +256,8 @@ export class DetailsagenceComponent implements OnInit {
         // Ajouter les biens immobiliers de l'agent à la liste totale
         this.totalBiensAgents.push(...agent.bienImmosAgents);
       });
+      // console.log(data);
+      
 
       // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
 
@@ -265,7 +267,7 @@ export class DetailsagenceComponent implements OnInit {
 
       this.NombreAgent = this.agent.length;
       this.bienImmo = [...this.bienImmoAgence, ...this.totalBiensAgents];
-      console.log(this.bienImmo);
+      // console.log(this.bienImmo);
 
       this.NombreBienAgence = this.bienImmo.length;
 

@@ -169,7 +169,7 @@
     <!-- content -->
     <section class="py-5">
       <div class="container">
-        <div class="row gx-5">
+        <div class="row gx-4">
           <aside class="col-lg-4">
             <div class="stickybar">
               <div class="listings-sidebar">
@@ -180,7 +180,7 @@
                   </h4>
                   <div class="card-block">
                     <div class="user-image">
-                      <img src="{{generateImageUrl(agence?.agencePhoto?.nom)}}" class="img-radius"
+                      <img src="{{generateImageUrl(agence?.agencePhoto)}}" class="img-radius"
                         alt="User-Profile-Image" (error)="handleAuthorImageError($event)">
                     </div>
                     <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nomAgence}}</h6>
@@ -307,6 +307,35 @@
     <section class="bg-light border-top py-4">
       <div class="container">
         <div class="row gx-4">
+          <div class="col-lg-4">
+            <div class="px-0 border rounded-2 shadow-0">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Agents</h5>
+                  <div class="d-flex mb-3" *ngFor="let Agent of agent | filter : searchTextAgent">
+                    <a href="#" class="me-3">
+                      <img src="{{generateImageUrl(Agent?.photo)}}" (error)="handleAuthorImageError($event)"
+                        style="width: 95px; height: 95px;" class="img-md img-thumbnail" />
+                    </a>
+                    <div class="info mt-3">
+                      <!-- <h5 class="mb-0">{{Agent?.nom}}</h5> -->
+                      <a (click)="goToDettailAgent(Agent?.uuid)"
+                        style="background-color: initial !important;color: initial !important;"
+                        class="nav-link mb-1 crd">
+                        {{Agent?.nom}}
+                      </a>
+                      <small *ngIf="Agent.adresse" style="margin-top: 8px !important;">
+                        <strong class="text-dark">{{ Agent?.adresse?.quartier }}</strong>
+                      </small>
+
+                      <small *ngIf="!Agent.adresse" style="margin-top: 8px !important;">
+                        <strong class="text-dark">Pas d'adresse </strong></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-lg-8 mb-4">
             <div class="border rounded-2 px-3 py-2 bg-white">
               <!-- Pills navs -->
@@ -367,8 +396,8 @@
                       <div class="blog-widget">
                         <div class="blog-img">
                           <a (click)="goToDettailBien(slide?.uuid)">
-                            <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
-                              <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
+                            <div *ngIf="slide?.photos; else noImages">
+                              <img src="{{ generateImageUrl(slide?.photos) }}" class="img-fluid image-size"
                                 alt="blog-img" />
                             </div>
                             <ng-template #noImages>
@@ -423,15 +452,16 @@
                               <div class="blog-author">
                                 <div class="blog-author-img">
                                   <!-- <img [src]="slide.img2" alt="author" /> -->
-                                  <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
+                                  <img src="{{generateImageUrl(slide?.proprietaire?.photo)}}" alt="author"
                                     (error)="handleAuthorImageError($event)" />
                                 </div>
-                                <ng-container *ngIf="hasRole(slide,'ROLE_AGENT'); else agenceTemplate">
+                                <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.proprietaire?.nom }}</a>
+                                <!-- <ng-container *ngIf="hasRole(slide,'ROLE_AGENT'); else agenceTemplate">
                                   <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
                                 </ng-container>
                                 <ng-template #agenceTemplate>
                                   <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
-                                </ng-template>
+                                </ng-template> -->
                               </div>
                             </div>
                             <h6>
@@ -510,8 +540,8 @@
                       <div class="blog-widget">
                         <div class="blog-img">
                           <a (click)="goToDettailBien(slide?.uuid)">
-                            <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
-                              <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
+                            <div *ngIf="slide?.photos; else noImages">
+                              <img src="{{ generateImageUrl(slide?.photos) }}" class="img-fluid image-size"
                                 alt="blog-img" />
                             </div>
                             <ng-template #noImages>
@@ -565,16 +595,10 @@
                               </div>
                               <div class="blog-author">
                                 <div class="blog-author-img">
-                                  <!-- <img [src]="slide.img2" alt="author" /> -->
-                                  <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
+                                  <img src="{{generateImageUrl(slide?.proprietaire?.photo)}}" alt="author"
                                     (error)="handleAuthorImageError($event)" />
                                 </div>
-                                <!-- <ng-container *ngIf="hasRole('ROLE_AGENT'); else agenceTemplate">
-                                  <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
-                                </ng-container> -->
-                                <!-- <ng-template #agenceTemplate> -->
-                                <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
-                                <!-- </ng-template> -->
+                                <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.proprietaire?.nom }}</a>
                               </div>
                             </div>
                             <h6>
@@ -653,8 +677,8 @@
                       <div class="blog-widget">
                         <div class="blog-img">
                           <a (click)="goToDettailBien(slide?.uuid)">
-                            <div *ngIf="slide?.photos && slide?.photos?.length > 0; else noImages">
-                              <img src="{{ generateImageUrl(slide?.photos[0]?.nom) }}" class="img-fluid image-size"
+                            <div *ngIf="slide?.photos; else noImages">
+                              <img src="{{ generateImageUrl(slide?.photos) }}" class="img-fluid image-size"
                                 alt="blog-img" />
                             </div>
                             <ng-template #noImages>
@@ -709,11 +733,11 @@
                               <div class="blog-author">
                                 <div class="blog-author-img">
                                   <!-- <img [src]="slide.img2" alt="author" /> -->
-                                  <img src="{{generateImageUrl(slide?.utilisateur?.photo?.nom)}}" alt="author"
+                                  <img src="{{generateImageUrl(slide?.proprietaire?.photo)}}" alt="author"
                                     (error)="handleAuthorImageError($event)" />
                                 </div>
                                 <!-- <ng-container *ngIf="hasRole('ROLE_AGENT'); else agenceTemplate"> -->
-                                <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nom }}</a>
+                                <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.proprietaire?.nom }}</a>
                                 <!-- </ng-container> -->
                                 <!-- <ng-template #agenceTemplate>
                                   <a (click)="goToDettailBien(slide?.uuid)">{{ slide?.utilisateur?.nomAgence }}</a>
@@ -762,35 +786,6 @@
                 </div>
               </div>
               <!-- Pills content -->
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="px-0 border rounded-2 shadow-0">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title mb-3">Agents</h5>
-                  <div class="d-flex mb-3" *ngFor="let Agent of agent | filter : searchTextAgent">
-                    <a href="#" class="me-3">
-                      <img src="{{generateImageUrl(Agent?.photo?.nom)}}" (error)="handleAuthorImageError($event)"
-                        style="width: 95px; height: 95px;" class="img-md img-thumbnail" />
-                    </a>
-                    <div class="info mt-3">
-                      <!-- <h5 class="mb-0">{{Agent?.nom}}</h5> -->
-                      <a (click)="goToDettailAgent(Agent?.uuid)"
-                        style="background-color: initial !important;color: initial !important;"
-                        class="nav-link mb-1 crd">
-                        {{Agent?.nom}}
-                      </a>
-                      <small *ngIf="Agent.adresse" style="margin-top: 8px !important;">
-                        <strong class="text-dark">{{ Agent?.adresse?.quartier }}</strong>
-                      </small>
-
-                      <small *ngIf="!Agent.adresse" style="margin-top: 8px !important;">
-                        <strong class="text-dark">Pas d'adresse </strong></small>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

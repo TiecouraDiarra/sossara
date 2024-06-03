@@ -387,12 +387,13 @@ export class ModifierBienComponent {
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
-      this.region = data;
+      this.region = data; 
       this.nombreZone = data.length;
       if (this.selectedValue) {
         this.regions = this.region.filter(
           (el: any) => el.pays.nompays == this.selectedValue
         );
+        console.log(this.selectedValue)
       }
     });
   }
@@ -420,7 +421,7 @@ export class ModifierBienComponent {
     const selectedFiles = event.target.files;
   
     for (const file of selectedFiles) {
-      if (this.images1.length < 8) {
+      if (this.images1.length <98) {
         const reader = new FileReader(); // Créez un nouvel objet FileReader pour chaque fichier
   
         reader.onload = (e: any) => {
@@ -440,7 +441,7 @@ export class ModifierBienComponent {
                   readerWebp.onload = (eWebp: any) => {
                     this.images1.push({ nom: webpFile.name, data: eWebp.target.result });
                     this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-                    this.maxImageCount = this.images1.length;
+                    // this.maxImageCount = this.images1.length;
                   };
                   readerWebp.readAsDataURL(webpFile);
                 }
@@ -474,7 +475,7 @@ changeExtension(filename: string, newExtension: string): string {
   }
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
-    if (this.images.length >= 8) {
+    if (this.images.length >= 78000) {
       this.isButtonDisabled = true;
     } else {
       this.isButtonDisabled = false;
