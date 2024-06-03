@@ -74,6 +74,8 @@ export class MesReclamationsComponent  implements OnInit{
      this.serviceBienImmo.AfficherListeReclamationFaitesParUser().subscribe(data => {
       this.reclamationUser = data.reverse();
       // this.photos = this.reclamation.bien;
+      // console.log(this.reclamationUser);
+      
       });
   }
 

@@ -458,7 +458,7 @@
                                 <li class="review-box" *ngFor="let Rdv of rdv">
                                     <div class="review-profile">
                                         <div class="review-img">
-                                            <img src="{{generateImageUrl(Rdv?.utilisateur?.photo?.nom)}}"
+                                            <img src="{{generateImageUrl(Rdv?.utilisateur?.photo)}}"
                                                 class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
                                         </div>
                                     </div>

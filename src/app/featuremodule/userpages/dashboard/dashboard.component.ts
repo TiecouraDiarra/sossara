@@ -157,13 +157,14 @@ export class DashboardComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.users = this.storageService.getUser()
-    this.senderCheck = this.users.email;
+    // this.users = this.storageService.getUser()
+    // this.senderCheck = this.users.email;
 
     if (this.storageService.isLoggedIn()) {
       // Récupérer les données de l'utilisateur connecté
       this.serviceUser.AfficherUserConnecter().subscribe((data) => {
         this.users = data[0];
+        this.senderCheck = this.users.email;
         this.profil = this.users?.profil;
         if (this.profil == 'LOCATAIRE') {
           this.isLocataire = true;
@@ -239,6 +240,8 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       this.nombreRdvUser = data?.length;
+      console.log(this.rdv);
+      
     }
     );
 

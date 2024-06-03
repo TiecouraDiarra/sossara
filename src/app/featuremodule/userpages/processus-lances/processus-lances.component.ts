@@ -42,18 +42,21 @@ export class ProcessusLancesComponent implements OnInit {
     photos: null,
   };
   ngOnInit(): void {
-  //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
-  this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
-    this.reclamationProcessusLance = data.reverse();
-   });  }
-    //FORMATER LE PRIX
-    formatPrice(price: number): string {
-      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-  
+    //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
+    this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
+      this.reclamationProcessusLance = data.reverse();
+      // console.log(this.reclamationProcessusLance);
+      
+    });
+  }
+  //FORMATER LE PRIX
+  formatPrice(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 
-   //METHODE PERMETTANT D'ARRETER LE PROCESSUS DE REPARATION
-   ArreterProcessus(): void {
+
+  //METHODE PERMETTANT D'ARRETER LE PROCESSUS DE REPARATION
+  ArreterProcessus(): void {
     const { photo } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -77,14 +80,14 @@ export class ProcessusLancesComponent implements OnInit {
           // Définissez le token dans le service commentaireService
           this.serviceUser.setAccessToken(user.token);
           // Appelez la méthode ArreterProcessus() avec l'ID
-          
+
           this.serviceBienImmo.ArreterProcessusNew(this.selectedReclamationId, this.selectedBienImmoProcessusId, photo).subscribe(
             data => {
-               // this.isSuccess = false;
+              // this.isSuccess = false;
               this.popUpConfirmationArreteProcessus();
             },
             error => {
-            
+
             }
           );
         } else {
@@ -117,18 +120,18 @@ export class ProcessusLancesComponent implements OnInit {
       //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
       this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
         this.reclamationProcessusLance = data.reverse();
-       });
+      });
     })
   }
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
     const selectedFiles = event.target.files;
-  
+
     for (const file of selectedFiles) {
       if (this.images.length < 8) {
         const reader = new FileReader(); // Créez un nouvel objet FileReader pour chaque fichier
-  
+
         reader.onload = (e: any) => {
           const img = new Image();
           img.onload = () => {
@@ -151,16 +154,16 @@ export class ProcessusLancesComponent implements OnInit {
           };
           img.src = e.target.result;
         };
-  
+
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
-  
+
     this.form.photo = this.images;
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
-  
-  
+
+
 
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
@@ -176,21 +179,21 @@ export class ProcessusLancesComponent implements OnInit {
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
   }
 
-    // Fonction pour ouvrir le modal avec l'ID du BienImmo
-    openProcessusModal(bienImmoId: number, ReclamationId :number) {
-      // Stockez l'ID du BienImmo sélectionné dans la variable
-      this.selectedBienImmoProcessusId = bienImmoId;
-      this.selectedReclamationId = ReclamationId;
-   
-    }
+  // Fonction pour ouvrir le modal avec l'ID du BienImmo
+  openProcessusModal(bienImmoId: number, ReclamationId: number) {
+    // Stockez l'ID du BienImmo sélectionné dans la variable
+    this.selectedBienImmoProcessusId = bienImmoId;
+    this.selectedReclamationId = ReclamationId;
 
-     //IMAGE
+  }
+
+  //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO;
     return baseUrl + photoFileName;
   }
-   // IMAGE PAR DEFAUT USER
-   handleAuthorImageError(event: any) {
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 

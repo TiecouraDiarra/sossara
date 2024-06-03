@@ -450,6 +450,8 @@ export class LocataireComponent implements OnInit {
       .AfficherBienLoueEtAcheterParUserConnecter()
       .subscribe((data) => {
         this.bienImmoDejaLoueLocataires = data.reverse();
+        console.log(this.bienImmoDejaLoueLocataires);
+        
         this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
           // Vérifier si le bien est déjà loué
           if (bien.bien.is_rent === true) {

@@ -1984,7 +1984,7 @@
                             <div class="review-img">
                               <img src="{{
                                   generateImageUrl(
-                                    Reclamation?.utilisateur?.photo?.nom
+                                    Reclamation?.utilisateur?.photo
                                   )
                                 }}" class="img-fluid" alt="img" (error)="handleAuthorImageError($event)" />
                             </div>
@@ -2197,7 +2197,7 @@
                             <div class="review-img">
                               <img src="{{
                                   generateImageUrl(
-                                    Reclamation?.utilisateur?.photo?.nom
+                                    Reclamation?.utilisateur?.photo
                                   )
                                 }}" class="img-fluid" alt="img" (error)="handleAuthorImageError($event)" />
                             </div>
@@ -2228,16 +2228,9 @@
                               </div>
                             </div>
                             <div class="row mb-3">
-                              <div class="col" *ngIf="
-                                  Reclamation &&
-                                  Reclamation?.bien &&
-                                  Reclamation?.bien?.typeImmo
-                                ">
+                              <div class="col">
                                 {{
-                                Reclamation?.bien?.nom
-                                ? Reclamation?.bien?.nom
-                                : Reclamation?.bien?.typeImmo?.nom
-                                }}
+                                Reclamation?.bien?.nom}}
                               </div>
                               <div class="col" style="color: #e98b11; font-weight: bold"
                                 *ngIf="Reclamation && Reclamation?.bien">
@@ -2690,9 +2683,15 @@
       aria-labelledby="facture-tab">
       <div class="dash-listingcontent dashboard-info">
         <div class="dash-cards card">
-          <div class="card-body" *ngIf="factureBien && factureBien.length > 0">
+          <div class="card-body">
             <div class="listing-search">
-              <h4>Mes factures</h4>
+              <ng-container *ngIf="factureBien && factureBien.length > 0; else noF">
+                <h5>Mes factures</h5>
+              </ng-container>
+              <ng-template #noF>
+                <h5>Vous n'avez pas de facture disponible</h5>
+              </ng-template>
+              <!-- <h4>Mes factures</h4> -->
               <div class="filter-content form-group">
                 <div class="group-img">
                   <input [(ngModel)]="searchFacture" type="text" class="form-control" placeholder="Recherche..." />
@@ -2700,7 +2699,7 @@
                 </div>
               </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" *ngIf="factureBien && factureBien.length > 0">
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
@@ -2906,9 +2905,15 @@
       aria-labelledby="factureBien-tab">
       <div class="dash-listingcontent dashboard-info">
         <div class="dash-cards card">
-          <div class="card-body" *ngIf="facture && facture.length > 0">
+          <div class="card-body">
             <div class="listing-search">
-              <h4>Mes factures</h4>
+              <ng-container *ngIf="facture && facture.length > 0; else noFa">
+                <h5>Mes factures</h5>
+              </ng-container>
+              <ng-template #noFa>
+                <h5>Vous n'avez pas de facture disponible</h5>
+              </ng-template>
+              <!-- <h4>Mes factures</h4> -->
               <div class="filter-content form-group">
                 <div class="group-img">
                   <input [(ngModel)]="searchFacture" type="text" class="form-control" placeholder="Recherche..." />
@@ -2916,7 +2921,7 @@
                 </div>
               </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" *ngIf="facture && facture.length > 0">
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
@@ -3118,9 +3123,15 @@
       aria-labelledby="favoris-tab">
       <div class="dash-listingcontent dashboard-info">
         <div class="dash-cards card">
-          <div class="card-body" *ngIf="favoris && favoris.length > 0">
+          <div class="card-body">
             <div class="listing-search">
-              <h4>Mes favoris</h4>
+              <ng-container *ngIf="favoris && favoris.length > 0; else noFq">
+                <h5>Mes favoris</h5>
+              </ng-container>
+              <ng-template #noFq>
+                <h5>Vous n'avez pas de biens dans les favoris</h5>
+              </ng-template>
+              <!-- <h4>Mes favoris</h4> -->
               <div class="filter-content form-group">
                 <div class="group-img">
                   <input [(ngModel)]="searchFavoris" type="text" class="form-control" placeholder="Recherche..." />
