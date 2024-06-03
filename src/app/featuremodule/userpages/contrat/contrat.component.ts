@@ -111,7 +111,6 @@ export class ContratComponent {
     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
       this.contrat = data;
       this.bien = data?.bien;
-      // console.log(this.bien?.contrat[0]?.facture[0]);
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
       this.emailProprietaire = this.storageService.getUser().email

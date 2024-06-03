@@ -127,7 +127,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-6 col-md-6" *ngIf="users.profil">
+                    <div class="col-lg-6 col-md-6" *ngIf="users?.profil">
                       <div class="form-group">
                         <label class="col-form-label">Statut</label>
                         <div class="pass-group group-img">
@@ -521,9 +521,7 @@
                                     <img style="width: 20px" src="../../../../assets/img/icons/quartier.png" alt="" />
                                   </div>
                                 </div>
-                                <!--<div class="flex-grow-1 ms-3">
-                                                                <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                            </div>-->
+                              
                                 <div class="flex-grow-1 ms-3">
                                   <input type="text" placeholder="Votre quartier" name="quartier" required
                                     class="form-control" [(ngModel)]="formModifadress.quartier" />
@@ -538,9 +536,7 @@
                                     <img style="width: 20px" src="../../../../assets/img/icons/route.png" alt="" />
                                   </div>
                                 </div>
-                                <!--<div class="flex-grow-1 ms-3">
-                                                                <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
-                                                            </div>-->
+                             
                                 <div class="flex-grow-1 ms-3">
                                   <input type="text" placeholder="Numéro rue" name="rue" required class="form-control"
                                     [(ngModel)]="formModifadress.rue" />
@@ -558,6 +554,15 @@
                                   <input [(ngModel)]="formModifadress.porte" type="text" required name="porte"
                                     class="form-control" placeholder="Numéro porte" />
                                 </div>
+                              </div>
+                            </div>
+                            <div class="form-group" *ngIf="hasRoleAgence">
+                          
+                              <div class="form-floating">
+                                <quill-editor name="description" [(ngModel)]="formModifadress.description" placeholder="Description"
+                                  [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
+                                  (onContentChanged)="onContentChanged($event)">
+                                </quill-editor>
                               </div>
                             </div>
                           </form>

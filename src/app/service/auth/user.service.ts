@@ -162,7 +162,8 @@ export class UserService {
     quartier: string,
     rue: string,
     porte: string,
-    commune: any
+    commune: any,
+    description:any,
   ): Observable<any> {
     const formData = new FormData();
     const headers = this.getHeaders();
@@ -171,6 +172,7 @@ export class UserService {
     formData.append('rue', rue);
     formData.append('porte', porte);
     formData.append('commune', commune);
+    formData.append('description', description);
     return this.http.put(
       URL_BASE + '/adresse/adresse',
       formData,

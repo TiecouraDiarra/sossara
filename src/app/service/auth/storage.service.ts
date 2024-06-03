@@ -30,6 +30,10 @@ export class StorageService {
     window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
+  public setCooki(user: any): void {
+    window.localStorage.removeItem(USER_KEY);
+    window.localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
 
 
   public isLoggedIn(): boolean {

@@ -393,7 +393,7 @@ export class AjouterBienComponent implements OnInit {
     const selectedQuartier = event.target.value;
     const selectedRegion = this.selectedRegion; // Récupérez la région sélectionnée à partir d'une variable définie dans votre composant
     const selectedCountry = this.selectedCountry; // Récupérez le pays sélectionné à partir d'une variable définie dans votre composant
-    console.log("Quartier ", selectedQuartier);
+
 
     const query = `country=${selectedCountry}&state=${selectedRegion}&city=${selectedQuartier}`;
     this.updateMapWithPolygon(query, 12);

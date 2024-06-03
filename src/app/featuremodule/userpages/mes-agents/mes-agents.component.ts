@@ -121,7 +121,6 @@ export class MesAgentsComponent implements OnInit {
     //AFFICHER LA LISTE DES AGENTS PAR AGENCE
     this.agenceService.ListeAgentParAgence().subscribe((data) => {
       this.agent = data.agents.reverse();
-      console.log(this.agent);
 
     });
 
@@ -196,7 +195,7 @@ export class MesAgentsComponent implements OnInit {
   openIsActiveModal(agentId: number) {
     // Stockez l'ID du Agent sélectionné dans la variable
     this.selectedAgentId = agentId;
-    console.log(this.selectedAgentId);
+
 
   }
 

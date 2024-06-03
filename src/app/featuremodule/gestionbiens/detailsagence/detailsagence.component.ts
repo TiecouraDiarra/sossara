@@ -274,7 +274,6 @@ export class DetailsagenceComponent implements OnInit {
 
       // Initialisez une variable pour stocker le nombre total de "J'aime".
       // let totalLikes = 0;
-      // console.log(this.bienImmo);
 
       this.bienImmo.forEach((bien: { favoris: any; id: string | number; }) => {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {

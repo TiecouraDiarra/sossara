@@ -133,22 +133,17 @@
             </div>
           </div>
           <div class="form-group group-img">
-            <!-- <mat-form-field class="mat-custom-select" style="width: 100%">
-              <mat-label *ngIf="selectedCategory == ''">
-                Usage d'utilisation</mat-label>
-              <mat-select [(ngModel)]="formCandidater.usage" name="usage">
-                <mat-option *ngFor="let item of usage" [value]="item.id">
-                  {{ item.nom }}</mat-option>
-              </mat-select>
-            </mat-form-field> -->
+         
             <label for="dateMaison">Usage d'utilisation</label>
             <div class="group-img">
-              <select class="form-control" [(ngModel)]="formCandidater.usage" name="usage">
-                <option value="" selected>Usage d'utilisation</option>
-                <option *ngFor="let item of usage" [value]="item.id">
-                  {{ item?.nom }}
-                </option>
-              </select>
+              <mat-form-field class="mat-custom-select" style="width: 98%">
+                <mat-label *ngIf="selectedCategory == ''">Usage d'utilisation</mat-label>
+                <mat-select name="usage"    [(ngModel)]="formCandidater.usage">
+                  <mat-option *ngFor="let item of usage" [value]="item.id">
+                    {{ item?.nom }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              
             </div>
           </div>
         </form>
@@ -333,10 +328,7 @@
                   <li *ngIf="bien && bien?.toilette">
                     Toilette<span>{{ bien?.toilette }}</span>
                   </li>
-                  <!-- <li>Gadgets <span>6</span></li>
-                                  <li>Home Area <span>30sqft</span></li>
-                                  <li>Lot Dimensions <span>30*30*20 ft</span></li>
-                                  <li class="p-0">Lot Area <span>50 ft</span></li> -->
+    
                 </ul>
               </div>
               <!-- <div>
@@ -379,20 +371,9 @@
               <div class="card">
                 <!-- <h4><i class="feather-briefcase"></i>Info Entreprise</h4> -->
                 <div class="map-details">
-                  <!-- <div class="map-frame">
-                                      <iframe
-                                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2238528387797!2d-122.41637708468208!3d37.78479337975754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858090475dcdc3%3A0x417fdbbd16e076ed!2s484%20Ellis%20St%2C%20San%20Francisco%2C%20CA%2094102%2C%20USA!5e0!3m2!1sen!2sin!4v1669879954211!5m2!1sen!2sin"
-                                          width="200" height="160" style="border:0;" allowfullscreen="" loading="lazy"
-                                          referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                  </div> -->
+                 
                   <ul class="info-list">
-                    <!-- <li><i class="feather-map-pin"></i> {{bien.adresse.quartier}},<br>Rue : {{bien.adresse.rue}},
-                                          Porte :{{bien.adresse.porte}}</li> -->
-                    <!-- <li *ngIf="bien && bien.utilisateur"><i class="feather-phone-call"></i>
-                                          {{bien?.utilisateur?.telephone}}</li>
-                                      <li *ngIf="bien && bien.utilisateur"><i class="feather-mail"></i>
-                                          {{bien?.utilisateur?.email}}</li> -->
-                    <!-- <li><img src="assets/img/website.svg" alt="website"> www.listee.com</li> -->
+                  
                     <h4><i class="fas fa-share-alt"></i>Partager</h4>
                     <li class="socialicons pb-0">
                       <a [href]="
@@ -428,19 +409,7 @@
                   type="submit">Partager le bien</button> -->
                 </div>
               </div>
-              <!--<div class="card">
-                          <h4><img src="assets/img/statistic-icon.svg" alt="location"> Statisfic</h4>
-                          <ul class="statistics-list">
-                              <li><div class="statistic-details"><span class="icons"><i class="fa-regular fa-eye"></i></span>
-                                 Views </div><span class="text-end"> 453563</span></li>
-                              <li><div class="statistic-details"><span class="icons"><i class="feather-star"></i></span>
-                                 Ratings </div><span class="text-end"> 153</span></li>
-                              <li><div class="statistic-details"><span class="icons"><i class="feather-heart"></i></span>
-                                   Favuorites </div><span class="text-end"> 123</span></li>
-                              <li class="mb-0"><div class="statistic-details"><span class="icons"><i class="feather-share-2"></i></span>
-                                   Shares </div><span class="text-end"> 50</span></li>
-                          </ul>
-                      </div>-->
+            
 
               <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false">
                 <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
@@ -692,12 +661,7 @@
                                   &nbsp;&nbsp;
                                   <i class="fa-sharp fa-solid fa-calendar-days"></i>
                                   {{ Reponse?.createdAt | date : "HH:mm" }}
-                                  <!-- <i class="float-end fw-bold">
-                                                                        <a class="" style="margin-right: 10px;" href="#"><small>Modifier</small></a>
-                                                                        <a data-bs-toggle="collapse" [href]="'#collapseExample-' + commentaire.id"
-                                                                        role="button" aria-expanded="false"
-                                                                        aria-controls="collapseExample"><small>{{commentaire?.reponses?.length}} Reponses</small></a>
-                                                                    </i> -->
+                                  
                                 </p>
                               </div>
                             </li>
@@ -712,46 +676,14 @@
                                 </div> -->
               <!-- </div> -->
               <ul class="">
-                <!-- <div class="ligne" *ngIf="commentaire && commentaire.length > 0">
-                                    <li class="review-box" *ngFor="let commentaire of commentaire">
-                                        <div class="review-profile">
-                                            <div class="review-img">
-                                                <img [src]="generateImageUrl(commentaire?.utilisateur?.photo?.nom)"
-                                                    (error)="handleAuthorImageError($event)" class="img-fluid"
-                                                    alt="img">
-                                            </div>
-                                        </div>
-                                        <div class="review-details">
-                                            <h6 *ngIf="commentaire && commentaire.utilisateur">
-                                                {{commentaire?.utilisateur?.nom}}</h6>
-                                            <div class="rating">
-                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                    {{commentaire?.createdAt | date:"dd/MM/yyyy"}}</div>
-                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                    {{commentaire?.createdAt | date:"HH:mm"}}</div>
-                                            </div>
-                                            <p>{{commentaire?.contenu}}</p>
-                                        </div>
-                                    </li>
-                                </div> -->
+             
                 <li class="review-box feedbackbox mb-0" *ngIf="isLoggedIn == true">
                   <div class="review-details">
                     <h6>Ecrire un commentaire</h6>
                   </div>
                   <div class="card-body">
                     <form class="">
-                      <!-- <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Titre">
-                                            </div> -->
-                      <!-- <div class="namefield">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Nom*" required>
-                                                </div>
-                                                <div class="form-group me-0">
-                                                    <input type="email" class="form-control"
-                                                        placeholder="Adresse Email*" required>
-                                                </div>
-                                            </div> -->
+                   
                       <div class="form-group">
                         <textarea name="contenu" [(ngModel)]="commentaireForm.contenu" rows="4" class="form-control"
                           placeholder="Ecriver votre commentaire*" required></textarea>
