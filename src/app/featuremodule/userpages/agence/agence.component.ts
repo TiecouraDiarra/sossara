@@ -30,9 +30,9 @@ export class AgenceComponent {
   facturelocation!: ElementRef;
 
   loading = false;
-  searchFacture: any; 
+  searchFacture: any;
   pfacture: number = 1;
-  pfacturebien : number = 1;
+  pfacturebien: number = 1;
   bonAccord = false;
   prendEnCharge = false;
   locale!: string;
@@ -48,6 +48,8 @@ export class AgenceComponent {
   selectedCommune: any;
   agence: any;
   factureBien: any;
+  profil: any;
+
 
   //GENERER FACTURE DU MOIS (LOCATION)
   genererPDFLocation() {
@@ -126,6 +128,7 @@ export class AgenceComponent {
   isLocataire = false;
   isAgence = false;
   isAgent = false;
+  isProprietaire = false;
   roles: string[] = [];
   bienImmoDejaLoueLocataire: any[] = []
   valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -289,7 +292,7 @@ export class AgenceComponent {
   onFileSelected(event: any): void {
     const selectedFiles = event.target.files;
     const reader = new FileReader();
-  
+
     for (const file of selectedFiles) {
       if (this.images.length < 8) {
         reader.onload = (e: any) => {
@@ -320,7 +323,7 @@ export class AgenceComponent {
     this.form.photo = this.images;
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
-  
+
   // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
   checkImageCount(): void {
     if (this.images.length >= 8) {
@@ -338,25 +341,66 @@ export class AgenceComponent {
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
-      // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes("ROLE_LOCATAIRE")) {
-        this.isLocataire = true;
-        this.selectedTab = 'home';
-      } else if (this.roles.includes("ROLE_AGENCE")) {
-        this.isAgence = true;
-        this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else if (this.roles.includes("ROLE_AGENT")) {
-        this.isAgent = true;
-        this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else {
-        this.selectedTab = 'home';
-      }
-    }
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-    } else if (!this.storageService.isLoggedIn()) {
-      this.isLoginFailed = false;
+      // Récupérer les données de l'utilisateur connecté
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true;
+          this.selectedTab = 'home';
+        } else if (this.profil == 'AGENCE') {
+          this.isAgence = true;
+          //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
+          this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
+
+            let totalBiensAgents: any[] = [];
+            this.bienImmoAgence = data?.bienImmos;
+            // Parcourir chaque agent
+            data.agents.forEach((agent: any) => {
+              // Ajouter les biens immobiliers de l'agent à la liste totale
+              totalBiensAgents.push(...agent.bienImmosAgents);
+            });
+            // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
+
+            this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents];
+            console.log(data);
+            // Filtrer les biens immobiliers
+            this.bienImmoAgenceTotal.forEach((bien: any) => {
+              // Vérifier si le bien est déjà loué AGENCE
+              if (bien.is_rent === true) {
+                this.bienTotalAgence.push(bien);
+              }
+
+              //   // Vérifier si le bien est déjà vendu AGENCE
+              if (bien.is_sell === true) {
+                this.bienVenduTotalAgence.push(bien);
+              }
+
+              //   // Le reste de votre logique pour traiter les favoris...
+
+            });
+            // Parcourir la liste des biens immobiliers
+            this.bienImmoAgenceTotal.forEach((bien: {
+              favoris: any; id: string | number;
+            }) => {
+              // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+              this.NombreJaimeAgence = bien.favoris.length;
+              if (typeof bien.id === 'number') {
+                this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
+              }
+              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+              // });
+            });
+          });
+          this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+        } else if (this.profil == 'AGENT') {
+          this.isAgent = true
+          this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+        } else if (this.profil == 'PROPRIETAIRE') {
+          this.isProprietaire = true;
+        } else {
+          this.selectedTab = 'home';
+        }
+      })
     }
     this.User = this.storageService.getUser().id;
 
@@ -364,7 +408,6 @@ export class AgenceComponent {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -379,12 +422,12 @@ export class AgenceComponent {
           this.bienImmoDejaVendu.push(bien);
         }
 
-        
-        
-        
+
+
+
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      
+
 
 
       // Parcourir la liste des biens immobiliers
@@ -400,48 +443,7 @@ export class AgenceComponent {
       });
     });
 
-    //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
-    this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
 
-      let totalBiensAgents: any[] = [];
-      this.bienImmoAgence = data?.bienImmos;
-      // Parcourir chaque agent
-      data.agents.forEach((agent: any) => {
-        // Ajouter les biens immobiliers de l'agent à la liste totale
-        totalBiensAgents.push(...agent.bienImmosAgents);
-      });
-      // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
-
-      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents];
-
-      // Filtrer les biens immobiliers
-      this.bienImmoAgenceTotal.forEach((bien: any) => {
-        // Vérifier si le bien est déjà loué AGENCE
-        if (bien.is_rent === true) {
-          this.bienTotalAgence.push(bien);
-        }
-
-        //   // Vérifier si le bien est déjà vendu AGENCE
-        if (bien.is_sell === true) {
-          this.bienVenduTotalAgence.push(bien);
-        }
-
-        //   // Le reste de votre logique pour traiter les favoris...
-
-      });
-      // Parcourir la liste des biens immobiliers
-      this.bienImmoAgenceTotal.forEach((bien: {
-        favoris: any; id: string | number;
-      }) => {
-        // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
-        this.NombreJaimeAgence = bien.favoris.length;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
-        }
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
-        // });
-      });
-    });
 
     //AFFICHER LA LISTE DES PROBLEMES
     this.serviceBienImmo.AfficherLIsteProbleme().subscribe(data => {
@@ -503,7 +505,7 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
       });
       // // Afficher les biens déjà loués et déjà vendus
-      
+
 
     });
 
@@ -574,10 +576,10 @@ export class AgenceComponent {
     return this.router.navigate(['details-bien', id])
   }
 
-        //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
-        goToListeRecu(id: number) {
-          return this.router.navigate(['userpages/liste_recu', id])
-        }
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
+  goToListeRecu(id: number) {
+    return this.router.navigate(['userpages/liste_recu', id])
+  }
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN
   goToModifierBien(id: number) {
     return this.router.navigate(['userpages/modifier-bien', id])
@@ -649,7 +651,7 @@ export class AgenceComponent {
               this.popUpConfirmation();
             },
             error => {
-           
+
             }
           );
         } else {
@@ -729,11 +731,11 @@ export class AgenceComponent {
               this.popUpConfirmationProcessus();
             },
             error => {
-              
+
             }
           );
         } else {
-        
+
         }
       }
     })
@@ -826,11 +828,11 @@ export class AgenceComponent {
   //             this.popUpConfirmationArreteProcessus();
   //           },
   //           error => {
-   
+
   //           }
   //         );
   //       } else {
-         
+
   //       }
   //     }
   //   })
@@ -869,14 +871,14 @@ export class AgenceComponent {
               this.popUpConfirmationSuppression();
             },
             error: (err) => {
-           
+
               this.errorMessage = err.error.message;
-        
+
             }
           }
           );
         } else {
-       
+
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         // L'utilisateur a annulé l'action
@@ -969,8 +971,8 @@ export class AgenceComponent {
     return this.router.navigate(['userpages/contrat', id])
   }
 
-   //LA METHODE PERMETTANT DE NAVIGUER VERS LA LISTE DES FACTURES
-   goToListeFacture(id: number) {
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA LISTE DES FACTURES
+  goToListeFacture(id: number) {
     return this.router.navigate(['userpages/liste_facture', id])
   }
 
@@ -1024,18 +1026,18 @@ export class AgenceComponent {
           });
         },
         error => {
-        
+
         }
       );
     } else {
-  
+
     }
   }
 
   get pages(): number[] {
     return Array.from({ length: this.pageCount }, (_, i) => i + 1);
   }
-  
+
   get pageA(): number[] {
     return Array.from({ length: this.pageAgence }, (_, i) => i + 1);
   }
@@ -1051,14 +1053,14 @@ export class AgenceComponent {
       this.currentA--;
     }
   }
-  
+
 
   // Méthode pour passer à la page suivante
   nextPage() {
     if (this.currentPage < this.pageCount) {
       this.currentPage++;
     }
-   
+
   }
   nextPageA() {
     if (this.currentA < this.pageAgence) {
@@ -1072,30 +1074,30 @@ export class AgenceComponent {
   setCurrentPageA(page: number) {
     this.currentA = page;
   }
-  
+
   pageSize: number = 4; // Nombre d'éléments par page
 
   get pageCount(): number {
     // if (this.bienImmo.length === 0) {
-        // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
+    // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
     // } else {
-        return Math.ceil(this.bienImmoAgenceTotal.length / this.pageSize);
-       
+    return Math.ceil(this.bienImmoAgenceTotal.length / this.pageSize);
+
     // }
-}
+  }
 
 
-get pageAgence(): number {
-  // if (this.bienImmo.length === 0) {
-      // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
-  // } else {
-      return Math.ceil(this.bienTotalAgence.length / this.pageSize);
-     
-  // }
-}
+  get pageAgence(): number {
+    // if (this.bienImmo.length === 0) {
+    // return 1; // Si aucune donnée n'est disponible, renvoie 1 page
+    // } else {
+    return Math.ceil(this.bienTotalAgence.length / this.pageSize);
+
+    // }
+  }
 
 
-itemsPerPage = 4;
+  itemsPerPage = 4;
 
 
 }

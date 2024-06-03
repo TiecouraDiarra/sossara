@@ -157,11 +157,11 @@
                       <div class="listingtable-img">
                         <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
                           <div *ngIf="
-                              BienImmo.photos && BienImmo?.photos?.length > 0;
+                              BienImmo.photos;
                               else noImages
                             ">
                             <img src="{{
-                                generateImageUrl(BienImmo?.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos)
                               }}" class="img-fluid image-size" alt="blog-img" />
                           </div>
                           <ng-template #noImages>
@@ -624,15 +624,40 @@
                       <div class="listingtable-img">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div *ngIf="
-                              BienImmo.photos && BienImmo?.photos.length > 0;
+                              BienImmo.photos;
                               else noImages
                             ">
                             <img src="{{
-                                generateImageUrl(BienImmo?.photos[0]?.nom)
+                                generateImageUrl(BienImmo?.photos)
                               }}" class="img-fluid image-size" alt="blog-img" />
                           </div>
                           <ng-template #noImages>
-                            <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Villa'">
+                              <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Appartement'">
+                              <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Terrain'">
+                              <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Bureau'">
+                              <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Champ'">
+                              <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="
+                                BienImmo?.typeImmo?.nom === 'Commerce & Magasin'
+                              ">
+                              <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
                           </ng-template>
                         </a>
                       </div>
@@ -810,11 +835,11 @@
                       <div class="listingtable-img">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div *ngIf="
-                              BienImmo.photos && BienImmo?.photos.length > 0;
+                              BienImmo.photos;
                               else noImages
                             ">
                             <img src="{{
-                                generateImageUrl(BienImmo?.photos[0].nom)
+                                generateImageUrl(BienImmo?.photos)
                               }}" class="img-fluid image-size" alt="blog-img" />
                           </div>
                           <ng-template #noImages>
@@ -945,15 +970,40 @@
                       <div class="listingtable-img">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div *ngIf="
-                              BienImmo.photos && BienImmo?.photos?.length > 0;
+                              BienImmo.photos;
                               else noImages
                             ">
                             <img src="{{
-                                generateImageUrl(BienImmo?.photos[0]?.nom)
+                                generateImageUrl(BienImmo?.photos)
                               }}" class="img-fluid image-size" alt="blog-img" />
                           </div>
                           <ng-template #noImages>
-                            <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Villa'">
+                              <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Appartement'">
+                              <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Terrain'">
+                              <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Bureau'">
+                              <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Champ'">
+                              <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
+                            <div class="type" *ngIf="
+                                BienImmo?.typeImmo?.nom === 'Commerce & Magasin'
+                              ">
+                              <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                alt="default-img" />
+                            </div>
                           </ng-template>
                         </a>
                       </div>
@@ -1477,7 +1527,7 @@
                       <!-- Indicateur de chargement -->
                       <div *ngIf="loading" class="spinner-border text-primary" role="status">
                         <span class="sr-only">Chargement en cours...</span>
-                      </div> 
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1635,9 +1685,9 @@
                                                     class="action-btn btn-view crd"><i class="feather-eye"></i>
                                                     <span class="hover-text">Faire une reclamation</span>
                                                 </a> -->
-                        <a (click)="goToPageContrat(BienImmo?.bien?.contrat[0]?.uuid)"
-                          class="action-btn btn-view crd">
-                          <img class="icone-size" src="../../../../assets/img/iconeBien/contrat.png" alt="Room amenities">
+                        <a (click)="goToPageContrat(BienImmo?.bien?.contrat[0]?.uuid)" class="action-btn btn-view crd">
+                          <img class="icone-size" src="../../../../assets/img/iconeBien/contrat.png"
+                            alt="Room amenities">
                           <span class="hover-text">Voir le contrat</span>
                         </a>
                         <a (click)="goToListeRecu(BienImmo?.bien?.contrat[0]?.facture[0]?.uuid)"
@@ -2820,7 +2870,8 @@
                             </div>
                             <div class="settings-upload-btn">
                               <input type="file" id="photo" name="photo" (change)="onFileSelected($event)" multiple
-                                class="hide-input image-upload" accept=".png, .jpeg, .jpg, .svg, .webp" [disabled]="maxImageCount >= 4" />
+                                class="hide-input image-upload" accept=".png, .jpeg, .jpg, .svg, .webp"
+                                [disabled]="maxImageCount >= 4" />
                               <label for="file" class="file-upload">Ajouter l'image</label>
                             </div>
                           </div>

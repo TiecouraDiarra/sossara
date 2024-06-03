@@ -70,6 +70,7 @@ export class AjouterBienComponent implements OnInit {
   cercle: any;
   lesCommodite: any;
   caracteristique: any;
+  profil: any;
 
   constructor(
     private DataService: DataService,
@@ -280,14 +281,26 @@ export class AjouterBienComponent implements OnInit {
     Aos.init({ disable: 'mobile' });
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      if (this.roles[0] == 'ROLE_LOCATAIRE') {
-        this.isLocataire = true;
-      } else if (this.roles[0] == 'ROLE_AGENCE') {
-        this.isAgence = true;
-      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isProprietaire = true
-      }
+      this.userService.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true;
+        } else if (this.profil == 'AGENCE' ) {
+          this.isAgence = true; 
+        } else if (this.profil == 'AGENT') {
+          // this.isAgent = true
+        } else if (this.profil == 'PROPRIETAIRE') {
+          this.isProprietaire = true
+        }
+      })
+      // this.roles = this.storageService.getUser().roles;
+      // if (this.roles[0] == 'ROLE_LOCATAIRE') {
+      //   this.isLocataire = true;
+      // } else if (this.roles[0] == 'ROLE_AGENCE') {
+      //   this.isAgence = true;
+      // } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true
+      // }
     }
 
     //AFFICHER LA LISTE DES COMMODITES

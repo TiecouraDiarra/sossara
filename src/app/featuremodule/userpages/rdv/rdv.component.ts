@@ -27,6 +27,7 @@ export class RdvComponent {
   rdv: any;
   locale!: string;
   isProprietaire= false;
+  profil: any;
 
   constructor(
     private authService: AuthService,
@@ -40,17 +41,28 @@ export class RdvComponent {
   }
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
-      // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes("ROLE_LOCATAIRE")) {
-        this.isLocataire = true
-      } else if (this.roles.includes("ROLE_AGENCE")) {
-        this.isAgence = true
-      } else if (this.roles.includes("ROLE_AGENT")) {
-        this.isAgent = true
-      }  else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isProprietaire = true
-      }
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true;
+        } else if (this.profil == 'AGENCE' ) {
+          this.isAgence = true; 
+        } else if (this.profil == 'AGENT') {
+          this.isAgent = true
+        } else if (this.profil == 'PROPRIETAIRE') {
+          this.isProprietaire = true
+        }
+      })
+      // this.roles = this.storageService.getUser().roles;
+      // if (this.roles.includes("ROLE_LOCATAIRE")) {
+      //   this.isLocataire = true
+      // } else if (this.roles.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true
+      // } else if (this.roles.includes("ROLE_AGENT")) {
+      //   this.isAgent = true
+      // }  else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true
+      // }
     }
 
         //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE

@@ -36,6 +36,7 @@ export class NotificationsComponent implements OnInit {
   CandidatureUser: any;
   selectedPaymentMode: any;
   idCandidature: any;
+  profil: any;
   onNombreMoisChange(): void {
      // const selectElement = event.target as HTMLSelectElement;
     // this.nombreMoisChoisi = parseInt(selectElement.value, 10);
@@ -109,17 +110,29 @@ export class NotificationsComponent implements OnInit {
   }
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true;
+        } else if (this.profil == 'AGENCE' ) {
+          this.isAgence = true; 
+        } else if (this.profil == 'AGENT') {
+          // this.isAgent = true
+        } else if (this.profil == 'PROPRIETAIRE') {
+          this.isProprietaire = true
+        }
+      })
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-       if (this.roles.includes("ROLE_LOCATAIRE")) {
-        this.isLocataire = true
-      } else if (this.roles.includes("ROLE_AGENCE")) {
-        this.isAgence = true
-      } else if (this.roles.includes("ROLE_AGENT")) {
-        // this.isAgent = true
-      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isProprietaire = true
-      }
+      // this.roles = this.storageService.getUser().roles;
+      //  if (this.roles.includes("ROLE_LOCATAIRE")) {
+      //   this.isLocataire = true
+      // } else if (this.roles.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true
+      // } else if (this.roles.includes("ROLE_AGENT")) {
+      //   // this.isAgent = true
+      // } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true
+      // }
     }
      this.User = this.storageService.getUser().id;
     const Users = this.storageService.getUser();

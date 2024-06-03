@@ -54,6 +54,7 @@ export class MesAgentsComponent implements OnInit {
   p1: number = 1;
   currentUser: any;
   commune: any;
+  profil: any;
 
   // @ViewChild('motDePasseSpan', { static: false }) motDePasseSpan!: ElementRef;
 
@@ -102,20 +103,39 @@ export class MesAgentsComponent implements OnInit {
     this.Bookmarksdata = this.dataservice.Bookmarksdata;
   }
   ngOnInit(): void {
+    // if (this.storageService.isLoggedIn()) {
+    //   // Charger la liste des utilisateurs lors de l'initialisation
+    //   this.currentUser = this.storageService.getUser();
+    //   // this.isLoggedIn = true;
+    //   this.roles = this.storageService.getUser().roles;
+    //   // this.nomAgence = this.storageService.getUser().nom;
+    //   // Récupérer les données de l'utilisateur connecté
+    //   if (this.roles.includes("ROLE_LOCATAIRE")) {
+    //     this.isLocataire = true
+    //   } else if (this.roles.includes("ROLE_AGENCE")) {
+    //     this.isAgence = true
+    //   } else if (this.roles.includes("ROLE_AGENT")) {
+    //     // this.isAgent = true
+    //   }
+    // }
+
     if (this.storageService.isLoggedIn()) {
-      // Charger la liste des utilisateurs lors de l'initialisation
-      this.currentUser = this.storageService.getUser();
-      // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      // this.nomAgence = this.storageService.getUser().nom;
       // Récupérer les données de l'utilisateur connecté
-      if (this.roles.includes("ROLE_LOCATAIRE")) {
-        this.isLocataire = true
-      } else if (this.roles.includes("ROLE_AGENCE")) {
-        this.isAgence = true
-      } else if (this.roles.includes("ROLE_AGENT")) {
-        // this.isAgent = true
+    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+      this.profil = data[0]?.profil;
+      this.currentUser = data[0];
+      if (this.profil == 'LOCATAIRE') {
+        this.isLocataire = true;
+      } else if (this.profil == 'AGENCE' ) {
+        this.isAgence = true; 
+      } else if (this.profil == 'AGENT') {
+        
+      } else if (this.profil == 'PROPRIETAIRE') {
+        
+      }else {
       }
+    })
+      // }
     }
 
     //AFFICHER LA LISTE DES AGENTS PAR AGENCE

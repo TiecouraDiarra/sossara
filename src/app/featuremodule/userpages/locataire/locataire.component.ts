@@ -53,6 +53,7 @@ export class LocataireComponent implements OnInit {
   bienFacture: any;
   favoris: any;
   bienImmoFavoris: any[] = [];
+  profil: any;
 
   //GENERER FACTURE DU MOIS (LOCATION)
   genererPDFLocation() {
@@ -321,19 +322,34 @@ export class LocataireComponent implements OnInit {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      if (this.roles.includes('ROLE_LOCATAIRE')) {
-        this.isLocataire = true;
-        this.selectedTab = 'home';
-      } else if (this.roles.includes('ROLE_AGENCE')) {
-        this.isAgence = true;
-        this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else if (this.roles.includes('ROLE_AGENT')) {
-        this.isAgent = true;
-        this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else {
-        this.selectedTab = 'home';
-      }
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true;
+          this.selectedTab = 'home';
+        } else if (this.profil == 'AGENCE') {
+          this.isAgence = true;
+          this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+        } else if (this.profil == 'AGENT') {
+          this.isAgent = true
+          this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+        } else {
+          this.selectedTab = 'home';
+        }
+      })
+      // this.roles = this.storageService.getUser().roles;
+      // if (this.roles.includes('ROLE_LOCATAIRE')) {
+      //   this.isLocataire = true;
+      //   this.selectedTab = 'home';
+      // } else if (this.roles.includes('ROLE_AGENCE')) {
+      //   this.isAgence = true;
+      //   this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+      // } else if (this.roles.includes('ROLE_AGENT')) {
+      //   this.isAgent = true;
+      //   this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+      // } else {
+      //   this.selectedTab = 'home';
+      // }
     }
 
     if (this.storageService.isLoggedIn()) {
@@ -904,12 +920,12 @@ export class LocataireComponent implements OnInit {
   onKeyPress(event: any) {
     const pattern = /[0-9\ \+\-]/;
     let inputChar = String.fromCharCode(event.charCode);
-  
+
     if (!pattern.test(inputChar)) {
       // Caractère non numérique, empêcher l'entrée
       event.preventDefault();
     }
-  
+
     // Insérer un espace après chaque trio de chiffres
     let inputValue = event.target.value.replace(/\s/g, ''); // Supprimer les espaces existants
     let formattedValue = '';
@@ -918,7 +934,7 @@ export class LocataireComponent implements OnInit {
     }
     // Supprimer l'espace initial s'il dépasse la limite de 1000 caractères
     formattedValue = formattedValue.slice(0, 1000);
-  
+
     // Mettre à jour la valeur dans l'input
     event.target.value = formattedValue;
   }

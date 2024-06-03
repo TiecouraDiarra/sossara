@@ -55,6 +55,7 @@ export class AccueilComponent {
   totalzone: any;
   responseData: any;
   isMobile = false;
+  profil: any;
   changeImage() {
     this.currentImageIndex =
       (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -431,12 +432,13 @@ export class AccueilComponent {
     }, 3000); // Changez d'image toutes les 5 secondes (5000 ms)
 
     if (this.storageService.isLoggedIn()) {
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true
+        }
+      });
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      if (this.roles[0] == 'ROLE_LOCATAIRE') {
-        this.isLocataire = true;
-      }
-      // this.roles = this.storageService.getUser().roles;
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
     }
@@ -522,17 +524,6 @@ export class AccueilComponent {
       this.agence = data;
     });
 
-    //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
-    // this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
-    //   this.BienLoueRecensTotal = data.reverse();
-    //   this.BienLoueRecensTotal.forEach((bien: any) => {
-    //     // Vérifier si le bien est déjà loué
-    //     if (bien.statut.nom === 'A louer') {
-    //       this.BienLoueRecens.push(bien);
-    //     }
-    //   });
-     
-    // });
 
     this.serviceBienImmo.trouverTop6BiensRecemmentAjoutes().subscribe((data) => {
       this.BienLoueRecens = data;
@@ -562,12 +553,6 @@ export class AccueilComponent {
       // this.BienLoueRecens = [data.biens.reverse()[0], data.biens.reverse()[1], data.biens.reverse()[2], data.biens.reverse()[3]]
     });
 
-    //AFFICHER LA LISTE DES BIENS IMMO RECENTS A VENDRE
-    // this.serviceBienImmo.AfficherLaListeBienImmoAvendre().subscribe(data => {
-    //   this.nombreBienVendre = data.biens.length;
-    // }
-    // )
-
     //AFFICHER LA LISTE DES BLOGS
     this.serviceBlog.AfficherLaListeBlog().subscribe((data) => {
       this.blog = data;
@@ -579,14 +564,14 @@ export class AccueilComponent {
     this.derniersBiens = this.BienTotal
       .sort((a: { dateAjout: string | number | Date; }, b: { dateAjout: string | number | Date; }) => new Date(b.dateAjout).getTime() - new Date(a.dateAjout).getTime())
       .slice(0, 6);
-      console.log("Derniers biens ajoutés :", this.derniersBiens);
+      // console.log("Derniers biens ajoutés :", this.derniersBiens);
   }
 
   getTopFavorisBiens() {
     this.topFavorisBiens = this.BienTotal
       .sort((a: { nombreFavoris: number; }, b: { nombreFavoris: number; }) => b.nombreFavoris - a.nombreFavoris)
       .slice(0, 6);
-      console.log("Top biens basés sur les favoris :", this.topFavorisBiens);
+      // console.log("Top biens basés sur les favoris :", this.topFavorisBiens);
   }
 
   // hasRole(roleName: string): boolean {

@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
   roles: string[] = [];
   // Dans votre composant TypeScript
 isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
+  profil: any;
 @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.checkScreenWidth();
@@ -90,20 +91,21 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
   }
   ngOnInit(): void {
     this.checkScreenWidth();
+    // if (this.storageService.isLoggedIn()) {
+    //   this.isLoggedIn = true;
+    //   // this.roles = this.storageService.getUser().roles;
+    //   // this.roles = this.storageService.getUser().roles;
+    //   if (this.roles.includes("ROLE_LOCATAIRE")) {
+    //     this.isLocataire = true
+    //   }
+    //   // this.roles = this.storageService.getUser().roles;
+    // } else if (!this.storageService.isLoggedIn()) {
+    //   this.isLoginFailed = false;
+    // }
+
+
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      this.roles = this.storageService.getUser().roles;
-      if (this.  roles.includes("ROLE_LOCATAIRE")) {
-        this.isLocataire = true
-      }
-      // this.roles = this.storageService.getUser().roles;
-    } else if (!this.storageService.isLoggedIn()) {
-      this.isLoginFailed = false;
-    }
-
-
-    if (this.storageService.isLoggedIn()) {
       //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
       this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
         this.nombreCandidatureAccepter = data?.length;
@@ -126,8 +128,14 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
       });
       this.serviceUser.AfficherUserConnecter().subscribe((data) => {
         this.users = data[0];
+        this.profil = this.users?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true
+        }
       });
 
+    }else if (!this.storageService.isLoggedIn()) {
+      this.isLoginFailed = false;
     }
 
 

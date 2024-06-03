@@ -175,7 +175,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     // Récupérer les données de l'utilisateur connecté
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-      console.log(data[0]);
+      // console.log(data[0]);
       this.users = data[0];
       this.profil = this.users?.profil;
       this.selectedValue =
@@ -191,16 +191,7 @@ export class ProfileComponent implements OnInit {
         communeform: this.users.adresse?.commune?.id
 
       };
-
-    });
-
-    //AFFICHER LA PHOTO DE USER CONNECTER
-    this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
-      this.photo = data;
-    });
-    if (this.storageService.isLoggedIn()) {
-      // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
+      // this.hasRoleAgence = this.users.profil == 'AGENCE';
       if (this.profil == 'LOCATAIRE') {
         this.isLocataire = true;
       } else if (this.profil == 'AGENCE' ) {
@@ -210,7 +201,33 @@ export class ProfileComponent implements OnInit {
       } else if (this.profil == 'PROPRIETAIRE') {
         this.isProprietaire = true;
       }
-    }
+      this.formModif = {
+        nom: this.users?.nom || '',
+        telephone: this.users?.telephone || '',
+        email: this.users?.email || '',
+        dateNaissance: this.users?.dateNaissance || '',
+
+      };
+
+    });
+
+    //AFFICHER LA PHOTO DE USER CONNECTER
+    this.serviceUser.AfficherPhotoUserConnecter().subscribe((data) => {
+      this.photo = data;
+    });
+    // if (this.storageService.isLoggedIn()) {
+    //   // this.isLoggedIn = true;
+    //   this.roles = this.storageService.getUser().roles;
+    //   if (this.profil == 'LOCATAIRE') {
+    //     this.isLocataire = true;
+    //   } else if (this.profil == 'AGENCE' ) {
+    //     this.isAgence = true;
+    //   } else if (this.profil == 'AGENT') {
+    //     // this.isAgent = true
+    //   } else if (this.profil == 'PROPRIETAIRE') {
+    //     this.isProprietaire = true;
+    //   }
+    // }
 
 
 

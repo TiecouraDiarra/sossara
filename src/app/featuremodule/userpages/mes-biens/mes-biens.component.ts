@@ -5,6 +5,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
+import { UserService } from 'src/app/service/auth/user.service';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 
@@ -54,6 +55,7 @@ export class MesBiensComponent implements OnInit {
   public electronics: any = []
 
   today: Date;
+  profil: any;
   // Méthode pour changer l'onglet sélectionné
   changeTab(tab: string) {
     this.selectedTab = tab;
@@ -67,6 +69,7 @@ export class MesBiensComponent implements OnInit {
   constructor(
     private DataService: DataService,
     private storageService: StorageService,
+    private serviceUser : UserService,
     public router: Router,
     private authService: AuthService,
   ) {
@@ -79,23 +82,41 @@ export class MesBiensComponent implements OnInit {
  
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
-      // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-       if (this.roles.includes("ROLE_LOCATAIRE")) {
+      // Récupérer les données de l'utilisateur connecté
+    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+      this.profil = data[0]?.profil;
+      if (this.profil == 'LOCATAIRE') {
         this.isLocataire = true;
         this.selectedTab = 'home';
-      } else if (this.roles.includes("ROLE_AGENCE")) {
+      } else if (this.profil == 'AGENCE' ) {
         this.isAgence = true;
         this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isProprietaire = true
-      }
-      else if (this.roles.includes("ROLE_AGENT")) {
-        this.isAgent = true;
+      } else if (this.profil == 'AGENT') {
+        this.isAgent = true
         this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
-      } else {
+      } else if (this.profil == 'PROPRIETAIRE') {
+        this.isProprietaire = true;
+      }else {
         this.selectedTab = 'home';
       }
+    })
+      // this.isLoggedIn = true;
+      // this.roles = this.storageService.getUser().roles;
+      //  if (this.roles.includes("ROLE_LOCATAIRE")) {
+      //   this.isLocataire = true;
+      //   this.selectedTab = 'home';
+      // } else if (this.roles.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true;
+      //   this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+      // } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true
+      // }
+      // else if (this.roles.includes("ROLE_AGENT")) {
+      //   this.isAgent = true;
+      //   this.selectedTab = 'home'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
+      // } else {
+      //   this.selectedTab = 'home';
+      // }
     }
     this.User = this.storageService.getUser().id;
    } 

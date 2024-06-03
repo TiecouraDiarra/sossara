@@ -42,7 +42,7 @@ export class FeaturemoduleComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Vérifiez si l'URL actuelle inclut 'trouverbien'
-        this.hideFooter = event.url.includes('trouverbien');
+        this.hideFooter = event.url.includes('/trouverbien');
       }
     });
 
@@ -81,7 +81,7 @@ export class FeaturemoduleComponent implements OnInit {
         this.strokeValue = 0;
       }
 
-      if (this.tittle.toLowerCase().includes('rechercher')) {
+      if (this.tittle.toLowerCase().includes('trouverbien')) {
         this.hideFooter = true;
       } else {
         this.hideFooter = false;
@@ -118,7 +118,7 @@ export class FeaturemoduleComponent implements OnInit {
     if (
       route.url === routes.listingmaplist ||
       route.url === routes.listingmapgrid ||
-      route.url.includes('trouverbien')
+      route.url.includes('/trouverbien')
     ) {
       this.hideFooter = true;
     } else {
