@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   last: string = '';
   User: any
   isLocataire = false;
+  isCompletedProfil = false;
   roles: string[] = [];
   // Dans votre composant TypeScript
 isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
@@ -91,56 +92,37 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
   }
   ngOnInit(): void {
     this.checkScreenWidth();
-    // if (this.storageService.isLoggedIn()) {
-    //   this.isLoggedIn = true;
-    //   // this.roles = this.storageService.getUser().roles;
-    //   // this.roles = this.storageService.getUser().roles;
-    //   if (this.roles.includes("ROLE_LOCATAIRE")) {
-    //     this.isLocataire = true
-    //   }
-    //   // this.roles = this.storageService.getUser().roles;
-    // } else if (!this.storageService.isLoggedIn()) {
-    //   this.isLoginFailed = false;
-    // }
+    this.checkUserStatus();
 
 
+
+  }
+
+  checkUserStatus(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      //AFFICHER LA LISTE DES BIENS LOUES DONT LES CANDIDATURES SONT ACCEPTEES EN FONCTION DES LOCATAIRES
-      this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
-        this.nombreCandidatureAccepter = data?.length;
-        //AFFICHER LA LISTE DES RDV RECU PAR USER CONNECTE
-        this.serviceUser.AfficherLaListeRdv().subscribe(data => {
-          this.nombreRdvUser = data?.length;
-  
+      this.serviceUser.AfficherUserConnecter().subscribe(
+        (data) => {
+          this.users = data[0];
+          // console.log(this.users);
+          this.profil = this.users?.profil;
+          if (this.profil === 'LOCATAIRE') {
+            this.isLocataire = true;
+          }
+          if (this.users?.profilCompleter === true) {
+            this.isCompletedProfil = true;
+          } else {
+            this.isLoginFailed = false;
+          }
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des données de l\'utilisateur', error);
+          this.isLoginFailed = true;
         }
-        );
-        //AFFICHER LA LISTE DES CANDIDATURE PAR USER
-        this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
-          this.nombreCandidatureBienUser = data?.length;
-          const filteredData = data.filter((item: { isAccepted: any; isCancel: any; }) => !item.isAccepted && !item.isCancel);
-            // Mettre à jour la variable avec la liste filtrée
-            this.filteredData = filteredData.length;
-          // Calculer la somme des candidatures et des rendez-vous
-          this.somme = this.nombreRdvUser + this.filteredData + this.nombreCandidatureAccepter;
-  
-        });
-      });
-      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-        this.users = data[0];
-        this.profil = this.users?.profil;
-        if (this.profil == 'LOCATAIRE') {
-          this.isLocataire = true
-        }
-      });
-
-    }else if (!this.storageService.isLoggedIn()) {
+      );
+    } else {
       this.isLoginFailed = false;
     }
-
-
-
-
   }
   private getroutes(route: any): void {
     let splitVal = route.url.split('/');
