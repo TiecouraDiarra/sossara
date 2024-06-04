@@ -373,7 +373,7 @@
                           <!-- Indicateur de chargement -->
                           <div *ngIf="loading" class="spinner-border text-primary" role="status">
                             <span class="sr-only">Chargement en cours...</span>
-                          </div> 
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -397,18 +397,19 @@
                                   <i class="feather-map-pin"></i>
                                 </div>
                               </div>
-                           
+
                               <div class="flex-grow-1 ms-3">
                                 <mat-form-field class="mat-custom-select" style="width: 98%">
                                   <mat-label *ngIf="selectedCategory == ''">pays</mat-label>
-                                  <mat-select name="pays" (selectionChange)="onChange2($event)"   [(ngModel)]="selectedValue">
+                                  <mat-select name="pays" (selectionChange)="onChange2($event)"
+                                    [(ngModel)]="selectedValue">
                                     <mat-option *ngFor="let item of pays" [value]="item.nompays">
                                       {{ item.nompays }}</mat-option>
                                   </mat-select>
                                 </mat-form-field>
                               </div>
                             </div>
-                        
+
                             <div>
                               <div class="d-flex real-estate-search">
                                 <div class="flex-shrink-0 d-flex align-items-center">
@@ -417,28 +418,16 @@
                                   </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                               
 
-                                  <mat-form-field
-                                  class="mat-custom-select"
-                                  style="width: 98%"
-                                >
-                                  <mat-label *ngIf="selectedCategory == ''"
-                                    >Region</mat-label
-                                  >
-                                  <mat-select
-                                    name="region"
-                                    (selectionChange)="onChangeRegion($event)"
-                                    [(ngModel)]="selectedValueR"
-                                  >
-                                    <mat-option
-                                      *ngFor="let Region of regions"
-                                      [value]="Region.nomregion"
-                                    >
-                                      {{ Region?.nomregion }}</mat-option
-                                    >
-                                  </mat-select>
-                                </mat-form-field>
+
+                                  <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Region</mat-label>
+                                    <mat-select name="region" (selectionChange)="onChangeRegion($event)"
+                                      [(ngModel)]="selectedValueR">
+                                      <mat-option *ngFor="let Region of regions" [value]="Region.nomregion">
+                                        {{ Region?.nomregion }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
                                 </div>
                               </div>
                             </div>
@@ -450,31 +439,18 @@
                                   </div>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                               
 
 
-                                  <mat-form-field
-                                  class="mat-custom-select"
-                                  style="width: 98%"
-                                >
-                                  <mat-label *ngIf="selectedCategory == ''"
-                                    >Cercle</mat-label
-                                  >
-                                  <mat-select
-                                    name="cercle"
-                                    (selectionChange)="onChangeCercle($event)"
-                                    [(ngModel)]="selectedValueC"
 
-                                  >
-                                    <mat-option
-                                      *ngFor="let Cercle of cercles"
-                                      [value]="Cercle.nomcercle"
-                                    >
-                                    {{ Cercle?.nomcercle }}
-                                    </mat-option
-                                    >
-                                  </mat-select>
-                                </mat-form-field>
+                                  <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Cercle</mat-label>
+                                    <mat-select name="cercle" (selectionChange)="onChangeCercle($event)"
+                                      [(ngModel)]="selectedValueC">
+                                      <mat-option *ngFor="let Cercle of cercles" [value]="Cercle.nomcercle">
+                                        {{ Cercle?.nomcercle }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
                                 </div>
                               </div>
                             </div>
@@ -485,32 +461,19 @@
                                     <i class="feather-map-pin"></i>
                                   </div>
                                 </div>
-                         
-                                <div class="flex-grow-1 ms-3">
-                                  
 
-                                <mat-form-field
-                                class="mat-custom-select"
-                                style="width: 98%"
-                              >
-                                <mat-label *ngIf="selectedCategory == ''"
-                                  >Commune</mat-label
-                                >
-                                <mat-select
-                                  name="communeform"
-                                  [(ngModel)]="formModifadress.communeform" 
-                                >
-                                  <mat-option
-                                  *ngFor="let Commune of communes"
-                                    [value]="Commune.id"
-                                    
-                                  >
-                                  {{ Commune?.nomcommune }}
-                                  </mat-option
-                                  >
-                                </mat-select>
-                              </mat-form-field>
-                            </div>
+                                <div class="flex-grow-1 ms-3">
+
+
+                                  <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Commune</mat-label>
+                                    <mat-select name="communeform" [(ngModel)]="formModifadress.communeform">
+                                      <mat-option *ngFor="let Commune of communes" [value]="Commune.id">
+                                        {{ Commune?.nomcommune }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
                               </div>
                             </div>
 
@@ -521,7 +484,7 @@
                                     <img style="width: 20px" src="../../../../assets/img/icons/quartier.png" alt="" />
                                   </div>
                                 </div>
-                              
+
                                 <div class="flex-grow-1 ms-3">
                                   <input type="text" placeholder="Votre quartier" name="quartier" required
                                     class="form-control" [(ngModel)]="formModifadress.quartier" />
@@ -536,7 +499,7 @@
                                     <img style="width: 20px" src="../../../../assets/img/icons/route.png" alt="" />
                                   </div>
                                 </div>
-                             
+
                                 <div class="flex-grow-1 ms-3">
                                   <input type="text" placeholder="Numéro rue" name="rue" required class="form-control"
                                     [(ngModel)]="formModifadress.rue" />
@@ -557,10 +520,11 @@
                               </div>
                             </div>
                             <div class="form-group" *ngIf="isAgence">
-                          
+
                               <div class="form-floating">
-                                <quill-editor name="description" [(ngModel)]="formModifadress.description" placeholder="Description"
-                                  [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
+                                <quill-editor name="description" [(ngModel)]="formModifadress.description"
+                                  placeholder="Description" [modules]="quillConfig"
+                                  (onSelectionChanged)="onSelectionChanged($event)"
                                   (onContentChanged)="onContentChanged($event)">
                                 </quill-editor>
                               </div>
@@ -579,7 +543,7 @@
                     </div>
                   </div>
                 </form>
-               
+
               </div>
             </div>
           </div>

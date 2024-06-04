@@ -256,7 +256,6 @@ export class ProfileComponent implements OnInit {
     });
 
     //AFFICHER LA LISTE DES REGIONS
-
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
       this.region = data;
       this.nombreZone = data.length;
