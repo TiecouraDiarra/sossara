@@ -9,7 +9,7 @@
             <li class="d-flex align-items-center"><a [routerLink]="routes.signup">Devenir un bailleur</a></li>
           </ul>
         </div>
-        <div class="col-md-7" *ngIf="isLoginFailed == true">
+        <div class="col-md-7" *ngIf="isLoginFailed == true && !completer==false">
           <ul class="d-flex justify-content-start car-top-left">
             <li class="d-flex align-items-center crd"> <span  class="text-white">Bienvenue sur Sossara !</span></li>
           </ul>
@@ -170,6 +170,7 @@
         <li class="nav-item" *ngIf="isLoginFailed == false && completer==false && !isMobile">
           <a class="nav-link header-reg" [routerLink]="routes.signup">Inscription</a>
         </li>
+       
         <li class="nav-item" *ngIf="isLoginFailed == false && completer==false && !isMobile">
           <a class="nav-link header-login" [routerLink]="routes.login"> Connexion</a>
         </li>
