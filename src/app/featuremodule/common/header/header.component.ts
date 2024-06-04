@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   last: string = '';
   User: any
   isLocataire = false;
+  isCompletedProfil = false;
   roles: string[] = [];
   // Dans votre composant TypeScript
 isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
@@ -131,6 +132,9 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
         this.profil = this.users?.profil;
         if (this.profil == 'LOCATAIRE') {
           this.isLocataire = true
+        }
+        if (this.users.profilCompleter === true) {
+          this.isCompletedProfil = true;
         }
       });
 
