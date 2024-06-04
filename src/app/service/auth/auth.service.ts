@@ -101,13 +101,19 @@ export class AuthService {
   // }
 
   logout(): Observable<any> {
-    const req = new HttpRequest('POST', URL_BASE + '/logout', {}, httpOptions);
+    const req = new HttpRequest('POST', URL_BASE + '/signout', {}, httpOptions);
     localStorage.removeItem('token'); // Supprime le token JWT du stockage local
     return this.http.request(req);
-}
-voirTokenValidite(token: any): Observable<any> {
-  return this.http.get(`${URL_BASE}/auth/validateToken/${token}`);
-}
+  }
+
+  // logout(): Observable<any> {
+  //   localStorage.removeItem('token');
+  //   return this.http.post<any>(`${URL_BASE}/auth/signout`, {});
+  // }
+
+  voirTokenValidite(token: any): Observable<any> {
+    return this.http.get(`${URL_BASE}/auth/validateToken/${token}`);
+  }
 
 
   reloadPage(): void {

@@ -172,7 +172,7 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-          
+            console.log(res.message);
             this.storageService.clean();
             // this.router.navigateByUrl("/auth/connexion")
             this.router.navigate(['/auth/connexion']).then(() => {

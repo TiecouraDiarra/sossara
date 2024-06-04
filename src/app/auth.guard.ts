@@ -13,18 +13,14 @@ export class AuthGuard implements CanActivate {
   users: any;
   profil: any;
   private destroy$ = new Subject<void>();
+  completer: any;
 
   constructor(
       private router: Router,
       private storageService: StorageService,
       private userService: UserService,
   ) {
-    this.userService.AfficherUserConnecter().pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      this.users = data[0];
-      this.profil = this.users?.profil;
-      console.log(this.profil);
-      
-  });
+   
    }
 
   ngOnInit() {
@@ -41,6 +37,7 @@ export class AuthGuard implements CanActivate {
         this.users = data[0];
         this.profil = this.users?.profil;
         console.log(this.profil)
+        this.completer=this.users.profilCompleter
   
         if (this.storageService.isLoggedIn()) {
           this.isLoggedIn = true;
@@ -48,7 +45,7 @@ export class AuthGuard implements CanActivate {
         
   
         const roles = this.storageService.getUser().roles;
-        if (state.url === '/auth/completer-profil' && !(this.storageService.isLoggedIn()==true)) {
+        if (state.url === '/auth/completer-profil' && !(  this.completer==false)) {
           window.history.back();
           return of(false);
         }
@@ -63,7 +60,7 @@ export class AuthGuard implements CanActivate {
           return of(false);
         }
   
-        if (this.isLoggedIn) {
+        if (this.isLoggedIn ) {
           return of(true);
         } else {
           this.router.navigate(['/auth/connexion']);
