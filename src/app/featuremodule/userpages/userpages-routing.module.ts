@@ -13,7 +13,7 @@ const routes: Routes = [
           import('./ajouter-bien/ajouter-bien.module').then(
             (m) => m.AjouterBienModule
           ),
-        // canActivate: [AuthGuard]
+        // canActivate: [AuthGuard] 
       },
       {
         path: 'modifier-bien/:uuid',

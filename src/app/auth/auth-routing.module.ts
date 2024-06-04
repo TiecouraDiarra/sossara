@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
       import('./complete-profil/complete-profil.module').then(
         (m) => m.CompleteProfilModule
       ),
+      canActivate: [AuthGuard]
   },
   {
     path: 'connexion',
