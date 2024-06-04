@@ -1,7 +1,7 @@
 <div class="main-wrapper" [ngClass]="{
     'menu-opened': showMiniSidebar == true
   }">
-  <app-header *ngIf="firstHeader == true"></app-header>
+  <app-header></app-header>
   <router-outlet>
 
     <div (click)="scrollToTop()" class="progress-wrap" [class.active-progress]="strokeValue < progress">

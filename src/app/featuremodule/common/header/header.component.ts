@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
   // Dans votre composant TypeScript
 isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
   profil: any;
+  completer: any;
 @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.checkScreenWidth();
@@ -105,6 +106,7 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
         (data) => {
           this.users = data[0];
           // console.log(this.users);
+          this.completer=this.users.profilCompleter
           this.profil = this.users?.profil;
           if (this.profil === 'LOCATAIRE') {
             this.isLocataire = true;

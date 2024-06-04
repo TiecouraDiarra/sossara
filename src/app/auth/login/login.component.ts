@@ -46,7 +46,10 @@ export class LoginComponent implements OnInit {
   }
 
   pathProfilCompleter() {
-    this.router.navigate(['/auth/completer-profil']);
+    // this.router.navigate(['/auth/completer-profil']);
+    this.router.navigate(['/auth/completer-profil']).then(() => {
+      window.location.reload();
+    });
 }
 
   iconLogle() {

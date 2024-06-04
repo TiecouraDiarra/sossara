@@ -29,38 +29,30 @@ export class AuthGuard implements CanActivate {
           this.profil = this.users?.profil;
       });
   }
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.userService.AfficherUserConnecter().pipe(
       takeUntil(this.destroy$),
       switchMap((data) => {
-        this.users = data[0];
-        this.profil = this.users?.profil;
-        console.log(this.profil)
-        this.completer=this.users.profilCompleter
-  
-        if (this.storageService.isLoggedIn()) {
-          this.isLoggedIn = true;
+        const user = data[0];
+        const profil = user?.profil;
+        const profilCompleter = user.profilCompleter;
+        const isLoggedIn = this.storageService.isLoggedIn();
+        const roles = isLoggedIn ? this.storageService.getUser().roles : [];
+
+        if (isLoggedIn && !profilCompleter && state.url !== '/auth/completer-profil') {
+          this.router.navigate(['/auth/completer-profil']);
+          return of(false);
         }
-        
-  
-        const roles = this.storageService.getUser().roles;
-        if (state.url === '/auth/completer-profil' && !(  this.completer==false)) {
+
+        const isAuthorized = ['ADMIN', 'PROPRIETAIRE', 'AGENCE', 'AGENT'].includes(profil);
+        const restrictedUrls = ['/userpages/ajouter-bien', '/userpages/modifier-bien/'];
+
+        if (restrictedUrls.some(url => state.url.startsWith(url)) && !isAuthorized) {
           window.history.back();
           return of(false);
         }
-  
-        if (state.url === '/userpages/ajouter-bien' && !( this.profil==='ADMIN' ||  this.profil==='PROPRIETAIRE' || this.profil==='AGENCE'  || this.profil==='AGENT')) {
-          window.history.back();
-          return of(false);
-        }
-  
-        if (state.url.startsWith('/userpages/modifier-bien/') && !( this.profil==='ADMIN' ||  this.profil==='PROPRIETAIRE' || this.profil==='AGENCE'  || this.profil==='AGENT')) {
-          window.history.back();
-          return of(false);
-        }
-  
-        if (this.isLoggedIn ) {
+
+        if (isLoggedIn) {
           return of(true);
         } else {
           this.router.navigate(['/auth/connexion']);
@@ -68,9 +60,11 @@ export class AuthGuard implements CanActivate {
         }
       })
     );
-  }
-  ngOnDestroy() {
-      this.destroy$.next();
-      this.destroy$.complete();
-  }
+}
+
+ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+}
+
 }
