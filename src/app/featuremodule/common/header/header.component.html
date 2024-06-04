@@ -3,13 +3,13 @@
   <div class="header-top">
     <div class="container">
       <div class="row">
-        <!-- <div class="col-md-8" *ngIf="isLoginFailed == false">
+        <div class="col-md-7" *ngIf="isLoginFailed == false">
           <ul class="d-flex justify-content-start car-top-left">
             <li class="d-flex align-items-center"><a [routerLink]="routes.signup">Devenir une agence</a></li>
             <li class="d-flex align-items-center"><a [routerLink]="routes.signup">Devenir un bailleur</a></li>
           </ul>
-        </div> -->
-        <div class="col-md-7" >
+        </div>
+        <div class="col-md-7" *ngIf="isLoginFailed == true">
           <ul class="d-flex justify-content-start car-top-left">
             <li class="d-flex align-items-center crd"> <span  class="text-white">Bienvenue sur Sossara !</span></li>
           </ul>
