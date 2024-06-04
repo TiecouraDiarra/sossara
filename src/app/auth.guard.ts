@@ -1,63 +1,74 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { StorageService } from './service/auth/storage.service';
+import { UserService } from './service/auth/user.service';
+import { Observable, Subject, of, switchMap, takeUntil } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthGuard implements CanActivate {
+  isLoggedIn = false;
+  users: any;
+  profil: any;
+  private destroy$ = new Subject<void>();
 
-    isLoggedIn = false;
-    isLoginFailed = true;
+  constructor(
+      private router: Router,
+      private storageService: StorageService,
+      private userService: UserService,
+  ) {
+    this.userService.AfficherUserConnecter().pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.users = data[0];
+      this.profil = this.users?.profil;
+      console.log(this.profil);
+      
+  });
+   }
 
-    constructor(
-        private router: Router,
-        private storageService: StorageService
-    ) { }
+  ngOnInit() {
+      this.userService.AfficherUserConnecter().pipe(takeUntil(this.destroy$)).subscribe((data) => {
+          this.users = data[0];
+          this.profil = this.users?.profil;
+      });
+  }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-      // Votre logique de vérification ici (par exemple, vérifier si l'utilisateur est authentifié)
-      if (this.storageService.isLoggedIn()) {
-        this.isLoggedIn = true;
-        // this.roles = this.storageService.getUser().roles;
-      } else if (!this.storageService.isLoggedIn()) {
-        this.isLoginFailed = false;
-      }
-
-      //const isAuthenticated = true; // Remplacez ceci par votre propre logique d'authentification
-      const roles = this.storageService.getUser().roles;
-
-      // Vérifier si l'utilisateur a les rôles requis
-      if (
-        state.url === '/userpages/ajouter-bien' &&
-        !(
-          roles.includes('ROLE_ADMIN') ||
-          roles.includes('ROLE_PROPRIETAIRE') ||
-          roles.includes('ROLE_AGENCE')
-        )
-      ) {
-        // Redirection vers une page d'erreur ou de non autorisation
-        window.history.back();
-        return false;
-      }
-
-         // Vérifier si l'utilisateur a les rôles requis pour "/userpages/modifier-bien/"
-         if (state.url.startsWith('/userpages/modifier-bien/') && !(roles.includes('ROLE_ADMIN') || roles.includes('ROLE_PROPRIETAIRE') || roles.includes('ROLE_AGENCE'))) {
-            // Redirection vers la page précédente
-            window.history.back();
-            return false;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.userService.AfficherUserConnecter().pipe(
+      takeUntil(this.destroy$),
+      switchMap((data) => {
+        this.users = data[0];
+        this.profil = this.users?.profil;
+        console.log(this.profil)
+  
+        if (this.storageService.isLoggedIn()) {
+          this.isLoggedIn = true;
         }
-
-      if (this.isLoggedIn) {
-        return true; // L'utilisateur est autorisé à accéder à la route
-      } else {
-        // Rediriger l'utilisateur vers une page d'erreur ou de connexion
-        this.router.navigate(['/auth/connexion']);
-        return false;
-      }
-    }
-   
-
-    
+  
+        const roles = this.storageService.getUser().roles;
+  
+        if (state.url === '/userpages/ajouter-bien' && !( this.profil==='ADMIN' ||  this.profil==='PROPRIETAIRE' || this.profil==='AGENCE'  || this.profil==='AGENT')) {
+          window.history.back();
+          return of(false);
+        }
+  
+        if (state.url.startsWith('/userpages/modifier-bien/') && !( this.profil==='ADMIN' ||  this.profil==='PROPRIETAIRE' || this.profil==='AGENCE'  || this.profil==='AGENT')) {
+          window.history.back();
+          return of(false);
+        }
+  
+        if (this.isLoggedIn) {
+          return of(true);
+        } else {
+          this.router.navigate(['/auth/connexion']);
+          return of(false);
+        }
+      })
+    );
+  }
+  ngOnDestroy() {
+      this.destroy$.next();
+      this.destroy$.complete();
+  }
 }
