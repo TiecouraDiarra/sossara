@@ -112,7 +112,7 @@ export class FeaturemoduleComponent implements OnInit {
         break;
     }
     // hide home one in other home pages
-    this.firstHeader = route.url !== routes.home9;
+    // this.firstHeader = route.url !== routes.home9;
 
     // hide the footer in list map and grid page
     if (
