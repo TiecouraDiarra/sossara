@@ -45,6 +45,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate([routes.dashboard]);
   }
 
+  pathProfilCompleter() {
+    this.router.navigate(['/auth/completer-profil']);
+}
+
   iconLogle() {
     this.Toggledata = !this.Toggledata;
   }
@@ -99,28 +103,28 @@ export class LoginComponent implements OnInit {
 
         // Obtenez les rôles de l'utilisateur à partir des données
         this.roles = this.storageService.getUser().roles;
-        this.path();
+        // this.path();
 
-        this.reloadPage();
+        // this.reloadPage();
 
         // Vérifiez si l'attribut profilcompleter est false
-        // if (data.profilcompleter === false) {
-        //   // Redirigez l'utilisateur vers la page de complétion de profil
-        //   this.path();
-        //   // this.reloadPage();
-        // } else {
-        //   // Redirigez l'utilisateur vers la page d'accueil
-        //   this.router.navigate(['/']).then(() => {
-        //     window.location.reload();
-        //   });
+        if (data.profilcompleter === false) {
+          // Redirigez l'utilisateur vers la page de complétion de profil
+          this.pathProfilCompleter();
+          // this.reloadPage();
+        } else {
+          // Redirigez l'utilisateur vers la page d'accueil
+          this.router.navigate(['/userpages/dashboard']).then(() => {
+            window.location.reload();
+          });
 
-        //   if (this.storageService.isLoggedIn()) {
-        //     this.isLoggedIn = true;
-        //   } else if (!this.storageService.isLoggedIn()) {
-        //     this.isLoginFailed = false;
-        //   }
-        //   //  this.reloadPage();
-        // }
+          if (this.storageService.isLoggedIn()) {
+            this.isLoggedIn = true;
+          } else if (!this.storageService.isLoggedIn()) {
+            this.isLoginFailed = false;
+          }
+          //  this.reloadPage();
+        }
       },
       (error) => {
         // Gestion des erreurs en cas d'échec de la connexion

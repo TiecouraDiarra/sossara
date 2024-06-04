@@ -12,6 +12,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'completer-profil',
+    loadChildren: () =>
+      import('./complete-profil/complete-profil.module').then(
+        (m) => m.CompleteProfilModule
+      ),
+  },
+  {
     path: 'connexion',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
