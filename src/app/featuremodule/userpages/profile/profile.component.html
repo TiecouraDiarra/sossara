@@ -379,9 +379,9 @@
                     </div>
                   </div>
 
-                  <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                  <div class="modal fade " style="margin-top: 100px;" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="staticBackdropLabel">
@@ -391,7 +391,9 @@
                         </div>
                         <div class="modal-body">
                           <form>
-                            <div class="d-flex real-estate-search">
+                            <div class="row">
+                              <div class="col-md-6">
+                            <div class=" d-flex real-estate-search">
                               <div class="flex-shrink-0 d-flex align-items-center">
                                 <div class="icon-blk rounded-circle">
                                   <i class="feather-map-pin"></i>
@@ -409,8 +411,8 @@
                                 </mat-form-field>
                               </div>
                             </div>
-
-                            <div>
+                            </div>
+                            <div class="col-md-6">
                               <div class="d-flex real-estate-search">
                                 <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
@@ -431,7 +433,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div>
+                            <div class="col-md-6">
                               <div class="d-flex real-estate-search">
                                 <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
@@ -454,7 +456,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div>
+                            <div class="col-md-6">
                               <div class="d-flex real-estate-search">
                                 <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
@@ -477,7 +479,7 @@
                               </div>
                             </div>
 
-                            <div class="">
+                            <div class="col-md-12">
                               <div class="d-flex real-estate-search">
                                 <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
@@ -492,7 +494,7 @@
                               </div>
                             </div>
 
-                            <div class="">
+                            <div class="col-md-6">
                               <div class="d-flex real-estate-search">
                                 <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
@@ -506,7 +508,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="">
+                            <div class="col-md-6">
                               <div class="d-flex real-estate-search">
                                 <div class="flex-shrink-0 d-flex align-items-center">
                                   <div class="icon-blk rounded-circle">
@@ -519,6 +521,9 @@
                                 </div>
                               </div>
                             </div>
+                            
+                          </div>
+
                             <div class="form-group" *ngIf="isAgence">
 
                               <div class="form-floating">
