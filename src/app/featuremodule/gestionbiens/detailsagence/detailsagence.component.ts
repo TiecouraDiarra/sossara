@@ -42,8 +42,8 @@ export type ChartOptionsA = {
 export class DetailsagenceComponent implements OnInit {
   @ViewChild("chart") chart!: ChartComponent;
   // public chartOptions: Partial<ChartOptions> | undefined;
-  public chartOptions: ChartOptions;
-  public chartOptionsType: ChartOptions;
+  public chartOptions!: ChartOptions ;
+  public chartOptionsType!: ChartOptions;
   public chartOptionsA: ChartOptionsA;
   public routes = routes;
   public listsidebar: any = [];
@@ -71,6 +71,15 @@ export class DetailsagenceComponent implements OnInit {
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   id: any
   agence: any
+  pourcentAlouer: any
+  pourcentAvendre: any
+  pourcentAppart: any
+  pourcentVilla: any
+  pourcentTerrain: any
+  pourcentBureau: any
+  pourcentChamp: any
+  pourcentImmeuble: any
+  pourcentMagasin: any
   users: any;
   senderCheck: any;
   chatId: any = sessionStorage.getItem('chatId');
@@ -156,56 +165,11 @@ export class DetailsagenceComponent implements OnInit {
     this.listsidebar = this.Dataservice.listsidebarList,
       this.locale = localeId;
 
-      this.chartOptions = {
-        series: [44, 55],
-        chart: {
-          width: 380,
-          type: 'pie'
-        },
-        labels: ['A louer', 'A vendre'],
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }
-        ],
-        legend: {
-          position: 'bottom'
-        }
-      };
+      this.chartOptionsFunction();
 
-    this.chartOptionsType = {
-      series: [44, 55],
-      chart: {
-        width: 380,
-        type: "pie"
-      },
-      labels: ["Appart", "A vendre"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ],
-      legend: {
-        position: 'bottom'
-      }
-      // colors: ['#008FFB', '#00E396']  // Définir les couleurs des sections du graphique
-    };
+      this.chartOptionsTypeFunction();
+
+    
 
     this.chartOptionsA = {
       series: [44, 55, 67, 83],
@@ -256,7 +220,7 @@ export class DetailsagenceComponent implements OnInit {
         // Ajouter les biens immobiliers de l'agent à la liste totale
         this.totalBiensAgents.push(...agent.bienImmosAgents);
       });
-      // console.log(data);
+      console.log(data);
       
 
       // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
@@ -264,6 +228,19 @@ export class DetailsagenceComponent implements OnInit {
       this.agence = data?.agence;
       this.bienImmoAgence = data?.bienImmos;
       this.agent = data?.agents.reverse();
+      // console.log(data);
+      this.pourcentAlouer = data?.pourcentageAlouer;
+      this.pourcentAvendre = data?.pourcentageAvendre;
+      this.pourcentAppart = data?.pourcentageAppart;
+      this.pourcentVilla = data?.pourcentageVilla;
+      this.pourcentTerrain = data?.pourcentageTerrain;
+      this.pourcentBureau = data?.pourcentageBureau;
+      this.pourcentChamp = data?.pourcentageChamp;
+      this.pourcentImmeuble = data?.pourcentageImmeuble;
+      this.pourcentMagasin = data?.pourcentageComMag;
+      this.chartOptionsFunction();
+      this.chartOptionsTypeFunction();
+      
 
       this.NombreAgent = this.agent.length;
       this.bienImmo = [...this.bienImmoAgence, ...this.totalBiensAgents];
@@ -316,6 +293,70 @@ export class DetailsagenceComponent implements OnInit {
 
 
   }
+
+  chartOptionsFunction(): void {
+    this.chartOptions = {
+      series: [this.pourcentAlouer, this.pourcentAvendre],
+      chart: {
+        width: 375,
+        type: 'pie'
+      },
+      labels: ['A louer', 'A vendre'],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      ],
+      legend: {
+        position: 'bottom'
+      }
+    };
+  }
+
+  chartOptionsTypeFunction(): void {
+    this.chartOptionsType = {
+      series: [
+        this.pourcentVilla, 
+        this.pourcentAppart, 
+        this.pourcentTerrain, 
+        this.pourcentBureau,
+        this.pourcentChamp,
+        this.pourcentImmeuble,
+        this.pourcentMagasin,
+      ],
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: ["Villa", "Appart", "Terrain", "Bureau", "Champ", "Immeuble", "Magasin"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ],
+      legend: {
+        position: 'bottom'
+      }
+      // colors: ['#008FFB', '#00E396']  // Définir les couleurs des sections du graphique
+    };
+  }
+
   selectedTab: string = 'tout'; // Déclaration de la variable selectedTab avec la valeur par défaut 'home'
 
   // Méthode pour changer l'onglet sélectionné

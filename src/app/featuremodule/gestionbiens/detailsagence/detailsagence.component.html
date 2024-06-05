@@ -180,8 +180,8 @@
                   </h4>
                   <div class="card-block">
                     <div class="user-image">
-                      <img src="{{generateImageUrl(agence?.agencePhoto)}}" class="img-radius"
-                        alt="User-Profile-Image" (error)="handleAuthorImageError($event)">
+                      <img src="{{generateImageUrl(agence?.agencePhoto)}}" class="img-radius" alt="User-Profile-Image"
+                        (error)="handleAuthorImageError($event)">
                     </div>
                     <h6 class="f-w-600 m-t-25 m-b-10">{{agence?.nomAgence}}</h6>
                     <div class="row" *ngIf="agence && agence?.adresse">
@@ -249,9 +249,9 @@
           <main class="col-lg-8">
             <div class="ps-lg-3">
               <h4 class="title text-dark">
-                Quality Men's Hoodie for Winter, Men's Fashion
+                {{agence?.nomAgence}}
               </h4>
-              <div class="d-flex flex-row my-3">
+              <!-- <div class="d-flex flex-row my-3">
                 <div class="text-warning mb-1 me-2">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -262,12 +262,11 @@
                     4.5
                   </span>
                 </div>
-              </div>
-              <p>
-                Modern look and quality demo item is a streetwear-inspired collection that continues to break away from
-                the conventions of mainstream fashion. Made in Italy, these black and brown clothing low-top shirts for
-                men.
-              </p>
+              </div> -->
+              <!-- <p>
+                {{agence?.description}}
+              </p> -->
+              <p [innerHTML]="agence ? agence?.description : 'Aucune description'"> </p>
 
 
               <hr />
@@ -285,8 +284,8 @@
                   <div class="card">
                     <h2 class="card-title">Statistique par type</h2>
                     <div id="chart">
-                      <apx-chart [series]="chartOptionsType.series" [chart]="chartOptionsType.chart" [labels]="chartOptionsType.labels"
-                        [responsive]="chartOptionsType.responsive"></apx-chart>
+                      <apx-chart [series]="chartOptionsType.series" [chart]="chartOptionsType.chart"
+                        [labels]="chartOptionsType.labels" [responsive]="chartOptionsType.responsive"></apx-chart>
                     </div>
                     <!--The content below is only a placeholder and can be replaced.-->
                     <!-- <div id="chart">
