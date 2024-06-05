@@ -275,19 +275,21 @@ export class DetailsagenceComponent implements OnInit {
       // Initialisez une variable pour stocker le nombre total de "J'aime".
       // let totalLikes = 0;
 
-      this.bienImmo.forEach((bien: { favoris: any; id: string | number; }) => {
+      this.bienImmo.forEach((bien: {
+        uuid: any; favoris: any 
+}) => {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
         this.NombreJaime = bien.favoris.length;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
+        // if (typeof bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
           // Ajoutez le nombre de "J'aime" au total.
           this.totalLikes += this.NombreJaime;
-        }
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        // }
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
         if (isFavorite === 'true') {
-          this.favoriteStatus[bien.id] = true;
+          this.favoriteStatus[bien.uuid] = true;
         } else {
-          this.favoriteStatus[bien.id] = false;
+          this.favoriteStatus[bien.uuid] = false;
         }
         // })
       });

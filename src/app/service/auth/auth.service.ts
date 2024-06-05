@@ -100,14 +100,21 @@ export class AuthService {
   //   return this.jwtHelper.isTokenExpired(this.token);
   // }
 
+  // logout(): Observable<any> {
+  //   const req = new HttpRequest('POST', URL_BASE + '/signout', {}, httpOptions);
+  //   localStorage.removeItem('token'); // Supprime le token JWT du stockage local
+  //   return this.http.request(req);
+  // }
+
   logout(): Observable<any> {
-    const req = new HttpRequest('POST', URL_BASE + '/logout', {}, httpOptions);
-    localStorage.removeItem('token'); // Supprime le token JWT du stockage local
-    return this.http.request(req);
-}
-voirTokenValidite(token: any): Observable<any> {
-  return this.http.get(`${URL_BASE}/auth/validateToken/${token}`);
-}
+    const token = this.storageService.getUser().token;
+    localStorage.removeItem('token');
+    return this.http.post<any>(`${URL_BASE}/auth/signout/${token}`, {});
+  }
+
+  voirTokenValidite(token: any): Observable<any> {
+    return this.http.get(`${URL_BASE}/auth/validateToken/${token}`);
+  }
 
 
   reloadPage(): void {

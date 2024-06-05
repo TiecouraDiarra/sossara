@@ -39,7 +39,7 @@ export class commentaireService {
     const headers = this.getHeaders();
     const data = new FormData();
     data.append("contenu", contenu)
-    data.append("bienImmo", id)
+    data.append("uuidBien", id)
 
     return this.http.post(`${URL_BASE}/commentaire/ajouter`, data, { headers });
   }

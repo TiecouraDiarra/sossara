@@ -240,7 +240,7 @@ export class DashboardComponent implements OnInit {
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
       this.nombreRdvUser = data?.length;
-      console.log(this.rdv);
+      // console.log(this.rdv);
       
     }
     );

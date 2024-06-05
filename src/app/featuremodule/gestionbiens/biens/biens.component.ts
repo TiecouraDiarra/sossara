@@ -281,27 +281,30 @@ export class BiensComponent {
     // Charger la liste des biens immobiliers
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo);
+      // console.log(this.bienImmo);
       
       this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: {
-        favoris: any; id: string | number;
+        uuid: any;
+        favoris: any;
       }) => {
         // Charger le nombre de "J'aime" pour chaque bien
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
         this.NombreJaime = bien.favoris?.length;
+        // console.log(this.NombreJaime);
+        
 
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-        }
+        // if (typeof bien.uuid === 'number') {
+          this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
+        // }
 
         // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
         if (isFavorite === 'true') {
-          this.favoriteStatus[bien.id] = true;
+          this.favoriteStatus[bien.uuid] = true;
         } else {
-          this.favoriteStatus[bien.id] = false;
+          this.favoriteStatus[bien.uuid] = false;
         }
       });
       // });
@@ -387,7 +390,8 @@ export class BiensComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-
+          console.log(data);
+          
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {
             this.favoriteStatus[id] = false; // Désaimé

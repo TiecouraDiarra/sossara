@@ -400,7 +400,7 @@
 <!-- Recent Properties for Rent -->
 <section class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
   <div class="footer-six-bg footer-nine-bg">
-    <img src="./assets/img/bg/feature-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/feature-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
@@ -412,8 +412,10 @@
             propriétés uniques pour tous les goûts.</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate">
-          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
       </div>
     </div>
     <div class="row">
@@ -421,7 +423,7 @@
         <div class="car-class-carousel">
           <div class="top-listings-rent-slider">
             <owl-carousel-o [options]="recentpropertiesOwlOptions">
-              <ng-container *ngFor="let bienRecent of BienLoueRecens?.slice(0, 6)">
+              <ng-container *ngFor="let bienRecent of BienLoueRecens">
                 <ng-template carouselSlide>
                   <div class="top-rent-room" [style.width]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '50%' : ''">
                     <div class="top-room-img">
@@ -468,7 +470,7 @@
                       <div class="favourite-small-user">
                         <img class="img-fluid" src="{{
                             generateImageUrl(
-                              bienRecent?.utilisateur?.photo?.nom
+                              bienRecent?.proprietaire?.photo
                             )
                           }}" alt="" (error)="handleAuthorImageError($event)" />
                       </div>
@@ -552,7 +554,7 @@
 <!-- Why Choose Us -->
 <section class="real-why-us common-padding position-relative">
   <div class="real-why-us-floating-bg">
-    <img src="./assets/img/bg/why-us-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/why-us-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
@@ -626,16 +628,18 @@
   <div class="container">
     <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center">
-        <div class="col-lg-4 col-md-3"></div>
-        <div class="col-lg-4 col-md-6 aos aos-init aos-animate text-center">
+        <!-- <div class="col-lg-4 col-md-3"></div> -->
+        <div class="col-lg-12 col-md-12 aos aos-init aos-animate text-center">
           <h3>Agences Partenaires</h3>
           <p>Les Agences Partenaires Certifiées chez SOSSARA sont Sélectionnées à travers un processus de vérification
             rigoureux pour une expérience immobilière de premier choix.
             Parce que votre confort nous est inestimable nous ne traitons qu'avec les meilleurs.</p>
         </div>
-        <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
-          <a [routerLink]="routes.agences" class="btn btn-view">Voir toutes les agences</a>
-        </div>
+        <!-- <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
+        </div> -->
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.agences" class="btn btn-view">Voir toutes les agences</a>
       </div>
     </div>
     <div class="row aos" data-aos-delay="200">
@@ -653,7 +657,7 @@
                             <span>
                               <img src="{{
                                   generateImageUrl(
-                                    Agence?.utilisateurPhoto?.nom
+                                    Agence?.agencePhoto
                                   )
                                 }}" alt="img" (error)="handleAuthorImageError($event)" />
                             </span>
@@ -848,7 +852,7 @@
 <!-- <section class="property-counter common-padding position-relative"> -->
 <section class="property-counter common-padding position-relative" *ngIf="BienTotal && BienTotal.length > 0">
   <div class="property-counter-float-bg">
-    <img src="./assets/img/bg/counter-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/counter-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="row">
@@ -896,7 +900,7 @@
 <!-- Featured Listings -->
 <section class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
   <div class="footer-six-bg footer-nine-bg">
-    <img src="./assets/img/bg/feature-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/feature-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
@@ -908,8 +912,10 @@
               style="color: #e98b11; font-weight: bold;">bonheur</span>.</p>
         </div>
         <div class="col-md-3 text-md-end aos aos-init aos-animate">
-          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
         </div>
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
       </div>
     </div>
     <div class="row aos" data-aos-delay="200">
@@ -967,13 +973,13 @@
                                 statut: BienImo?.statut?.nom === 'A vendre'
                               }" class="Featured-text">{{ BienImo?.statut?.nom }}</span>
                             <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
-                              (click)="AimerBien(BienImo?.id)" [style.background-color]="
-                                favoriteStatus[BienImo?.id]
+                              (click)="AimerBien(BienImo?.uuid)" [style.background-color]="
+                                favoriteStatus[BienImo?.uuid]
                                   ? '#e98b11'
                                   : 'white'
                               ">
                               <i [style.color]="
-                                  favoriteStatus[BienImo?.id]
+                                  favoriteStatus[BienImo?.uuid]
                                     ? 'white'
                                     : 'black'
                                 " class="feather-heart"></i>
@@ -1142,15 +1148,17 @@
   <div class="container">
     <div class="section-heading section-heading-nine aos">
       <div class="row align-items-center">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 aos aos-init aos-animate text-center">
+        <!-- <div class="col-md-3"></div> -->
+        <div class="col-md-12 aos aos-init aos-animate text-center">
           <h3>Laquelle de ces communes vous séduit elle à Bamako ?</h3>
           <p>Alors vous n'avez plus qu'a découvrir ce qu'elle vous réserve. Nous en sommes convaincu, vous allez adorer
             !</p>
         </div>
-        <div class="col-md-3 text-md-end aos aos-init aos-animate">
-          <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
-        </div>
+        <!-- <div class="col-md-3 text-md-end aos aos-init aos-animate">
+        </div> -->
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
       </div>
     </div>
     <div class="row">
@@ -1429,7 +1437,7 @@
 <!-- Become Agent -->
 <section class="join-us-dealer common-padding">
   <div class="join-us-dealer-bg home-nine-bg">
-    <img src="./assets/img/bg/agent-bg.png" alt="">
+    <!-- <img src="./assets/img/bg/agent-bg.png" alt=""> -->
   </div>
   <div class="container">
     <div class="row align-items-center aos">

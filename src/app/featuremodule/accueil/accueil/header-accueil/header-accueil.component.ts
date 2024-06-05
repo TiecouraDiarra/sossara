@@ -67,13 +67,13 @@ export class HeaderAccueilComponent {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       // Récupérer les données de l'utilisateur connecté
-      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-        this.users = data[0];
-        this.profil = this.users?.profil;
-        if (this.profil == 'LOCATAIRE') {
-          this.isLocataire = true
-        }
-      })
+      // this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+      //   this.users = data[0];
+      //   this.profil = this.users?.profil;
+      //   if (this.profil == 'LOCATAIRE') {
+      //     this.isLocataire = true
+      //   }
+      // })
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
     }

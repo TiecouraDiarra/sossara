@@ -178,9 +178,9 @@
                       <span [ngClass]="{'statutbien': data?.statut?.nom === 'A vendre' }" class="Featured-text">{{ data?.statut?.nom
                         }}</span>
                       <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                        (click)="AimerBien(data?.id)"
-                        [style.background-color]="favoriteStatus[data?.id] ? '#e98b11' : 'white'">
-                        <i [style.color]="favoriteStatus[data?.id] ? 'white' : 'black'" class="feather-heart"></i>
+                        (click)="AimerBien(data?.uuid)"
+                        [style.background-color]="favoriteStatus[data?.uuid] ? '#e98b11' : 'white'">
+                        <i [style.color]="favoriteStatus[data?.uuid] ? 'white' : 'black'" class="feather-heart"></i>
                       </a>
                     </div>
                   </div>
@@ -197,7 +197,7 @@
                                 class="fa-regular fa-circle-stop"></i>{{data?.typeImmo?.nom }}</span></a>
                         </div>
                         <div class="blog-author text-end">
-                          <span> <img src="assets/img/eye.svg" alt="vue">{{ favoritedPropertiesCount1[data?.id] }}
+                          <span> <img src="assets/img/eye.svg" alt="vue">{{ favoritedPropertiesCount1[data?.uuid] }}
                           </span>
                         </div>
                       </div>

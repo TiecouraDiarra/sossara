@@ -208,13 +208,13 @@ export class LocataireComponent implements OnInit {
   bienImmoDejaVenduAgence: any;
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
-  openReclamationModal(bienImmoId: number) {
+  openReclamationModal(bienImmoId: any) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
   }
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
-  openArreterModal(bienImmoId: number) {
+  openArreterModal(bienImmoId: any) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
   }
@@ -224,7 +224,7 @@ export class LocataireComponent implements OnInit {
   };
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
-  openProcessusModal(bienImmoId: number) {
+  openProcessusModal(bienImmoId: any) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoProcessusId = bienImmoId;
   }
@@ -380,13 +380,15 @@ export class LocataireComponent implements OnInit {
       });
 
       // Parcourir la liste des biens immobiliers
-      this.bienImmo.forEach((bien: { favoris: any; id: string | number }) => {
+      this.bienImmo.forEach((bien: {
+        uuid: any; favoris: any 
+}) => {
         this.NombreJaime = bien.favoris?.length;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-        }
+        // if (typeof bien.uuid === 'number') {
+          this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
+        // }
         // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
       });
     });
 
@@ -411,14 +413,14 @@ export class LocataireComponent implements OnInit {
       });
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach(
-        (bien: { favoris: any; id: string | number }) => {
+        (bien: { favoris: any; uuid: any }) => {
           // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
           this.NombreJaimeAgence = bien.favoris.length;
-          if (typeof bien.id === 'number') {
-            this.favoritedPropertiesCountAgence[bien.id] =
+          // if (typeof bien.id === 'number') {
+            this.favoritedPropertiesCountAgence[bien.uuid] =
               this.NombreJaimeAgence;
-          }
-          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+          // }
+          const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
           // });
         }
       );
@@ -470,16 +472,18 @@ export class LocataireComponent implements OnInit {
     ////AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
     this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe((data) => {
       this.favoris = data?.reverse();
+      console.log(this.favoris);
+      
       // Parcourir la liste des biens immobiliers
       this.favoris.forEach(
-        (bien: { bien: any; favoris: any; id: string | number }) => {
+        (bien: { bien: any; favoris: any; uuid: any }) => {
           this.NombreJaime = bien.bien.favoris?.length;
-          if (typeof bien.bien.id === 'number') {
-            this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
-          }
+          // if (typeof bien.bien.uuid === 'number') {
+            this.favoritedPropertiesCount1[bien.bien.uuid] = this.NombreJaime;
+          // }
           // Charger l'état de favori depuis localStorage
           const isFavorite = localStorage.getItem(
-            `favoriteStatus_${bien.bien.id}`
+            `favoriteStatus_${bien.bien.uuid}`
           );
         }
       );
@@ -808,19 +812,19 @@ export class LocataireComponent implements OnInit {
       this.serviceBienImmo.AfficherBienImmoParUser().subscribe((data) => {
         this.bienImmo = data.biens.reverse();
         // Parcourir la liste des biens immobiliers
-        this.bienImmo.forEach((bien: { id: string | number }) => {
+        this.bienImmo.forEach((bien: { uuid: any }) => {
           // Charger le nombre de "J'aime" pour chaque bien
           this.serviceBienImmo
-            .ListeAimerBienParId(bien.id)
+            .ListeAimerBienParId(bien.uuid)
             .subscribe((data) => {
               this.NombreJaime = data.vues;
-              if (typeof bien.id === 'number') {
-                this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-              }
+              // if (typeof bien.uuid === 'number') {
+                this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
+              // }
 
               // Charger l'état de favori depuis localStorage
               const isFavorite = localStorage.getItem(
-                `favoriteStatus_${bien.id}`
+                `favoriteStatus_${bien.uuid}`
               );
               // if (isFavorite === 'true') {
               //   this.favoriteStatus[bien.id] = true;
@@ -844,17 +848,17 @@ export class LocataireComponent implements OnInit {
           ];
 
           // Parcourir la liste des biens immobiliers
-          this.bienImmoAgenceTotal.forEach((bien: { id: string | number }) => {
+          this.bienImmoAgenceTotal.forEach((bien: { uuid: any }) => {
             this.serviceBienImmo
-              .ListeAimerBienParId(bien.id)
+              .ListeAimerBienParId(bien.uuid)
               .subscribe((data) => {
                 this.NombreJaimeAgence = data.vues;
-                if (typeof bien.id === 'number') {
-                  this.favoritedPropertiesCountAgence[bien.id] =
+                // if (typeof bien.uuid === 'number') {
+                  this.favoritedPropertiesCountAgence[bien.uuid] =
                     this.NombreJaimeAgence;
-                }
+                // }
                 const isFavorite = localStorage.getItem(
-                  `favoriteStatus_${bien.id}`
+                  `favoriteStatus_${bien.uuid}`
                 );
               });
           });
@@ -899,15 +903,15 @@ export class LocataireComponent implements OnInit {
               this.favoris = data?.reverse();
               // Parcourir la liste des biens immobiliers
               this.favoris.forEach(
-                (bien: { bien: any; favoris: any; id: string | number }) => {
+                (bien: { bien: any; favoris: any; uuid: any }) => {
                   this.NombreJaime = bien.bien.favoris?.length;
-                  if (typeof bien.bien.id === 'number') {
-                    this.favoritedPropertiesCount1[bien.bien.id] =
+                  // if (typeof bien.bien.id === 'number') {
+                    this.favoritedPropertiesCount1[bien.bien.uuid] =
                       this.NombreJaime;
-                  }
+                  // }
                   // Charger l'état de favori depuis localStorage
                   const isFavorite = localStorage.getItem(
-                    `favoriteStatus_${bien.bien.id}`
+                    `favoriteStatus_${bien.bien.uuid}`
                   );
                 }
               );

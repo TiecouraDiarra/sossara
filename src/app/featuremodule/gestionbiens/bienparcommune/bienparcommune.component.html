@@ -21,7 +21,7 @@
 <div class="list-content">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 theiaStickySidebar">
+      <div class="col-lg-3 theiaStickySidebar">
         <div class="stickybar">
           <div class="listings-sidebar">
             <div class="card">
@@ -64,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-9">
         <div class="bookmarks-content grid-view featured-slider">
           <div class="row sorting-div mt-3">
             <div class="row">
@@ -113,9 +113,9 @@
                           <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }"
                             class="Featured-text">{{ BienImo?.statut?.nom }}</span>
                           <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
-                            (click)="AimerBien(BienImo?.id)"
-                            [style.background-color]="favoriteStatus[BienImo?.id] ? '#e98b11' : 'white'">
-                            <i [style.color]="favoriteStatus[BienImo?.id] ? 'white' : 'black'" class="feather-heart"></i>
+                            (click)="AimerBien(BienImo?.uuid)"
+                            [style.background-color]="favoriteStatus[BienImo?.uuid] ? '#e98b11' : 'white'">
+                            <i [style.color]="favoriteStatus[BienImo?.uuid] ? 'white' : 'black'" class="feather-heart"></i>
                           </a>
                         </div>
                       </div>
@@ -132,7 +132,7 @@
                             </div>
                             <div class="blog-author text-end">
                               <span> <i class="feather-eye"></i>{{
-                                favoritedPropertiesCount1[BienImo?.id] }}</span>
+                                favoritedPropertiesCount1[BienImo?.uuid] }}</span>
                             </div>
                           </div>
                           <h6><a class="crd" (click)="goToDettailBien(BienImo?.uuid)">{{ BienImo?.nom ? BienImo?.nom :
