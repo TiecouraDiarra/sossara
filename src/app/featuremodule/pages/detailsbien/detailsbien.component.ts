@@ -811,9 +811,7 @@ userRoles: { id: number; name: string }[] = [];
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(this.bien);
       this.lesCommodites = data?.commodites;
-      console.log(this.lesCommodites)
 
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       // Trier les biens par date de création décroissante
@@ -837,7 +835,6 @@ userRoles: { id: number; name: string }[] = [];
   // Récupérer le premier élément de la liste inversée
       this.bienImmoSuivant = biensFiltres.slice(0, 1);
       this.bienImmoPrecedent = biensFiltres2.slice(0, 1);
-      console.log(this.bienImmoPrecedent)
 
       
     });

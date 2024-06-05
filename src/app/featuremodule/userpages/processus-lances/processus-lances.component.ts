@@ -45,7 +45,6 @@ export class ProcessusLancesComponent implements OnInit {
     //AFFICHER LA LISTE DES RECLAMATIONS DONT LES PROCESSUS SONT LANCES
     this.serviceBienImmo.AfficherLIsteReclamationProcessusLance().subscribe(data => {
       this.reclamationProcessusLance = data.reverse();
-      // console.log(this.reclamationProcessusLance);
       
     });
   }

@@ -78,7 +78,6 @@ export class BlogGridSidebarComponent {
 
     this.serviceBienImmo.trouverTop6BiensRecemmentAjoutes().subscribe((data) => {
       this.bienImmo = data.slice(0, 3);
-      // console.log(this.BienLoueRecens);
     });
     
   }

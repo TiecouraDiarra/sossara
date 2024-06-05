@@ -452,7 +452,6 @@ export class LocataireComponent implements OnInit {
       .AfficherBienLoueEtAcheterParUserConnecter()
       .subscribe((data) => {
         this.bienImmoDejaLoueLocataires = data.reverse();
-        console.log(this.bienImmoDejaLoueLocataires);
         
         this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
           // Vérifier si le bien est déjà loué
@@ -472,7 +471,6 @@ export class LocataireComponent implements OnInit {
     ////AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
     this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe((data) => {
       this.favoris = data?.reverse();
-      console.log(this.favoris);
       
       // Parcourir la liste des biens immobiliers
       this.favoris.forEach(
