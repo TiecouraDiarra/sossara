@@ -36,7 +36,7 @@ export class AuthGuard implements CanActivate {
       switchMap((data) => {
         this.users = data[0];
         this.profil = this.users?.profil;
-
+  
         this.completer=this.users.profilCompleter
   
         if (this.storageService.isLoggedIn()) {
@@ -63,7 +63,9 @@ export class AuthGuard implements CanActivate {
         
   
         if (this.isLoggedIn ) {
-          return of(true);
+         
+            return of(true);
+    
         } else {
           this.router.navigate(['/auth/connexion']);
           return of(false);
@@ -71,6 +73,7 @@ export class AuthGuard implements CanActivate {
       })
     );
   }
+  
   ngOnDestroy() {
       this.destroy$.next();
       this.destroy$.complete();

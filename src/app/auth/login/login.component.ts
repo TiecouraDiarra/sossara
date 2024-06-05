@@ -117,9 +117,11 @@ export class LoginComponent implements OnInit {
           // this.reloadPage();
         } else {
           // Redirigez l'utilisateur vers la page d'accueil
-          this.router.navigate(['/userpages/dashboard']).then(() => {
+          window.history.back();
+          setTimeout(() => {
             window.location.reload();
-          });
+          }, 100); // 500 ms devrait être suffisant, ajustez si nécessaire
+        
 
           if (this.storageService.isLoggedIn()) {
             this.isLoggedIn = true;

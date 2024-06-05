@@ -985,7 +985,7 @@ userRoles: { id: number; name: string }[] = [];
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      console.log(this.bien);
+      // console.log(this.bien);
 
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       // Trier les biens par date de création décroissante

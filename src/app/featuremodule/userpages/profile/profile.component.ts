@@ -175,7 +175,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     // Récupérer les données de l'utilisateur connecté
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-      // console.log(data[0]);
       this.users = data[0];
       this.profil = this.users?.profil;
       this.selectedValue =
@@ -188,7 +187,9 @@ export class ProfileComponent implements OnInit {
         quartier: this.users.adresse?.quartier || '', // Assurez-vous de gérer les cas où les données peuvent être nulles
         rue: this.users.adresse?.rue || '',
         porte: this.users.adresse?.porte || '',
-        communeform: this.users.adresse?.commune?.id
+        communeform: this.users.adresse?.commune?.id,
+        description: this.users?.description
+
 
       };
       // this.hasRoleAgence = this.users.profil == 'AGENCE';

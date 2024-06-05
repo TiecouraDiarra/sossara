@@ -400,7 +400,7 @@
 <!-- Recent Properties for Rent -->
 <section class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
   <div class="footer-six-bg footer-nine-bg">
-    <img src="./assets/img/bg/feature-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/feature-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
@@ -423,7 +423,7 @@
         <div class="car-class-carousel">
           <div class="top-listings-rent-slider">
             <owl-carousel-o [options]="recentpropertiesOwlOptions">
-              <ng-container *ngFor="let bienRecent of BienLoueRecens?.slice(0, 6)">
+              <ng-container *ngFor="let bienRecent of BienLoueRecens">
                 <ng-template carouselSlide>
                   <div class="top-rent-room" [style.width]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '50%' : ''">
                     <div class="top-room-img">
@@ -470,7 +470,7 @@
                       <div class="favourite-small-user">
                         <img class="img-fluid" src="{{
                             generateImageUrl(
-                              bienRecent?.utilisateur?.photo?.nom
+                              bienRecent?.proprietaire?.photo
                             )
                           }}" alt="" (error)="handleAuthorImageError($event)" />
                       </div>
@@ -554,7 +554,7 @@
 <!-- Why Choose Us -->
 <section class="real-why-us common-padding position-relative">
   <div class="real-why-us-floating-bg">
-    <img src="./assets/img/bg/why-us-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/why-us-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
@@ -657,7 +657,7 @@
                             <span>
                               <img src="{{
                                   generateImageUrl(
-                                    Agence?.utilisateurPhoto?.nom
+                                    Agence?.agencePhoto
                                   )
                                 }}" alt="img" (error)="handleAuthorImageError($event)" />
                             </span>
@@ -852,7 +852,7 @@
 <!-- <section class="property-counter common-padding position-relative"> -->
 <section class="property-counter common-padding position-relative" *ngIf="BienTotal && BienTotal.length > 0">
   <div class="property-counter-float-bg">
-    <img src="./assets/img/bg/counter-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/counter-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="row">
@@ -900,7 +900,7 @@
 <!-- Featured Listings -->
 <section class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
   <div class="footer-six-bg footer-nine-bg">
-    <img src="./assets/img/bg/feature-bg.png" alt="" />
+    <!-- <img src="./assets/img/bg/feature-bg.png" alt="" /> -->
   </div>
   <div class="container">
     <div class="section-heading section-heading-nine aos">
@@ -1437,7 +1437,7 @@
 <!-- Become Agent -->
 <section class="join-us-dealer common-padding">
   <div class="join-us-dealer-bg home-nine-bg">
-    <img src="./assets/img/bg/agent-bg.png" alt="">
+    <!-- <img src="./assets/img/bg/agent-bg.png" alt=""> -->
   </div>
   <div class="container">
     <div class="row align-items-center aos">

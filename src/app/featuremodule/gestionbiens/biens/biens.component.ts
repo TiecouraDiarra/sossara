@@ -281,7 +281,7 @@ export class BiensComponent {
     // Charger la liste des biens immobiliers
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo);
+      // console.log(this.bienImmo);
       
       this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
@@ -292,7 +292,7 @@ export class BiensComponent {
         // Charger le nombre de "J'aime" pour chaque bien
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
         this.NombreJaime = bien.favoris?.length;
-        console.log(this.NombreJaime);
+        // console.log(this.NombreJaime);
         
 
         // if (typeof bien.uuid === 'number') {

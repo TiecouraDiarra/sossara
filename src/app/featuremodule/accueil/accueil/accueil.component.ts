@@ -524,6 +524,8 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       this.agence = data;
+      // console.log(this.agence);
+      
     });
 
 
