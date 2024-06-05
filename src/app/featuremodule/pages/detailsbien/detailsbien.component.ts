@@ -37,7 +37,6 @@ export class DetailsbienComponent implements AfterViewInit {
   public albumsOne: any = [];
   public albumsTwo: any = [];
   bien: any;
-  les_commodite: any[] = [];
   cercles: any[] = [];
   cercle: any;
   pays: any;
@@ -55,10 +54,7 @@ export class DetailsbienComponent implements AfterViewInit {
   isLoggedIn = false;
   isLoginFailed = true;
   isCandidatureSent: any = false; // Variable pour suivre l'état de la candidature
-  // typeImmo : any
-  // adresse : any
-  // createdAt : any
-  // User : any
+
   commentaire: any;
   regions: any = [];
   communes: any = [];
@@ -110,6 +106,7 @@ export class DetailsbienComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
       this.bien = data;
+
       this.photos = this.bien.photos;
       this.latitude = this.bien?.adresse?.latitude || null;
       this.longitude = this.bien?.adresse?.longitude || null;
@@ -191,62 +188,13 @@ export class DetailsbienComponent implements AfterViewInit {
   currentUser: any = false;
   ModifBien: any = false;
 
-  onChange(newValue: any) {
-    this.regions = this.region.filter(
-      (el: any) => el.pays.nompays == newValue.value
-    );
-  }
-  onChangeRegion(newValue: any) {
-    this.cercles = this.cercle.filter(
-      (el: any) => el.region.nomregion == newValue.value
-    );
-  }
 
-  onChangeCercle(newValue: any) {
-    this.communes = this.commune.filter(
-      (el: any) => el.cercle.nomcercle == newValue.value
-    );
-  }
 
-  //CHARGER L'IMAGE
-  onFileSelected(event: any): void {
-    this.selectedFiles = event.target.files;
-    const reader = new FileReader();
 
-    for (const file of this.selectedFiles) {
-      if (this.images?.length < 8) {
-        reader.onload = (e: any) => {
-          this.images.push(file);
-          this.image.push(e.target.result);
-          this.checkImageCount(); // Appel de la fonction pour vérifier la limite d'images
-          this.maxImageCount = this.image?.length;
-        };
-        reader.readAsDataURL(file);
-      } // Vérifiez si la limite n'a pas été atteinte
-    }
-    this.form.photo = this.images;
-    this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
-  }
 
-  removeImage(index: number) {
-    this.image.splice(index, 1); // Supprime l'image du tableau
-    this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
-    this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
-  }
 
-  getFullImagePath(imageName: string): string {
-    // Assurez-vous que le chemin de base est correctement configuré
-    const basePath = 'https://chemin-vers-votre-serveur/';
-    return basePath + imageName;
-  }
-  // Fonction pour vérifier la limite d'images et désactiver le bouton si nécessaire
-  checkImageCount(): void {
-    if (this.images?.length >= 8) {
-      this.isButtonDisabled = true;
-    } else {
-      this.isButtonDisabled = false;
-    }
-  }
+
+
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -254,17 +202,7 @@ export class DetailsbienComponent implements AfterViewInit {
       'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
-  onChangeCommodite() {
-    if (this.les_commodite) {
-      const commoditeArray = [];
-      for (const item of this.les_commodite) {
-        if (item.selected) {
-          commoditeArray.push(item.id);
-        }
-      }
-      this.form.commodite = commoditeArray;
-    }
-  }
+ 
 
   photos: any;
 
@@ -273,39 +211,12 @@ export class DetailsbienComponent implements AfterViewInit {
     heure: null,
   };
 
-  form: any = {
-    commodite: null,
-    type: null,
-    commune: null,
-    nb_piece: null,
-    nom: null,
-    chambre: null,
-    cuisine: null,
-    toilette: null,
-    surface: null,
-    prix: null,
-    statut: null,
-    description: null,
-    quartier: null,
-    rue: null,
-    porte: null,
-    periode: null,
-    longitude: null,
-    latitude: null,
-    photo: null,
-    commoditeChecked: false,
-    selectedCommodities: [], // Nouveau tableau pour stocker les commodités sélectionnées
-  };
+
 
   selectedCategory: any = '';
   selectedStatut: string | null = null;
   //METHODE PERMETTANT DE CHANGER LES STATUTS
-  onStatutChange(event: any) {
-    this.selectedStatut = event.target.value;
-    if (this.selectedStatut === '2') {
-      this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
-    }
-  }
+  
 
   isMobile= false;
   @HostListener('window:resize', ['$event'])
@@ -331,12 +242,9 @@ export class DetailsbienComponent implements AfterViewInit {
     @Inject(LOCALE_ID) private localeId: string,
   ) {
     this.locale = localeId;
-
-
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params['id'];
-
-    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+    this.bienparid()
    
  
   }
@@ -382,9 +290,6 @@ export class DetailsbienComponent implements AfterViewInit {
     }
 
     this.bienparid()
-    
-
-   
     const Users = this.storageService.getUser();
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
@@ -784,28 +689,8 @@ export class DetailsbienComponent implements AfterViewInit {
     return user ? user.userData : null;
   }
 
-  //POPUP APRES CONFIRMATION DE CANDIDATURE
-  popUpConfirmation() {
-    let timerInterval = 2000;
-    Swal.fire({
-      position: 'center',
-      text: 'La candidature a été envoyée avec succès.',
-      title: 'Candidature envoyée',
-      icon: 'success',
-      heightAuto: false,
-      showConfirmButton: false,
-      // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
-      showDenyButton: false,
-      showCancelButton: false,
-      allowOutsideClick: false,
-      timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true, // ajouter la barre de progression du temps
-    }).then((result) => {
-      this.reloadPage();
-      // Après avoir réussi à candidater, mettez à jour l'état de la candidature
-    });
-  }
+  
+ 
   
   //METHODE PERMETTANT D'ACTUALISER LA PAGE
   reloadPage(): void {
@@ -864,70 +749,11 @@ export class DetailsbienComponent implements AfterViewInit {
   pathConversation() {
     this.router.navigate([routes.messages]);
   }
-  selectedStatutMensuel: string | null = null;
-  //METHODE PERMETTANT DE CHANGER LES STATUTS
-  onStatutChangeMensuel(event: any) {
-    this.selectedStatutMensuel = event.target.value;
-    if (this.selectedStatut === '2') {
-      this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
-      this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
-    }
-  }
+
 
   //MODIFIER UN BIEN
  
-  //POPUP APRES CONFIRMATION
-  popUpConfirmationModification() {
-    let timerInterval = 2000;
-    Swal.fire({
-      position: 'center',
-      text: 'Bien modifie avec succès.',
-      title: 'Modification de bien',
-      icon: 'success',
-      heightAuto: false,
-      showConfirmButton: false,
-      // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
-      showDenyButton: false,
-      showCancelButton: false,
-      allowOutsideClick: false,
-      timer: timerInterval, // ajouter le temps d'attente
-      timerProgressBar: true, // ajouter la barre de progression du temps
-    }).then((result) => {
-      // Après avoir réussi à candidater, mettez à jour l'état de la candidature
-      //RECUPERER L'ID D'UN BIEN
-      this.id = this.route.snapshot.params['id'];
 
-      //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
-        this.bien = data.biens[0];
-        this.photos = this.bien.photos;
-        this.commodite = data.commodite;
-        
-        
-
-        const currentUser = this.storageService.getUser();
-
-        if (
-          currentUser &&
-          this.bien &&
-          currentUser.user.email === this.bien.utilisateur.email
-        ) {
-          this.currentUser = true;
-          this.ModifBien = true;
-        }
-
-        for (const photo of this.photos) {
-          const src = this.generateImageUrl(photo.nom); // Utilisez 'this.generateImageUrl'
-          const caption = 'Caption for ' + photo.nom;
-
-          this.albumsOne.push({ src: src, caption: caption });
-          this.albumsTwo.push({ src: src, caption: caption });
-        }
-      });
-      return this.router.navigate(['pages/service-details', this.id]);
-    });
-  }
 
   goToDettailBi(email: number) {
     return this.router.navigate(['/userpages/messages']);
@@ -985,7 +811,9 @@ userRoles: { id: number; name: string }[] = [];
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
-      // console.log(this.bien);
+      console.log(this.bien);
+      this.lesCommodites = data?.commodites;
+      console.log(this.lesCommodites)
 
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       // Trier les biens par date de création décroissante
@@ -1009,6 +837,7 @@ userRoles: { id: number; name: string }[] = [];
   // Récupérer le premier élément de la liste inversée
       this.bienImmoSuivant = biensFiltres.slice(0, 1);
       this.bienImmoPrecedent = biensFiltres2.slice(0, 1);
+      console.log(this.bienImmoPrecedent)
 
       
     });
@@ -1070,8 +899,8 @@ userRoles: { id: number; name: string }[] = [];
         initialMarker,
         'dragend',
         (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
-          this.form.latitude = markerEvent.latLng.lat();
-          this.form.longitude = markerEvent.latLng.lng();
+          // this.form.latitude = markerEvent.latLng.lat();
+          // this.form.longitude = markerEvent.latLng.lng();
         }
       );
 
@@ -1088,8 +917,8 @@ userRoles: { id: number; name: string }[] = [];
           initialMarker.setPosition(newLatLng);
 
           // Mettez à jour les coordonnées dans votre formulaire
-          this.form.latitude = newLatLng.lat();
-          this.form.longitude = newLatLng.lng();
+          // this.form.latitude = newLatLng.lat();
+          // this.form.longitude = newLatLng.lng();
         }
       );
     });
