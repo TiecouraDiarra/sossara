@@ -434,9 +434,9 @@
                               slide?.statut?.nom
                               }}</span>
                             <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                              (click)="AimerBien(slide?.id)"
-                              [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
-                              <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'"
+                              (click)="AimerBien(slide?.uuid)"
+                              [style.background-color]="favoriteStatus[slide?.uuid] ? '#e98b11' : 'white'">
+                              <i [style.color]="favoriteStatus[slide?.uuid] ? 'white' : 'black'"
                                 class="feather-heart"></i>
                             </a>
                           </div>
@@ -477,7 +477,7 @@
                                 <i class="feather-phone-call"></i> 00556245562
                               </div> -->
                               <div class="location-info">
-                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
+                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.uuid] }}
                               </div>
                             </div>
                             <!-- <p class="ratings">
@@ -578,9 +578,9 @@
                               slide?.statut?.nom
                               }}</span>
                             <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                              (click)="AimerBien(slide?.id)"
-                              [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
-                              <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'"
+                              (click)="AimerBien(slide?.uuid)"
+                              [style.background-color]="favoriteStatus[slide?.uuid] ? '#e98b11' : 'white'">
+                              <i [style.color]="favoriteStatus[slide?.uuid] ? 'white' : 'black'"
                                 class="feather-heart"></i>
                             </a>
                           </div>
@@ -614,7 +614,7 @@
                                 <i class="feather-phone-call"></i> 00556245562
                               </div> -->
                               <div class="location-info">
-                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
+                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.uuid] }}
                               </div>
                             </div>
                             <!-- <p class="ratings">
@@ -715,9 +715,9 @@
                               slide?.statut?.nom
                               }}</span>
                             <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                              (click)="AimerBien(slide?.id)"
-                              [style.background-color]="favoriteStatus[slide?.id] ? '#e98b11' : 'white'">
-                              <i [style.color]="favoriteStatus[slide?.id] ? 'white' : 'black'"
+                              (click)="AimerBien(slide?.uuid)"
+                              [style.background-color]="favoriteStatus[slide?.uuid] ? '#e98b11' : 'white'">
+                              <i [style.color]="favoriteStatus[slide?.uuid] ? 'white' : 'black'"
                                 class="feather-heart"></i>
                             </a>
                           </div>
@@ -757,7 +757,7 @@
                                 <i class="feather-phone-call"></i> 00556245562
                               </div> -->
                               <div class="location-info">
-                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.id] }}
+                                <i class="feather-eye"></i> {{ favoritedPropertiesCount1[slide?.uuid] }}
                               </div>
                             </div>
                             <!-- <p class="ratings">

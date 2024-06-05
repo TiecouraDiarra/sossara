@@ -380,14 +380,14 @@ export class AgenceComponent {
             });
             // Parcourir la liste des biens immobiliers
             this.bienImmoAgenceTotal.forEach((bien: {
-              favoris: any; id: string | number;
+              favoris: any; uuid: any;
             }) => {
               // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
               this.NombreJaimeAgence = bien.favoris.length;
-              if (typeof bien.id === 'number') {
-                this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
-              }
-              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+              // if (typeof bien.id === 'number') {
+                this.favoritedPropertiesCountAgence[bien.uuid] = this.NombreJaimeAgence;
+              // }
+              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
               // });
             });
           });
@@ -432,14 +432,14 @@ export class AgenceComponent {
 
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: {
-        favoris: any; id: string | number;
+        favoris: any; uuid: any;
       }) => {
         this.NombreJaime = bien.favoris?.length;
-        if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-        }
+        // if (typeof bien.uuid === 'number') {
+          this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
+        // }
         // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
       });
     });
 
@@ -466,14 +466,14 @@ export class AgenceComponent {
       // Parcourir la liste des biens immobiliers
       this.favoris.forEach((bien: {
         bien: any;
-        favoris: any; id: string | number;
+        favoris: any; uuid: any;
       }) => {
         this.NombreJaime = bien.bien.favoris?.length;
-        if (typeof bien.bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
-        }
+        // if (typeof bien.bien.id === 'number') {
+          this.favoritedPropertiesCount1[bien.bien.uuid] = this.NombreJaime;
+        // }
         // Charger l'état de favori depuis localStorage
-        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
+        const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.uuid}`);
       });
       // this.bienImmoFavoris = data?.bien?.reverse();
 
@@ -923,16 +923,16 @@ export class AgenceComponent {
       this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
         this.bienImmo = data.biens.reverse();
         // Parcourir la liste des biens immobiliers
-        this.bienImmo.forEach((bien: { id: string | number; }) => {
+        this.bienImmo.forEach((bien: { uuid: any }) => {
           // Charger le nombre de "J'aime" pour chaque bien
-          this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+          this.serviceBienImmo.ListeAimerBienParId(bien.uuid).subscribe(data => {
             this.NombreJaime = data.vues;
-            if (typeof bien.id === 'number') {
-              this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-            }
+            // if (typeof bien.uuid === 'number') {
+              this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
+            // }
 
             // Charger l'état de favori depuis localStorage
-            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
             // if (isFavorite === 'true') {
             //   this.favoriteStatus[bien.id] = true;
             // } else {
@@ -950,13 +950,13 @@ export class AgenceComponent {
         this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...this.bienImmoAgent];
 
         // Parcourir la liste des biens immobiliers
-        this.bienImmoAgenceTotal.forEach((bien: { id: string | number; }) => {
-          this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
+        this.bienImmoAgenceTotal.forEach((bien: { uuid: any; }) => {
+          this.serviceBienImmo.ListeAimerBienParId(bien.uuid).subscribe(data => {
             this.NombreJaimeAgence = data.vues;
-            if (typeof bien.id === 'number') {
-              this.favoritedPropertiesCountAgence[bien.id] = this.NombreJaimeAgence;
-            }
-            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+            // if (typeof bien.id === 'number') {
+              this.favoritedPropertiesCountAgence[bien.uuid] = this.NombreJaimeAgence;
+            // }
+            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
           });
         });
       });
@@ -1016,14 +1016,14 @@ export class AgenceComponent {
             // Parcourir la liste des biens immobiliers
             this.favoris.forEach((bien: {
               bien: any;
-              favoris: any; id: string | number;
+              favoris: any;
             }) => {
               this.NombreJaime = bien.bien.favoris?.length;
-              if (typeof bien.bien.id === 'number') {
-                this.favoritedPropertiesCount1[bien.bien.id] = this.NombreJaime;
-              }
+              // if (typeof bien.bien.id === 'number') {
+                this.favoritedPropertiesCount1[bien.bien.uuid] = this.NombreJaime;
+              // }
               // Charger l'état de favori depuis localStorage
-              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.id}`);
+              const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.uuid}`);
             });
             // this.bienImmoFavoris = data?.bien?.reverse();
 

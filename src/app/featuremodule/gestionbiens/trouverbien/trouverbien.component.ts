@@ -381,22 +381,23 @@ export class TrouverbienComponent implements OnInit {
 
           // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
           this.bienImmo.forEach((bien: {
-            favoris: any; id: string | number;
+            uuid: any;
+            favoris: any
           }) => {
             // Charger le nombre de "J'aime" pour chaque bien
             // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
             this.NombreJaime = bien.favoris?.length;
 
-            if (typeof bien.id === 'number') {
-              this.favoritedPropertiesCount1[bien.id] = this.NombreJaime;
-            }
+            // if (typeof bien.uuid === 'number') {
+              this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
+            // }
 
             // Charger l'état de favori depuis localStorage
-            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.id}`);
+            const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
             if (isFavorite === 'true') {
-              this.favoriteStatus[bien.id] = true;
+              this.favoriteStatus[bien.uuid] = true;
             } else {
-              this.favoriteStatus[bien.id] = false;
+              this.favoriteStatus[bien.uuid] = false;
             }
           });
         });

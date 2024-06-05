@@ -327,9 +327,9 @@
                         <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }" class="Featured-text">{{
                           BienImo?.statut?.nom }}</span>
                         <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
-                          (click)="AimerBien(BienImo?.id)"
-                          [style.background-color]="favoriteStatus[BienImo?.id] ? '#e98b11' : 'white'">
-                          <i [style.color]="favoriteStatus[BienImo?.id] ? 'white' : 'black'" class="feather-heart"></i>
+                          (click)="AimerBien(BienImo?.uuid)"
+                          [style.background-color]="favoriteStatus[BienImo?.uuid] ? '#e98b11' : 'white'">
+                          <i [style.color]="favoriteStatus[BienImo?.uuid] ? 'white' : 'black'" class="feather-heart"></i>
                         </a>
                       </div>
                     </div>
@@ -349,7 +349,7 @@
                           </div>
                           <div class="blog-author text-end">
                             <span>
-                              <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo?.id] }}
+                              <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo?.uuid] }}
                               <!-- <i class="feather-eye"></i>{{ BienImo?.favoris?.length }} -->
                             </span>
                           </div>

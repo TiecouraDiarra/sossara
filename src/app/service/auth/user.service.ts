@@ -87,7 +87,7 @@ export class UserService {
   PrendreRdv(date: string, heure: string, id: any): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-    formData.append('bienImmo', id || '');
+    formData.append('uuidBien', id || '');
     formData.append('date', date || '');
     formData.append('heure', heure || '');
     return this.http.post(`${URL_BASE}/rdv/ajouter`,

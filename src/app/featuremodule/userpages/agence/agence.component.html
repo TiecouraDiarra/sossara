@@ -3152,33 +3152,33 @@
                           ">
                           <img src="{{
                               generateImageUrl(slide.bien.photoImmos[0].nom)
-                            }}" class="img-fluid image-size1" alt="blog-img" />
+                            }}" class="img-fluid1 image-size1" alt="blog-img" />
                         </div>
                         <ng-template #noImages>
                           <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Villa'">
-                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size1"
+                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid1 image-size1"
                               alt="default-img" />
                           </div>
                           <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Appartement'">
-                            <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size1"
+                            <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid1 image-size1"
                               alt="default-img" />
                           </div>
                           <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Terrain'">
-                            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size1"
+                            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid1 image-size1"
                               alt="default-img" />
                           </div>
                           <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Bureau'">
-                            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size1"
+                            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid1 image-size1"
                               alt="default-img" />
                           </div>
                           <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Champ'">
-                            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size1"
+                            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid1 image-size1"
                               alt="default-img" />
                           </div>
                           <div class="type" *ngIf="
                               slide?.bien?.typeImmo?.nom === 'Commerce & Magasin'
                             ">
-                            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size1"
+                            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid1 image-size1"
                               alt="default-img" />
                           </div>
                           <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
@@ -3189,11 +3189,11 @@
                             statutbien: slide?.bien?.statut?.nom === 'A vendre'
                           }" class="Featured-text">{{ slide?.bien?.statut?.nom }}</span>
                         <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
-                          (click)="AimerBien(slide?.bien?.id)" [style.background-color]="
-                            favoriteStatus[slide?.bien?.id] ? 'white' : '#e98b11'
+                          (click)="AimerBien(slide?.bien?.uuid)" [style.background-color]="
+                            favoriteStatus[slide?.bien?.uuid] ? 'white' : '#e98b11'
                           ">
                           <i [style.color]="
-                              favoriteStatus[slide?.bien?.id] ? 'black' : 'white'
+                              favoriteStatus[slide?.bien?.uuid] ? 'black' : 'white'
                             " class="feather-heart"></i>
                         </a>
                       </div>
@@ -3237,7 +3237,7 @@
                   </div> -->
                           <div class="location-info">
                             <i class="feather-eye"></i>
-                            {{ favoritedPropertiesCount1[slide?.bien?.id] }}
+                            {{ favoritedPropertiesCount1[slide?.bien?.uuid] }}
                           </div>
                         </div>
                         <!-- <p class="ratings">

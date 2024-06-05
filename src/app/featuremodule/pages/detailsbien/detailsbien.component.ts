@@ -609,7 +609,7 @@ export class DetailsbienComponent implements AfterViewInit {
   }
 
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
-  PrendreRvd(id: number): void {
+  PrendreRvd(id: any): void {
     // this.id = this.route.snapshot.params["id"]
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -719,7 +719,7 @@ export class DetailsbienComponent implements AfterViewInit {
           this.serviceUser.setAccessToken(user.token);
           //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
           this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
-            this.idBien = data.id;
+            this.idBien = data.uuid;
             // Appelez la méthode PrendreRdv() avec le contenu et l'ID
             this.serviceBienImmo.CandidaterBien(this.idBien, this.formCandidater.usage, this.formCandidater.date).subscribe({
               next: (data) => {
@@ -911,7 +911,7 @@ export class DetailsbienComponent implements AfterViewInit {
         if (
           currentUser &&
           this.bien &&
-          currentUser.user.id === this.bien.utilisateur.id
+          currentUser.user.email === this.bien.utilisateur.email
         ) {
           this.currentUser = true;
           this.ModifBien = true;
@@ -985,9 +985,8 @@ userRoles: { id: number; name: string }[] = [];
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
+      console.log(this.bien);
 
-      
-   
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       // Trier les biens par date de création décroissante
       data.sort((a: any, b: any) => {
@@ -1028,7 +1027,7 @@ userRoles: { id: number; name: string }[] = [];
       if (
         currentUser &&
         this.bien &&
-        currentUser?.id === this.bien?.utilisateur?.id
+        currentUser?.email === this.bien?.utilisateur?.email
       ) {
         this.currentUser = true;
         this.ModifBien = true;

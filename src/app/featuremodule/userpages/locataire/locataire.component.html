@@ -79,40 +79,44 @@
                                         <td>
                                             <div class="listingtable-img">
                                                 <a (click)="goToDettailBien(BienImmo.bien.uuid)">
-                                                    <div
-                                                        *ngIf="BienImmo.bien.photoImmos; else noImages">
+                                                    <div *ngIf="BienImmo.bien.photoImmos; else noImages">
                                                         <img src="{{ generateImageUrl(BienImmo?.bien?.photoImmos) }}"
                                                             class="img-fluid image-size" alt="blog-img">
                                                     </div>
                                                     <ng-template #noImages>
-                                                        <div class="type" *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Villa'">
-                                                          <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size1"
-                                                            alt="default-img" />
+                                                        <div class="type"
+                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Villa'">
+                                                            <img src="../../../../assets/img/typebien/villa.png"
+                                                                class="img-fluid image-size1" alt="default-img" />
                                                         </div>
-                                                        <div class="type" *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Appartement'">
-                                                          <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size1"
-                                                            alt="default-img" />
+                                                        <div class="type"
+                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Appartement'">
+                                                            <img src="../../../../assets/img/typebien/appartement.png"
+                                                                class="img-fluid image-size1" alt="default-img" />
                                                         </div>
-                                                        <div class="type" *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Terrain'">
-                                                          <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size1"
-                                                            alt="default-img" />
+                                                        <div class="type"
+                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Terrain'">
+                                                            <img src="../../../../assets/img/typebien/terrain.png"
+                                                                class="img-fluid image-size1" alt="default-img" />
                                                         </div>
-                                                        <div class="type" *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Bureau'">
-                                                          <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size1"
-                                                            alt="default-img" />
+                                                        <div class="type"
+                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Bureau'">
+                                                            <img src="../../../../assets/img/typebien/bureau.png"
+                                                                class="img-fluid image-size1" alt="default-img" />
                                                         </div>
-                                                        <div class="type" *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Champ'">
-                                                          <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size1"
-                                                            alt="default-img" />
+                                                        <div class="type"
+                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Champ'">
+                                                            <img src="../../../../assets/img/typebien/champ.png"
+                                                                class="img-fluid image-size1" alt="default-img" />
                                                         </div>
                                                         <div class="type" *ngIf="
                                                         BienImmo?.bien?.typeImmo?.nom === 'Commerce & Magasin'
                                                           ">
-                                                          <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size1"
-                                                            alt="default-img" />
+                                                            <img src="../../../../assets/img/typebien/magasin.png"
+                                                                class="img-fluid image-size1" alt="default-img" />
                                                         </div>
                                                         <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
-                                                      </ng-template>
+                                                    </ng-template>
                                                 </a>
                                             </div>
                                         </td>
@@ -177,7 +181,7 @@
                                             </span> -->
 
                                             <div class="action">
-                                                <a (click)="openReclamationModal(BienImmo.bien.id)"
+                                                <a (click)="openReclamationModal(BienImmo.bien.uuid)"
                                                     data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                     class="action-btn btn-view crd"><img class="icone-size"
                                                         src="../../../../assets/img/iconeBien/réclamation.png"
@@ -919,14 +923,14 @@
             aria-labelledby="facture-tab">
             <div class="dash-listingcontent dashboard-info">
                 <div class="dash-cards card">
-                    <div class="card-body" >
+                    <div class="card-body">
                         <div class="listing-search">
                             <ng-container *ngIf="facture && facture.length > 0; else noFs">
                                 <h5>Mes factures</h5>
-                              </ng-container>
-                              <ng-template #noFs>
+                            </ng-container>
+                            <ng-template #noFs>
                                 <h5>Vous n'avez pas de facture disponible</h5>
-                              </ng-template>
+                            </ng-template>
                             <!-- <h4>Mes factures</h4> -->
                             <div class="filter-content form-group">
                                 <div class="group-img">
@@ -1136,10 +1140,10 @@
                         <div class="listing-search">
                             <ng-container *ngIf="favoris && favoris.length > 0; else noFq">
                                 <h5>Mes favoris</h5>
-                              </ng-container>
-                              <ng-template #noFq>
+                            </ng-container>
+                            <ng-template #noFq>
                                 <h5>Vous n'avez pas de biens dans les favoris</h5>
-                              </ng-template>
+                            </ng-template>
                             <!-- <h4>Mes favoris</h4> -->
                             <div class="filter-content form-group">
                                 <div class="group-img">
@@ -1159,34 +1163,34 @@
                         slide.bien.photoImmos && slide.bien.photoImmos.length > 0;
                         else noImages">
                                                     <img src="{{ generateImageUrl(slide?.bien?.photoImmos[0]?.nom) }}"
-                                                        class="img-fluid image-size1" alt="blog-img" />
+                                                        class="img-fluid1 image-size1" alt="blog-img" />
                                                 </div>
                                                 <ng-template #noImages>
                                                     <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Villa'">
                                                         <img src="../../../../assets/img/typebien/villa.png"
-                                                            class="img-fluid image-size1" alt="default-img">
+                                                            class="img-fluid1 image-size1" alt="default-img">
                                                     </div>
                                                     <div class="type"
                                                         *ngIf="slide?.bien?.typeImmo?.nom === 'Appartement'">
                                                         <img src="../../../../assets/img/typebien/appartement.png"
-                                                            class="img-fluid image-size1" alt="default-img">
+                                                            class="img-fluid1 image-size1" alt="default-img">
                                                     </div>
                                                     <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Terrain'">
                                                         <img src="../../../../assets/img/typebien/terrain.png"
-                                                            class="img-fluid image-size1" alt="default-img">
+                                                            class="img-fluid1 image-size1" alt="default-img">
                                                     </div>
                                                     <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Bureau'">
                                                         <img src="../../../../assets/img/typebien/bureau.png"
-                                                            class="img-fluid image-size1" alt="default-img">
+                                                            class="img-fluid1 image-size1" alt="default-img">
                                                     </div>
                                                     <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Champ'">
                                                         <img src="../../../../assets/img/typebien/champ.png"
-                                                            class="img-fluid image-size1" alt="default-img">
+                                                            class="img-fluid1 image-size1" alt="default-img">
                                                     </div>
                                                     <div class="type"
                                                         *ngIf="slide?.bien?.typeImmo?.nom === 'Commerce & Magasin'">
                                                         <img src="../../../../assets/img/typebien/magasin.png"
-                                                            class="img-fluid image-size1" alt="default-img">
+                                                            class="img-fluid1 image-size1" alt="default-img">
                                                     </div>
                                                     <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
                                                 </ng-template>
@@ -1196,11 +1200,11 @@
                         statutbien: slide?.bien?.statut?.nom === 'A vendre'
                       }" class="Featured-text">{{ slide?.bien?.statut?.nom }}</span>
                                                 <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
-                                                    (click)="AimerBien(slide.bien.id)" [style.background-color]="
-                        favoriteStatus[slide.bien.id] ? 'white' : '#e98b11'
+                                                    (click)="AimerBien(slide.bien.uuid)" [style.background-color]="
+                        favoriteStatus[slide.bien.uuid] ? 'white' : '#e98b11'
                       ">
                                                     <i [style.color]="
-                          favoriteStatus[slide.bien.id] ? 'black' : 'white'
+                          favoriteStatus[slide.bien.uuid] ? 'black' : 'white'
                         " class="feather-heart"></i>
                                                 </a>
                                             </div>
@@ -1240,7 +1244,7 @@
                       </div> -->
                                                     <div class="location-info">
                                                         <i class="feather-eye"></i>
-                                                        {{ favoritedPropertiesCount1[slide?.bien?.id] }}
+                                                        {{ favoritedPropertiesCount1[slide?.bien?.uuid] }}
                                                     </div>
                                                 </div>
                                                 <!-- <p class="ratings">

@@ -378,7 +378,7 @@ export class BienimmoService {
   CandidaterBien(id: any, usage: any, dateEntree: any): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-    formData.append('bienImmo', id || '');
+    formData.append('uuidBien', id || '');
     formData.append('usage', usage || '5');
     formData.append('dateEntree', dateEntree || '');
 
@@ -389,7 +389,7 @@ export class BienimmoService {
   AimerBien(id: any): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-    formData.append('bienImmo', id || '');
+    formData.append('uuidBien', id || '');
 
     return this.http.post(`${URL_BASE}/favoris/ajouter-ou-retirer`, formData, { headers });
   }
@@ -559,7 +559,7 @@ export class BienimmoService {
     contenu: string,
     type: number,
     prix_estimatif: number,
-    idbien: number,
+    idbien: any,
     photos: File[],
     // photo: File // Liste de photos
   ): Observable<any> {
@@ -571,7 +571,7 @@ export class BienimmoService {
     formData.append('contenu', contenu);
     formData.append('typeProblemeId', type.toString());
     formData.append('prix_estimatif', prix_estimatif.toString());
-    formData.append('bienImmoId', idbien.toString());
+    formData.append('bienImmoUuid', idbien);
     photos.forEach(p => { formData.append('photoReclamations', p) });
 
     return this.http.post(

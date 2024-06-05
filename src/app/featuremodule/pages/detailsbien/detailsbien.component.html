@@ -195,7 +195,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Retour
         </button>
-        <button (click)="PrendreRvd(bien?.id)" type="button" class="btn btn-primary">
+        <button (click)="PrendreRvd(bien?.uuid)" type="button" class="btn btn-primary">
           Envoyer
         </button>
       </div>
@@ -430,7 +430,7 @@
                     {{ errorMessage }}
                   </div>
                   <div class="submit-section">
-                    <button (click)="PrendreRvd(bien?.id)" class="btn btn-primary submit-btn" type="submit">
+                    <button (click)="PrendreRvd(bien?.uuid)" class="btn btn-primary submit-btn" type="submit">
                       Envoyer
                     </button>
                   </div>
@@ -692,7 +692,7 @@
                         <button class="btn btn-primary submit-btn" [disabled]="
                             !commentaireForm.contenu ||
                             commentaireForm.contenu.trim() === ''
-                          " (click)="Fairecommentaire(bien?.id)" type="submit">
+                          " (click)="Fairecommentaire(bien?.uuid)" type="submit">
                           Commenter
                         </button>
                       </div>
@@ -783,19 +783,19 @@
               <h4><i class="feather-user"></i> Proprietaire</h4>
               <div class="sidebarauthor-details align-items-center">
                 <div class="sideauthor-img" *ngIf="bien && bien?.utilisateur">
-                  <img src="{{ generateImageUrl(bien?.utilisateur?.photo?.nom) }}" alt="author"
+                  <img src="{{ generateImageUrl(bien?.utilisateur?.photo) }}" alt="author"
                     (error)="handleAuthorImageError($event)" />
                 </div>
                 <div class="sideauthor-info">
-                  <!-- <p class="authorname" *ngIf="bien && bien?.utilisateur">
+                  <p class="authorname" *ngIf="bien && bien?.utilisateur">
                     {{ bien?.utilisateur?.nom }}
-                  </p> -->
-                  <ng-container *ngIf="hasRole('ROLE_AGENCE'); else noAgenceTemplate">
+                  </p>
+                  <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else noAgenceTemplate">
                     <p class="authorname" *ngIf="bien && bien?.utilisateur">{{ bien?.utilisateur?.nomAgence }}</p>
                   </ng-container>
                   <ng-template #noAgenceTemplate>
                     <p class="authorname" *ngIf="bien && bien?.utilisateur">{{ bien?.utilisateur?.nom }}</p>
-                  </ng-template>
+                  </ng-template> -->
                   <!-- <p>Member since Nov 24, 2017</p> -->
                 </div>
               </div>
@@ -898,7 +898,7 @@
                   {{ errorMessage }}
                 </div>
                 <div class="submit-section">
-                  <button (click)="PrendreRvd(bien?.id)" class="btn btn-primary submit-btn" type="submit">
+                  <button (click)="PrendreRvd(bien?.uuid)" class="btn btn-primary submit-btn" type="submit">
                     Envoyer
                   </button>
                 </div>
