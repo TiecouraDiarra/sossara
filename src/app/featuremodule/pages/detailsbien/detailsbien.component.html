@@ -516,8 +516,34 @@
                                    class="card-img" alt="...">
                             </div>
                             
-                            <ng-template #defaultImage>
+                            <!-- <ng-template #defaultImage>
                               <img src="assets/img/typebien/villa.png" class="card-img" alt="...">
+                            </ng-template> -->
+                            <ng-template #defaultImage>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Commerce & Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="card-img"
+                                  alt="default-img">
+                              </div>
                             </ng-template>
                             
                             <div class="col-md-8">
@@ -554,8 +580,34 @@
                                    class="card-img" alt="...">
                             </div>
                             
-                            <ng-template #defaultImage>
+                            <!-- <ng-template #defaultImage>
                               <img src="assets/img/typebien/villa.png" class="card-img" alt="...">
+                            </ng-template> -->
+                            <ng-template #defaultImage>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Commerce & Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="card-img"
+                                  alt="default-img">
+                              </div>
                             </ng-template>
                             
                             <div class="col-md-8">

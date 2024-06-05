@@ -198,7 +198,6 @@ validateEmail(email: string): boolean {
       || this.form.email === null
       || this.form.password === null
       || this.form.telephone === null
-      || this.form.dateNaissance === null
       || this.form.nomDoc == "Type de pieces"
       || this.form.numDoc === null
       || this.form.confirmPassword === null

@@ -133,6 +133,7 @@ export class LesagencesComponent implements OnInit {
     // AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       this.agence = data;
+
       
     });
 

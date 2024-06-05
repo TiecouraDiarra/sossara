@@ -230,7 +230,7 @@
                     </td>
                     <td>
                       <span class="views-count">{{
-                        favoritedPropertiesCountAgence[BienImmo?.id]
+                        favoritedPropertiesCountAgence[BienImmo?.uuid]
                         }}</span>
                     </td>
                     <td>
@@ -392,7 +392,7 @@
                     </td>
                     <td>
                       <span class="views-count">{{
-                        favoritedPropertiesCount1[BienImmo?.id]
+                        favoritedPropertiesCount1[BienImmo?.uuid]
                         }}</span>
                     </td>
                     <td>
@@ -1226,7 +1226,7 @@
                                                     data-bs-whatever="@fat">Reclamation</button>
                                             </span> -->
                       <div class="action">
-                        <a (click)="openReclamationModal(BienImmo?.bien?.id)" data-bs-toggle="modal"
+                        <a (click)="openReclamationModal(BienImmo?.bien?.uuid)" data-bs-toggle="modal"
                           data-bs-target="#exampleModal" class="action-btn btn-view crd"> <img class="icone-size"
                             src="../../../../assets/img/iconeBien/réclamation.png" alt="Room amenities" />
                           <span class="hover-text">Faire une reclamation</span>

@@ -113,7 +113,7 @@ export class BienparcommuneComponent {
       this.isLoginFailed = false;
     }
     // Récupérez l'utilisateur connecté et ses biens aimés lorsqu'il se connecte
-    this.onUserLoginSuccess();
+    // this.onUserLoginSuccess();
 
     //AFFICHER LA LISTE DES COMMODITES
     // this.serviceCommodite.AfficherLaListeCommodite().subscribe(data => {
@@ -140,6 +140,8 @@ export class BienparcommuneComponent {
     this.nomcommune = this.route.snapshot.params["nomcommune"]
     this.serviceBienImmo.AfficherBienImmoParNomCommune(this.nomcommune).subscribe(data => {
       this.bienImmo = data.reverse();
+      // console.log(this.bienImmo);
+      
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: {
         uuid: any;
@@ -261,7 +263,7 @@ export class BienparcommuneComponent {
   pageSize: number = 2; // Nombre d'éléments par page
   // Calcul du nombre total de pages
   get pageCount(): number {
-    return Math.ceil(this.bienImmo.length / this.pageSize);
+    return Math.ceil(this.bienImmo?.length / this.pageSize);
   }
 
 

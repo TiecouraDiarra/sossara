@@ -42,6 +42,7 @@ export class ContratComponent {
   // isProprietaire = false;
   // isAgence = false;
   roles: string[] = [];
+  users: any;
 
   isProprietaire(roles: any[]): boolean {
     return roles?.some(role => role.name === 'ROLE_PROPRIETAIRE');
@@ -113,10 +114,15 @@ export class ContratComponent {
       this.bien = data?.bien;
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
-      this.emailProprietaire = this.storageService.getUser().email
-      if (this.emailProprietaire == this.proprietaire.email) {
-        this.isAgenceProprietaire = true;
-      }
+      this.serviceUser.AfficherUserConnecter().subscribe(
+        (data) => {
+          this.users = data[0];
+          this.emailProprietaire = this.users.email
+          // this.emailProprietaire = this.storageService.getUser().email
+          if (this.emailProprietaire == this.proprietaire.email) {
+            this.isAgenceProprietaire = true;
+          }
+        })
       this.photoImmo = data?.bien?.photoImmos;
 
     })
