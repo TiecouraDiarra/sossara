@@ -221,7 +221,7 @@
                 <tr *ngFor="let Agent of filterAgentsByState(agent) | filter:searchText | filter :selectedCommune | paginate:{itemsPerPage :4, currentPage:p1}">
                     <td>
                         <div class="candidate-list-images">
-                            <a href="#"><img src="{{generateImageUrl(Agent?.photo?.nom)}}" alt=""
+                            <a href="#"><img src="{{generateImageUrl(Agent?.photo)}}" alt=""
                                     class="avatar-md img-thumbnail rounded-circle"
                                     (error)="handleAuthorImageError($event)" /></a>
                         </div>

@@ -114,7 +114,7 @@
           <div class="col callnow crd mt-5" (click)="goToModifierBien(bien.uuid)"
             *ngIf="isLoggedIn == true && currentUser == true">
             <a class="action-btn btn-edit">
-              <i class="feather-edit-3"></i>Modifier ce bien</a>
+              <i class="feather-edit-3"></i>Modifier ce bien</a> 
           </div>
         </div>
       </div>
@@ -256,9 +256,9 @@
             <div class="gallery-content">
               <div class="row">
                 <ng-container *ngFor="let photo of photos; let i = index">
-                  <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="i < 12">
+                  <div class="col-lg-3 col-md-3 col-sm-3" style="width: 235px;" *ngIf="i < 12">
                     <div class="gallery-widget">
-                      <img class="img-fluid image-size1" [src]="generateImageUrl(photo?.nom)"
+                      <img class="img-fluid image-size1" style="width: 200px !important;" [src]="generateImageUrl(photo?.nom)"
                         (click)="open(i, albumsOne)" />
                     </div>
                   </div>
@@ -457,7 +457,7 @@
         <!-- Description -->
 
         <!--Commodites-->
-        <div class="card" *ngIf="les_commodite && les_commodite.length > 0">
+        <div class="card" *ngIf="lesCommodites && lesCommodites.length > 0">
           <div class="card-header">
             <i class="feather-list"></i>
             <h4>Les commodités</h4>
@@ -498,34 +498,69 @@
 
           <div class="container">
             <div class="about-details">
-              <div class="about-headings">
-                <div class="col-lg-5 theiaStickySidebar ml-auto">
+              <div class="rate-details" *ngIf="bienImmoPrecedent && bienImmoPrecedent?.length > 0">
+
+
+                <div class="col-lg-12 theiaStickySidebar">
                   <div class="stickybar">
                     <div class="rightsidebar">
                       <div class="card" *ngIf="bienImmoPrecedent && bienImmoPrecedent?.length > 0"
                         (click)="goToDettailBien(bienImmoPrecedent[0]?.uuid)">
-                        <h4 style="cursor: pointer;"><i class="feather-arrow-left"></i> Bien Précédent</h4>
-                        <div class="article" *ngFor="let BienImo of bienImmoPrecedent">
-                          <a (click)="goToDettailBien(BienImo?.uuid)" class="articleimg-1 crd"
-                            [style.background-image]="BienImo?.photos[0]?.nom ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos[0]?.nom) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/typebien/villa.png)'">
-                            <ul>
-                              <li>
+                        <h4 style="cursor: pointer;"><i class="feather-arrow-left"></i>Bien Précedent</h4>
+                       
+                        <div class="card mb-3" style="max-width: 540px; cursor: pointer;" *ngFor="let BienImo of bienImmoPrecedent">
+                          <div class="row no-gutters">
+                            <div class="col-md-4">
+                              <img  style="height: 100px; width: 133px;" *ngIf="BienImo?.photos; else defaultImage"
+                                   src="{{ generateImageUrl(BienImo?.photos) }}"
+                                   class="card-img" alt="...">
+                            </div>
+                            
+                            <!-- <ng-template #defaultImage>
+                              <img src="assets/img/typebien/villa.png" class="card-img" alt="...">
+                            </ng-template> -->
+                            <ng-template #defaultImage>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Commerce & Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                            </ng-template>
+                            
+                            <div class="col-md-8">
+                              <div class="card-body">
                                 <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>
-                              </li>
-                              <li *ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
+                                <p class="card-text"><small class="text-muted"*ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
                                   class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
-                                date:"dd MMM yyyy":locale}}
-                              </li>
-                            </ul>
-                          </a>
-                        </div>
+                                date:"dd MMM yyyy":locale}}</small></p>
 
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-
               </div>
               <div class="rate-details" *ngIf="bienImmoSuivant && bienImmoSuivant?.length > 0">
 
@@ -536,39 +571,62 @@
                       <div class="card" *ngIf="bienImmoSuivant && bienImmoSuivant?.length > 0"
                         (click)="goToDettailBien(bienImmoSuivant[0]?.uuid)">
                         <h4 style="cursor: pointer;"><i class="feather-arrow-right"></i>Bien Suivant</h4>
-                        <div class="article" *ngFor="let BienImo of bienImmoSuivant">
-                          <a (click)="goToDettailBien(BienImo?.uuid)" class="articleimg-1 crd"
-                            [style.background-image]="BienImo?.photos[0]?.nom ? 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(' + generateImageUrl(BienImo?.photos[0]?.nom) + ')' : 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(assets/img/typebien/villa.png)'">
-                            <ul>
-                              <li>
+                       
+                        <div class="card mb-3" style="max-width: 540px; cursor: pointer;" *ngFor="let BienImo of bienImmoSuivant">
+                          <div class="row no-gutters">
+                            <div class="col-md-4">
+                              <img style="height: 100px; width: 133px;" *ngIf="BienImo?.photos; else defaultImage"
+                                   src="{{ generateImageUrl(BienImo?.photos) }}"
+                                   class="card-img" alt="...">
+                            </div>
+                            
+                            <!-- <ng-template #defaultImage>
+                              <img src="assets/img/typebien/villa.png" class="card-img" alt="...">
+                            </ng-template> -->
+                            <ng-template #defaultImage>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Commerce & Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="card-img"
+                                  alt="default-img">
+                              </div>
+                            </ng-template>
+                            
+                            <div class="col-md-8">
+                              <div class="card-body">
                                 <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>
-                              </li>
-                              <li *ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
+                                <p class="card-text"><small class="text-muted"*ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
                                   class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
-                                date:"dd MMM yyyy":locale}}
-                              </li>
-                            </ul>
-                          </a>
+                                date:"dd MMM yyyy":locale}}</small></p>
+
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <img src="..." class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
             </div>
 
           </div>
@@ -604,7 +662,7 @@
                         <i class="fa-sharp fa-solid fa-calendar-days"></i>
                         {{ commentaire?.createdAt | date : "HH:mm" }}
                         <i class="float-end fw-bold">
-                          <a *ngIf="commentaire?.utilisateur?.id === users?.id" data-bs-toggle="collapse"
+                          <a *ngIf="commentaire?.utilisateur?.email === users?.email" data-bs-toggle="collapse"
                             [href]="'#collapseExample1-' + commentaire?.id" aria-expanded="false"
                             aria-controls="collapseExample" (click)="afficherCommentaire(commentaire?.id)" role="button"
                             style="margin-right: 10px"><small>Modifier</small></a>

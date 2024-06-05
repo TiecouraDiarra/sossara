@@ -208,13 +208,13 @@ export class AgenceComponent {
 
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
-  openReclamationModal(bienImmoId: number) {
+  openReclamationModal(bienImmoId: any) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
   }
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
-  openArreterModal(bienImmoId: number) {
+  openArreterModal(bienImmoId: any) {
     // Stockez l'ID du BienImmo sélectionné dans la variable
     this.selectedBienImmoId = bienImmoId;
   }
@@ -351,7 +351,8 @@ export class AgenceComponent {
           this.isAgence = true;
           //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
           this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
-
+            // console.log(data);
+            
             let totalBiensAgents: any[] = [];
             this.bienImmoAgence = data?.bienImmos;
             // Parcourir chaque agent
@@ -524,7 +525,7 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
-      // console.log(this.reclamation);
+      console.log(this.reclamation);
       
 
     });

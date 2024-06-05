@@ -525,6 +525,7 @@ export class AccueilComponent {
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       this.agence = data;
       // console.log(this.agence);
+      this.nombreAgence = data.length
       
     });
 
@@ -537,8 +538,8 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe((data) => {
       this.BienTotal = data;
-      this.getDerniersBiens();
-      this.getTopFavorisBiens();
+      // this.getDerniersBiens();
+      // this.getTopFavorisBiens();
       this.BienTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué
         if (bien.statut.nom === 'A louer') {

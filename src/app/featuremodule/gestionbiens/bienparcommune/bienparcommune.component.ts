@@ -140,7 +140,7 @@ export class BienparcommuneComponent {
     this.nomcommune = this.route.snapshot.params["nomcommune"]
     this.serviceBienImmo.AfficherBienImmoParNomCommune(this.nomcommune).subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo);
+      // console.log(this.bienImmo);
       
       // Initialisation de favoritedPropertiesCount pour tous les biens immobiliers avec zéro favori.
       this.bienImmo.forEach((bien: {
