@@ -220,7 +220,7 @@ export class DetailsagenceComponent implements OnInit {
         // Ajouter les biens immobiliers de l'agent à la liste totale
         this.totalBiensAgents.push(...agent.bienImmosAgents);
       });
-      console.log(data);
+      // console.log(data);
       
 
       // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
