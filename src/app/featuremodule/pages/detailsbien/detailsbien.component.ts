@@ -1028,7 +1028,7 @@ userRoles: { id: number; name: string }[] = [];
       if (
         currentUser &&
         this.bien &&
-        currentUser?.id === this.bien?.utilisateur?.id
+        currentUser?.email === this.bien?.utilisateur?.email
       ) {
         this.currentUser = true;
         this.ModifBien = true;

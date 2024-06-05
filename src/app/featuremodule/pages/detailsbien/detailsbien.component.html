@@ -76,9 +76,15 @@
               isLoggedIn == true &&
               currentUser == false
             ">
-            <a class="action-btn btn-edit">
+            <a class="action-btn btn-edit" >
               <i class="feather-phone-call"></i>Prendre Rendez-vous</a>
           </div>
+          <div class="col callnow crd mt-5" *ngIf="
+          isLoggedIn == false
+        ">
+        <a class="action-btn btn-edit" [routerLink]="['/auth/connexion']">
+          <i class="feather-phone-call"></i>Prendre Rendez-vous</a>
+      </div>
           <!-- CANDIDATER UN BIEN   -->
           <div class="col callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" *ngIf="
               isLoggedIn == true &&
@@ -87,6 +93,14 @@
             ">
             <a class="action-btn btn-edit">
               <i class="feather-edit-3"></i>Candidater pour ce bien</a>
+          </div>
+          <div class="col callnow crd mt-5"  *ngIf="
+              isLoggedIn == false 
+            ">
+        <a class="action-btn btn-edit" [routerLink]="['/auth/connexion']">
+          <i class="feather-edit-3"></i> Candidater pour ce bien
+        </a>
+        
           </div>
           <div class="col callnow crd mt-5" *ngIf="
               isLoggedIn == true &&
@@ -211,7 +225,7 @@
       <div class="col-lg-9">
         <div class="author-img" *ngFor="let photo of photos; let isFirst = first">
           <img class="image-size3" *ngIf="isFirst" src="{{ generateImageUrl(photo?.nom) }}" alt="authorimg" />
-        </div>
+        </div> 
         <div class="author-img" *ngIf="photos && photos?.length == 0">
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Villa'">
             <img src="../../../../assets/img/typebien/villa.png" class="img-fluid" alt="default-img" />
@@ -541,6 +555,20 @@
                   </div>
                 </div>
               </div>
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="..." class="card-img" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -677,7 +705,7 @@
               <!-- </div> -->
               <ul class="">
              
-                <li class="review-box feedbackbox mb-0" *ngIf="isLoggedIn == true">
+                <li class="review-box feedbackbox mb-0">
                   <div class="review-details">
                     <h6>Ecrire un commentaire</h6>
                   </div>
@@ -689,12 +717,19 @@
                           placeholder="Ecriver votre commentaire*" required></textarea>
                       </div>
                       <div class="submit-section">
-                        <button class="btn btn-primary submit-btn" [disabled]="
+                        <button  *ngIf="isLoggedIn == true" class="btn btn-primary submit-btn" [disabled]="
                             !commentaireForm.contenu ||
                             commentaireForm.contenu.trim() === ''
                           " (click)="Fairecommentaire(bien?.id)" type="submit">
                           Commenter
                         </button>
+                        <button  *ngIf="isLoggedIn == false" class="btn btn-primary submit-btn" [disabled]="
+                        !commentaireForm.contenu ||
+                        commentaireForm.contenu.trim() === ''
+                      " >
+                       <a class="" [routerLink]="['/auth/connexion']">
+                        Commenter</a>
+                    </button>
                       </div>
                     </form>
                   </div>
@@ -879,7 +914,7 @@
                         </ul>
                     </div>-->
 
-            <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false">
+            <div class="card mb-0" *ngIf=" currentUser == false">
               <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
               <form class="contactbusinessform">
                 <div class="form-group">
@@ -898,8 +933,13 @@
                   {{ errorMessage }}
                 </div>
                 <div class="submit-section">
-                  <button (click)="PrendreRvd(bien?.id)" class="btn btn-primary submit-btn" type="submit">
+                  <button *ngIf="isLoggedIn == true " (click)="PrendreRvd(bien?.id)" class="btn btn-primary submit-btn" type="submit">
                     Envoyer
+                  </button>
+                  <button *ngIf="isLoggedIn == false"  class="btn btn-primary submit-btn" type="submit">
+                    <a class="" [routerLink]="['/auth/connexion']">
+                        Envoyer</a>
+                  
                   </button>
                 </div>
               </form>
