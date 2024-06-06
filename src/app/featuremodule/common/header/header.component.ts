@@ -105,7 +105,6 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data[0];
-          // console.log(this.users);
           this.completer=this.users.profilCompleter
           this.profil = this.users?.profil;
           if (this.profil === 'LOCATAIRE') {
@@ -174,7 +173,6 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
       if (result.isConfirmed) {
         this.authService.logout().subscribe({
           next: res => {
-            console.log(res.message);
             this.storageService.clean();
             // this.router.navigateByUrl("/auth/connexion")
             this.router.navigate(['/auth/connexion']).then(() => {

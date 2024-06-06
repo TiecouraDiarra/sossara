@@ -363,7 +363,6 @@ export class AgenceComponent {
             // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
 
             this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents];
-            // console.log(data);
             // Filtrer les biens immobiliers
             this.bienImmoAgenceTotal.forEach((bien: any) => {
               // Vérifier si le bien est déjà loué AGENCE
@@ -519,13 +518,11 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES RECLAMATIONS Encours  EN FONCTION DES BIENS de agence proprietaire
     this.serviceBienImmo.AfficherProcessusLancerProprietaireAgenceConnecter().subscribe(data => {
       this.reclamationLancer = data.reverse();
-      // console.log(this.reclamationLancer);
       
     });
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
-      console.log(this.reclamation);
       
 
     });

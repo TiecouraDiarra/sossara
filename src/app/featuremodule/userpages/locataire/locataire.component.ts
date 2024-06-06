@@ -206,6 +206,7 @@ export class LocataireComponent implements OnInit {
   bienTotalAgence: any[] = [];
   bienVenduTotalAgence: any[] = [];
   bienImmoDejaVenduAgence: any;
+  selectedCategory: any = '';
 
   // Fonction pour ouvrir le modal avec l'ID du BienImmo
   openReclamationModal(bienImmoId: any) {
@@ -452,7 +453,6 @@ export class LocataireComponent implements OnInit {
       .AfficherBienLoueEtAcheterParUserConnecter()
       .subscribe((data) => {
         this.bienImmoDejaLoueLocataires = data.reverse();
-        console.log(this.bienImmoDejaLoueLocataires);
         
         this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
           // Vérifier si le bien est déjà loué
@@ -472,7 +472,6 @@ export class LocataireComponent implements OnInit {
     ////AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
     this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe((data) => {
       this.favoris = data?.reverse();
-      console.log(this.favoris);
       
       // Parcourir la liste des biens immobiliers
       this.favoris.forEach(
@@ -672,6 +671,7 @@ export class LocataireComponent implements OnInit {
       this.form.contenu = ''; // Réinitialisez la valeur de form.contenu
       this.form.prix_estimatif = ''; // Réinitialisez la valeur de form.contenu
       this.image = []; // Réinitialisez le tableau d'images
+      window.location.reload();
     });
   }
 

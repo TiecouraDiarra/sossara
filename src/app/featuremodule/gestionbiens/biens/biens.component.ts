@@ -36,7 +36,7 @@ export class BiensComponent {
   p: number = 1;
   selectedType: any;
   currentPage = 1;
-  itemsPerPage = 4;
+  itemsPerPage = 12;
   totalPages: number = 0;
   selectedStatut: any;
   commoditeSelectionnees: string[] = [];
@@ -283,6 +283,7 @@ export class BiensComponent {
       this.bienImmo = data.reverse();
       // console.log(this.bienImmo);
       
+      
       this.isLoading = false; // Marquer le chargement comme terminé
       // Parcourir la liste des biens immobiliers
       this.bienImmo.forEach((bien: {
@@ -292,7 +293,6 @@ export class BiensComponent {
         // Charger le nombre de "J'aime" pour chaque bien
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
         this.NombreJaime = bien.favoris?.length;
-        // console.log(this.NombreJaime);
         
 
         // if (typeof bien.uuid === 'number') {
@@ -390,7 +390,6 @@ export class BiensComponent {
       // Appelez la méthode AimerBien() avec l'ID
       this.serviceBienImmo.AimerBien(id).subscribe(
         data => {
-          console.log(data);
           
           // Mettez à jour le nombre de favoris pour le bien immobilier actuel
           if (this.favoriteStatus[id]) {

@@ -111,6 +111,7 @@ export class ModifierBienComponent {
       this.form.nb_piece = 0; // Envoyer la valeur 0 si le type de bien est un terrain
       this.form.porte = ''; // Envoyer la valeur 0 si le type de bien est un terrain
       this.form.rue = ''; // Envoyer la valeur 0 si le type de bien est un terrain
+      this.form.periode='';
     }
   }
 
@@ -492,16 +493,18 @@ changeExtension(filename: string, newExtension: string): string {
   onStatutChangeMensuel(event: any) {
     this.selectedStatutMensuel = event.value;
     if (this.selectedStatut === '2') {
-      this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
-      this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
+      this.form.caution = ''; // Mettre le caution à null si le statut est "A vendre"
+      this.form.avance = ''; // Mettre l'avance à null si le statut est "A vendre"
     }
   }
 
   //METHODE PERMETTANT DE CHANGER LES STATUTS
   onStatutChange(event: any) {
     this.selectedStatut = event.value;
-    if (this.selectedStatut === '2') {
-      this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
+    if (this.selectedStatut === 2) {
+      this.form.periode = ''; // Mettre la période à null si le statut est "A vendre"
+      this.form.caution='';
+      this.form.avance='';
     }
   }
 

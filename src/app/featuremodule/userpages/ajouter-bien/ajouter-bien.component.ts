@@ -457,7 +457,9 @@ export class AjouterBienComponent implements OnInit {
   onStatutChange(event: any) {
     this.selectedStatut = event.value;
     if (this.selectedStatut === 2) {
-      this.form.periode = null; // Mettre la période à null si le statut est "A vendre"
+      this.form.periode = ''; // Mettre la période à null si le statut est "A vendre"
+      this.form.caution='';
+      this.form.avance='';
     }
   }
 
@@ -465,7 +467,7 @@ export class AjouterBienComponent implements OnInit {
   onTypeChange(event: any) {
     this.selectedType = event.value;
     if (this.selectedType === 3) {
-      this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
+      this.resetform(); // Mettre le statut à null si le statut est "A vendre"
     }
   }
 
@@ -474,8 +476,8 @@ export class AjouterBienComponent implements OnInit {
   onStatutChangeMensuel(event: any) {
     this.selectedStatutMensuel = event.value;
     if (this.selectedStatut === 2) {
-      this.form.caution = null; // Mettre le caution à null si le statut est "A vendre"
-      this.form.avance = null; // Mettre l'avance à null si le statut est "A vendre"
+      this.form.caution = ''; // Mettre le caution à null si le statut est "A vendre"
+      this.form.avance = ''; // Mettre l'avance à null si le statut est "A vendre"
 
     }
   }
@@ -621,16 +623,6 @@ export class AjouterBienComponent implements OnInit {
   }
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   formatPrice(price: number): string {
     return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
@@ -717,4 +709,19 @@ export class AjouterBienComponent implements OnInit {
   }
   onBlur = () => {
   }
+
+
+
+  resetform() {
+    this.form.statut = ''; // Réinitialise le champ nomAgence*
+    this.form.porte ='';
+    this.form.nb_piece='';
+    this.form.cuisine='';
+    this.form.chambre='';
+    this.form.toilette='';
+    this.form.rue='';
+    this.form.caution='';
+    this.form.avance='';
+    this.form.periode='';
+}
 }

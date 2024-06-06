@@ -206,8 +206,8 @@
                                 </tbody>
                             </table>
                             <!-- Modal pour faire une reclamation  -->
-                            <div class="modal fade my-custom-modal" id="exampleModal" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div style="margin-top: 100px;" class="modal fade my-custom-modal" id="exampleModal"
+                                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -222,7 +222,7 @@
                                                     name="selectedBienImmoId">
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Type
+                                                        <!-- <label for="recipient-name" class="col-form-label">Type
                                                             de
                                                             probleme <span style="color: red;">*</span></label>
                                                         <div class="pass-group group-img">
@@ -232,6 +232,22 @@
                                                                     {{ item.nom}}
                                                                 </option>
                                                             </select>
+                                                        </div> -->
+                                                        <div class="group-img">
+                                                            <label for="recipient-name" class="col-form-label">Type
+                                                                de
+                                                                probleme <span style="color: red;">*</span></label>
+                                                            <mat-form-field class="mat-custom-select"
+                                                                style="width: 98%">
+                                                                <mat-label *ngIf="selectedCategory == ''">Type de probleme</mat-label>
+                                                                <mat-select name="usage"
+                                                                [(ngModel)]="form.type">
+                                                                    <mat-option *ngFor="let item of probleme"
+                                                                    [value]="item.id">
+                                                                        {{ item?.nom }}</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 mb-3">

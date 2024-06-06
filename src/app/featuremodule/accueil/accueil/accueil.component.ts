@@ -492,7 +492,7 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES BIENS IMMO LES PLUS VUS
     this.serviceBienImmo.AfficherLaListeBienImmoPlusVue().subscribe((data) => {
       this.bienImmoPlusVue = data;
-      // console.log(this.bienImmoPlusVue);
+
       this.NombreFavory = data.nombreDeFavoris;
 
       // Suppose que BienImo est un élément de votre bienImmo
@@ -524,7 +524,6 @@ export class AccueilComponent {
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
       this.agence = data;
-      // console.log(this.agence);
       this.nombreAgence = data.length
       
     });
@@ -532,7 +531,6 @@ export class AccueilComponent {
 
     this.serviceBienImmo.trouverTop6BiensRecemmentAjoutes().subscribe((data) => {
       this.BienLoueRecens = data;
-      // console.log(this.BienLoueRecens);
     });
 
     //AFFICHER LA LISTE DES BIENS IMMO RECENTS A LOUER
@@ -569,14 +567,12 @@ export class AccueilComponent {
     this.derniersBiens = this.BienTotal
       .sort((a: { dateAjout: string | number | Date; }, b: { dateAjout: string | number | Date; }) => new Date(b.dateAjout).getTime() - new Date(a.dateAjout).getTime())
       .slice(0, 6);
-      // console.log("Derniers biens ajoutés :", this.derniersBiens);
   }
 
   getTopFavorisBiens() {
     this.topFavorisBiens = this.BienTotal
       .sort((a: { nombreFavoris: number; }, b: { nombreFavoris: number; }) => b.nombreFavoris - a.nombreFavoris)
       .slice(0, 6);
-      // console.log("Top biens basés sur les favoris :", this.topFavorisBiens);
   }
 
   // hasRole(roleName: string): boolean {
