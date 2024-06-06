@@ -3,13 +3,13 @@
   <div class="header-top">
     <div class="container"> 
       <div class="row">
-        <div class="col-md-7" *ngIf="isLoginFailed == false && completer==false">
+        <div class="col-md-7" *ngIf="isLoggedIn == false">
           <ul class="d-flex justify-content-start car-top-left">
             <li class="d-flex align-items-center"><a [routerLink]="routes.signup">Devenir une agence</a></li>
             <li class="d-flex align-items-center"><a [routerLink]="routes.signup">Devenir un bailleur</a></li>
           </ul>
         </div>
-        <div class="col-md-7" *ngIf="isLoginFailed == true && !completer==false">
+        <div class="col-md-7" *ngIf="isLoggedIn == true">
           <ul class="d-flex justify-content-start car-top-left">
             <li style="font-weight: 600; font-size: 15px;" class="d-flex align-items-center crd"> <span  class="text-white">Bienvenue sur Sossara !</span></li>
           </ul>
@@ -156,10 +156,10 @@
             </ng-container>
           </ng-container>
           <!-- Ajout des boutons d'inscription et de connexion -->
-          <li class="nav-item" *ngIf="isLoginFailed == false && completer==false && isMobile">
+          <li class="nav-item" *ngIf="isLoginFailed == false && isMobile">
             <a class="nav-link header-reg" [routerLink]="routes.signup">Inscription</a>
           </li>
-          <li class="nav-item" *ngIf="isLoginFailed == false && completer==false && isMobile">
+          <li class="nav-item" *ngIf="isLoginFailed == false && isMobile">
             <a class="nav-link header-login" [routerLink]="routes.login">Connexion</a>
           </li>
         </ul>
@@ -167,18 +167,18 @@
 
 
       <ul class="nav header-navbar-rht " *ngIf="nav == true ">
-        <li class="nav-item" *ngIf="isLoginFailed == false && completer==false && !isMobile">
+        <li class="nav-item" *ngIf="isLoginFailed == false && !isMobile">
           <a class="nav-link header-reg" [routerLink]="routes.signup">Inscription</a>
         </li>
        
-        <li class="nav-item" *ngIf="isLoginFailed == false && completer==false && !isMobile">
+        <li class="nav-item" *ngIf="isLoginFailed == false && !isMobile">
           <a class="nav-link header-login" [routerLink]="routes.login"> Connexion</a>
         </li>
         <li class="nav-item" *ngIf="!isLocataire" style="cursor: pointer;">
           <a class="nav-link header-login add-listing" (click)="AjouterBienOrLogin()"><i class="fa-solid fa-plus"></i>
             Ajouter un bien </a>
         </li>
-        <li class="nav-item dropdown has-arrow logged-item" *ngIf="isLoginFailed == true && !isMobile">
+        <li class="nav-item dropdown has-arrow logged-item" *ngIf="isLoggedIn == true && !isMobile">
           <a [routerLink]="routes.reviews">
             <div class="dropdown-toggle profile-userlink notif crd" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-bell fa-2x mr-3"></i>
@@ -199,7 +199,7 @@
 
         <li class="nav-item dropdown has-arrow logged-item"  *ngIf="!isMobile">
           <a href="javascript:void(0);" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown"
-            aria-expanded="false" *ngIf="users && users.profilCompleter">
+            aria-expanded="false" *ngIf="users && users.nom">
             <img src="{{generateImageUrl(users?.utilisateurPhoto)}}" (error)="handleAuthorImageError($event)"
               alt="">
             <span>{{User?.nom}}</span>
@@ -219,7 +219,7 @@
               class="fa-solid fa-plus"></i>
             Ajouter un bien</a>
         </li>
-        <li class="nav-item dropdown has-arrow logged-item" *ngIf="isLoginFailed == true">
+        <li class="nav-item dropdown has-arrow logged-item" *ngIf="isLoggedIn == true">
           <a [routerLink]="routes.reviews">
             <div class="dropdown-toggle profile-userlink notif crd" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-bell fa-2x mr-3"></i>
@@ -240,7 +240,7 @@
         </li>
         <li class="nav-item dropdown has-arrow logged-item">
           <a href="javascript:void(0);" class="dropdown-toggle profile-userlink" data-bs-toggle="dropdown"
-            aria-expanded="false" *ngIf="users && users.profilCompleter">
+            aria-expanded="false" *ngIf="users && users.nom">
             <img src="{{generateImageUrl(users?.utilisateurPhoto)}}" (error)="handleAuthorImageError($event)"
               alt="">
             <span>{{users?.nom}}</span>

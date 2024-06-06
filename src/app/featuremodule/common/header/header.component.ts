@@ -110,11 +110,11 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
           if (this.profil === 'LOCATAIRE') {
             this.isLocataire = true;
           }
-          if (this.users?.profilCompleter === true) {
-            this.isCompletedProfil = true;
-          } else {
-            this.isLoginFailed = false;
-          }
+          // if (this.users?.profilCompleter === true) {
+          //   this.isCompletedProfil = true;
+          // } else {
+          //   this.isLoginFailed = false;
+          // }
         },
         (error) => {
           console.error('Erreur lors de la récupération des données de l\'utilisateur', error);

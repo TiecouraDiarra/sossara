@@ -28,7 +28,7 @@ export class SignupComponent {
   public currentUser = 'Utilisateur';
   public currentType = 'Type';
   public TYpePie = 'TypePiece';
-  
+
   sendRegister = false;
 
 
@@ -68,14 +68,14 @@ export class SignupComponent {
   maxImageCount: number = 0; // Limite maximale d'images
   isButtonDisabled: boolean = false; // Variable pour désactiver le bouton si la limite est atteinte
   dateError: string = '';
-validateEmail(email: string): boolean {
-  // Option 1: Using built-in Angular email validator
-  // return Validators.email(email) !== null;  // Returns true/false
+  validateEmail(email: string): boolean {
+    // Option 1: Using built-in Angular email validator
+    // return Validators.email(email) !== null;  // Returns true/false
 
-  // Option 2: Using regular expression (more strict validation)
-  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return emailRegex.test(email);
-}
+    // Option 2: Using regular expression (more strict validation)
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return emailRegex.test(email);
+  }
 
 
   //CHARGER L'IMAGE
@@ -99,7 +99,7 @@ validateEmail(email: string): boolean {
   }
 
 
-  
+
 
   public typepiciesUser = [
 
@@ -113,15 +113,17 @@ validateEmail(email: string): boolean {
     this.selectedTypePiece = event.value;
     this.resetNumdoc();
     this.removeImages(); // Appel de la fonction removeImage
+    this.form.photo = null
   }
-  
+
   removeImages() {
     // Votre logique pour supprimer l'image sans utiliser l'index
     this.image.splice(0, 1); // Supprime la première image du tableau
     this.images.splice(0, 1); // Supprime le premier fichier du tableau 'images'
+    this.form.photo = null
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
   }
-  
+
 
   //METHODE PERMETTANT DE VERIFIER SI LES DEUX MOTS DE PASSE SONT LES MEMES
   passwordsMatch(): boolean {
@@ -150,7 +152,7 @@ validateEmail(email: string): boolean {
     // Appeler la fonction pour traiter la sélection de fichiers
     this.handleFileSelection(event);
 
-}
+  }
 
 
   // Fonction pour traiter la sélection de fichiers
@@ -185,7 +187,7 @@ validateEmail(email: string): boolean {
       return; // Sortir de la fonction si les mots de passe ne correspondent pas
     }
     const { nom, email, nomAgence, emailAgence, password, telephone, dateNaissance, nomDoc, numDoc, role, photo } = this.form;
-    const numero= telephone.replace(/\-/g, '');
+    const numero = telephone.replace(/\-/g, '');
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -194,22 +196,49 @@ validateEmail(email: string): boolean {
       },
       heightAuto: false
     })
-    if (this.form.nom === null
-      || this.form.email === null
-      || this.form.password === null
-      || this.form.telephone === null
-      || this.form.dateNaissance === null
-      || this.form.nomDoc == "Type de pieces"
-      || this.form.numDoc === null
-      || this.form.confirmPassword === null
-      || this.form.role == "Type d'Utilisateur"
-      || this.form.photo === null
-
-    ) {
+    // alert(this.form.nomDoc)
+    if (this.form.nom === null) {
       swalWithBootstrapButtons.fire(
-        this.message = " Tous les champs sont obligatoires !",
-      )
-    } else {
+        this.message = "Le nom est obligatoire !",
+      );
+    } else if (this.form.email === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "L'email est obligatoire !",
+      );
+    } else if (this.form.password === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "Le mot de passe est obligatoire !",
+      );
+    } else if (this.form.telephone === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "Le téléphone est obligatoire !",
+      );
+    } else if (this.form.nomDoc == "Type de pièces") {
+      swalWithBootstrapButtons.fire(
+        this.message = "Le type de pièces est obligatoire !",
+      );
+    } else if (this.form.numDoc === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "Le numéro de document est obligatoire !",
+      );
+    } else if (this.form.dateNaissance === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "Veuillez saisir une date de naissance valide !",
+      );
+    } else if (this.form.confirmPassword === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "La confirmation du mot de passe est obligatoire !",
+      );
+    } else if (this.form.role == "Type d'Utilisateur") {
+      swalWithBootstrapButtons.fire(
+        this.message = "Le rôle est obligatoire !",
+      );
+    } else if (this.form.photo === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "La photo est obligatoire !",
+      );
+    }
+    else {
       swalWithBootstrapButtons.fire({
         text: "Etes-vous sûre de creer un compte ?",
         icon: 'warning',
@@ -222,12 +251,12 @@ validateEmail(email: string): boolean {
           this.sendRegister = true;
           this.authService.register(nom, email, nomAgence, emailAgence, password, numero, dateNaissance, nomDoc, numDoc, role, photo).subscribe({
             next: (data) => {
-              
+
 
               // this.storageService.saveUser(data);
               this.isSuccessful = true;
               this.isSignUpFailed = false;
-         
+
               if (data.status) {
                 this.sendRegister = false;
                 Swal.fire({
@@ -258,7 +287,7 @@ validateEmail(email: string): boolean {
                     this.form.photo = null;
 
                     // Naviguer vers la page de connexion et recharger la page
-                    
+
 
                     this.router.navigate(['/auth/connexion']).then(() => {
                       window.location.reload();
@@ -286,6 +315,8 @@ validateEmail(email: string): boolean {
     if (typeUser.value === "locataire" || typeUser.value === "admin" || typeUser.value === 'proprietaire') {
       this.typePieces = this.typepiciesUser;
       this.currentUser = typeUser.value;
+      this.selectedTypePiece = null;
+      
       // this.currentType = typeUser.value
     } else if (typeUser.value === 'agence') {
       this.typePieces = this.typepiciesAgence;
@@ -297,6 +328,9 @@ validateEmail(email: string): boolean {
       // this.currentType = 'Type';
     }
     this.resetNomAgence(); // Appel de la fonction pour réinitialiser le champ nomAgence
+    this.form.nomDoc = ''
+    this.resetNumdoc();
+    this.removeImages(); // Appel de la fonction removeImage
 
   }
 
@@ -313,7 +347,8 @@ validateEmail(email: string): boolean {
       // this.typePieces = [];
       this.currentType = 'Type';
     }
-   
+
+
   }
   iconLogle() {
     this.Toggledata = !this.Toggledata;
@@ -438,7 +473,7 @@ validateEmail(email: string): boolean {
     // Mettre à jour la valeur dans l'input
     event.target.value = formattedValue;
   }
-  
+
 
   // Fonction de validation du numéro de CarteIN
   isValidNumDoc(numDoc: string): boolean {
@@ -454,7 +489,7 @@ validateEmail(email: string): boolean {
 
   isValidMalianPassport(numDoc: string): boolean {
     // Expression régulière pour valider le numéro de passeport malien
-    const regex = /^[A-Z][0-9]{8}$/;
+    const regex = /^[A-Z][A-Z][0-9]{7}$/;
     return regex.test(numDoc);
   }
   isValidNif(numDoc: string): boolean {
@@ -464,35 +499,40 @@ validateEmail(email: string): boolean {
   }
   isValidRccm(numDoc: string): boolean {
     // Expression régulière pour valider le numéro de RCCM
-    const regex = /^[A-Za-z0-9]{15}$/;
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{15}$/;
     return regex.test(numDoc);
   }
   resetNomAgence() {
     if (this.currentUser !== 'agence') {
       this.form.nomAgence = ''; // Réinitialise le champ nomAgence*
-      this.form.emailAgence=''
+      this.form.emailAgence = ''
     }
 
   }
   resetNumdoc() {
-      this.form.numDoc = ''; // Réinitialise le champ nomAgence*
+    this.form.numDoc = ''; // Réinitialise le champ nomAgence*
   }
   onCurrentUserChange() {
     this.resetNomAgence(); // Appel de la fonction pour réinitialiser le champ nomAgence
   }
 
- 
-  
+
+
   islongNom(nom: string): boolean {
     const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/; // Inclure les lettres accentuées et les espaces
-    return nom.length <= 40 && regex.test(nom);
+    return nom.length <= 50 && regex.test(nom);
+  }
+
+  islongNomAgence(nom: string): boolean {
+    // const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]*$/; // Inclure les lettres accentuées et les espaces
+    return nom.length <= 50;
   }
 
   islongNumero(telephone: string): boolean {
     const regex = /^[0-9-]+$/; // Expression régulière pour vérifier que le numéro contient uniquement des chiffres et des tirets
-        return telephone.length === 8 && regex.test(telephone);
+    return telephone.length === 8 && regex.test(telephone);
   }
 
 
-  
+
 }

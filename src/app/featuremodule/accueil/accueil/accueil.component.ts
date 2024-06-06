@@ -523,7 +523,7 @@ export class AccueilComponent {
 
     //AFFICHER LA LISTE DES AGENCES
     this.serviceUser.AfficherLaListeAgence().subscribe((data) => {
-      this.agence = data;
+      this.agence = data?.slice(0, 6);
       this.nombreAgence = data.length
       
     });

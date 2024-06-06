@@ -20,7 +20,7 @@
                     required [ngClass]="{'is-invalid': form.nom && !islongNom(form.nom)}" />
                 </div>
                 <div *ngIf="form.nom && !islongNom(form.nom)" class="invalid-feedback" style="display:block;">
-                  Le nom complet ne doit pas dépasser 40 caractères et ne doit contenir que des lettres. </div>
+                  Le nom complet ne doit pas dépasser 50 caractères et ne doit contenir que des lettres. </div>
               </div>
               <div class="col-md-6 form-group group-img">
                 <div class="group-img">
@@ -107,18 +107,18 @@
                 <div class="group-img" id="datepicker">
                   <i class="feather-user"></i>
                   <input placeholder="Nom de l'agence" name="nomAgence" type="text" class="form-control"
-                    [(ngModel)]="form.nomAgence" required
-                    [ngClass]="{'is-invalid': form.nomAgence && !islongNom(form.nomAgence)}" />
+                    [(ngModel)]="form.nomAgence"
+                    [ngClass]="{'is-invalid': form.nomAgence && !islongNomAgence(form.nomAgence)}" />
                 </div>
-                <div *ngIf="form.nomAgence && !islongNom(form.nomAgence)" class="invalid-feedback"
+                <div *ngIf="form.nomAgence && !islongNomAgence(form.nomAgence)" class="invalid-feedback"
                   style="display:block;">
-                  Le nom de l'agence ne doit pas dépasser 40 caractères et ne doit contenir que des lettres.
+                  Le nom de l'agence ne doit pas dépasser 50 caractères.
                 </div>
               </div>
               <div class="col-md-6 form-group group-img" *ngIf="currentUser === 'agence'">
                 <div class="group-img">
                   <i class="feather-mail"></i>
-                  <input type="email" placeholder="Email Agence" name="emailAgence" required class="form-control"
+                  <input type="email" placeholder="Email Agence" name="emailAgence" class="form-control"
                     [(ngModel)]="form.emailAgence"
                     [ngClass]="{'is-invalid': form.email && !validateEmail(form.emailAgence)}" />
                 </div>
@@ -152,7 +152,7 @@
                       maxlength="15" />
                     <div *ngIf="form.numDoc && !isValidNumDocNina(form.numDoc)" class="invalid-feedback"
                       style="display:block;">
-                      Le numéro de CarteIN doit contenir exactement 14 chiffres suivis d'une lettre majuscule.
+                      Le NINA doit contenir exactement 14 chiffres suivis d'une lettre majuscule.
                     </div>
                   </div>
                 </div>
@@ -190,7 +190,7 @@
                       [ngClass]="{'is-invalid': form.numDoc && !isValidNumDoc(form.numDoc)}" maxlength="7" />
                     <div *ngIf="form.numDoc && !isValidNumDoc(form.numDoc)" class="invalid-feedback"
                       style="display:block;">
-                      Le numéro de CarteIN doit contenir exactement 7 chiffres.
+                      Le numéro de la carte d'identité doit contenir exactement 7 chiffres.
                     </div>
 
                   </div>
@@ -226,10 +226,10 @@
                     <i class="feather-user"></i>
                     <input type="text" [(ngModel)]="form.numDoc" name="numDoc" class="form-control"
                       placeholder="N du Passport"
-                      [ngClass]="{'is-invalid': form.numDoc && !isValidMalianPassport(form.numDoc)}" maxlength="8" />
+                      [ngClass]="{'is-invalid': form.numDoc && !isValidMalianPassport(form.numDoc)}" maxlength="9" />
                     <div *ngIf="form.numDoc && !isValidMalianPassport(form.numDoc)" class="invalid-feedback"
                       style="display:block;">
-                      Le numéro de passeport doit contenir une lettre majuscule suivie de 8 chiffres.
+                      Le numéro du passeport doit commencer par 2 lettres majuscules suivie de 7 chiffres.
                     </div>
 
                   </div>
@@ -310,7 +310,7 @@
                       maxlength="10" />
                     <div *ngIf="form.numDoc && !isValidNif(form.numDoc)" class="invalid-feedback"
                       style="display:block;">
-                      Le numéro de NIF doit contenir exactement 9 chiffres suivis d'une lettre majuscule.
+                      Le NIF doit contenir exactement 9 chiffres suivis d'une lettre majuscule.
                     </div>
 
                   </div>
@@ -348,7 +348,7 @@
             </div>
             <button class="btn btn-primary w-100 login-btn" type="submit"
               [disabled]="!validatePassword(form.password) || !passwordsMatch() || 
-             !(form.telephone.length === 8) || (form.nom.length===40) || 
+             !(form.telephone.length === 8) || (form.nom.length===50) || 
               !validateEmail(form.email) || (!isValidNif(form.numDoc) && !isValidRccm(form.numDoc) &&
                !isValidMalianPassport(form.numDoc) && !isValidNumDoc(form.numDoc)  && !isValidNumDocNina(form.numDoc)) || sendRegister">
               <ng-container *ngIf="!sendRegister">Créer un compte</ng-container>
