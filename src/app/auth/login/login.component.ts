@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   type = true;
   User: any;
   roles: string[] = [];
+  message: string | undefined;
 
   isLoggedIn = false;
   isLoginFailed = false;
@@ -93,62 +94,77 @@ export class LoginComponent implements OnInit {
       heightAuto: false,
     });
 
-    // Appel du service AuthService pour gérer la connexion de l'utilisateur
-    this.authService.login(email, password).subscribe(
-      (data) => {
-        // Enregistrez les données de l'utilisateur dans le service de stockage (session storage ou autre)
-        this.storageService.saveUser(data);
-
-
-        // Réinitialisez les indicateurs d'erreur et définissez isLoggedIn à true
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-
-        // Obtenez les rôles de l'utilisateur à partir des données
-        this.roles = this.storageService.getUser().roles;
-        // this.path();
-
-        // this.reloadPage();
-
-        // Vérifiez si l'attribut profilcompleter est false
-        if (data.profilcompleter === false) {
-          // Redirigez l'utilisateur vers la page de complétion de profil
-          this.pathProfilCompleter();
+    if (this.form.email === null && this.form.password === null ) {
+      swalWithBootstrapButtons.fire(
+        this.message = "Tous les champs sont obligatoires !",
+      );
+    } else if (this.form.email === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "L'email est obligatoire !",
+      );
+    }else if (this.form.password === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = "Mot de passe est obligatoire !",
+      );
+    }else{
+      // Appel du service AuthService pour gérer la connexion de l'utilisateur
+      this.authService.login(email, password).subscribe(
+        (data) => {
+          // Enregistrez les données de l'utilisateur dans le service de stockage (session storage ou autre)
+          this.storageService.saveUser(data);
+  
+  
+          // Réinitialisez les indicateurs d'erreur et définissez isLoggedIn à true
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+  
+          // Obtenez les rôles de l'utilisateur à partir des données
+          this.roles = this.storageService.getUser().roles;
+          // this.path();
+  
           // this.reloadPage();
-        } else {
-          // Redirigez l'utilisateur vers la page d'accueil
-          window.history.back();
-          setTimeout(() => {
-            window.location.reload();
-          }, 100); // 500 ms devrait être suffisant, ajustez si nécessaire
-        
-
-          if (this.storageService.isLoggedIn()) {
-            this.isLoggedIn = true;
-          } else if (!this.storageService.isLoggedIn()) {
-            this.isLoginFailed = false;
+  
+          // Vérifiez si l'attribut profilcompleter est false
+          if (data.profilcompleter === false) {
+            // Redirigez l'utilisateur vers la page de complétion de profil
+            this.pathProfilCompleter();
+            // this.reloadPage();
+          } else {
+            // Redirigez l'utilisateur vers la page d'accueil
+            window.history.back();
+            setTimeout(() => {
+              window.location.reload();
+            }, 100); // 500 ms devrait être suffisant, ajustez si nécessaire
+          
+  
+            if (this.storageService.isLoggedIn()) {
+              this.isLoggedIn = true;
+            } else if (!this.storageService.isLoggedIn()) {
+              this.isLoginFailed = false;
+            }
+            //  this.reloadPage();
           }
-          //  this.reloadPage();
+        },
+        (error) => {
+          // Gestion des erreurs en cas d'échec de la connexion
+          const errorMessage =
+            error.error && error.error.message
+              ? error.error.message
+              : 'Erreur inconnue';
+  
+          // Affichage d'une notification d'erreur à l'aide de la bibliothèque SweetAlert (Swal)
+          swalWithBootstrapButtons.fire(
+            '',
+            `<h1 style='font-size: 1em !important; font-weight; bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${errorMessage}</h1>`,
+            'error'
+          );
+  
+          // Définissez isLoginFailed à true pour indiquer que la connexion a échoué
+          this.isLoginFailed = true;
         }
-      },
-      (error) => {
-        // Gestion des erreurs en cas d'échec de la connexion
-        const errorMessage =
-          error.error && error.error.message
-            ? error.error.message
-            : 'Erreur inconnue';
+      );
+    }
 
-        // Affichage d'une notification d'erreur à l'aide de la bibliothèque SweetAlert (Swal)
-        swalWithBootstrapButtons.fire(
-          '',
-          `<h1 style='font-size: 1em !important; font-weight; bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>${errorMessage}</h1>`,
-          'error'
-        );
-
-        // Définissez isLoginFailed à true pour indiquer que la connexion a échoué
-        this.isLoginFailed = true;
-      }
-    );
   }
   reloadPage(): void {
     window.location.reload();

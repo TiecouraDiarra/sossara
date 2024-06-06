@@ -33,35 +33,35 @@
               <div class="group-img"> 
                 <i class="feather-mail"></i>
                 <input type="text" name="email" [(ngModel)]="form.email" class="form-control"
-                  placeholder="Adresse Email" required email #email="ngModel" [ngClass]="{
+                  placeholder="Adresse Email" email #email="ngModel" [ngClass]="{
                       'is-invalid':
                           f.submitted && email.errors
                   }" />
-                <div class="invalid-feedback text-center" *ngIf="email.errors && f.submitted">
+                <!-- <div class="invalid-feedback text-center" *ngIf="email.errors && f.submitted">
                   <div *ngIf="email.errors['required']">
                     Email est obligatoire
                   </div>
                   <div *ngIf="email.errors['email']">
                     Email non valide
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="form-group">
               <div class="pass-group group-img">
                 <i class="feather-lock"></i>
                 <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'"
-                  class="form-control pass-input" placeholder="Mot de passe" [(ngModel)]="form.password" required
-                #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+                  class="form-control pass-input" placeholder="Mot de passe" [(ngModel)]="form.password"
+                #password="ngModel" [ngClass]="{ 'is-invalid': password.errors }" />
                 <span [ngClass]="
                     Toggledata == true
                       ? 'toggle-password feather-eye-off'
                       : 'toggle-password feather-eye'
                   " (click)="iconLogle()"></span>
-                <div *ngIf="password.errors && f.submitted" class="invalid-feedback text-center">
+                <!-- <div *ngIf="password.errors && f.submitted" class="invalid-feedback text-center">
                   <div *ngIf="password.errors['required']">Mot de passe obligatoire</div>
               
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- <div *ngIf="isLoginFailed" class="alert alert-danger" role="">

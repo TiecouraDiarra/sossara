@@ -16,7 +16,7 @@
               <div class="col-md-6 form-group group-img">
                 <div class="group-img" id="datepicker">
                   <i class="feather-user"></i>
-                  <input placeholder="Prenom et Nom" name="nom" type="text" class="form-control" [(ngModel)]="form.nom"
+                  <input maxlength="50" placeholder="Prenom et Nom" name="nom" type="text" class="form-control" [(ngModel)]="form.nom"
                     required [ngClass]="{'is-invalid': form.nom && !islongNom(form.nom)}" />
                 </div>
                 <div *ngIf="form.nom && !islongNom(form.nom)" class="invalid-feedback" style="display:block;">
@@ -106,7 +106,7 @@
               <div class="col-md-6 form-group group-img" *ngIf="currentUser === 'agence'">
                 <div class="group-img" id="datepicker">
                   <i class="feather-user"></i>
-                  <input placeholder="Nom de l'agence" name="nomAgence" type="text" class="form-control"
+                  <input maxlength="50" placeholder="Nom de l'agence" name="nomAgence" type="text" class="form-control"
                     [(ngModel)]="form.nomAgence"
                     [ngClass]="{'is-invalid': form.nomAgence && !islongNomAgence(form.nomAgence)}" />
                 </div>
