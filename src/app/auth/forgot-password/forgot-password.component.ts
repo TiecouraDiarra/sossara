@@ -38,7 +38,7 @@ export class ForgotPasswordComponent {
     if (this.formEmail.email === null) {
       swalWithBootstrapButtons.fire(
         "",
-        `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Tous les champs sont obligatoires !</h1>`,
+        `<h1 style='font-size: 1em; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>L'email est obligatoire !</h1>`,
         "warning"
       )
     }else{
