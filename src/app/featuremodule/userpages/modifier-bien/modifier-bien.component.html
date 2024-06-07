@@ -318,10 +318,10 @@
                 </div>
               </div>
               <!-- Nombre de surface -->
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut != 1">
                 <div class="form-group">
                   <label class="col-form-label"
-                    >Surface du bien (M²) <span>*</span></label
+                    >Surface du bien (M²) <span>*</span></label 
                   >
                   <input
                     type="number"
@@ -336,8 +336,8 @@
                 </div>
               </div>
 
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group" *ngIf="selectedStatut === 1 && selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 1 && selectedType != '3'">
+                <div class="form-group" >
                   <label class="col-form-label">Periode <span>*</span></label>
                   <div class="pass-group group-img">
 
@@ -368,6 +368,7 @@
               <div
                 class="col-lg-6 col-md-6"
                 *ngIf="selectedStatutMensuel === 2 && selectedStatut === 1 && selectedType != '3'"
+                
 
               >
                 <div class="form-group">

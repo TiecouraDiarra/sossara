@@ -101,6 +101,8 @@ export class ModifierBienComponent {
     //   return;
     // }
     this.selectedType = event.value;
+    this.selectedStatut = '2'
+
 
     if (this.selectedType === '3') {
       this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
@@ -152,55 +154,7 @@ export class ModifierBienComponent {
     private serviceCommodite: CommoditeService,
     private serviceBienImmo: BienimmoService
   ) {
-    //RECUPERER L'ID D'UN BIEN
-    this.id = this.route.snapshot.params['uuid'];
-    //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
-    this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
-      this.bien = data;
-      setTimeout(() => {
-        this.form = {
-          nom: this.bien?.nom,
-          description: this.bien?.description,
-          type: this.bien?.typeImmo?.id,
-          caracteristique: this.bien?.caracteristique?.id,
-          surface: this.bien?.surface,
-          periode: this.bien?.periode?.id,
-          porte: this.bien?.adresse?.porte,
-          rue: this.bien?.adresse?.rue,
-          quartier: this.bien?.adresse?.quartier,
-          statut: this.bien?.statut?.id,
-          prix: this.bien?.prix,
-          toilette: this.bien?.toilette,
-          nb_piece: this.bien?.nb_piece,
-          cuisine: this.bien?.cuisine,
-          chambre: this.bien?.chambre,
-          reference: this.bien?.reference,
-          longitude: this.bien?.adresse?.longitude,
-          latitude: this.bien?.adresse?.latitude,
-          commune: this.bien?.adresse?.commune?.id,
-          pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
-          region: this.bien?.adresse?.commune?.region?.id,
-          caution: this.bien?.caution,
-        };
-        this.selectedType = this.form.type
-
-        this.selectedStatut = this.form.statut
-        this.selectedStatutMensuel = this.form.periode
-
-
-
-        this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-          this.les_commodite = data;
-
-          // Parcourez les commodités et pré-sélectionnez celles liées au bien
-          for (const commodite of this.les_commodite) {
-            commodite.selected = this.bien.commodites.some(
-              (bienCommodite: any) => bienCommodite.id === commodite.id
-            );
-          }
-        });
-      });
-    });
+   
   }
   selectedCommodites: { [key: string]: boolean } = {};
 
@@ -221,7 +175,53 @@ export class ModifierBienComponent {
 
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params['uuid'];
-
+     //RECUPERER L'ID D'UN BIEN
+     this.id = this.route.snapshot.params['uuid'];
+     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
+       this.bien = data;
+       setTimeout(() => {
+         this.form = {
+           nom: this.bien?.nom,
+           description: this.bien?.description,
+           type: this.bien?.typeImmo?.id,
+           caracteristique: this.bien?.caracteristique?.id,
+           surface: this.bien?.surface,
+           periode: this.bien?.periode?.id,
+           porte: this.bien?.adresse?.porte,
+           rue: this.bien?.adresse?.rue,
+           quartier: this.bien?.adresse?.quartier,
+           statut: this.bien?.statut?.id,
+           prix: this.bien?.prix,
+           toilette: this.bien?.toilette,
+           nb_piece: this.bien?.nb_piece,
+           cuisine: this.bien?.cuisine,
+           chambre: this.bien?.chambre,
+           reference: this.bien?.reference,
+           longitude: this.bien?.adresse?.longitude,
+           latitude: this.bien?.adresse?.latitude,
+           commune: this.bien?.adresse?.commune?.id,
+           pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
+           region: this.bien?.adresse?.commune?.region?.id,
+           caution: this.bien?.caution,
+         };
+         this.selectedType = this.form.type
+         
+ 
+         this.selectedStatut = this.form.statut
+         this.selectedStatutMensuel = this.form.periode 
+         this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+           this.les_commodite = data;
+ 
+           // Parcourez les commodités et pré-sélectionnez celles liées au bien
+           for (const commodite of this.les_commodite) {
+             commodite.selected = this.bien.commodites.some(
+               (bienCommodite: any) => bienCommodite.id === commodite.id
+             );
+           }
+         });
+       });
+     });    
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
