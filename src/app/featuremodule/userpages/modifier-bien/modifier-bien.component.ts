@@ -206,12 +206,10 @@ export class ModifierBienComponent {
            caution: this.bien?.caution,
          };
          this.selectedType = this.form.type
+         
  
          this.selectedStatut = this.form.statut
-         this.selectedStatutMensuel = this.form.periode
- 
- 
- 
+         this.selectedStatutMensuel = this.form.periode 
          this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
            this.les_commodite = data;
  
