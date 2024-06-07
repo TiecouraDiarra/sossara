@@ -63,7 +63,7 @@
         </div>
         <div class="dashboard-details">
             <div class="row dashboard-info">
-                <div class="col-lg-6 d-flex" *ngIf="rdv && rdv.length > 0">
+                <div class="col-lg-6 d-flex">
                     <div class="card dash-cards w-100">
                         <div class="card-header">
                             <h4>Rendez-vous</h4>
@@ -86,12 +86,13 @@
                         <div class="ligne">
                             <div class="card-body">
                                 <ul class="review-list">
+                                    <ng-container *ngIf="
+                                    rdv && rdv.length > 0;else noRdv">
                                     <li class="review-box" *ngFor="let Rdv of rdv">
                                         <div class="review-profile">
                                             <div class="review-img">
-                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo)}}"
-                                                    class="img-fluid" alt="img"
-                                                    (error)="handleAuthorImageError($event)">
+                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo)}}" class="img-fluid"
+                                                    alt="img" (error)="handleAuthorImageError($event)">
                                             </div>
                                         </div>
                                         <div class="review-details">
@@ -111,6 +112,10 @@
                                             <!-- <p>{{data.feedback}}</p>																	 -->
                                         </div>
                                     </li>
+                                    </ng-container>
+                                    <ng-template #noRdv>
+                                        <h4 style="font-size: 17px;">Pas de rendez-vous</h4>
+                                    </ng-template>
 
                                 </ul>
                             </div>

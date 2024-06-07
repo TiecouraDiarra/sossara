@@ -202,7 +202,8 @@
             aria-expanded="false" *ngIf="users && users.nom">
             <img src="{{generateImageUrl(users?.utilisateurPhoto)}}" (error)="handleAuthorImageError($event)"
               alt="">
-            <span>{{User?.nom}}</span>
+            <span *ngIf="!isAgence">{{nom}}</span>
+            <span *ngIf="isAgence">{{nomAgence}}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" [routerLink]='routes.dashboard'>Dashboard</a>
@@ -243,7 +244,8 @@
             aria-expanded="false" *ngIf="users && users.nom">
             <img src="{{generateImageUrl(users?.utilisateurPhoto)}}" (error)="handleAuthorImageError($event)"
               alt="">
-            <span>{{users?.nom}}</span>
+              <span *ngIf="!isAgence">{{nom}}</span>
+              <span *ngIf="isAgence">{{nomAgence}}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" [routerLink]='routes.dashboard'>Dashboard</a>

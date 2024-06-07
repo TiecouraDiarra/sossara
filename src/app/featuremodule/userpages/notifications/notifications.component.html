@@ -64,7 +64,7 @@
             </ul>
         </div>
         <div class="row dashboard-info reviewpage-content ">
-            <div class="col-lg-6 d-flex" *ngIf="candidature && candidature.length > 0">
+            <div class="col-lg-6 d-flex">
                 <div class="card dash-cards  w-100">
                     <div class="card-header">
                         <h4>Les candidatures</h4>
@@ -87,6 +87,8 @@
                     <div class="ligne">
                         <div class="card-body">
                             <ul class="review-list">
+                                <ng-container *ngIf="
+                                candidature && candidature.length > 0;else noCandidature">
                                 <li class="review-box" *ngFor="let Candidature of candidature">
 
                                     <div class="review-profile">
@@ -161,13 +163,16 @@
                                         </div>
                                     </div>
                                 </li>
+                                </ng-container>
+                                <ng-template #noCandidature>
+                                    <h4 style="font-size: 17px;">Pas de candidature</h4>
+                                </ng-template>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 d-flex "
-                *ngIf="bienImmoLoueCandidatureAccepter && bienImmoLoueCandidatureAccepter.length > 0">
+            <div class="col-lg-6 d-flex ">
                 <div class="card dash-cards w-100">
                     <div class="card-header">
                         <h4>Mes candidatures acceptées</h4>
@@ -190,241 +195,247 @@
                     <div class="ligne">
                         <div class="card-body">
                             <ul class="review-list">
-                                <li class="review-box" *ngFor="let Candidature of bienImmoLoueCandidatureAccepter">
-
-                                    <div class="review-profile">
-                                        <div class="review-img">
-                                            <img src="{{generateImageUrl(Candidature?.bien?.proprietaire?.photo?.nom)}}"
-                                                class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                                        </div>
-                                    </div>
-                                    <div class="review-details">
-                                        <h6>{{Candidature?.bien?.proprietaire?.nom}}</h6>
-                                        <div class="rating">
-                                            <div class="rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
+                                <ng-container *ngIf="
+                                bienImmoLoueCandidatureAccepter && bienImmoLoueCandidatureAccepter.length > 0;else noCandidatureAcc">
+                                    <li class="review-box" *ngFor="let Candidature of bienImmoLoueCandidatureAccepter">
+    
+                                        <div class="review-profile">
+                                            <div class="review-img">
+                                                <img src="{{generateImageUrl(Candidature?.bien?.proprietaire?.photo?.nom)}}"
+                                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
                                             </div>
-                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                {{Candidature?.updatedAt |
-                                                date:"dd MMM yyyy":locale}}</div>
-                                            <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.updatedAt
-                                                |
-                                                date:"HH:mm"}}</div>
                                         </div>
-                                        <div class="row mb-3">
-                                            {{Candidature?.bien?.nom}}
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <p class="blog-category">
-                                                    <a
-                                                        href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
-                                                </p>
+                                        <div class="review-details">
+                                            <h6>{{Candidature?.bien?.proprietaire?.nom}}</h6>
+                                            <div class="rating">
+                                                <div class="rating-star">
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                </div>
+                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                    {{Candidature?.updatedAt |
+                                                    date:"dd MMM yyyy":locale}}</div>
+                                                <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.updatedAt
+                                                    |
+                                                    date:"HH:mm"}}</div>
                                             </div>
-                                            <div class="col">
-                                                <p style="color: #e98b11; font-weight: bold;">{{
-                                                    formatPrice(Candidature?.bien?.prix) }} FCFA</p>
+                                            <div class="row mb-3">
+                                                {{Candidature?.bien?.nom}}
                                             </div>
-
-                                        </div>
-
-                                        <ul class="review-gallery">
-                                            <li
-                                                *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
-                                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
-                                            </li>
-                                            <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
-                                                <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                    <!-- Répéter 4 fois -->
-                                                    <img class="img-fluid" alt="Image par défaut"
-                                                        src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p class="blog-category">
+                                                        <a
+                                                            href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
+                                                    </p>
+                                                </div>
+                                                <div class="col">
+                                                    <p style="color: #e98b11; font-weight: bold;">{{
+                                                        formatPrice(Candidature?.bien?.prix) }} FCFA</p>
+                                                </div>
+    
+                                            </div>
+    
+                                            <ul class="review-gallery">
+                                                <li
+                                                    *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
+                                                    <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
                                                 </li>
-                                            </ng-container>
-                                        </ul>
-                                        <div class="row mt-3">
-                                            <!-- <div class="col">
-                                                <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
-                                                    class="btn btn-outline-danger"><i class="fas fa-times"></i>
-                                                    Annuler</button>
-                                            </div> -->
-                                            <!-- <div class="col">
-                                                <button data-bs-toggle="modal"
-                                                    (click)="openFactureModal(Candidature.id)"
-                                                    data-bs-target="#exampleModalToggle2" type="button"
-                                                    class="btn btn-outline-success"><i class="fas fa-check"></i>
-                                                    Payer</button>
-                                            </div> -->
-                                            <!-- Button trigger modal -->
-                                            <button (click)="goToPageContrat(Candidature?.bien?.contrat[0]?.uuid)"
-                                                type="button" class="btn btn-primary">
-                                                Voir le contrat
-                                            </button>
-                                        </div>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Paiement</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <!-- <div class="col-md-6 mb-3">
-                                                                    <label for="recipient-name"
-                                                                        class="col-form-label">Periode du bien</label>
-                                                                    <input type="text" class="form-control"
-                                                                        value="{{bien?.periode?.nom}}" readonly>
-                                                                </div>
-                                                                <div class="col-md-6 mb-3">
-                                                                    <label class="col-form-label">Prix du bien</label>
-                                                                    <input type="text" class="form-control"
-                                                                        value="{{formatPrice(bien?.prix)}} FCFA" readonly>
-                                                                </div>
-                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
-                                                                    <label class="col-form-label">Nombre de jour</label>
-                                                                    <input type="number" class="form-control" min="0" max="29" [(ngModel)]="nombreJourChoisi" (input)="onNombreJourChange()">
-                                                                </div>
-                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
-                                                                    <label class="col-form-label">Nombre de semaine</label>
-                                                                    <input type="number" class="form-control" min="0" max="5" [(ngModel)]="nombreSemaineChoisi" (input)="onNombreSemaineChange()">
-                                                                </div> -->
-                                                                <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
-                                                                    <label class="col-form-label">Nombre de mois</label>
-                                                                    <input type="number" class="form-control" min="0" max="12" [(ngModel)]="nombreMoisChoisi" (input)="onNombreMoisChange()">
-                                                                </div> -->
-                                                                <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
-                                                                    <div class="d-flex flex-column dis">
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p>Nombre de jour</p>
-                                                                            <p>{{ nombreJourChoisi }} <span class="fw-bold">{{ nombreJourChoisi === 1 ? 'Jour' : 'Jours' }}</span></p>
-                                                                        </div>
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p>Prix journalier</p>
-                                                                            <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
-                                                                        </div>
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p class="fw-bold">Total</p>
-                                                                            <p class="fw-bold">{{formatPrice(bien?.prix * nombreJourChoisi)}} <span class="fw-bold">FCFA</span></p>
+                                                <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
+                                                    <li *ngFor="let _ of [1, 2, 3, 4]">
+                                                        <!-- Répéter 4 fois -->
+                                                        <img class="img-fluid" alt="Image par défaut"
+                                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                                    </li>
+                                                </ng-container>
+                                            </ul>
+                                            <div class="row mt-3">
+                                                <!-- <div class="col">
+                                                    <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
+                                                        class="btn btn-outline-danger"><i class="fas fa-times"></i>
+                                                        Annuler</button>
+                                                </div> -->
+                                                <!-- <div class="col">
+                                                    <button data-bs-toggle="modal"
+                                                        (click)="openFactureModal(Candidature.id)"
+                                                        data-bs-target="#exampleModalToggle2" type="button"
+                                                        class="btn btn-outline-success"><i class="fas fa-check"></i>
+                                                        Payer</button>
+                                                </div> -->
+                                                <!-- Button trigger modal -->
+                                                <button (click)="goToPageContrat(Candidature?.bien?.contrat[0]?.uuid)"
+                                                    type="button" class="btn btn-primary">
+                                                    Voir le contrat
+                                                </button>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Paiement</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <!-- <div class="col-md-6 mb-3">
+                                                                        <label for="recipient-name"
+                                                                            class="col-form-label">Periode du bien</label>
+                                                                        <input type="text" class="form-control"
+                                                                            value="{{bien?.periode?.nom}}" readonly>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-3">
+                                                                        <label class="col-form-label">Prix du bien</label>
+                                                                        <input type="text" class="form-control"
+                                                                            value="{{formatPrice(bien?.prix)}} FCFA" readonly>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
+                                                                        <label class="col-form-label">Nombre de jour</label>
+                                                                        <input type="number" class="form-control" min="0" max="29" [(ngModel)]="nombreJourChoisi" (input)="onNombreJourChange()">
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
+                                                                        <label class="col-form-label">Nombre de semaine</label>
+                                                                        <input type="number" class="form-control" min="0" max="5" [(ngModel)]="nombreSemaineChoisi" (input)="onNombreSemaineChange()">
+                                                                    </div> -->
+                                                                    <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
+                                                                        <label class="col-form-label">Nombre de mois</label>
+                                                                        <input type="number" class="form-control" min="0" max="12" [(ngModel)]="nombreMoisChoisi" (input)="onNombreMoisChange()">
+                                                                    </div> -->
+                                                                    <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
+                                                                        <div class="d-flex flex-column dis">
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p>Nombre de jour</p>
+                                                                                <p>{{ nombreJourChoisi }} <span class="fw-bold">{{ nombreJourChoisi === 1 ? 'Jour' : 'Jours' }}</span></p>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p>Prix journalier</p>
+                                                                                <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p class="fw-bold">Total</p>
+                                                                                <p class="fw-bold">{{formatPrice(bien?.prix * nombreJourChoisi)}} <span class="fw-bold">FCFA</span></p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
-                                                                    <div class="d-flex flex-column dis">
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p>Nombre de semaine</p>
-                                                                            <p>{{ nombreSemaineChoisi }} <span class="fw-bold">{{ nombreSemaineChoisi === 1 ? 'Semaine' : 'Semaines' }}</span></p>
-                                                                        </div>
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p>Prix Hebdomadaire</p>
-                                                                            <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
-                                                                        </div>
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p class="fw-bold">Total</p>
-                                                                            <p class="fw-bold">{{formatPrice(bien?.prix * nombreSemaineChoisi)}} <span class="fw-bold">FCFA</span></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
-                                                                    <div class="d-flex flex-column dis">
-                                                
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p>Avance</p>
-                                                                            <p>{{bien?.avance}} <span class="fw-bold">Mois</span></p>
-                                                                        </div>
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p>Caution</p>
-                                                                            <p>{{bien?.caution}} <span class="fw-bold">Mois</span></p>
-                                                                        </div>
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p>Prix mensuel</p>
-                                                                            <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
-                                                                        </div>
-                                                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                            <p class="fw-bold">Total</p>
-                                                                            <p class="fw-bold">{{formatPrice(bien?.prix * (bien?.avance + bien?.caution) )}} <span class="fw-bold">FCFA</span></p>
+                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
+                                                                        <div class="d-flex flex-column dis">
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p>Nombre de semaine</p>
+                                                                                <p>{{ nombreSemaineChoisi }} <span class="fw-bold">{{ nombreSemaineChoisi === 1 ? 'Semaine' : 'Semaines' }}</span></p>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p>Prix Hebdomadaire</p>
+                                                                                <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p class="fw-bold">Total</p>
+                                                                                <p class="fw-bold">{{formatPrice(bien?.prix * nombreSemaineChoisi)}} <span class="fw-bold">FCFA</span></p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div> -->
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="paymentCont">
-                                                                    <div class="headingWrap">
-                                                                        <h5 class="headingTop text-center">Selectionner
-                                                                            le mode de paiement</h5>
-                                                                        <!-- <p class="text-center">Created with bootsrap
-                                                                            button and using radio button</p> -->
-                                                                    </div>
-                                                                    <div class="row paymentWrap">
-                                                                        <div class="btn-group paymentBtnGroup btn-group-justified"
-                                                                            data-toggle="buttons">
-                                                                            <label class="btn paymentMethod"
-                                                                                *ngFor="let Mode of modepaiement"
-                                                                                (click)="selectPaymentMode(Mode)">
-                                                                                <div class="method test"
-                                                                                    style="background-image: url('{{generateImageUrl(Mode?.photo)}}');">
-                                                                                </div>
-                                                                                <input type="radio" name="options">
-                                                                            </label>
-                                                                            <!-- <label class="btn paymentMethod">
-                                                                                <div class="method master-card"></div>
-                                                                                <input type="radio" name="options">
-                                                                            </label> -->
-                                                                            <!-- <label class="btn paymentMethod">
-                                                                                <div class="method amex"></div>
-                                                                                <input type="radio" name="options">
-                                                                            </label> -->
-                                                                            <!-- <label class="btn paymentMethod">
-                                                                                <div class="method vishwa"></div>
-                                                                                <input type="radio" name="options">
-                                                                            </label> -->
-                                                                            <!-- <label class="btn paymentMethod">
-                                                                                <div class="method ez-cash"></div>
-                                                                                <input type="radio" name="options">
-                                                                            </label> -->
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- <div class="footerNavWrap clearfix">
-                                                                        <div class="btn btn-success pull-left btn-fyi">
-                                                                            <span
-                                                                                class="glyphicon glyphicon-chevron-left"></span>
-                                                                            CONTINUE SHOPPING</div>
-                                                                        <div class="btn btn-success pull-right btn-fyi">
-                                                                            CHECKOUT<span
-                                                                                class="glyphicon glyphicon-chevron-right"></span>
+                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
+                                                                        <div class="d-flex flex-column dis">
+                                                    
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p>Avance</p>
+                                                                                <p>{{bien?.avance}} <span class="fw-bold">Mois</span></p>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p>Caution</p>
+                                                                                <p>{{bien?.caution}} <span class="fw-bold">Mois</span></p>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p>Prix mensuel</p>
+                                                                                <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                                                <p class="fw-bold">Total</p>
+                                                                                <p class="fw-bold">{{formatPrice(bien?.prix * (bien?.avance + bien?.caution) )}} <span class="fw-bold">FCFA</span></p>
+                                                                            </div>
                                                                         </div>
                                                                     </div> -->
                                                                 </div>
-
+                                                                <div class="row">
+                                                                    <div class="paymentCont">
+                                                                        <div class="headingWrap">
+                                                                            <h5 class="headingTop text-center">Selectionner
+                                                                                le mode de paiement</h5>
+                                                                            <!-- <p class="text-center">Created with bootsrap
+                                                                                button and using radio button</p> -->
+                                                                        </div>
+                                                                        <div class="row paymentWrap">
+                                                                            <div class="btn-group paymentBtnGroup btn-group-justified"
+                                                                                data-toggle="buttons">
+                                                                                <label class="btn paymentMethod"
+                                                                                    *ngFor="let Mode of modepaiement"
+                                                                                    (click)="selectPaymentMode(Mode)">
+                                                                                    <div class="method test"
+                                                                                        style="background-image: url('{{generateImageUrl(Mode?.photo)}}');">
+                                                                                    </div>
+                                                                                    <input type="radio" name="options">
+                                                                                </label>
+                                                                                <!-- <label class="btn paymentMethod">
+                                                                                    <div class="method master-card"></div>
+                                                                                    <input type="radio" name="options">
+                                                                                </label> -->
+                                                                                <!-- <label class="btn paymentMethod">
+                                                                                    <div class="method amex"></div>
+                                                                                    <input type="radio" name="options">
+                                                                                </label> -->
+                                                                                <!-- <label class="btn paymentMethod">
+                                                                                    <div class="method vishwa"></div>
+                                                                                    <input type="radio" name="options">
+                                                                                </label> -->
+                                                                                <!-- <label class="btn paymentMethod">
+                                                                                    <div class="method ez-cash"></div>
+                                                                                    <input type="radio" name="options">
+                                                                                </label> -->
+    
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- <div class="footerNavWrap clearfix">
+                                                                            <div class="btn btn-success pull-left btn-fyi">
+                                                                                <span
+                                                                                    class="glyphicon glyphicon-chevron-left"></span>
+                                                                                CONTINUE SHOPPING</div>
+                                                                            <div class="btn btn-success pull-right btn-fyi">
+                                                                                CHECKOUT<span
+                                                                                    class="glyphicon glyphicon-chevron-right"></span>
+                                                                            </div>
+                                                                        </div> -->
+                                                                    </div>
+    
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Annuler</button>
+                                                            <button type="button"
+                                                                (click)="goToPagePaiement(CandidatureUser?.uuid)"
+                                                                class="btn btn-primary">Continuer</button>
+                                                        </div>
+                                                        <!-- <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Retour</button>
+                                                            <button type="button" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div> -->
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Annuler</button>
-                                                        <button type="button"
-                                                            (click)="goToPagePaiement(CandidatureUser?.uuid)"
-                                                            class="btn btn-primary">Continuer</button>
-                                                    </div>
-                                                    <!-- <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Retour</button>
-                                                        <button type="button" class="btn btn-primary">Save
-                                                            changes</button>
-                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                </ng-container>
+                                <ng-template #noCandidatureAcc>
+                                    <h4 style="font-size: 17px;">Pas de candidature acceptée</h4>
+                                </ng-template>
                             </ul>
                         </div>
                     </div>
@@ -432,7 +443,7 @@
             </div>
         </div>
         <div class="row dashboard-info reviewpage-content mt-4" *ngIf="!isLocataire">
-            <div class="col-lg-6 d-flex" *ngIf="rdv && rdv.length > 0">
+            <div class="col-lg-6 d-flex">
                 <div class="card dash-cards w-100">
                     <div class="card-header">
                         <h4>Rendez-vous</h4>
@@ -455,31 +466,36 @@
                     <div class="ligne">
                         <div class="card-body">
                             <ul class="review-list">
-                                <li class="review-box" *ngFor="let Rdv of rdv">
-                                    <div class="review-profile">
-                                        <div class="review-img">
-                                            <img src="{{generateImageUrl(Rdv?.utilisateur?.photo)}}"
-                                                class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                                        </div>
-                                    </div>
-                                    <div class="review-details">
-                                        <h6>{{Rdv.utilisateur.nom}}</h6>
-                                        <div class="rating">
-                                            <div class="rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
+                                <ng-container *ngIf="
+                                    rdv && rdv.length > 0;else noRdv">
+                                    <li class="review-box" *ngFor="let Rdv of rdv">
+                                        <div class="review-profile">
+                                            <div class="review-img">
+                                                <img src="{{generateImageUrl(Rdv?.utilisateur?.photo)}}"
+                                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
                                             </div>
-                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv.date |
-                                                date:"dd MMM yyyy":locale}}</div>
-                                            <div>{{Rdv.heure}}</div>
                                         </div>
-                                        <!-- <p>{{data.feedback}}</p>																	 -->
-                                    </div>
-                                </li>
-
+                                        <div class="review-details">
+                                            <h6>{{Rdv.utilisateur.nom}}</h6>
+                                            <div class="rating">
+                                                <div class="rating-star">
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                </div>
+                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv.date |
+                                                    date:"dd MMM yyyy":locale}}</div>
+                                                <div>{{Rdv.heure}}</div>
+                                            </div>
+                                            <!-- <p>{{data.feedback}}</p>																	 -->
+                                        </div>
+                                    </li>
+                                </ng-container>
+                                <ng-template #noRdv>
+                                    <h4 style="font-size: 17px;">Pas de rendez-vous</h4>
+                                </ng-template>
                             </ul>
                         </div>
                     </div>

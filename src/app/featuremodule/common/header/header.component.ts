@@ -28,6 +28,9 @@ export class HeaderComponent implements OnInit {
   last: string = '';
   User: any
   isLocataire = false;
+  nomAgence : any;
+  isAgence = false;
+  nom : any;
   isCompletedProfil = false;
   roles: string[] = [];
   // Dans votre composant TypeScript
@@ -105,16 +108,21 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data[0];
+          // console.log(this.users);
+          
+          
           this.completer=this.users.profilCompleter
           this.profil = this.users?.profil;
           if (this.profil === 'LOCATAIRE') {
             this.isLocataire = true;
           }
-          // if (this.users?.profilCompleter === true) {
-          //   this.isCompletedProfil = true;
-          // } else {
-          //   this.isLoginFailed = false;
-          // }
+          if (this.profil === 'LOCATAIRE' || this.profil === 'PROPRIETAIRE' || this.profil === 'ADMIN' || this.profil === 'SUPERADMIN' || this.profil === 'AGENT') {
+            this.isAgence = false
+            this.nom = this.users?.nom
+          }else{
+            this.isAgence = true;
+            this.nomAgence = this.users?.nomAgence
+          }
         },
         (error) => {
           console.error('Erreur lors de la récupération des données de l\'utilisateur', error);
