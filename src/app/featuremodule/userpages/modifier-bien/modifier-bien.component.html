@@ -670,8 +670,12 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary crd" (click)="ModifierBien()" type="submit">
+        <button *ngIf="!isloadingB" class="btn btn-primary crd" (click)="ModifierBien()" type="submit">
           Modifier bien
+        </button>
+        <button *ngIf="isloadingB" class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span class="visually-hidden">Chargement...</span>
         </button>
       </form>
     </div>

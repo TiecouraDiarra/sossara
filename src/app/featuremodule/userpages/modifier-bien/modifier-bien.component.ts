@@ -75,6 +75,7 @@ export class ModifierBienComponent {
   photos: any;
   caracteristique: any;
   selectedType: string | null = null;
+  isloadingB = false;
 
   // Supposons que vous ayez une méthode pour charger les types de biens
   loadTypeBiens() {
@@ -111,7 +112,7 @@ export class ModifierBienComponent {
       this.form.nb_piece = 0; // Envoyer la valeur 0 si le type de bien est un terrain
       this.form.porte = ''; // Envoyer la valeur 0 si le type de bien est un terrain
       this.form.rue = ''; // Envoyer la valeur 0 si le type de bien est un terrain
-      this.form.periode='';
+      this.form.periode = '';
     }
   }
 
@@ -181,13 +182,13 @@ export class ModifierBienComponent {
           region: this.bien?.adresse?.commune?.region?.id,
           caution: this.bien?.caution,
         };
-        this.selectedType= this.form.type
+        this.selectedType = this.form.type
 
         this.selectedStatut = this.form.statut
         this.selectedStatutMensuel = this.form.periode
 
-      
-      
+
+
         this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
           this.les_commodite = data;
 
@@ -231,33 +232,33 @@ export class ModifierBienComponent {
       this.selectedValueC = this.bien?.adresse.commune?.cercle?.nomcercle;
       this.selectedStatut = this.bien?.statut?.id;
       this.selectedStatutMensuel = this.bien?.periode?.id;
-    
-    
+
+
 
       // Récupération de la liste des commodités
       this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
         this.les_commodite = data;
 
         if (this.bien && this.bien.commodites) {
-      
+
           for (const commodite of this.les_commodite) {
-              commodite.selected = this.bien.commodites.some(
-                  (bienCommodite: any) => bienCommodite.id === commodite.id
-              );
+            commodite.selected = this.bien.commodites.some(
+              (bienCommodite: any) => bienCommodite.id === commodite.id
+            );
           }
-      
+
           // Récupérer la liste des IDs des commodités sélectionnées
           const selectedCommoditesIds = this.les_commodite
-              .filter(commodite => commodite.selected)
-              .map(commodite => commodite.id);
-      
+            .filter(commodite => commodite.selected)
+            .map(commodite => commodite.id);
+
           // Mettre à jour this.form.commodite avec la liste des IDs
           this.form.commodite = selectedCommoditesIds.length > 0 ? selectedCommoditesIds : null;
-      }
-      
-      
-     
-   
+        }
+
+
+
+
       });
 
       this.photos = this.bien?.photos;
@@ -394,7 +395,7 @@ export class ModifierBienComponent {
 
     //AFFICHER LA LISTE DES REGIONS
     this.serviceAdresse.AfficherListeRegion().subscribe((data) => {
-      this.region = data; 
+      this.region = data;
       this.nombreZone = data.length;
       if (this.selectedValue) {
         this.regions = this.region.filter(
@@ -426,11 +427,11 @@ export class ModifierBienComponent {
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
     const selectedFiles = event.target.files;
-  
+
     for (const file of selectedFiles) {
-      if (this.images1.length <98) {
+      if (this.images1.length < 98) {
         const reader = new FileReader(); // Créez un nouvel objet FileReader pour chaque fichier
-  
+
         reader.onload = (e: any) => {
           const img = new Image();
           img.onload = () => {
@@ -457,24 +458,24 @@ export class ModifierBienComponent {
           };
           img.src = e.target.result as string;
         };
-  
+
         reader.readAsDataURL(file);
       } // Vérifiez si la limite n'a pas été atteinte
     }
-  
+
     this.form.photo = this.images1; // Utilisez this.images1 pour assigner les images au formulaire
     this.checkImageCount(); // Assurez-vous de vérifier à nouveau la limite après le traitement
   }
-    
+
   // Fonction pour changer l'extension du fichier
-changeExtension(filename: string, newExtension: string): string {
-  const lastDotIndex = filename.lastIndexOf('.');
-  if (lastDotIndex === -1) {
-    return filename + '.' + newExtension;
-  } else {
-    return filename.substr(0, lastDotIndex) + '.' + newExtension;
+  changeExtension(filename: string, newExtension: string): string {
+    const lastDotIndex = filename.lastIndexOf('.');
+    if (lastDotIndex === -1) {
+      return filename + '.' + newExtension;
+    } else {
+      return filename.substr(0, lastDotIndex) + '.' + newExtension;
+    }
   }
-}
 
   removeImage(index: number) {
     this.images1.splice(index, 1); // Supprime l'image du tableau
@@ -503,8 +504,8 @@ changeExtension(filename: string, newExtension: string): string {
     this.selectedStatut = event.value;
     if (this.selectedStatut === 2) {
       this.form.periode = ''; // Mettre la période à null si le statut est "A vendre"
-      this.form.caution='';
-      this.form.avance='';
+      this.form.caution = '';
+      this.form.avance = '';
     }
   }
 
@@ -563,20 +564,63 @@ changeExtension(filename: string, newExtension: string): string {
     });
 
     if (
-      this.form.commodite === null ||
-      this.form.type === null ||
-      this.form.caracteristique === null ||
-      this.form.commune === null ||
-      this.form.nom === null ||
-      this.form.surface === null ||
-      this.form.prix === null ||
-      this.form.statut === null ||
-      this.form.description === null ||
-      this.form.quartier === null ||
+      this.form.commodite === null &&
+      this.form.type === null &&
+      this.form.caracteristique === null &&
+      this.form.commune === null &&
+      this.form.nom === null &&
+      this.form.prix === null &&
+      this.form.statut === null &&
+      this.form.description === null &&
+      this.form.quartier === null &&
       this.form.photo === null
     ) {
       swalWithBootstrapButtons.fire(
         (this.message = ' Tous les champs sont obligatoires !')
+      );
+    }else if (this.form.nom === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le nom du bien est obligatoire !',
+      );
+    }else if (this.form.prix === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le prix du bien est obligatoire !',
+      );
+    } else if (this.form.description === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'La description du bien est obligatoire !',
+      );
+    }else if (this.form.type === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le type du bien est obligatoire !',
+      );
+    }else if (this.form.statut === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le statut du bien est obligatoire !',
+      );
+    }else if (this.form.caracteristique === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'La caractéristique du bien est obligatoire !',
+      );
+    }else if (this.form.commodite === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Choisir au moins une commodité !',
+      );
+    }else if (this.form.commune === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Adresse du bien est obligatoire !',
+      );
+    } else if (this.form.quartier === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le quartier du bien est obligatoire !',
+      );
+    }else if (this.form.longitude === null || this.form.latitude === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Faites glisser le marker sur la carte pour positionner précisément votre bien !',
+      );
+    } else if (this.form.photo === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Choisir au moins une photo du bien !',
       );
     } else {
       swalWithBootstrapButtons
@@ -590,6 +634,7 @@ changeExtension(filename: string, newExtension: string): string {
         })
         .then(async (result) => {
           if (result.isConfirmed) {
+            this.isloadingB = true;
             const images = this.images1;
             const files = await this.convertURLsToFiles(images);
             const user = this.storageService.getUser();
@@ -624,15 +669,80 @@ changeExtension(filename: string, newExtension: string): string {
                 .subscribe({
                   next: (data) => {
                     this.isSuccess = false;
-                    this.popUpConfirmationModification();
-                    this.router.navigate(['details-bien', this.id]);
+                    // this.popUpConfirmationModification();
+                    // this.router.navigate(['details-bien', this.id]);
+                    if (data.status) {
+                      this.isloadingB = false;
+                      let timerInterval = 2000;
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: "Modification du bien",
+                        icon: 'success',
+                        heightAuto: false,
+                        showConfirmButton: false,
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        timer: timerInterval,
+                        timerProgressBar: true,
+                      }).then(() => {
+                        this.router.navigate(['details-bien', this.id]);
+                        //RECUPERER L'ID D'UN BIEN
+                        this.id = this.route.snapshot.params['id'];
+
+                        //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
+                        this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
+                          this.bien = data.biens[0];
+                          this.photos = this.bien.photos;
+                          this.commodite = data.commodite;
+
+                          const currentUser = this.storageService.getUser();
+
+                          if (
+                            currentUser &&
+                            this.bien &&
+                            currentUser.user.id === this.bien.utilisateur.id
+                          ) {
+                            this.currentUser = true;
+                            this.ModifBien = true;
+                          }
+
+                          for (const photo of this.photos) {
+                            const src = this.generateImageUrl(photo.nom); // Utilisez 'this.generateImageUrl'
+                            const caption = 'Caption for ' + photo.nom;
+
+                            this.albumsOne.push({ src: src, caption: caption });
+                            this.albumsTwo.push({ src: src, caption: caption });
+                          }
+                        });
+                        return this.router.navigate(['pages/service-details', this.id]);
+                      });
+                    } else {
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: 'Erreur',
+                        icon: 'error',
+                        heightAuto: false,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                      }).then((result) => { });
+                    }
                   },
                   error: (err) => {
+                    this.isloadingB = false;
                     this.errorMessage = err.error.message;
                     this.isSuccess = true;
                   },
                 });
             } else {
+              this.isloadingB = false;
             }
           }
         });
@@ -735,28 +845,29 @@ changeExtension(filename: string, newExtension: string): string {
       });
     });
   }
+
+
   onKeyPress(event: any) {
     const pattern = /[0-9\ \+\-]/;
     let inputChar = String.fromCharCode(event.charCode);
-  
+
     if (!pattern.test(inputChar)) {
       // Caractère non numérique, empêcher l'entrée
       event.preventDefault();
     }
-  
+
     // Insérer un espace après chaque trio de chiffres
-    // let inputValue = event.target.value.replace(/\s/g, ''); // Supprimer les espaces existants
-    // let formattedValue = '';
-    // for (let i = inputValue.length; i > 0; i -= 3) {
-    //   formattedValue = ',' + inputValue.slice(Math.max(i - 3, 0), i) + formattedValue;
-    // }
-    // // Supprimer l'espace initial s'il dépasse la limite de 1000 caractères
-    // formattedValue = formattedValue.slice(0, 1000);
-  
-    // // Mettre à jour la valeur dans l'input
-    // event.target.value = formattedValue;
+    let inputValue = event.target.value.replace(/\s/g, ''); // Supprimer les espaces existants
+    let formattedValue = '';
+    for (let i = inputValue.length; i > 0; i -= 3) {
+      formattedValue = ',' + inputValue.slice(Math.max(i - 3, 0), i) + formattedValue;
+    }
+    // Supprimer l'espace initial s'il dépasse la limite de 1000 caractères
+    formattedValue = formattedValue.slice(0, 1000);
+
+    // Mettre à jour la valeur dans l'input
+    event.target.value = formattedValue;
   }
-  
 
   quillConfig = {
     toolbar: {
@@ -791,8 +902,8 @@ changeExtension(filename: string, newExtension: string): string {
     }
   };
 
-  onContentChanged = (event: ContentChange) => {};
+  onContentChanged = (event: ContentChange) => { };
 
-  onFocus = () => {};
-  onBlur = () => {};
+  onFocus = () => { };
+  onBlur = () => { };
 }

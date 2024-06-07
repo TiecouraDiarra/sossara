@@ -172,6 +172,7 @@ export class CompleteProfilComponent {
   }
 
   onChange2(newValue: any) {
+    // this.selectedValue == newValue.value
     this.regions = this.region.filter(
       (el: any) => el.pays.nompays == newValue.value
     );
@@ -194,6 +195,7 @@ export class CompleteProfilComponent {
 
   CompleterProfil() {
     const { quartier, rue, porte, communeform, description } = this.formModifadress;
+    const { selectedValue, selectedValueR, selectedValueC } = this; // Récupérer la valeur sélectionnée dans le champ "pays"
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -202,6 +204,48 @@ export class CompleteProfilComponent {
       },
       heightAuto: false,
     });
+
+    if (selectedValue=="pays") {
+      swalWithBootstrapButtons.fire({
+        text: 'Le pays est obligatoire',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+      return; // Arrêter l'exécution si le champ commune n'est pas rempli
+    }
+    if (selectedValueR=="region") {
+      swalWithBootstrapButtons.fire({
+        text: 'La region est obligatoire',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+      return; // Arrêter l'exécution si le champ commune n'est pas rempli
+    }
+    if (selectedValueC=="cercle") {
+      swalWithBootstrapButtons.fire({
+        text: 'Le cercle est obligatoire',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+      return; // Arrêter l'exécution si le champ commune n'est pas rempli
+    }
+
+    if (!communeform) {
+      swalWithBootstrapButtons.fire({
+        text: 'La commune est obligatoire',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+      return; // Arrêter l'exécution si le champ commune n'est pas rempli
+    }
+    if (!quartier) {
+      swalWithBootstrapButtons.fire({
+        text: 'Le quartier est obligatoire',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+      return; // Arrêter l'exécution si le champ quartier n'est pas rempli
+    }
 
     swalWithBootstrapButtons
       .fire({

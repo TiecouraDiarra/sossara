@@ -120,6 +120,7 @@ export class AjouterBienComponent implements OnInit {
   imagesArray: string[] = []; // Array to store URLs of selected images
   private map!: L.Map;
   currentPolygon!: L.Polygon;
+  isloadingB = false;
 
   //CHARGER L'IMAGE
   onFileSelected(event: any): void {
@@ -524,21 +525,65 @@ export class AjouterBienComponent implements OnInit {
 
 
     if (
-      this.form.commodite === null ||
-      this.form.type === null ||
-      this.form.caracteristique === null ||
-      this.form.commune === null ||
-      this.form.nom === null ||
-      this.form.prix === null ||
-      this.form.statut === null ||
-      this.form.description === null ||
-      this.form.quartier === null ||
+      this.form.commodite === null &&
+      this.form.type === null &&
+      this.form.caracteristique === null &&
+      this.form.commune === null &&
+      this.form.nom === null &&
+      this.form.prix === null &&
+      this.form.statut === null &&
+      this.form.description === null &&
+      this.form.quartier === null &&
       this.form.photo === null
     ) {
       swalWithBootstrapButtons.fire(
         (this.message = ' Tous les champs sont obligatoires !')
       );
 
+    }else if (this.form.nom === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le nom du bien est obligatoire !',
+      );
+    }else if (this.form.prix === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le prix du bien est obligatoire !',
+      );
+    } else if (this.form.description === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'La description du bien est obligatoire !',
+      );
+    }else if (this.form.type === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le type du bien est obligatoire !',
+      );
+    }else if (this.form.statut === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le statut du bien est obligatoire !',
+      );
+    }else if (this.form.caracteristique === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'La caractéristique du bien est obligatoire !',
+      );
+    }else if (this.form.commodite === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Choisir au moins une commodité !',
+      );
+    }else if (this.form.commune === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Adresse du bien est obligatoire !',
+      );
+    } else if (this.form.quartier === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Le quartier du bien est obligatoire !',
+      );
+    }else if (this.form.longitude === null || this.form.latitude === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Faites glisser le marker sur la carte pour positionner précisément votre bien !',
+      );
+    } else if (this.form.photo === null) {
+      swalWithBootstrapButtons.fire(
+        this.message = 'Choisir au moins une photo du bien !',
+      );
     } else {
       swalWithBootstrapButtons
         .fire({
@@ -551,8 +596,8 @@ export class AjouterBienComponent implements OnInit {
         })
         .then((result) => {
           if (result.isConfirmed) {
+            this.isloadingB = true;
             const user = this.storageService.getUser();
-
             if (user && user.token) {
               const monprix = prix.replace(/\,/g, '');
               this.serviceBienImmo.setAccessToken(user.token);
@@ -584,15 +629,50 @@ export class AjouterBienComponent implements OnInit {
                 .subscribe({
                   next: (data) => {
                     this.isSuccess = false;
-                    this.popUpConfirmation();
+                    // this.popUpConfirmation();
+                    if (data.status) {
+                      this.isloadingB = false;
+                      let timerInterval = 2000;
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: "Création de bien",
+                        icon: 'success',
+                        heightAuto: false,
+                        showConfirmButton: false,
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        timer: timerInterval,
+                        timerProgressBar: true,
+                      }).then(() => {
+                        this.path();
+                      });
+                    } else {
+                      Swal.fire({
+                        position: 'center',
+                        text: data.message,
+                        title: 'Erreur',
+                        icon: 'error',
+                        heightAuto: false,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#0857b5',
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                      }).then((result) => { });
+                    }
                   },
                   error: (err) => {
+                    this.isloadingB = false;
                     this.errorMessage = err.error.message;
                     this.isSuccess = true;
                   },
                 });
             } else {
-
+              this.isloadingB = false;
             }
           }
         });
