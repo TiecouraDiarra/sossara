@@ -59,7 +59,7 @@ export class BiensComponent {
     // this.loadCurrentPage();
   }
 
-  pageSize: number = 4; // Nombre d'éléments par page
+  pageSize: number = 12; // Nombre d'éléments par page
   // Calcul du nombre total de pages
   get pageCount(): number {
     return Math.ceil(this.bienImmo?.length / this.pageSize);
