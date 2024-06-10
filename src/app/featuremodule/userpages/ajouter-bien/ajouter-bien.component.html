@@ -129,7 +129,7 @@
               </div>
 
               <!-- statut -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType === 3">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType === 3 || selectedType === 5">
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
@@ -145,21 +145,26 @@
               </div>
 
               <!-- statut -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType === 6 || selectedType === 4">
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
-                    <!-- <select
-                      (change)="onStatutChange($event)"
-                      [(ngModel)]="form.statut"
-                      name="statut"
-                      class="form-control"
-                      id=""
-                    >
-                      <option *ngFor="let item of status" [value]=" item?.id">
-                        {{ item?.nom }}
-                      </option>
-                    </select> -->
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Statut</mat-label>
+                      <mat-select [(ngModel)]="form.statut" name="statut" (selectionChange)="onStatutChange($event)">
+                        <mat-option [value]="1">A louer</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <!-- statut -->
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6' && selectedType != '4'">
+                <div class="form-group">
+                  <label class="col-form-label">Statut <span>*</span></label>
+                  <div class="pass-group group-img">
                     <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
                         Statut</mat-label>
@@ -189,7 +194,7 @@
               </div>
 
               <!-- Nombre de salon -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
                 <div class="form-group">
                   <label class="col-form-label">Nombre de salon <span>*</span></label>
                   <div class="pass-group group-img">
@@ -206,7 +211,7 @@
               </div>
 
               <!-- Nombre de cuisine -->
-              <div class="col-lg-6 col-md-6 mb-4" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6 mb-4" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
@@ -222,7 +227,7 @@
                 </div>
               </div>
               <!-- Nombre de chambre -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Chambres <span>*</span></label>
                   <div class="pass-group group-img">
@@ -237,8 +242,8 @@
                   </div>
                 </div>
               </div>
-
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <!-- Toilette -->
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Toilettes <span>*</span></label>
                   <div class="pass-group group-img">
@@ -254,39 +259,15 @@
                 </div>
               </div>
 
-
-              <!-- Nombre de toilette -->
-              <!-- <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
-                <div class="form-group formlast-input">
-                  <label class="col-form-label">Toilette <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <mat-form-field
-                      class="mat-custom-select"
-                      style="width: 100%"
-                    >
-                      <mat-label *ngIf="selectedCategory == ''">
-                        Toilette</mat-label
-                      >
-                      <mat-select [(ngModel)]="form.toilette" name="toilette">
-                        <mat-option
-                          *ngFor="let item of valuesSelect"
-                          [value]="item"
-                        >
-                          {{ item }}</mat-option
-                        >
-                      </mat-select>
-                    </mat-form-field> 
-                  </div>
-                </div>
-              </div> -->
               <!-- Nombre de surface -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut != 1">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 2">
                 <div class="form-group">
                   <label class="col-form-label">Superficie du bien (M²) <span>*</span></label>
                   <input type="number" pattern="[0-9]" name="surface" [(ngModel)]="form.surface"
                     class="form-control pass-input" required aria-required="true" placeholder="000000" />
                 </div>
               </div>
+              <!-- Periode -->
               <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 1 && selectedType != '3'">
                 <div class="form-group">
                   <label class="col-form-label">Periode <span>*</span></label>
@@ -303,7 +284,7 @@
                   </div>
                 </div>
               </div>
-
+              <!-- Caution -->
               <div class="col-lg-6 col-md-6"
                 *ngIf="selectedStatutMensuel === 2 && selectedStatut && selectedType != '3'">
                 <div class="form-group">
@@ -320,7 +301,7 @@
                   </div>
                 </div>
               </div>
-
+              <!-- Avance -->
               <div class="col-lg-6 col-md-6"
                 *ngIf="selectedStatutMensuel === 2 && selectedStatut === 1 && selectedType != '3'">
                 <div class="form-group">
@@ -340,7 +321,7 @@
             </div>
           </div>
         </div>
-
+        <!-- Commodites -->
         <div class="card">
           <div class="card-header">
             <h4>Les commodites</h4>
@@ -379,8 +360,6 @@
           <div class="card-body">
             <div class="row">
               <!-- Pays  -->
-
-
               <div class="col-lg-4 col-md-4">
                 <div class="form-group">
                   <div class="pass-group group-img">
@@ -413,7 +392,7 @@
                   </div>
                 </div>
               </div>
-
+              <!-- Cercle  -->
               <div class="col-lg-4 col-md-4">
                 <div class="form-group">
                   <div class="pass-group group-img">
@@ -431,7 +410,6 @@
             </div>
             <div class="row">
               <!-- Commune  -->
-
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                   <div class="pass-group group-img">
@@ -462,7 +440,7 @@
             </div>
             <div class="row">
               <!-- Rue  -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5'">
                 <div class="form-group">
                   <div class="pass-group group-img">
                     <label class="col-form-label">Rue <span>*</span></label>
@@ -472,7 +450,7 @@
                 </div>
               </div>
               <!-- Porte  -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Porte <span>*</span></label>
                   <input type="text" name="porte" [(ngModel)]="form.porte" class="form-control pass-input"
@@ -508,6 +486,7 @@
           </div>
         </div>
 
+        <!-- IMAGES DU BIEN  -->
         <div class="card media-section">
           <div class="card-header">
             <h4>Media Information</h4>

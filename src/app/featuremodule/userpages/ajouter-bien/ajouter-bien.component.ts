@@ -526,7 +526,6 @@ export class AjouterBienComponent implements OnInit {
     if (
       this.form.commodite === null &&
       this.form.type === null &&
-      this.form.caracteristique === null &&
       this.form.commune === null &&
       this.form.nom === null &&
       this.form.prix === null &&
@@ -558,10 +557,6 @@ export class AjouterBienComponent implements OnInit {
     }else if (this.form.statut === null) {
       swalWithBootstrapButtons.fire(
         this.message = 'Le statut du bien est obligatoire !',
-      );
-    }else if (this.form.caracteristique === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = 'La caractéristique du bien est obligatoire !',
       );
     }else if (this.form.commodite === null) {
       swalWithBootstrapButtons.fire(
@@ -635,7 +630,7 @@ export class AjouterBienComponent implements OnInit {
                       Swal.fire({
                         position: 'center',
                         text: data.message,
-                        title: "Création de bien",
+                        title: "Création du bien",
                         icon: 'success',
                         heightAuto: false,
                         showConfirmButton: false,
