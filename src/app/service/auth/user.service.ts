@@ -79,6 +79,7 @@ export class UserService {
   //AFFICHER LES INFORMATIONS DE USER CONNECTER
   AfficherUserConnecter(): Observable<any> {
     const headers = this.getHeaders();
+    console.log(headers)
     return this.http.get(`${URL_BASE}/user/afficherConnecter`, { headers });
   }
 

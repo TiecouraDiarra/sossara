@@ -51,7 +51,9 @@ export class AuthGuard implements CanActivate {
         
   
         if (state.url === '/userpages/ajouter-bien' && !( this.profil==='ADMIN' ||  this.profil==='PROPRIETAIRE' || this.profil==='AGENCE'  || this.profil==='AGENT')) {
-          window.history.back();
+          // alert('Vous n\'avez pas le droit d\'accéder à cette page');
+          this.router.navigate(['/userpages/dashboard']);
+          // window.history.back();
           return of(false);
         }
   
@@ -78,3 +80,67 @@ export class AuthGuard implements CanActivate {
       this.destroy$.complete();
   }
 }
+
+// import { Injectable } from '@angular/core';
+// import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+// import { StorageService } from './service/auth/storage.service';
+// import { UserService } from './service/auth/user.service';
+// import { Observable, Subject, of } from 'rxjs';
+// import { switchMap, takeUntil } from 'rxjs/operators';
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class AuthGuard implements CanActivate {
+//   isLoggedIn = false;
+//   users: any;
+//   profil: any;
+//   private destroy$ = new Subject<void>();
+
+//   constructor(
+//     private router: Router,
+//     private storageService: StorageService,
+//     private userService: UserService,
+//   ) {}
+
+//   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+//     return this.userService.AfficherUserConnecter().pipe(
+//       takeUntil(this.destroy$),
+//       switchMap((data) => {
+//         this.users = data[0];
+//         this.profil = this.users?.profil;
+  
+//         if (this.storageService.isLoggedIn()) {
+//           this.isLoggedIn = true;
+//         }
+        
+//         if (state.url === '/auth/completer-profil' && !(this.users.profilCompleter === false)) {
+//           window.history.back();
+//           return of(false);
+//         }
+        
+//         if (state.url === '/userpages/ajouter-bien' && !(this.profil === 'ADMIN' || this.profil === 'PROPRIETAIRE' || this.profil === 'AGENCE' || this.profil === 'AGENT')) {
+//           alert('Vous n\'avez pas le droit d\'accéder à cette page');
+//           return this.router.navigate(['/userpages/dashboard']).then(() => false);
+//         }
+  
+//         if (state.url.startsWith('/userpages/modifier-bien/') && !(this.profil === 'ADMIN' || this.profil === 'PROPRIETAIRE' || this.profil === 'AGENCE' || this.profil === 'AGENT')) {
+//           window.history.back();
+//           return of(false);
+//         }
+  
+//         if (this.isLoggedIn) {
+//           return of(true);
+//         } else {
+//           this.router.navigate(['/auth/connexion']);
+//           return of(false);
+//         }
+//       })
+//     );
+//   }
+  
+//   ngOnDestroy() {
+//     this.destroy$.next();
+//     this.destroy$.complete();
+//   }
+// }
