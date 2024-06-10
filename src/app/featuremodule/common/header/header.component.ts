@@ -57,6 +57,8 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
   isLoggedIn = false;
   isLoginFailed = true;
   errorMessage = '';
+  isLoggedIn2=false
+  isLoginFailed2 =false 
 
 
 
@@ -104,15 +106,24 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
 
   checkUserStatus(): void {
     if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
+     
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
-          this.users = data[0];
-          // console.log(this.users);
-          
-          
-          this.completer=this.users.profilCompleter
+          this.users = data && data.length > 0 ? data[0] : null;
+          this.completer = this.users?.profilCompleter;
           this.profil = this.users?.profil;
+          console.log(this.users);
+          if (!this.users) {
+            window.localStorage.clear();
+            return; // Sortir de la méthode si l'utilisateur n'est pas connecté
+          }
+          if(this.users){
+            this.isLoggedIn2=true
+            this.isLoginFailed2=false
+            this.AjouterBienOrLogin()
+          }
+         
+          
           if (this.profil === 'LOCATAIRE') {
             this.isLocataire = true;
           }
@@ -198,7 +209,7 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
   AjouterBienOrLogin() {
-    if (this.storageService.isLoggedIn()) {
+    if (this.isLoggedIn2) {
       this.router.navigateByUrl("/userpages/ajouter-bien")
     } else {
       this.router.navigateByUrl("/auth/connexion")
