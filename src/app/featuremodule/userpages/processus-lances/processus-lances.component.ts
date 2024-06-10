@@ -59,8 +59,8 @@ export class ProcessusLancesComponent implements OnInit {
     const { photo } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -108,7 +108,7 @@ export class ProcessusLancesComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,

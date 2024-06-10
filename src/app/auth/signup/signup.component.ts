@@ -191,53 +191,209 @@ export class SignupComponent {
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
-    // alert(this.form.nomDoc)
-    if (this.form.nom === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "Le nom est obligatoire !",
-      );
-    } else if (this.form.email === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "L'email est obligatoire !",
-      );
-    } else if (this.form.password === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "Le mot de passe est obligatoire !",
-      );
-    } else if (this.form.telephone === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "Le téléphone est obligatoire !",
-      );
-    } else if (this.form.nomDoc == "Type de pièces") {
-      swalWithBootstrapButtons.fire(
-        this.message = "Le type de pièces est obligatoire !",
-      );
-    } else if (this.form.numDoc === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "Le numéro de document est obligatoire !",
-      );
-    } else if (this.form.dateNaissance === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "Veuillez saisir une date de naissance valide !",
-      );
-    } else if (this.form.confirmPassword === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "La confirmation du mot de passe est obligatoire !",
-      );
-    } else if (this.form.role == "Type d'Utilisateur") {
-      swalWithBootstrapButtons.fire(
-        this.message = "Le rôle est obligatoire !",
-      );
-    } else if (this.form.photo === null) {
-      swalWithBootstrapButtons.fire(
-        this.message = "La photo est obligatoire !",
-      );
+    if (this.form.dateNaissance === null) {
+      Swal.fire({
+        position: 'center',
+        text: "Veuillez saisir une date de naissance valide !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+      return; // Arrêter la fonction si le champ usage est nul
     }
+    if (this.form.nom === null) {
+      Swal.fire({
+        position: 'center',
+        text: "Le nom est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.email === null) {
+      Swal.fire({
+        position: 'center',
+        text: "L'email est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.telephone === null) {
+      Swal.fire({
+        position: 'center',
+        text: "Le téléphone est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    } else if (this.form.dateNaissance === null) {
+      Swal.fire({
+        position: 'center',
+        text: "Veuillez saisir une date de naissance valide !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.password === null) {
+      Swal.fire({
+        position: 'center',
+        text: "Le mot de passe est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.confirmPassword === null) {
+      Swal.fire({
+        position: 'center',
+        text: "La confirmation du mot de passe est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.role === "Type d'Utilisateur") {
+      Swal.fire({
+        position: 'center',
+        text: "Le rôle est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.nomDoc === "Type de pièces") {
+      Swal.fire({
+        position: 'center',
+        text: "Le type de pièces est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.numDoc === null) {
+      Swal.fire({
+        position: 'center',
+        text: "Le numéro de document est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }else if (this.form.photo === null) {
+      Swal.fire({
+        position: 'center',
+        text: "La photo est obligatoire !",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+    }
+    // if (this.form.nom === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "Le nom est obligatoire !",
+    //   );
+    // } else if (this.form.email === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "L'email est obligatoire !",
+    //   );
+    // } else if (this.form.password === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "Le mot de passe est obligatoire !",
+    //   );
+    // } else if (this.form.telephone === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "Le téléphone est obligatoire !",
+    //   );
+    // } else if (this.form.nomDoc == "Type de pièces") {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "Le type de pièces est obligatoire !",
+    //   );
+    // } else if (this.form.numDoc === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "Le numéro de document est obligatoire !",
+    //   );
+    // } else if (this.form.dateNaissance === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "Veuillez saisir une date de naissance valide !",
+    //   );
+    // } else if (this.form.confirmPassword === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "La confirmation du mot de passe est obligatoire !",
+    //   );
+    // } else if (this.form.role == "Type d'Utilisateur") {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "Le rôle est obligatoire !",
+    //   );
+    // } else if (this.form.photo === null) {
+    //   swalWithBootstrapButtons.fire(
+    //     this.message = "La photo est obligatoire !",
+    //   );
+    // }
     else {
       swalWithBootstrapButtons.fire({
         text: "Etes-vous sûre de creer un compte ?",
@@ -267,7 +423,7 @@ export class SignupComponent {
                   heightAuto: false,
                   showConfirmButton: true,
                   confirmButtonText: "OK",
-                  confirmButtonColor: '#0857b5',
+                  confirmButtonColor: '#e98b11',
                   showDenyButton: false,
                   showCancelButton: false,
                   allowOutsideClick: false,
@@ -364,6 +520,10 @@ export class SignupComponent {
     // Formater la date au format ISO (AAAA-MM-JJ)
     return maximumDate.toISOString().split("T")[0];
   }
+  uppercaseRegex = /[A-Z]/;
+  lowercaseRegex = /[a-z]/;
+  digitRegex = /\d/;
+  specialCharacterRegex = /[@$!%*?&]/;
   validatePassword(password: string): boolean {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
@@ -406,7 +566,7 @@ export class SignupComponent {
       heightAuto: false,
       showConfirmButton: true,
       confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,

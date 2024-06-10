@@ -76,6 +76,7 @@ export class ModifierBienComponent {
   caracteristique: any;
   selectedType: string | null = null;
   isloadingB = false;
+  profil: any;
 
   // Supposons que vous ayez une méthode pour charger les types de biens
   loadTypeBiens() {
@@ -152,6 +153,7 @@ export class ModifierBienComponent {
     private caracteristiqueService: CaracteristiqueService,
     private route: ActivatedRoute,
     private serviceCommodite: CommoditeService,
+    private serviceUser: UserService,
     private serviceBienImmo: BienimmoService
   ) {
    
@@ -161,16 +163,32 @@ export class ModifierBienComponent {
 
 
   ngOnInit(): void {
+    // if (this.storageService.isLoggedIn()) {
+    //   // this.isLoggedIn = true;
+    //   if (this.roles[0] == 'ROLE_LOCATAIRE') {
+    //     this.isLocataire = true;
+    //   } else if (this.roles[0] == 'ROLE_AGENCE') {
+    //     this.isAgence = true;
+    //   } else if (this.roles.includes('ROLE_PROPRIETAIRE')) {
+    //     this.isProprietaire = true;
+    //   }
+    // }
     if (this.storageService.isLoggedIn()) {
-      // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      if (this.roles[0] == 'ROLE_LOCATAIRE') {
+      // Récupérer les données de l'utilisateur connecté
+    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+      this.profil = data[0]?.profil;
+      if (this.profil == 'LOCATAIRE') {
         this.isLocataire = true;
-      } else if (this.roles[0] == 'ROLE_AGENCE') {
-        this.isAgence = true;
-      } else if (this.roles.includes('ROLE_PROPRIETAIRE')) {
+      } else if (this.profil == 'AGENCE' ) {
+        this.isAgence = true; 
+      } else if (this.profil == 'AGENT') {
+        
+      } else if (this.profil == 'PROPRIETAIRE') {
         this.isProprietaire = true;
+      }else {
       }
+    })
+      // }
     }
 
     //RECUPERER L'ID D'UN BIEN
@@ -557,8 +575,8 @@ export class ModifierBienComponent {
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -681,7 +699,7 @@ export class ModifierBienComponent {
                         icon: 'success',
                         heightAuto: false,
                         showConfirmButton: false,
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -728,7 +746,7 @@ export class ModifierBienComponent {
                         heightAuto: false,
                         showConfirmButton: true,
                         confirmButtonText: 'OK',
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -781,7 +799,7 @@ export class ModifierBienComponent {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,

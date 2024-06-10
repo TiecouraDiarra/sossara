@@ -101,7 +101,6 @@ export class MesBiensComponent implements OnInit {
       }
     })
       // this.isLoggedIn = true;
-      // this.roles = this.storageService.getUser().roles;
       //  if (this.roles.includes("ROLE_LOCATAIRE")) {
       //   this.isLocataire = true;
       //   this.selectedTab = 'home';
@@ -141,8 +140,8 @@ export class MesBiensComponent implements OnInit {
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })

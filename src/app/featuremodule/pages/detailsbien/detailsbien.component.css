@@ -349,3 +349,13 @@
   
   
 }
+
+.swal2-confirm {
+  background-color: #4caf50 !important; /* Vert */
+  color: white !important;
+}
+
+.swal2-cancel {
+  background-color: #f44336 !important; /* Rouge */
+  color: white !important;
+}

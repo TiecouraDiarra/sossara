@@ -291,8 +291,8 @@ export class DashboardComponent implements OnInit {
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })

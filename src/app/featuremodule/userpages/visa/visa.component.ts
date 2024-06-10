@@ -102,8 +102,8 @@ export class VisaComponent {
     } = this.paiementForm;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -146,7 +146,7 @@ export class VisaComponent {
                     icon: 'success',
                     heightAuto: false,
                     showConfirmButton: false,
-                    confirmButtonColor: '#0857b5',
+                    confirmButtonColor: '#e98b11',
                     showDenyButton: false,
                     showCancelButton: false,
                     allowOutsideClick: false,
@@ -164,7 +164,7 @@ export class VisaComponent {
                   heightAuto: false,
                   showConfirmButton: true,
                   confirmButtonText: 'OK',
-                  confirmButtonColor: '#0857b5',
+                  confirmButtonColor: '#e98b11',
                   showDenyButton: false,
                   showCancelButton: false,
                   allowOutsideClick: false,

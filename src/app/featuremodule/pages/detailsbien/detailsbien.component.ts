@@ -202,7 +202,7 @@ export class DetailsbienComponent implements AfterViewInit {
       'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
   }
 
- 
+
 
   photos: any;
 
@@ -216,13 +216,13 @@ export class DetailsbienComponent implements AfterViewInit {
   selectedCategory: any = '';
   selectedStatut: string | null = null;
   //METHODE PERMETTANT DE CHANGER LES STATUTS
-  
 
-  isMobile= false;
+
+  isMobile = false;
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.isMobile = event.target.innerWidth <= 991;
-   
+
   }
 
   constructor(
@@ -245,8 +245,8 @@ export class DetailsbienComponent implements AfterViewInit {
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params['id'];
     this.bienparid()
-   
- 
+
+
   }
   open(index: number, albumArray: Array<any>): void {
     this._lightbox.open(albumArray, index);
@@ -279,11 +279,10 @@ export class DetailsbienComponent implements AfterViewInit {
     // this.initMap();
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      // this.roles = this.storageService.getUser().roles;
-       //AFFICHER LA LISTE DES USAGE
-    this.serviceUsage.AfficherListeUsage().subscribe(data => {
-      this.usage = data;
-    });
+      //AFFICHER LA LISTE DES USAGE
+      this.serviceUsage.AfficherListeUsage().subscribe(data => {
+        this.usage = data;
+      });
 
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
@@ -296,12 +295,12 @@ export class DetailsbienComponent implements AfterViewInit {
 
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
     this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe((data) => {
-        this.commentaire = data.reverse();
-      });
-      
+      this.commentaire = data.reverse();
+    });
+
   }
 
- 
+
   direction() {
     this.router.navigate([routes.servicedetails]);
   }
@@ -332,7 +331,7 @@ export class DetailsbienComponent implements AfterViewInit {
         .Fairecommentaire(this.commentaireForm.contenu, id)
         .subscribe(
           (data) => {
-           
+
 
             //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
             this.servicecommentaire
@@ -376,7 +375,7 @@ export class DetailsbienComponent implements AfterViewInit {
     } else {
     }
 
- 
+
   }
 
   commentaireSelectionne: any;
@@ -406,7 +405,7 @@ export class DetailsbienComponent implements AfterViewInit {
               icon: 'success',
               heightAuto: false,
               showConfirmButton: false,
-              confirmButtonColor: '#0857b5',
+              confirmButtonColor: '#e98b11',
               showDenyButton: false,
               showCancelButton: false,
               allowOutsideClick: false,
@@ -430,7 +429,7 @@ export class DetailsbienComponent implements AfterViewInit {
               heightAuto: false,
               showConfirmButton: true,
               confirmButtonText: 'OK',
-              confirmButtonColor: '#0857b5',
+              confirmButtonColor: '#e98b11',
               showDenyButton: false,
               showCancelButton: false,
               allowOutsideClick: false,
@@ -438,17 +437,17 @@ export class DetailsbienComponent implements AfterViewInit {
           }
         },
         error => {
-       
+
         }
       );
   }
 
-   //METHODE PERMETTANT DE MODIFIER UN commentaire
-   SupprimerCommentaire(id: number): void {
+  //METHODE PERMETTANT DE MODIFIER UN commentaire
+  SupprimerCommentaire(id: number): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -474,7 +473,7 @@ export class DetailsbienComponent implements AfterViewInit {
                   icon: 'success',
                   heightAuto: false,
                   showConfirmButton: false,
-                  confirmButtonColor: '#0857b5',
+                  confirmButtonColor: '#e98b11',
                   showDenyButton: false,
                   showCancelButton: false,
                   allowOutsideClick: false,
@@ -498,7 +497,7 @@ export class DetailsbienComponent implements AfterViewInit {
                   heightAuto: false,
                   showConfirmButton: true,
                   confirmButtonText: 'OK',
-                  confirmButtonColor: '#0857b5',
+                  confirmButtonColor: '#e98b11',
                   showDenyButton: false,
                   showCancelButton: false,
                   allowOutsideClick: false,
@@ -506,7 +505,7 @@ export class DetailsbienComponent implements AfterViewInit {
               }
             },
             error => {
-            
+
             }
           );
       }
@@ -518,8 +517,8 @@ export class DetailsbienComponent implements AfterViewInit {
     // this.id = this.route.snapshot.params["id"]
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -542,7 +541,7 @@ export class DetailsbienComponent implements AfterViewInit {
                 icon: 'success',
                 heightAuto: false,
                 showConfirmButton: false,
-                confirmButtonColor: '#0857b5',
+                confirmButtonColor: '#e98b11',
                 showDenyButton: false,
                 showCancelButton: false,
                 allowOutsideClick: false,
@@ -560,7 +559,7 @@ export class DetailsbienComponent implements AfterViewInit {
                 heightAuto: false,
                 showConfirmButton: true,
                 confirmButtonText: 'OK',
-                confirmButtonColor: '#0857b5',
+                confirmButtonColor: '#e98b11',
                 showDenyButton: false,
                 showCancelButton: false,
                 allowOutsideClick: false,
@@ -601,12 +600,71 @@ export class DetailsbienComponent implements AfterViewInit {
 
     const currentUser = this.getCurrentUser();
 
+    // Vérification si le champ de la date est vide
+    // if (!this.formCandidater.date) {
+    //   Swal.fire({
+    //     position: 'center',
+    //     text: "Veuillez fournir une date d'entrée.",
+    //     title: 'Erreur',
+    //     icon: 'error',
+    //     heightAuto: false,
+    //     showConfirmButton: true,
+    //     confirmButtonText: 'OK',
+    //     confirmButtonColor: '#e98b11',
+    //     showDenyButton: false,
+    //     showCancelButton: false,
+    //     allowOutsideClick: false,
+    //   });
+    //   return; // Arrêter la fonction si le champ date est vide
+    // }
+    // Vérification de la date d'entrée
+    const dateEntree = new Date(this.formCandidater.date);
+    const currentDate = new Date();
+    const oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+
+    if (dateEntree < currentDate || dateEntree > oneYearFromNow) {
+      Swal.fire({
+        position: 'center',
+        text: "La date d'entrée doit être comprise entre aujourd'hui et un an à partir d'aujourd'hui.",
+        title: 'Date invalide',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+      return; // Arrêter la fonction si la date est invalide
+    }
+    // Vérification si le champ d'usage est nul
+    if (!this.formCandidater.usage) {
+      Swal.fire({
+        position: 'center',
+        text: "Veuillez sélectionner un usage.",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+      return; // Arrêter la fonction si le champ usage est nul
+    }
+
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
-      heightAuto: false
+      heightAuto: false,
+      buttonsStyling: false,
+      // confirmButtonColor: '#e98b11', // Définir la couleur du bouton de confirmation
     })
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
@@ -637,7 +695,7 @@ export class DetailsbienComponent implements AfterViewInit {
                     icon: 'success',
                     heightAuto: false,
                     showConfirmButton: false,
-                    confirmButtonColor: '#0857b5',
+                    confirmButtonColor: '#e98b11',
                     showDenyButton: false,
                     showCancelButton: false,
                     allowOutsideClick: false,
@@ -655,7 +713,7 @@ export class DetailsbienComponent implements AfterViewInit {
                     heightAuto: false,
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
-                    confirmButtonColor: '#0857b5',
+                    confirmButtonColor: '#e98b11',
                     showDenyButton: false,
                     showCancelButton: false,
                     allowOutsideClick: false,
@@ -689,9 +747,9 @@ export class DetailsbienComponent implements AfterViewInit {
     return user ? user.userData : null;
   }
 
-  
- 
-  
+
+
+
   //METHODE PERMETTANT D'ACTUALISER LA PAGE
   reloadPage(): void {
     window.location.reload();
@@ -706,8 +764,8 @@ export class DetailsbienComponent implements AfterViewInit {
   OuvrirConversation(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -752,7 +810,7 @@ export class DetailsbienComponent implements AfterViewInit {
 
 
   //MODIFIER UN BIEN
- 
+
 
 
   goToDettailBi(email: number) {
@@ -766,7 +824,7 @@ export class DetailsbienComponent implements AfterViewInit {
 
 
     this.chatService
-      .getChatByFirstUserNameAndSecondUserName2( this.users.email, username, this.messageObj)
+      .getChatByFirstUserNameAndSecondUserName2(this.users.email, username, this.messageObj)
       .subscribe(
         (data) => {
           this.chat = data;
@@ -799,13 +857,14 @@ export class DetailsbienComponent implements AfterViewInit {
   }
   goToDettailBien(id: number) {
     return this.router.navigate(['details-bien', id]).then(() => {
-        this.bienparid();
-        window.location.reload();    });
-}
+      this.bienparid();
+      window.location.reload();
+    });
+  }
 
-userRoles: { id: number; name: string }[] = [];
+  userRoles: { id: number; name: string }[] = [];
 
-  bienparid(){
+  bienparid() {
     this.id = this.route.snapshot.params['id'];
 
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
@@ -813,31 +872,31 @@ userRoles: { id: number; name: string }[] = [];
       this.bien = data;
       this.lesCommodites = data?.commodites;
 
-    this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
-      // Trier les biens par date de création décroissante
-      data.sort((a: any, b: any) => {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      });
-    
-      // Filtrer les biens par date de création supérieure à this.bien.createdAt
-      const biensFiltres = data.filter((bien: { createdAt: string | number | Date; }) => {
-        return new Date(bien.createdAt) > new Date(this.bien.createdAt);
-      });
-      const biensFiltres2 = data.filter((bien: { createdAt: string | number | Date; }) => {
-        return new Date(bien.createdAt) < new Date(this.bien.createdAt);
-      });
-    
-      // Afficher la liste des biens filtrés
-     // Inverser l'ordre de la liste filtrée
-     biensFiltres.reverse();
-     biensFiltres2;
+      this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
+        // Trier les biens par date de création décroissante
+        data.sort((a: any, b: any) => {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
 
-  // Récupérer le premier élément de la liste inversée
-      this.bienImmoSuivant = biensFiltres.slice(0, 1);
-      this.bienImmoPrecedent = biensFiltres2.slice(0, 1);
+        // Filtrer les biens par date de création supérieure à this.bien.createdAt
+        const biensFiltres = data.filter((bien: { createdAt: string | number | Date; }) => {
+          return new Date(bien.createdAt) > new Date(this.bien.createdAt);
+        });
+        const biensFiltres2 = data.filter((bien: { createdAt: string | number | Date; }) => {
+          return new Date(bien.createdAt) < new Date(this.bien.createdAt);
+        });
 
-      
-    });
+        // Afficher la liste des biens filtrés
+        // Inverser l'ordre de la liste filtrée
+        biensFiltres.reverse();
+        biensFiltres2;
+
+        // Récupérer le premier élément de la liste inversée
+        this.bienImmoSuivant = biensFiltres.slice(0, 1);
+        this.bienImmoPrecedent = biensFiltres2.slice(0, 1);
+
+
+      });
 
       this.lesCommodites = data?.commodites;
       this.photos = this.bien?.photos;

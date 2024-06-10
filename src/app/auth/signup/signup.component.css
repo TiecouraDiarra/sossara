@@ -38,3 +38,7 @@
     z-index: 9999; /* Assure que le spinner est au-dessus de tout le contenu */
   }
   
+  .list-group {
+    list-style-type: disc;
+    /* ou 'circle' ou 'square' selon votre préférence */
+  }

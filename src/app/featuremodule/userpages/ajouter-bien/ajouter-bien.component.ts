@@ -294,7 +294,6 @@ export class AjouterBienComponent implements OnInit {
           this.isProprietaire = true
         }
       })
-      // this.roles = this.storageService.getUser().roles;
       // if (this.roles[0] == 'ROLE_LOCATAIRE') {
       //   this.isLocataire = true;
       // } else if (this.roles[0] == 'ROLE_AGENCE') {
@@ -516,8 +515,8 @@ export class AjouterBienComponent implements OnInit {
     } = this.form;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -640,7 +639,7 @@ export class AjouterBienComponent implements OnInit {
                         icon: 'success',
                         heightAuto: false,
                         showConfirmButton: false,
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -658,7 +657,7 @@ export class AjouterBienComponent implements OnInit {
                         heightAuto: false,
                         showConfirmButton: true,
                         confirmButtonText: 'OK',
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -720,7 +719,7 @@ export class AjouterBienComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,

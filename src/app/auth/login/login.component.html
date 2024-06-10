@@ -30,21 +30,21 @@
           <!-- Login Form -->
           <form (ngSubmit)="f.form.valid && seConnecter()" #f="ngForm" novalidate>
             <div class="form-group group-img">
-              <div class="group-img"> 
+              <div class="group-img">
                 <i class="feather-mail"></i>
                 <input type="text" name="email" [(ngModel)]="form.email" class="form-control"
                   placeholder="Adresse Email" email #email="ngModel" [ngClass]="{
                       'is-invalid':
                           f.submitted && email.errors
-                  }" />
-                <!-- <div class="invalid-feedback text-center" *ngIf="email.errors && f.submitted">
+                  }" required />
+                <div class="invalid-feedback text-center" *ngIf="email.errors && f.submitted">
                   <div *ngIf="email.errors['required']">
                     Email est obligatoire
                   </div>
                   <div *ngIf="email.errors['email']">
                     Email non valide
                   </div>
-                </div> -->
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -52,7 +52,7 @@
                 <i class="feather-lock"></i>
                 <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'"
                   class="form-control pass-input" placeholder="Mot de passe" [(ngModel)]="form.password"
-                #password="ngModel" [ngClass]="{ 'is-invalid': password.errors }" />
+                  #password="ngModel" [ngClass]="{ 'is-invalid': password.errors }" />
                 <span [ngClass]="
                     Toggledata == true
                       ? 'toggle-password feather-eye-off'
@@ -62,6 +62,17 @@
                   <div *ngIf="password.errors['required']">Mot de passe obligatoire</div>
               
                 </div> -->
+              </div>
+              <div *ngIf="form.password && !validatePassword(form.password)" class="invalid-feedback"
+                style="display:block;">
+                Votre mot de passe doit respecter les critères suivants :
+                <ul class="list-group" style="margin-left: 30px;">
+                  <li *ngIf="form.password && !form.password.match(uppercaseRegex)">Au moins une majuscule</li>
+                  <li *ngIf="form.password && !form.password.match(lowercaseRegex)">Au moins une minuscule</li>
+                  <li *ngIf="form.password && !form.password.match(digitRegex)">Au moins un chiffre</li>
+                  <li *ngIf="form.password && !form.password.match(specialCharacterRegex)">Au moins un caractère spécial</li>
+                  <li *ngIf="form.password && form.password.length < 8">Au moins 8 caractères</li>
+                </ul>
               </div>
             </div>
             <!-- <div *ngIf="isLoginFailed" class="alert alert-danger" role="">

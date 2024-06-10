@@ -293,7 +293,7 @@ export class TrouverbienComponent implements OnInit {
             // Convertissez les données de bien immobilier en marqueurs Leaflet
             this.overlays = this.bienImmoMap.map((bien: any) => {
               const imageSrc = bien?.photos ? this.generateImageUrl(bien.photos) : 'assets/img/gallery/gallery1/gallery-1.jpg';
-              const marker = L.marker([bien.adresse.latitude, bien.adresse.longitude], {
+              const marker = L.marker([bien?.adresse?.latitude, bien?.adresse?.longitude], {
                 icon: L.icon({
                   iconUrl: 'assets/img/iconeBien/localisations.svg',
                   iconSize: [80, 80], // Taille de l'icône du marqueur
@@ -309,35 +309,35 @@ export class TrouverbienComponent implements OnInit {
                 <div class="pro-content">
                   <h3 class="title" style="font-weight: 500; color:white; margin-bottom: 15px;font-size: 13px;">
                     <a class="bien-nom crd" style="cursor: pointer;">
-                      ${bien.nom}
+                      ${bien?.nom}
                     </a>
                   </h3>`;
               // Vérifiez le statut du bien immobilier
-              if (bien.statut.nom === 'A vendre') {
+              if (bien?.statut?.nom === 'A vendre') {
                 content += `
                         <div class="row">
                           <div class="col">
                             <span class="Featured-text" style="background-color:#e98b11; font-weight: bold;">
-                              ${bien.statut.nom}
+                              ${bien?.statut?.nom}
                             </span>
                           </div>
                           <div class="col-6">
                             <span class="Featured-text" style="font-weight: bold; background-color: #dee2e7;color: #374b5c;">
-                              ${bien.typeImmo.nom}
+                              ${bien?.typeImmo?.nom}
                             </span>
                           </div>
                         </div>`;
-              } else if (bien.statut.nom === 'A louer') {
+              } else if (bien?.statut?.nom === 'A louer') {
                 content += `
                         <div class="row">
                           <div class="col-6">
                             <span class="Featured-text" style="font-weight: bold;">
-                              ${bien.statut.nom}
+                              ${bien?.statut?.nom}
                             </span>
                           </div>
                           <div class="col-6">
                               <span class="Featured-text" style="font-weight: bold; background-color: #dee2e7;color: #374b5c;">
-                               ${bien.typeImmo.nom}
+                               ${bien?.typeImmo?.nom}
                               </span>
                           </div>
                         </div>`;
@@ -346,10 +346,10 @@ export class TrouverbienComponent implements OnInit {
               content += `
       <ul class="available-info mt-3">
         <li class="mapaddress">
-          <i class="fas fa-map-marker-alt me-2"></i> ${bien.adresse.commune.cercle.nomcercle}, ${bien.adresse.quartier}
+          <i class="fas fa-map-marker-alt me-2"></i> ${bien?.adresse?.commune?.cercle?.nomcercle}, ${bien?.adresse?.quartier}
         </li>
         <li class="map-amount" style="color: #e98b11; font-weight: bold; margin-top:-27px">
-          ${this.formatPrice(bien.prix)} FCFA
+          ${this.formatPrice(bien?.prix)} FCFA
         </li>
       </ul>
     `;
@@ -727,8 +727,8 @@ export class TrouverbienComponent implements OnInit {
 
   initSliderOptions() {
     this.serviceBienImmo.AfficherLaListePrix().subscribe(data => {
-      this.customHtmlMaxValue = data[0].prix;
-      this.customHtmlMinValue = data[data.length - 1].prix;
+      this.customHtmlMaxValue = data[0]?.prix;
+      this.customHtmlMinValue = data[data.length - 1]?.prix;
 
       // Mettez à jour automatiquement les valeurs du formulaire avec les valeurs du slider
       this.form.maxprix = this.customHtmlMaxValue;

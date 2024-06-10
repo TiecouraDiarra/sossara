@@ -45,11 +45,11 @@ export class ContratComponent {
   users: any;
 
   isProprietaire(roles: any[]): boolean {
-    return roles?.some(role => role.name === 'ROLE_PROPRIETAIRE');
+    return roles?.some(role => role.name === 'PROPRIETAIRE');
   } 
 
   isAgence(roles: any[]): boolean {
-    return roles?.some(role => role.name === 'ROLE_AGENCE');
+    return roles?.some(role => role.name === 'AGENCE');
   }
   errorMessage: any = '';
   isSuccess: any = false;
@@ -93,7 +93,6 @@ export class ContratComponent {
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
-      this.roles = this.storageService.getUser().roles;
 
 
       // if (this.roles.includes("ROLE_PROPRIETAIRE")) {
@@ -188,8 +187,8 @@ export class ContratComponent {
   AnnulerContratLocataire(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -229,8 +228,8 @@ export class ContratComponent {
   AnnulerContratProprietaire(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -277,7 +276,7 @@ export class ContratComponent {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -306,8 +305,8 @@ export class ContratComponent {
   ValiderContratProprietaire(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -360,7 +359,7 @@ export class ContratComponent {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -407,7 +406,7 @@ export class ContratComponent {
       heightAuto: false,
       showConfirmButton: true,
       confirmButtonText: "OK",    
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -438,8 +437,8 @@ export class ContratComponent {
   ValiderContratLocataire(id: number): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })

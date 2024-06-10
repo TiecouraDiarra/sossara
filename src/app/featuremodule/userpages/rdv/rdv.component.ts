@@ -53,7 +53,6 @@ export class RdvComponent {
           this.isProprietaire = true
         }
       })
-      // this.roles = this.storageService.getUser().roles;
       // if (this.roles.includes("ROLE_LOCATAIRE")) {
       //   this.isLocataire = true
       // } else if (this.roles.includes("ROLE_AGENCE")) {

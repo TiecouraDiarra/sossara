@@ -123,7 +123,6 @@ export class NotificationsComponent implements OnInit {
         }
       })
       // this.isLoggedIn = true;
-      // this.roles = this.storageService.getUser().roles;
       //  if (this.roles.includes("ROLE_LOCATAIRE")) {
       //   this.isLocataire = true
       // } else if (this.roles.includes("ROLE_AGENCE")) {
@@ -191,8 +190,8 @@ export class NotificationsComponent implements OnInit {
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -223,8 +222,8 @@ export class NotificationsComponent implements OnInit {
   AccepterCandidaterBien(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -278,8 +277,8 @@ export class NotificationsComponent implements OnInit {
   AnnulerCandidaterBien(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -334,7 +333,7 @@ export class NotificationsComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -381,7 +380,7 @@ export class NotificationsComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,

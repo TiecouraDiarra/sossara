@@ -106,8 +106,8 @@ export class OrangeMoneyComponent {
     const {contenu, nombreMois,nombreAnnees,nombreJours,sommePayer,numeroPaiement,modePaiement,} = this.paiementForm;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
@@ -122,7 +122,7 @@ export class OrangeMoneyComponent {
       heightAuto: false,
       showConfirmButton: true,
       confirmButtonText: 'OK',
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -173,7 +173,7 @@ export class OrangeMoneyComponent {
                   icon: 'success',
                   heightAuto: false,
                   showConfirmButton: false,
-                  confirmButtonColor: '#0857b5',
+                  confirmButtonColor: '#e98b11',
                   showDenyButton: false,
                   showCancelButton: false,
                   allowOutsideClick: false,
@@ -191,7 +191,7 @@ export class OrangeMoneyComponent {
                   heightAuto: false,
                   showConfirmButton: true,
                   confirmButtonText: 'OK',
-                  confirmButtonColor: '#0857b5',
+                  confirmButtonColor: '#e98b11',
                   showDenyButton: false,
                   showCancelButton: false,
                   allowOutsideClick: false,

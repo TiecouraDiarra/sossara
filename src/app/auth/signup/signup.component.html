@@ -16,8 +16,8 @@
               <div class="col-md-6 form-group group-img">
                 <div class="group-img" id="datepicker">
                   <i class="feather-user"></i>
-                  <input maxlength="50" placeholder="Prenom et Nom" name="nom" type="text" class="form-control" [(ngModel)]="form.nom"
-                    required [ngClass]="{'is-invalid': form.nom && !islongNom(form.nom)}" />
+                  <input maxlength="50" placeholder="Prenom et Nom" name="nom" type="text" class="form-control"
+                    [(ngModel)]="form.nom" required [ngClass]="{'is-invalid': form.nom && !islongNom(form.nom)}" />
                 </div>
                 <div *ngIf="form.nom && !islongNom(form.nom)" class="invalid-feedback" style="display:block;">
                   Le nom complet ne doit pas dépasser 50 caractères et ne doit contenir que des lettres. </div>
@@ -64,10 +64,22 @@
                         : 'toggle-password feather-eye'
                     " (click)="iconLogle()"></span>
                 </div>
-                <div *ngIf="form.password && !validatePassword(form.password)" class="invalid-feedback"
+                <!-- <div *ngIf="form.password && !validatePassword(form.password)" class="invalid-feedback"
                   style="display:block;">
                   Votre mot de passe doit avoir 8 caractères avec une majuscule, une minuscule, un chiffre et un
                   symbole.
+                </div> -->
+                <div *ngIf="form.password && !validatePassword(form.password)" class="invalid-feedback"
+                  style="display:block;">
+                  Votre mot de passe doit respecter les critères suivants :
+                  <ul class="list-group" style="margin-left: 30px;">
+                    <li *ngIf="form.password && !form.password.match(uppercaseRegex)">Au moins une majuscule</li>
+                    <li *ngIf="form.password && !form.password.match(lowercaseRegex)">Au moins une minuscule</li>
+                    <li *ngIf="form.password && !form.password.match(digitRegex)">Au moins un chiffre</li>
+                    <li *ngIf="form.password && !form.password.match(specialCharacterRegex)">Au moins un caractère
+                      spécial</li>
+                      <li *ngIf="form.password && form.password.length < 8">Au moins 8 caractères</li>
+                  </ul>
                 </div>
               </div>
 

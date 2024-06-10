@@ -218,7 +218,6 @@ export class ProfileComponent implements OnInit {
     });
     // if (this.storageService.isLoggedIn()) {
     //   // this.isLoggedIn = true;
-    //   this.roles = this.storageService.getUser().roles;
     //   if (this.profil == 'LOCATAIRE') {
     //     this.isLocataire = true;
     //   } else if (this.profil == 'AGENCE' ) {
@@ -291,8 +290,8 @@ export class ProfileComponent implements OnInit {
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -334,8 +333,8 @@ export class ProfileComponent implements OnInit {
     }
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -369,7 +368,7 @@ export class ProfileComponent implements OnInit {
                       icon: 'success',
                       heightAuto: false,
                       showConfirmButton: false,
-                      confirmButtonColor: '#0857b5',
+                      confirmButtonColor: '#e98b11',
                       showDenyButton: false,
                       showCancelButton: false,
                       allowOutsideClick: false,
@@ -390,7 +389,7 @@ export class ProfileComponent implements OnInit {
                       heightAuto: false,
                       showConfirmButton: true,
                       confirmButtonText: 'OK',
-                      confirmButtonColor: '#0857b5',
+                      confirmButtonColor: '#e98b11',
                       showDenyButton: false,
                       showCancelButton: false,
                       allowOutsideClick: false,
@@ -416,7 +415,7 @@ export class ProfileComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -507,8 +506,8 @@ export class ProfileComponent implements OnInit {
     const { nom, telephone, email, dateNaissance } = this.formModif;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -552,7 +551,7 @@ export class ProfileComponent implements OnInit {
                         icon: 'success',
                         heightAuto: false,
                         showConfirmButton: false,
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -575,7 +574,7 @@ export class ProfileComponent implements OnInit {
                         heightAuto: false,
                         showConfirmButton: true,
                         confirmButtonText: 'OK',
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -597,7 +596,7 @@ export class ProfileComponent implements OnInit {
                         icon: 'success',
                         heightAuto: false,
                         showConfirmButton: false,
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -617,7 +616,7 @@ export class ProfileComponent implements OnInit {
                         heightAuto: false,
                         showConfirmButton: true,
                         confirmButtonText: 'OK',
-                        confirmButtonColor: '#0857b5',
+                        confirmButtonColor: '#e98b11',
                         showDenyButton: false,
                         showCancelButton: false,
                         allowOutsideClick: false,
@@ -671,8 +670,8 @@ export class ProfileComponent implements OnInit {
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -705,7 +704,7 @@ export class ProfileComponent implements OnInit {
                       icon: 'success',
                       heightAuto: false,
                       showConfirmButton: false,
-                      confirmButtonColor: '#0857b5',
+                      confirmButtonColor: '#e98b11',
                       showDenyButton: false,
                       showCancelButton: false,
                       allowOutsideClick: false,
@@ -727,7 +726,7 @@ export class ProfileComponent implements OnInit {
                       heightAuto: false,
                       showConfirmButton: true,
                       confirmButtonText: 'OK',
-                      confirmButtonColor: '#0857b5',
+                      confirmButtonColor: '#e98b11',
                       showDenyButton: false,
                       showCancelButton: false,
                       allowOutsideClick: false,
@@ -756,7 +755,7 @@ export class ProfileComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,

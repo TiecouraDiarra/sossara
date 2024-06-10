@@ -338,7 +338,6 @@ export class LocataireComponent implements OnInit {
           this.selectedTab = 'home';
         }
       })
-      // this.roles = this.storageService.getUser().roles;
       // if (this.roles.includes('ROLE_LOCATAIRE')) {
       //   this.isLocataire = true;
       //   this.selectedTab = 'home';
@@ -558,8 +557,8 @@ export class LocataireComponent implements OnInit {
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -594,8 +593,8 @@ export class LocataireComponent implements OnInit {
   FaireReclamation(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -649,7 +648,7 @@ export class LocataireComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -679,8 +678,8 @@ export class LocataireComponent implements OnInit {
   LancerProcessusReparation(id: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -726,7 +725,7 @@ export class LocataireComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,
@@ -741,8 +740,8 @@ export class LocataireComponent implements OnInit {
   SupprimerBien(id: number): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false,
     });
@@ -800,7 +799,7 @@ export class LocataireComponent implements OnInit {
       heightAuto: false,
       showConfirmButton: false,
       // confirmButtonText: "OK",
-      confirmButtonColor: '#0857b5',
+      confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,
       allowOutsideClick: false,

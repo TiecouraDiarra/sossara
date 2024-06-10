@@ -77,6 +77,7 @@ export class DetailsConversationComponent {
   public chatList: any = [];
 
   timesRun2 = 0;
+  profil: any;
 
   selectConversation(conversation: Conversation) {
     this.selectedConversation = conversation;
@@ -109,16 +110,28 @@ export class DetailsConversationComponent {
    
     if (this.storageService.isLoggedIn()) {
       // this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-       if (this.roles.includes("ROLE_LOCATAIRE")) {
-        this.isLocataire = true
-      } else if (this.roles.includes("ROLE_AGENCE")) {
-        this.isAgence = true
-      } else if (this.roles.includes("ROLE_AGENT")) {
-        // this.isAgent = true
-      } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
-        this.isProprietaire = true
-      }
+      //  if (this.roles.includes("ROLE_LOCATAIRE")) {
+      //   this.isLocataire = true
+      // } else if (this.roles.includes("ROLE_AGENCE")) {
+      //   this.isAgence = true
+      // } else if (this.roles.includes("ROLE_AGENT")) {
+      //   // this.isAgent = true
+      // } else if (this.roles.includes("ROLE_PROPRIETAIRE")) {
+      //   this.isProprietaire = true
+      // }
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true;
+        } else if (this.profil == 'AGENCE' ) {
+          this.isAgence = true; 
+        } else if (this.profil == 'AGENT') {
+          // this.isAgent = true
+        } else if (this.profil == 'PROPRIETAIRE') {
+          this.isProprietaire = true;
+        }else {
+        }
+      })
     }
     this.users=this.storageService.getUser()
     this.senderCheck = this.users?.email;
@@ -173,8 +186,8 @@ export class DetailsConversationComponent {
   logout(): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
     })
