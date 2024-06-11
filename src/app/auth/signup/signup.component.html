@@ -359,7 +359,7 @@
               {{ errorMessage }}
             </div>
             <button class="btn btn-primary w-100 login-btn" type="submit"
-              [disabled]="!validatePassword(form.password) || !passwordsMatch() || 
+               [disabled]="!validatePassword(form.password) || !passwordsMatch() || 
              !(form.telephone.length === 8) || (form.nom.length===50) || 
               !validateEmail(form.email) || (!isValidNif(form.numDoc) && !isValidRccm(form.numDoc) &&
                !isValidMalianPassport(form.numDoc) && !isValidNumDoc(form.numDoc)  && !isValidNumDocNina(form.numDoc)) || sendRegister">

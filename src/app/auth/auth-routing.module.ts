@@ -9,8 +9,9 @@ const routes: Routes = [
     path: 'mdp-oublie',
     loadChildren: () =>
       import('./forgot-password/forgot-password.module').then(
-        (m) => m.ForgotPasswordModule
-      ),
+        (m) => m.ForgotPasswordModule 
+      ), 
+    canActivate: [AuthGuard]
   },
   {
     path: 'completer-profil',
@@ -18,17 +19,19 @@ const routes: Routes = [
       import('./complete-profil/complete-profil.module').then(
         (m) => m.CompleteProfilModule
       ),
-      canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'connexion',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'inscription',
     loadChildren: () =>
       import('./signup/signup.module').then((m) => m.SignupModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'reset-password/:token',
