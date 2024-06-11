@@ -862,7 +862,7 @@ export class DetailsbienComponent implements AfterViewInit {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
       this.lesCommodites = data?.commodites;
-      // console.log(this.bien);
+
 
 
       this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
