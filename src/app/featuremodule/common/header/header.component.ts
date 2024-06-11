@@ -120,7 +120,6 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
           if(this.users){
             this.isLoggedIn2=true
             this.isLoginFailed2=false
-            this.AjouterBienOrLogin()
           }
          
           

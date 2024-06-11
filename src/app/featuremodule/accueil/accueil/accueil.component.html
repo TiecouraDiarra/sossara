@@ -465,7 +465,7 @@
                           </div>
                         </ng-template>
                       </a>
-                    </div>
+                    </div>  
                     <div class="top-listing-rounded-img">
                       <div class="favourite-small-user">
                         <img class="img-fluid" src="{{
@@ -475,9 +475,8 @@
                           }}" alt="" (error)="handleAuthorImageError($event)" />
                       </div>
                     </div>
-                    <!-- <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }" class="Featured-text">{{
-                      BienImo?.statut?.nom }}</span> -->
-                    <div class="pent-house Featured-text" [ngClass]="{'statutbien': bienRecent?.statut?.nom === 'A vendre' }">
+                  
+                    <div class="pent-house Featured-text" [style.right]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '670px' : ''" [ngClass]="{'statutbien': bienRecent?.statut?.nom === 'A vendre' }">
                       <span class="" >{{ bienRecent?.statut?.nom }}</span>
                     </div>
                     <div class="top-rent-room-info">
