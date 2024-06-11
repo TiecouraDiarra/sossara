@@ -112,7 +112,6 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
           this.users = data && data.length > 0 ? data[0] : null;
           this.completer = this.users?.profilCompleter;
           this.profil = this.users?.profil;
-     
           if (!this.users) {
             window.localStorage.clear();
             return; // Sortir de la méthode si l'utilisateur n'est pas connecté
