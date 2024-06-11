@@ -243,6 +243,7 @@ export class ContratComponent {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
+        this.loadingAnnuler = true; // Affiche l'indicateur de chargement
         const user = this.storageService.getUser();
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
@@ -250,8 +251,8 @@ export class ContratComponent {
           // Appelez la méthode AnnulerContratLocataire() avec le contenu et l'ID
           this.serviceContrat.AnnulerContratProprietaire(id).subscribe({
             next: (data) => {
-              this.loadingAnnuler = true; // Affiche l'indicateur de chargement
               this.popUpAnnulation();
+              this.loadingAnnuler = false; // Affiche l'indicateur de chargement
             },
             error: (err) => {
 
