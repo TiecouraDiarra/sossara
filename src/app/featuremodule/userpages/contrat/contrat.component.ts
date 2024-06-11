@@ -46,7 +46,7 @@ export class ContratComponent {
 
   isProprietaire(roles: any[]): boolean {
     return roles?.some(role => role.name === 'PROPRIETAIRE');
-  } 
+  }
 
   isAgence(roles: any[]): boolean {
     return roles?.some(role => role.name === 'AGENCE');
@@ -405,7 +405,7 @@ export class ContratComponent {
       icon: 'success',
       heightAuto: false,
       showConfirmButton: true,
-      confirmButtonText: "OK",    
+      confirmButtonText: "OK",
       confirmButtonColor: '#e98b11',
       showDenyButton: false,
       showCancelButton: false,

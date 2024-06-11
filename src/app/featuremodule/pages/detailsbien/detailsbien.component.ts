@@ -80,6 +80,7 @@ export class DetailsbienComponent implements AfterViewInit {
   test: any;
   bienImmoSuivant: any;
   bienImmoPrecedent: any;
+  currentUser2: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -274,8 +275,8 @@ export class DetailsbienComponent implements AfterViewInit {
     return `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
   }
   ngOnInit(): void {
-    this.users = this.storageService.getUser();
-    this.senderCheck = this.users.email;
+    // this.users = this.storageService.getUser();
+    // this.senderCheck = this.users.email;
     // this.initMap();
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
@@ -283,6 +284,13 @@ export class DetailsbienComponent implements AfterViewInit {
       this.serviceUsage.AfficherListeUsage().subscribe(data => {
         this.usage = data;
       });
+      this.serviceUser.AfficherUserConnecter().subscribe(
+        (data) => {
+          this.users = data[0];
+
+      this.currentUser2 = this.users;
+          this.senderCheck = this.users.email
+        })
 
     } else if (!this.storageService.isLoggedIn()) {
       this.isLoginFailed = false;
@@ -598,26 +606,9 @@ export class DetailsbienComponent implements AfterViewInit {
     this.id = this.route.snapshot.params['id'];
     // const user = this.storageService.getUser();
 
-    const currentUser = this.getCurrentUser();
+    this.currentUser2;
 
-    // Vérification si le champ de la date est vide
-    // if (!this.formCandidater.date) {
-    //   Swal.fire({
-    //     position: 'center',
-    //     text: "Veuillez fournir une date d'entrée.",
-    //     title: 'Erreur',
-    //     icon: 'error',
-    //     heightAuto: false,
-    //     showConfirmButton: true,
-    //     confirmButtonText: 'OK',
-    //     confirmButtonColor: '#e98b11',
-    //     showDenyButton: false,
-    //     showCancelButton: false,
-    //     allowOutsideClick: false,
-    //   });
-    //   return; // Arrêter la fonction si le champ date est vide
-    // }
-    // Vérification de la date d'entrée
+    
     const dateEntree = new Date(this.formCandidater.date);
     const currentDate = new Date();
     const oneYearFromNow = new Date();
@@ -871,6 +862,8 @@ export class DetailsbienComponent implements AfterViewInit {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
       this.lesCommodites = data?.commodites;
+      // console.log(this.bien);
+
 
       this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
         // Trier les biens par date de création décroissante
@@ -907,12 +900,11 @@ export class DetailsbienComponent implements AfterViewInit {
       this.meta.updateTag({ property: 'og:description', content: this.bien.description });
       this.meta.updateTag({ property: 'og:image', content: this.generateImageUrl(this.bien.photos[0].nom) });
 
-      const currentUser = this.storageService.getUser();
 
       if (
-        currentUser &&
+        this.currentUser2 &&
         this.bien &&
-        currentUser?.email === this.bien?.utilisateur?.email
+        this.currentUser2?.email === this.bien?.utilisateur?.email
       ) {
         this.currentUser = true;
         this.ModifBien = true;
@@ -942,41 +934,41 @@ export class DetailsbienComponent implements AfterViewInit {
         zoom: 15, // Niveau de zoom initial
       };
       // Initialiser la carte dans l'élément avec l'ID "map"
-      const mapElement = document.getElementById('map');
-      const map = new google.maps.Map(mapElement, mapOptions);
+      // const mapElement = document.getElementById('map');
+      // const map = new google.maps.Map(mapElement, mapOptions);
       // Créer un marqueur initial au centre de la carte
-      const initialMarker = new google.maps.Marker({
-        position: mapOptions.center,
-        map: map,
-        draggable: true, // Rend le marqueur draggable
-      });
+      // const initialMarker = new google.maps.Marker({
+      //   position: mapOptions.center,
+      //   map: map,
+      //   draggable: true, // Rend le marqueur draggable
+      // });
       // Attachez un gestionnaire d'événements pour mettre à jour les coordonnées lorsque le marqueur est déplacé
-      google.maps.event.addListener(
-        initialMarker,
-        'dragend',
-        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
-          // this.form.latitude = markerEvent.latLng.lat();
-          // this.form.longitude = markerEvent.latLng.lng();
-        }
-      );
+      // google.maps.event.addListener(
+      //   initialMarker,
+      //   'dragend',
+      //   (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+      //     // this.form.latitude = markerEvent.latLng.lat();
+      //     // this.form.longitude = markerEvent.latLng.lng();
+      //   }
+      // );
 
       // Attachez un gestionnaire d'événements pour déplacer le marqueur lorsqu'il est cliqué
-      google.maps.event.addListener(
-        initialMarker,
-        'click',
-        (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
-          const newLatLng = new google.maps.LatLng(
-            initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
-            initialMarker.getPosition().lng() + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
-          );
+      // google.maps.event.addListener(
+      //   initialMarker,
+      //   'click',
+      //   (markerEvent: { latLng: { lat: () => any; lng: () => any } }) => {
+      //     const newLatLng = new google.maps.LatLng(
+      //       initialMarker.getPosition().lat() + 0.001, // Déplacez le marqueur d'une petite quantité en latitude
+      //       initialMarker.getPosition().lng() + 0.001 // Déplacez le marqueur d'une petite quantité en longitude
+      //     );
 
-          initialMarker.setPosition(newLatLng);
+      //     initialMarker.setPosition(newLatLng);
 
-          // Mettez à jour les coordonnées dans votre formulaire
-          // this.form.latitude = newLatLng.lat();
-          // this.form.longitude = newLatLng.lng();
-        }
-      );
+      //     // Mettez à jour les coordonnées dans votre formulaire
+      //     // this.form.latitude = newLatLng.lat();
+      //     // this.form.longitude = newLatLng.lng();
+      //   }
+      // );
     });
   }
 

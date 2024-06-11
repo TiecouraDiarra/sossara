@@ -77,6 +77,7 @@ export class ModifierBienComponent {
   selectedType: string | null = null;
   isloadingB = false;
   profil: any;
+  currentUser2: any;
 
   // Supposons que vous ayez une méthode pour charger les types de biens
   loadTypeBiens() {
@@ -177,6 +178,7 @@ export class ModifierBienComponent {
       // Récupérer les données de l'utilisateur connecté
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
       this.profil = data[0]?.profil;
+      this.currentUser2= data[0]
       if (this.profil == 'LOCATAIRE') {
         this.isLocataire = true;
       } else if (this.profil == 'AGENCE' ) {
@@ -287,11 +289,11 @@ export class ModifierBienComponent {
       }));
       this.latitude = this.bien.adresse.latitude;
       this.longitude = this.bien.adresse.longitude;
-      const currentUser = this.storageService.getUser();
+      this.currentUser2 = this.storageService.getUser();
       if (
-        currentUser &&
+        this.currentUser2 &&
         this.bien &&
-        currentUser?.id === this.bien?.utilisateur?.id
+        this.currentUser2?.email === this.bien?.utilisateur?.email
       ) {
         this.currentUser = true;
         this.ModifBien = true;
@@ -716,12 +718,12 @@ export class ModifierBienComponent {
                           this.photos = this.bien.photos;
                           this.commodite = data.commodite;
 
-                          const currentUser = this.storageService.getUser();
+
 
                           if (
-                            currentUser &&
+                            this.currentUser2 &&
                             this.bien &&
-                            currentUser.user.id === this.bien.utilisateur.id
+                            this.currentUser2.user.email === this.bien.utilisateur.email
                           ) {
                             this.currentUser = true;
                             this.ModifBien = true;
@@ -816,12 +818,12 @@ export class ModifierBienComponent {
         this.photos = this.bien.photos;
         this.commodite = data.commodite;
 
-        const currentUser = this.storageService.getUser();
+
 
         if (
-          currentUser &&
+          this.currentUser2 &&
           this.bien &&
-          currentUser.user.id === this.bien.utilisateur.id
+          this.currentUser2.user.email === this.bien.utilisateur.email
         ) {
           this.currentUser = true;
           this.ModifBien = true;
