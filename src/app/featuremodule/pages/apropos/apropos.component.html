@@ -23,12 +23,16 @@
     <div class="container">
         <div class="about-listee">
             <div class="about-img">
-                <img src="assets/img/about-img.jpg" class="img-fluid" alt="">
+                <img src="../../../../assets/img/heureux-homme-maison_1154-113.webp" class="img-fluid" alt="">
             </div>
             <div class="about-info">
                 <h4> A propos de <span>Sossara</span> </h4>
-                <p><span style="color: #e98b11;">Sossara</span> est une plateforme de gestion immobilière innovante conçue pour simplifier et optimiser la gestion de biens immobiliers de toutes tailles. Avec Sossara, vous bénéficiez d'une solution tout-en-un qui centralise toutes les tâches liées à la gestion immobilière, de la location à la maintenance, en passant par la comptabilité.</p>
-                <p>Avec <span style="color: #e98b11;">Sossara</span>, gérez vos biens immobiliers en toute confiance et libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.</p>
+                <p class="tat"><span style="color: #e98b11; font-weight: 700;">Sossara</span> est une plateforme de gestion immobilière innovante
+                    conçue pour simplifier et optimiser la gestion de biens immobiliers de toutes tailles. Avec Sossara,
+                    vous bénéficiez d'une solution tout-en-un qui centralise toutes les tâches liées à la gestion
+                    immobilière, de la location à la maintenance, en passant par la comptabilité.</p>
+                <p class="tat">Avec <span style="color: #e98b11; font-weight: 700;">Sossara</span>, gérez vos biens immobiliers en toute confiance et
+                    libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.</p>
             </div>
         </div>
     </div>
@@ -39,8 +43,16 @@
 <section class="howitworks">
     <div class="container">
         <h3>Nos services</h3>
-        <p>Notre plateforme offre une interface conviviale et intuitive, permettant aux propriétaires, aux gestionnaires immobiliers et aux locataires d'accéder facilement aux informations essentielles, de suivre les paiements, de gérer les contrats de location et de planifier la maintenance. Grâce à des outils de reporting avancés, vous pouvez également obtenir une vue d'ensemble complète de la performance de vos investissements immobiliers.</p>
-      <p><span style="color: #e98b11;">Sossara</span> repose sur des technologies de pointe telles que l'automatisation des tâches répétitives, l'intelligence artificielle et la sécurité renforcée pour garantir une gestion immobilière efficace et sécurisée. Notre objectif est de simplifier votre expérience de gestion immobilière, d'optimiser vos processus et de maximiser vos rendements, tout en offrant une transparence totale à toutes les parties impliquées.</p>
+        <p class="tat">Notre plateforme offre une interface conviviale et intuitive, permettant aux propriétaires, aux gestionnaires
+            immobiliers et aux locataires d'accéder facilement aux informations essentielles, de suivre les paiements,
+            de gérer les contrats de location et de planifier la maintenance. Grâce à des outils de reporting avancés,
+            vous pouvez également obtenir une vue d'ensemble complète de la performance de vos investissements
+            immobiliers.</p>
+        <p class="tat"><span style="color: #e98b11; font-weight: bold;">Sossara</span> repose sur des technologies de pointe telles que
+            l'automatisation des tâches répétitives, l'intelligence artificielle et la sécurité renforcée pour garantir
+            une gestion immobilière efficace et sécurisée. Notre objectif est de simplifier votre expérience de gestion
+            immobilière, d'optimiser vos processus et de maximiser vos rendements, tout en offrant une transparence
+            totale à toutes les parties impliquées.</p>
         <div class="row">
             <div class="col-lg-4 col-md-4 d-flex" *ngFor="let data of accountcreation">
                 <div class="howitwork-info">
@@ -58,15 +70,20 @@
 <!--Popular Location-->
 <div class="aboutpopular-locations" *ngIf="commune && commune.length > 0">
     <div class="container">
+        <h3 class="text-center" style="color: #e98b11;
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0 0 40px;">Laquelle de ces communes vous séduit elle à Bamako ?</h3>
         <div class="row">
             <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune ; let i = index">
                 <div class="aboutlocation-details usa">
                     <div class="aboutloc-img">
-                        <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;" class="commune-image img-fluid" alt="">
+                        <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill;"
+                            class="commune-image img-fluid" alt="">
                     </div>
-                    <a (click)="goToDettailCommune(Commune.id)">
+                    <a style="cursor: pointer;" (click)="goToDettailCommune(Commune.nomcommune)">
                         <div class="aboutlocations-info">
-                            <h3>{{Commune.nom}}</h3>
+                            <h3>{{Commune.nomcommune}}</h3>
                             <!-- <span>{{ nombreDeBiensParCommune[Commune.id] || 0 }} bien(s)</span> -->
                         </div>
                     </a>
@@ -143,29 +160,30 @@
 <!--/Popular location-->
 
 <!-- CTA Section -->
-<!-- <section class="cta-section">
+<section class="cta-section">
     <div class="container">
         <div class="row align-items-center">
              <div class="col-lg-7">
                   <div class="cta-content">
-                      <h3>Earn Cash by <span>Selling</span> <br>
-                      or Find Anything you desire							     
+                      <h3>Trouvez Votre <span>Bien</span> <br>
+                        Immobilier Idéal							     
                       </h3>
-                      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humo or randomised words which don't look even slightlys</p>
+                      <p class="tat">Que vous souhaitiez acheter, vendre ou louer, 
+                        <span style="color: #e98b11;">Sossara</span> est là pour vous accompagner à chaque étape de votre projet immobilier. Découvrez nos services personnalisés pour trouver le bien qui correspond parfaitement à vos besoins.</p>
                       <div class="cta-btn">
-                         <a [routerLink]="routes.addlisting" class="btn-primary postad-btn">Post Your Ads</a>
-                         <a [routerLink]="routes.listinggridsidebar" class="browse-btn">Browse Ads</a>							  
+                         <a style="cursor: pointer;" (click)="AjouterBienOrLogin()" class="btn-primary postad-btn">Ajouter un bien</a>
+                         <a [routerLink]="routes.listinggridsidebar" class="browse-btn">Voir tous les biens</a>							  
                       </div>
                   </div>
              </div>
              <div class="col-lg-5">
                    <div class="cta-img">
-                        <img src="assets/img/cta-img.png" class="img-fluid" alt="CTA">
+                        <img src="https://www.buzzwebzine.fr/wp-content/uploads/2022/05/fiche-metier-agent-immobilier-2-1024x576.jpg" class="img-fluid" alt="CTA">
                    </div>
              </div>
         </div>
     </div>
-</section>		 -->
+</section>
 <!-- /CTA Section -->
 
 <!-- Client Testimonilas Section -->
@@ -192,7 +210,8 @@
                                 <div class="testimonial-info">
                                     <div class="testimonialslider-heading d-flex">
                                         <div class="testi-img">
-                                            <img style="width: 100%; height: 100%; object-fit: cover;" [src]="slide.img" class="img-fluid" alt="testi-img">
+                                            <img style="width: 100%; height: 100%; object-fit: cover;" [src]="slide.img"
+                                                class="img-fluid" alt="testi-img">
                                         </div>
                                         <div class="testi-author">
                                             <h6>{{slide.posting}}</h6>
@@ -224,7 +243,8 @@
                 <ng-template carouselSlide>
 
                     <ul class="partnerslist d-flex">
-                        <li><a href="javascript:void(0);"><img class="img-fluid image-sizeparter" [src]="slide.img" alt="partners"></a>
+                        <li><a href="javascript:void(0);"><img class="img-fluid image-sizeparter" [src]="slide.img"
+                                    alt="partners"></a>
                         </li>
                     </ul>
                 </ng-template>

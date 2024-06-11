@@ -2545,7 +2545,7 @@ a:focus {
   position: relative;
 }
 .testimonials-section .rightimg {
-  background-image: url("assets/img/testi-bg.png");
+  /* background-image: url("assets/img/testi-bg.png"); */
   background-color: #e98b11;
   min-height: 600px;
   background-repeat: no-repeat;

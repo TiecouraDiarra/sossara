@@ -56,6 +56,7 @@ export class AccueilComponent {
   responseData: any;
   isMobile = false;
   profil: any;
+  users: any;
   changeImage() {
     this.currentImageIndex =
       (this.currentImageIndex + 1) % this.carouselImages.length;
@@ -95,6 +96,7 @@ export class AccueilComponent {
   valuesSelectPrix: any;
   derniersBiens: any[] = [];
   topFavorisBiens: any[] = [];
+  isLoggedIn2=false
 
   locale!: string;
   imagesCommunes = [
@@ -433,6 +435,15 @@ export class AccueilComponent {
 
     if (this.storageService.isLoggedIn()) {
       this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.users = data && data.length > 0 ? data[0] : null;
+        if (!this.users) {
+          window.localStorage.clear();
+          return; // Sortir de la méthode si l'utilisateur n'est pas connecté
+        }
+        if (this.users) {
+          this.isLoggedIn2 = true
+          // this.AjouterBienOrLogin()
+        }
         this.profil = data[0]?.profil;
         if (this.profil == 'LOCATAIRE') {
           this.isLocataire = true
@@ -653,12 +664,12 @@ export class AccueilComponent {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
-  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
-  AjouterBienOrLogin() {
-    if (this.storageService.isLoggedIn()) {
-      this.router.navigateByUrl('/userpages/ajouter-bien');
+   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE AJOUTER BIEN SI TU ES CONNECTE DANS LE CAS CONTRAIRE LOGIN
+   AjouterBienOrLogin() {
+    if (this.isLoggedIn2) {
+      this.router.navigateByUrl("/userpages/ajouter-bien")
     } else {
-      this.router.navigateByUrl('/auth/connexion');
+      this.router.navigateByUrl("/auth/connexion")
     }
   }
 
