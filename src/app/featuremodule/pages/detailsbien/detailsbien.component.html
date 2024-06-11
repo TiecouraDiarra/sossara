@@ -44,14 +44,14 @@
                   {{ bien?.adresse?.commune?.cercle?.region?.nomregion }}
                 </span></a>
             </p>
-            <p class="blog-category" *ngIf="bien && bien?.adresse">
+            <p class="blog-category" *ngIf="bien && bien?.adresse && bien?.adresse?.commune">
               <a href="javascript:void(0)"><span>{{ bien?.adresse?.commune?.nomcommune }} -
                   {{ bien?.adresse?.quartier }}</span></a>
             </p>
-            <p class="blog-category" *ngIf="bien && bien?.adresse">
+            <p class="blog-category" *ngIf="bien && bien?.adresse && bien?.adresse?.rue">
               <a href="javascript:void(0)"><span>Rue : {{ bien?.adresse?.rue }}</span></a>
             </p>
-            <p class="blog-category" *ngIf="bien && bien?.adresse">
+            <p class="blog-category" *ngIf="bien && bien?.adresse && bien?.adresse?.porte">
               <a href="javascript:void(0)"><span> Porte : {{ bien?.adresse?.porte }}</span></a>
             </p>
           </div>

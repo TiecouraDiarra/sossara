@@ -227,7 +227,6 @@ export class DetailsagenceComponent implements OnInit {
       this.agence = data?.agence;
       this.bienImmoAgence = data?.bienImmos;
       this.agent = data?.agents.reverse();
-      // console.log(data);
       this.pourcentAlouer = data?.pourcentageAlouer;
       this.pourcentAvendre = data?.pourcentageAvendre;
       this.pourcentAppart = data?.pourcentageAppart;

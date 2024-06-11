@@ -80,6 +80,7 @@ export class DetailsbienComponent implements AfterViewInit {
   test: any;
   bienImmoSuivant: any;
   bienImmoPrecedent: any;
+  currentUser2: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -286,6 +287,8 @@ export class DetailsbienComponent implements AfterViewInit {
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data[0];
+
+      this.currentUser2 = this.users;
           this.senderCheck = this.users.email
         })
 
@@ -603,26 +606,9 @@ export class DetailsbienComponent implements AfterViewInit {
     this.id = this.route.snapshot.params['id'];
     // const user = this.storageService.getUser();
 
-    const currentUser = this.getCurrentUser();
+    this.currentUser2;
 
-    // Vérification si le champ de la date est vide
-    // if (!this.formCandidater.date) {
-    //   Swal.fire({
-    //     position: 'center',
-    //     text: "Veuillez fournir une date d'entrée.",
-    //     title: 'Erreur',
-    //     icon: 'error',
-    //     heightAuto: false,
-    //     showConfirmButton: true,
-    //     confirmButtonText: 'OK',
-    //     confirmButtonColor: '#e98b11',
-    //     showDenyButton: false,
-    //     showCancelButton: false,
-    //     allowOutsideClick: false,
-    //   });
-    //   return; // Arrêter la fonction si le champ date est vide
-    // }
-    // Vérification de la date d'entrée
+    
     const dateEntree = new Date(this.formCandidater.date);
     const currentDate = new Date();
     const oneYearFromNow = new Date();
@@ -876,7 +862,7 @@ export class DetailsbienComponent implements AfterViewInit {
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
       this.lesCommodites = data?.commodites;
-      // console.log(this.bien);
+
 
 
       this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
@@ -914,12 +900,11 @@ export class DetailsbienComponent implements AfterViewInit {
       this.meta.updateTag({ property: 'og:description', content: this.bien.description });
       this.meta.updateTag({ property: 'og:image', content: this.generateImageUrl(this.bien.photos[0].nom) });
 
-      const currentUser = this.storageService.getUser();
 
       if (
-        currentUser &&
+        this.currentUser2 &&
         this.bien &&
-        currentUser?.email === this.bien?.utilisateur?.email
+        this.currentUser2?.email === this.bien?.utilisateur?.email
       ) {
         this.currentUser = true;
         this.ModifBien = true;

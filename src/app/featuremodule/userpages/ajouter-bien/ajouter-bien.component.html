@@ -136,7 +136,7 @@
                     <mat-form-field class="mat-custom-select" style="width: 100%">
                       <mat-label *ngIf="selectedCategory == ''">
                         Statut</mat-label>
-                      <mat-select [(ngModel)]="form.statut" name="statut">
+                      <mat-select [(ngModel)]="form.statut" name="statut" (selectionChange)="onStatutChange($event)">
                         <mat-option [value]="2">A vendre</mat-option>
                       </mat-select>
                     </mat-form-field>

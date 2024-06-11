@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
+import { UserService } from 'src/app/service/auth/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,11 +28,15 @@ export class LoginComponent implements OnInit {
     email: null,
     password: null,
   };
+  users: any;
+  completer: any;
+  profil: any;
 
   constructor(
     public router: Router,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +53,7 @@ export class LoginComponent implements OnInit {
   pathProfilCompleter() {
     // this.router.navigate(['/auth/completer-profil']);
     this.router.navigate(['/auth/completer-profil']).then(() => {
-      window.location.reload();
+      // window.location.reload();
     });
   }
 
@@ -184,31 +189,38 @@ export class LoginComponent implements OnInit {
           // Réinitialisez les indicateurs d'erreur et définissez isLoggedIn à true
           this.isLoginFailed = false;
           this.isLoggedIn = true;
+          this.userService.AfficherUserConnecter().subscribe(
+            (data) => {
+              this.users = data && data.length > 0 ? data[0] : null;
+              this.completer = this.users?.profilCompleter;
+              this.profil = this.users?.profil;
+              if (this.completer === false) {
+                // Redirigez l'utilisateur vers la page de complétion de profil
+                this.pathProfilCompleter();
+                // this.reloadPage();
+              } else {
+                // Redirigez l'utilisateur vers la page d'accueil
+                window.history.back();
+                setTimeout(() => {
+                  window.location.reload();
+                }, 100); // 500 ms devrait être suffisant, ajustez si nécessaire
+    
+    
+                if (this.storageService.isLoggedIn()) {
+                  this.isLoggedIn = true;
+                } else if (!this.storageService.isLoggedIn()) {
+                  this.isLoginFailed = false;
+                }
+                //  this.reloadPage();
+              }
+            })
 
           // this.path();
 
           // this.reloadPage();
 
           // Vérifiez si l'attribut profilcompleter est false
-          if (data.profilcompleter === false) {
-            // Redirigez l'utilisateur vers la page de complétion de profil
-            this.pathProfilCompleter();
-            // this.reloadPage();
-          } else {
-            // Redirigez l'utilisateur vers la page d'accueil
-            window.history.back();
-            setTimeout(() => {
-              window.location.reload();
-            }, 100); // 500 ms devrait être suffisant, ajustez si nécessaire
-
-
-            if (this.storageService.isLoggedIn()) {
-              this.isLoggedIn = true;
-            } else if (!this.storageService.isLoggedIn()) {
-              this.isLoginFailed = false;
-            }
-            //  this.reloadPage();
-          }
+        
         },
         (error) => {
           // Gestion des erreurs en cas d'échec de la connexion

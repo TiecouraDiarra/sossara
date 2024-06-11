@@ -373,7 +373,7 @@ export class TrouverbienComponent implements OnInit {
           }
           // Mise à jour de la liste des biens immobiliers
           this.bienImmo = data;
-          // console.log(this.bienImmo);
+
           
 
           this.bienImmo = data;
