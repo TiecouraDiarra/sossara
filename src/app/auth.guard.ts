@@ -55,12 +55,12 @@ export class AuthGuard implements CanActivate {
           return of(false);
         }
 
-        if (this.isLoggedIn && (state.url === '/auth/connexion' || state.url === '/auth/inscription' || state.url === '/auth/reset-password/:token' || state.url === '/auth/mdp-oublie')) {
+        if (this.isLoggedIn && (state.url === '/auth/connexion' || state.url === '/auth/inscription' || state.url === '/auth/reset-password' || state.url === '/auth/mdp-oublie')) {
           this.router.navigate(['/userpages/dashboard']);
           return of(false);
         }
 
-        if ((state.url === '/auth/connexion' || state.url === '/auth/inscription' || state.url === '/auth/reset-password/:token' || state.url === '/auth/mdp-oublie') && !this.isLoggedIn) {
+        if ((state.url === '/auth/connexion' || state.url === '/auth/inscription' || state.url === '/auth/reset-password' || state.url === '/auth/mdp-oublie') && !this.isLoggedIn) {
           return of(true);
         }
         
