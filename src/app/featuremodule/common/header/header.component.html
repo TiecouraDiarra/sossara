@@ -23,7 +23,10 @@
             <div class="head-contact">
               <img style="width: 30px;" src="assets/img/icons/mess.svg" alt="Callus">
               <span style="font-weight: 600;" class="text-white">contact@sossara.ml</span>
-            </div>
+            </div> &nbsp;
+            <div class="head-contact">
+              <span [routerLink]="routes.about" style="font-weight: 600; border-bottom: 2px solid #e98b11; cursor: pointer;" class="text-white">A propos de nous</span>
+            </div> 
           </div>
         </div>
 
@@ -182,7 +185,7 @@
           <a [routerLink]="routes.reviews">
             <div class="dropdown-toggle profile-userlink notif crd" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-bell fa-2x mr-3"></i>
-              <span class="badge rounded-pill badge-notification bg-danger mr-6">{{somme}}</span>
+              <span class="badge rounded-pill badge-notification bg-danger mr-6">{{users?.totalNotification}}</span>
             </div>
           </a>
           
@@ -224,7 +227,7 @@
           <a [routerLink]="routes.reviews">
             <div class="dropdown-toggle profile-userlink notif crd" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-bell fa-2x mr-3"></i>
-              <span class="badge rounded-pill badge-notification bg-danger mr-6">{{somme}}</span>
+              <span class="badge rounded-pill badge-notification bg-danger mr-6">{{users?.totalNotification}}</span>
             </div>
           </a>
           <!-- <div class="dropdown-menu dropdown-menu-end">

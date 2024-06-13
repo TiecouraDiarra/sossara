@@ -58,7 +58,7 @@ export class ModifierBienComponent {
   description: any;
   status: any = ['A louer', 'A vendre'];
   type: any;
-  valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  valuesSelect: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   selectedFiles: any;
   isButtonDisabled: boolean = false;
   maxImageCount: number = 0;
@@ -74,8 +74,8 @@ export class ModifierBienComponent {
   selectedStatut: any | null = null;
   photos: any;
   caracteristique: any;
-  selectedType: string | null = null;
-  isloadingB = false;
+  selectedType: any | null = null;
+    isloadingB = false;
   profil: any;
   currentUser2: any;
 
@@ -103,10 +103,9 @@ export class ModifierBienComponent {
     //   return;
     // }
     this.selectedType = event.value;
-    this.selectedStatut = '2'
+    // this.selectedStatut = '2'
 
-
-    if (this.selectedType === '3') {
+    if (this.selectedType === 3 || this.selectedType===5) {
       this.form.statut = null; // Mettre le statut à null si le statut est "A vendre"
       this.form.caution = 0; // Envoyer la valeur 0 si le type de bien est un terrain
       this.form.avance = 0; // Envoyer la valeur 0 si le type de bien est un terrain
@@ -117,6 +116,9 @@ export class ModifierBienComponent {
       this.form.porte = ''; // Envoyer la valeur 0 si le type de bien est un terrain
       this.form.rue = ''; // Envoyer la valeur 0 si le type de bien est un terrain
       this.form.periode = '';
+    }
+    if(this.selectedType!=3 || this.selectedType!=0){
+      this.form.surface=0
     }
   }
 
@@ -224,22 +226,61 @@ export class ModifierBienComponent {
            pays: this.bien?.adresse?.commune?.cercle?.region?.pays?.id,
            region: this.bien?.adresse?.commune?.region?.id,
            caution: this.bien?.caution,
+           avance: this.bien?.avance,
          };
          this.selectedType = this.form.type
-         
- 
          this.selectedStatut = this.form.statut
          this.selectedStatutMensuel = this.form.periode 
+
          this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-           this.les_commodite = data;
+          this.les_commodite = data;
+  
+          if (this.bien && this.bien.commodites) {
+  
+            for (const commodite of this.les_commodite) {
+              commodite.selected = this.bien.commodites.some(
+                (bienCommodite: any) => bienCommodite.id === commodite.id
+              );
+            }
+  
+            // Récupérer la liste des IDs des commodités sélectionnées
+            const selectedCommoditesIds = this.les_commodite
+              .filter(commodite => commodite.selected)
+              .map(commodite => commodite.id);
+  
+            // Mettre à jour this.form.commodite avec la liste des IDs
+            this.form.commodite = selectedCommoditesIds.length > 0 ? selectedCommoditesIds : null;
+          }
+        });
+
+
+    // this.serviceCommodite.AfficherListeCommodite().subscribe((commodites) => {
+    //   this.les_commodite = commodites;
+
+    //   if (this.bien && this.bien.commodites) {
+    //     for (const commodite of this.les_commodite) {
+    //       commodite.selected = this.bien.commodites.some(
+    //         (bienCommodite: any) => bienCommodite.id === commodite.id
+    //       );
+    //     }
+
+    //     this.form.commodite = this.les_commodite
+    //       .filter((commodite) => commodite.selected)
+    //       .map((commodite) => commodite.id);
+
+    //   }
+      
+    // });
+        //  this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
+        //    this.les_commodite = data;
  
-           // Parcourez les commodités et pré-sélectionnez celles liées au bien
-           for (const commodite of this.les_commodite) {
-             commodite.selected = this.bien.commodites.some(
-               (bienCommodite: any) => bienCommodite.id === commodite.id
-             );
-           }
-         });
+        //    // Parcourez les commodités et pré-sélectionnez celles liées au bien
+        //    for (const commodite of this.les_commodite) {
+        //      commodite.selected = this.bien.commodites.some(
+        //        (bienCommodite: any) => bienCommodite.id === commodite.id
+        //      );
+        //    }
+        //  });
        });
      });    
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
@@ -256,30 +297,7 @@ export class ModifierBienComponent {
 
 
       // Récupération de la liste des commodités
-      this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
-        this.les_commodite = data;
 
-        if (this.bien && this.bien.commodites) {
-
-          for (const commodite of this.les_commodite) {
-            commodite.selected = this.bien.commodites.some(
-              (bienCommodite: any) => bienCommodite.id === commodite.id
-            );
-          }
-
-          // Récupérer la liste des IDs des commodités sélectionnées
-          const selectedCommoditesIds = this.les_commodite
-            .filter(commodite => commodite.selected)
-            .map(commodite => commodite.id);
-
-          // Mettre à jour this.form.commodite avec la liste des IDs
-          this.form.commodite = selectedCommoditesIds.length > 0 ? selectedCommoditesIds : null;
-        }
-
-
-
-
-      });
 
       this.photos = this.bien?.photos;
       this.photos = this.bien?.photos;
@@ -575,7 +593,8 @@ export class ModifierBienComponent {
       photo,
     } = this.form;
 
-    const swalWithBootstrapButtons = Swal.mixin({
+    
+        const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
         cancelButton: 'swal2-cancel btn',
@@ -913,6 +932,18 @@ export class ModifierBienComponent {
     },
   };
 
+  resetform() {
+    this.form.statut = ''; // Réinitialise le champ nomAgence*
+    this.form.porte ='';
+    this.form.nb_piece='';
+    this.form.cuisine='';
+    this.form.chambre='';
+    this.form.toilette='';
+    this.form.rue='';
+    this.form.caution='';
+    this.form.avance='';
+    this.form.periode='';
+}
   onSelectionChanged = (event: SelectionChange) => {
     if (event.oldRange == null) {
       this.onFocus();

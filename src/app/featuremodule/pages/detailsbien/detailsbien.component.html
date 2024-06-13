@@ -1,4 +1,3 @@
-
 <!-- Breadscrumb Section -->
 <div class="breadcrumb-bar">
   <div class="container">
@@ -77,15 +76,15 @@
               isLoggedIn == true &&
               currentUser == false
             ">
-            <a class="action-btn btn-edit" >
+            <a class="action-btn btn-edit">
               <i class="feather-phone-call"></i>Prendre Rendez-vous</a>
           </div>
           <div class="col callnow crd mt-5" *ngIf="
           isLoggedIn == false
         ">
-        <a class="action-btn btn-edit" [routerLink]="['/auth/connexion']">
-          <i class="feather-phone-call"></i>Prendre Rendez-vous</a>
-      </div>
+            <a class="action-btn btn-edit" [routerLink]="['/auth/connexion']">
+              <i class="feather-phone-call"></i>Prendre Rendez-vous</a>
+          </div>
           <!-- CANDIDATER UN BIEN   -->
           <div class="col callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" *ngIf="
               isLoggedIn == true &&
@@ -95,14 +94,14 @@
             <a class="action-btn btn-edit">
               <i class="feather-edit-3"></i>Candidater pour ce bien</a>
           </div>
-          <div class="col callnow crd mt-5"  *ngIf="
+          <div class="col callnow crd mt-5" *ngIf="
               isLoggedIn == false 
             ">
-        <a class="action-btn btn-edit" [routerLink]="['/auth/connexion']">
-          <i class="feather-edit-3"></i> Candidater pour ce bien
-        </a>
-        
+            <a class="action-btn btn-edit" [routerLink]="['/auth/connexion']">
+              <i class="feather-edit-3"></i> Candidater pour ce bien
+            </a>
           </div>
+          
           <div class="col callnow crd mt-5" *ngIf="
               isLoggedIn == true &&
               currentUser == false &&
@@ -115,7 +114,7 @@
           <div class="col callnow crd mt-5" (click)="goToModifierBien(bien.uuid)"
             *ngIf="isLoggedIn == true && currentUser == true">
             <a class="action-btn btn-edit">
-              <i class="feather-edit-3"></i>Modifier ce bien</a> 
+              <i class="feather-edit-3"></i>Modifier ce bien</a>
           </div>
         </div>
       </div>
@@ -148,17 +147,17 @@
             </div>
           </div>
           <div class="form-group group-img">
-         
+
             <label for="dateMaison">Usage d'utilisation</label>
             <div class="group-img">
               <mat-form-field class="mat-custom-select" style="width: 98%">
                 <mat-label *ngIf="selectedCategory == ''">Usage d'utilisation</mat-label>
-                <mat-select name="usage"    [(ngModel)]="formCandidater.usage">
+                <mat-select name="usage" [(ngModel)]="formCandidater.usage">
                   <mat-option *ngFor="let item of usage" [value]="item.id">
                     {{ item?.nom }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              
+
             </div>
           </div>
         </form>
@@ -174,9 +173,7 @@
     </div>
   </div>
 </div>
-<!-- Modal Modifier un bien -->
 
-<!-- Modal POUR PRENDRE RENDEZ-VOUS -->
 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -217,16 +214,14 @@
     </div>
   </div>
 </div>
-<!-- Modal POUR PRENDRE RENDEZ-VOUS -->
 
-<!--Details Main  Section-->
 <div class="details-main-wrapper">
   <div class="container">
     <div class="row">
       <div class="col-lg-9">
         <div class="author-img" *ngFor="let photo of photos; let isFirst = first">
           <img class="image-size3" *ngIf="isFirst" src="{{ generateImageUrl(photo?.nom) }}" alt="authorimg" />
-        </div> 
+        </div>
         <div class="author-img" *ngIf="photos && photos?.length == 0">
           <div class="type" *ngIf="bien?.typeImmo?.nom === 'Villa'">
             <img src="../../../../assets/img/typebien/villa.png" class="img-fluid" alt="default-img" />
@@ -259,8 +254,8 @@
                 <ng-container *ngFor="let photo of photos; let i = index">
                   <div class="col-lg-3 col-md-3 col-sm-3" style="width: 235px;" *ngIf="i < 12">
                     <div class="gallery-widget">
-                      <img class="img-fluid image-size1" style="width: 200px !important;" [src]="generateImageUrl(photo?.nom)"
-                        (click)="open(i, albumsOne)" />
+                      <img class="img-fluid image-size1" style="width: 200px !important;"
+                        [src]="generateImageUrl(photo?.nom)" (click)="open(i, albumsOne)" />
                     </div>
                   </div>
                 </ng-container>
@@ -343,15 +338,12 @@
                   <li *ngIf="bien && bien?.toilette">
                     Toilette<span>{{ bien?.toilette }}</span>
                   </li>
-    
+
                 </ul>
               </div>
-              <!-- <div>
-                              <img src="{{generateQrCodeUrl(bien.codeqr)}}" alt="QR Code">
-                          </div> -->
+
               <div class="card" *ngIf="bien && bien?.codeqr">
                 <h4><i class="feather-maximize"></i> Code Qr du bien</h4>
-                <!-- <div class="sidebarauthor-details align-items-center"> -->
                 <img src="{{ generateQrCodeUrl(bien?.codeqr) }}" alt="QR Code" />
                 <!-- </div> -->
               </div>
@@ -382,13 +374,18 @@
                   " class="btn btn-primary submit-btn w-100" type="submit">
                   Envoyer un message
                 </button>
+                <button (click)="goToMessage(bien?.utilisateur?.email)" [disabled]="
+                !MessageForm?.content || MessageForm?.content?.trim() === ''
+              " class="btn btn-primary submit-btn w-100" type="submit">
+              Envoyer un message
+            </button>
               </div>
               <div class="card">
                 <!-- <h4><i class="feather-briefcase"></i>Info Entreprise</h4> -->
                 <div class="map-details">
-                 
+
                   <ul class="info-list">
-                  
+
                     <h4><i class="fas fa-share-alt"></i>Partager</h4>
                     <li class="socialicons pb-0">
                       <a [href]="
@@ -419,12 +416,10 @@
                       </a>
                     </li>
                   </ul>
-                  <!-- <button (click)="ClickFun()"
-                  class="btn btn-primary submit-btn"
-                  type="submit">Partager le bien</button> -->
+
                 </div>
               </div>
-            
+
 
               <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false">
                 <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
@@ -508,22 +503,18 @@
                       <div class="card" *ngIf="bienImmoPrecedent && bienImmoPrecedent?.length > 0"
                         (click)="goToDettailBien(bienImmoPrecedent[0]?.uuid)">
                         <h4 style="cursor: pointer;"><i class="feather-arrow-left"></i>Bien Précedent</h4>
-                       
-                        <div class="card mb-3" style="max-width: 540px; cursor: pointer;" *ngFor="let BienImo of bienImmoPrecedent">
+
+                        <div class="card mb-3" style="max-width: 540px; cursor: pointer;"
+                          *ngFor="let BienImo of bienImmoPrecedent">
                           <div class="row no-gutters">
                             <div class="col-md-4">
-                              <img  style="height: 100px; width: 133px;" *ngIf="BienImo?.photos; else defaultImage"
-                                   src="{{ generateImageUrl(BienImo?.photos) }}"
-                                   class="card-img" alt="...">
+                              <img style="height: 100px; width: 133px;" *ngIf="BienImo?.photos; else defaultImage"
+                                src="{{ generateImageUrl(BienImo?.photos) }}" class="card-img" alt="...">
                             </div>
-                            
-                            <!-- <ng-template #defaultImage>
-                              <img src="assets/img/typebien/villa.png" class="card-img" alt="...">
-                            </ng-template> -->
+
                             <ng-template #defaultImage>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
-                                <img src="../../../../assets/img/typebien/villa.png" class="card-img"
-                                  alt="default-img">
+                                <img src="../../../../assets/img/typebien/villa.png" class="card-img" alt="default-img">
                               </div>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
                                 <img src="../../../../assets/img/typebien/appartement.png" class="card-img"
@@ -538,21 +529,20 @@
                                   alt="default-img">
                               </div>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
-                                <img src="../../../../assets/img/typebien/champ.png" class="card-img"
-                                  alt="default-img">
+                                <img src="../../../../assets/img/typebien/champ.png" class="card-img" alt="default-img">
                               </div>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Magasin'">
                                 <img src="../../../../assets/img/typebien/magasin.png" class="card-img"
                                   alt="default-img">
                               </div>
                             </ng-template>
-                            
+
                             <div class="col-md-8">
                               <div class="card-body">
                                 <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>
-                                <p class="card-text"><small class="text-muted"*ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
-                                  class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
-                                date:"dd MMM yyyy":locale}}</small></p>
+                                <p class="card-text"><small class="text-muted" *ngIf="BienImo && BienImo?.createdAt"
+                                    class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
+                                    date:"dd MMM yyyy":locale}}</small></p>
 
                               </div>
                             </div>
@@ -572,22 +562,21 @@
                       <div class="card" *ngIf="bienImmoSuivant && bienImmoSuivant?.length > 0"
                         (click)="goToDettailBien(bienImmoSuivant[0]?.uuid)">
                         <h4 style="cursor: pointer;"><i class="feather-arrow-right"></i>Bien Suivant</h4>
-                       
-                        <div class="card mb-3" style="max-width: 540px; cursor: pointer;" *ngFor="let BienImo of bienImmoSuivant">
+
+                        <div class="card mb-3" style="max-width: 540px; cursor: pointer;"
+                          *ngFor="let BienImo of bienImmoSuivant">
                           <div class="row no-gutters">
                             <div class="col-md-4">
                               <img style="height: 100px; width: 133px;" *ngIf="BienImo?.photos; else defaultImage"
-                                   src="{{ generateImageUrl(BienImo?.photos) }}"
-                                   class="card-img" alt="...">
+                                src="{{ generateImageUrl(BienImo?.photos) }}" class="card-img" alt="...">
                             </div>
-                            
+
                             <!-- <ng-template #defaultImage>
                               <img src="assets/img/typebien/villa.png" class="card-img" alt="...">
                             </ng-template> -->
                             <ng-template #defaultImage>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
-                                <img src="../../../../assets/img/typebien/villa.png" class="card-img"
-                                  alt="default-img">
+                                <img src="../../../../assets/img/typebien/villa.png" class="card-img" alt="default-img">
                               </div>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
                                 <img src="../../../../assets/img/typebien/appartement.png" class="card-img"
@@ -602,21 +591,20 @@
                                   alt="default-img">
                               </div>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
-                                <img src="../../../../assets/img/typebien/champ.png" class="card-img"
-                                  alt="default-img">
+                                <img src="../../../../assets/img/typebien/champ.png" class="card-img" alt="default-img">
                               </div>
                               <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Magasin'">
                                 <img src="../../../../assets/img/typebien/magasin.png" class="card-img"
                                   alt="default-img">
                               </div>
                             </ng-template>
-                            
+
                             <div class="col-md-8">
                               <div class="card-body">
                                 <h6>{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom }}</h6>
-                                <p class="card-text"><small class="text-muted"*ngIf="BienImo && BienImo?.createdAt" class="date-icon"><i
-                                  class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
-                                date:"dd MMM yyyy":locale}}</small></p>
+                                <p class="card-text"><small class="text-muted" *ngIf="BienImo && BienImo?.createdAt"
+                                    class="date-icon"><i class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
+                                    date:"dd MMM yyyy":locale}}</small></p>
 
                               </div>
                             </div>
@@ -627,7 +615,7 @@
                   </div>
                 </div>
               </div>
-              
+
             </div>
 
           </div>
@@ -748,7 +736,7 @@
                                   &nbsp;&nbsp;
                                   <i class="fa-sharp fa-solid fa-calendar-days"></i>
                                   {{ Reponse?.createdAt | date : "HH:mm" }}
-                                  
+
                                 </p>
                               </div>
                             </li>
@@ -759,36 +747,34 @@
                   </li>
                 </ul>
               </div>
-              <!-- </div>
-                                </div> -->
-              <!-- </div> -->
+              
               <ul class="">
-             
+
                 <li class="review-box feedbackbox mb-0">
                   <div class="review-details">
                     <h6>Ecrire un commentaire</h6>
                   </div>
                   <div class="card-body">
                     <form class="">
-                   
+
                       <div class="form-group">
                         <textarea name="contenu" [(ngModel)]="commentaireForm.contenu" rows="4" class="form-control"
                           placeholder="Ecriver votre commentaire*" required></textarea>
                       </div>
                       <div class="submit-section">
-                        <button  *ngIf="isLoggedIn == true" class="btn btn-primary submit-btn" [disabled]="
+                        <button *ngIf="isLoggedIn == true" class="btn btn-primary submit-btn" [disabled]="
                             !commentaireForm.contenu ||
                             commentaireForm.contenu.trim() === ''
                           " (click)="Fairecommentaire(bien?.uuid)" type="submit">
                           Commenter
                         </button>
-                        <button  *ngIf="isLoggedIn == false" class="btn btn-primary submit-btn" [disabled]="
+                        <button *ngIf="isLoggedIn == false" class="btn btn-primary submit-btn" [disabled]="
                         !commentaireForm.contenu ||
                         commentaireForm.contenu.trim() === ''
-                      " >
-                       <a class="" [routerLink]="['/auth/connexion']">
-                        Commenter</a>
-                    </button>
+                      ">
+                          <a class="" [routerLink]="['/auth/connexion']">
+                            Commenter</a>
+                        </button>
                       </div>
                     </form>
                   </div>
@@ -797,7 +783,6 @@
             </div>
           </div>
         </div>
-        <!--/Review Section-->
       </div>
       <div class="col-lg-3 theiaStickySidebar" [style.display]="isMobile ? 'none' : 'block'">
         <div class="stickybar">
@@ -858,15 +843,10 @@
                 <li *ngIf="bien && bien?.toilette">
                   Toilette<span>{{ bien?.toilette }}</span>
                 </li>
-                <!-- <li>Gadgets <span>6</span></li>
-                                <li>Home Area <span>30sqft</span></li>
-                                <li>Lot Dimensions <span>30*30*20 ft</span></li>
-                                <li class="p-0">Lot Area <span>50 ft</span></li> -->
+              
               </ul>
             </div>
-            <!-- <div>
-                            <img src="{{generateQrCodeUrl(bien.codeqr)}}" alt="QR Code">
-                        </div> -->
+         
             <div class="card" *ngIf="bien && bien?.codeqr">
               <h4><i class="feather-maximize"></i> Code Qr du bien</h4>
               <!-- <div class="sidebarauthor-details align-items-center"> -->
@@ -884,46 +864,28 @@
                   <p class="authorname" *ngIf="bien && bien?.utilisateur">
                     {{ bien?.utilisateur?.nom }}
                   </p>
-                  <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else noAgenceTemplate">
-                    <p class="authorname" *ngIf="bien && bien?.utilisateur">{{ bien?.utilisateur?.nomAgence }}</p>
-                  </ng-container>
-                  <ng-template #noAgenceTemplate>
-                    <p class="authorname" *ngIf="bien && bien?.utilisateur">{{ bien?.utilisateur?.nom }}</p>
-                  </ng-template> -->
-                  <!-- <p>Member since Nov 24, 2017</p> -->
+                
                 </div>
               </div>
             </div>
 
             <div class="submit-section mb-3" style="text-align: center"
-              *ngIf="isLoggedIn == true && currentUser == false">
+            >
               <div class="attach-btn mb-3">
                 <textarea name="content" [(ngModel)]="MessageForm.content" class="input-msg-send form-control"
                   placeholder="Message"></textarea>
               </div>
-              <button (click)="goToMessage(bien?.utilisateur?.email)" [disabled]="
-                  !MessageForm?.content || MessageForm?.content?.trim() === ''
-                " class="btn btn-primary submit-btn w-100" type="submit">
+              <button (click)="goToLogin()"
+                 class="btn btn-primary submit-btn w-100" >
                 Envoyer un message
               </button>
+              
             </div>
             <div class="card">
-              <!-- <h4><i class="feather-briefcase"></i>Info Entreprise</h4> -->
               <div class="map-details">
-                <!-- <div class="map-frame">
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.2238528387797!2d-122.41637708468208!3d37.78479337975754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858090475dcdc3%3A0x417fdbbd16e076ed!2s484%20Ellis%20St%2C%20San%20Francisco%2C%20CA%2094102%2C%20USA!5e0!3m2!1sen!2sin!4v1669879954211!5m2!1sen!2sin"
-                                        width="200" height="160" style="border:0;" allowfullscreen="" loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                </div> -->
+              
                 <ul class="info-list">
-                  <!-- <li><i class="feather-map-pin"></i> {{bien.adresse.quartier}},<br>Rue : {{bien.adresse.rue}},
-                                        Porte :{{bien.adresse.porte}}</li> -->
-                  <!-- <li *ngIf="bien && bien.utilisateur"><i class="feather-phone-call"></i>
-                                        {{bien?.utilisateur?.telephone}}</li>
-                                    <li *ngIf="bien && bien.utilisateur"><i class="feather-mail"></i>
-                                        {{bien?.utilisateur?.email}}</li> -->
-                  <!-- <li><img src="assets/img/website.svg" alt="website"> www.listee.com</li> -->
+                 
                   <h4><i class="fas fa-share-alt"></i>Partager</h4>
                   <li class="socialicons pb-0">
                     <a [href]="
@@ -944,9 +906,7 @@
                       " target="_blank">
                       <i class="fab fa-pinterest"></i>
                     </a>
-                    <!-- <a href="#" target="_blank"
-                      ><i class="fab fa-instagram"></i
-                    ></a> -->
+   
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sossara.ml/details-bien/{{
                         bien?.uuid
                       }}" target="_blank">
@@ -954,24 +914,10 @@
                     </a>
                   </li>
                 </ul>
-                <!-- <button (click)="ClickFun()"
-                class="btn btn-primary submit-btn"
-                type="submit">Partager le bien</button> -->
+   
               </div>
             </div>
-            <!--<div class="card">
-                        <h4><img src="assets/img/statistic-icon.svg" alt="location"> Statisfic</h4>
-                        <ul class="statistics-list">
-                            <li><div class="statistic-details"><span class="icons"><i class="fa-regular fa-eye"></i></span>
-                               Views </div><span class="text-end"> 453563</span></li>
-                            <li><div class="statistic-details"><span class="icons"><i class="feather-star"></i></span>
-                               Ratings </div><span class="text-end"> 153</span></li>
-                            <li><div class="statistic-details"><span class="icons"><i class="feather-heart"></i></span>
-                                 Favuorites </div><span class="text-end"> 123</span></li>
-                            <li class="mb-0"><div class="statistic-details"><span class="icons"><i class="feather-share-2"></i></span>
-                                 Shares </div><span class="text-end"> 50</span></li>
-                        </ul>
-                    </div>-->
+           
 
             <div class="card mb-0" *ngIf=" currentUser == false">
               <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
@@ -991,14 +937,15 @@
                 <div *ngIf="isError" class="alert alert-danger" role="alert">
                   {{ errorMessage }}
                 </div>
-                <div class="submit-section" >
-                  <button *ngIf="isLoggedIn == true" (click)="PrendreRvd(bien?.uuid)" class="btn btn-primary submit-btn" type="submit">
+                <div class="submit-section">
+                  <button *ngIf="isLoggedIn == true" (click)="PrendreRvd(bien?.uuid)" class="btn btn-primary submit-btn"
+                    type="submit">
                     Envoyer
                   </button>
-                  <button *ngIf="isLoggedIn == false"  class="btn btn-primary submit-btn" type="submit">
+                  <button *ngIf="isLoggedIn == false" class="btn btn-primary submit-btn" type="submit">
                     <a class="" [routerLink]="['/auth/connexion']">
-                        Envoyer</a>
-                  
+                      Envoyer</a>
+
                   </button>
                 </div>
               </form>
@@ -1009,4 +956,3 @@
     </div>
   </div>
 </div>
-

@@ -608,45 +608,47 @@ export class DetailsbienComponent implements AfterViewInit {
 
     this.currentUser2;
 
+    if(this.candidaterWithModal){
+      const dateEntree = new Date(this.formCandidater.date);
+      const currentDate = new Date();
+      const oneYearFromNow = new Date();
+      oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+  
+      if (dateEntree < currentDate || dateEntree > oneYearFromNow) {
+        Swal.fire({
+          position: 'center',
+          text: "La date d'entrée doit être comprise entre aujourd'hui et un an à partir d'aujourd'hui.",
+          title: 'Date invalide',
+          icon: 'error',
+          heightAuto: false,
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#e98b11',
+          showDenyButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false,
+        });
+        return; // Arrêter la fonction si la date est invalide
+      }
+      // Vérification si le champ d'usage est nul
+      if (!this.formCandidater.usage) {
+        Swal.fire({
+          position: 'center',
+          text: "Veuillez sélectionner un usage.",
+          title: 'Erreur',
+          icon: 'error',
+          heightAuto: false,
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#e98b11',
+          showDenyButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false,
+        });
+        return; // Arrêter la fonction si le champ usage est nul
+      }
+    }
     
-    const dateEntree = new Date(this.formCandidater.date);
-    const currentDate = new Date();
-    const oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-
-    if (dateEntree < currentDate || dateEntree > oneYearFromNow) {
-      Swal.fire({
-        position: 'center',
-        text: "La date d'entrée doit être comprise entre aujourd'hui et un an à partir d'aujourd'hui.",
-        title: 'Date invalide',
-        icon: 'error',
-        heightAuto: false,
-        showConfirmButton: true,
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#e98b11',
-        showDenyButton: false,
-        showCancelButton: false,
-        allowOutsideClick: false,
-      });
-      return; // Arrêter la fonction si la date est invalide
-    }
-    // Vérification si le champ d'usage est nul
-    if (!this.formCandidater.usage) {
-      Swal.fire({
-        position: 'center',
-        text: "Veuillez sélectionner un usage.",
-        title: 'Erreur',
-        icon: 'error',
-        heightAuto: false,
-        showConfirmButton: true,
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#e98b11',
-        showDenyButton: false,
-        showCancelButton: false,
-        allowOutsideClick: false,
-      });
-      return; // Arrêter la fonction si le champ usage est nul
-    }
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -839,6 +841,11 @@ export class DetailsbienComponent implements AfterViewInit {
         },
         (error) => { }
       );
+  }
+  goToLogin() {
+    return this.router.navigate(['auth/connexion'])
+
+
   }
 
 

@@ -38,6 +38,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./reset-password/reset-password.module').then((m) => m.ResetPasswordModule),
   },
+  {
+    path: 'activate-account/:token',
+    loadChildren: () =>
+      import('./activateAcount/activate.module').then((m) => m.ActivateModule),
+  },
 ];
 
 @NgModule({
