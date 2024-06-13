@@ -40,6 +40,7 @@ export class commentaireService {
     const data = new FormData();
     data.append("contenu", contenu)
     data.append("uuidBien", id)
+    console.log(headers)
 
     return this.http.post(`${URL_BASE}/commentaire/ajouter`, data, { headers });
   }

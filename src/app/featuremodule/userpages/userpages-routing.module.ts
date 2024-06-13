@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth.guard';
 import { UserpagesComponent } from './userpages.component';
 import { MobileRedirectService } from 'src/app/MobileRedirectService.guard';
+import { ChatComponent } from './chat/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,15 @@ const routes: Routes = [
           import('./modifier-bien/modifier-bien.module').then(
             (m) => m.ModifierBienModule
           ),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'chat',
+        component: ChatComponent,
+        // loadChildren: () =>
+        //   import('./chat/modifier-bien.module').then(
+        //     (m) => m.ModifierBienModule
+        //   ),
         canActivate: [AuthGuard]
       },
       
