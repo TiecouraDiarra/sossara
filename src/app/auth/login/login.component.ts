@@ -149,9 +149,8 @@ export class LoginComponent implements OnInit {
         showConfirmButton: true,
         confirmButtonText: 'OK',
         customClass: {
-          confirmButton: 'swal2-ok' // Ajoutez une classe personnalisée
+          confirmButton:'swal2-ok'
         },
-        // confirmButtonColor: '#e98b11',
         showDenyButton: false,
         showCancelButton: false,
         allowOutsideClick: false,

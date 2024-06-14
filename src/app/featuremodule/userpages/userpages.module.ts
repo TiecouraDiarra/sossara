@@ -21,6 +21,7 @@ import { ModifierBienComponent } from './modifier-bien/modifier-bien.component';
 import { RdvComponent } from './rdv/rdv.component';
 import { DetailsConversationComponent } from './details-conversation/details-conversation.component';
 import { ListefactureComponent } from './listefacture/listefacture.component';
+import { ChatComponent } from './chat/chat/chat.component';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -40,6 +41,7 @@ import { ListefactureComponent } from './listefacture/listefacture.component';
     RdvComponent,
     DetailsConversationComponent,
     ListefactureComponent,
+    ChatComponent,
     // LocataireComponent,
     // ProprietaireComponent,
     // MesReclamationsComponent,

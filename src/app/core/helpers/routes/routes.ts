@@ -134,7 +134,7 @@ export class routes {
     return this.baseUrl + '/userpages/dashboard';
   }
   public static get messages(): string {
-    return this.baseUrl + '/userpages/messages';
+    return this.baseUrl + '/userpages/chat';
   }
   public static get mylisting(): string {
     return this.baseUrl + '/userpages/mes-biens';
