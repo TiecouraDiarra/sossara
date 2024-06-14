@@ -84,8 +84,8 @@
                                                 {{Conversations?.destinateur?.nom.substring(0,1)}}</div>
                                         </div> &nbsp; &nbsp;
                                     </div>
-                                    <div class="media-body flex-grow-1 mt-4"
-                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
+                                    <div class="media-body flex-grow-1 mt-4 crd"
+                                    (click)="loadMessages(Conversations?.uuid)">
                                         <div>
                                             <div class="user-name"
                                                 *ngIf="Conversations?.expediteur?.email!= senderCheck">
