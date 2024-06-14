@@ -110,7 +110,7 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
-          console.log(this.users);
+          // console.log(this.users);
           
           this.completer = this.users?.profilCompleter;
           this.profil = this.users?.profil;

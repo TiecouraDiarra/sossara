@@ -59,9 +59,49 @@ body {
 
 .top_menu .title {
   text-align: center;
-  color: #bcbdc0;
+  // color: #bcbdc0;
   font-size: 20px;
+  font-weight: 500;
 }
+
+.top_menu .user_info {
+  display: flex;
+  align-items: center;
+}
+
+.top_menu .user_info .user_img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+.user-info1 {
+  display: flex;
+  align-items: center;
+}
+
+.user-info1 .user-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.initials {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-right: 10px;
+}
+
+.send_message.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+
 
 .messages {
   position: relative;
@@ -81,23 +121,23 @@ body {
 }
 
 .messages .message.left .avatar {
-  background-color: #ffe6cb;
+  background-color: #e98b11;
   float: left;
 }
 
 .messages .message.left .text_wrapper {
-  background-color: #ffe6cb;
+  background-color: #e98b11;
   margin-left: 20px;
 }
 
 .messages .message.left .text_wrapper::after,
 .messages .message.left .text_wrapper::before {
   right: 100%;
-  border-right-color: #ffe6cb;
+  border-right-color: #e98b11;
 }
 
 .messages .message.left .text {
-  color: #c48843;
+  color: #ffffff;
 }
 
 .messages .message.right .avatar {
@@ -228,7 +268,7 @@ body {
 
 .img_cont {
   position: relative;
-  height: 70px;
+  height: 20px;
   width: 70px;
 }
 
@@ -247,12 +287,12 @@ div.avatar.flex-shrink-0.imagChat img {
   align-items: center;
   text-transform: capitalize;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: white;
 }
 .user_img {
-  height: 70px;
-  width: 70px;
+  height: 50px;
+  width: 50px;
   border: 1.5px solid #f5f6fa;
 
 }
