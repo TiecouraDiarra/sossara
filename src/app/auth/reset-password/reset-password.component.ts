@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -10,16 +10,34 @@ import Swal from 'sweetalert2';
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit{
   public routes = routes;
   public Toggledata = true;
   public ToggledataC = true;
+  succesMessage="";
+  errorMessage="";
+  afficher :Boolean =false;
+
   token : any
   constructor(public router: Router,
     private route: ActivatedRoute,
     private serviceUser: UserService
     ){
 
+  }
+  ngOnInit(): void {
+    this.token = this.route.snapshot.params["token"]
+    this.serviceUser.checkResetToken(this.token).subscribe((data) => {
+     if (data.status) {
+      this.afficher=true
+     this.succesMessage= data.message
+  }
+  else{
+    this.errorMessage= data.message
+    console.log(this.errorMessage)
+  }
+
+})
   }
   direction(){
     this.router.navigate([routes.login])
