@@ -71,6 +71,7 @@ export class ChatComponent {
   initialDest: any;
   initialEspe: any;
   initial: any;
+  isChatPresent:Boolean=false;
   selectedConversation: any | null = null; // Conversation sélectionnée
 
   constructor(private chatService: ChatserviceService,
@@ -87,6 +88,10 @@ export class ChatComponent {
     this.chatService.joinRoom(this.uuidChat);
     this.lisenerMessage();
     this.loadMessages(this.uuidChat);
+    if(this.uuidChat=="null"){
+      this.isChatPresent=false;
+
+    }
 
     //AFFICHER LA LISTE DES PERIODES
     this.chatService.AfficherChatUserConnecte().subscribe((data) => {
@@ -167,7 +172,12 @@ export class ChatComponent {
     // Implémente la logique pour charger les messages de la conversation sélectionnée
     // Par exemple, en appelant un service pour récupérer les messages
     // Exemple hypothétique :
+
     window.sessionStorage.setItem("chatUuid", uuid);
+    if(window.sessionStorage.getItem("chatUuid")!="null"){
+      alert("je suis la")
+      this.isChatPresent=true;
+    }
     this.chatService.getChatByUuid(uuid)
       .subscribe((messages) => {
         this.message = messages;
