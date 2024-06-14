@@ -842,6 +842,11 @@ export class DetailsbienComponent implements AfterViewInit {
         (error) => { }
       );
   }
+  goToLogin() {
+    return this.router.navigate(['auth/connexion'])
+
+
+  }
 
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE MODIFICATION BIEN

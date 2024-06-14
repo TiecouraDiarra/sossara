@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { StorageService } from 'src/app/service/auth/storage.service';
 import { UserService } from 'src/app/service/auth/user.service';
+import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
+import { CommonService } from 'src/app/service/common.service';
 import { DataService } from 'src/app/service/data.service';
 import { SidebarService } from 'src/app/service/sidebar.service';
 import Swal from 'sweetalert2';
@@ -142,3 +144,8 @@ export class HeaderAccueilComponent {
     }
   }
 }
+
+
+
+
+

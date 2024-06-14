@@ -112,6 +112,7 @@ export class NotificationsComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       this.serviceUser.AfficherUserConnecter().subscribe((data) => {
         this.profil = data[0]?.profil;
+        console.log(data)
         if (this.profil == 'LOCATAIRE') {
           this.isLocataire = true;
         } else if (this.profil == 'AGENCE' ) {

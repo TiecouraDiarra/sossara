@@ -136,7 +136,7 @@
               </div>
  
               <!-- statut -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType === '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType === 3 || selectedType === 5">
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
@@ -148,16 +148,31 @@
                     <mat-label *ngIf="selectedCategory == ''">
                       Statut</mat-label
                     >
-                    <mat-select [(ngModel)]="form.statut" name="statut">
+                    <mat-select [(ngModel)]="form.statut" name="statut" (selectionChange)="onStatutChange($event)">
                       <mat-option [value]="2">A vendre</mat-option>
                     </mat-select>
                   </mat-form-field>
                   </div>
                 </div>
               </div>
+              
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType === 6 || selectedType === 4">
+                <div class="form-group">
+                  <label class="col-form-label">Statut <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Statut</mat-label>
+                      <mat-select [(ngModel)]="form.statut" name="statut" (selectionChange)="onStatutChange($event)">
+                        <mat-option [value]="1">A louer</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
 
               <!-- statut -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6' && selectedType != '4'">
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
@@ -215,7 +230,7 @@
               </div>
 
               <!-- Nombre de salon -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
                 <div class="form-group">
                   <label class="col-form-label">Nombre de salon <span>*</span></label>
                   <div class="pass-group group-img">
@@ -241,7 +256,7 @@
               </div>
 
               <!-- Nombre de cuisine -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
@@ -266,7 +281,7 @@
                 </div>
               </div>
               <!-- Nombre de chambre -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Chambres <span>*</span></label>
                   <div class="pass-group group-img">
@@ -293,7 +308,7 @@
              
 
               <!-- Nombre de toilette -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5'">
                 <div class="form-group formlast-input">
                   <label class="col-form-label">Toilette <span>*</span></label>
                   <div class="pass-group group-img">
@@ -303,7 +318,7 @@
                     style="width: 100%"
                   >
                     <mat-label *ngIf="selectedCategory == ''">
-                      Toilette</mat-label
+                      Toilettes</mat-label
                     >
                     <mat-select [(ngModel)]="form.toilette" name="toilette">
                       <mat-option
@@ -318,7 +333,7 @@
                 </div>
               </div>
               <!-- Nombre de surface -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut != 1">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 2">
                 <div class="form-group">
                   <label class="col-form-label"
                     >Surface du bien (M²) <span>*</span></label 
@@ -336,7 +351,7 @@
                 </div>
               </div>
 
-              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 1 && selectedType != '3'">
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 1 && selectedType != '3' && selectedType != '5'">
                 <div class="form-group" >
                   <label class="col-form-label">Periode <span>*</span></label>
                   <div class="pass-group group-img">
@@ -367,7 +382,7 @@
 
               <div
                 class="col-lg-6 col-md-6"
-                *ngIf="selectedStatutMensuel === 2 && selectedStatut === 1 && selectedType != '3'"
+                *ngIf="selectedStatutMensuel === 2 && selectedStatut === 1 && selectedType != '3' && selectedType != '5'"
                 
 
               >
@@ -397,7 +412,7 @@
 
               <div
                 class="col-lg-6 col-md-6"
-                *ngIf="selectedStatutMensuel === 2 && selectedStatut === 1 && selectedType != '3'"
+                *ngIf="selectedStatutMensuel === 2 && selectedStatut === 1 && selectedType != '3' && selectedType != '5'"
               >
                 <div class="form-group">
                   <label class="col-form-label">Avance <span>*</span></label>
@@ -609,8 +624,11 @@
               </div>
             </div>
             <!-- map  -->
-            <div class="listing-map">
+            <!-- <div class="listing-map">
               <div id="map" style="width: 100%; height: 30vw"></div>
+            </div> -->
+            <div class="listing-map">
+              <div id="map" class="map-container"></div>
             </div>
             <!-- MAP ADRESSE  -->
             <div class="row">

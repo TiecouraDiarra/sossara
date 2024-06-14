@@ -1,0 +1,11 @@
+.tts {
+  background: rgba(233, 139, 17) !important;
+  background-image: url("../../../assets/img/banner-05.png") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+}
+
+.list-group {
+  list-style-type: disc;
+  /* ou 'circle' ou 'square' selon votre préférence */
+}

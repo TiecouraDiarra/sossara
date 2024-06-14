@@ -245,7 +245,7 @@ export class BienimmoService {
     toilette: any,
     surface: number,
     prix: number,
-    statut: string,
+    statut: any,
     description: string,
     quartier: string,
     rue: string,
@@ -271,7 +271,7 @@ export class BienimmoService {
     formData.append('description', description);
     formData.append('quartier', quartier);
     // Si le statut est "A vendre", définissez la période sur 6
-    if (statut === "2") {
+    if (statut === 2) {
       formData.append('periodeId', '2');
     } else {
       formData.append('periodeId', periode.toString());

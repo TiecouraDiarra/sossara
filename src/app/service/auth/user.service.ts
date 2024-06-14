@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { StorageService } from './storage.service';
 
@@ -14,6 +14,10 @@ const USER_KEY = 'auth-user';
 export class UserService {
 
   private accessToken!: string; // Ajoutez cette ligne
+
+  private agencesCache: any;
+  private rdvCache: any;
+  private userConnecteCache: any;
 
 
   private httpOptions = {
@@ -77,12 +81,27 @@ export class UserService {
 
 
   //AFFICHER LES INFORMATIONS DE USER CONNECTER
-  AfficherUserConnecter(): Observable<any> {
-    const headers = this.getHeaders();
+  // AfficherUserConnecter(): Observable<any> {
+  //   const headers = this.getHeaders();
 
-    return this.http.get(`${URL_BASE}/user/afficherConnecter`, { headers });
-  }
+  //   return this.http.get(`${URL_BASE}/user/afficherConnecter`, { headers });
+  // }
 
+    // Vérifie si les données de l'utilisateur connecté en cache sont complètes
+    private isUserConnecteCacheComplete(data: any): boolean {
+      return data && data.nom && data.email && data.telephone; // Ajoutez toutes les propriétés nécessaires
+    }
+  
+    AfficherUserConnecter(): Observable<any> {
+      if (this.userConnecteCache && this.isUserConnecteCacheComplete(this.userConnecteCache)) {
+        return of(this.userConnecteCache);
+      } else {
+        const headers = this.getHeaders();
+        return this.http.get(`${URL_BASE}/user/afficherConnecter`, { headers }).pipe(
+          tap(data => this.userConnecteCache = data)
+        );
+      }
+    }
 
   //PRENDRE RENDEZ-VOUS EN FONCTION DU BIEN
   PrendreRdv(date: string, heure: string, id: any): Observable<any> {

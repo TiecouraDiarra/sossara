@@ -466,8 +466,11 @@ export class AjouterBienComponent implements OnInit {
   //METHODE PERMETTANT DE CHANGER LES TYPES
   onTypeChange(event: any) {
     this.selectedType = event.value;
-    if (this.selectedType === 3) {
+    if (this.selectedType === 3 || this.selectedType===5) {
       this.resetform(); // Mettre le statut à null si le statut est "A vendre"
+    }
+    if(this.selectedType!=3 || this.selectedType!=0){
+      this.form.surface=0
     }
   }
 
@@ -580,7 +583,7 @@ export class AjouterBienComponent implements OnInit {
       );
     } else {
       swalWithBootstrapButtons
-        .fire({
+        .fire({ 
           text: 'Etes-vous sûre de bien vouloir creer ce bien ?',
           icon: 'warning',
           showCancelButton: true,

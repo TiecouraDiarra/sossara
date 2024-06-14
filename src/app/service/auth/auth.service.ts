@@ -115,6 +115,12 @@ export class AuthService {
   voirTokenValidite(token: any): Observable<any> {
     return this.http.get(`${URL_BASE}/auth/validateToken/${token}`);
   }
+  activerMoncompte(token: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('token', token);
+    return this.http.post(URL_BASE + '/auth/activateAccount', formData);
+}
+
 
 
   reloadPage(): void {
