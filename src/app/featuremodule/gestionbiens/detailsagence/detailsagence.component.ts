@@ -226,6 +226,7 @@ export class DetailsagenceComponent implements OnInit {
       // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
 
       this.agence = data?.agence;
+      
       this.bienImmoAgence = data?.bienImmos;
       this.agent = data?.agents.reverse();
       this.pourcentAlouer = data?.pourcentageAlouer ?? 100; // Assigner 100 si pourcentageAlouer est undefined      
@@ -450,9 +451,14 @@ export class DetailsagenceComponent implements OnInit {
       this.serviceUser.setAccessToken(user.token);
 
       // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
-      this.serviceBienImmo.OuvrirConversation(id).subscribe({
+      this.serviceBienImmo.OuvrirConversationN(id).subscribe({
         next: (data) => {
-          this.routerr.navigate([routes.messages]);
+          console.log(data);
+          
+          if (data.status) {
+            window.sessionStorage.setItem("chatUuid", data.message);
+            this.routerr.navigate([routes.messages]);
+          }
           // this.isSuccess = true;
           // this.errorMessage = 'Conversation ouverte avec succès';
           // this.pathConversation();
@@ -474,32 +480,35 @@ export class DetailsagenceComponent implements OnInit {
     // }
   }
 
-  goToMessage(username: any) {
-    this.chatService
-      .getChatByFirstUserNameAndSecondUserName(username, this.users.email)
-      .subscribe(
-        (data) => {
-          this.chat = data;
+  // goToMessage(username: any) {
+  //   this.chatService
+  //     .getChatByFirstUserNameAndSecondUserName(username, this.users.email)
+  //     .subscribe(
+  //       (data) => {
+  //         this.chat = data;
 
-          if (this.chat.length > 0) {
-            this.chatId = this.chat[0].chatId;
-            sessionStorage.setItem('chatId', this.chatId);
-            this.routerr.navigate(['/userpages/messages']);
-          } else {
-            // Si le tableau est vide, créez une nouvelle salle de chat
-            // Si le tableau est vide, créez une nouvelle salle de chat
-            this.chatObj['expediteur'] = this.users.email;
-            this.chatObj['destinateur'] = username;
-            this.chatService.createChatRoom(this.chatObj).subscribe((data) => {
-              this.chatData = data;
-              this.chatId = this.chatData.chatId;
-              sessionStorage.setItem('chatId', this.chatData.chatId);
-              this.routerr.navigate(['/userpages/messages']);
-            });
-          }
-        },
-        (error) => { }
-      );
+  //         if (this.chat.length > 0) {
+  //           this.chatId = this.chat[0].chatId;
+  //           sessionStorage.setItem('chatId', this.chatId);
+  //           this.routerr.navigate(['/userpages/messages']);
+  //         } else {
+  //           // Si le tableau est vide, créez une nouvelle salle de chat
+  //           // Si le tableau est vide, créez une nouvelle salle de chat
+  //           this.chatObj['expediteur'] = this.users.email;
+  //           this.chatObj['destinateur'] = username;
+  //           this.chatService.createChatRoom(this.chatObj).subscribe((data) => {
+  //             this.chatData = data;
+  //             this.chatId = this.chatData.chatId;
+  //             sessionStorage.setItem('chatId', this.chatData.chatId);
+  //             this.routerr.navigate(['/userpages/messages']);
+  //           });
+  //         }
+  //       },
+  //       (error) => { }
+  //     );
+  // }
+
+  goToMessage(username: any){
+
   }
-
 }

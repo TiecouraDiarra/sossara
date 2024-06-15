@@ -20,6 +20,8 @@ import { Chat } from '../../userpages/message/models/chat';
 import { Message } from '../../userpages/message/models/message';
 import { CaracteristiqueService } from 'src/app/service/caracteristique/caracteristique.service';
 import { Meta } from '@angular/platform-browser';
+import { ChatMessage } from '../../userpages/chat/model/chat-message';
+import { ChatserviceService } from '../../userpages/chat/chatservice/chatservice.service';
 declare var google: any;
 
 const URL_PHOTO: string = environment.Url_PHOTO;
@@ -33,6 +35,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
 })
 export class DetailsbienComponent implements AfterViewInit {
   locale!: string;
+  messageInput: string = 'Bonjour est ce que je peut avoir plus d\'information sur ce bien ?';
   public routes = routes;
   public albumsOne: any = [];
   public albumsTwo: any = [];
@@ -81,6 +84,9 @@ export class DetailsbienComponent implements AfterViewInit {
   bienImmoSuivant: any;
   bienImmoPrecedent: any;
   currentUser2: any;
+  profil: any;
+  NomSender: any;
+  uuidChat: any;
 
   generateQrCodeUrl(qrCodeBase64: string): string {
     return 'data:image/png;base64,' + qrCodeBase64;
@@ -240,6 +246,7 @@ export class DetailsbienComponent implements AfterViewInit {
     private serviceAdresse: AdresseService,
     private meta: Meta,
     private chatService: MessageService,
+    private chatService2: ChatserviceService,
     @Inject(LOCALE_ID) private localeId: string,
   ) {
     this.locale = localeId;
@@ -288,7 +295,7 @@ export class DetailsbienComponent implements AfterViewInit {
         (data) => {
           this.users = data[0];
 
-      this.currentUser2 = this.users;
+          this.currentUser2 = this.users;
           this.senderCheck = this.users.email
         })
 
@@ -300,6 +307,8 @@ export class DetailsbienComponent implements AfterViewInit {
     const Users = this.storageService.getUser();
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
+    this.uuidChat = window.sessionStorage.getItem("chatUuid")
+    this.chatService2.joinRoom(this.uuidChat);
 
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
     this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe((data) => {
@@ -608,12 +617,12 @@ export class DetailsbienComponent implements AfterViewInit {
 
     this.currentUser2;
 
-    if(this.candidaterWithModal){
+    if (this.candidaterWithModal) {
       const dateEntree = new Date(this.formCandidater.date);
       const currentDate = new Date();
       const oneYearFromNow = new Date();
       oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-  
+
       if (dateEntree < currentDate || dateEntree > oneYearFromNow) {
         Swal.fire({
           position: 'center',
@@ -648,7 +657,7 @@ export class DetailsbienComponent implements AfterViewInit {
         return; // Arrêter la fonction si le champ usage est nul
       }
     }
-    
+
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -739,6 +748,8 @@ export class DetailsbienComponent implements AfterViewInit {
     const user = this.storageService.getUser();
     return user ? user.userData : null;
   }
+
+  messageList: any[] = [];
 
 
 
@@ -842,10 +853,100 @@ export class DetailsbienComponent implements AfterViewInit {
         (error) => { }
       );
   }
+
+  joinRoom(roomId: string) {
+    return this.chatService2.joinRoom(roomId);
+  }
+
+  ContacterOrLogin(id: any) {
+    const user = this.storageService.getUser();
+    if (user && user.token) {
+      // Définissez le token dans le service serviceUser
+      this.serviceUser.setAccessToken(user.token);
+
+      // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
+      this.serviceBienImmo.OuvrirConversationN(id).subscribe({
+        next: (data) => {
+          // console.log(data);
+
+          if (data.status) {
+            window.sessionStorage.setItem("chatUuid", data.message);
+            this.chatService2.joinRoom(data.message);
+
+
+            this.router.navigate([routes.messages]);
+
+            this.serviceUser.AfficherUserConnecter().subscribe(
+              (data) => {
+                this.users = data && data.length > 0 ? data[0] : null;
+                // console.log(this.users);
+                this.profil = data[0]?.profil;
+                if (this.profil == 'AGENCE') {
+                  this.NomSender = this.users?.nomAgence;
+                } else {
+                  this.NomSender = this.users?.nom;
+                }
+
+                const chatMessage = {
+                  message: this.messageInput,
+                  senderEmail: this.users?.email,
+                  senderNom: this.NomSender
+                } as ChatMessage
+                this.uuidChat = window.sessionStorage.getItem("chatUuid")
+                this.lisenerMessage();
+                this.loadMessages(this.uuidChat);
+                this.chatService2.sendMessage(this.uuidChat, chatMessage);
+                this.messageInput = '';
+              })
+          }
+          // this.isSuccess = true;
+          // this.errorMessage = 'Conversation ouverte avec succès';
+          // this.pathConversation();
+        },
+        error: (err) => {
+          this.errorMessage = err.error.message;
+          // this.isError = true
+          // Gérez les erreurs ici
+        }
+      }
+      );
+    } else {
+      this.router.navigateByUrl("/auth/connexion")
+    }
+    // if (this.storageService.isLoggedIn()) {
+    //   this.router.navigate([routes.messages]);
+    // } else {
+    //   this.router.navigateByUrl("/auth/connexion")
+    // }
+  }
+
   goToLogin() {
     return this.router.navigate(['auth/connexion'])
+  }
 
+  lisenerMessage() {
+    if (this.storageService.isLoggedIn()) {
+      this.serviceUser.AfficherUserConnecter().subscribe(
+        (data) => {
+          this.users = data && data.length > 0 ? data[0] : null;
+          this.chatService2.getMessageSubject().subscribe((messages: any) => {
+            // this.initial = this.message?.senderNom?.split(' ').map((name: string) => name.charAt(0)).join('');
+            // console.log(messages);
+            
+            this.messageList = messages.map((item: any) => ({
+              ...item,
+              message_side: item.senderEmail === this.users.email ? 'sender' : 'receiver',
+            }))
+          });
+        })
+    }
+  }
 
+  loadMessages(uuid: any): void {
+    // Implémente la logique pour charger les messages de la conversation sélectionnée
+    // Par exemple, en appelant un service pour récupérer les messages
+    // Exemple hypothétique :
+    window.sessionStorage.setItem("chatUuid", uuid);
   }
 
 
@@ -868,6 +969,7 @@ export class DetailsbienComponent implements AfterViewInit {
     //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
     this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
       this.bien = data;
+
       this.lesCommodites = data?.commodites;
 
 

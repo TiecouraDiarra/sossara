@@ -7888,7 +7888,8 @@ textarea.form-control {
 
 .chat-cont-left {
     background: #fff;
-    padding: 25px;
+    /* padding: 25px; */
+    padding: 20px !important;
     border-radius: 10px;
     position: relative;
     z-index: 4;

@@ -109,6 +109,7 @@ export class AuthService {
   logout(): Observable<any> {
     const token = this.storageService.getUser().token;
     localStorage.removeItem('token');
+    window.sessionStorage.removeItem("chatUuid")
     return this.http.post<any>(`${URL_BASE}/auth/signout/${token}`, {});
   }
 

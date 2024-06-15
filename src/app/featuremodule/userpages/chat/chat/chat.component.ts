@@ -9,6 +9,11 @@ import { environment } from 'src/app/environments/environment';
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
+interface GroupedMessages {
+  date: string;
+  messages: any[];
+}
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -80,27 +85,30 @@ export class ChatComponent {
 
   constructor(private chatService: ChatserviceService,
     private route: ActivatedRoute,
+    @Inject(LOCALE_ID) private localeId: string,
     private storageService: StorageService,
     private serviceUser: UserService,
   ) {
-
+    this.locale = localeId;
   }
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.params["userId"];
+    // this.userId = this.route.snapshot.params["userId"];
     this.uuidChat = window.sessionStorage.getItem("chatUuid")
     this.chatService.joinRoom(this.uuidChat);
     this.lisenerMessage();
     this.loadMessages(this.uuidChat);
     if(this.uuidChat=="null"){
       this.isChatPresent=false;
-
     }
+
+    const Ma = new Date()
+    console.log(Ma);
+    
 
     //AFFICHER LA LISTE DES PERIODES
     this.chatService.AfficherChatUserConnecte().subscribe((data) => {
       this.chat = data;
-      console.log(this.chat);
     });
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
       this.users = data && data.length > 0 ? data[0] : null;
@@ -124,7 +132,6 @@ export class ChatComponent {
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
-          // console.log(this.users);
           this.profil = data[0]?.profil;
           if (this.profil == 'AGENCE') {
             this.NomSender = this.users?.nomAgence;
@@ -135,7 +142,8 @@ export class ChatComponent {
           const chatMessage = {
             message: this.messageInput,
             senderEmail: this.users?.email,
-            senderNom: this.NomSender
+            senderNom: this.NomSender,
+            time: new Date(),
           } as ChatMessage
           this.uuidChat = window.sessionStorage.getItem("chatUuid")
           this.chatService.sendMessage(this.uuidChat, chatMessage);
@@ -144,24 +152,30 @@ export class ChatComponent {
     }
   }
 
+  groupedMessageList: GroupedMessages[] = [];
+
   lisenerMessage() {
     if (this.storageService.isLoggedIn()) {
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
-          this.chatService.getMessageSubject().subscribe((messages: any) => {
-            // console.log(messages);
-            // this.initial = this.message?.senderNom?.split(' ').map((name: string) => name.charAt(0)).join('');
-
+          this.chatService.getMessageSubject().subscribe((messages: any[]) => {
             this.messageList = messages.map((item: any) => ({
               ...item,
               message_side: item.senderEmail === this.users.email ? 'sender' : 'receiver',
-              initials: this.getInitials(item.senderNom)
-            }))
+              initials: this.getInitials(item.senderNom),
+              timestamp: item.time ? new Date(item.time) : new Date()
+            }));
+            this.groupedMessageList = this.groupMessagesByDate(this.messageList);
           });
-        })
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des informations de l\'utilisateur:', error);
+        }
+      );
     }
   }
+  
 
   getInitials(name: string): string {
     if (!name) {
@@ -173,7 +187,6 @@ export class ChatComponent {
   // Cette méthode pourrait être utilisée pour le routage vers les détails d'une conversation
   loadChatByEmail(destinateur: any, expediteur: any): void {
     // Implémente la navigation vers les détails de la conversation ici
-    // console.log('Load chat for:', destinateur, expediteur);
     this.selectedConversation = { destinateur, expediteur };
     // this.loadMessages(); // Charge les messages de la conversation sélectionnée
   }
@@ -185,20 +198,18 @@ export class ChatComponent {
 
     window.sessionStorage.setItem("chatUuid", uuid);
     if(window.sessionStorage.getItem("chatUuid")!="null"){
-      alert("je suis la")
+      // alert("je suis la")
       this.isChatPresent=true;
+      this.chatService.getChatByUuid(uuid)
+        .subscribe((messages) => {
+          this.message = messages;
+          this.initialDest = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
+          this.initialEspe = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
+  
+          this.chatService.joinRoom(this.message?.uuid);
+  
+        });
     }
-    this.chatService.getChatByUuid(uuid)
-      .subscribe((messages) => {
-        this.message = messages;
-        console.log(this.message);
-        this.initialDest = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
-        this.initialEspe = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
-        // console.log(initials);
-
-        this.chatService.joinRoom(this.message?.uuid);
-
-      });
   }
   joinRoom(roomId: string) {
     return this.chatService.joinRoom(roomId);
@@ -225,4 +236,58 @@ export class ChatComponent {
       this.destinateurImageError = true;
     }
   }
+
+  groupMessagesByDate(messages: any[]): GroupedMessages[] {
+    const groupedMessages: { [key: string]: any[] } = {};
+    const today = new Date();
+  
+    messages.forEach(message => {
+      const messageDate = new Date(message.timestamp);
+      let displayDate;
+  
+      // Vérifier si c'est aujourd'hui
+      if (
+        messageDate.getDate() === today.getDate() &&
+        messageDate.getMonth() === today.getMonth() &&
+        messageDate.getFullYear() === today.getFullYear()
+      ) {
+        displayDate = 'Aujourd\'hui';
+      }
+      // Vérifier si c'était hier
+      else if (
+        messageDate.getDate() === today.getDate() - 1 &&
+        messageDate.getMonth() === today.getMonth() &&
+        messageDate.getFullYear() === today.getFullYear()
+      ) {
+        displayDate = 'Hier';
+      }
+      // Autres jours jusqu'à une semaine (7 jours)
+      else if (
+        messageDate >= new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6)
+      ) {
+        const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+        displayDate = days[messageDate.getDay()];
+      }
+      // Sinon, afficher la date complète
+      else {
+        displayDate = messageDate.toLocaleDateString();
+      }
+  
+      if (!groupedMessages[displayDate]) {
+        groupedMessages[displayDate] = [];
+      }
+      groupedMessages[displayDate].push(message);
+    });
+  
+    // Convertir l'objet en tableau de GroupedMessages
+    return Object.keys(groupedMessages).map(date => ({
+      date,
+      messages: groupedMessages[date]
+    }));
+  }
+  
+  
+  
+  
+  
 }

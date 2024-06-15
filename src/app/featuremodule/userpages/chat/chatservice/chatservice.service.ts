@@ -47,7 +47,9 @@ export class ChatserviceService {
 
       })
     })
-    this.loadMessage(roomId);
+    if (roomId) {
+      this.loadMessage(roomId);
+    }
   }
 
   sendMessage(roomId: string, chatMessage: ChatMessage) {
@@ -59,33 +61,36 @@ export class ChatserviceService {
   }
 
   loadMessage(roomId: string): void {
-    this.httpClient.get<any[]>(`http://10.175.48.79:8080/api/chat/${roomId}`).pipe(
-      map(result => {
-        return result.map(res => {
-          return {
-            senderEmail: res.senderEmail,
-            senderNom: res.senderNom,
-            message: res.message
-          } as ChatMessage
+    if (roomId) {
+      this.httpClient.get<any[]>(`http://10.175.48.79:8080/api/chat/${roomId}`).pipe(
+        map(result => {
+          return result.map(res => {
+            return {
+              senderEmail: res.senderEmail,
+              senderNom: res.senderNom,
+              message: res.message,
+              time: new Date(res.time)
+            } as ChatMessage
+          })
         })
+      ).subscribe({
+        next: (chatMessage: ChatMessage[]) => {
+          this.messageSubject.next(chatMessage);
+        },
+        error: (error) => {
+          console.log(error)
+        }
       })
-    ).subscribe({
-      next: (chatMessage: ChatMessage[]) => {
-        this.messageSubject.next(chatMessage);
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
+    }
   }
 
+  getChatByUuid(uuid: string): Observable<any> {
+    return this.httpClient.get<any>(`${URL_BASE}/chat/message/chat/${uuid}`);
+  }
    //AFFICHER LA LISTE DES CHATS EN FONCTION DE USER CONNECTE
    AfficherChatUserConnecte(): Observable<any> {
     const headers = this.getHeaders();
     return this.httpClient.get(`${URL_BASE}/chat/message/afficherchat`, { headers });
   }
 
-  getChatByUuid(uuid: string): Observable<any> {
-    return this.httpClient.get<any>(`${URL_BASE}/chat/message/chat/${uuid}`);
-  }
 }

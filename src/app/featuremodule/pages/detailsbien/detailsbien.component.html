@@ -61,7 +61,7 @@
               <span class="Featured-text" style="background-color: #374b5c">{{
                 bien?.typeImmo?.nom
                 }}</span>
-            </div> 
+            </div>
             <div class="blog-category">
               <span [ngClass]="{ statut: bien?.statut?.nom === 'A vendre' }" class="Featured-text">{{ bien?.statut?.nom
                 }}</span>
@@ -872,13 +872,16 @@
             <div class="submit-section mb-3" style="text-align: center"
             >
               <div class="attach-btn mb-3">
-                <textarea name="content" [(ngModel)]="MessageForm.content" class="input-msg-send form-control"
+                <textarea name="content" [(ngModel)]="messageInput" class="input-msg-send form-control"
                   placeholder="Message"></textarea>
               </div>
-              <button (click)="goToLogin()"
+              <button *ngIf="isLoggedIn == false" (click)="goToLogin()"
                  class="btn btn-primary submit-btn w-100" >
                 Envoyer un message
               </button>
+              <button *ngIf="isLoggedIn == true && currentUser == false" (click)="ContacterOrLogin(bien?.utilisateur?.uuid)"  class="btn btn-primary submit-btn w-100" type="submit">
+              Envoyer un message
+            </button>
               
             </div>
             <div class="card">
