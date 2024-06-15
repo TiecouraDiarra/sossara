@@ -439,6 +439,13 @@ export class BienimmoService {
     return this.http.post(`${URL_BASE}/conversation/new/${id}`, null, { headers });
   }
 
+  //OUVRIR UNE CONVERSATION EN FONCTION DE L'UTILISATEUR
+  OuvrirConversationN(uuid: any): Observable<any> {
+    const headers = this.getHeaders();
+
+    return this.http.post(`${URL_BASE}/chat/message/createchatNew/${uuid}`, null, { headers });
+  }
+
 
   //ANNULER CANDIDATURE BIEN 
   AnnulerCandidaterBien(id: any): Observable<any> {

@@ -75,6 +75,7 @@ export class ChatComponent {
   initialDest: any;
   initialEspe: any;
   initial: any;
+  isChatPresent:Boolean=false;
   selectedConversation: any | null = null; // Conversation sélectionnée
 
   constructor(private chatService: ChatserviceService,
@@ -86,16 +87,19 @@ export class ChatComponent {
   }
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.params["userId"];
+    // this.userId = this.route.snapshot.params["userId"];
     this.uuidChat = window.sessionStorage.getItem("chatUuid")
     this.chatService.joinRoom(this.uuidChat);
     this.lisenerMessage();
     this.loadMessages(this.uuidChat);
+    if(this.uuidChat=="null"){
+      this.isChatPresent=false;
+
+    }
 
     //AFFICHER LA LISTE DES PERIODES
     this.chatService.AfficherChatUserConnecte().subscribe((data) => {
       this.chat = data;
-      console.log(this.chat);
     });
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
       this.users = data && data.length > 0 ? data[0] : null;
@@ -119,7 +123,6 @@ export class ChatComponent {
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
-          // console.log(this.users);
           this.profil = data[0]?.profil;
           if (this.profil == 'AGENCE') {
             this.NomSender = this.users?.nomAgence;
@@ -145,9 +148,9 @@ export class ChatComponent {
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
           this.chatService.getMessageSubject().subscribe((messages: any) => {
-            // console.log(messages);
             // this.initial = this.message?.senderNom?.split(' ').map((name: string) => name.charAt(0)).join('');
-
+            // console.log(messages);
+            
             this.messageList = messages.map((item: any) => ({
               ...item,
               message_side: item.senderEmail === this.users.email ? 'sender' : 'receiver',
@@ -168,7 +171,6 @@ export class ChatComponent {
   // Cette méthode pourrait être utilisée pour le routage vers les détails d'une conversation
   loadChatByEmail(destinateur: any, expediteur: any): void {
     // Implémente la navigation vers les détails de la conversation ici
-    // console.log('Load chat for:', destinateur, expediteur);
     this.selectedConversation = { destinateur, expediteur };
     // this.loadMessages(); // Charge les messages de la conversation sélectionnée
   }
@@ -177,14 +179,17 @@ export class ChatComponent {
     // Implémente la logique pour charger les messages de la conversation sélectionnée
     // Par exemple, en appelant un service pour récupérer les messages
     // Exemple hypothétique :
+
     window.sessionStorage.setItem("chatUuid", uuid);
+    if(window.sessionStorage.getItem("chatUuid")!="null"){
+      // alert("je suis la")
+      this.isChatPresent=true;
+    }
     this.chatService.getChatByUuid(uuid)
       .subscribe((messages) => {
         this.message = messages;
-        console.log(this.message);
         this.initialDest = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
         this.initialEspe = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
-        // console.log(initials);
 
         this.chatService.joinRoom(this.message?.uuid);
 

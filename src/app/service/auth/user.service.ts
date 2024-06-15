@@ -219,6 +219,11 @@ export class UserService {
     formData.append('newPassword', newPassword);
     return this.http.post(URL_BASE + '/auth/resetPassword', formData);
   }
+  checkResetToken(token: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('token', token);
+    return this.http.post(URL_BASE + '/auth/checkResetToken', formData);
+  }
 
   active(id: number): Observable<any> {
     const headers = this.getHeaders();
