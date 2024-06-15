@@ -890,7 +890,8 @@ export class DetailsbienComponent implements AfterViewInit {
                 const chatMessage = {
                   message: this.messageInput,
                   senderEmail: this.users?.email,
-                  senderNom: this.NomSender
+                  senderNom: this.NomSender,
+                  time: new Date(),
                 } as ChatMessage
                 this.uuidChat = window.sessionStorage.getItem("chatUuid")
                 this.lisenerMessage();
