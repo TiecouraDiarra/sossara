@@ -307,6 +307,8 @@ export class DetailsbienComponent implements AfterViewInit {
     const Users = this.storageService.getUser();
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
+    this.uuidChat = window.sessionStorage.getItem("chatUuid")
+    this.chatService2.joinRoom(this.uuidChat);
 
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
     this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe((data) => {
@@ -865,7 +867,7 @@ export class DetailsbienComponent implements AfterViewInit {
       // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
       this.serviceBienImmo.OuvrirConversationN(id).subscribe({
         next: (data) => {
-          console.log(data);
+          // console.log(data);
 
           if (data.status) {
             window.sessionStorage.setItem("chatUuid", data.message);

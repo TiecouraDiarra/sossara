@@ -303,6 +303,9 @@ div.avatar.flex-shrink-0.imagChat img {
   border: 1.5px solid #f5f6fa;
 
 }
+.chat-users-list {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) ;
+}
 @media (max-width: 667.98px) {
   .chat-users-list {
     max-height: calc(100vh - 92px);
@@ -310,6 +313,17 @@ div.avatar.flex-shrink-0.imagChat img {
     /* background: red; */
     width: 120%;
     margin-left: -10%;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  .ligne {
+    overflow-y: scroll;
+    height: 408px;
+    --overflow: hidden;
+    overflow: auto;
+  
+    &::-webkit-scrollbar {
+        display: none;
+    }
   }
 }
 
@@ -335,3 +349,34 @@ div.avatar.flex-shrink-0.imagChat img {
   margin-left: 5px;
   // background-color: #007bff; /* Couleur de fond du cercle */
 }
+
+.no-conversations {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+.timestamp{
+  color: #FFFFFF;
+}
+
+.date-separator {
+  text-align: center;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #999;
+  margin: 10px 0;
+}
+
+.ligne {
+  overflow-y: scroll;
+  height: 408px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+      display: none;
+  }
+}
+
