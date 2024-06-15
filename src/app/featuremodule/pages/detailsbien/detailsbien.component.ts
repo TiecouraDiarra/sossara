@@ -531,19 +531,90 @@ export class DetailsbienComponent implements AfterViewInit {
 
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
   PrendreRvd(id: any): void {
-    // this.id = this.route.snapshot.params["id"]
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
         cancelButton: 'swal2-cancel btn',
       },
       heightAuto: false
-    })
+    });
+  
+    // Vérifier que la date et l'heure sont renseignées
+    if (!this.RdvForm.date || !this.RdvForm.heure) {
+      if (!this.RdvForm.date && !this.RdvForm.heure) {
+        swalWithBootstrapButtons.fire({
+          position: 'center',
+          text: "Tous les champs sont obligatoires !",
+          title: 'Erreur',
+          icon: 'error',
+          heightAuto: false,
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#e98b11',
+          showDenyButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false,
+        });
+      } else if (!this.RdvForm.date) {
+        swalWithBootstrapButtons.fire({
+          position: 'center',
+          text: "Veuillez saisir une date valide !",
+          title: 'Erreur',
+          icon: 'error',
+          heightAuto: false,
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#e98b11',
+          showDenyButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false,
+        });
+      } else if (!this.RdvForm.heure) {
+        swalWithBootstrapButtons.fire({
+          position: 'center',
+          text: "L'heure du rendez-vous est obligatoire !",
+          title: 'Erreur',
+          icon: 'error',
+          heightAuto: false,
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#e98b11',
+          showDenyButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false,
+        });
+      }
+      return; // Arrêter l'exécution si la date ou l'heure est manquante
+    }
+  
+    // Vérification de la validité de la date
+    const dateRdv = new Date(this.RdvForm.date);
+    const currentDate = new Date();
+    const oneMonthFromNow = new Date();
+    oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
+  
+    if (dateRdv < currentDate || dateRdv > oneMonthFromNow) {
+      swalWithBootstrapButtons.fire({
+        position: 'center',
+        text: "La date du rendez-vous doit être dans le mois en cours.",
+        title: 'Date invalide',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      });
+      return; // Arrêter la fonction si la date est invalide
+    }
+  
     const user = this.storageService.getUser();
     if (user && user.token) {
       // Définissez le token dans le service serviceUser
       this.serviceUser.setAccessToken(user.token);
-
+  
       // Appelez la méthode PrendreRdv() avec le contenu et l'ID
       this.serviceUser
         .PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id)
@@ -582,6 +653,7 @@ export class DetailsbienComponent implements AfterViewInit {
                 allowOutsideClick: false,
               }).then((result) => { });
             }
+            // Réinitialisez les champs après l'appel
             this.RdvForm.date = null;
             this.RdvForm.heure = null;
           },
@@ -589,21 +661,14 @@ export class DetailsbienComponent implements AfterViewInit {
             this.errorMessage = err.error.message;
             this.isError = true;
             // Gérez les erreurs ici
-            if (this.RdvForm.date == null || this.RdvForm.heure == null) {
-              swalWithBootstrapButtons.fire(
-                '',
-                `<h1 style='font-size: 1em !important; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;'>Date et heure de rendez-vous sont obligatoire</h1>`,
-                'error'
-              );
-              // this.errorMessage =
-              //   'Date et heure de rendez-vous sont obligatoire';
-            }
           },
         });
     } else {
-
+      // Gérez le cas où l'utilisateur n'est pas connecté
     }
   }
+  
+  
 
   formCandidater: any = {
     usage: null,
