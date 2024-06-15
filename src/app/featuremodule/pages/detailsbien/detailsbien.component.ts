@@ -538,7 +538,7 @@ export class DetailsbienComponent implements AfterViewInit {
       },
       heightAuto: false
     });
-  
+
     // Vérifier que la date et l'heure sont renseignées
     if (!this.RdvForm.date || !this.RdvForm.heure) {
       if (!this.RdvForm.date && !this.RdvForm.heure) {
@@ -586,13 +586,16 @@ export class DetailsbienComponent implements AfterViewInit {
       }
       return; // Arrêter l'exécution si la date ou l'heure est manquante
     }
-  
+
     // Vérification de la validité de la date
     const dateRdv = new Date(this.RdvForm.date);
     const currentDate = new Date();
     const oneMonthFromNow = new Date();
     oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
-  
+
+    // Ajouter un jour à currentDate pour inclure la date d'aujourd'hui
+    currentDate.setDate(currentDate.getDate() - 1);
+
     if (dateRdv < currentDate || dateRdv > oneMonthFromNow) {
       swalWithBootstrapButtons.fire({
         position: 'center',
@@ -609,12 +612,12 @@ export class DetailsbienComponent implements AfterViewInit {
       });
       return; // Arrêter la fonction si la date est invalide
     }
-  
+
     const user = this.storageService.getUser();
     if (user && user.token) {
       // Définissez le token dans le service serviceUser
       this.serviceUser.setAccessToken(user.token);
-  
+
       // Appelez la méthode PrendreRdv() avec le contenu et l'ID
       this.serviceUser
         .PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id)
@@ -667,8 +670,8 @@ export class DetailsbienComponent implements AfterViewInit {
       // Gérez le cas où l'utilisateur n'est pas connecté
     }
   }
-  
-  
+
+
 
   formCandidater: any = {
     usage: null,
@@ -687,6 +690,8 @@ export class DetailsbienComponent implements AfterViewInit {
       const currentDate = new Date();
       const oneYearFromNow = new Date();
       oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+      // Ajouter un jour à currentDate pour inclure la date d'aujourd'hui
+      currentDate.setDate(currentDate.getDate() - 1);
 
       if (dateEntree < currentDate || dateEntree > oneYearFromNow) {
         Swal.fire({
@@ -998,7 +1003,7 @@ export class DetailsbienComponent implements AfterViewInit {
           this.chatService2.getMessageSubject().subscribe((messages: any) => {
             // this.initial = this.message?.senderNom?.split(' ').map((name: string) => name.charAt(0)).join('');
             // console.log(messages);
-            
+
             this.messageList = messages.map((item: any) => ({
               ...item,
               message_side: item.senderEmail === this.users.email ? 'sender' : 'receiver',
