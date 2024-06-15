@@ -5,6 +5,9 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { ChatserviceService } from '../chatservice/chatservice.service';
 import { ChatMessage } from '../model/chat-message';
 import { StorageService } from 'src/app/service/auth/storage.service';
+import { environment } from 'src/app/environments/environment';
+
+const URL_PHOTO: string = environment.Url_PHOTO;
 
 @Component({
   selector: 'app-chat',
@@ -67,6 +70,7 @@ export class ChatComponent {
   userId: string = "";
   messageList: any[] = [];
   message: any;
+  NomSender: any;
   uuidChat: any;
   initialDest: any;
   initialEspe: any;
@@ -96,7 +100,7 @@ export class ChatComponent {
     //AFFICHER LA LISTE DES PERIODES
     this.chatService.AfficherChatUserConnecte().subscribe((data) => {
       this.chat = data;
-      // console.log(this.chat);
+      console.log(this.chat);
     });
     this.serviceUser.AfficherUserConnecter().subscribe((data) => {
       this.users = data && data.length > 0 ? data[0] : null;
@@ -121,11 +125,17 @@ export class ChatComponent {
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
           // console.log(this.users);
+          this.profil = data[0]?.profil;
+          if (this.profil == 'AGENCE') {
+            this.NomSender = this.users?.nomAgence;
+          } else {
+            this.NomSender = this.users?.nom;
+          }
 
           const chatMessage = {
             message: this.messageInput,
             senderEmail: this.users?.email,
-            senderNom: this.users?.nom
+            senderNom: this.NomSender
           } as ChatMessage
           this.uuidChat = window.sessionStorage.getItem("chatUuid")
           this.chatService.sendMessage(this.uuidChat, chatMessage);
@@ -142,7 +152,7 @@ export class ChatComponent {
           this.chatService.getMessageSubject().subscribe((messages: any) => {
             // console.log(messages);
             // this.initial = this.message?.senderNom?.split(' ').map((name: string) => name.charAt(0)).join('');
-            
+
             this.messageList = messages.map((item: any) => ({
               ...item,
               message_side: item.senderEmail === this.users.email ? 'sender' : 'receiver',
@@ -181,16 +191,38 @@ export class ChatComponent {
     this.chatService.getChatByUuid(uuid)
       .subscribe((messages) => {
         this.message = messages;
-        // console.log(this.message);
+        console.log(this.message);
         this.initialDest = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
         this.initialEspe = this.message?.destinateur?.nom.split(' ').map((name: string) => name.charAt(0)).join('');
         // console.log(initials);
-        
+
         this.chatService.joinRoom(this.message?.uuid);
 
       });
   }
   joinRoom(roomId: string) {
     return this.chatService.joinRoom(roomId);
+  }
+
+  // IMAGE PAR DEFAUT USER
+  handleAuthorImageError(event: any) {
+    event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
+  }
+  //IMAGE
+  generateImageUrl(photoFileName: string): string {
+    const baseUrl = URL_PHOTO;
+    return baseUrl + photoFileName;
+  }
+
+  expediteurImageError: boolean = false;
+  destinateurImageError: boolean = false;
+
+  handleImageError(event: Event, userType: string): void {
+    (event.target as HTMLImageElement).style.display = 'none';
+    if (userType === 'expediteur') {
+      this.expediteurImageError = true;
+    } else if (userType === 'destinateur') {
+      this.destinateurImageError = true;
+    }
   }
 }

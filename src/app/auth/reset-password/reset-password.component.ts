@@ -34,7 +34,6 @@ export class ResetPasswordComponent implements OnInit{
   }
   else{
     this.errorMessage= data.message
-    console.log(this.errorMessage)
   }
 
 })

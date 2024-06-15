@@ -73,26 +73,58 @@
                         <div class=" card chat-users-list" [style.display]="isMobile ? 'none' : 'block'">
                             <div class="card-body msg_card_bodyZ chat-scroll">
                                 <a class="media d-flex" *ngFor="let Conversations of chat | filter:searchText">
-                                    <div class="media-img-wrap flex-shrink-0 crd"
+                                    <!-- <div class="media-img-wrap flex-shrink-0 crd"
                                         (click)="loadMessages(Conversations?.uuid)">
                                         <div class="img_cont">
                                             <div class="rounded-circle user_img text_inside_circle1"
                                                 *ngIf="Conversations?.expediteur?.email!= senderCheck">
-                                                {{Conversations?.expediteur?.nom.substring(0,1)}}</div>
+                                                {{getInitials(Conversations?.expediteur?.nom)}}</div>
                                             <div class="rounded-circle user_img text_inside_circle1"
                                                 *ngIf="Conversations?.destinateur?.email!= senderCheck">
-                                                {{Conversations?.destinateur?.nom.substring(0,1)}}</div>
-                                        </div> &nbsp; &nbsp;
-                                    </div>
-                                    <div class="media-body flex-grow-1 mt-4"
-                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
-                                        <div>
+                                                {{getInitials(Conversations?.destinateur?.nom)}}</div>
+                                        </div> &nbsp;
+                                    </div> -->
+                                    <div class="media-body flex-grow-1 mt-3 crd"
+                                        (click)="loadMessages(Conversations?.uuid)">
+                                        <!-- <div>
                                             <div class="user-name"
                                                 *ngIf="Conversations?.expediteur?.email!= senderCheck">
                                                 {{Conversations?.expediteur?.nom}}</div>
                                             <div class="user-name"
                                                 *ngIf="Conversations?.destinateur?.email!= senderCheck">
                                                 {{Conversations?.destinateur?.nom}}</div>
+                                        </div> -->
+                                        <div>
+                                            <div class="user-info1"
+                                                *ngIf="Conversations?.expediteur?.email != senderCheck">
+                                                <div class="user-avatar">
+                                                    <img *ngIf="Conversations?.expediteur?.photo"
+                                                        src="{{generateImageUrl(Conversations?.expediteur?.photo)}}"
+                                                        alt="User Image" class="user-img">
+                                                    <div *ngIf="!Conversations?.expediteur?.photo || destinateurImageError"
+                                                        class="initials">
+                                                        <div class="rounded-circle user_img text_inside_circle1"
+                                                            *ngIf="Conversations?.expediteur?.email!= senderCheck">
+                                                            {{getInitials(Conversations?.expediteur?.nom)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-name">{{Conversations?.expediteur?.nom}}</div>
+                                            </div>
+                                            <div class="user-info1"
+                                                *ngIf="Conversations?.destinateur?.email != senderCheck">
+                                                <div class="user-avatar">
+                                                    <img *ngIf="Conversations?.destinateur?.photo"
+                                                        src="{{generateImageUrl(Conversations?.destinateur?.photo)}}"
+                                                        alt="User Image" class="user-img">
+                                                    <div *ngIf="!Conversations?.destinateur?.photo || destinateurImageError"
+                                                        class="initials">
+                                                        <div class="rounded-circle user_img text_inside_circle1"
+                                                            *ngIf="Conversations?.destinateur?.email!= senderCheck">
+                                                            {{getInitials(Conversations?.destinateur?.nom)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-name">{{Conversations?.destinateur?.nom}}</div>
+                                            </div>
                                         </div>
 
                                         <div>
@@ -105,32 +137,59 @@
                         </div>
                         <div class=" card chat-users-list" [style.display]="!isMobile ? 'none' : 'block'">
                             <div class="card-body msg_card_bodyZ chat-scroll">
-                                <a class="media d-flex" [routerLink]="'/userpages/details-conversation'"
-                                    *ngFor="let Conversations of chat | filter:searchText">
-                                    <div class="media-img-wrap flex-shrink-0 crd"
-                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
+                                <a class="media d-flex" *ngFor="let Conversations of chat | filter:searchText">
+                                    <!-- <div class="media-img-wrap flex-shrink-0 crd"
+                                        (click)="loadMessages(Conversations?.uuid)">
                                         <div class="img_cont">
                                             <div class="rounded-circle user_img text_inside_circle1"
                                                 *ngIf="Conversations?.expediteur?.email!= senderCheck">
-                                                {{Conversations?.expediteur?.nom.substring(0,1)}}</div>
+                                                {{getInitials(Conversations?.expediteur?.nom)}}</div>
                                             <div class="rounded-circle user_img text_inside_circle1"
-                                                *ngIf="Conversations?.destinateur.email!= senderCheck">
-                                                {{Conversations?.destinateur?.nom.substring(0,1)}}</div>
-                                            <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
-                                          {{firstUserName.substring(0,1)}}</div> -->
-                                        </div> &nbsp; &nbsp;
-                                    </div>
-                                    <div class="media-body flex-grow-1 mt-4"
-                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
-                                        <div>
+                                                *ngIf="Conversations?.destinateur?.email!= senderCheck">
+                                                {{getInitials(Conversations?.destinateur?.nom)}}</div>
+                                        </div> &nbsp;
+                                    </div> -->
+                                    <div class="media-body flex-grow-1 mt-3 crd"
+                                        (click)="loadMessages(Conversations?.uuid)">
+                                        <!-- <div>
                                             <div class="user-name"
                                                 *ngIf="Conversations?.expediteur?.email!= senderCheck">
-                                                {{Conversations?.expediteurInfo?.nom}}vc</div>
+                                                {{Conversations?.expediteur?.nom}}</div>
                                             <div class="user-name"
                                                 *ngIf="Conversations?.destinateur?.email!= senderCheck">
-                                                {{Conversations?.destinateurInfo?.nom}}</div>
-
-                                            <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
+                                                {{Conversations?.destinateur?.nom}}</div>
+                                        </div> -->
+                                        <div>
+                                            <div class="user-info1"
+                                                *ngIf="Conversations?.expediteur?.email != senderCheck">
+                                                <div class="user-avatar">
+                                                    <img *ngIf="Conversations?.expediteur?.photo"
+                                                        src="{{generateImageUrl(Conversations?.expediteur?.photo)}}"
+                                                        alt="User Image" class="user-img">
+                                                    <div *ngIf="!Conversations?.expediteur?.photo || destinateurImageError"
+                                                        class="initials">
+                                                        <div class="rounded-circle user_img text_inside_circle1"
+                                                            *ngIf="Conversations?.expediteur?.email!= senderCheck">
+                                                            {{getInitials(Conversations?.expediteur?.nom)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-name">{{Conversations?.expediteur?.nom}}</div>
+                                            </div>
+                                            <div class="user-info1"
+                                                *ngIf="Conversations?.destinateur?.email != senderCheck">
+                                                <div class="user-avatar">
+                                                    <img *ngIf="Conversations?.destinateur?.photo"
+                                                        src="{{generateImageUrl(Conversations?.destinateur?.photo)}}"
+                                                        alt="User Image" class="user-img">
+                                                    <div *ngIf="!Conversations?.destinateur?.photo || destinateurImageError"
+                                                        class="initials">
+                                                        <div class="rounded-circle user_img text_inside_circle1"
+                                                            *ngIf="Conversations?.destinateur?.email!= senderCheck">
+                                                            {{getInitials(Conversations?.destinateur?.nom)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="user-name">{{Conversations?.destinateur?.nom}}</div>
+                                            </div>
                                         </div>
 
                                         <div>
@@ -146,17 +205,48 @@
                 <div class="col-lg-7" *ngIf="isChatPresent" [style.display]="isMobile ? 'none' : 'block'">
                     <div class="chat_window">
                         <div class="top_menu">
-                            <div class="buttons">
+                            <!-- <div class="buttons">
                                 <div class="button close"></div>
                                 <div class="button minimize"></div>
                                 <div class="button maximize"></div>
+                            </div> -->
+                            <div class="user_info" *ngIf="message?.expediteur?.email != senderCheck">
+                                <div class="user-avatar">
+                                    <img *ngIf="message?.expediteur?.photo && !expediteurImageError"
+                                        [src]="generateImageUrl(message?.expediteur?.photo)"
+                                        (error)="handleImageError($event, 'expediteur')" alt="User Image"
+                                        class="user_img">
+                                    <div *ngIf="!message?.expediteur?.photo || expediteurImageError" class="initials">
+                                        <div class="rounded-circle user_img text_inside_circle1"
+                                            *ngIf="message?.expediteur?.email!= senderCheck">
+                                            {{getInitials(message?.expediteur?.nom)}}</div>
+                                    </div>
+                                </div>
+                                <span class="title">{{message?.expediteur?.nom}}</span>
                             </div>
-                            <div class="title" *ngIf="message?.expediteur?.email!= senderCheck">
+                            <div class="user_info" *ngIf="message?.destinateur?.email != senderCheck">
+                                <div class="user-avatar">
+                                    <img *ngIf="message?.destinateur?.photo && !destinateurImageError"
+                                        [src]="generateImageUrl(message?.destinateur?.photo)"
+                                        (error)="handleImageError($event, 'destinateur')" alt="User Image"
+                                        class="user_img">
+                                    <div *ngIf="!message?.destinateur?.photo || destinateurImageError" class="initials">
+                                        <div class="rounded-circle user_img text_inside_circle1"
+                                            *ngIf="message?.destinateur?.email!= senderCheck">
+                                            {{getInitials(message?.destinateur?.nom)}}</div>
+                                    </div>
+                                </div>
+                                <span class="title">{{message?.destinateur?.nom}}</span>
+                            </div>
+
+                            <!-- <div class="title" *ngIf="message?.expediteur?.email!= senderCheck">
                                 {{message?.expediteur?.nom}}
                             </div>
                             <div class="title" *ngIf="message?.destinateur?.email!= senderCheck">
                                 {{message?.destinateur?.nom}}
-                            </div>
+                            </div> -->
+                            <!-- <div class="image">
+                            </div> -->
                         </div>
                         <ul class="messages">
                             <li class="message right" *ngFor="let item of messageList"
@@ -179,7 +269,7 @@
                                 <input class="message_input" placeholder="Message..." [(ngModel)]="messageInput"
                                     (keyup.enter)="sendMessage()" />
                             </div>
-                            <div class="send_message" (click)="sendMessage()">
+                            <div class="send_message" (click)="sendMessage()" [class.disabled]="!messageInput">
                                 <div class="icon"></div>
                                 <div class="text">Envoyer</div>
                             </div>

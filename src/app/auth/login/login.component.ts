@@ -93,8 +93,7 @@ export class LoginComponent implements OnInit {
   specialCharacterRegex = /[@$!%*?&]/;
 
   validatePassword(password: string): boolean {
-    
-    if (!password) {
+    if(!password){
       return false;
     }
     // Vérifier la longueur du mot de passe
