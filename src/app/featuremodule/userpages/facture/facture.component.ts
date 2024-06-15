@@ -40,6 +40,7 @@ export class FactureComponent {
   // Supposons que vous avez une image par défaut dans votre projet
   defaultImageUrl: string = 'assets/img/typebien/villa.png';
   emailProprietaire: any;
+  users: any;
  
   setDefaultImage(event: any): void {
     // Si le chargement de l'image échoue, utilisez l'image par défaut
@@ -91,15 +92,19 @@ export class FactureComponent {
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
       // this.paiement = data;
+      console.log(data);
       this.modePaiement = data?.modePaiement;
       this.bien = data?.bien;
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
       this.transaction = data?.transaction;
-      this.emailProprietaire = this.storageService.getUser().email
-      if (this.emailProprietaire == this.proprietaire.email) {
-        this.isAgenceProprietaire = true;
-      }
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.users = data && data.length > 0 ? data[0] : null;
+        this.emailProprietaire = this.users.email
+        if (this.emailProprietaire == this.proprietaire.email) {
+          this.isAgenceProprietaire = true;
+        }
+      })
       this.photoImmo = data?.bien?.photoImmos;
     })
 
@@ -239,6 +244,11 @@ export class FactureComponent {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
   goToListeRecu(id: number) {
     return this.router.navigate(['userpages/liste_recu', id])
+  }
+
+   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE LISTE RECU
+   goToContrat(id: any) {
+    return this.router.navigate(['userpages/contrat', id])
   }
 
 }

@@ -740,7 +740,7 @@
               disabledClass="pagination__page--disabled"
               id="bienLoueAgence"
             ></pagination-controls> -->
-            <div class="blog-pagination">
+            <div class="blog-pagination" *ngIf="bienTotalAgence && bienTotalAgence.length > 0">
               <nav>
                 <ul class="pagination">
                   <li class="page-item previtem crd">
@@ -1144,13 +1144,12 @@
                       <div class="listingtable-img">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div *ngIf="
-                              BienImmo?.bien?.photoImmos &&
-                                BienImmo?.bien?.photoImmos?.length > 0;
+                              BienImmo?.bien?.photoImmos;
                               else noImages
                             ">
                             <img src="{{
                                 generateImageUrl(
-                                  BienImmo?.bien?.photoImmos[0]?.nom
+                                  BienImmo?.bien?.photoImmos
                                 )
                               }}" class="img-fluid image-size" alt="blog-img" />
                           </div>

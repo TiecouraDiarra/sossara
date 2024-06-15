@@ -51,11 +51,11 @@ export class ActivateComponent implements OnInit {
     this.token = this.route.snapshot.params["token"]
    this.authService.activerMoncompte(this.token).subscribe((data) => {
     if (data.status) {
-      let timerInterval = 2000;
+      let timerInterval = 4000;
       Swal.fire({
         position: 'center',
         text: data.message,
-        title: "Changement du mot de passe",
+        title: "Activation du compte",
         icon: 'success',
         heightAuto: false,
         showConfirmButton: false,
