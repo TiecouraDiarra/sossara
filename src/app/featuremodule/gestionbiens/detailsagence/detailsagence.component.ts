@@ -71,8 +71,9 @@ export class DetailsagenceComponent implements OnInit {
   favoritedPropertiesCount1: { [bienId: number]: number } = {};
   id: any
   agence: any
-  pourcentAlouer: any
-  pourcentAvendre: any
+  pourcentAlouer: number = 100
+  p20 : number = 10
+  pourcentAvendre: any =1
   pourcentAppart: any
   pourcentVilla: any
   pourcentTerrain: any
@@ -227,7 +228,7 @@ export class DetailsagenceComponent implements OnInit {
       this.agence = data?.agence;
       this.bienImmoAgence = data?.bienImmos;
       this.agent = data?.agents.reverse();
-      this.pourcentAlouer = data?.pourcentageAlouer;
+      this.pourcentAlouer = data?.pourcentageAlouer ?? 100; // Assigner 100 si pourcentageAlouer est undefined      
       this.pourcentAvendre = data?.pourcentageAvendre;
       this.pourcentAppart = data?.pourcentageAppart;
       this.pourcentVilla = data?.pourcentageVilla;
@@ -292,8 +293,18 @@ export class DetailsagenceComponent implements OnInit {
   }
 
   chartOptionsFunction(): void {
-    this.chartOptions = {
-      series: [this.pourcentAlouer, this.pourcentAvendre],
+  // Définir des valeurs pour le graphique
+  let chartPourcentAlouer = this.pourcentAlouer;
+  let chartPourcentAvendre = this.pourcentAvendre;
+
+  // Vérifier si les pourcentages sont tous deux égaux à 0
+  if (this.pourcentAlouer === 0 && this.pourcentAvendre === 0) {
+      chartPourcentAlouer = 1;
+      chartPourcentAvendre = 1;
+  }
+
+  this.chartOptions = {
+      series: [chartPourcentAlouer, chartPourcentAvendre],
       chart: {
         width: 375,
         type: 'pie'
