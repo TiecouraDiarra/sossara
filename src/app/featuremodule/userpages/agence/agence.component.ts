@@ -428,6 +428,9 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
       });
 
+      console.log(this.bienImmoDejaLoue);
+      
+
 
 
       // Parcourir la liste des biens immobiliers
