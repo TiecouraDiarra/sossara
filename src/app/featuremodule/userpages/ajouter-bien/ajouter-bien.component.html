@@ -1,4 +1,3 @@
-
 <!-- Breadscrumb Section -->
 <div class="breadcrumb-bar">
   <div class="container">
@@ -126,7 +125,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                </div> 
+                </div>
               </div>
 
               <!-- statut -->
@@ -162,7 +161,8 @@
               </div>
 
               <!-- statut -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6' && selectedType != '4'">
+              <div class="col-lg-6 col-md-6"
+                *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6' && selectedType != '4'">
                 <div class="form-group">
                   <label class="col-form-label">Statut <span>*</span></label>
                   <div class="pass-group group-img">
@@ -176,24 +176,6 @@
                   </div>
                 </div>
               </div>
-
-              <!-- caracteristique -->
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                  <label class="col-form-label">Caracteristique <span>*</span></label>
-                  <div class="pass-group group-img">
-                    <mat-form-field class="mat-custom-select" style="width: 100%">
-                      <mat-label *ngIf="selectedCategory == ''">
-                        Caracteristique</mat-label>
-                      <mat-select [(ngModel)]="form.caracteristique" name="caracteristique">
-                        <mat-option *ngFor="let item of caracteristique" [value]=" item?.id">
-                          {{ item?.caracteristique }}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </div>
-
               <!-- Nombre de salon -->
               <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
                 <div class="form-group">
@@ -212,7 +194,8 @@
               </div>
 
               <!-- Nombre de cuisine -->
-              <div class="col-lg-6 col-md-6 mb-4" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
+              <div class="col-lg-6 col-md-6 mb-4"
+                *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
                 <div class="form-group formlast-input lat-input">
                   <label class="col-form-label">Cuisines <span>*</span></label>
                   <div class="pass-group group-img">
@@ -260,8 +243,24 @@
                 </div>
               </div>
 
+              <!-- caracteristique -->
+              <div class="col-lg-6 col-md-6 mt-3" *ngIf="selectedStatut === 2">
+                <div class="form-group">
+                  <label class="col-form-label">Caracteristique <span>*</span></label>
+                  <div class="pass-group group-img">
+                    <mat-form-field class="mat-custom-select" style="width: 100%">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Caracteristique</mat-label>
+                      <mat-select [(ngModel)]="form.caracteristique" name="caracteristique">
+                        <mat-option *ngFor="let item of caracteristique" [value]=" item?.id">
+                          {{ item?.caracteristique }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
               <!-- Nombre de surface -->
-              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 2">
+              <div class="col-lg-6 col-md-6 mt-3" *ngIf="selectedStatut === 2">
                 <div class="form-group">
                   <label class="col-form-label">Superficie du bien (M²) <span>*</span></label>
                   <input type="number" pattern="[0-9]" name="surface" [(ngModel)]="form.surface"

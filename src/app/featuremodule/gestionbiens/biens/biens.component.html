@@ -343,7 +343,7 @@
                           <div class="grid-author" style="width: 90%;">
                             <img src="{{generateImageUrl(BienImo?.utilisateur?.photo)}}" alt="author"
                               (error)="handleAuthorImageError($event)" />
-                              <span style="background-color: #384b5c;" class="Featured-text float-end">{{
+                              <span *ngIf="BienImo?.statut.nom=='A louer'" style="background-color: #384b5c;" class="Featured-text float-end">{{
                                 BienImo?.periode?.nom }}</span>
                           </div>
                           <div class="blog-features">

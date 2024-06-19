@@ -731,7 +731,7 @@ export class DetailsbienComponent implements AfterViewInit {
         // Modifier l'usage en fonction de la période et du type du bien
         if (data?.periode?.nom === "Journalier" || data?.periode?.nom === "Hebdomadaire") {
           this.formCandidater.usage = 3;
-        } else if (data?.type?.nom === "Terrain") {
+        } else if (data?.typeImmo?.nom === "Terrain") {
           this.formCandidater.usage = 5;
         }
 

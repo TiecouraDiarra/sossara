@@ -185,12 +185,12 @@ export class BienimmoService {
       { headers });
   }
 
-    //AFFICHER LA LISTE DES BIENS LOUES ET ACHETES DE USER CONNECTE
-    AfficherBienLoueEtAcheterParUserConnecter(): Observable<any> {
-      const headers = this.getHeaders();
-      return this.http.get(`${URL_BASE}/candidature/immo/get/rentasell/mine`,
-        { headers });
-    }
+  //AFFICHER LA LISTE DES BIENS LOUES ET ACHETES DE USER CONNECTE
+  AfficherBienLoueEtAcheterParUserConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/candidature/immo/get/rentasell/mine`,
+      { headers });
+  }
 
   //AFFICHER LA LISTE DES BIENS QUE L'UTILISATEUR CONNECTE A ACHETER
   AfficherBienImmoUserAcheter(): Observable<any> {
@@ -287,14 +287,14 @@ export class BienimmoService {
     //   formData.append('toilette', '0' || 0);
     //   formData.append('nb_piece', '0' || 0);
     // } else {
-      formData.append('caution', caution || 0);
-      formData.append('avance', avance || 0);
-      formData.append('rue', rue || '');
-      formData.append('porte', porte || '');
-      formData.append('chambre', chambre || 0);
-      formData.append('cuisine', cuisine || 0);
-      formData.append('toilette', toilette || 0);
-      formData.append('nb_piece', nb_piece || 0);
+    formData.append('caution', caution || 0);
+    formData.append('avance', avance || 0);
+    formData.append('rue', rue || '');
+    formData.append('porte', porte || '');
+    formData.append('chambre', chambre || 0);
+    formData.append('cuisine', cuisine || 0);
+    formData.append('toilette', toilette || 0);
+    formData.append('nb_piece', nb_piece || 0);
     // }
     formData.append('longitude', longitude.toString());
     formData.append('latitude', latitude.toString());
@@ -337,7 +337,6 @@ export class BienimmoService {
 
     commodite.forEach(i => { formData.append('commodites[]', i); });
     formData.append('typeImmoId', type.toString());
-    formData.append('caracteristiqueId', caracteristique.toString());
     formData.append('commune', commune.toString());
     formData.append('nb_piece', nb_piece || 0);
     formData.append('nom', nom);
@@ -358,6 +357,12 @@ export class BienimmoService {
       formData.append('periodeId', periode.toString());
     }
 
+    if (statut === 1) {
+      formData.append('caracteristiqueId', '1');
+    }else{
+      formData.append('caracteristiqueId', caracteristique.toString());
+    }
+
     formData.append('caution', caution || 0);
     formData.append('avance', avance || 0);
     formData.append('longitude', longitude.toString());
@@ -372,14 +377,14 @@ export class BienimmoService {
       { headers }
     );
   }
-  
+
 
   //CANDIDATER UN BIEN 
-  CandidaterBien(id: any, usage: any, dateEntree: any, nombreJours : any, nombreSemaine : any): Observable<any> {
+  CandidaterBien(id: any, usage: any, dateEntree: any, nombreJours: any, nombreSemaine: any): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('uuidBien', id || '');
-    formData.append('usage', usage);
+    formData.append('usage', usage || '5');
     formData.append('dateEntree', dateEntree || '');
     formData.append('nombreJours', nombreJours || 0);
     formData.append('nombreSemaine', nombreSemaine || 0);
@@ -536,9 +541,9 @@ export class BienimmoService {
     commodites?: any[]
   ): Observable<any> {
     const headers = this.getHeaders(); // Supposons que cette méthode renvoie les en-têtes appropriés
-  
 
-  
+
+
     // Construisez les paramètres de l'URL
     let params = new HttpParams();
     if (typeImmo) params = params.append('typeImmo', typeImmo);
@@ -557,10 +562,10 @@ export class BienimmoService {
         params = params.append('commodites', commodite);
       });
     }
-  
+
     return this.http.get(`${URL_BASE}/bien/biens`, { headers, params });
   }
-  
+
 
 
   //FAIRE UNE RECLAMATION
