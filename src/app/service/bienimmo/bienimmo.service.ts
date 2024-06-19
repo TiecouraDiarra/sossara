@@ -598,10 +598,9 @@ export class BienimmoService {
   }
 
   //SUPPRIMER UN BIEN
-  SupprimerBien(id: any): Observable<any> {
+  SupprimerBien(uid: any): Observable<any> {
     const headers = this.getHeaders();
-
-    return this.http.post(`${URL_BASE}/bien/immo/delete/${id}`, null, { headers });
+    return this.http.put(`${URL_BASE}/bien/supprimer/${uid}`, null, { headers });
   }
 
   //FAIRE UNE RECLAMATION

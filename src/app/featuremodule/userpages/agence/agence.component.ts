@@ -428,7 +428,7 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
       });
 
-      console.log(this.bienImmoDejaLoue);
+      // console.log(this.bienImmoDejaLoue);
       
 
 
@@ -508,6 +508,8 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
       });
       // // Afficher les biens déjà loués et déjà vendus
+      // console.log(this.bienImmoDejaLoueLocataire);
+      
 
 
     });
@@ -578,6 +580,7 @@ export class AgenceComponent {
 
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
+    alert(id)
     return this.router.navigate(['details-bien', id])
   }
 
@@ -852,6 +855,7 @@ export class AgenceComponent {
       },
       heightAuto: false
     })
+    alert(id)
     swalWithBootstrapButtons.fire({
       // title: 'Etes-vous sûre de vous déconnecter?',
       text: "Etes-vous sûre de suppimer ce bien ?",

@@ -31,8 +31,8 @@ export class ChatserviceService {
   }
 
   initConnenctionSocket() {
-    const url = '//10.175.48.50:8080/chat-socket';
-    const socket = new SockJS(url);
+    // const url = '//127.0.0.1:8080/chat-socket';
+    const socket = new SockJS(environment.socketUrl);
     this.stompClient = Stomp.over(socket)
   }
 
@@ -62,7 +62,8 @@ export class ChatserviceService {
 
   loadMessage(roomId: string): void {
     if (roomId) {
-      this.httpClient.get<any[]>(`${URL_BASE}/api/chat/${roomId}`).pipe(
+      const headers = this.getHeaders();
+      this.httpClient.get<any[]>(`${URL_BASE}/chat/${roomId}`,{ headers }).pipe(
         map(result => {
           return result.map(res => {
             return {
@@ -92,5 +93,9 @@ export class ChatserviceService {
     const headers = this.getHeaders();
     return this.httpClient.get(`${URL_BASE}/chat/message/afficherchat`, { headers });
   }
+
+
+
+  
 
 }

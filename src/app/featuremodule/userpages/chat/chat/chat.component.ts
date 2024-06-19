@@ -102,8 +102,12 @@ export class ChatComponent {
       this.isChatPresent=false;
     }
 
+    // this.chatService.getUnreadNotificationsCount().subscribe((data) => {
+    //  console.log(data);
+     
+    // });
+
     const Ma = new Date()
-    console.log(Ma);
     
 
     //AFFICHER LA LISTE DES PERIODES

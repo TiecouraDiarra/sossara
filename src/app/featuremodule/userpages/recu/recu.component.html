@@ -216,6 +216,7 @@
                                                 <th class="pl0 text-start">Reference</th>
                                                 <th class="text-center">Prix en FCFA</th>
                                                 <th *ngIf="bien?.periode?.nom === 'Journalier'" class="text-center">Jour</th>
+                                                <th *ngIf="bien?.periode?.nom === 'Hebdomadaire'" class="text-center">Hebdomadaire</th>
                                                 <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'" class="text-center">Mois</th>
                                                 <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'" class="text-center">Tranche</th>
                                                 <th class="text-end">Montant en FCFA</th>

@@ -103,6 +103,12 @@ export class UserService {
       }
     }
 
+  getUnreadNotificationsCount(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/notifications/countUnread`, { headers });
+  }
+
+
   //PRENDRE RENDEZ-VOUS EN FONCTION DU BIEN
   PrendreRdv(date: string, heure: string, id: any): Observable<any> {
     const headers = this.getHeaders();

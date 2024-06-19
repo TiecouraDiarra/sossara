@@ -11,6 +11,7 @@ import { environment } from 'src/app/environments/environment';
 import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { TranslationService } from 'src/app/service/translation/translation.service';
+import { ChatserviceService } from '../../userpages/chat/chatservice/chatservice.service';
 
 
 
@@ -28,16 +29,17 @@ export class HeaderComponent implements OnInit {
   last: string = '';
   User: any
   isLocataire = false;
-  nomAgence : any;
+  nomAgence: any;
   isAgence = false;
-  nom : any;
+  nom: any;
   isCompletedProfil = false;
   roles: string[] = [];
   // Dans votre composant TypeScript
-isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
+  isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
   profil: any;
-  completer= false;
-@HostListener('window:resize', ['$event'])
+  completer = false;
+  notif:number =0;
+  @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.checkScreenWidth();
   }
@@ -45,20 +47,20 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
   checkScreenWidth() {
     this.isMobile = window.innerWidth < 992; // Vous pouvez ajuster la valeur (768) selon vos besoins
   }
-  
+
 
   public somme: number = 0
   nombreCandidatureBienUser: number = 0
   nombreCandidatureAccepter: number = 0
-  filteredData : number = 0
+  filteredData: number = 0
 
   nombreRdvUser: number = 0
 
   isLoggedIn = false;
   isLoginFailed = true;
   errorMessage = '';
-  isLoggedIn2=false
-  isLoginFailed2 =false 
+  isLoggedIn2 = false
+  isLoginFailed2 = false
 
 
 
@@ -85,7 +87,8 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
     private sidebarService: SidebarService,
     private serviceBienImmo: BienimmoService,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private chatService: ChatserviceService,
   ) {
     this.header = this.data.header;
     this.router.events.subscribe((event: any) => {
@@ -99,38 +102,44 @@ isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez
   ngOnInit(): void {
     this.checkScreenWidth();
     this.checkUserStatus();
+    // this.chatService.initConnectionWebSocket(); // Initialise la connexion WebSocket
+    this.serviceUser.getUnreadNotificationsCount().subscribe(
+      (data) => {
+      this.notif = data;
+      console.log(data)
+    });
 
-
-
+     
   }
 
   checkUserStatus(): void {
     if (this.storageService.isLoggedIn()) {
-     
+
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
           // console.log(this.users);
-          
+
           this.completer = this.users?.profilCompleter;
           this.profil = this.users?.profil;
           if (!this.users) {
             window.localStorage.clear();
+            window.sessionStorage.removeItem("chatUuid")
             return; // Sortir de la méthode si l'utilisateur n'est pas connecté
           }
-          if(this.users){
-            this.isLoggedIn2=true
-            this.isLoginFailed2=false
+          if (this.users) {
+            this.isLoggedIn2 = true
+            this.isLoginFailed2 = false
           }
-         
-          
+
+
           if (this.profil === 'LOCATAIRE') {
             this.isLocataire = true;
           }
           if (this.profil === 'LOCATAIRE' || this.profil === 'PROPRIETAIRE' || this.profil === 'ADMIN' || this.profil === 'SUPERADMIN' || this.profil === 'AGENT') {
             this.isAgence = false
             this.nom = this.users?.nom
-          }else{
+          } else {
             this.isAgence = true;
             this.nomAgence = this.users?.nomAgence
           }
