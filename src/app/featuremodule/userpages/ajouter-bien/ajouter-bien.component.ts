@@ -482,6 +482,9 @@ export class AjouterBienComponent implements OnInit {
       this.form.caution = ''; // Mettre le caution à null si le statut est "A vendre"
       this.form.avance = ''; // Mettre l'avance à null si le statut est "A vendre"
     }
+    this.form.caution = ''; // Mettre le caution à null si le statut est "A vendre"
+    this.form.avance = ''; 
+
   }
 
 

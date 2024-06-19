@@ -146,7 +146,7 @@
                 min="{{ getCurrentDate() }}" required class="form-control" placeholder="Date d'entrée dans la maison" />
             </div>
           </div>
-          <div class="form-group group-img">
+          <div class="form-group group-img" *ngIf="bienJournalierHebdomadaire == false">
 
             <label for="dateMaison">Usage d'utilisation</label>
             <div class="group-img">
@@ -155,6 +155,32 @@
                 <mat-select name="usage" [(ngModel)]="formCandidater.usage">
                   <mat-option *ngFor="let item of usage" [value]="item.id">
                     {{ item?.nom }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+          </div>
+          <div class="form-group group-img" *ngIf="bienHebdomadaire == true">
+            <label for="dateMaison">Choisir le nombre de semaine</label>
+            <div class="group-img">
+              <mat-form-field class="mat-custom-select" style="width: 98%">
+                <mat-label *ngIf="selectedCategory == ''">Nombre de semaine</mat-label>
+                <mat-select name="nombreSemaine" [(ngModel)]="formCandidater.nombreSemaine">
+                  <mat-option *ngFor="let item of valuesSelectHebdo" [value]="item">
+                    {{ item }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+          </div>
+          <div class="form-group group-img" *ngIf="bienJournalier == true">
+            <label for="dateMaison">Choisir le nombre de jour</label>
+            <div class="group-img">
+              <mat-form-field class="mat-custom-select" style="width: 98%">
+                <mat-label *ngIf="selectedCategory == ''">Nombre de jour</mat-label>
+                <mat-select name="nombreJours" [(ngModel)]="formCandidater.nombreJours">
+                  <mat-option *ngFor="let item of valuesSelectJourn" [value]="item">
+                    {{ item }}</mat-option>
                 </mat-select>
               </mat-form-field>
 

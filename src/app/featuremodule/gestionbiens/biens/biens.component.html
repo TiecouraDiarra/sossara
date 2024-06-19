@@ -326,6 +326,8 @@
                       <div class="fav-item">
                         <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }" class="Featured-text">{{
                           BienImo?.statut?.nom }}</span>
+                          <!-- <span style="background-color: #384b5c;" class="Featured-text">{{
+                            BienImo?.periode?.nom }}</span> -->
                         <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
                           (click)="AimerBien(BienImo?.uuid)"
                           [style.background-color]="favoriteStatus[BienImo?.uuid] ? '#e98b11' : 'white'">
@@ -338,9 +340,11 @@
                     <div class="bloglist-content">
                       <div class="card-body">
                         <div class="blogfeaturelink">
-                          <div class="grid-author">
+                          <div class="grid-author" style="width: 90%;">
                             <img src="{{generateImageUrl(BienImo?.utilisateur?.photo)}}" alt="author"
                               (error)="handleAuthorImageError($event)" />
+                              <span style="background-color: #384b5c;" class="Featured-text float-end">{{
+                                BienImo?.periode?.nom }}</span>
                           </div>
                           <div class="blog-features">
                             <a href="javascript:void(0)"><span>

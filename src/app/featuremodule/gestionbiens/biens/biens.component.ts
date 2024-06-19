@@ -281,6 +281,8 @@ export class BiensComponent {
     // Charger la liste des biens immobiliers
     this.serviceBienImmo.AfficherLaListeBienImmo().subscribe(data => {
       this.bienImmo = data.reverse();
+      // console.log(this.bienImmo);
+      
 
       
       this.isLoading = false; // Marquer le chargement comme terminé

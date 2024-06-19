@@ -39,19 +39,19 @@ export class ContratService {
 
 
   //ANNULER UN CONTRAT COTE LOCATAIRE 
-  AnnulerContratLocataire(id: any): Observable<any> {
+  AnnulerContratLocataire(id: any, motifAnnulationLocataire:any): Observable<any> {
     const headers = this.getHeaders();
-    
-   
-    return this.http.post(`${URL_BASE}/contrat/annulerlocataire/${id}`, null, { headers });
+    const formData = new FormData();
+    formData.append('motifAnnulationLocataire', motifAnnulationLocataire);
+    return this.http.post(`${URL_BASE}/contrat/annulerlocataire/${id}`, formData, { headers });
   }
 
   //ANNULER UN CONTRAT COTE PROPRIETAIRE 
-  AnnulerContratProprietaire(id: any): Observable<any> {
+  AnnulerContratProprietaire(id: any, motifAnnulationProprietaire:any): Observable<any> {
     const headers = this.getHeaders();
-    
-   
-    return this.http.post(`${URL_BASE}/contrat/annulerproprietaire/${id}`, null, { headers });
+    const formData = new FormData();
+    formData.append('motifAnnulationProprietaire', motifAnnulationProprietaire);
+    return this.http.post(`${URL_BASE}/contrat/annulerproprietaire/${id}`, formData, { headers });
   }
 
   //ACCEPTER CANDIDATURE BIEN PROPRIETAIRE C'EST A DIRE VALIDER CONTRAT

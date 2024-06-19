@@ -226,7 +226,7 @@
                                             <th *ngIf="bien?.periode?.nom === 'Journalier'" class="text-center">Jour
                                             </th>
                                             <th *ngIf="bien?.periode?.nom === 'Hebdomadaire'" class="text-center">
-                                                Hebdomadaire</th>
+                                                Semaine</th>
                                             <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'"
                                                 class="text-center">Mois</th>
                                             <th *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'"
@@ -244,7 +244,21 @@
                                             <td class="pl0">{{bien?.reference}}</td>
                                             <td class="text-center">{{formatPrice(bien?.prix)}}</td>
                                             <td class="text-center">1</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix)}} </td>
+                                            <td class="text-end">{{formatPrice(bien?.prix)}} FCFA</td>
+                                        </tr>
+                                        <tr class="bg-grea"
+                                            *ngIf="bien?.periode?.nom === 'Journalier' && bien?.statut?.nom === 'A louer'">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>02</span>
+
+                                                </div>
+                                            </td>
+                                            <td class="pl0">Nombre de jour choisi</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
+                                            <td class="text-center">{{facture?.contrat.nombreJour}}</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix *
+                                                facture?.contrat.nombreJour)}} FCFA</td>
                                         </tr>
                                         <tr class="bg-grea"
                                             *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
@@ -257,7 +271,43 @@
                                             <td class="pl0">Caution</td>
                                             <td class="text-center">{{formatPrice(bien?.prix)}}</td>
                                             <td class="text-center">{{bien?.caution}}</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix * bien?.caution)}}</td>
+                                            <td class="text-end">
+                                                {{ bien.caution === 0 ? formatPrice(bien.prix) :
+                                                formatPrice(bien.prix * bien.caution) }} FCFA
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-grea"
+                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>02</span>
+
+                                                </div>
+                                            </td>
+                                            <td class="pl0">Nombre de semaine choisie</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
+                                            <td class="text-center">{{facture?.contrat.nombreSemaine}}</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix *
+                                                facture?.contrat.nombreSemaine)}} FCFA</td>
+                                        </tr>
+                                        <tr class="tr2"
+                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">Total</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix *
+                                                facture?.contrat?.nombreSemaine)}}
+                                                FCFA</td>
+                                        </tr>
+                                        <tr class="tr2" style="font-weight: bold;"
+                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center f-w-600 active-color">Total</td>
+                                            <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix *
+                                                facture?.contrat?.nombreSemaine)}} FCFA</td>
                                         </tr>
                                         <tr *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                             <td>
@@ -268,7 +318,10 @@
                                             <td class="pl0">Avance</td>
                                             <td class="text-center">{{formatPrice(bien?.prix)}}</td>
                                             <td class="text-center">{{bien?.avance}}</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix * bien?.avance)}}</td>
+                                            <td class="text-end">
+                                                {{ bien.avance === 0 ? formatPrice(bien.prix) :
+                                                formatPrice(bien.prix * bien.avance) }} FCFA
+                                            </td>
                                         </tr>
 
                                         <!-- <tr>
@@ -282,7 +335,27 @@
                                         <td class="text-center">4</td>
                                         <td class="text-end">$640.00</td>
                                     </tr> -->
-                                        <tr class="tr2">
+                                        <tr class="tr2"
+                                            *ngIf="bien?.periode?.nom === 'Journalier' && bien?.statut?.nom === 'A louer'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">Total</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix *
+                                                facture?.contrat?.nombreJour)}}
+                                                FCFA</td>
+                                        </tr>
+                                        <tr class="tr2" style="font-weight: bold;"
+                                            *ngIf="bien?.periode?.nom === 'Journalier' && bien?.statut?.nom === 'A louer'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center f-w-600 active-color">Total</td>
+                                            <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix *
+                                                facture?.contrat?.nombreJour)}} FCFA</td>
+                                        </tr>
+                                        <tr class="tr2"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -292,14 +365,8 @@
                                                 bien?.caution : 1))) }}
                                                 FCFA</td>
                                         </tr>
-                                        <!-- <tr class="tr2">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center">Tax</td>
-                                        <td class="text-end">$85.99</td>
-                                    </tr> -->
-                                        <tr class="tr2" style="font-weight: bold;">
+                                        <tr class="tr2" style="font-weight: bold;"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -309,6 +376,14 @@
                                                 (bien?.caution > 0 ? bien?.caution : 1))) }} FCFA</td>
 
                                         </tr>
+                                        <!-- <tr class="tr2">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center">Tax</td>
+                                        <td class="text-end">$85.99</td>
+                                    </tr> -->
+
                                     </tbody>
                                 </table>
                             </div>
@@ -334,7 +409,8 @@
                                                     <span>Avance {{bien?.avance}} mois</span>
                                                 </div>
                                             </th>
-                                            <td class="text-start pl0">{{formatPrice(bien?.prix * bien?.avance)}} FCFA
+                                            <td class="text-start pl0">{{ bien.avance === 0 ? formatPrice(bien.prix) :
+                                                formatPrice(bien.prix * bien.avance) }} FCFA
                                             </td>
 
                                         </tr>
@@ -345,7 +421,8 @@
                                                     <span>Caution {{bien?.caution}} mois</span>
                                                 </div>
                                             </th>
-                                            <td class="text-start pl0">{{formatPrice(bien?.prix * bien?.caution)}} FCFA
+                                            <td class="text-start pl0">{{ bien.caution === 0 ? formatPrice(bien.prix) :
+                                                formatPrice(bien.prix * bien.caution) }} FCFA
                                             </td>
 
                                         </tr>
@@ -358,10 +435,7 @@
                                             <td class="f-w-600 text-start active-color">{{ formatPrice((bien?.prix > 0 ?
                                                 bien?.prix : 0) * ((bien?.avance > 0 ? bien?.avance : 0) +
                                                 (bien?.caution > 0 ? bien?.caution : 1))) }} FCFA</td>
-
                                         </tr>
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -383,7 +457,11 @@
                     </div>
                     <div class="invoice-btn-section clearfix d-print-none" *ngIf="!isAgenceProprietaire">
                         <div class="telecharge-container">
-
+                            <div class="telecharge crd">
+                                <a (click)="goToContrat(facture?.contrat?.uuid)" class="action-btn btn-edit">
+                                    <!-- <i class="fa fa-print"></i>  -->
+                                    Voir le contrat</a>
+                            </div>
                             <div class="telecharge crd" *ngIf="facture?.statut">
                                 <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
                                     <!-- <i class="fa fa-print"></i>  -->
@@ -394,11 +472,6 @@
                                     data-bs-target="#exampleModal" class="action-btn btn-edit">
                                     <!-- <i class="fa fa-download"></i> -->
                                     Payer la facture</a>
-                            </div>
-                            <div class="telecharge crd">
-                                <a (click)="goToContrat(facture?.contrat?.uuid)" class="action-btn btn-edit">
-                                    <!-- <i class="fa fa-print"></i>  -->
-                                    Voir le contrat</a>
                             </div>
                             <!-- <a href="javascript:window.print()" class="btn btn-lg btn-print">
                                 <i class="fa fa-print"></i> Imprimer le reçu
@@ -415,23 +488,24 @@
                     </div>
                     <div class="invoice-btn-section clearfix d-print-none" *ngIf="isAgenceProprietaire">
                         <div class="telecharge-container">
-                            <div class="telecharge crd" *ngIf="facture?.statut">
-                                <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
-                                    <!-- <i class="fa fa-print"></i>  -->
-                                    Voir les recus</a>
-                            </div>
                             <!-- <div class="crd" > -->
-                            <div class="row scroll-text" *ngIf="!facture?.statut">
-                                <div class="scroll-textl"> Facture non payée
-                                    <span style="font-size: 20px; font-weight: bold; color: #e98b11;"
+                                <!-- <div class="row scroll-text" *ngIf="!facture?.statut">
+                                    <div class="scroll-textl"> Facture non payée
+                                        <span style="font-size: 20px; font-weight: bold; color: #e98b11;"
                                         #motDePasseSpan></span>
+                                    </div>
+                                </div> -->
+                                <div class="telecharge crd">
+                                    <a (click)="goToContrat(facture?.contrat?.uuid)" class="action-btn btn-edit">
+                                        <!-- <i class="fa fa-print"></i>  -->
+                                        Voir le contrat</a>
                                 </div>
-                            </div>
-                            <div class="telecharge crd">
-                                <a (click)="goToContrat(facture?.contrat?.uuid)" class="action-btn btn-edit">
-                                    <!-- <i class="fa fa-print"></i>  -->
-                                    Voir le contrat</a>
-                            </div>
+                                <div class="telecharge crd" *ngIf="facture?.statut">
+                                    <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
+                                        <!-- <i class="fa fa-print"></i>  -->
+                                        Voir les recus</a>
+                                </div>
+                            
                             <!-- </div> -->
 
                         </div>

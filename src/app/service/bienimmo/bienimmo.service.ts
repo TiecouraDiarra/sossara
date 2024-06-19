@@ -375,12 +375,14 @@ export class BienimmoService {
   
 
   //CANDIDATER UN BIEN 
-  CandidaterBien(id: any, usage: any, dateEntree: any): Observable<any> {
+  CandidaterBien(id: any, usage: any, dateEntree: any, nombreJours : any, nombreSemaine : any): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('uuidBien', id || '');
-    formData.append('usage', usage || '5');
+    formData.append('usage', usage);
     formData.append('dateEntree', dateEntree || '');
+    formData.append('nombreJours', nombreJours || 0);
+    formData.append('nombreSemaine', nombreSemaine || 0);
 
     return this.http.post(`${URL_BASE}/candidature/ajouter`, formData, { headers });
   }

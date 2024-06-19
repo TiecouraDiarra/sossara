@@ -92,7 +92,7 @@ export class FactureComponent {
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
       // this.paiement = data;
-      console.log(data);
+      // console.log(data);
       this.modePaiement = data?.modePaiement;
       this.bien = data?.bien;
       this.locataire = data?.locataire;
