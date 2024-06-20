@@ -11,12 +11,18 @@ import { LocataireComponent } from '../locataire/locataire.component';
 import { AgenceComponent } from '../agence/agence.component';
 import { ProcessusLancesComponent } from '../processus-lances/processus-lances.component';
 import { MesReclamationsComponent } from '../mes-reclamations/mes-reclamations.component';
+import { CandidaturesComponent } from '../candidatures/candidatures.component';
+import { CandidaturesAccepterComponent } from '../candidatures-accepter/candidatures-accepter.component';
+import { CandidaturesAnnulerComponent } from '../candidatures-annuler/candidatures-annuler.component';
 
 @NgModule({
   declarations: [
     MesBiensComponent,
     LocataireComponent,
     // SegmentedControlComponent,
+    CandidaturesComponent,
+    CandidaturesAccepterComponent,
+    CandidaturesAnnulerComponent,
     AgenceComponent,
     ProcessusLancesComponent,
     MesReclamationsComponent

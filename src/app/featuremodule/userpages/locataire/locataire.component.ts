@@ -452,6 +452,8 @@ export class LocataireComponent implements OnInit {
       .AfficherBienLoueEtAcheterParUserConnecter()
       .subscribe((data) => {
         this.bienImmoDejaLoueLocataires = data.reverse();
+        console.log(this.bienImmoDejaLoueLocataires);
+        
         
         this.bienImmoDejaLoueLocataires.forEach((bien: any) => {
           // Vérifier si le bien est déjà loué
@@ -636,6 +638,8 @@ export class LocataireComponent implements OnInit {
         }
       });
   }
+
+  
 
   //POPUP APRES CONFIRMATION
   popUpConfirmation() {
@@ -871,9 +875,14 @@ export class LocataireComponent implements OnInit {
   }
 
   isSubmenuOpen: boolean = false;
+  isSubmenuOpenCandi: boolean = false;
 
   toggleSubmenu() {
     this.isSubmenuOpen = !this.isSubmenuOpen;
+  }
+
+  toggleSubmenuCand() {
+    this.isSubmenuOpenCandi = !this.isSubmenuOpenCandi;
   }
 
   //METHODE PERMETTANT D'AIMER UN BIEN

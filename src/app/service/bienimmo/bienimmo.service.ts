@@ -127,6 +127,20 @@ export class BienimmoService {
       { headers });
   }
 
+  //AFFICHER LA LISTE DES CANDIDATURES ANNULEES DE USER CONNECTE
+  AfficherCandidatureAnnulerDeUserConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/candidature/get/annuler`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES CANDIDATURES DE USER CONNECTE
+  AfficherCandidatureDeUserConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/candidature/get`,
+      { headers });
+  }
+
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoParUser(): Observable<any> {
     const headers = this.getHeaders();
