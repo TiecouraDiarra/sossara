@@ -251,6 +251,7 @@ export class ContratComponent {
           // Appelez la méthode AnnulerContratLocataire() avec le contenu et l'ID
           this.serviceContrat.AnnulerContratProprietaire(id).subscribe({
             next: (data) => {
+              console.log(data)
               this.popUpAnnulation();
               this.loadingAnnuler = false; // Affiche l'indicateur de chargement
             },

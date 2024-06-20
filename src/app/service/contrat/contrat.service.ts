@@ -49,8 +49,6 @@ export class ContratService {
   //ANNULER UN CONTRAT COTE PROPRIETAIRE 
   AnnulerContratProprietaire(id: any): Observable<any> {
     const headers = this.getHeaders();
-    
-   
     return this.http.post(`${URL_BASE}/contrat/annulerproprietaire/${id}`, null, { headers });
   }
 

@@ -112,7 +112,7 @@
               <h4>Pas de biens</h4>
             </ng-template>
             <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
-              <i class="fa-solid fa-plus"></i> Ajouter un bien</a>
+              <i class="fa-solid fa-plus"></i> Ajouter un bienv</a>
           </div>
           <div class="card-body" *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0">
             <div class="listing-search">
@@ -126,12 +126,27 @@
                 <div class="sortbyset">
                   <span class="sortbytitle">Trier par</span>
                   <div class="sorting-select">
-                    <select class="form-control select" [(ngModel)]="searchText">
+                    <!-- <select class="form-control select" [(ngModel)]="searchText">
                       <option value="" selected>Tout</option>
                       <option>A louer</option>
                       <option>A vendre</option>
-                    </select>
+                    </select> -->
+
+                    <mat-form-field class="mat-custom-select" style="width: 100%;">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Statut</mat-label>
+                      <mat-select [(ngModel)]="searchText">
+                        <mat-option disabled class="search-input-option">
+                          <input     class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option value="" >Tout</mat-option>
+                        <mat-option value="A louer" >A louer</mat-option>
+                        <mat-option  value="A vendre" >A vendre</mat-option>
+
+                      </mat-select>
+                    </mat-form-field>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -139,7 +154,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="view">Vues</th>
@@ -154,9 +169,9 @@
                       ) | filter : searchText
                     ">
                     <td>
-                      <div class="listingtable-img">
+                      <div >
                         <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
-                          <div *ngIf="
+                          <!-- <div *ngIf="
                               BienImmo.photos;
                               else noImages
                             ">
@@ -191,18 +206,19 @@
                               <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
                                 alt="default-img" />
                             </div>
-                          </ng-template>
+                          </ng-template> -->
+                          {{BienImmo?.reference}}
                         </a>
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
+                      <!-- <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
                           BienImmo.nom ? BienImmo.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
-                      </h6>
+                      </h6> -->
                       <div class="listingtable-rate">
                         <a href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -210,7 +226,7 @@
                         </a>
                         <span class="discount-amt">{{ formatPrice(BienImmo?.prix) }} FCFA</span>
                       </div>
-                      <p>
+                      <!-- <p>
                         {{
                         BienImmo?.adresse?.commune?.cercle?.region?.pays
                         ?.nompays
@@ -221,7 +237,7 @@
                         }}
                         - {{ BienImmo?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>
                       <span [ngClass]="{
@@ -247,20 +263,7 @@
                 </tbody>
               </table>
             </div>
-            <!-- <pagination-controls
-              *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0"
-              (pageChange)="p1 = $event"
-              previousLabel="Précédent"
-              nextLabel="Suivant"
-              class="pagination"
-              previousClass="pagination__previous"
-              nextClass="pagination__next"
-              containerClass="pagination__container"
-              pageClass="pagination__page"
-              activeClassName="pagination__page--active"
-              disabledClass="pagination__page--disabled"
-              id="bienTotalAgence"
-            ></pagination-controls> -->
+            
 
             <div class="blog-pagination">
               <nav>
@@ -317,11 +320,24 @@
                 <div class="sortbyset">
                   <span class="sortbytitle">Trier par</span>
                   <div class="sorting-select">
-                    <select class="form-control select" [(ngModel)]="searchText">
+                    <!-- <select class="form-control select" [(ngModel)]="searchText">
                       <option value="" selected>Tout</option>
                       <option>A louer</option>
                       <option>A vendre</option>
-                    </select>
+                    </select> -->
+                    <mat-form-field class="mat-custom-select" style="width: 100%;">
+                      <mat-label *ngIf="selectedCategory == ''">
+                        Statut</mat-label>
+                      <mat-select [(ngModel)]="searchText">
+                        <mat-option disabled class="search-input-option">
+                          <input     class="search-input" type="text" />
+                        </mat-option>
+                        <mat-option value="" >Tout</mat-option>
+                        <mat-option value="A louer" >A louer</mat-option>
+                        <mat-option  value="A vendre" >A vendre</mat-option>
+
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
@@ -446,18 +462,7 @@
                   <i class="feather-search"></i>
                 </div>
               </div>
-              <!-- <div class="sorting-div">
-                                <div class="sortbyset">
-                                    <span class="sortbytitle">Trier par</span>
-                                    <div class="sorting-select">
-                                        <select class="form-control select" [(ngModel)]="searchText">
-                                            <option value="" selected>Tout</option>
-                                            <option>A louer</option>
-                                            <option>A vendre</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div> -->
+              
             </div>
             <div class="table-responsive" *ngIf="bienImmoDejaLoue && bienImmoDejaLoue.length > 0">
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
@@ -606,7 +611,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="view">Date</th>
@@ -621,9 +626,9 @@
                       ) | filter : searchTextBienLoue
                     ">
                     <td>
-                      <div class="listingtable-img">
+                      <div >
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          <div *ngIf="
+                          <!-- <div *ngIf="
                               BienImmo.photos;
                               else noImages
                             ">
@@ -658,16 +663,18 @@
                               <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
                                 alt="default-img" />
                             </div>
-                          </ng-template>
+                          </ng-template> -->
+                          {{BienImmo?.reference}}
+
                         </a>
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo.typeImmo">
+                      <!-- <h6 *ngIf="BienImmo && BienImmo.typeImmo">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">{{
                           BienImmo.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}</a>
-                      </h6>
+                      </h6> -->
                       <div class="listingtable-rate">
                         <a *ngIf="BienImmo && BienImmo?.typeImmo" href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -676,7 +683,7 @@
                         <span class="discount-amt" *ngIf="BienImmo && BienImmo.prix">{{ formatPrice(BienImmo?.prix) }}
                           FCFA</span>
                       </div>
-                      <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
+                      <!-- <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
                         {{
                         BienImmo?.adresse?.commune?.cercle?.region?.pays
                         ?.nompays
@@ -687,7 +694,7 @@
                         }}
                         - {{ BienImmo?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>
                       <span [ngClass]="{
@@ -813,7 +820,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="view">Date</th>
@@ -832,9 +839,11 @@
                             }
                     ">
                     <td>
-                      <div class="listingtable-img">
+                      <div >
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          <div *ngIf="
+                          {{BienImmo?.reference}}
+
+                          <!-- <div *ngIf="
                               BienImmo.photos;
                               else noImages
                             ">
@@ -844,18 +853,19 @@
                           </div>
                           <ng-template #noImages>
                             <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
-                          </ng-template>
+                          </ng-template> -->
+                          
                         </a>
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo.typeImmo">
+                      <!-- <h6 *ngIf="BienImmo && BienImmo.typeImmo">
                         <a (click)="goToDettailBien(BienImmo.uuid)">
                           {{
                           BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
-                      </h6>
+                      </h6> -->
                       <div class="listingtable-rate">
                         <a *ngIf="BienImmo && BienImmo?.typeImmo" href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -864,7 +874,7 @@
                         <span class="discount-amt" *ngIf="BienImmo && BienImmo?.prix">{{ formatPrice(BienImmo?.prix) }}
                           FCFA</span>
                       </div>
-                      <p *ngIf="BienImmo && BienImmo?.adresse">
+                      <!-- <p *ngIf="BienImmo && BienImmo?.adresse">
                         {{
                         BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
                         }}
@@ -872,7 +882,7 @@
                         {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
                         {{ BienImmo?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>
                       <span class="status-text" style="color: red">Vendu</span>
@@ -948,7 +958,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="view">Date</th>
@@ -967,9 +977,9 @@
                             }
                     ">
                     <td>
-                      <div class="listingtable-img">
+                      <div >
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          <div *ngIf="
+                          <!-- <div *ngIf="
                               BienImmo.photos;
                               else noImages
                             ">
@@ -1004,18 +1014,19 @@
                               <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
                                 alt="default-img" />
                             </div>
-                          </ng-template>
+                          </ng-template> -->
+                          {{BienImmo?.reference}}
                         </a>
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
+                      <!-- <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo.uuid)">
                           {{
                           BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
-                      </h6>
+                      </h6> -->
                       <div class="listingtable-rate">
                         <a *ngIf="BienImmo && BienImmo.typeImmo" href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -1024,7 +1035,7 @@
                         <span class="discount-amt" *ngIf="BienImmo && BienImmo.prix">{{ formatPrice(BienImmo.prix) }}
                           FCFA</span>
                       </div>
-                      <p *ngIf="BienImmo && BienImmo.adresse">
+                      <!-- <p *ngIf="BienImmo && BienImmo.adresse">
                         {{
                         BienImmo?.adresse?.commune?.cercle?.region?.pays
                         ?.nompays
@@ -1035,7 +1046,7 @@
                         }}
                         - {{ BienImmo?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>
                       <span class="status-text" style="color: red">{{
@@ -1122,7 +1133,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="view">Date</th>
                     <th mat-sort-header="Action">Proprietaires</th>
@@ -1141,9 +1152,9 @@
                             }
                     ">
                     <td>
-                      <div class="listingtable-img">
+                      <div >
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          <div *ngIf="
+                          <!-- <div *ngIf="
                               BienImmo?.bien?.photoImmos;
                               else noImages
                             ">
@@ -1155,12 +1166,13 @@
                           </div>
                           <ng-template #noImages>
                             <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
-                          </ng-template>
+                          </ng-template> -->
+                          {{BienImmo?.reference}}
                         </a>
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo.bien && BienImmo?.bien?.typeImmo">
+                      <!-- <h6 *ngIf="BienImmo.bien && BienImmo?.bien?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
                           BienImmo?.bien?.nom
@@ -1168,7 +1180,7 @@
                           : BienImmo?.bien?.typeImmo?.nom
                           }}
                         </a>
-                      </h6>
+                      </h6> -->
                       <div class="listingtable-rate">
                         <a *ngIf="BienImmo.bien && BienImmo?.bien?.typeImmo" href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -1177,7 +1189,7 @@
                         <span class="discount-amt" *ngIf="BienImmo.bien && BienImmo?.bien?.prix">{{
                           formatPrice(BienImmo?.bien?.prix) }} FCFA</span>
                       </div>
-                      <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
+                      <!-- <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
                         {{
                         BienImmo?.bien?.adresse?.commune?.cercle?.region?.pays
                         ?.nompays
@@ -1188,7 +1200,7 @@
                         }}
                         - {{ BienImmo?.bien?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.bien?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>
                       <span class="views-count" *ngIf="BienImmo && BienImmo?.updatedAt">{{

@@ -15,7 +15,7 @@
 </div>
 <!-- /Breadscrumb Section -->
 
-<div class="dashboard-content">
+<div class="dashboard-content"> 
     <div class="container">
         <div class="">
             <ul class="dashborad-menus">
@@ -68,6 +68,7 @@
                         <div class="card-header">
                             <h4>Rendez-vous</h4>
                             <div class="card-dropdown">
+                                
                                 <ul>
                                     <li class="nav-item dropdown has-arrow logged-item">
                                         <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
@@ -95,17 +96,19 @@
                                                     alt="img" (error)="handleAuthorImageError($event)">
                                             </div>
                                         </div>
-                                        <div class="review-details">
-                                            <h6>{{Rdv?.utilisateur?.nom}}</h6>
+                                       &nbsp; &nbsp; <div class="review-details">
+                                            <h6 class="mb-2">{{Rdv?.utilisateur?.nom}}</h6>
+                                            <a  class="maReference" style="cursor: pointer;">Référence du bien : {{Rdv?.bien?.reference}}</a>   
                                             <div class="rating">
-                                                <div class="rating-star">
+                                                <!-- <div class="rating-star">
                                                     <i class="fas fa-star filled"></i>
                                                     <i class="fas fa-star filled"></i>
                                                     <i class="fas fa-star filled"></i>
                                                     <i class="fas fa-star filled"></i>
                                                     <i class="fas fa-star filled"></i>
-                                                </div>
-                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv?.date |
+                                                </div> -->
+                                               
+                                                <div> Date de rendez-vous :  <i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv?.date |
                                                     date:"dd MMM yyyy":locale}}</div>
                                                 <div>{{Rdv?.heure}}</div>
                                             </div>
@@ -146,5 +149,6 @@
                 </div> -->
             </div>
         </div>
+        
     </div>
 </div>
