@@ -35,6 +35,7 @@ export class CandidaturesAccepterComponent {
     //fait
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.reverse();
+      // console.log(this.bienImmoLoueCandidatureAccepter);
     });
   }
 
@@ -58,4 +59,9 @@ export class CandidaturesAccepterComponent {
   goToPageContrat(id: number) {
     return this.router.navigate(['userpages/contrat', id])
   }
+    //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
+    goToDettailBien(id: number) {
+      return this.router.navigate(['details-bien', id]);
+    }
+    
 }

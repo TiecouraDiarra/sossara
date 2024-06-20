@@ -85,8 +85,7 @@
                                 id="listdata-table">
                                 <thead>
                                     <tr>
-                                        <th mat-sort-header="img" class="no-sort">Image</th>
-                                        <th mat-sort-header="details" class="no-sort">Details</th>
+                                        <th mat-sort-header="details" class="no-sort">Référence</th>
                                         <th mat-sort-header="date">Date</th>
                                         <th mat-sort-header="Action">Proprietaires</th>
                                         <th mat-sort-header="status">Action</th>
@@ -94,55 +93,11 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let BienImmo of bienImmoDejaLoueLocataire | filter:searchTextBienVendu">
+                                        
                                         <td>
-                                            <div class="listingtable-img">
-                                                <a (click)="goToDettailBien(BienImmo.bien.uuid)">
-                                                    <div *ngIf="BienImmo.bien.photoImmos; else noImages">
-                                                        <img src="{{ generateImageUrl(BienImmo?.bien?.photoImmos) }}"
-                                                            class="img-fluid image-size" alt="blog-img">
-                                                    </div>
-                                                    <ng-template #noImages>
-                                                        <div class="type"
-                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Villa'">
-                                                            <img src="../../../../assets/img/typebien/villa.png"
-                                                                class="img-fluid image-size1" alt="default-img" />
-                                                        </div>
-                                                        <div class="type"
-                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Appartement'">
-                                                            <img src="../../../../assets/img/typebien/appartement.png"
-                                                                class="img-fluid image-size1" alt="default-img" />
-                                                        </div>
-                                                        <div class="type"
-                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Terrain'">
-                                                            <img src="../../../../assets/img/typebien/terrain.png"
-                                                                class="img-fluid image-size1" alt="default-img" />
-                                                        </div>
-                                                        <div class="type"
-                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Bureau'">
-                                                            <img src="../../../../assets/img/typebien/bureau.png"
-                                                                class="img-fluid image-size1" alt="default-img" />
-                                                        </div>
-                                                        <div class="type"
-                                                            *ngIf="BienImmo?.bien?.typeImmo?.nom === 'Champ'">
-                                                            <img src="../../../../assets/img/typebien/champ.png"
-                                                                class="img-fluid image-size1" alt="default-img" />
-                                                        </div>
-                                                        <div class="type" *ngIf="
-                                                        BienImmo?.bien?.typeImmo?.nom === 'Magasin'
-                                                          ">
-                                                            <img src="../../../../assets/img/typebien/magasin.png"
-                                                                class="img-fluid image-size1" alt="default-img" />
-                                                        </div>
-                                                        <!-- <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img"> -->
-                                                    </ng-template>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
+                                            <h6  style="cursor: pointer;"><a
                                                     (click)="goToDettailBien(BienImmo.bien.uuid)">
-                                                    {{ BienImmo.bien.nom ? BienImmo.bien.nom :
-                                                    BienImmo?.bien?.typeImmo?.nom }}
+                                                    {{BienImmo?.bien?.reference}}
                                                 </a>
                                             </h6>
                                             <div class="listingtable-rate">
@@ -156,12 +111,12 @@
                                                     FCFA</span>
 
                                             </div>
-                                            <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
+                                            <!-- <p *ngIf="BienImmo.bien && BienImmo.bien.adresse">
                                                 {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.pays?.nompays}} -
                                                 {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.nomregion}} -
                                                 {{BienImmo?.bien?.adresse?.commune?.nomcommune}} -
                                                 {{BienImmo?.bien?.adresse?.quartier}}
-                                            </p>
+                                            </p> -->
                                         </td>
 
                                         <td><span class="views-count"
@@ -563,8 +518,8 @@
                                 id="listdata-table">
                                 <thead>
                                     <tr>
-                                        <th mat-sort-header="img" class="no-sort">Image</th>
-                                        <th mat-sort-header="details" class="no-sort">Details</th>
+                                        <!-- <th mat-sort-header="img" class="no-sort">Référence</th> -->
+                                        <th mat-sort-header="details" class="no-sort">Référence</th>
                                         <th mat-sort-header="view">Date</th>
                                         <th mat-sort-header="Action">Proprietaires</th>
                                         <th mat-sort-header="status">Action</th>
@@ -572,51 +527,14 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let BienImmo of bienImmoUserAAcheter | filter:searchTextBienVendu">
+                                       
                                         <td>
-                                            <div class="listingtable-img">
-                                                <a (click)="goToDettailBien(BienImmo.uuid)">
-                                                    <div
-                                                        *ngIf="BienImmo.bien && BienImmo.bien.photoImmos; else noImages">
-                                                        <img src="{{ generateImageUrl(BienImmo?.bien?.photoImmos) }}"
-                                                            class="img-fluid image-size" alt="blog-img">
-                                                    </div>
-                                                    <ng-template #noImages>
-                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Villa'">
-                                                            <img src="../../../../assets/img/typebien/villa.png"
-                                                                class="img-fluid image-size" alt="default-img">
-                                                        </div>
-                                                        <div class="type"
-                                                            *ngIf="BienImmo?.typeImmo?.nom === 'Appartement'">
-                                                            <img src="../../../../assets/img/typebien/appartement.png"
-                                                                class="img-fluid image-size" alt="default-img">
-                                                        </div>
-                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Terrain'">
-                                                            <img src="../../../../assets/img/typebien/terrain.png"
-                                                                class="img-fluid image-size" alt="default-img">
-                                                        </div>
-                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Bureau'">
-                                                            <img src="../../../../assets/img/typebien/bureau.png"
-                                                                class="img-fluid image-size" alt="default-img">
-                                                        </div>
-                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Champ'">
-                                                            <img src="../../../../assets/img/typebien/champ.png"
-                                                                class="img-fluid image-size" alt="default-img">
-                                                        </div>
-                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Magasin'">
-                                                            <img src="../../../../assets/img/typebien/magasin.png"
-                                                                class="img-fluid image-size" alt="default-img">
-                                                        </div>
-                                                    </ng-template>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h6 *ngIf="BienImmo.bien && BienImmo.bien.typeImmo"><a
-                                                    (click)="goToDettailBien(BienImmo.uuid)">
-                                                    {{ BienImmo?.bien?.nom ? BienImmo?.bien?.nom :
-                                                    BienImmo?.bien?.typeImmo?.nom }}
-                                                </a>
-                                            </h6>
+                                            <h6  style="cursor: pointer;"><a
+                                                (click)="goToDettailBien(BienImmo.bien.uuid)">
+                                                {{BienImmo?.bien?.reference}}
+                                            </a>
+                                        </h6>
+                                            
                                             <div class="listingtable-rate">
                                                 <a *ngIf="BienImmo?.bien && BienImmo?.bien?.typeImmo"
                                                     href="javascript:void(0)" class="cat-icon">
@@ -628,12 +546,12 @@
                                                     FCFA</span>
 
                                             </div>
-                                            <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
+                                            <!-- <p *ngIf="BienImmo?.bien && BienImmo?.bien?.adresse">
                                                 {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.pays?.nompays}} -
                                                 {{BienImmo?.bien?.adresse?.commune?.cercle?.region?.nomregion}} -
                                                 {{BienImmo?.bien?.adresse?.commune?.nomcommune}} -
                                                 {{BienImmo?.bien?.adresse?.quartier}}
-                                            </p>
+                                            </p> -->
                                         </td>
                                         <td><span class="views-count"
                                                 *ngIf="BienImmo && BienImmo.createdAt">{{BienImmo.createdAt
@@ -1044,35 +962,22 @@
                                 id="listdata-table">
                                 <thead>
                                     <tr>
-                                        <th mat-sort-header="img" class="no-sort">Image</th>
                                         <th mat-sort-header="details" class="no-sort">Details du bien</th>
                                         <th mat-sort-header="date">Date</th>
                                         <th mat-sort-header="dateecheance">Date d'echeance</th>
                                         <th mat-sort-header="status">Statuts</th>
+                                        <th mat-sort-header="img" class="no-sort">Etat</th>
                                         <th mat-sort-header="Action">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let Facture of facture | filter:searchFacture">
-                                        <td>
-                                            <div class="listingtable-img">
-                                                <a (click)="goToDettailFacture(Facture.uuid)">
-                                                    <div *ngIf="!Facture?.statut">
-                                                        <img src="../../../../assets/img/Facture/4.png"
-                                                            class="img-fluid image-size" alt="blog-img">
-                                                    </div>
-                                                    <div *ngIf="Facture?.statut">
-                                                        <img src="../../../../assets/img/Facture/5.png"
-                                                            class="img-fluid image-size" alt="blog-img">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </td>
+                                     
+                                      
                                         <td>
                                             <h6 *ngIf="Facture.bien && Facture.bien.typeImmo"><a
-                                                    (click)="goToDettailFacture(Facture?.bien?.uuid)">
-                                                    {{ Facture?.bien?.nom ? Facture?.bien?.nom :
-                                                    Facture?.bien?.typeImmo?.nom }}
+                                                    (click)="goToDettailBien(Facture?.bien?.uuid)">
+                                                    {{ Facture?.bien?.reference}}
                                                 </a>
                                             </h6>
                                             <div class="listingtable-rate">
@@ -1086,12 +991,7 @@
                                                     FCFA</span>
 
                                             </div>
-                                            <p *ngIf="Facture.bien && Facture.bien.adresse">
-                                                {{Facture?.bien?.adresse?.commune?.cercle?.region?.pays?.nompays}} -
-                                                {{Facture?.bien?.adresse?.commune?.cercle?.region?.nomregion}} -
-                                                {{Facture?.bien?.adresse?.commune?.nomcommune}} -
-                                                {{Facture?.bien?.adresse?.quartier}}
-                                            </p>
+                                           
                                         </td>
 
                                         <td><span class="views-count"
@@ -1110,13 +1010,22 @@
                                         <td *ngIf="Facture?.bien?.statut?.nom === 'A louer'"><span
                                                 [ngClass]="{'unpublish': Facture?.bien?.statut?.nom === 'A vendre' }"
                                                 class="status-text">Location</span></td>
+                                                <td>
+                                                    <div *ngIf="Facture?.statut">
+                                                      <a (click)="goToDettailFacture(Facture.uuid)" >
+                                                       
+                                                        Payé
+                                                      </a>
+                                                    </div>
+                                                    <div *ngIf="!Facture?.statut">
+                                                      <a (click)="goToDettailFacture(Facture.uuid)" >
+                                                       
+                                                       Non payé
+                                                      </a>
+                                                    </div>
+                                                  </td>
                                         <td>
-                                            <!-- <span class="status-text">
-                                                <button type="button" class="btn btn-primary"
-                                                    (click)="openReclamationModal(BienImmo.bien.id)"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                    data-bs-whatever="@fat">Reclamation</button>
-                                            </span> -->
+                                            
 
                                             <div class="action">
                                                 <a (click)="goToDettailFacture(Facture.uuid)"
