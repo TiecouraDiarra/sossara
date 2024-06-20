@@ -338,6 +338,10 @@ export class AgenceComponent {
   favoriteStatus: { [key: string]: boolean } = {};
   favoris: any;
   searchFavoris: any;
+  candidatureAnnuler: any;
+  candidature: any[] = [];
+  candidatureAccepter : any[] = []
+
 
 
   ngOnInit(): void {
@@ -352,7 +356,7 @@ export class AgenceComponent {
           this.isAgence = true;
           //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR CONNECTEE 
           this.bienAgence();
-        
+
           this.selectedTab = 'homeagence'; // Sélectionnez l'onglet correspondant à ROLE_AGENCE
         } else if (this.profil == 'AGENT') {
           this.isAgent = true
@@ -370,7 +374,7 @@ export class AgenceComponent {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo)
+      // console.log(this.bienImmo)
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -392,7 +396,7 @@ export class AgenceComponent {
       });
 
       // console.log(this.bienImmoDejaLoue);
-      
+
 
 
 
@@ -402,7 +406,7 @@ export class AgenceComponent {
       }) => {
         this.NombreJaime = bien.favoris?.length;
         // if (typeof bien.uuid === 'number') {
-          this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
+        this.favoritedPropertiesCount1[bien.uuid] = this.NombreJaime;
         // }
         // Charger l'état de favori depuis localStorage
         const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
@@ -423,9 +427,6 @@ export class AgenceComponent {
 
 
 
-    //AFFICHER LA LISTE DES BIENS QUI SONT LOUES EN FONCTION DE L'UTILISATEUR AVEC AGENCE
-
-
     ////AFFICHER LA LISTE DES FAVORIS DE USER CONNECTE
     this.serviceBienImmo.AfficherFavorisParUserConnecter().subscribe(data => {
       this.favoris = data?.reverse();
@@ -436,7 +437,7 @@ export class AgenceComponent {
       }) => {
         this.NombreJaime = bien.bien.favoris?.length;
         // if (typeof bien.bien.id === 'number') {
-          this.favoritedPropertiesCount1[bien.bien.uuid] = this.NombreJaime;
+        this.favoritedPropertiesCount1[bien.bien.uuid] = this.NombreJaime;
         // }
         // Charger l'état de favori depuis localStorage
         const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.uuid}`);
@@ -472,7 +473,7 @@ export class AgenceComponent {
       });
       // // Afficher les biens déjà loués et déjà vendus
       // console.log(this.bienImmoDejaLoueLocataire);
-      
+
 
 
     });
@@ -486,12 +487,12 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES RECLAMATIONS Encours  EN FONCTION DES BIENS de agence proprietaire
     this.serviceBienImmo.AfficherProcessusLancerProprietaireAgenceConnecter().subscribe(data => {
       this.reclamationLancer = data.reverse();
-      
+
     });
     //AFFICHER LA LISTE DES RECLAMATIONS RECUES EN FONCTION DES BIENS DE L'UTILISATEUR
     this.serviceBienImmo.AfficherListeReclamationParUser().subscribe(data => {
       this.reclamation = data.reverse();
-      
+
 
     });
 
@@ -502,6 +503,44 @@ export class AgenceComponent {
     });
 
 
+    this.serviceBienImmo.AfficherCandidatureAnnuleeSurMesBiens().subscribe(data => {
+      this.candidatureAnnuler = data.reverse();
+    });
+
+    //AFFICHER LA LISTE DES CANDIDATURES SUR LES BIENS DE USER CONNECTE
+    // this.serviceBienImmo.AfficherCandidatureSurMesBiens().subscribe(data => {
+    //   this.candidature = data.reverse();
+    //   console.log(this.candidature);
+    // });
+      //AFFICHER LA LISTE DES CANDIDATURE PAR USER
+    //FAIT
+    this.serviceUser.AfficherLaListeCandidature().subscribe(data => {
+      // this.candidature = data.reverse();
+      // this.nombreRdvUser = data.length;
+       // Filtrer les biens immobiliers
+      data.forEach((Candidature: any) => {
+        if (Candidature.isAccepted === false && Candidature.isCancel === false) {
+          this.candidature?.push(Candidature);
+        }
+        // Vérifier si le bien est déjà loué
+        if (Candidature.isAccepted === true) {
+          this.candidatureAccepter?.push(Candidature);
+        }
+
+        // Vérifier si le bien est déjà vendu
+        // if (Candidature.isCancel === true) {
+        //   this.candidatureAnnuler?.push(Candidature);
+        // }
+
+        // Le reste de votre logique pour traiter les favoris...
+      });
+      console.log(this.candidatureAccepter);
+      
+   
+    }
+    );
+
+
     //AFFICHER LA LISTE DES BIENS QUI SONT VENDUS EN FONCTION DE L'UTILISATEUR
     // this.serviceBienImmo.AfficherBienImmoDejaVenduParUser().subscribe(data => {
     //   this.bienImmoDejaVendu = data.biens.reverse();
@@ -510,7 +549,7 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE
     this.servicefacture.AfficherFactureProprietaireConnecter().subscribe(data => {
       this.facture = data?.reverse();
-      
+
       this.bienFacture = data?.bien;
     });
 
@@ -520,12 +559,12 @@ export class AgenceComponent {
       this.bienFacture = data?.bien;
     });
 
-  }  
+  }
 
-  bienAgence(){
+  bienAgence() {
     this.serviceBienImmo.AfficherBienImmoParAgenceConnecte().subscribe(data => {
-  
-            
+
+
       let totalBiensAgents: any[] = [];
       this.bienImmoAgence = data?.bienImmos;
       // Parcourir chaque agent
@@ -558,7 +597,7 @@ export class AgenceComponent {
         // this.serviceBienImmo.ListeAimerBienParId(bien.id).subscribe(data => {
         this.NombreJaimeAgence = bien.favoris.length;
         // if (typeof bien.id === 'number') {
-          this.favoritedPropertiesCountAgence[bien.uuid] = this.NombreJaimeAgence;
+        this.favoritedPropertiesCountAgence[bien.uuid] = this.NombreJaimeAgence;
         // }
         const isFavorite = localStorage.getItem(`favoriteStatus_${bien.uuid}`);
         // });
@@ -566,11 +605,20 @@ export class AgenceComponent {
     });
   }
 
+  idCandidature: any;
+
   removeImage(index: number) {
     this.image.splice(index, 1); // Supprime l'image du tableau
     this.images.splice(index, 1); // Supprime le fichier du tableau 'images'
     this.checkImageCount(); // Appelle la fonction pour vérifier la limite d'images après la suppression
   }
+
+    //ID DE LA CANDIDATURE D'UN BIEN
+    IdCandidaterBien(id: any): void {
+      sessionStorage.removeItem("idCandidature");
+      this.idCandidature = id;
+      sessionStorage.setItem('idCandidature', id)
+    }
 
   sortData(sort: Sort) {
     const data = this.electronics.slice();
@@ -901,8 +949,7 @@ export class AgenceComponent {
                 }).then((result) => {
                   this.bienAgence();
                 })
-              } else
-              {
+              } else {
                 let timerInterval = 3000;
 
                 Swal.fire({
@@ -920,7 +967,7 @@ export class AgenceComponent {
                   allowOutsideClick: false,
                 })
               }
-             
+
             },
             error: (err) => {
 
@@ -1005,7 +1052,7 @@ export class AgenceComponent {
             }) => {
               this.NombreJaime = bien.bien.favoris?.length;
               // if (typeof bien.bien.id === 'number') {
-                this.favoritedPropertiesCount1[bien.bien.uuid] = this.NombreJaime;
+              this.favoritedPropertiesCount1[bien.bien.uuid] = this.NombreJaime;
               // }
               // Charger l'état de favori depuis localStorage
               const isFavorite = localStorage.getItem(`favoriteStatus_${bien.bien.uuid}`);
@@ -1073,6 +1120,18 @@ export class AgenceComponent {
     return Math.ceil(this.bienImmoAgenceTotal.length / this.pageSize);
 
     // }
+  }
+
+  isSubmenuOpenCandi: boolean = false;
+
+  toggleSubmenuCand() {
+    this.isSubmenuOpenCandi = !this.isSubmenuOpenCandi;
+  }
+
+  isSubmenuOpenCandi1: boolean = false;
+
+  toggleSubmenuCand1() {
+    this.isSubmenuOpenCandi1 = !this.isSubmenuOpenCandi1;
   }
 
 

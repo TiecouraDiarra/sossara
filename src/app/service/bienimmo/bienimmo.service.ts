@@ -128,9 +128,23 @@ export class BienimmoService {
   }
 
   //AFFICHER LA LISTE DES CANDIDATURES ANNULEES DE USER CONNECTE
+  AfficherCandidatureSurMesBiens(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/candidature/get/mines`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES CANDIDATURES SUR LES BIENS DE USER CONNECTE
   AfficherCandidatureAnnulerDeUserConnecter(): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(`${URL_BASE}/candidature/get/annuler`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES CANDIDATURES ANNULEES SUR LES BIENS DE USER CONNECTE
+  AfficherCandidatureAnnuleeSurMesBiens(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/candidature/get/mine/annuler`,
       { headers });
   }
 

@@ -32,9 +32,7 @@ export class CandidaturesComponent {
     //fait
     this.serviceBienImmo.AfficherCandidatureDeUserConnecter().subscribe(data => {
       this.candidature = data.reverse();
-      console.log(this.candidature);
-      
-
+      // console.log(this.candidature);
     });
   }
 
