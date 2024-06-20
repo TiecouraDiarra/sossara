@@ -53,6 +53,8 @@ export class ContratComponent {
     return roles?.some(role => role.name === 'AGENCE');
   }
   errorMessage: any = '';
+  loadingAnnulerProp = false;
+  loadingAnnulerloc = false;
   isSuccess: any = false;
   isError: any = false;
   @ViewChild('contratlocation')
@@ -120,7 +122,7 @@ export class ContratComponent {
     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
       this.contrat = data;
       // console.log(this.contrat);
-      
+
       this.bien = data?.bien;
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
@@ -229,6 +231,7 @@ export class ContratComponent {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
+        this.loadingAnnulerloc = true;
         const user = this.storageService.getUser();
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
@@ -236,8 +239,55 @@ export class ContratComponent {
           // Appelez la méthode AnnulerContratLocataire() avec le contenu et l'ID
           this.serviceContrat.AnnulerContratLocataire(id, this.formAnnulerLocat.motifAnnulationLocataire).subscribe({
             next: (data) => {
-              this.loadingAnnuler = true; // Affiche l'indicateur de chargement
-              this.popUpAnnulation();
+              // this.loadingAnnuler = true; // Affiche l'indicateur de chargement
+              // this.popUpAnnulation();
+              if (data.status) {
+                this.loadingAnnulerloc = false;
+                let timerInterval = 2000;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: "Contrat annulée",
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  timer: timerInterval,
+                  timerProgressBar: true,
+                }).then(() => {
+                  //RECUPERER L'UUID D'UN CONTRAT 
+                  this.id = this.route.snapshot.params["uuid"]
+                  //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+                  this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+                    this.contrat = data;
+                    this.bien = data?.bien;
+                    this.locataire = data?.locataire;
+                    this.proprietaire = data?.bien?.proprietaire;
+                    this.photoImmo = data?.bien?.photoImmos;
+
+                  })
+                  this.loadingAnnuler = false; // Affiche l'indicateur de chargement
+                  window.location.reload();
+                });
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Erreur',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => { });
+              }
+              this.loadingAnnulerloc = false;
             },
             error: (err) => {
 
@@ -286,7 +336,7 @@ export class ContratComponent {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.loadingAnnuler = true; // Affiche l'indicateur de chargement
+        this.loadingAnnulerProp = true; // Affiche l'indicateur de chargement
         const user = this.storageService.getUser();
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
@@ -294,8 +344,54 @@ export class ContratComponent {
           // Appelez la méthode AnnulerContratLocataire() avec le contenu et l'ID
           this.serviceContrat.AnnulerContratProprietaire(id, this.formAnnulerProprie.motifAnnulationProprietaire).subscribe({
             next: (data) => {
-              this.popUpAnnulation();
-              this.loadingAnnuler = false; // Affiche l'indicateur de chargement
+              // this.popUpAnnulation();
+              if (data.status) {
+                this.loadingAnnulerProp = false; // Affiche l'indicateur de chargement
+                let timerInterval = 2000;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: "Contrat annulée",
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  timer: timerInterval,
+                  timerProgressBar: true,
+                }).then(() => {
+                  //RECUPERER L'UUID D'UN CONTRAT 
+                  this.id = this.route.snapshot.params["uuid"]
+                  //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+                  this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+                    this.contrat = data;
+                    this.bien = data?.bien;
+                    this.locataire = data?.locataire;
+                    this.proprietaire = data?.bien?.proprietaire;
+                    this.photoImmo = data?.bien?.photoImmos;
+
+                  })
+                  this.loadingAnnuler = false; // Affiche l'indicateur de chargement
+                  window.location.reload();
+                });
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Erreur',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => { });
+              }
+              this.loadingAnnulerProp = false; // Affiche l'indicateur de chargement
             },
             error: (err) => {
 
@@ -375,7 +471,7 @@ export class ContratComponent {
             next: (data) => {
               this.isSuccess = true;
               this.errorMessage = 'Candidature acceptée avec succès';
-              
+
               // Afficher le premier popup de succès
               this.popUpConfirmation();
               this.loadingValiderProprietaire = false;
@@ -509,7 +605,7 @@ export class ContratComponent {
             next: (data) => {
               this.isSuccess = true;
               this.errorMessage = 'Contrat acceptée avec succès';
-              
+
 
               // Afficher le premier popup de succès
               this.popUpConfirmationLocataire();
