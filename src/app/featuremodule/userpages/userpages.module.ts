@@ -23,6 +23,9 @@ import { DetailsConversationComponent } from './details-conversation/details-con
 import { ListefactureComponent } from './listefacture/listefacture.component';
 import { ChatComponent } from './chat/chat/chat.component';
 import { QuillModule } from 'ngx-quill';
+// import { CandidaturesComponent } from './candidatures/candidatures.component';
+// import { CandidaturesAccepterComponent } from './candidatures-accepter/candidatures-accepter.component';
+// import { CandidaturesAnnulerComponent } from './candidatures-annuler/candidatures-annuler.component';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -43,6 +46,9 @@ import { QuillModule } from 'ngx-quill';
     DetailsConversationComponent,
     ListefactureComponent,
     ChatComponent,
+    // CandidaturesComponent,
+    // CandidaturesAccepterComponent,
+    // CandidaturesAnnulerComponent,
     // LocataireComponent,
     // ProprietaireComponent,
     // MesReclamationsComponent,

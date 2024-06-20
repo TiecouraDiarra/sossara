@@ -871,9 +871,14 @@ export class LocataireComponent implements OnInit {
   }
 
   isSubmenuOpen: boolean = false;
+  isSubmenuOpenCandi: boolean = false;
 
   toggleSubmenu() {
     this.isSubmenuOpen = !this.isSubmenuOpen;
+  }
+
+  toggleSubmenuCand() {
+    this.isSubmenuOpenCandi = !this.isSubmenuOpenCandi;
   }
 
   //METHODE PERMETTANT D'AIMER UN BIEN

@@ -127,6 +127,20 @@ export class BienimmoService {
       { headers });
   }
 
+  //AFFICHER LA LISTE DES CANDIDATURES ANNULEES DE USER CONNECTE
+  AfficherCandidatureAnnulerDeUserConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/candidature/get/annuler`,
+      { headers });
+  }
+
+  //AFFICHER LA LISTE DES CANDIDATURES DE USER CONNECTE
+  AfficherCandidatureDeUserConnecter(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/candidature/get`,
+      { headers });
+  }
+
   //AFFICHER LA LISTE DES BIENS EN FONCTION DE L'UTILISATEUR SANS AGENCE
   AfficherBienImmoParUser(): Observable<any> {
     const headers = this.getHeaders();
@@ -605,10 +619,9 @@ export class BienimmoService {
   }
 
   //SUPPRIMER UN BIEN
-  SupprimerBien(id: any): Observable<any> {
+  SupprimerBien(uid: any): Observable<any> {
     const headers = this.getHeaders();
-
-    return this.http.post(`${URL_BASE}/bien/immo/delete/${id}`, null, { headers });
+    return this.http.put(`${URL_BASE}/bien/supprimer/${uid}`, null, { headers });
   }
 
   //FAIRE UNE RECLAMATION

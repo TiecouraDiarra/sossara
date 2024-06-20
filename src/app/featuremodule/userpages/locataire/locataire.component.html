@@ -13,6 +13,24 @@
                     aria-controls="achete" aria-selected="false">Biens achetés</a>
             </li>
             <li class="nav-item has-submenu crd">
+                <a class="nav-link custom-tab-link" (click)="toggleSubmenuCand()">
+                    Candidatures <i class="feather-chevron-down"></i>
+                </a>
+                <ul class="submenu" style="margin-left: 20px;" [ngClass]="{'collapse': !isSubmenuOpenCandi}">
+                    <li><a class="nav-link custom-tab-link" id="candidature-tab" data-toggle="tab"
+                            [class.active]="isTabActive('candidature')" (click)="changeTab('candidature')" role="tab"
+                            aria-controls="candidature" aria-selected="false">Mes Candidatures</a></li>
+                    <li><a class="nav-link custom-tab-link" id="candidatureaccepter-tab" data-toggle="tab"
+                            [class.active]="isTabActive('candidatureaccepter')"
+                            (click)="changeTab('candidatureaccepter')" role="tab" aria-controls="candidatureaccepter"
+                            aria-selected="false">Mes Candidature acceptées</a></li>
+                    <li><a class="nav-link custom-tab-link" id="candidatureannuler-tab" data-toggle="tab"
+                            [class.active]="isTabActive('candidatureannuler')"
+                            (click)="changeTab('candidatureannuler')" role="tab" aria-controls="candidatureannuler"
+                            aria-selected="false">Mes Candidature annulées</a></li>
+                </ul>
+            </li>
+            <li class="nav-item has-submenu crd">
                 <a class="nav-link custom-tab-link" (click)="toggleSubmenu()">
                     Reclamations <i class="feather-chevron-down"></i>
                 </a>
@@ -239,11 +257,11 @@
                                                                 probleme <span style="color: red;">*</span></label>
                                                             <mat-form-field class="mat-custom-select"
                                                                 style="width: 98%">
-                                                                <mat-label *ngIf="selectedCategory == ''">Type de probleme</mat-label>
-                                                                <mat-select name="usage"
-                                                                [(ngModel)]="form.type">
+                                                                <mat-label *ngIf="selectedCategory == ''">Type de
+                                                                    probleme</mat-label>
+                                                                <mat-select name="usage" [(ngModel)]="form.type">
                                                                     <mat-option *ngFor="let item of probleme"
-                                                                    [value]="item.id">
+                                                                        [value]="item.id">
                                                                         {{ item?.nom }}</mat-option>
                                                                 </mat-select>
                                                             </mat-form-field>
@@ -584,8 +602,7 @@
                                                             <img src="../../../../assets/img/typebien/champ.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
-                                                        <div class="type"
-                                                            *ngIf="BienImmo?.typeImmo?.nom === 'Magasin'">
+                                                        <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Magasin'">
                                                             <img src="../../../../assets/img/typebien/magasin.png"
                                                                 class="img-fluid image-size" alt="default-img">
                                                         </div>
@@ -900,6 +917,57 @@
             </div>
         </div>
         <!-- Fin des biens achetes  -->
+        <!-- Debut des candidatures  -->
+        <div class="tab-pane fade show" [class.active]="isTabActive('candidature')" id="candidature"
+            role="tabpanel" aria-labelledby="candidature-tab">
+            <div class="dashboard-content">
+                <div class="container">
+                    <div class="row dashboard-info reviewpage-content">
+                        <div class="col-lg-12 d-flex">
+                            <div class="card dash-cards w-100">
+                                <app-candidatures></app-candidatures>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin des candidatures -->
+
+        <!-- Debut des candidature accepter  -->
+        <div class="tab-pane fade show" [class.active]="isTabActive('candidatureaccepter')" id="candidatureaccepter"
+            role="tabpanel" aria-labelledby="candidatureaccepter-tab">
+            <div class="dashboard-content">
+                <div class="container">
+                    <div class="row dashboard-info reviewpage-content">
+                        <div class="col-lg-12 d-flex">
+                            <div class="card dash-cards w-100">
+                                <app-candidatures-accepter></app-candidatures-accepter>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin des candidature accepter -->
+
+        <!-- Debut des candidature annuler  -->
+        <div class="tab-pane fade show" [class.active]="isTabActive('candidatureannuler')" id="candidatureannuler"
+            role="tabpanel" aria-labelledby="candidatureannuler-tab">
+            <div class="dashboard-content">
+                <div class="container">
+                    <div class="row dashboard-info reviewpage-content">
+                        <div class="col-lg-12 d-flex">
+                            <div class="card dash-cards w-100">
+                                <app-candidatures-annuler></app-candidatures-annuler>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin des candidature annuler -->
+
         <!-- Debut des reclamations que j'ai fait  -->
         <div class="tab-pane fade show" [class.active]="isTabActive('reclamationfait')" id="reclamationfait"
             role="tabpanel" aria-labelledby="reclamationfait-tab">
@@ -909,6 +977,13 @@
                         <div class="col-lg-12 d-flex" *ngIf="reclamationUser && reclamationUser.length > 0">
                             <div class="card dash-cards w-100">
                                 <app-mes-reclamations></app-mes-reclamations>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 d-flex" *ngIf="reclamationUser && reclamationUser?.length == 0">
+                            <div class="card dash-cards w-100">
+                                <div class="card-header">
+                                    <h4>Vous n'avez pas fait de reclamation</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -923,11 +998,18 @@
                 <div class="container">
                     <div class="row dashboard-info reviewpage-content">
                         <div class="col-lg-12 d-flex"
+                            *ngIf="reclamationProcessusLance && reclamationProcessusLance?.length == 0">
+                            <div class="card dash-cards w-100">
+                                <div class="card-header">
+                                    <h4>Aucun processus lancé</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 d-flex"
                             *ngIf="reclamationProcessusLance && reclamationProcessusLance.length > 0">
                             <div class="card dash-cards w-100">
                                 <app-processus-lances></app-processus-lances>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -1203,8 +1285,7 @@
                                                         <img src="../../../../assets/img/typebien/champ.png"
                                                             class="img-fluid1 image-size1" alt="default-img">
                                                     </div>
-                                                    <div class="type"
-                                                        *ngIf="slide?.bien?.typeImmo?.nom === 'Magasin'">
+                                                    <div class="type" *ngIf="slide?.bien?.typeImmo?.nom === 'Magasin'">
                                                         <img src="../../../../assets/img/typebien/magasin.png"
                                                             class="img-fluid1 image-size1" alt="default-img">
                                                     </div>

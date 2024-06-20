@@ -1,0 +1,111 @@
+<!-- <div class="card-header">
+    <h4>Mes candidatures acceptées</h4>
+</div> -->
+<div class="card dash-cards w-100">
+    <div class="card-header">
+        <h4>Mes candidatures annulées</h4>
+        <div class="card-dropdown">
+            <ul>
+                <li class="nav-item dropdown has-arrow logged-item">
+                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span>Tout</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
+                        <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
+                        <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="ligne">
+        <div class="card-body">
+            <ul class="review-list">
+                <ng-container *ngIf="
+                candidatureAnnuler && candidatureAnnuler.length > 0;else noCandidatureAcc">
+                    <li class="review-box" *ngFor="let Candidature of candidatureAnnuler">
+
+                        <div class="review-profile">
+                            <div class="review-img">
+                                <img src="{{generateImageUrl(Candidature?.bien?.proprietaire?.photo?.nom)}}"
+                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
+                            </div>
+                        </div>
+                        <div class="review-details">
+                            <h6>{{Candidature?.bien?.proprietaire?.nom}}</h6>
+                            <div class="rating">
+                                <!-- <div class="rating-star">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                </div> -->
+                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                    {{Candidature?.updatedAt |
+                                    date:"dd MMM yyyy":locale}}</div>
+                                <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.updatedAt
+                                    |
+                                    date:"HH:mm"}}</div>
+                            </div>
+                            <div class="row mb-3">
+                                {{Candidature?.bien?.nom}}
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="blog-category">
+                                        <a
+                                            href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p style="color: #e98b11; font-weight: bold;">{{
+                                        formatPrice(Candidature?.bien?.prix) }} FCFA</p>
+                                </div>
+
+                            </div>
+
+                            <ul class="review-gallery">
+                                <li
+                                    *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
+                                    <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
+                                </li>
+                                <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
+                                    <li *ngFor="let _ of [1, 2, 3, 4]">
+                                        <!-- Répéter 4 fois -->
+                                        <img class="img-fluid" alt="Image par défaut"
+                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                    </li>
+                                </ng-container>
+                            </ul>
+                            <div class="row mt-3">
+                                <!-- <div class="col">
+                                    <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
+                                        class="btn btn-outline-danger"><i class="fas fa-times"></i>
+                                        Annuler</button>
+                                </div> -->
+                                <!-- <div class="col">
+                                    <button data-bs-toggle="modal"
+                                        (click)="openFactureModal(Candidature.id)"
+                                        data-bs-target="#exampleModalToggle2" type="button"
+                                        class="btn btn-outline-success"><i class="fas fa-check"></i>
+                                        Payer</button>
+                                </div> -->
+                                <!-- Button trigger modal -->
+                                <!-- <button (click)="goToPageContrat(Candidature?.bien?.contrat[0]?.uuid)"
+                                    type="button" class="btn btn-primary">
+                                    Voir le contrat
+                                </button> -->
+                            </div>
+                        </div>
+                    </li>
+                </ng-container>
+                <ng-template #noCandidatureAcc>
+                    <h4 style="font-size: 17px;">Pas de candidature annulée</h4>
+                </ng-template>
+            </ul>
+        </div>
+    </div>
+</div>

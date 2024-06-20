@@ -62,7 +62,8 @@ export class ChatserviceService {
 
   loadMessage(roomId: string): void {
     if (roomId) {
-      this.httpClient.get<any[]>(`${URL_BASE}/chat/${roomId}`).pipe(
+      const headers = this.getHeaders();
+      this.httpClient.get<any[]>(`${URL_BASE}/chat/${roomId}`,{ headers }).pipe(
         map(result => {
           return result.map(res => {
             return {
@@ -92,5 +93,9 @@ export class ChatserviceService {
     const headers = this.getHeaders();
     return this.httpClient.get(`${URL_BASE}/chat/message/afficherchat`, { headers });
   }
+
+
+
+  
 
 }

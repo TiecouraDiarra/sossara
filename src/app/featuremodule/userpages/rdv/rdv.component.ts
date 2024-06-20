@@ -68,7 +68,9 @@ export class RdvComponent {
     //FAIT
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
-      // this.nombreRdvUser = data.length;
+      console.log(this.rdv);
+      
+      
      }
     );
   }
