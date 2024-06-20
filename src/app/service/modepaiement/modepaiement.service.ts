@@ -40,7 +40,7 @@ export class ModepaiementService {
   FairePaiement(
     id: any,
     nombreMois: any,
-    nombreAnnees: any,
+    nombreSemaine: any,
     nombreJours: any,
     sommePayer: any,
     numeroPaiement: any,
@@ -49,7 +49,7 @@ export class ModepaiementService {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('nombreMois', nombreMois || 0);
-    formData.append('nombreAnnees', nombreAnnees || 0);
+    formData.append('nombreSemaine', nombreSemaine || 0);
     formData.append('nombreJours', nombreJours || 0);
     formData.append('sommePayer', sommePayer);
     formData.append('modePaiement', modePaiement);

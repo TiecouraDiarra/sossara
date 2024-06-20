@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ContratRoutingModule } from './contrat-routing.module';
 import { ContratComponent } from './contrat.component';
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ContratComponent } from './contrat.component';
   imports: [
     CommonModule,
     FormsModule,
-    ContratRoutingModule
+    ContratRoutingModule,
+    QuillModule.forRoot(), // ngx-quill
   ]
 })
 export class FactureModule { }

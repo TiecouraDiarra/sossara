@@ -29,7 +29,7 @@ export class OrangeMoneyComponent {
   nombreSemaineChoisi: number = 0;
   paiementForm: any = {
     nombreMois: null,
-    nombreAnnees: null,
+    nombreSemaine: null,
     nombreJours: null,
     sommePayer: null,
     numeroPaiement: null,
@@ -38,6 +38,7 @@ export class OrangeMoneyComponent {
   errorMessage: any;
   isError: any = false;
   facture: any;
+  contrat: any;
 
   constructor(
     private paiementService: ModepaiementService,
@@ -78,32 +79,36 @@ export class OrangeMoneyComponent {
     //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
+      // console.log(this.facture);
+      this.contrat = data?.contrat;
       this.candidature = data;
       this.bien = data?.bien;
       this.photoImmo = data?.bien?.photoImmos;
-     })
+    })
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
     return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
   onNombreMoisChange(): void {
-     // const selectElement = event.target as HTMLSelectElement;
+    // const selectElement = event.target as HTMLSelectElement;
     // this.nombreMoisChoisi = parseInt(selectElement.value, 10);
   }
   onNombreJourChange(): void {
     // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-     // Faites tout traitement supplémentaire ici si nécessaire
+    // Faites tout traitement supplémentaire ici si nécessaire
   }
 
   onNombreSemaineChange(): void {
     // Vous pouvez accéder à this.nombreMoisChoisi ici pour obtenir la nouvelle valeur
-     // Faites tout traitement supplémentaire ici si nécessaire
+    // Faites tout traitement supplémentaire ici si nécessaire
   }
+
+  loadingPaiement = false;
 
   //FAIRE LE PAIEMENT AVEC ORANGE MONEY
   FairePaiement(id: any): void {
-    const {contenu, nombreMois,nombreAnnees,nombreJours,sommePayer,numeroPaiement,modePaiement,} = this.paiementForm;
+    const { contenu, nombreMois, nombreSemaine, nombreJours, sommePayer, numeroPaiement, modePaiement, } = this.paiementForm;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -112,23 +117,23 @@ export class OrangeMoneyComponent {
       heightAuto: false
     })
     const numeroPaiementSansTiret = numeroPaiement.replace(/\-/g, '');
-   
-  if (!/^7|^8[0-4]|^9[0-4]/.test(numeroPaiementSansTiret)) {
-    Swal.fire({
-      position: 'center',
-      text: "Veuillez saisir un numéro orange valide",
-      title: 'Erreur',
-      icon: 'error',
-      heightAuto: false,
-      showConfirmButton: true,
-      confirmButtonText: 'OK',
-      confirmButtonColor: '#e98b11',
-      showDenyButton: false,
-      showCancelButton: false,
-      allowOutsideClick: false,
-    })
-    return; // Sortez de la fonction pour éviter d'exécuter le reste du code
-}
+
+    if (!/^7|^8[0-4]|^9[0-4]/.test(numeroPaiementSansTiret)) {
+      Swal.fire({
+        position: 'center',
+        text: "Veuillez saisir un numéro orange valide",
+        title: 'Erreur',
+        icon: 'error',
+        heightAuto: false,
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#e98b11',
+        showDenyButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+      })
+      return; // Sortez de la fonction pour éviter d'exécuter le reste du code
+    }
 
 
 
@@ -142,29 +147,40 @@ export class OrangeMoneyComponent {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
+        this.loadingPaiement = true;
         const user = this.storageService.getUser();
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
 
           if (this.bien.statut.nom === 'A louer' && this.bien?.periode?.nom === 'Mensuel') {
-            this.paiementForm.nombreMois = this.bien?.avance + this.bien?.caution;
-            this.paiementForm.sommePayer = this.bien?.prix * this.paiementForm.nombreMois
+            // Vérifier si à la fois avance et caution sont égaux à zéro
+            if (this.bien.avance === 0 && this.bien.caution === 0) {
+              // Calculer sommePayer en utilisant le prix du bien
+              this.paiementForm.sommePayer = this.bien.prix;
+            } else {
+              // Calculer nombreMois comme étant égal à avance + caution
+              this.paiementForm.nombreMois = this.bien.avance + this.bien.caution;
+              // Calculer sommePayer en utilisant le prix du bien multiplié par nombreMois
+              this.paiementForm.sommePayer = this.bien.prix * this.paiementForm.nombreMois;
+            }
+            // this.paiementForm.sommePayer = this.bien?.prix * this.paiementForm.nombreMois
           } else if (this.bien?.periode?.nom === 'Journalier') {
-            this.paiementForm.nombreJours = this.nombreJourChoisi;
-            this.paiementForm.sommePayer = this.bien?.prix * this.nombreJourChoisi;
+            this.paiementForm.nombreJours = this.contrat?.nombreJour;
+            this.paiementForm.sommePayer = this.bien?.prix * this.contrat?.nombreJour;
           } else if (this.bien?.periode?.nom === 'Hebdomadaire') {
-            this.paiementForm.nombreAnnees = this.nombreSemaineChoisi;
-            this.paiementForm.sommePayer = this.bien?.prix * this.nombreSemaineChoisi;
-          } else if(this.bien.statut.nom === 'A vendre' && this.bien?.periode?.nom === 'Mensuel'){
+            this.paiementForm.nombreSemaine = this.contrat?.nombreSemaine;
+            this.paiementForm.sommePayer = this.bien?.prix * this.contrat?.nombreSemaine;
+          } else if (this.bien.statut.nom === 'A vendre' && this.bien?.periode?.nom === 'Mensuel') {
             this.paiementForm.sommePayer = this.bien?.prix;
           }
-           this.paiementForm.modePaiement = 1;
+          this.paiementForm.modePaiement = 1;
 
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
-          this.paiementService.FairePaiement(id, this.paiementForm.nombreMois, nombreAnnees, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1).subscribe({
+          this.paiementService.FairePaiement(id, this.paiementForm.nombreMois, this.paiementForm.nombreSemaine, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1).subscribe({
             next: (data) => {
               if (data.status) {
+                this.loadingPaiement = false;
                 let timerInterval = 2000;
                 Swal.fire({
                   position: 'center',
@@ -183,6 +199,7 @@ export class OrangeMoneyComponent {
                   this.goToPageRecu(data.message)
                 });
               } else {
+                this.loadingPaiement = false;
                 Swal.fire({
                   position: 'center',
                   text: data.message,
@@ -199,7 +216,7 @@ export class OrangeMoneyComponent {
               }
             },
             error: (err) => {
-          
+
               this.errorMessage = err.error.message;
               this.isError = true
               // Gérez les erreurs ici
@@ -215,12 +232,12 @@ export class OrangeMoneyComponent {
   onKeyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
     let inputChar = String.fromCharCode(event.charCode);
-  
+
     if (!pattern.test(inputChar)) {
       // Caractère non numérique, empêcher l'entrée
       event.preventDefault();
     }
-  
+
     // Insérer un tiret après chaque paire de chiffres
     const inputValue = event.target.value.replace(/\-/g, ''); // Supprimer les tirets existants
     let formattedValue = '';
@@ -229,15 +246,41 @@ export class OrangeMoneyComponent {
     }
     // Supprimer le tiret final s'il dépasse la limite de 8 caractères
     formattedValue = formattedValue.slice(0, 10);
-   
+
     // Mettre à jour la valeur dans l'input
     event.target.value = formattedValue;
   }
-  
-  
-  
+
+
+  islongNumero(telephone: string): boolean {
+    // Votre méthode actuelle pour vérifier la longueur du numéro de téléphone
+    return telephone.length === 8 && /^[0-9-]+$/.test(telephone);
+  }
+
+  startsWithValidPrefix(telephone: string): boolean {
+    // Vérifie si le numéro commence par l'un des préfixes spécifiés
+    return /^(7|8|90|91|92|93|94)/.test(telephone);
+  }
+
+  containsOnlyDigits(telephone: string): boolean {
+    // Vérifie si le numéro contient uniquement des chiffres
+    return /^[0-9]+$/.test(telephone);
+  }
+
+  // Vérifie le numéro de téléphone complet avec tous les critères
+  isValidPhoneNumber(telephone: string): boolean {
+    return (
+      this.startsWithValidPrefix(telephone) &&
+      this.islongNumero(telephone) &&
+      this.containsOnlyDigits(telephone)
+    );
+  }
+
+
+
+
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
   goToPageRecu(id: number) {
-     return this.router.navigate(['userpages/recufacture', id])
+    return this.router.navigate(['userpages/recufacture', id])
   }
 }

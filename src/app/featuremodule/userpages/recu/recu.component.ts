@@ -31,6 +31,7 @@ export class RecuComponent {
   modePaiement: any;
 
   isMobile= false;
+  facture: any;
   @HostListener('window:resize', ['$event'])
   onResize(event: any) { 
     this.isMobile = event.target.innerWidth <= 767;
@@ -73,6 +74,9 @@ export class RecuComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.paiementService.AfficherPaiementParUuId(this.id).subscribe(data => {
       this.paiement = data;
+      // console.log(this.paiement);
+      
+      // this.facture = data?.facture;
       this.modePaiement = data?.modePaiement;
       this.bien = data?.transaction?.bien;
       this.locataire = data?.utilisateur;

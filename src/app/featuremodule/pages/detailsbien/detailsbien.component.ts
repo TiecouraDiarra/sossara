@@ -79,6 +79,9 @@ export class DetailsbienComponent implements AfterViewInit {
   public chatData: any;
   lesCommodites: any;
   candidaterWithModal: boolean = false;
+  bienJournalier: boolean = false;
+  bienHebdomadaire: boolean = false;
+  bienJournalierHebdomadaire: boolean = false;
   bienPartage: any;
   test: any;
   bienImmoSuivant: any;
@@ -121,6 +124,18 @@ export class DetailsbienComponent implements AfterViewInit {
 
       if (this.bien.statut.nom == "A louer") {
         this.candidaterWithModal = true;
+      }
+
+      if (this.bien.periode.nom == "Journalier" || this.bien.periode.nom == "Hebdomadaire") {
+        this.bienJournalierHebdomadaire = true;
+      }
+
+      if (this.bien.periode.nom == "Journalier") {
+        this.bienJournalier = true;
+      }
+
+      if (this.bien.periode.nom == "Hebdomadaire") {
+        this.bienHebdomadaire = true;
       }
 
       // Options de la carte
@@ -170,7 +185,8 @@ export class DetailsbienComponent implements AfterViewInit {
   description: any
   status: any = ['A louer', 'A vendre'];
   type: any;
-  valuesSelect: any = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  valuesSelectHebdo: any = ['1', '2', '3', '4', '5'];
+  valuesSelectJourn: any = ['1', '2', '3', '4', '5', '6', '7'];
   selectedFiles: any;
   isButtonDisabled: boolean = false;
   maxImageCount: number = 0;
@@ -676,6 +692,8 @@ export class DetailsbienComponent implements AfterViewInit {
   formCandidater: any = {
     usage: null,
     date: null,
+    nombreJours: null,
+    nombreSemaine: null,
   };
 
   //METHODE PERMETTANT DE CANDIDATER UN BIEN
@@ -709,26 +727,34 @@ export class DetailsbienComponent implements AfterViewInit {
         });
         return; // Arrêter la fonction si la date est invalide
       }
-      // Vérification si le champ d'usage est nul
-      if (!this.formCandidater.usage) {
-        Swal.fire({
-          position: 'center',
-          text: "Veuillez sélectionner un usage.",
-          title: 'Erreur',
-          icon: 'error',
-          heightAuto: false,
-          showConfirmButton: true,
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#e98b11',
-          showDenyButton: false,
-          showCancelButton: false,
-          allowOutsideClick: false,
-        });
-        return; // Arrêter la fonction si le champ usage est nul
-      }
+      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
+        // Modifier l'usage en fonction de la période et du type du bien
+        if (data?.periode?.nom === "Journalier" || data?.periode?.nom === "Hebdomadaire") {
+          this.formCandidater.usage = 3;
+        } else if (data?.typeImmo?.nom === "Terrain") {
+          this.formCandidater.usage = 5;
+        }
+
+        // Vérification si le champ d'usage est nul pour la période "Mensuel"
+        if (data?.periode?.nom === "Mensuel" && !this.formCandidater.usage) {
+          Swal.fire({
+            position: 'center',
+            text: "Veuillez sélectionner un usage.",
+            title: 'Erreur',
+            icon: 'error',
+            heightAuto: false,
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#e98b11',
+            showDenyButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+          });
+          return; // Arrêter la fonction si le champ usage est null
+        }
+      })
     }
-
-
+    
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -756,7 +782,7 @@ export class DetailsbienComponent implements AfterViewInit {
           this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe(data => {
             this.idBien = data.uuid;
             // Appelez la méthode PrendreRdv() avec le contenu et l'ID
-            this.serviceBienImmo.CandidaterBien(this.idBien, this.formCandidater.usage, this.formCandidater.date).subscribe({
+            this.serviceBienImmo.CandidaterBien(this.idBien, this.formCandidater.usage, this.formCandidater.date, this.formCandidater.nombreJours, this.formCandidater.nombreSemaine).subscribe({
               next: (data) => {
                 if (data.status) {
                   let timerInterval = 2000;
@@ -812,6 +838,7 @@ export class DetailsbienComponent implements AfterViewInit {
       }
     });
   }
+  
 
   // Méthode pour obtenir les informations de l'utilisateur connecté
   getCurrentUser(): any {

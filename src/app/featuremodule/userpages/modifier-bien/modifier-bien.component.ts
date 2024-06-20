@@ -544,6 +544,8 @@ export class ModifierBienComponent {
       this.form.periode = ''; // Mettre la période à null si le statut est "A vendre"
       this.form.caution = '';
       this.form.avance = '';
+      this.form.surface='';
+      this.form.caracteristique='';
     }
   }
 

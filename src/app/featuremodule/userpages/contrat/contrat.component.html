@@ -354,7 +354,7 @@
                                 <span style="color: #e98b11">{{
                                   bien?.chambre
                                   }}</span></strong>,
-                              <strong>
+                              <strong *ngIf="bien?.surface">
                                 - Surface habitable :
                                 <span style="color: #e98b11">{{ bien?.surface }} </span>M²</strong>, <br />
                               <strong>
@@ -395,14 +395,21 @@
                             <span class="fw-bold" style="color: #e98b11">{{
                               formatPrice(bien?.prix)
                               }}</span>
-                            FCFA.
+                            FCFA par jour.
+                          </p>
+                          <p *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
+                            Le montant du loyer hebdomadaire est fixé à
+                            <span class="fw-bold" style="color: #e98b11">{{
+                              formatPrice(bien?.prix)
+                              }}</span>
+                            FCFA par semaine.
                           </p>
                           <p *ngIf="bien?.periode?.nom === 'Mensuel'">
                             Le montant du loyer mensuel est fixé à
                             <span class="fw-bold" style="color: #e98b11">{{
                               formatPrice(bien?.prix)
                               }}</span>
-                            FCFA.
+                            FCFA par mois.
                           </p>
                         </article>
 
@@ -417,7 +424,11 @@
                             paiement à la date convenue chaque mois.
                           </p>
                           <p *ngIf="bien?.periode?.nom === 'Journalier'">
-                            e loyer doit être payé au début. Le locataire
+                            Le loyer doit être payé au début. Le locataire
+                            s'engage à effectuer le paiement à cette date convenue.
+                          </p>
+                          <p *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
+                            Le loyer doit être payé au début. Le locataire
                             s'engage à effectuer le paiement à cette date convenue.
                           </p>
                         </article>
@@ -453,16 +464,12 @@
                               <label class="checkbox-inline">
                                 La location du Logement est consentie pour une durée journalière.
                               </label>
-                              <!-- <label class="checkbox-inline">
-                                <input
-                                  type="checkbox"
-                                  readonly
-                                  checked
-                                  value="6 ans"
-                                />
-                                6 ans (minimum 6 ans si le bailleur est une
-                                personne morale)
-                              </label> -->
+                            </li>
+                            <li *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
+                              <strong>Durée du contrat :</strong>
+                              <label class="checkbox-inline">
+                                La location du Logement est consentie pour une durée hebdomadaire.
+                              </label>
                             </li>
                             <li *ngIf="isProprietaire(proprietaire?.profil) && bien?.periode?.nom === 'Mensuel'">
                               <strong>Durée du contrat :</strong>
@@ -949,23 +956,23 @@
           <div class="invoice-btn-section clearfix d-print-none" *ngIf="!isAgenceProprietaire">
             <div class="telecharge-container">
 
-              <div class=" telecharge crd" 
-                *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
-                <a (click)="AnnulerContratLocataire(contrat?.id)" class="action-btn btn-edit">
+              <div class=" telecharge crd" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                *ngIf="contrat && !contrat.accepterLocataire && !contrat.annulerLocataire">
+                <a class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-times"></i> Annuler le
                   contrat</a>
               </div>
               <!-- Indicateur de chargement -->
-              <div *ngIf="loadingValiderLocataire" class="spinner-border text-primary" role="status">
+              <!-- <div *ngIf="loadingAnnuler" class="spinner-border" style="color: #e98b11;" role="status">
                 <span class="sr-only">Chargement en cours...</span>
-              </div>
+              </div> -->
               <div class=" telecharge crd"
-                *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
+                *ngIf="contrat && !contrat.accepterLocataire && !contrat.annulerLocataire">
                 <a (click)="ValiderContratLocataire(contrat?.id)" class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-check"></i> Valider le contrat</a>
               </div>
               <!-- Indicateur de chargement -->
-              <div *ngIf="loadingAnnuler" class="spinner-border text-primary" role="status">
+              <div *ngIf="loadingValiderLocataire" class="spinner-border" style="color: #e98b11;" role="status">
                 <span class="sr-only">Chargement en cours...</span>
               </div>
               <div class=" telecharge crd">
@@ -978,29 +985,33 @@
               <div *ngIf="loading" class="spinner-border text-primary" role="status">
                 <span class="sr-only">Chargement en cours...</span>
               </div>
+              <div class="telecharge crd" *ngIf="contrat && contrat.accepterLocataire && contrat.accepterproprietaire">
+                <a (click)="goToDettailFacture(bien?.contrat[0]?.facture[0]?.uuid)" class="action-btn btn-edit">
+                  <i style="color: white" class="fas fa-check"></i>Voir la facture</a>
+              </div>
 
             </div>
           </div>
           <div class="invoice-btn-section clearfix d-print-none" *ngIf="isAgenceProprietaire">
             <div class="telecharge-container">
-              <div class="telecharge crd"
-                *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
-                <a (click)="AnnulerContratProprietaire(contrat?.id)" class="action-btn btn-edit">
+              <div class="telecharge crd" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                *ngIf="contrat && !contrat.annulerProprietaire && !contrat.annulerLocataire && !contrat.accepterproprietaire && !contrat.accepterLocataire">
+                <a class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-times"></i> Annuler le
                   contrat</a>
               </div>
               <!-- Indicateur de chargement -->
-              <div *ngIf="loadingAnnuler" class="spinner-border text-primary" role="status">
+              <!-- <div *ngIf="loadingAnnuler" class="spinner-border" style="color: #e98b11;" role="status">
                 <span class="sr-only">Chargement en cours...</span>
-              </div>
+              </div> -->
               <div class="telecharge crd"
-                *ngIf="contrat && (!contrat.accepterLocataire || !contrat.accepterproprietaire)">
+                *ngIf="contrat && !contrat.annulerProprietaire && !contrat.annulerLocataire && !contrat.accepterproprietaire && !contrat.accepterLocataire">
                 <a (click)="ValiderContratProprietaire()" class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-check"></i> Valider le
                   contrat</a>
               </div>
               <!-- Indicateur de chargement -->
-              <div *ngIf="loadingValiderProprietaire" class="spinner-border text-primary" role="status">
+              <div *ngIf="loadingValiderProprietaire" class="spinner-border" style="color: #e98b11;" role="status">
                 <span class="sr-only">Chargement en cours...</span>
               </div>
               <div class="telecharge crd" *ngIf="bien?.statut?.nom == 'A louer'">
@@ -1014,16 +1025,107 @@
                   contrat</a>
               </div>
               <!-- Indicateur de chargement -->
-              <div *ngIf="loading" class="spinner-border text-primary" role="status">
+              <div *ngIf="loading" class="spinner-border" style="color: #e98b11;" role="status">
                 <span class="sr-only">Chargement en cours...</span>
               </div>
+              <div class="telecharge crd" *ngIf="contrat && contrat.accepterLocataire && contrat.accepterproprietaire">
+                <a (click)="goToDettailFacture(bien?.contrat[0]?.facture[0]?.uuid)" class="action-btn btn-edit">
+                  <i style="color: white" class="fas fa-check"></i>Voir la facture</a>
+              </div>
+            </div>
+          </div>
+          <!-- Modal POUR L'ANNULATION CONTRAT PROPRIETAIRE -->
+          <div style="margin-top: 100px;" class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    Motil d'annulation du contrat
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="row mb-3">
+                      <div class="col-md-12 mb-3">
+                        <div class="form-group group-img">
+                          <div class="form-floating">
+                            <quill-editor name="motifAnnulationProprietaire"
+                              [(ngModel)]="formAnnulerProprie.motifAnnulationProprietaire" placeholder="Motif"
+                              [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
+                              (onContentChanged)="onContentChanged($event)">
+                            </quill-editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Retour
+                  </button>
+                  <button (click)="AnnulerContratProprietaire(contrat?.id)" type="button" class="btn btn-primary" [disabled]="loadingAnnulerProp">
+                    <ng-container *ngIf="!loadingAnnulerProp">Annuler le contrat</ng-container>
+                    <ng-container *ngIf="loadingAnnulerProp">
+                      <div class="spinner-border" style="color: #374b5c;font-size: 13px;" role="status">
+                        <span class="sr-only">Chargement en cours...</span>
+                      </div>
+                    </ng-container>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <!-- Modal POUR L'ANNULATION CONTRAT LOCATAIRE -->
+          <div style="margin-top: 100px;" class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
+            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    Motil d'annulation du contrat
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="row mb-3">
+                      <div class="col-md-12 mb-3">
+                        <div class="form-group group-img">
+                          <div class="form-floating">
+                            <quill-editor name="motifAnnulationLocataire"
+                              [(ngModel)]="formAnnulerLocat.motifAnnulationLocataire" placeholder="Motif"
+                              [modules]="quillConfig" (onSelectionChanged)="onSelectionChanged($event)"
+                              (onContentChanged)="onContentChanged($event)">
+                            </quill-editor>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Retour
+                  </button>
+                  <button (click)="AnnulerContratLocataire(contrat?.id)" type="button" class="btn btn-primary" [disabled]="loadingAnnulerloc">
+                    <ng-container *ngIf="!loadingAnnulerloc">Annuler le contrat</ng-container>
+                    <ng-container *ngIf="loadingAnnulerloc">
+                      <div class="spinner-border" style="color: #374b5c;font-size: 13px;" role="status">
+                        <span class="sr-only">Chargement en cours...</span>
+                      </div>
+                    </ng-container>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="col-lg-2"></div>
       </div>
-      <div class="col-lg-2"></div>
     </div>
   </div>
-</div>
-<!-- Invoice 1 end -->
+  <!-- Invoice 1 end -->

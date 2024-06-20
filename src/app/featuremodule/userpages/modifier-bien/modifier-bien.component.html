@@ -200,34 +200,6 @@
                 </div>
               </div>
 
-              <!-- caracteristique -->
-              <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                  <label class="col-form-label">Caracteristique <span>*</span></label>
-                  <div class="pass-group group-img">
-
-                    <mat-form-field
-                    class="mat-custom-select"
-                    style="width: 100%"
-                  >
-                    <mat-label *ngIf="selectedCategory == ''">
-                      Caracteristique</mat-label
-                    >
-                    <mat-select
-                      [(ngModel)]="form.caracteristique"
-                      name="caracteristique"
-                    >
-                      <mat-option
-                        *ngFor="let item of caracteristique"
-                        [value]="item?.id"
-                      >
-                        {{ item?.caracteristique }}</mat-option
-                      >
-                    </mat-select>
-                  </mat-form-field>
-                  </div>
-                </div>
-              </div>
 
               <!-- Nombre de salon -->
               <div class="col-lg-6 col-md-6" *ngIf="selectedType != '3' && selectedType != '5' && selectedType != '6'">
@@ -326,6 +298,34 @@
                         [value]="item"
                       >
                         {{ item }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- caracteristique -->
+              <div class="col-lg-6 col-md-6" *ngIf="selectedStatut === 2">
+                <div class="form-group">
+                  <label class="col-form-label">Caracteristique <span>*</span></label>
+                  <div class="pass-group group-img">
+
+                    <mat-form-field
+                    class="mat-custom-select"
+                    style="width: 100%"
+                  >
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Caracteristique</mat-label
+                    >
+                    <mat-select
+                      [(ngModel)]="form.caracteristique"
+                      name="caracteristique"
+                    >
+                      <mat-option
+                        *ngFor="let item of caracteristique"
+                        [value]="item?.id"
+                      >
+                        {{ item?.caracteristique }}</mat-option
                       >
                     </mat-select>
                   </mat-form-field>

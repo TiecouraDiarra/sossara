@@ -370,6 +370,7 @@ export class AgenceComponent {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
+      console.log(this.bienImmo)
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -509,6 +510,7 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE
     this.servicefacture.AfficherFactureProprietaireConnecter().subscribe(data => {
       this.facture = data?.reverse();
+      
       this.bienFacture = data?.bien;
     });
 

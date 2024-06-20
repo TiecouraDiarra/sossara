@@ -136,9 +136,7 @@
                                     |
                                     date:"dd MMM yyyy":locale}}</span></td>
 
-                                    <td><span class="views-count">{{ formatPrice((Facture?.bien?.prix >
-                                        0 ? Facture?.bien?.prix : 0) * ((Facture?.bien?.avance > 0 ? Facture?.bien?.avance : 0) +
-                                        (Facture?.bien?.caution > 0 ? Facture?.bien?.caution : 1))) }} FCFA</span></td>
+                                    <td><span class="views-count">{{ formatPrice(Facture?.somme) }} FCFA</span></td>
                                     <td *ngIf="Facture?.statut"><span class="views-count">Payée</span></td>
                                     <td *ngIf="!Facture?.statut"><span class="views-count">Non Payée</span></td>
                                 <td>

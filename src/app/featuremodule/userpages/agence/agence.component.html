@@ -112,7 +112,7 @@
               <h4>Pas de biens</h4>
             </ng-template>
             <a class="nav-link header-login add-listing" [routerLink]="routes.addlisting">
-              <i class="fa-solid fa-plus"></i> Ajouter un bienv</a>
+              <i class="fa-solid fa-plus"></i> Ajouter un bien</a>
           </div>
           <div class="card-body" *ngIf="bienImmoAgenceTotal && bienImmoAgenceTotal.length > 0">
             <div class="listing-search">
@@ -346,7 +346,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="view">Vues</th>
@@ -360,9 +360,9 @@
                         | paginate : { itemsPerPage: 4, currentPage: p1 }
                     ">
                     <td>
-                      <div class="listingtable-img">
+                      <div >
                         <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
-                          <div *ngIf="
+                          <!-- <div *ngIf="
                               BienImmo.photos && BienImmo?.photos.length > 0;
                               else noImages
                             ">
@@ -372,18 +372,19 @@
                           </div>
                           <ng-template #noImages>
                             <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
-                          </ng-template>
-                        </a>
+                          </ng-template>-->
+                        {{BienImmo?.reference}}
+                        </a> 
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
+                      <!-- <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
                           BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}
                         </a>
-                      </h6>
+                      </h6> -->
                       <div class="listingtable-rate">
                         <a href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -391,7 +392,7 @@
                         </a>
                         <span class="discount-amt">{{ formatPrice(BienImmo?.prix) }} FCFA</span>
                       </div>
-                      <p>
+                      <!-- <p>
                         {{
                         BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
                         }}
@@ -399,7 +400,7 @@
                         {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
                         {{ BienImmo?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>
                       <span [ngClass]="{
@@ -468,7 +469,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="view">Date</th>
@@ -483,9 +484,9 @@
                           : { itemsPerPage: 4, currentPage: p2, id: 'bienLoue' }
                     ">
                     <td>
-                      <div class="listingtable-img">
-                        <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          <div *ngIf="
+                      <div >
+                        <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
+                          <!-- <div *ngIf="
                               BienImmo?.photos && BienImmo?.photos.length > 0;
                               else noImages
                             ">
@@ -495,16 +496,17 @@
                           </div>
                           <ng-template #noImages>
                             <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
-                          </ng-template>
+                          </ng-template> -->
+                          {{BienImmo?.reference}}
                         </a>
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
+                      <!-- <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo.uuid)">{{
                           BienImmo.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
                           }}</a>
-                      </h6>
+                      </h6> -->
                       <div class="listingtable-rate">
                         <a *ngIf="BienImmo && BienImmo?.typeImmo" href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -513,7 +515,7 @@
                         <span class="discount-amt" *ngIf="BienImmo && BienImmo?.prix">{{ formatPrice(BienImmo?.prix) }}
                           FCFA</span>
                       </div>
-                      <p *ngIf="BienImmo && BienImmo?.adresse">
+                      <!-- <p *ngIf="BienImmo && BienImmo?.adresse">
                         {{
                         BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
                         }}
@@ -521,7 +523,7 @@
                         {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
                         {{ BienImmo?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
                     <td>
                       <span [ngClass]="{
@@ -840,7 +842,7 @@
                     ">
                     <td>
                       <div >
-                        <a (click)="goToDettailBien(BienImmo?.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
                           {{BienImmo?.reference}}
 
                           <!-- <div *ngIf="
@@ -978,7 +980,7 @@
                     ">
                     <td>
                       <div >
-                        <a (click)="goToDettailBien(BienImmo?.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
                           <!-- <div *ngIf="
                               BienImmo.photos;
                               else noImages
@@ -1153,7 +1155,7 @@
                     ">
                     <td>
                       <div >
-                        <a (click)="goToDettailBien(BienImmo?.uuid)">
+                        <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
                           <!-- <div *ngIf="
                               BienImmo?.bien?.photoImmos;
                               else noImages
@@ -2714,7 +2716,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Statut</th>
                     <th mat-sort-header="details" class="no-sort">
                       Details du bien
                     </th>
@@ -2735,7 +2737,7 @@
                               id: 'factureBiens'
                             }
                     ">
-                    <td>
+                    <!-- <td>
                       <div class="listingtable-img">
                         <a (click)="goToDettailFacture(Facture.uuid)">
                           <div *ngIf="!Facture?.statut">
@@ -2746,6 +2748,34 @@
                             <img src="../../../../assets/img/Facture/5.png" class="img-fluid image-size"
                               alt="blog-img" />
                           </div>
+                        </a>
+                      </div>
+                    </td> -->
+                    <td>
+                      <div *ngIf="Facture?.statut">
+                        <a (click)="goToDettailFacture(Facture.uuid)" >
+                          <!-- <div *ngIf="!Facture?.statut">
+                            <img src="../../../../assets/img/Facture/4.png" class="img-fluid image-size"
+                              alt="blog-img" />
+                          </div>
+                          <div *ngIf="Facture?.statut">
+                            <img src="../../../../assets/img/Facture/5.png" class="img-fluid image-size"
+                              alt="blog-img" />
+                          </div> -->
+                          Payé
+                        </a>
+                      </div>
+                      <div *ngIf="!Facture?.statut">
+                        <a (click)="goToDettailFacture(Facture.uuid)" >
+                          <!-- <div *ngIf="!Facture?.statut">
+                            <img src="../../../../assets/img/Facture/4.png" class="img-fluid image-size"
+                              alt="blog-img" />
+                          </div>
+                          <div *ngIf="Facture?.statut">
+                            <img src="../../../../assets/img/Facture/5.png" class="img-fluid image-size"
+                              alt="blog-img" />
+                          </div> -->
+                         Non payé
                         </a>
                       </div>
                     </td>
@@ -2767,7 +2797,7 @@
                         <span class="discount-amt" *ngIf="Facture?.bien && Facture?.bien?.prix">{{
                           formatPrice(Facture?.bien?.prix) }} FCFA</span>
                       </div>
-                      <p *ngIf="Facture?.bien && Facture?.bien?.adresse">
+                      <!-- <p *ngIf="Facture?.bien && Facture?.bien?.adresse">
                         {{
                         Facture?.bien?.adresse?.commune?.cercle?.region?.pays
                         .nompays
@@ -2778,7 +2808,7 @@
                         }}
                         - {{ Facture?.bien.adresse?.commune?.nomcommune }} -
                         {{ Facture?.bien?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
 
                     <td>
@@ -2936,7 +2966,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
+                    <th mat-sort-header="img" class="no-sort">Statut</th>
                     <th mat-sort-header="details" class="no-sort">
                       Details du bien
                     </th>
@@ -2958,16 +2988,30 @@
                            }
                    ">
                     <td>
-                      <div class="listingtable-img">
-                        <a (click)="goToDettailFacture(Facture.uuid)">
-                          <div *ngIf="!Facture?.statut">
+                      <div *ngIf="Facture?.statut">
+                        <a (click)="goToDettailFacture(Facture.uuid)" >
+                          <!-- <div *ngIf="!Facture?.statut">
                             <img src="../../../../assets/img/Facture/4.png" class="img-fluid image-size"
                               alt="blog-img" />
                           </div>
                           <div *ngIf="Facture?.statut">
                             <img src="../../../../assets/img/Facture/5.png" class="img-fluid image-size"
                               alt="blog-img" />
+                          </div> -->
+                          Payé
+                        </a>
+                      </div>
+                      <div *ngIf="!Facture?.statut">
+                        <a (click)="goToDettailFacture(Facture.uuid)" >
+                          <!-- <div *ngIf="!Facture?.statut">
+                            <img src="../../../../assets/img/Facture/4.png" class="img-fluid image-size"
+                              alt="blog-img" />
                           </div>
+                          <div *ngIf="Facture?.statut">
+                            <img src="../../../../assets/img/Facture/5.png" class="img-fluid image-size"
+                              alt="blog-img" />
+                          </div> -->
+                         Non payé
                         </a>
                       </div>
                     </td>
@@ -2989,7 +3033,7 @@
                         <span class="discount-amt" *ngIf="Facture?.bien && Facture?.bien?.prix">{{
                           formatPrice(Facture?.bien?.prix) }} FCFA</span>
                       </div>
-                      <p *ngIf="Facture?.bien && Facture?.bien?.adresse">
+                      <!-- <p *ngIf="Facture?.bien && Facture?.bien?.adresse">
                         {{
                         Facture?.bien?.adresse?.commune?.cercle?.region?.pays
                         .nompays
@@ -3000,7 +3044,7 @@
                         }}
                         - {{ Facture?.bien.adresse?.commune?.nomcommune }} -
                         {{ Facture?.bien?.adresse?.quartier }}
-                      </p>
+                      </p> -->
                     </td>
 
                     <td>

@@ -22,6 +22,7 @@ import { RdvComponent } from './rdv/rdv.component';
 import { DetailsConversationComponent } from './details-conversation/details-conversation.component';
 import { ListefactureComponent } from './listefacture/listefacture.component';
 import { ChatComponent } from './chat/chat/chat.component';
+import { QuillModule } from 'ngx-quill';
 // import { MesReclamationsComponent } from './mes-reclamations/mes-reclamations.component';
 // import { ProcessusLancesComponent } from './processus-lances/processus-lances.component';
 
@@ -55,7 +56,8 @@ import { ChatComponent } from './chat/chat/chat.component';
     FormsModule,
     Ng2SearchPipeModule,
     SharedModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    QuillModule.forRoot(), // ngx-quill
   ]
 })
 export class UserpagesModule { }
