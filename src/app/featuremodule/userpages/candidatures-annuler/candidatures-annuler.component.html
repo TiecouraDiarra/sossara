@@ -7,8 +7,7 @@
         <div class="card-dropdown">
             <ul>
                 <li class="nav-item dropdown has-arrow logged-item">
-                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown" aria-expanded="false">
                         <span>Tout</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
@@ -25,82 +24,85 @@
             <ul class="review-list">
                 <ng-container *ngIf="
                 candidatureAnnuler && candidatureAnnuler.length > 0;else noCandidatureAcc">
-          
-                    <div class="table-responsive" >
-                        <table  class="listing-table datatable" id="listdata-table">
-                          <thead>
-                            <tr>
-                              <th  class="no-sort">Propriétaire</th>
-                              <th  class="no-sort">
-                                Référence du bien
-                              </th>
-                              <th >Date & Heure</th>
-                              <!-- <th >Heure</th> -->
-                              <th >Statuts</th>
-                              <th >Etat</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="
+
+                    <div class="table-responsive">
+                        <table class="listing-table datatable" id="listdata-table">
+                            <thead>
+                                <tr>
+                                    <th class="no-sort">
+                                        Référence du bien
+                                    </th>
+                                    <th>Date & Heure</th>
+                                    <!-- <th >Heure</th> -->
+                                    <th>Statuts</th>
+                                    <th>Etat</th>
+                                    <th class="no-sort">Propriétaire</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="
                                let candidature of candidatureAnnuler
                              ">
-                              <td>
-                                <div>
-                                  <a  >
                                    
-                                    <h6>{{candidature?.bien?.proprietaire?.nom}}</h6>
-                                  </a>
-                                </div>
-                                
-                              </td>
-                              <td>
-                                <h6 *ngIf="candidature?.bien && candidature?.bien?.typeImmo">
-                                    <a style="cursor: pointer;"
-                                    (click)="goToDettailBien(candidature.bien.uuid)">
-                                    {{
-                                    candidature?.bien?.reference
-                                    }}
-                                  </a>
-                                </h6>
-                                <div class="listingtable-rate">
-                                  <a *ngIf="candidature?.bien && candidature?.bien?.typeImmo" href="javascript:void(0)" class="cat-icon">
-                                    <i class="fa-regular fa-circle-stop"></i>
-                                    {{ candidature?.bien?.typeImmo?.nom }}
-                                  </a>
-                                  <span class="discount-amt" *ngIf="candidature?.bien && candidature?.bien?.prix">{{
-                                    formatPrice(candidature?.bien?.prix) }} FCFA</span>
-                                </div>
-                               
-                              </td>
-          
-                              <td>
-                                <span class="views-count" *ngIf="candidature && candidature?.createdAt">{{
-                                  candidature?.createdAt | date : "dd MMM yyyy" : locale
-                                  }} à {{candidature?.updatedAt
-                                    |
-                                    date:"HH:mm"}}</span>
-                              </td>
-                              <td *ngIf="candidature?.bien?.statut?.nom === 'A vendre'">
-                                <span [ngClass]="{
+                                    <td>
+                                        <h6 *ngIf="candidature?.bien && candidature?.bien?.typeImmo">
+                                            <a style="cursor: pointer;"
+                                                (click)="goToDettailBien(candidature.bien.uuid)">
+                                                {{
+                                                candidature?.bien?.reference
+                                                }}
+                                            </a>
+                                        </h6>
+                                        <div class="listingtable-rate">
+                                            <a *ngIf="candidature?.bien && candidature?.bien?.typeImmo"
+                                                href="javascript:void(0)" class="cat-icon">
+                                                <i class="fa-regular fa-circle-stop"></i>
+                                                {{ candidature?.bien?.typeImmo?.nom }}
+                                            </a>
+                                            <span class="discount-amt"
+                                                *ngIf="candidature?.bien && candidature?.bien?.prix">{{
+                                                formatPrice(candidature?.bien?.prix) }} FCFA</span>
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        <span class="views-count" *ngIf="candidature && candidature?.createdAt">{{
+                                            candidature?.createdAt | date : "dd MMM yyyy" : locale
+                                            }} à {{candidature?.updatedAt
+                                            |
+                                            date:"HH:mm"}}</span>
+                                    </td>
+                                    <td *ngIf="candidature?.bien?.statut?.nom === 'A vendre'">
+                                        <span [ngClass]="{
                                    unpublish: candidature?.bien?.statut?.nom === 'A vendre'
                                  }" class="status-text">Vente</span>
-                              </td>
-                              <td *ngIf="candidature?.bien?.statut?.nom === 'A louer'">
-                                <span [ngClass]="{
+                                    </td>
+                                    <td *ngIf="candidature?.bien?.statut?.nom === 'A louer'">
+                                        <span [ngClass]="{
                                    unpublish: candidature?.bien?.statut?.nom === 'A vendre'
                                  }" class="status-text">Location</span>
-                              </td>
-                              <td>
-                                <div class="action">
-                                    <a > Annulée 
-                                  </a>
-                                  </div>
-                              </td>
-                            </tr>
-                          </tbody>
+                                    </td>
+                                    <td>
+                                        <div class="action">
+                                            <a> Annulée
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <a>
+
+                                                <h6>{{candidature?.bien?.proprietaire?.nom}}</h6>
+                                            </a>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
-                       
-                      </div>
+
+                    </div>
                 </ng-container>
                 <ng-template #noCandidatureAcc>
                     <h4 style="font-size: 17px;">Pas de candidature annulée</h4>

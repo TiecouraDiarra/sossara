@@ -26,13 +26,13 @@
                         <table  class="listing-table datatable" id="listdata-table">
                           <thead>
                             <tr>
-                              <th  class="no-sort">Propriétaire</th>
-                              <th  class="no-sort">
-                                Référence du bien
-                              </th>
-                              <th >Date & Heure</th>
-                              <!-- <th >Heure</th> -->
-                              <th >Statuts</th>
+                                <th  class="no-sort">
+                                    Référence du bien
+                                </th>
+                                <th >Date & Heure</th>
+                                <!-- <th >Heure</th> -->
+                                <th >Statuts</th>
+                                <th  class="no-sort">Propriétaire</th>
                               <th >Action</th>
                             </tr>
                           </thead>
@@ -40,15 +40,6 @@
                             <tr *ngFor="
                                let candidature of bienImmoLoueCandidatureAccepter
                              ">
-                              <td>
-                                <div>
-                                  <a  >
-                                   
-                                    <h6>{{candidature?.bien?.proprietaire?.nom}}</h6>
-                                  </a>
-                                </div>
-                                
-                              </td>
                               <td>
                                 <h6 *ngIf="candidature?.bien && candidature?.bien?.typeImmo">
                                   <a style="cursor: pointer;"
@@ -88,8 +79,15 @@
                                  }" class="status-text">Location</span>
                               </td>
                               <td>
-                               
-          
+                                <div>
+                                  <a  >
+                                   
+                                    <h6>{{candidature?.bien?.proprietaire?.nom}}</h6>
+                                  </a>
+                                </div>
+                                
+                              </td>
+                              <td>
                                 <div class="action">
                                   <a (click)="goToPageContrat(candidature?.bien?.contrat[0]?.uuid)" class="action-btn btn-view crd"> <img class="icone-size"
                                     src="../../../../assets/img/iconeBien/contrat.png"

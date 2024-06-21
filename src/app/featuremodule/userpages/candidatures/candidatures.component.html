@@ -27,28 +27,20 @@
                         <table  class="listing-table datatable" id="listdata-table">
                           <thead>
                             <tr>
-                              <th  class="no-sort">Propriétaire</th>
-                              <th  class="no-sort">
-                                Référence du bien
-                              </th>
-                              <th >Date & Heure</th>
-                              <th >Statuts</th>
-                              <th >Etat</th>
+                                <th  class="no-sort">
+                                    Référence du bien
+                                </th>
+                                <th >Date & Heure</th>
+                                <!-- <th >Heure</th> -->
+                                <th >Statuts</th>
+                                <th >Etat</th>
+                                <th  class="no-sort">Propriétaire</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="
                                let candidature of candidature
                              ">
-                              <td>
-                                <div>
-                                  <a  >
-                                   
-                                    <h6>{{candidature?.bien?.proprietaire?.nom}}</h6>
-                                  </a>
-                                </div>
-                                
-                              </td>
                               <td>
                                 <h6 *ngIf="candidature?.bien && candidature?.bien?.typeImmo">
                                     <a style="cursor: pointer;"
@@ -91,8 +83,16 @@
                                
           
                                 <div class="action">
-                                  <a > Encours 
+                                  <a > En attente 
                                 </a>
+                                </div>
+                              </td>
+                              <td>
+                                <div>
+                                  <a  >
+                                   
+                                    <h6>{{candidature?.bien?.proprietaire?.nom}}</h6>
+                                  </a>
                                 </div>
                               </td>
                             </tr>

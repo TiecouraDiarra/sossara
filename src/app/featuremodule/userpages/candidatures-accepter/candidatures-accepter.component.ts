@@ -35,8 +35,7 @@ export class CandidaturesAccepterComponent {
     //fait
     this.serviceBienImmo.AfficherBienImmoLoueCandidatureAccepter().subscribe(data => {
       this.bienImmoLoueCandidatureAccepter = data.reverse();
-      
-
+      // console.log(this.bienImmoLoueCandidatureAccepter);
     });
   }
 
