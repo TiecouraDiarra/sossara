@@ -1,3 +1,8 @@
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
+    integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
+
 <!-- Breadscrumb Section -->
 <div class="breadcrumb-bar">
     <div class="container">
@@ -63,445 +68,226 @@
                 </li> -->
             </ul>
         </div>
-        <div class="row dashboard-info reviewpage-content ">
-            <div class="col-lg-6 d-flex">
-                <div class="card dash-cards  w-100">
-                    <div class="card-header">
-                        <h4>Les candidatures</h4>
-                        <div class="card-dropdown">
-                            <ul>
-                                <li class="nav-item dropdown has-arrow logged-item">
-                                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <span>Tout</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
-                                    </div>
-                                </li>
-                            </ul>
+        <!-- <div class="row dashboard-info reviewpage-content "> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 left">
+                    <div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
+                        <div class="p-3 border-top border-bottom">
+                            <h5 class="font-weight-bold text-dark mb-1 mt-0">Notifications</h5>
                         </div>
-                    </div>
-                    <div class="ligne">
-                        <div class="card-body">
-                            <ul class="review-list">
-                                <ng-container *ngIf="
-                                candidature && candidature.length > 0;else noCandidature">
-                                <li class="review-box" *ngFor="let Candidature of candidature">
-
-                                    <div class="review-profile">
-                                        <div class="review-img">
-                                            <img src="{{generateImageUrl(Candidature?.utilisateur?.photo?.nom)}}"
-                                                class="img-fluid" alt="img" (error)="handleAuthorImageError($event)"> 
-                                        </div>
-                                    </div>
-                                    <div class="review-details">
-                                        <h6>{{Candidature?.utilisateur?.nom}}</h6>
-                                        <div class="rating">
-                                            <div class="rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                            </div>
-                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                {{Candidature?.createdAt |
-                                                date:"dd MMM yyyy":locale}}</div>
-                                            <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.createdAt
-                                                |
-                                                date:"HH:mm"}}</div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            {{Candidature?.bien?.nom}}
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <p class="blog-category">
-                                                    <a
-                                                        href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
-                                                </p>
-                                            </div>
-                                            <div class="col">
-                                                <p style="color: #e98b11; font-weight: bold;">{{
-                                                    formatPrice(Candidature?.bien?.prix) }} FCFA</p>
-                                            </div>
-
-                                        </div>
-
-                                        <ul class="review-gallery">
-                                            <li
-                                                *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
-                                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
-                                            </li>
-                                            <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
-                                                <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                    <!-- Répéter 4 fois -->
-                                                    <img class="img-fluid" alt="Image par défaut"
-                                                        src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                </li>
-                                            </ng-container>
-                                        </ul>
-                                        <div class="row mt-3">
-                                            <button (click)="IdCandidaterBien(Candidature?.id)"
-                                                (click)="goToPageContrat(Candidature?.contrats?.uuid)"
-                                                type="button" class="btn btn-primary">
-                                                Voir le contrat
-                                            </button>
-                                            <!-- <div class="col">
-                                                <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
-                                                    class="btn btn-outline-danger"><i class="fas fa-times"></i>
-                                                    Annuler</button>
-                                            </div>
-                                            <div class="col">
-                                                <button (click)="AccepterCandidaterBien(Candidature.id)" type="button"
-                                                    class="btn btn-outline-success"><i class="fas fa-check"></i>
-                                                    Valider</button>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                </li>
-                                </ng-container>
-                                <ng-template #noCandidature>
-                                    <h4 style="font-size: 17px;">Pas de candidature</h4>
-                                </ng-template>
-                            </ul>
-                        </div>
+                        <!-- <div class="p-3">
+                                <div class="d-flex align-items-top mb-2">
+                                    <p class="mb-0 text-muted">Posted</p>
+                                    <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">1 day ago</p>
+                                </div>
+                                <div class="d-flex align-items-top">
+                                    <p class="mb-0 text-muted">Applicant Rank</p>
+                                    <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">25</p>
+                                </div>
+                            </div> -->
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6 d-flex ">
-                <div class="card dash-cards w-100">
-                    <div class="card-header">
-                        <h4>Mes candidatures acceptées</h4>
-                        <div class="card-dropdown">
-                            <ul>
-                                <li class="nav-item dropdown has-arrow logged-item">
-                                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <span>Tout</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                <div class="col-lg-9 right">
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Recent</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px; font-weight: bold;">
+                                    <div class="text-truncate">DAILY RUNDOWN: WEDNESDAY</div>
+                                    <div class="small">Income tax sops on the cards, The bias in VC funding, and
+                                        other top news for you</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group dropdown">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
+                                                Marquer comme lu</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
                                     </div>
-                                </li>
-                            </ul>
+                                    <br />
+                                    <div class="text-right text-muted pt-1">3d</div>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="ligne">
-                        <div class="card-body">
-                            <ul class="review-list">
-                                <ng-container *ngIf="
-                                bienImmoLoueCandidatureAccepter && bienImmoLoueCandidatureAccepter.length > 0;else noCandidatureAcc">
-                                    <li class="review-box" *ngFor="let Candidature of bienImmoLoueCandidatureAccepter">
-    
-                                        <div class="review-profile">
-                                            <div class="review-img">
-                                                <img src="{{generateImageUrl(Candidature?.bien?.proprietaire?.photo?.nom)}}"
-                                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                                            </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Paiements</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px; font-weight: bold;">
+                                    <div class="text-truncate">DAILY RUNDOWN: WEDNESDAY</div>
+                                    <div class="small text-success"><i class="fa fa-check-circle"></i> You sent
+                                        Mandeep a message</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
+                                                Marquer comme lu</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
                                         </div>
-                                        <div class="review-details">
-                                            <h6>{{Candidature?.bien?.proprietaire?.nom}}</h6>
-                                            <div class="rating">
-                                                <div class="rating-star">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                </div>
-                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                    {{Candidature?.updatedAt |
-                                                    date:"dd MMM yyyy":locale}}</div>
-                                                <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.updatedAt
-                                                    |
-                                                    date:"HH:mm"}}</div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                {{Candidature?.bien?.nom}}
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p class="blog-category">
-                                                        <a
-                                                            href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
-                                                    </p>
-                                                </div>
-                                                <div class="col">
-                                                    <p style="color: #e98b11; font-weight: bold;">{{
-                                                        formatPrice(Candidature?.bien?.prix) }} FCFA</p>
-                                                </div>
-    
-                                            </div>
-    
-                                            <ul class="review-gallery">
-                                                <li
-                                                    *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
-                                                    <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
-                                                </li>
-                                                <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
-                                                    <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                        <!-- Répéter 4 fois -->
-                                                        <img class="img-fluid" alt="Image par défaut"
-                                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                    </li>
-                                                </ng-container>
-                                            </ul>
-                                            <div class="row mt-3">
-                                                <!-- <div class="col">
-                                                    <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
-                                                        class="btn btn-outline-danger"><i class="fas fa-times"></i>
-                                                        Annuler</button>
-                                                </div> -->
-                                                <!-- <div class="col">
-                                                    <button data-bs-toggle="modal"
-                                                        (click)="openFactureModal(Candidature.id)"
-                                                        data-bs-target="#exampleModalToggle2" type="button"
-                                                        class="btn btn-outline-success"><i class="fas fa-check"></i>
-                                                        Payer</button>
-                                                </div> -->
-                                                <!-- Button trigger modal -->
-                                                <button (click)="goToPageContrat(Candidature?.bien?.contrat[0]?.uuid)"
-                                                    type="button" class="btn btn-primary">
-                                                    Voir le contrat
-                                                </button>
-                                            </div>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Paiement</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <!-- <div class="col-md-6 mb-3">
-                                                                        <label for="recipient-name"
-                                                                            class="col-form-label">Periode du bien</label>
-                                                                        <input type="text" class="form-control"
-                                                                            value="{{bien?.periode?.nom}}" readonly>
-                                                                    </div>
-                                                                    <div class="col-md-6 mb-3">
-                                                                        <label class="col-form-label">Prix du bien</label>
-                                                                        <input type="text" class="form-control"
-                                                                            value="{{formatPrice(bien?.prix)}} FCFA" readonly>
-                                                                    </div>
-                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
-                                                                        <label class="col-form-label">Nombre de jour</label>
-                                                                        <input type="number" class="form-control" min="0" max="29" [(ngModel)]="nombreJourChoisi" (input)="onNombreJourChange()">
-                                                                    </div>
-                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
-                                                                        <label class="col-form-label">Nombre de semaine</label>
-                                                                        <input type="number" class="form-control" min="0" max="5" [(ngModel)]="nombreSemaineChoisi" (input)="onNombreSemaineChange()">
-                                                                    </div> -->
-                                                                    <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
-                                                                        <label class="col-form-label">Nombre de mois</label>
-                                                                        <input type="number" class="form-control" min="0" max="12" [(ngModel)]="nombreMoisChoisi" (input)="onNombreMoisChange()">
-                                                                    </div> -->
-                                                                    <!-- <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Journalier'">
-                                                                        <div class="d-flex flex-column dis">
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p>Nombre de jour</p>
-                                                                                <p>{{ nombreJourChoisi }} <span class="fw-bold">{{ nombreJourChoisi === 1 ? 'Jour' : 'Jours' }}</span></p>
-                                                                            </div>
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p>Prix journalier</p>
-                                                                                <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
-                                                                            </div>
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p class="fw-bold">Total</p>
-                                                                                <p class="fw-bold">{{formatPrice(bien?.prix * nombreJourChoisi)}} <span class="fw-bold">FCFA</span></p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Hebdomadaire'">
-                                                                        <div class="d-flex flex-column dis">
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p>Nombre de semaine</p>
-                                                                                <p>{{ nombreSemaineChoisi }} <span class="fw-bold">{{ nombreSemaineChoisi === 1 ? 'Semaine' : 'Semaines' }}</span></p>
-                                                                            </div>
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p>Prix Hebdomadaire</p>
-                                                                                <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
-                                                                            </div>
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p class="fw-bold">Total</p>
-                                                                                <p class="fw-bold">{{formatPrice(bien?.prix * nombreSemaineChoisi)}} <span class="fw-bold">FCFA</span></p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12 mb-3" *ngIf="bien?.periode?.nom === 'Mensuel'">
-                                                                        <div class="d-flex flex-column dis">
-                                                    
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p>Avance</p>
-                                                                                <p>{{bien?.avance}} <span class="fw-bold">Mois</span></p>
-                                                                            </div>
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p>Caution</p>
-                                                                                <p>{{bien?.caution}} <span class="fw-bold">Mois</span></p>
-                                                                            </div>
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p>Prix mensuel</p>
-                                                                                <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
-                                                                            </div>
-                                                                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                                                                <p class="fw-bold">Total</p>
-                                                                                <p class="fw-bold">{{formatPrice(bien?.prix * (bien?.avance + bien?.caution) )}} <span class="fw-bold">FCFA</span></p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div> -->
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="paymentCont">
-                                                                        <div class="headingWrap">
-                                                                            <h5 class="headingTop text-center">Selectionner
-                                                                                le mode de paiement</h5>
-                                                                            <!-- <p class="text-center">Created with bootsrap
-                                                                                button and using radio button</p> -->
-                                                                        </div>
-                                                                        <div class="row paymentWrap">
-                                                                            <div class="btn-group paymentBtnGroup btn-group-justified"
-                                                                                data-toggle="buttons">
-                                                                                <label class="btn paymentMethod"
-                                                                                    *ngFor="let Mode of modepaiement"
-                                                                                    (click)="selectPaymentMode(Mode)">
-                                                                                    <div class="method test"
-                                                                                        style="background-image: url('{{generateImageUrl(Mode?.photo)}}');">
-                                                                                    </div>
-                                                                                    <input type="radio" name="options">
-                                                                                </label>
-                                                                                <!-- <label class="btn paymentMethod">
-                                                                                    <div class="method master-card"></div>
-                                                                                    <input type="radio" name="options">
-                                                                                </label> -->
-                                                                                <!-- <label class="btn paymentMethod">
-                                                                                    <div class="method amex"></div>
-                                                                                    <input type="radio" name="options">
-                                                                                </label> -->
-                                                                                <!-- <label class="btn paymentMethod">
-                                                                                    <div class="method vishwa"></div>
-                                                                                    <input type="radio" name="options">
-                                                                                </label> -->
-                                                                                <!-- <label class="btn paymentMethod">
-                                                                                    <div class="method ez-cash"></div>
-                                                                                    <input type="radio" name="options">
-                                                                                </label> -->
-    
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- <div class="footerNavWrap clearfix">
-                                                                            <div class="btn btn-success pull-left btn-fyi">
-                                                                                <span
-                                                                                    class="glyphicon glyphicon-chevron-left"></span>
-                                                                                CONTINUE SHOPPING</div>
-                                                                            <div class="btn btn-success pull-right btn-fyi">
-                                                                                CHECKOUT<span
-                                                                                    class="glyphicon glyphicon-chevron-right"></span>
-                                                                            </div>
-                                                                        </div> -->
-                                                                    </div>
-    
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Annuler</button>
-                                                            <button type="button"
-                                                                (click)="goToPagePaiement(CandidatureUser?.uuid)"
-                                                                class="btn btn-primary">Continuer</button>
-                                                        </div>
-                                                        <!-- <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Retour</button>
-                                                            <button type="button" class="btn btn-primary">Save
-                                                                changes</button>
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    </div>
+                                    <br />
+                                    <div class="text-right text-muted pt-1">3d</div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Candidatures</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px; font-weight: bold;">
+                                    <div class="text-truncate">DAILY RUNDOWN: WEDNESDAY</div>
+                                    <div class="small text-success"><i class="fa fa-check-circle"></i> You sent
+                                        Mandeep a message</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
+                                                Marquer comme lu</button>
                                         </div>
-                                    </li>
-                                </ng-container>
-                                <ng-template #noCandidatureAcc>
-                                    <h4 style="font-size: 17px;">Pas de candidature acceptée</h4>
-                                </ng-template>
-                            </ul>
+                                    </div>
+                                    <br />
+                                    <div class="text-right text-muted pt-1">3d</div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Rendez-vous</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div *ngFor="let Rdv of rdv"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                        src="{{generateImageUrl(Rdv?.rdv?.locataire?.photo)}}" alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px;">
+                                    <div style="font-weight: bold;" class="text-truncate">{{Rdv?.rdv?.locataire?.nom}}
+                                    </div>
+                                    <div class="small"><i style="color: #e98b11;" class="fa-sharp fa-solid fa-home"></i>
+                                        Reference du bien : <span style="font-weight: bold; cursor: pointer;"
+                                            (click)="goToDettailBien(Rdv?.rdv?.bien?.uuid)">{{Rdv?.rdv?.bien?.reference}}</span>
+                                    </div>
+                                    <div class="small"><i style="color: #e98b11;"
+                                            class="fa-sharp fa-solid fa-calendar-days"></i>
+                                        Date du rendez-vous : <span style="font-weight: bold;">{{Rdv?.rdv?.date |
+                                            date:"dd MMM yyyy":locale}} à {{Rdv?.rdv?.heure}}</span></div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">{{Rdv?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Rdv?.date |
+                                            date:"HH:mm":locale}}</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group float-end">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
+                                                Marquer comme lu</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <!-- <div class="text-right text-muted pt-1">{{Rdv?.date |
+                                        date:"dd MMM yyyy":locale}}</div> -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Messages</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div *ngFor="let Message of message" class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck" class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                    src="{{generateImageUrl(Message?.message?.destinateur?.photo)}}"
+                                        alt="" />
+                                </div>
+                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck" class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                    src="{{generateImageUrl(Message?.message?.expediteur?.photo)}}"
+                                        alt="" />
+                                </div>
+                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck" class="" style="margin-right: 16px;">
+                                    <div class="text-truncate" style=" font-weight: bold;">{{Message?.message?.expediteur?.nom}}</div>
+                                    <div style=" font-weight: bold;" class="small text-success"><i class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}</div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">{{Message?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Message?.date |
+                                            date:"HH:mm":locale}}</div>
+                                </div>
+                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck" class="" style="margin-right: 16px;">
+                                    <div class="text-truncate" style=" font-weight: bold;">{{Message?.message?.destinateur?.nom}}</div>
+                                    <div style=" font-weight: bold;" class="small text-success"><i class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}</div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">{{Message?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Message?.date |
+                                            date:"HH:mm":locale}}</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
+                                                Marquer comme lu</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row dashboard-info reviewpage-content mt-4" *ngIf="!isLocataire">
-            <div class="col-lg-6 d-flex">
-                <div class="card dash-cards w-100">
-                    <div class="card-header">
-                        <h4>Rendez-vous</h4>
-                        <div class="card-dropdown">
-                            <ul>
-                                <li class="nav-item dropdown has-arrow logged-item">
-                                    <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <span>Tout</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
-                                        <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="ligne">
-                        <div class="card-body">
-                            <ul class="review-list">
-                                <ng-container *ngIf="
-                                    rdv && rdv.length > 0;else noRdv">
-                                    <li class="review-box" *ngFor="let Rdv of rdv">
-                                        <div class="review-profile">
-                                            <div class="review-img">
-                                                <img src="{{generateImageUrl(Rdv?.utilisateur?.photo)}}"
-                                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                                            </div>
-                                        </div>
-                                        <div class="review-details">
-                                            <h6>{{Rdv.utilisateur.nom}}</h6>
-                                            <div class="rating">
-                                                <div class="rating-star">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                </div>
-                                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv.date |
-                                                    date:"dd MMM yyyy":locale}}</div>
-                                                <div>{{Rdv.heure}}</div>
-                                            </div>
-                                            <!-- <p>{{data.feedback}}</p>																	 -->
-                                        </div>
-                                    </li>
-                                </ng-container>
-                                <ng-template #noRdv>
-                                    <h4 style="font-size: 17px;">Pas de rendez-vous</h4>
-                                </ng-template>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- </div> -->
     </div>
 </div>
 <!-- /Reviews Content -->

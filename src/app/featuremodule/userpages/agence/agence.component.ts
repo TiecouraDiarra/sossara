@@ -574,7 +574,7 @@ export class AgenceComponent {
       });
       // Maintenant, totalBiensAgents contient la liste totale des biens immobiliers de tous les agents
 
-      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents];
+      this.bienImmoAgenceTotal = [...this.bienImmoAgence, ...totalBiensAgents].reverse();
       // Filtrer les biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: any) => {
         // Vérifier si le bien est déjà loué AGENCE
