@@ -22,59 +22,7 @@
             <ul class="review-list">
                 <ng-container *ngIf="
                 candidature && candidature.length > 0;else noCandidatureAcc">
-                    <!-- <li class="review-box" *ngFor="let Candidature of candidature">
-
-                        <div class="review-profile">
-                            <div class="review-img">
-                                <img src="{{generateImageUrl(Candidature?.bien?.proprietaire?.photo?.nom)}}"
-                                    class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                            </div>
-                        </div>
-                        <div class="review-details">
-                            <h6>{{Candidature?.bien?.proprietaire?.nom}}</h6>
-                            <div class="rating">
-                              
-                                <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                    {{Candidature?.createdAt |
-                                    date:"dd MMM yyyy":locale}}</div>
-                                <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.createdAt
-                                    |
-                                    date:"HH:mm"}}</div>
-                            </div>
-                            <div class="row mb-3">
-                                {{Candidature?.bien?.nom}}
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <p class="blog-category">
-                                        <a
-                                            href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
-                                    </p>
-                                </div>
-                                <div class="col">
-                                    <p style="color: #e98b11; font-weight: bold;">{{
-                                        formatPrice(Candidature?.bien?.prix) }} FCFA</p>
-                                </div>
-
-                            </div>
-
-                            <ul class="review-gallery">
-                                <li
-                                    *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
-                                    <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
-                                </li>
-                                <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
-                                    <li *ngFor="let _ of [1, 2, 3, 4]">
-                                        <img class="img-fluid" alt="Image par défaut"
-                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                    </li>
-                                </ng-container>
-                            </ul>
-                            <div class="row mt-3">
-                               
-                            </div>
-                        </div>
-                    </li> -->
+                    
                     <div class="table-responsive" >
                         <table  class="listing-table datatable" id="listdata-table">
                           <thead>

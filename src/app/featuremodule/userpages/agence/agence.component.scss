@@ -488,3 +488,45 @@
     color: #fff;
     border: 1px solid #374B5C;
   }
+
+  .form-check-input {
+    position: relative;
+    width: 3.6em;
+    height: 1.5em;
+    cursor: pointer;
+    appearance: none;
+    background-color: #dee2e6;
+    border-radius: 1em;
+    outline: none;
+    transition: background-color 0.3s;
+}
+.form-check-input::before,
+.form-check-input::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    transition: color 0.3s, left 0.3s, right 0.3s;
+}
+.form-check-input::before {
+    content: 'Off';
+    left: 1.2em;
+    color: grey;
+}
+.form-check-input::after {
+    content: 'On   e';
+    right: 85em;
+    color: transparent;
+}
+.form-check-input:checked {
+    background-color: #e98b11;
+}
+.form-check-input:checked::before {
+    left: 0.5em;
+    color: transparent;
+}
+.form-check-input:checked::after {
+    right: 0.5em;
+    color: white;
+}

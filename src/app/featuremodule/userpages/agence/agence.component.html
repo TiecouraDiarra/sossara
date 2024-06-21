@@ -194,7 +194,7 @@
                     <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
-                    <th mat-sort-header="view">Vues</th>
+                    <th mat-sort-header="view">Publié</th>
                     <th mat-sort-header="Action">Action</th>
                   </tr>
                 </thead>
@@ -208,54 +208,13 @@
                     <td>
                       <div>
                         <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
-                          <!-- <div *ngIf="
-                              BienImmo.photos;
-                              else noImages
-                            ">
-                            <img src="{{
-                                generateImageUrl(BienImmo?.photos)
-                              }}" class="img-fluid image-size" alt="blog-img" />
-                          </div>
-                          <ng-template #noImages>
-                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Villa'">
-                              <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
-                                alt="default-img" />
-                            </div>
-                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Appartement'">
-                              <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
-                                alt="default-img" />
-                            </div>
-                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Terrain'">
-                              <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
-                                alt="default-img" />
-                            </div>
-                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Bureau'">
-                              <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
-                                alt="default-img" />
-                            </div>
-                            <div class="type" *ngIf="BienImmo?.typeImmo?.nom === 'Champ'">
-                              <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
-                                alt="default-img" />
-                            </div>
-                            <div class="type" *ngIf="
-                                BienImmo?.typeImmo?.nom === 'Magasin'
-                              ">
-                              <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
-                                alt="default-img" />
-                            </div>
-                          </ng-template> -->
+                         
                           {{BienImmo?.reference}}
                         </a>
                       </div>
                     </td>
                     <td>
-                      <!-- <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          {{
-                          BienImmo.nom ? BienImmo.nom : BienImmo?.typeImmo?.nom
-                          }}
-                        </a>
-                      </h6> -->
+                     
                       <div class="listingtable-rate">
                         <a href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -263,18 +222,7 @@
                         </a>
                         <span class="discount-amt">{{ formatPrice(BienImmo?.prix) }} FCFA</span>
                       </div>
-                      <!-- <p>
-                        {{
-                        BienImmo?.adresse?.commune?.cercle?.region?.pays
-                        ?.nompays
-                        }}
-                        -
-                        {{
-                        BienImmo?.adresse?.commune?.cercle?.region?.nomregion
-                        }}
-                        - {{ BienImmo?.adresse?.commune?.nomcommune }} -
-                        {{ BienImmo?.adresse?.quartier }}
-                      </p> -->
+                     
                     </td>
                     <td>
                       <span [ngClass]="{
@@ -282,9 +230,31 @@
                         }" class="status-text">{{ BienImmo?.statut?.nom }}</span>
                     </td>
                     <td>
-                      <span class="views-count">{{
+                      <!-- <span class="views-count">{{
                         favoritedPropertiesCountAgence[BienImmo?.uuid]
-                        }}</span>
+                        }}</span> -->
+                        <!-- <span>
+                          <label (click)="SupprimerBien(BienImmo.uuid)" data-bs-toggle="modal"
+                              data-bs-target="#exampleModal" class="toggle-switchy"
+                              [for]="" data-size="sm" data-style="rounded"
+                              data-color="orange">
+                              <input [checked]="" type="checkbox" [id]="">
+                              <span class="toggle" [class.active]="">
+                                  <span class="switch"></span>
+                              </span>
+                          </label>
+                      </span> -->
+
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" (click)="publierBien(BienImmo.uuid)"  type="checkbox" id="flexSwitchCheck{{BienImmo?.uuid}}" [checked]="BienImmo.is_publish">
+                        <label class="form-check-label" for="flexSwitchCheck{{BienImmo?.uuid}}"></label>
+                    </div>
+
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                      </div>
+                      
                     </td>
                     <td>
                       <div class="action">
@@ -357,11 +327,7 @@
                 <div class="sortbyset">
                   <span class="sortbytitle">Trier par</span>
                   <div class="sorting-select">
-                    <!-- <select class="form-control select" [(ngModel)]="searchText">
-                      <option value="" selected>Tout</option>
-                      <option>A louer</option>
-                      <option>A vendre</option>
-                    </select> -->
+        
                     <mat-form-field class="mat-custom-select" style="width: 100%;">
                       <mat-label *ngIf="selectedCategory == ''">
                         Statut</mat-label>
@@ -386,7 +352,7 @@
                     <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
-                    <th mat-sort-header="view">Vues</th>
+                    <th mat-sort-header="view">Publié</th>
                     <th mat-sort-header="Action">Action</th>
                   </tr>
                 </thead>
@@ -399,29 +365,13 @@
                     <td>
                       <div>
                         <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
-                          <!-- <div *ngIf="
-                              BienImmo.photos && BienImmo?.photos.length > 0;
-                              else noImages
-                            ">
-                            <img src="{{
-                                generateImageUrl(BienImmo?.photos[0].nom)
-                              }}" class="img-fluid image-size" alt="blog-img" />
-                          </div>
-                          <ng-template #noImages>
-                            <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
-                          </ng-template>-->
+                         
                           {{BienImmo?.reference}}
                         </a>
                       </div>
                     </td>
                     <td>
-                      <!-- <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          {{
-                          BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
-                          }}
-                        </a>
-                      </h6> -->
+                     
                       <div class="listingtable-rate">
                         <a href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -429,15 +379,7 @@
                         </a>
                         <span class="discount-amt">{{ formatPrice(BienImmo?.prix) }} FCFA</span>
                       </div>
-                      <!-- <p>
-                        {{
-                        BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
-                        }}
-                        -
-                        {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
-                        {{ BienImmo?.adresse?.commune?.nomcommune }} -
-                        {{ BienImmo?.adresse?.quartier }}
-                      </p> -->
+                    
                     </td>
                     <td>
                       <span [ngClass]="{
@@ -445,9 +387,20 @@
                         }" class="status-text">{{ BienImmo?.statut?.nom }}</span>
                     </td>
                     <td>
-                      <span class="views-count">{{
-                        favoritedPropertiesCount1[BienImmo?.uuid]
-                        }}</span>
+<!--                     
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" (click)="publierBien(BienImmo.uuid)"  type="checkbox" id="flexSwitchCheck{{BienImmo?.uuid}}" [checked]="BienImmo.is_publish">
+                      <label class="form-check-label" for="flexSwitchCheck{{BienImmo?.uuid}}"></label>
+                  </div> -->
+                  <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           (click)="publierBien(BienImmo.uuid)"
+                           type="checkbox"
+                           id="flexSwitchCheck{{BienImmo?.uuid}}"
+                           [checked]="BienImmo.is_publish"
+                           [disabled]="isLoading">
+                    <label class="form-check-label" for="flexSwitchCheck{{BienImmo?.uuid}}"></label>
+                </div>
                     </td>
                     <td>
                       <div class="action">
@@ -2016,80 +1969,85 @@
                         <ul class="review-list">
                             <ng-container *ngIf="
                             candidature && candidature.length > 0;else noCandidature">
-                            <li class="review-box" *ngFor="let Candidature of candidature">
-
-                                <div class="review-profile">
-                                    <div class="review-img">
-                                        <img src="{{generateImageUrl(Candidature?.utilisateur?.photo?.nom)}}"
-                                            class="img-fluid" alt="img" (error)="handleAuthorImageError($event)"> 
-                                    </div>
-                                </div>
-                                <div class="review-details">
-                                    <h6>{{Candidature?.utilisateur?.nom}}</h6>
-                                    <div class="rating">
-                                        <div class="rating-star">
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                        </div>
-                                        <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                            {{Candidature?.createdAt |
-                                            date:"dd MMM yyyy":locale}}</div>
-                                        <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.createdAt
-                                            |
-                                            date:"HH:mm"}}</div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        {{Candidature?.bien?.nom}}
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="blog-category">
-                                                <a
-                                                    href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
-                                            </p>
-                                        </div>
-                                        <div class="col">
-                                            <p style="color: #e98b11; font-weight: bold;">{{
-                                                formatPrice(Candidature?.bien?.prix) }} FCFA</p>
-                                        </div>
-
-                                    </div>
-
-                                    <ul class="review-gallery">
-                                        <li
-                                            *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
-                                            <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
-                                        </li>
-                                        <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
-                                            <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                <!-- Répéter 4 fois -->
-                                                <img class="img-fluid" alt="Image par défaut"
-                                                    src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                            </li>
-                                        </ng-container>
-                                    </ul>
-                                    <div class="row mt-3">
-                                        <button (click)="IdCandidaterBien(Candidature?.id)"
-                                            (click)="goToPageContrat(Candidature?.contrats?.uuid)"
-                                            type="button" class="btn btn-primary">
-                                            Voir le contrat
-                                        </button>
-                                        <!-- <div class="col">
-                                            <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
-                                                class="btn btn-outline-danger"><i class="fas fa-times"></i>
-                                                Annuler</button>
-                                        </div>
-                                        <div class="col">
-                                            <button (click)="AccepterCandidaterBien(Candidature.id)" type="button"
-                                                class="btn btn-outline-success"><i class="fas fa-check"></i>
-                                                Valider</button>
-                                        </div> -->
-                                    </div>
-                                </div>
-                            </li>
+                            <div  class="table-responsive">
+                              <table  class="listing-table datatable" id="listdata-table">
+                                <thead>
+                                  <tr>
+                                    <th  class="no-sort">
+                                      Référence du bien
+                                      </th>
+                                      <th >Date & Heure</th>
+                                      <!-- <th >Heure</th> -->
+                                      <th >Statuts</th>
+                                      <th  class="no-sort">Candidat</th>
+                                    <th >Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="
+                                     let candidature of candidature
+                                   ">
+                                    
+                                    <td>
+                                      <h6 *ngIf="candidature?.bien && candidature?.bien?.typeImmo">
+                                        <a style="cursor: pointer;"
+                                          (click)="goToDettailBien(candidature.bien.uuid)">
+                                          {{
+                                          candidature?.bien?.reference
+                                          }}
+                                        </a>
+                                      </h6>
+                                      <div class="listingtable-rate">
+                                        <a *ngIf="candidature?.bien && candidature?.bien?.typeImmo" href="javascript:void(0)" class="cat-icon">
+                                          <i class="fa-regular fa-circle-stop"></i>
+                                          {{ candidature?.bien?.typeImmo?.nom }}
+                                        </a>
+                                        <span class="discount-amt" *ngIf="candidature?.bien && candidature?.bien?.prix">{{
+                                          formatPrice(candidature?.bien?.prix) }} FCFA</span>
+                                      </div>
+                                     
+                                    </td>
+                
+                                    <td>
+                                      <span class="views-count" *ngIf="candidature && candidature?.createdAt">{{
+                                        candidature?.createdAt | date : "dd MMM yyyy" : locale
+                                        }} à {{candidature?.createdAt
+                                          |
+                                          date:"HH:mm"}}</span>
+                                    </td>
+                                   
+                                    <td *ngIf="candidature?.bien?.statut?.nom === 'A vendre'">
+                                      <span [ngClass]="{
+                                         unpublish: candidature?.bien?.statut?.nom === 'A vendre'
+                                       }" class="status-text">Vente</span>
+                                    </td>
+                                    <td *ngIf="candidature?.bien?.statut?.nom === 'A louer'">
+                                      <span [ngClass]="{
+                                         unpublish: candidature?.bien?.statut?.nom === 'A vendre'
+                                       }" class="status-text">Location</span>
+                                    </td>
+                                    <td>
+                                      <div>
+                                        <a  >
+                                         
+                                          <h6>{{candidature?.utilisateur?.nom}}</h6>
+                                        </a>
+                                      </div>
+                                      
+                                    </td>
+                                    <td>
+                                      <div class="action">
+                                        <a  (click)="goToPageContrat(candidature?.contrats?.uuid)" class="action-btn btn-view crd"> <img class="icone-size"
+                                          src="../../../../assets/img/iconeBien/contrat.png"
+                                          alt="Room amenities">
+                                      <span class="hover-text">Voir le contrat</span></a>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                             
+                            </div>
                             </ng-container>
                             <ng-template #noCandidature>
                                 <h4 style="font-size: 17px;">Pas de candidature</h4>
@@ -2136,82 +2094,86 @@
                         <ul class="review-list">
                             <ng-container *ngIf="
                             candidatureAccepter && candidatureAccepter.length > 0;else noCandidatureAcc">
-                                <li class="review-box" *ngFor="let Candidature of candidatureAccepter">
-            
-                                    <div class="review-profile">
-                                        <div class="review-img">
-                                            <img src="{{generateImageUrl(Candidature?.bien?.proprietaire?.photo?.nom)}}"
-                                                class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                                        </div>
-                                    </div>
-                                    <div class="review-details">
-                                        <h6>{{Candidature?.bien?.proprietaire?.nom}}</h6>
-                                        <div class="rating">
-                                            <!-- <div class="rating-star">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                            </div> -->
-                                            <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                                {{Candidature?.updatedAt |
-                                                date:"dd MMM yyyy":locale}}</div>
-                                            <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.updatedAt
-                                                |
-                                                date:"HH:mm"}}</div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            {{Candidature?.bien?.nom}}
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <p class="blog-category">
-                                                    <a
-                                                        href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
-                                                </p>
-                                            </div>
-                                            <div class="col">
-                                                <p style="color: #e98b11; font-weight: bold;">{{
-                                                    formatPrice(Candidature?.bien?.prix) }} FCFA</p>
-                                            </div>
-            
-                                        </div>
-            
-                                        <ul class="review-gallery">
-                                            <li
-                                                *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
-                                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
-                                            </li>
-                                            <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
-                                                <li *ngFor="let _ of [1, 2, 3, 4]">
-                                                    <!-- Répéter 4 fois -->
-                                                    <img class="img-fluid" alt="Image par défaut"
-                                                        src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                                </li>
-                                            </ng-container>
-                                        </ul>
-                                        <div class="row mt-3">
-                                            <!-- <div class="col">
-                                                <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
-                                                    class="btn btn-outline-danger"><i class="fas fa-times"></i>
-                                                    Annuler</button>
-                                            </div> -->
-                                            <!-- <div class="col">
-                                                <button data-bs-toggle="modal"
-                                                    (click)="openFactureModal(Candidature.id)"
-                                                    data-bs-target="#exampleModalToggle2" type="button"
-                                                    class="btn btn-outline-success"><i class="fas fa-check"></i>
-                                                    Payer</button>
-                                            </div> -->
-                                            <!-- Button trigger modal -->
-                                            <button (click)="goToPageContrat(Candidature?.contrats?.uuid)"
-                                                type="button" class="btn btn-primary">
-                                                Voir le contrat
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
+
+                                <div class="table-responsive" >
+                                  <table  class="listing-table datatable" id="listdata-table">
+                                    <thead>
+                                      <tr>
+                                        <th  class="no-sort">
+                                          Référence du bien
+                                          </th>
+                                          <th >Date & Heure</th>
+                                          <!-- <th >Heure</th> -->
+                                          <th >Statuts</th>
+                                          <th  class="no-sort">Candidat</th>
+                                        <th >Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="
+                                         let CandidatureAccepter of candidatureAccepter
+                                       ">
+                                        
+                                        <td>
+                                          <h6 *ngIf="CandidatureAccepter?.bien && CandidatureAccepter?.bien?.typeImmo">
+                                            <a style="cursor: pointer;"
+                                              (click)="goToDettailBien(CandidatureAccepter.bien.uuid)">
+                                              {{
+                                                CandidatureAccepter?.bien?.reference
+                                              }}
+                                            </a>
+                                          </h6>
+                                          <div class="listingtable-rate">
+                                            <a *ngIf="CandidatureAccepter?.bien && CandidatureAccepter?.bien?.typeImmo" href="javascript:void(0)" class="cat-icon">
+                                              <i class="fa-regular fa-circle-stop"></i>
+                                              {{ CandidatureAccepter?.bien?.typeImmo?.nom }}
+                                            </a>
+                                            <span class="discount-amt" *ngIf="CandidatureAccepter?.bien && CandidatureAccepter?.bien?.prix">{{
+                                              formatPrice(CandidatureAccepter?.bien?.prix) }} FCFA</span>
+                                          </div>
+                                         
+                                        </td>
+                    
+                                        <td>
+                                          <span class="views-count" *ngIf="CandidatureAccepter && CandidatureAccepter?.createdAt">{{
+                                            CandidatureAccepter?.createdAt | date : "dd MMM yyyy" : locale
+                                            }} à {{CandidatureAccepter?.createdAt
+                                              |
+                                              date:"HH:mm"}}</span>
+                                        </td>
+                                       
+                                        <td *ngIf="CandidatureAccepter?.bien?.statut?.nom === 'A vendre'">
+                                          <span [ngClass]="{
+                                             unpublish: CandidatureAccepter?.bien?.statut?.nom === 'A vendre'
+                                           }" class="status-text">Vente</span>
+                                        </td>
+                                        <td *ngIf="CandidatureAccepter?.bien?.statut?.nom === 'A louer'">
+                                          <span [ngClass]="{
+                                             unpublish: CandidatureAccepter?.bien?.statut?.nom === 'A vendre'
+                                           }" class="status-text">Location</span>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <a  >
+                                             
+                                              <h6>{{CandidatureAccepter?.utilisateur?.nom}}</h6>
+                                            </a>
+                                          </div>
+                                          
+                                        </td>
+                                        <td>
+                                          <div class="action">
+                                            <a  (click)="goToPageContrat(CandidatureAccepter?.contrats?.uuid)" class="action-btn btn-view crd"> <img class="icone-size"
+                                              src="../../../../assets/img/iconeBien/contrat.png"
+                                              alt="Room amenities">
+                                          <span class="hover-text">Voir le contrat</span></a>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                 
+                                </div>
                             </ng-container>
                             <ng-template #noCandidatureAcc>
                                 <h4 style="font-size: 17px;">Pas de candidature acceptée</h4>
@@ -2259,80 +2221,85 @@
                     <ul class="review-list">
                       <ng-container *ngIf="
                               candidatureAnnuler && candidatureAnnuler.length > 0;else noCandidatureAcc">
-                        <li class="review-box" *ngFor="let Candidature of candidatureAnnuler">
 
-                          <div class="review-profile">
-                            <div class="review-img">
-                              <img src="{{generateImageUrl(Candidature?.bien?.proprietaire?.photo?.nom)}}"
-                                class="img-fluid" alt="img" (error)="handleAuthorImageError($event)">
-                            </div>
-                          </div>
-                          <div class="review-details">
-                            <h6>{{Candidature?.bien?.proprietaire?.nom}}</h6>
-                            <div class="rating">
-                              <!-- <div class="rating-star">
-                                                  <i class="fas fa-star filled"></i>
-                                                  <i class="fas fa-star filled"></i>
-                                                  <i class="fas fa-star filled"></i>
-                                                  <i class="fas fa-star filled"></i>
-                                                  <i class="fas fa-star filled"></i>
-                                              </div> -->
-                              <div><i class="fa-sharp fa-solid fa-calendar-days"></i>
-                                {{Candidature?.updatedAt |
-                                date:"dd MMM yyyy":locale}}</div>
-                              <div><i class="fa-sharp fa-solid fa-clock"></i>{{Candidature?.updatedAt
-                                |
-                                date:"HH:mm"}}</div>
-                            </div>
-                            <div class="row mb-3">
-                              {{Candidature?.bien?.nom}}
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <p class="blog-category">
-                                  <a href="javascript:void(0)"><span>{{Candidature?.bien?.statut?.nom}}</span></a>
-                                </p>
-                              </div>
-                              <div class="col">
-                                <p style="color: #e98b11; font-weight: bold;">{{
-                                  formatPrice(Candidature?.bien?.prix) }} FCFA</p>
-                              </div>
 
-                            </div>
-
-                            <ul class="review-gallery">
-                              <li *ngFor="let photo of Candidature?.bien?.photoImmos?.slice(0, 4); let i = index">
-                                <img class="img-fluid" alt="Image" [src]="generateImageUrl(photo?.nom)">
-                              </li>
-                              <ng-container *ngIf="Candidature?.bien?.photoImmos?.length === 0">
-                                <li *ngFor="let _ of [1, 2, 3, 4]">
-                                  <!-- Répéter 4 fois -->
-                                  <img class="img-fluid" alt="Image par défaut"
-                                    src="assets/img/gallery/gallery1/gallery-1.jpg">
-                                </li>
-                              </ng-container>
-                            </ul>
-                            <div class="row mt-3">
-                              <!-- <div class="col">
-                                                  <button (click)="AnnulerCandidaterBien(Candidature.id)" type="button"
-                                                      class="btn btn-outline-danger"><i class="fas fa-times"></i>
-                                                      Annuler</button>
-                                              </div> -->
-                              <!-- <div class="col">
-                                                  <button data-bs-toggle="modal"
-                                                      (click)="openFactureModal(Candidature.id)"
-                                                      data-bs-target="#exampleModalToggle2" type="button"
-                                                      class="btn btn-outline-success"><i class="fas fa-check"></i>
-                                                      Payer</button>
-                                              </div> -->
-                              <!-- Button trigger modal -->
-                              <!-- <button (click)="goToPageContrat(Candidature?.bien?.contrat[0]?.uuid)"
-                                                  type="button" class="btn btn-primary">
-                                                  Voir le contrat
-                                              </button> -->
-                            </div>
-                          </div>
-                        </li>
+                        <div class="table-responsive">
+                          <table  class="listing-table datatable" id="listdata-table">
+                            <thead>
+                              <tr>
+                                <th  class="no-sort">
+                                  Référence du bien
+                                  </th>
+                                  <th >Date & Heure</th>
+                                  <!-- <th >Heure</th> -->
+                                  <th >Statuts</th>
+                                  <th  class="no-sort">Candidat</th>
+                                <th >Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="
+                                 let CandidatureAnnuler of candidatureAnnuler
+                               ">
+                                
+                                <td>
+                                  <h6 *ngIf="CandidatureAnnuler?.bien && CandidatureAnnuler?.bien?.typeImmo">
+                                    <a style="cursor: pointer;"
+                                      (click)="goToDettailBien(CandidatureAnnuler.bien.uuid)">
+                                      {{
+                                        CandidatureAnnuler?.bien?.reference
+                                      }}
+                                    </a>
+                                  </h6>
+                                  <div class="listingtable-rate">
+                                    <a *ngIf="CandidatureAnnuler?.bien && CandidatureAnnuler?.bien?.typeImmo" href="javascript:void(0)" class="cat-icon">
+                                      <i class="fa-regular fa-circle-stop"></i>
+                                      {{ CandidatureAnnuler?.bien?.typeImmo?.nom }}
+                                    </a>
+                                    <span class="discount-amt" *ngIf="CandidatureAnnuler?.bien && CandidatureAnnuler?.bien?.prix">{{
+                                      formatPrice(CandidatureAnnuler?.bien?.prix) }} FCFA</span>
+                                  </div>
+                                 
+                                </td>
+            
+                                <td>
+                                  <span class="views-count" *ngIf="CandidatureAnnuler && CandidatureAnnuler?.createdAt">{{
+                                    CandidatureAnnuler?.createdAt | date : "dd MMM yyyy" : locale
+                                    }} à {{CandidatureAnnuler?.createdAt
+                                      |
+                                      date:"HH:mm"}}</span>
+                                </td>
+                               
+                                <td *ngIf="CandidatureAnnuler?.bien?.statut?.nom === 'A vendre'">
+                                  <span [ngClass]="{
+                                     unpublish: CandidatureAnnuler?.bien?.statut?.nom === 'A vendre'
+                                   }" class="status-text">Vente</span>
+                                </td>
+                                <td *ngIf="CandidatureAnnuler?.bien?.statut?.nom === 'A louer'">
+                                  <span [ngClass]="{
+                                     unpublish: CandidatureAnnuler?.bien?.statut?.nom === 'A vendre'
+                                   }" class="status-text">Location</span>
+                                </td>
+                                <td>
+                                  <div>
+                                    <a  >
+                                     
+                                      <h6>{{CandidatureAnnuler?.utilisateur?.nom}}</h6>
+                                    </a>
+                                  </div>
+                                  
+                                </td>
+                                <td>
+                                  <div class="action">
+                                    <a   > 
+                                  Annulée</a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                         
+                        </div>
                       </ng-container>
                       <ng-template #noCandidatureAcc>
                         <h4 style="font-size: 17px;">Pas de candidature annulée</h4>
@@ -3171,7 +3138,7 @@
                   <tr>
                     <th mat-sort-header="img" class="no-sort">Statut</th>
                     <th mat-sort-header="details" class="no-sort">
-                      Details du bien
+                      Référence du bien
                     </th>
                     <th mat-sort-header="date">Date</th>
                     <th mat-sort-header="dateecheance">Date d'echeance</th>
@@ -3236,7 +3203,7 @@
                       <h6 *ngIf="Facture?.bien && Facture?.bien?.typeImmo">
                         <a (click)="goToDettailFacture(Facture?.bien?.uuid)">
                           {{
-                          Facture?.bien?.nom
+                          Facture?.bien?.reference
                           ? Facture.bien.nom
                           : Facture?.bien?.typeImmo?.nom
                           }}
@@ -3421,7 +3388,7 @@
                   <tr>
                     <th mat-sort-header="img" class="no-sort">Statut</th>
                     <th mat-sort-header="details" class="no-sort">
-                      Details du bien
+                    Référence du biens
                     </th>
                     <th mat-sort-header="date">Date</th>
                     <th mat-sort-header="dateecheance">Date d'echeance</th>
@@ -3469,12 +3436,12 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="Facture?.bien && Facture?.bien?.typeImmo">
-                        <a (click)="goToDettailFacture(Facture?.bien?.uuid)">
+                      <h6 *ngIf="Facture?.bien && Facture?.bien?.reference" style="cursor: pointer;">
+                        <a (click)="goToDettailBien(Facture?.bien?.uuid)">
                           {{
-                          Facture?.bien?.nom
-                          ? Facture.bien.nom
-                          : Facture?.bien?.typeImmo?.nom
+                          Facture?.bien?.reference
+                         
+                          
                           }}
                         </a>
                       </h6>

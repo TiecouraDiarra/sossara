@@ -196,6 +196,12 @@
                             <h6 class="m-0">Rendez-vous</h6>
                         </div>
                         <div class="box-body p-0">
+                            <div *ngIf="rdv.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de rendez-vous disponible</p>
+                                </div>
+                            </div>
                             <div *ngFor="let Rdv of rdv"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
@@ -213,9 +219,10 @@
                                             class="fa-sharp fa-solid fa-calendar-days"></i>
                                         Date du rendez-vous : <span style="font-weight: bold;">{{Rdv?.rdv?.date |
                                             date:"dd MMM yyyy":locale}} à {{Rdv?.rdv?.heure}}</span></div>
-                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">{{Rdv?.date |
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Rdv?.date |
                                         date:"dd MMM yyyy":locale}} à {{Rdv?.date |
-                                            date:"HH:mm":locale}}</div>
+                                        date:"HH:mm":locale}}</div>
                                 </div>
                                 <span class="mb-auto" style="margin-left: auto;">
                                     <div class="btn-group float-end">
@@ -242,30 +249,47 @@
                             <h6 class="m-0">Messages</h6>
                         </div>
                         <div class="box-body p-0">
-                            <div *ngFor="let Message of message" class="p-3 d-flex align-items-center border-bottom osahan-post-header">
-                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck" class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                            <div *ngIf="message.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de message</p>
+                                </div>
+                            </div>
+                            <div *ngFor="let Message of message"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck"
+                                    class="dropdown-list-image mr-3" style="margin-right: 16px;">
                                     <img class="rounded-circle" (error)="handleAuthorImageError($event)"
-                                    src="{{generateImageUrl(Message?.message?.destinateur?.photo)}}"
-                                        alt="" />
+                                        src="{{generateImageUrl(Message?.message?.destinateur?.photo)}}" alt="" />
                                 </div>
-                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck" class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck"
+                                    class="dropdown-list-image mr-3" style="margin-right: 16px;">
                                     <img class="rounded-circle" (error)="handleAuthorImageError($event)"
-                                    src="{{generateImageUrl(Message?.message?.expediteur?.photo)}}"
-                                        alt="" />
+                                        src="{{generateImageUrl(Message?.message?.expediteur?.photo)}}" alt="" />
                                 </div>
-                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck" class="" style="margin-right: 16px;">
-                                    <div class="text-truncate" style=" font-weight: bold;">{{Message?.message?.expediteur?.nom}}</div>
-                                    <div style=" font-weight: bold;" class="small text-success"><i class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}</div>
-                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">{{Message?.date |
+                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck" class=""
+                                    style="margin-right: 16px;">
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" class="text-truncate" style=" font-weight: bold; cursor: pointer;">
+                                        {{Message?.message?.expediteur?.nom}}</div>
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" style="font-weight: bold; cursor: pointer;" class="small text-success"><i
+                                            class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}
+                                    </div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Message?.date |
                                         date:"dd MMM yyyy":locale}} à {{Message?.date |
-                                            date:"HH:mm":locale}}</div>
+                                        date:"HH:mm":locale}}</div>
                                 </div>
-                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck" class="" style="margin-right: 16px;">
-                                    <div class="text-truncate" style=" font-weight: bold;">{{Message?.message?.destinateur?.nom}}</div>
-                                    <div style=" font-weight: bold;" class="small text-success"><i class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}</div>
-                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">{{Message?.date |
+                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck" class=""
+                                    style="margin-right: 16px;">
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" class="text-truncate" style=" font-weight: bold; cursor: pointer;">
+                                        {{Message?.message?.destinateur?.nom}}</div>
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" style=" font-weight: bold; cursor: pointer;" class="small text-success"><i
+                                            class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}
+                                    </div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Message?.date |
                                         date:"dd MMM yyyy":locale}} à {{Message?.date |
-                                            date:"HH:mm":locale}}</div>
+                                        date:"HH:mm":locale}}</div>
                                 </div>
                                 <span class="mb-auto" style="margin-left: auto;">
                                     <div class="btn-group">
@@ -274,8 +298,6 @@
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
-                                                Marquer comme lu</button>
                                             <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
                                                 Supprimer</button>
                                         </div>

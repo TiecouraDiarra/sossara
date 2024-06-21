@@ -202,7 +202,7 @@ export class AuthGuard implements CanActivate {
         this.isLoggedIn = this.storageService.isLoggedIn();
 
         if (state.url === '/auth/completer-profil' && this.completer) {
-          window.history.back();
+          this.router.navigate(['/userpages/profil']);
           return of(false);
         }
 

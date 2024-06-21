@@ -153,4 +153,10 @@ export class NotificationsComponent implements OnInit {
   goToDettailBien(id: number) {
     return this.router.navigate(['details-bien', id]);
   }
+
+   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS MESSAGES
+   goToDetailMessage(id: any) {
+    window.sessionStorage.setItem("chatUuid", id);
+    return this.router.navigate(['userpages/chat']);
+  }
 }

@@ -135,7 +135,7 @@ export class BienimmoService {
   }
 
   //AFFICHER LA LISTE DES CANDIDATURES SUR LES BIENS DE USER CONNECTE
-  AfficherCandidatureAnnulerDeUserConnecter(): Observable<any> {
+    AfficherCandidatureAnnulerDeUserConnecter(): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(`${URL_BASE}/candidature/get/annuler`,
       { headers });
@@ -636,6 +636,10 @@ export class BienimmoService {
   SupprimerBien(uid: any): Observable<any> {
     const headers = this.getHeaders();
     return this.http.put(`${URL_BASE}/bien/supprimer/${uid}`, null, { headers });
+  }
+  publierBien(uid: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put(`${URL_BASE}/bien/publier/${uid}`, null, { headers });
   }
 
   //FAIRE UNE RECLAMATION
