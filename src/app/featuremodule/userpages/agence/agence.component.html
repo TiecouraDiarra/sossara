@@ -194,7 +194,7 @@
                     <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
-                    <th mat-sort-header="view">Vues</th>
+                    <th mat-sort-header="view">Publié</th>
                     <th mat-sort-header="Action">Action</th>
                   </tr>
                 </thead>
@@ -230,9 +230,31 @@
                         }" class="status-text">{{ BienImmo?.statut?.nom }}</span>
                     </td>
                     <td>
-                      <span class="views-count">{{
+                      <!-- <span class="views-count">{{
                         favoritedPropertiesCountAgence[BienImmo?.uuid]
-                        }}</span>
+                        }}</span> -->
+                        <!-- <span>
+                          <label (click)="SupprimerBien(BienImmo.uuid)" data-bs-toggle="modal"
+                              data-bs-target="#exampleModal" class="toggle-switchy"
+                              [for]="" data-size="sm" data-style="rounded"
+                              data-color="orange">
+                              <input [checked]="" type="checkbox" [id]="">
+                              <span class="toggle" [class.active]="">
+                                  <span class="switch"></span>
+                              </span>
+                          </label>
+                      </span> -->
+
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" (click)="publierBien(BienImmo.uuid)"  type="checkbox" id="flexSwitchCheck{{BienImmo?.uuid}}" [checked]="BienImmo.is_publish">
+                        <label class="form-check-label" for="flexSwitchCheck{{BienImmo?.uuid}}"></label>
+                    </div>
+
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                      </div>
+                      
                     </td>
                     <td>
                       <div class="action">
@@ -305,11 +327,7 @@
                 <div class="sortbyset">
                   <span class="sortbytitle">Trier par</span>
                   <div class="sorting-select">
-                    <!-- <select class="form-control select" [(ngModel)]="searchText">
-                      <option value="" selected>Tout</option>
-                      <option>A louer</option>
-                      <option>A vendre</option>
-                    </select> -->
+        
                     <mat-form-field class="mat-custom-select" style="width: 100%;">
                       <mat-label *ngIf="selectedCategory == ''">
                         Statut</mat-label>
@@ -334,7 +352,7 @@
                     <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="details" class="no-sort">Details</th>
                     <th mat-sort-header="status">Statut</th>
-                    <th mat-sort-header="view">Vues</th>
+                    <th mat-sort-header="view">Publié</th>
                     <th mat-sort-header="Action">Action</th>
                   </tr>
                 </thead>
@@ -347,29 +365,13 @@
                     <td>
                       <div>
                         <a (click)="goToDettailBien(BienImmo?.uuid)" class="crd">
-                          <!-- <div *ngIf="
-                              BienImmo.photos && BienImmo?.photos.length > 0;
-                              else noImages
-                            ">
-                            <img src="{{
-                                generateImageUrl(BienImmo?.photos[0].nom)
-                              }}" class="img-fluid image-size" alt="blog-img" />
-                          </div>
-                          <ng-template #noImages>
-                            <img src="{{ DEFAULT_IMAGE_URL }}" class="img-fluid image-size" alt="default-img" />
-                          </ng-template>-->
+                         
                           {{BienImmo?.reference}}
                         </a>
                       </div>
                     </td>
                     <td>
-                      <!-- <h6 *ngIf="BienImmo && BienImmo?.typeImmo">
-                        <a (click)="goToDettailBien(BienImmo?.uuid)">
-                          {{
-                          BienImmo?.nom ? BienImmo?.nom : BienImmo?.typeImmo?.nom
-                          }}
-                        </a>
-                      </h6> -->
+                     
                       <div class="listingtable-rate">
                         <a href="javascript:void(0)" class="cat-icon">
                           <i class="fa-regular fa-circle-stop"></i>
@@ -377,15 +379,7 @@
                         </a>
                         <span class="discount-amt">{{ formatPrice(BienImmo?.prix) }} FCFA</span>
                       </div>
-                      <!-- <p>
-                        {{
-                        BienImmo?.adresse?.commune?.cercle?.region?.pays?.nompays
-                        }}
-                        -
-                        {{ BienImmo?.adresse?.commune?.cercle?.region?.nomregion }} -
-                        {{ BienImmo?.adresse?.commune?.nomcommune }} -
-                        {{ BienImmo?.adresse?.quartier }}
-                      </p> -->
+                    
                     </td>
                     <td>
                       <span [ngClass]="{
@@ -393,9 +387,20 @@
                         }" class="status-text">{{ BienImmo?.statut?.nom }}</span>
                     </td>
                     <td>
-                      <span class="views-count">{{
-                        favoritedPropertiesCount1[BienImmo?.uuid]
-                        }}</span>
+<!--                     
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" (click)="publierBien(BienImmo.uuid)"  type="checkbox" id="flexSwitchCheck{{BienImmo?.uuid}}" [checked]="BienImmo.is_publish">
+                      <label class="form-check-label" for="flexSwitchCheck{{BienImmo?.uuid}}"></label>
+                  </div> -->
+                  <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           (click)="publierBien(BienImmo.uuid)"
+                           type="checkbox"
+                           id="flexSwitchCheck{{BienImmo?.uuid}}"
+                           [checked]="BienImmo.is_publish"
+                           [disabled]="isLoading">
+                    <label class="form-check-label" for="flexSwitchCheck{{BienImmo?.uuid}}"></label>
+                </div>
                     </td>
                     <td>
                       <div class="action">
@@ -1964,7 +1969,7 @@
                         <ul class="review-list">
                             <ng-container *ngIf="
                             candidature && candidature.length > 0;else noCandidature">
-                            <div  >
+                            <div  class="table-responsive">
                               <table  class="listing-table datatable" id="listdata-table">
                                 <thead>
                                   <tr>
@@ -2090,7 +2095,7 @@
                             <ng-container *ngIf="
                             candidatureAccepter && candidatureAccepter.length > 0;else noCandidatureAcc">
 
-                                <div  >
+                                <div class="table-responsive" >
                                   <table  class="listing-table datatable" id="listdata-table">
                                     <thead>
                                       <tr>
@@ -2218,7 +2223,7 @@
                               candidatureAnnuler && candidatureAnnuler.length > 0;else noCandidatureAcc">
 
 
-                        <div  >
+                        <div class="table-responsive">
                           <table  class="listing-table datatable" id="listdata-table">
                             <thead>
                               <tr>
@@ -3133,7 +3138,7 @@
                   <tr>
                     <th mat-sort-header="img" class="no-sort">Statut</th>
                     <th mat-sort-header="details" class="no-sort">
-                      Details du bien
+                      Référence du bien
                     </th>
                     <th mat-sort-header="date">Date</th>
                     <th mat-sort-header="dateecheance">Date d'echeance</th>
@@ -3198,7 +3203,7 @@
                       <h6 *ngIf="Facture?.bien && Facture?.bien?.typeImmo">
                         <a (click)="goToDettailFacture(Facture?.bien?.uuid)">
                           {{
-                          Facture?.bien?.nom
+                          Facture?.bien?.reference
                           ? Facture.bien.nom
                           : Facture?.bien?.typeImmo?.nom
                           }}
@@ -3383,7 +3388,7 @@
                   <tr>
                     <th mat-sort-header="img" class="no-sort">Statut</th>
                     <th mat-sort-header="details" class="no-sort">
-                      Details du bien
+                    Référence du biens
                     </th>
                     <th mat-sort-header="date">Date</th>
                     <th mat-sort-header="dateecheance">Date d'echeance</th>
@@ -3431,12 +3436,12 @@
                       </div>
                     </td>
                     <td>
-                      <h6 *ngIf="Facture?.bien && Facture?.bien?.typeImmo">
-                        <a (click)="goToDettailFacture(Facture?.bien?.uuid)">
+                      <h6 *ngIf="Facture?.bien && Facture?.bien?.reference" style="cursor: pointer;">
+                        <a (click)="goToDettailBien(Facture?.bien?.uuid)">
                           {{
-                          Facture?.bien?.nom
-                          ? Facture.bien.nom
-                          : Facture?.bien?.typeImmo?.nom
+                          Facture?.bien?.reference
+                         
+                          
                           }}
                         </a>
                       </h6>

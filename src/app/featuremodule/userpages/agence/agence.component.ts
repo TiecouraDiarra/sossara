@@ -28,6 +28,7 @@ export class AgenceComponent {
   // Référence au modal que vous souhaitez convertir en PDF
   @ViewChild('facturelocation')
   facturelocation!: ElementRef;
+  isLoading = false;
 
   loading = false;
   searchFacture: any;
@@ -374,7 +375,7 @@ export class AgenceComponent {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-      // console.log(this.bienImmo)
+      console.log(this.bienImmo)
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -549,13 +550,14 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE
     this.servicefacture.AfficherFactureProprietaireConnecter().subscribe(data => {
       this.facture = data?.reverse();
-
       this.bienFacture = data?.bien;
+
     });
 
     //AFFICHER LA LISTE DES FACTURES DU PROPRIETAIRE CONNECTE MES FATURES LOCATAIRE
     this.servicefacture.AfficherFactureLocataireConnecter().subscribe(data => {
       this.factureBien = data?.reverse();
+      
       this.bienFacture = data?.bien;
     });
 
@@ -590,6 +592,8 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
 
       });
+      console.log(this.bienImmoAgenceTotal);
+      
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: {
         favoris: any; uuid: any;
@@ -993,6 +997,92 @@ export class AgenceComponent {
       }
     })
   }
+
+
+  publierBien(id: number): void {
+    this.isLoading = true;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
+      },
+      heightAuto: false
+    });
+    swalWithBootstrapButtons.fire({
+      text: "Etes-vous sûr cette opération ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Supprimer',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const user = this.storageService.getUser();
+        if (user && user.token) {
+          this.serviceUser.setAccessToken(user.token);
+
+          this.serviceBienImmo.publierBien(id).subscribe({
+            next: (data) => {
+          
+              if (data.status) {
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Publication',
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: "OK",
+                  confirmButtonColor: '#e98b11',
+                  timer: 3000,
+                  allowOutsideClick: false,
+                }).then(() => {
+                  this.bienAgence();
+                  this.isLoading = false;
+                  location.reload();
+                });
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Publication',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: "OK",
+                  confirmButtonColor: '#e98b11',
+                  timer: 3000,
+                  allowOutsideClick: false,
+                }).then(() => {
+                  this.bienAgence();
+                  this.isLoading = false;
+                  location.reload();
+                });;
+              }
+            },
+            error: (err) => {
+              this.isLoading = false;
+              this.errorMessage = err.error.message;
+            }
+          });
+        } else {
+          this.isLoading = false;
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        this.isLoading = false;
+        Swal.fire({
+          title: "Action annulée",
+          text: "Annulation de la publication.",
+          icon: "info",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } else {
+        this.isLoading = false;
+      }
+    });
+  }
+
 
 
 
