@@ -63,10 +63,10 @@ export class ContratService {
   }
 
   //VALIDER CONTRAT LOCATAIRE C'EST A DIRE VALIDER CONTRAT
-  ValiderContratBien(id: any): Observable<any> {
+  ValiderContratBien(uuid: any): Observable<any> {
     const headers = this.getHeaders();
     
    
-    return this.http.post(`${URL_BASE}/contrat/validelocataire/${id}`, null, { headers });
+    return this.http.post(`${URL_BASE}/contrat/validelocataire/${uuid}`, null, { headers });
   }
 }

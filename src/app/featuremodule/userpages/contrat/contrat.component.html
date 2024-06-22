@@ -968,7 +968,7 @@
               </div> -->
               <div class=" telecharge crd"
                 *ngIf="contrat && !contrat.accepterLocataire && !contrat.annulerLocataire">
-                <a (click)="ValiderContratLocataire(contrat?.id)" class="action-btn btn-edit">
+                <a (click)="ValiderContratLocataire(contrat?.uuid)" class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-check"></i> Valider le contrat</a>
               </div>
               <!-- Indicateur de chargement -->
