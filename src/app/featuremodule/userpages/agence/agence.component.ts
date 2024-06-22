@@ -375,7 +375,6 @@ export class AgenceComponent {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo)
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -395,8 +394,6 @@ export class AgenceComponent {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-
-      // console.log(this.bienImmoDejaLoue);
 
 
 
@@ -472,8 +469,6 @@ export class AgenceComponent {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      // // Afficher les biens déjà loués et déjà vendus
-      // console.log(this.bienImmoDejaLoueLocataire);
 
 
 
@@ -511,7 +506,6 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES CANDIDATURES SUR LES BIENS DE USER CONNECTE
     // this.serviceBienImmo.AfficherCandidatureSurMesBiens().subscribe(data => {
     //   this.candidature = data.reverse();
-    //   console.log(this.candidature);
     // });
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     //FAIT
@@ -535,7 +529,6 @@ export class AgenceComponent {
 
         // Le reste de votre logique pour traiter les favoris...
       });
-      console.log(this.candidatureAccepter);
       
    
     }
@@ -592,7 +585,6 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
 
       });
-      console.log(this.bienImmoAgenceTotal);
       
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: {
@@ -1012,7 +1004,7 @@ export class AgenceComponent {
       text: "Etes-vous sûr cette opération ?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Supprimer',
+      confirmButtonText: 'Envoyer',
       cancelButtonText: 'Annuler',
       reverseButtons: true
     }).then((result) => {
@@ -1051,7 +1043,7 @@ export class AgenceComponent {
                   showConfirmButton: true,
                   confirmButtonText: "OK",
                   confirmButtonColor: '#e98b11',
-                  timer: 3000,
+          
                   allowOutsideClick: false,
                 }).then(() => {
                   this.bienAgence();
@@ -1070,6 +1062,7 @@ export class AgenceComponent {
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         this.isLoading = false;
+        location.reload();
         Swal.fire({
           title: "Action annulée",
           text: "Annulation de la publication.",
@@ -1078,6 +1071,7 @@ export class AgenceComponent {
           timer: 2000,
         });
       } else {
+        location.reload();
         this.isLoading = false;
       }
     });

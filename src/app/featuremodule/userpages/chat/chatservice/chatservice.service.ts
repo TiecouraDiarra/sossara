@@ -79,7 +79,6 @@ export class ChatserviceService {
           this.messageSubject.next(chatMessage);
         },
         error: (error) => {
-          console.log(error)
         }
       })
     }

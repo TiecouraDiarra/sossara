@@ -453,7 +453,6 @@ export class DetailsagenceComponent implements OnInit {
       // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
       this.serviceBienImmo.OuvrirConversationN(id).subscribe({
         next: (data) => {
-          console.log(data);
           
           if (data.status) {
             window.sessionStorage.setItem("chatUuid", data.message);

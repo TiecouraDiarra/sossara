@@ -452,7 +452,6 @@ export class LocataireComponent implements OnInit {
       .AfficherBienLoueEtAcheterParUserConnecter()
       .subscribe((data) => {
         this.bienImmoDejaLoueLocataires = data.reverse();
-        console.log(this.bienImmoDejaLoueLocataires);
         
         
         this.bienImmoDejaLoueLocataires.forEach((bien: any) => {

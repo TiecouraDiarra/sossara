@@ -645,7 +645,7 @@ export class ModifierBienComponent {
       swalWithBootstrapButtons.fire(
         this.message = 'La caractéristique du bien est obligatoire !',
       );
-    }else if (this.form.commodite === null) {
+    }else if (this.form.commodite === null || this.form.commodite.length === 0) {
       swalWithBootstrapButtons.fire(
         this.message = 'Choisir au moins une commodité !',
       );

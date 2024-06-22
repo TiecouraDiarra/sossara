@@ -60,7 +60,6 @@ export class NotificationsComponent implements OnInit {
         this.users = data && data.length > 0 ? data[0] : null;
         this.senderCheck = this.users?.email;
         this.profil = data[0]?.profil;
-        // console.log(data)
         if (this.profil == 'LOCATAIRE') {
           this.isLocataire = true;
         } else if (this.profil == 'AGENCE') {
@@ -76,7 +75,6 @@ export class NotificationsComponent implements OnInit {
     //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
     this.notificationService.AfficherListeNotification().subscribe(data => {
       this.notifications = data.reverse().slice(0, 3);
-      // console.log(data);
 
 
       data.forEach((Notification: any) => {
@@ -100,9 +98,6 @@ export class NotificationsComponent implements OnInit {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      // console.log(this.rdv);
-      // console.log(this.message);
-      // console.log(this.candidature);
     }
     );
   }

@@ -964,7 +964,6 @@ export class DetailsbienComponent implements AfterViewInit {
       // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
       this.serviceBienImmo.OuvrirConversationN(id).subscribe({
         next: (data) => {
-          // console.log(data);
 
           if (data.status) {
             window.sessionStorage.setItem("chatUuid", data.message);
@@ -976,7 +975,6 @@ export class DetailsbienComponent implements AfterViewInit {
             this.serviceUser.AfficherUserConnecter().subscribe(
               (data) => {
                 this.users = data && data.length > 0 ? data[0] : null;
-                // console.log(this.users);
                 this.profil = data[0]?.profil;
                 if (this.profil == 'AGENCE') {
                   this.NomSender = this.users?.nomAgence;
@@ -1028,8 +1026,6 @@ export class DetailsbienComponent implements AfterViewInit {
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
           this.chatService2.getMessageSubject().subscribe((messages: any) => {
-            // this.initial = this.message?.senderNom?.split(' ').map((name: string) => name.charAt(0)).join('');
-            // console.log(messages);
 
             this.messageList = messages.map((item: any) => ({
               ...item,

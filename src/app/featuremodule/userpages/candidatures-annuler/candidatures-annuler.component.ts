@@ -36,7 +36,6 @@ export class CandidaturesAnnulerComponent {
     //fait
     this.serviceBienImmo.AfficherCandidatureAnnulerDeUserConnecter().subscribe(data => {
       this.candidatureAnnuler = data.reverse();
-      // console.log(this.candidatureAnnuler);
       
     });
   }
