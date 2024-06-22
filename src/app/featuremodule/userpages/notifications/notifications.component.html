@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="box shadow-sm rounded bg-white mb-3">
+                    <!-- <div class="box shadow-sm rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Paiements</h6>
                         </div>
@@ -156,21 +156,35 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="box shadow-sm rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Candidatures</h6>
                         </div>
                         <div class="box-body p-0">
-                            <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div *ngIf="candidature.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de notification</p>
+                                </div>
+                            </div>
+                            <div *ngFor="let Candidature of candidature" class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
-                                    <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                    src="{{generateImageUrl(Candidature?.sender?.photo)}}"
                                         alt="" />
                                 </div>
-                                <div class="" style="margin-right: 16px; font-weight: bold;">
-                                    <div class="text-truncate">DAILY RUNDOWN: WEDNESDAY</div>
-                                    <div class="small text-success"><i class="fa fa-check-circle"></i> You sent
-                                        Mandeep a message</div>
+                                <div class="" style="margin-right: 16px;">
+                                    <div class="text-truncate" style="font-weight: bold;">{{Candidature?.sender?.nom}}</div>
+                                    <div class="small"><i style="color: #e98b11;" class="fa-sharp fa-solid fa-home"></i>
+                                        Reference du bien : <span style="font-weight: bold; cursor: pointer;"
+                                            (click)="goToDettailBien(Candidature?.candidature?.bien?.uuid)">{{Candidature?.candidature?.bien?.reference}}</span>
+                                    </div>
+                                    <div class="small text-success"><i class="fa fa-check-circle"></i> {{Candidature?.notif}}</div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Candidature?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Candidature?.date |
+                                        date:"HH:mm":locale}}</div>
                                 </div>
                                 <span class="mb-auto" style="margin-left: auto;">
                                     <div class="btn-group">
@@ -179,14 +193,12 @@
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
+                                            <button *ngIf="Candidature?.candidature?.contrat" (click)="goToPageContrat(Candidature?.candidature?.contrat?.uuid)" class="dropdown-item crd" type="button"><i class="mdi mdi-eye"></i>
+                                                Voir le contrat</button>
                                             <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
                                                 Supprimer</button>
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
-                                                Marquer comme lu</button>
                                         </div>
                                     </div>
-                                    <br />
-                                    <div class="text-right text-muted pt-1">3d</div>
                                 </span>
                             </div>
                         </div>

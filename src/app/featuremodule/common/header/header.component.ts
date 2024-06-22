@@ -113,13 +113,13 @@ export class HeaderComponent implements OnInit {
     this.serviceUser.getUnreadNotificationsCount().subscribe(
       (data) => {
         this.notif = data;
-        console.log(data)
+        // console.log(data)
       });
 
     //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
     this.notificationService.AfficherListeNotification().subscribe(data => {
       this.notifications = data.reverse().slice(0, 2);
-      console.log(this.notifications);
+      // console.log(this.notifications);
     }
     );
   }

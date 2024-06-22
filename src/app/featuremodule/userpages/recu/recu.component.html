@@ -300,6 +300,24 @@
                                             </tr>
 
                                             <tr class="tr2"
+                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="text-center">Total</td>
+                                                <td class="text-end">{{formatPrice(bien?.prix)}}
+                                                    FCFA</td>
+                                            </tr>
+                                            <tr class="tr2" style="font-weight: bold;"
+                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="text-center f-w-600 active-color">Total</td>
+                                                <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix)}} FCFA</td>
+                                            </tr>
+
+                                            <tr class="tr2"
                                                 *ngIf="bien?.periode?.nom === 'Journalier' && bien?.statut?.nom === 'A louer'">
                                                 <td></td>
                                                 <td></td>
