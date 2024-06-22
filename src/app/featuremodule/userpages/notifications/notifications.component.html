@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 right">
-                    <div class="box shadow-sm rounded bg-white mb-3">
+                    <!-- <div class="box shadow-sm rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Recent</h6>
                         </div>
@@ -122,7 +122,7 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="box shadow-sm rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Paiements</h6>
@@ -199,7 +199,7 @@
                             <div *ngIf="rdv.length === 0"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="text-center" style="width: 100%;">
-                                    <p>Pas de rendez-vous disponible</p>
+                                    <p>Pas de notification</p>
                                 </div>
                             </div>
                             <div *ngFor="let Rdv of rdv"
@@ -228,11 +228,11 @@
                                     <div class="btn-group float-end">
                                         <button type="button" class="btn btn-light btn-sm rounded"
                                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="mdi mdi-dots-vertical"></i>
+                                            <i class="mdi mdi-dots-vertical"></i>   
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
-                                                Marquer comme lu</button>
+                                            <button [routerLink]="routes.rdv" class="dropdown-item" type="button"><i class="mdi mdi-eye"></i>
+                                                 Voir detail</button>
                                             <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
                                                 Supprimer</button>
                                         </div>
@@ -252,7 +252,7 @@
                             <div *ngIf="message.length === 0"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="text-center" style="width: 100%;">
-                                    <p>Pas de message</p>
+                                    <p>Pas de notification</p>
                                 </div>
                             </div>
                             <div *ngFor="let Message of message"

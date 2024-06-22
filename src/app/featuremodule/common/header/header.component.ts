@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -12,6 +12,7 @@ import { UserService } from 'src/app/service/auth/user.service';
 import { BienimmoService } from 'src/app/service/bienimmo/bienimmo.service';
 import { TranslationService } from 'src/app/service/translation/translation.service';
 import { ChatserviceService } from '../../userpages/chat/chatservice/chatservice.service';
+import { NotificationService } from 'src/app/service/notification/notification.service';
 
 
 
@@ -38,7 +39,7 @@ export class HeaderComponent implements OnInit {
   isMobile: boolean = false; // Initialisez-la à false par défaut ou déterminez-la dynamiquement
   profil: any;
   completer = false;
-  notif:number =0;
+  notif: number = 0;
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.checkScreenWidth();
@@ -61,6 +62,7 @@ export class HeaderComponent implements OnInit {
   errorMessage = '';
   isLoggedIn2 = false
   isLoginFailed2 = false
+  notifications: any
 
 
 
@@ -68,6 +70,8 @@ export class HeaderComponent implements OnInit {
   header: Array<any> = [];
   sidebar: Array<any> = [];
   users: any;
+  senderCheck: any;
+  locale!: string;
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -85,7 +89,9 @@ export class HeaderComponent implements OnInit {
     private common: CommonService,
     private serviceUser: UserService,
     private sidebarService: SidebarService,
+    private notificationService: NotificationService,
     private serviceBienImmo: BienimmoService,
+    @Inject(LOCALE_ID) private localeId: string,
     private authService: AuthService,
     private storageService: StorageService,
     private chatService: ChatserviceService,
@@ -97,6 +103,7 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.getroutes(this.router);
+    this.locale = localeId;
     this.User = this.storageService.getUser();
   }
   ngOnInit(): void {
@@ -105,11 +112,16 @@ export class HeaderComponent implements OnInit {
     // this.chatService.initConnectionWebSocket(); // Initialise la connexion WebSocket
     this.serviceUser.getUnreadNotificationsCount().subscribe(
       (data) => {
-      this.notif = data;
-      console.log(data)
-    });
+        this.notif = data;
+        console.log(data)
+      });
 
-     
+    //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
+    this.notificationService.AfficherListeNotification().subscribe(data => {
+      this.notifications = data.reverse().slice(0, 2);
+      console.log(this.notifications);
+    }
+    );
   }
 
   checkUserStatus(): void {
@@ -118,7 +130,7 @@ export class HeaderComponent implements OnInit {
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data && data.length > 0 ? data[0] : null;
-          // console.log(this.users);
+          this.senderCheck = this.users?.email;
 
           this.completer = this.users?.profilCompleter;
           this.profil = this.users?.profil;

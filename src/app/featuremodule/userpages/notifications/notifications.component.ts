@@ -75,7 +75,7 @@ export class NotificationsComponent implements OnInit {
 
     //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
     this.notificationService.AfficherListeNotification().subscribe(data => {
-      this.notifications = data.reverse().slice(0, 2);
+      this.notifications = data.reverse().slice(0, 3);
       console.log(data);
 
 
