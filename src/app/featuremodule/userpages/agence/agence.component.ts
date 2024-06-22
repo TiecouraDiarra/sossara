@@ -1051,7 +1051,7 @@ export class AgenceComponent {
                   showConfirmButton: true,
                   confirmButtonText: "OK",
                   confirmButtonColor: '#e98b11',
-                  timer: 3000,
+          
                   allowOutsideClick: false,
                 }).then(() => {
                   this.bienAgence();
@@ -1070,6 +1070,7 @@ export class AgenceComponent {
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         this.isLoading = false;
+        location.reload();
         Swal.fire({
           title: "Action annulée",
           text: "Annulation de la publication.",
@@ -1078,6 +1079,7 @@ export class AgenceComponent {
           timer: 2000,
         });
       } else {
+        location.reload();
         this.isLoading = false;
       }
     });

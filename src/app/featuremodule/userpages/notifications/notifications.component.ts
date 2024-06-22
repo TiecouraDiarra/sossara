@@ -75,7 +75,7 @@ export class NotificationsComponent implements OnInit {
 
     //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
     this.notificationService.AfficherListeNotification().subscribe(data => {
-      this.notifications = data.reverse().slice(0, 2);
+      this.notifications = data.reverse().slice(0, 3);
       console.log(data);
 
 
@@ -102,6 +102,7 @@ export class NotificationsComponent implements OnInit {
       });
       console.log(this.rdv);
       console.log(this.message);
+      console.log(this.candidature);
     }
     );
   }
@@ -152,5 +153,11 @@ export class NotificationsComponent implements OnInit {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS BIEN
   goToDettailBien(id: number) {
     return this.router.navigate(['details-bien', id]);
+  }
+
+   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE DETAILS MESSAGES
+   goToDetailMessage(id: any) {
+    window.sessionStorage.setItem("chatUuid", id);
+    return this.router.navigate(['userpages/chat']);
   }
 }

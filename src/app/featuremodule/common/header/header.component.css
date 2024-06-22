@@ -79,3 +79,77 @@
     content: none;
 } */
 
+
+.notifications .dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  /* border-bottom: 1px solid #eee; */
+}
+
+.notifications .dropdown-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.notifications .dropdown-item .text {
+  flex: 1; /* Permet au texte de s'étendre dans l'espace disponible */
+}
+
+.notifications .dropdown-item .text h4 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #374b5c;
+}
+
+.notifications .dropdown-item .text p {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin: 0;
+  overflow: hidden; /* Empêche le débordement de texte */
+  text-overflow: ellipsis; /* Ajoute des points de suspension en cas de débordement */
+  white-space: nowrap; /* Garde le texte sur une seule ligne */
+}
+
+.drop:hover{
+  background-color: none !important;
+}
+
+.notifications .drop:hover {
+  background-color: transparent; /* Annule la couleur de fond au survol */
+  color: inherit; /* Garde la couleur de texte par défaut */
+  cursor: auto; /* Annule le curseur pointer */
+  cursor: pointer;
+}
+
+.see-more {
+  background-color: #e98b11; /* Couleur de fond primaire */
+  color: #fff !important; /* Couleur du texte */
+  padding: 8px 16px; /* Espacement intérieur pour un aspect plus bouton */
+  border-radius: 4px; /* Bord arrondi */
+  text-decoration: none; /* Supprime la décoration de lien par défaut */
+}
+
+/* .see-more{
+  color: white;
+} */
+
+.see-more a:hover{
+  color: #e98b11;
+}
+
+
+.see-more:hover {
+  background-color: #fff;
+  border: 1px solid #e98b11;
+  box-shadow: inset 0 70px 0 0 #ffffff;
+  color: #e98b11 !important;
+  -webkit-transition: all 0.7s;
+  -moz-transition: all 0.7s;
+  -o-transition: all 0.7s;
+  transition: all 0.7s;
+}
+
