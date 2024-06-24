@@ -897,7 +897,7 @@
 
             <div class="submit-section mb-3" style="text-align: center"
             >
-              <div class="attach-btn mb-3">
+              <div class="attach-btn mb-3" *ngIf="currentUser == false">
                 <textarea name="content" [(ngModel)]="messageInput" class="input-msg-send form-control"
                   placeholder="Message"></textarea>
               </div>

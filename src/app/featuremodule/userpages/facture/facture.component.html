@@ -174,6 +174,9 @@
                                         </p>
                                         <p class="color-white mb-0">Date de la facture <span>{{facture?.createdAt
                                                 | date:"dd MMM yyyy":locale}}</span></p>
+                                        <p class="color-white mb-1">Reference du bien
+                                            <span>{{bien?.reference}}</span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +238,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tr">
+                                        <!-- <tr class="tr">
                                             <td>
                                                 <div class="item-desc-1">
                                                     <span>01</span>
@@ -245,12 +248,14 @@
                                             <td class="text-center">{{formatPrice(bien?.prix)}}</td>
                                             <td class="text-center">1</td>
                                             <td class="text-end">{{formatPrice(bien?.prix)}} FCFA</td>
-                                        </tr>
+                                        </tr> -->
+
+                                        <!-- Journalier  -->
                                         <tr class="bg-grea"
                                             *ngIf="bien?.periode?.nom === 'Journalier' && bien?.statut?.nom === 'A louer'">
                                             <td>
                                                 <div class="item-desc-1">
-                                                    <span>02</span>
+                                                    <span>01</span>
 
                                                 </div>
                                             </td>
@@ -260,98 +265,6 @@
                                             <td class="text-end">{{formatPrice(bien?.prix *
                                                 facture?.contrat.nombreJour)}} FCFA</td>
                                         </tr>
-                                        <tr class="bg-grea"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
-                                            <td>
-                                                <div class="item-desc-1">
-                                                    <span>02</span>
-
-                                                </div>
-                                            </td>
-                                            <td class="pl0">Caution</td>
-                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
-                                            <td class="text-center">{{bien?.caution}}</td>
-                                            <td class="text-end">
-                                                {{ bien.caution === 0 ? formatPrice(bien.prix) :
-                                                formatPrice(bien.prix * bien.caution) }} FCFA
-                                            </td>
-                                        </tr>
-                                        <tr class="bg-grea"
-                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
-                                            <td>
-                                                <div class="item-desc-1">
-                                                    <span>02</span>
-
-                                                </div>
-                                            </td>
-                                            <td class="pl0">Nombre de semaine choisie</td>
-                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
-                                            <td class="text-center">{{facture?.contrat.nombreSemaine}}</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix *
-                                                facture?.contrat.nombreSemaine)}} FCFA</td>
-                                        </tr>
-                                        <tr class="tr2"
-                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center">Total</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix *
-                                                facture?.contrat?.nombreSemaine)}}
-                                                FCFA</td>
-                                        </tr>
-                                        <tr class="tr2"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center">Total</td>
-                                            <td class="text-end">{{formatPrice(bien?.prix)}}
-                                                FCFA</td>
-                                        </tr>
-                                        <tr class="tr2" style="font-weight: bold;"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center f-w-600 active-color">Total</td>
-                                            <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix)}} FCFA</td>
-                                        </tr>
-                                        <tr class="tr2" style="font-weight: bold;"
-                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center f-w-600 active-color">Total</td>
-                                            <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix *
-                                                facture?.contrat?.nombreSemaine)}} FCFA</td>
-                                        </tr>
-                                        <tr *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
-                                            <td>
-                                                <div class="item-desc-1">
-                                                    <span>03</span>
-                                                </div>
-                                            </td>
-                                            <td class="pl0">Avance</td>
-                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
-                                            <td class="text-center">{{bien?.avance}}</td>
-                                            <td class="text-end">
-                                                {{ bien.avance === 0 ? formatPrice(bien.prix) :
-                                                formatPrice(bien.prix * bien.avance) }} FCFA
-                                            </td>
-                                        </tr>
-
-                                        <!-- <tr>
-                                        <td>
-                                            <div class="item-desc-1">
-                                                <span>04</span>
-                                            </div>
-                                        </td>
-                                        <td class="pl0">Theme Development</td>
-                                        <td class="text-center">$720</td>
-                                        <td class="text-center">4</td>
-                                        <td class="text-end">$640.00</td>
-                                    </tr> -->
                                         <tr class="tr2"
                                             *ngIf="bien?.periode?.nom === 'Journalier' && bien?.statut?.nom === 'A louer'">
                                             <td></td>
@@ -370,6 +283,38 @@
                                             <td class="text-center f-w-600 active-color">Total</td>
                                             <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix *
                                                 facture?.contrat?.nombreJour)}} FCFA</td>
+                                        </tr>
+
+                                        <!-- Mensuel  -->
+                                        <tr class="bg-grea"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>01</span>
+
+                                                </div>
+                                            </td>
+                                            <td class="pl0">Caution</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
+                                            <td class="text-center">{{bien?.caution}}</td>
+                                            <td class="text-end">
+                                                {{ bien.caution === 0 ? formatPrice(bien.prix) :
+                                                formatPrice(bien.prix * bien.caution) }} FCFA
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>02</span>
+                                                </div>
+                                            </td>
+                                            <td class="pl0">Avance</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
+                                            <td class="text-center">{{bien?.avance}}</td>
+                                            <td class="text-end">
+                                                {{ bien.avance === 0 ? formatPrice(bien.prix) :
+                                                formatPrice(bien.prix * bien.avance) }} FCFA
+                                            </td>
                                         </tr>
                                         <tr class="tr2"
                                             *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
@@ -393,6 +338,74 @@
                                                 (bien?.caution > 0 ? bien?.caution : 1))) }} FCFA</td>
 
                                         </tr>
+
+                                        <!-- Hebdomadaire  -->
+                                        <tr class="bg-grea"
+                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>01</span>
+
+                                                </div>
+                                            </td>
+                                            <td class="pl0">Nombre de semaine choisie</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
+                                            <td class="text-center">{{facture?.contrat.nombreSemaine}}</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix *
+                                                facture?.contrat.nombreSemaine)}} FCFA</td>
+                                        </tr>
+                                        <tr class="tr2"
+                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">Total</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix *
+                                                facture?.contrat?.nombreSemaine)}}
+                                                FCFA</td>
+                                        </tr>
+                                        <tr class="tr2" style="font-weight: bold;"
+                                            *ngIf="bien?.periode?.nom === 'Hebdomadaire' && bien?.statut?.nom === 'A louer'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center f-w-600 active-color">Total</td>
+                                            <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix *
+                                                facture?.contrat?.nombreSemaine)}} FCFA</td>
+                                        </tr>
+
+                                        <!-- Vente  -->
+                                        <tr class="tr" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>01</span>
+                                                </div>
+                                            </td>
+                                            <td class="pl0">{{bien?.reference}}</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix)}} FCFA</td>
+                                        </tr>
+                                        <tr class="tr2"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">Total</td>
+                                            <td class="text-end">{{formatPrice(bien?.prix)}}
+                                                FCFA</td>
+                                        </tr>
+                                        <tr class="tr2" style="font-weight: bold;"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center f-w-600 active-color">Total</td>
+                                            <td class="f-w-600 text-end active-color">{{formatPrice(bien?.prix)}} FCFA
+                                            </td>
+                                        </tr>
+
+                                        
                                         <!-- <tr class="tr2">
                                         <td></td>
                                         <td></td>
@@ -506,23 +519,23 @@
                     <div class="invoice-btn-section clearfix d-print-none" *ngIf="isAgenceProprietaire">
                         <div class="telecharge-container">
                             <!-- <div class="crd" > -->
-                                <!-- <div class="row scroll-text" *ngIf="!facture?.statut">
+                            <!-- <div class="row scroll-text" *ngIf="!facture?.statut">
                                     <div class="scroll-textl"> Facture non payée
                                         <span style="font-size: 20px; font-weight: bold; color: #e98b11;"
                                         #motDePasseSpan></span>
                                     </div>
                                 </div> -->
-                                <div class="telecharge crd">
-                                    <a (click)="goToContrat(facture?.contrat?.uuid)" class="action-btn btn-edit">
-                                        <!-- <i class="fa fa-print"></i>  -->
-                                        Voir le contrat</a>
-                                </div>
-                                <div class="telecharge crd" *ngIf="facture?.statut">
-                                    <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
-                                        <!-- <i class="fa fa-print"></i>  -->
-                                        Voir les recus</a>
-                                </div>
-                            
+                            <div class="telecharge crd">
+                                <a (click)="goToContrat(facture?.contrat?.uuid)" class="action-btn btn-edit">
+                                    <!-- <i class="fa fa-print"></i>  -->
+                                    Voir le contrat</a>
+                            </div>
+                            <div class="telecharge crd" *ngIf="facture?.statut">
+                                <a (click)="goToListeRecu(facture?.uuid)" class="action-btn btn-edit">
+                                    <!-- <i class="fa fa-print"></i>  -->
+                                    Voir les recus</a>
+                            </div>
+
                             <!-- </div> -->
 
                         </div>
