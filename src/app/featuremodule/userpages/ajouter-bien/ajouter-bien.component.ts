@@ -181,7 +181,6 @@ export class AjouterBienComponent implements OnInit {
         }
       }
       this.form.commodite = commoditeArray;
-      // console.log(this.form.commodite); // Vérifiez la sortie dans la console pour déboguer
     }
   }
   

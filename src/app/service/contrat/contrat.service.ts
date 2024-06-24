@@ -61,11 +61,9 @@ export class ContratService {
   }
 
   //ACCEPTER CANDIDATURE BIEN PROPRIETAIRE C'EST A DIRE VALIDER CONTRAT
-  AccepterCandidaterBien(id: any): Observable<any> {
+  AccepterCandidaterBien(uuid: any): Observable<any> {
     const headers = this.getHeaders();
-    
-   
-    return this.http.post(`${URL_BASE}/candidature/accept/${id}`, null, { headers });
+    return this.http.post(`${URL_BASE}/candidature/accept/${uuid}`, null, { headers });
   }
 
   //VALIDER CONTRAT LOCATAIRE C'EST A DIRE VALIDER CONTRAT

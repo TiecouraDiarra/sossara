@@ -1008,9 +1008,8 @@
               </div> -->
               <div class="telecharge crd"
                 *ngIf="contrat && !contrat.annulerProprietaire && !contrat.annulerLocataire && !contrat.accepterproprietaire && !contrat.accepterLocataire">
-                <a (click)="ValiderContratProprietaire()" class="action-btn btn-edit">
-                  <i style="color: white" class="fas fa-check"></i> Valider le
-                  contrat</a>
+                <a (click)="ValiderContratProprietaire(contrat.bien.uuidCandidature)" class="action-btn btn-edit">
+                  <i style="color: white" class="fas fa-check"></i> Valider le contrat</a>
               </div>
               <!-- Indicateur de chargement -->
               <div *ngIf="loadingValiderProprietaire" class="spinner-border" style="color: #e98b11;" role="status">

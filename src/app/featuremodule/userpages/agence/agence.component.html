@@ -1564,8 +1564,7 @@
               <table matSort (matSortChange)="sortData($event)" class="listing-table datatable" id="listdata-table">
                 <thead>
                   <tr>
-                    <th mat-sort-header="img" class="no-sort">Image</th>
-                    <th mat-sort-header="details" class="no-sort">Details</th>
+                    <th mat-sort-header="img" class="no-sort">Référence</th>
                     <th mat-sort-header="view">Date</th>
                     <th mat-sort-header="Action">Proprietaires</th>
                     <th mat-sort-header="status">Action</th>
@@ -1582,7 +1581,7 @@
                               id: 'bienAcheter'
                             }
                     ">
-                    <td>
+                    <!-- <td> 
                       <div class="listingtable-img">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           <div *ngIf="
@@ -1602,8 +1601,28 @@
                           </ng-template>
                         </a>
                       </div>
-                    </td>
+                    </td> -->
                     <td>
+                      <h6  style="cursor: pointer;"><a
+                          (click)="goToDettailBien(BienImmo.bien.uuid)">
+                          {{BienImmo?.bien?.reference}}
+                      </a>
+                  </h6>
+                      
+                      <div class="listingtable-rate">
+                          <a *ngIf="BienImmo?.bien && BienImmo?.bien?.typeImmo"
+                              href="javascript:void(0)" class="cat-icon">
+                              <i class="fa-regular fa-circle-stop"></i>
+                              {{BienImmo?.bien?.typeImmo?.nom}}
+                          </a> <span class="discount-amt"
+                              *ngIf="BienImmo?.bien && BienImmo?.bien?.prix">{{
+                              formatPrice(BienImmo?.bien?.prix) }}
+                              FCFA</span>
+
+                      </div>
+                     
+                  </td>
+                    <!-- <td>
                       <h6 *ngIf="BienImmo?.bien && BienImmo?.bien?.typeImmo">
                         <a (click)="goToDettailBien(BienImmo?.uuid)">
                           {{
@@ -1635,7 +1654,7 @@
                         - {{ BienImmo?.bien?.adresse?.commune?.nomcommune }} -
                         {{ BienImmo?.bien?.adresse?.quartier }}
                       </p>
-                    </td>
+                    </td> -->
                     <td>
                       <span class="views-count" *ngIf="BienImmo && BienImmo?.createdAt">{{
                         BienImmo?.updatedAt | date : "dd MMM yyyy" : locale
