@@ -1,11 +1,14 @@
 <!-- Breadscrumb Section -->
-<div class="breadcrumb-bar">
+<div class="breadcrumb-bar" *ngIf="loadingPage">
   <div class="container">
     <div class="row align-items-center text-center">
       <div class="col-md-12 col-12">
-        <h2 class="breadcrumb-title" style="color: white">
+        <h2 class="breadcrumb-title" style="color: white" *ngIf="loadingPage">
           Contrat de candidature
         </h2>
+        <!-- <h2 class="breadcrumb-title" style="color: white"  *ngIf="!loadingPage">
+          Page non trouvée
+        </h2> -->
         <nav aria-label="breadcrumb" class="page-breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -21,7 +24,7 @@
 </div>
 <!-- /Breadscrumb Section -->
 <!-- Invoice 1 start -->
-<div class="invoice-1 invoice-content">
+<div class="invoice-1 invoice-content" *ngIf="loadingPage">
   <div class="container">
     <div class="row">
       <div class="col-lg-2"></div>
@@ -189,7 +192,7 @@
                       </div>
                       <div class="card-header">
                         <h3 class="text-center">
-                          CONTRAT TYPE DE LOCATION OU DE CO-LOCATION
+                          CONTRAT DE BAIL
                         </h3>
                         <p class="text-center">
                           Date: {{ contrat?.createdAt | date : "dd/MM/yyyy" }}
@@ -678,7 +681,7 @@
                         </div>
                       </div>
                       <div class="card-header">
-                        <h3 class="text-center">CONTRAT TYPE DE VENTE</h3>
+                        <h3 class="text-center">CONTRAT DE VENTE</h3>
                         <p class="text-center">
                           Date: {{ contrat?.createdAt | date : "dd/MM/yyyy" }}
                         </p>
@@ -966,8 +969,7 @@
               <!-- <div *ngIf="loadingAnnuler" class="spinner-border" style="color: #e98b11;" role="status">
                 <span class="sr-only">Chargement en cours...</span>
               </div> -->
-              <div class=" telecharge crd"
-                *ngIf="contrat && !contrat.accepterLocataire && !contrat.annulerLocataire">
+              <div class=" telecharge crd" *ngIf="contrat && !contrat.accepterLocataire && !contrat.annulerLocataire">
                 <a (click)="ValiderContratLocataire(contrat?.uuid)" class="action-btn btn-edit">
                   <i style="color: white" class="fas fa-check"></i> Valider le contrat</a>
               </div>
@@ -1065,7 +1067,8 @@
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Retour
                   </button>
-                  <button (click)="AnnulerContratProprietaire(contrat?.id)" type="button" class="btn btn-primary" [disabled]="loadingAnnulerProp">
+                  <button (click)="AnnulerContratProprietaire(contrat?.id)" type="button" class="btn btn-primary"
+                    [disabled]="loadingAnnulerProp">
                     <ng-container *ngIf="!loadingAnnulerProp">Annuler le contrat</ng-container>
                     <ng-container *ngIf="loadingAnnulerProp">
                       <div class="spinner-border" style="color: #374b5c;font-size: 13px;" role="status">
@@ -1110,7 +1113,8 @@
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Retour
                   </button>
-                  <button (click)="AnnulerContratLocataire(contrat?.id)" type="button" class="btn btn-primary" [disabled]="loadingAnnulerloc">
+                  <button (click)="AnnulerContratLocataire(contrat?.id)" type="button" class="btn btn-primary"
+                    [disabled]="loadingAnnulerloc">
                     <ng-container *ngIf="!loadingAnnulerloc">Annuler le contrat</ng-container>
                     <ng-container *ngIf="loadingAnnulerloc">
                       <div class="spinner-border" style="color: #374b5c;font-size: 13px;" role="status">
@@ -1128,3 +1132,21 @@
     </div>
   </div>
   <!-- Invoice 1 end -->
+</div>
+
+<div class="login-content tts" style="margin-top: 280px;" *ngIf="!loadingPage">
+  <div class="container">
+    <div class="row mb-5 py-3">
+      <div class="col-md-6 col-lg-5 mx-auto"></div>
+      <div class="col-md-2 col-lg-2 mx-auto">
+        <div class="login-wrap1 password-form1 justify-content-center">
+          <div *ngIf="!loadingPage" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 mx-auto"></div>
+    </div>
+
+  </div>
+</div>

@@ -120,20 +120,20 @@ export class MesAgentsComponent implements OnInit {
 
     if (this.storageService.isLoggedIn()) {
       // Récupérer les données de l'utilisateur connecté
-    this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-      this.profil = data[0]?.profil;
-      this.currentUser = data[0];
-      if (this.profil == 'LOCATAIRE') {
-        this.isLocataire = true;
-      } else if (this.profil == 'AGENCE' ) {
-        this.isAgence = true; 
-      } else if (this.profil == 'AGENT') {
-        
-      } else if (this.profil == 'PROPRIETAIRE') {
-        
-      }else {
-      }
-    })
+      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+        this.profil = data[0]?.profil;
+        this.currentUser = data[0];
+        if (this.profil == 'LOCATAIRE') {
+          this.isLocataire = true;
+        } else if (this.profil == 'AGENCE') {
+          this.isAgence = true;
+        } else if (this.profil == 'AGENT') {
+
+        } else if (this.profil == 'PROPRIETAIRE') {
+
+        } else {
+        }
+      })
       // }
     }
 
@@ -164,15 +164,15 @@ export class MesAgentsComponent implements OnInit {
   // Méthode de filtrage pour l'état
   filterAgentsByState(agents: any[]): any[] {
     if (this.selectedState === null) {
-        return agents; // Si aucun état n'est sélectionné, retournez tous les agents
+      return agents; // Si aucun état n'est sélectionné, retournez tous les agents
     } else if (this.selectedState === true || this.selectedState === false) {
-        return agents.filter(agent => agent.etat === this.selectedState); // Filtrer par l'état sélectionné
+      return agents.filter(agent => agent.etat === this.selectedState); // Filtrer par l'état sélectionné
     } else if (this.selectedState === 'Inactif') {
-        return agents.filter(agent => agent.etat === false); // Filtrer pour "Inactif"
+      return agents.filter(agent => agent.etat === false); // Filtrer pour "Inactif"
     }
-    
+
     return agents; // Cas de retour par défaut si aucun des cas précédents n'est rencontré
-}
+  }
 
 
 
@@ -244,106 +244,138 @@ export class MesAgentsComponent implements OnInit {
       },
       heightAuto: false,
     });
+
     const user = this.storageService.getUser();
     if (user && user.token) {
-      // Définissez le token dans le service commentaireService
       this.serviceUser.setAccessToken(user.token);
 
-      // Vérifiez que les valeurs sont présentes avant d'appeler AjouterAgent
+      // Vérifiez si tous les champs sont null
       if (
-        this.agentForm.nom !== null &&
-        this.agentForm.email !== null &&
-        this.agentForm.telephone !== null
-        // this.agentForm.quartier !== null
+        !this.agentForm.nom &&
+        !this.agentForm.email &&
+        !this.agentForm.telephone &&
+        !this.agentForm.quartier
       ) {
-        swalWithBootstrapButtons
-          .fire({
-            text: 'Etes-vous sûre de creer cet agent ?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Confirmer',
-            cancelButtonText: 'Annuler',
-            reverseButtons: true,
-          })
-          .then((result) => {
-            if (result.isConfirmed) {
-              this.loading = true; // Affiche l'indicateur de chargement
-              // Appelez la méthode AjouterAgent() avec les données du formulaire
-              this.agenceService
-                .AjouterAgent(
-                  this.agentForm.nom,
-                  this.agentForm.email,
-                  this.agentForm.telephone
-
-                )
-                .subscribe(
-                  (data) => {
-                    // La réponse de la requête réussie est gérée ici
-                    if (data.status) {
-                      let timerInterval = 2000;
-                      Swal.fire({
-                        position: 'center',
-                        text: data.message,
-                        title: "Ajout d'un agent",
-                        icon: 'success',
-                        heightAuto: false,
-                        showConfirmButton: false,
-                        confirmButtonColor: '#e98b11',
-                        showDenyButton: false,
-                        showCancelButton: false,
-                        allowOutsideClick: false,
-                        timer: timerInterval,
-                        timerProgressBar: true,
-                      }).then(() => {
-                        // Réinitialisez le formulaire d'ajout d'agent après un succès
-                        this.agentForm = {
-                          nom: '',
-                          email: '',
-                          telephone: '',
-                          quartier: '',
-                        };
-                        // Une fois la génération terminée, masquez l'indicateur de chargement
-                        this.loading = false;
-                        window.location.reload();
-                        //AFFICHER LA LISTE DES AGENTS PAR AGENCE
-                        this.agenceService
-                          .ListeAgentParAgence()
-                          .subscribe((data) => {
-                            this.agent = data.agents.reverse();
-                          });
-                      });
-                    } else {
-                      Swal.fire({
-                        position: 'center',
-                        text: data.message,
-                        title: 'Erreur',
-                        icon: 'error',
-                        heightAuto: false,
-                        showConfirmButton: true,
-                        confirmButtonText: 'OK',
-                        confirmButtonColor: '#e98b11',
-                        showDenyButton: false,
-                        showCancelButton: false,
-                        allowOutsideClick: false,
-                      }).then((result) => {
-                        // Une fois la génération terminée, masquez l'indicateur de chargement
-                        this.loading = false;
-                      });
-                    }
-                  },
-                  (error) => {
-
-                  }
-                );
-            }
-          });
-      } else {
-        swalWithBootstrapButtons.fire(
-          (this.message = ' Tous les champs sont obligatoires !')
-        );
+        swalWithBootstrapButtons.fire({
+          text: 'Tous les champs sont obligatoires !',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        return;
       }
+
+      // Vérifiez chaque champ individuellement
+      if (!this.agentForm.nom) {
+        swalWithBootstrapButtons.fire({
+          text: 'Le nom est obligatoire !',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+
+      if (!this.agentForm.email) {
+        swalWithBootstrapButtons.fire({
+          text: 'L\'email est obligatoire !',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+
+      if (!this.agentForm.telephone) {
+        swalWithBootstrapButtons.fire({
+          text: 'Le téléphone est obligatoire !',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+
+      swalWithBootstrapButtons
+        .fire({
+          text: 'Etes-vous sûr de créer cet agent ?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Confirmer',
+          cancelButtonText: 'Annuler',
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.loading = true;
+            this.agenceService
+              .AjouterAgent(
+                this.agentForm.nom,
+                this.agentForm.email,
+                this.agentForm.telephone
+              )
+              .subscribe(
+                (data) => {
+                  if (data.status) {
+                    let timerInterval = 2000;
+                    Swal.fire({
+                      position: 'center',
+                      text: data.message,
+                      title: "Ajout d'un agent",
+                      icon: 'success',
+                      heightAuto: false,
+                      showConfirmButton: false,
+                      timer: timerInterval,
+                      timerProgressBar: true,
+                    }).then(() => {
+                      this.agentForm = {
+                        nom: '',
+                        email: '',
+                        telephone: '',
+                        quartier: '',
+                      };
+                      this.loading = false;
+                      window.location.reload();
+                      this.agenceService.ListeAgentParAgence().subscribe((data) => {
+                        this.agent = data.agents.reverse();
+                      });
+                    });
+                  } else {
+                    Swal.fire({
+                      position: 'center',
+                      text: data.message,
+                      title: 'Erreur',
+                      icon: 'error',
+                      heightAuto: false,
+                      confirmButtonText: 'OK',
+                    }).then(() => {
+                      this.loading = false;
+                    });
+                  }
+                },
+                (error) => {
+                  Swal.fire({
+                    position: 'center',
+                    text: 'Une erreur s\'est produite. Veuillez réessayer plus tard.',
+                    title: 'Erreur',
+                    icon: 'error',
+                    heightAuto: false,
+                    confirmButtonText: 'OK',
+                  });
+                  this.loading = false;
+                }
+              );
+          }
+        });
     } else {
+      Swal.fire({
+        text: 'Utilisateur non authentifié. Veuillez vous reconnecter.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
+  }
+
+
+  islongNumero(telephone: string): boolean {
+    const regex = /^[0-9-]+$/; // Expression régulière pour vérifier que le numéro contient uniquement des chiffres et des tirets
+    return telephone.length === 8 && regex.test(telephone);
   }
 
   //POPUP APRES CONFIRMATION DE L'AJOUT AGENT
@@ -493,6 +525,7 @@ export class MesAgentsComponent implements OnInit {
     });
 
     this.serviceAuth.login(telephoneOrEmail, password).subscribe((data) => {
+      this.storageService.saveUser(data);
       return this.serviceUser.active(this.selectedAgentId).subscribe(
         (response) => {
           if (response.status) {

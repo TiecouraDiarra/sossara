@@ -44,6 +44,7 @@ export class ContratComponent {
   // isAgence = false;
   roles: string[] = [];
   users: any;
+  check: any;
 
   isProprietaire(roles: any[]): boolean {
     return roles?.some(role => role.name === 'PROPRIETAIRE');
@@ -62,6 +63,7 @@ export class ContratComponent {
   emailProprietaire: any
 
   loading = false;
+  loadingPage = false;
   loadingAnnuler = false;
   loadingValiderLocataire = false;
   loadingValiderProprietaire = false;
@@ -103,47 +105,86 @@ export class ContratComponent {
   };
 
   ngOnInit(): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: '',
+        cancelButton: '',
+      },
+      heightAuto: false
+    })
+    //RECUPERER L'UUID D'UN CONTRAT 
+    this.id = this.route.snapshot.params["uuid"]
     if (this.storageService.isLoggedIn()) {
-
-
-      // if (this.roles.includes("ROLE_PROPRIETAIRE")) {
-      //   this.isProprietaire = true;
-      // }
-
-      // if (this.roles.includes("ROLE_AGENCE")) {
-      //   this.isAgence = true;
-      // }
+      this.serviceContrat.checkContratParUser(this.id).subscribe((data) => {
+        this.check = data;
+        console.log(this.check);
+        if(data.status){
+          this.contratUser();
+          this.loadingPage = true;
+        }else{
+          window.history.back();
+        }
+        
+      })
     }
 
 
-    //RECUPERER L'UUID D'UN CONTRAT 
-    this.id = this.route.snapshot.params["uuid"]
+    
+    
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
-    this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
-      this.contrat = data;
+    // this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+    //   this.contrat = data;
+    //   console.log(this.contrat);
       
+    //   // if(this.contrat)
 
-      this.bien = data?.bien;
-      this.locataire = data?.locataire;
-      this.proprietaire = data?.bien?.proprietaire;
-      this.serviceUser.AfficherUserConnecter().subscribe(
-        (data) => {
-          this.users = data[0];
-          this.emailProprietaire = this.users.email
-          // this.emailProprietaire = this.storageService.getUser().email
-          if (this.emailProprietaire == this.proprietaire.email) {
-            this.isAgenceProprietaire = true;
-          }
-        })
-      this.photoImmo = data?.bien?.photoImmos;
+    //   this.bien = data?.bien;
+    //   this.locataire = data?.locataire;
+    //   this.proprietaire = data?.bien?.proprietaire;
+    //   this.serviceUser.AfficherUserConnecter().subscribe(
+    //     (data) => {
+    //       this.users = data[0];
+    //       this.emailProprietaire = this.users.email
+    //       // this.emailProprietaire = this.storageService.getUser().email
+    //       if (this.emailProprietaire == this.proprietaire.email) {
+    //         this.isAgenceProprietaire = true;
+    //       }
+    //     })
+    //   this.photoImmo = data?.bien?.photoImmos;
 
-    })
+    // })
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {
     return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
 
+  contratUser() {
+     //RECUPERER L'UUID D'UN CONTRAT 
+     this.id = this.route.snapshot.params["uuid"]
+     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+       this.contrat = data;
+       console.log(this.contrat);
+       
+       // if(this.contrat)
+ 
+       this.bien = data?.bien;
+       this.locataire = data?.locataire;
+       this.proprietaire = data?.bien?.proprietaire;
+       this.serviceUser.AfficherUserConnecter().subscribe(
+         (data) => {
+           this.users = data[0];
+           this.emailProprietaire = this.users.email
+           // this.emailProprietaire = this.storageService.getUser().email
+           if (this.emailProprietaire == this.proprietaire.email) {
+             this.isAgenceProprietaire = true;
+           }
+         })
+       this.photoImmo = data?.bien?.photoImmos;
+ 
+     })
+  }
 
   selectPaymentMode(mode: any) {
     // Enregistrez le mode de paiement sélectionné dans une variable ou envoyez-le directement à la méthode goToPaymentPage

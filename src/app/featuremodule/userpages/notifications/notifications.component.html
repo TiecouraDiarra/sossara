@@ -195,7 +195,7 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <button *ngIf="Candidature?.candidature?.contrat" (click)="goToPageContrat(Candidature?.candidature?.contrat?.uuid)" class="dropdown-item crd" type="button"><i class="mdi mdi-eye"></i>
                                                 Voir le contrat</button>
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                            <button (click)="Supprimer(Candidature?.uuid)" class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
                                                 Supprimer</button>
                                         </div>
                                     </div>
@@ -245,7 +245,7 @@
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <button [routerLink]="routes.rdv" class="dropdown-item" type="button"><i class="mdi mdi-eye"></i>
                                                  Voir detail</button>
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                            <button (click)="Supprimer(Rdv?.uuid)" class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
                                                 Supprimer</button>
                                         </div>
                                     </div>
@@ -310,7 +310,7 @@
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                            <button (click)="Supprimer(Message?.uuid)" class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
                                                 Supprimer</button>
                                         </div>
                                     </div>

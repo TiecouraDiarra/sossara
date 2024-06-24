@@ -538,94 +538,97 @@ export class ProfileComponent implements OnInit {
                   this.isSignUpFailed = false;
 
                   // this.popUpModification();
-
-                  if (this.storageService.getUser().email !== email) {
-                    // Utilisation correcte de la comparaison
-                    // this.popUpModification();
-                    if (data.status) {
-                      let timerInterval = 2000;
-                      Swal.fire({
-                        position: 'center',
-                        text: data.message,
-                        title: "Modification de profil",
-                        icon: 'success',
-                        heightAuto: false,
-                        showConfirmButton: false,
-                        confirmButtonColor: '#e98b11',
-                        showDenyButton: false,
-                        showCancelButton: false,
-                        allowOutsideClick: false,
-                        timer: timerInterval,
-                        timerProgressBar: true,
-                      }).then(() => {
-                        // Une fois la génération terminée, masquez l'indicateur de chargement
-                        this.loading = false;
-                        this.storageService.clean();
-                        this.router.navigate(['/auth/connexion']).then(() => {
+                  this.serviceUser.AfficherUserConnecter().subscribe((res) => {
+                    this.users = res[0];
+                    if (this.users.email !== email) {
+                      // Utilisation correcte de la comparaison
+                      // this.popUpModification();
+                      if (data.status) {
+                        let timerInterval = 2000;
+                        Swal.fire({
+                          position: 'center',
+                          text: data.message,
+                          title: "Modification de profil",
+                          icon: 'success',
+                          heightAuto: false,
+                          showConfirmButton: false,
+                          confirmButtonColor: '#e98b11',
+                          showDenyButton: false,
+                          showCancelButton: false,
+                          allowOutsideClick: false,
+                          timer: timerInterval,
+                          timerProgressBar: true,
+                        }).then(() => {
+                          // Une fois la génération terminée, masquez l'indicateur de chargement
+                          this.loading = false;
+                          this.storageService.clean();
+                          this.router.navigate(['/auth/connexion']).then(() => {
+                            window.location.reload();
+                          });
+                        });
+                      } else {
+                        Swal.fire({
+                          position: 'center',
+                          text: data.message,
+                          title: 'Erreur',
+                          icon: 'error',
+                          heightAuto: false,
+                          showConfirmButton: true,
+                          confirmButtonText: 'OK',
+                          confirmButtonColor: '#e98b11',
+                          showDenyButton: false,
+                          showCancelButton: false,
+                          allowOutsideClick: false,
+                        }).then((result) => {
+                          // Une fois la génération terminée, masquez l'indicateur de chargement
+                          this.loading = false;
+                        });
+                      }
+                      // Une fois la génération terminée, masquez l'indicateur de chargement
+                      this.loading = false;
+                    } else {
+                      // window.location.reload();
+                      if (data.status) {
+                        let timerInterval = 2000;
+                        Swal.fire({
+                          position: 'center',
+                          text: data.message,
+                          title: "Modification de profil",
+                          icon: 'success',
+                          heightAuto: false,
+                          showConfirmButton: false,
+                          confirmButtonColor: '#e98b11',
+                          showDenyButton: false,
+                          showCancelButton: false,
+                          allowOutsideClick: false,
+                          timer: timerInterval,
+                          timerProgressBar: true,
+                        }).then(() => {
+                          // Une fois la génération terminée, masquez l'indicateur de chargement
+                          this.loading = false;
                           window.location.reload();
                         });
-                      });
-                    } else {
-                      Swal.fire({
-                        position: 'center',
-                        text: data.message,
-                        title: 'Erreur',
-                        icon: 'error',
-                        heightAuto: false,
-                        showConfirmButton: true,
-                        confirmButtonText: 'OK',
-                        confirmButtonColor: '#e98b11',
-                        showDenyButton: false,
-                        showCancelButton: false,
-                        allowOutsideClick: false,
-                      }).then((result) => {
-                        // Une fois la génération terminée, masquez l'indicateur de chargement
-                        this.loading = false;
-                      });
+                      } else {
+                        Swal.fire({
+                          position: 'center',
+                          text: data.message,
+                          title: 'Erreur',
+                          icon: 'error',
+                          heightAuto: false,
+                          showConfirmButton: true,
+                          confirmButtonText: 'OK',
+                          confirmButtonColor: '#e98b11',
+                          showDenyButton: false,
+                          showCancelButton: false,
+                          allowOutsideClick: false,
+                        }).then((result) => {
+                          // Une fois la génération terminée, masquez l'indicateur de chargement
+                          this.loading = false;
+                        });
+                      }
                     }
-                    // Une fois la génération terminée, masquez l'indicateur de chargement
-                    this.loading = false;
-                  } else {
-                    // window.location.reload();
-                    if (data.status) {
-                      let timerInterval = 2000;
-                      Swal.fire({
-                        position: 'center',
-                        text: data.message,
-                        title: "Modification de profil",
-                        icon: 'success',
-                        heightAuto: false,
-                        showConfirmButton: false,
-                        confirmButtonColor: '#e98b11',
-                        showDenyButton: false,
-                        showCancelButton: false,
-                        allowOutsideClick: false,
-                        timer: timerInterval,
-                        timerProgressBar: true,
-                      }).then(() => {
-                        // Une fois la génération terminée, masquez l'indicateur de chargement
-                        this.loading = false;
-                        window.location.reload();
-                      });
-                    } else {
-                      Swal.fire({
-                        position: 'center',
-                        text: data.message,
-                        title: 'Erreur',
-                        icon: 'error',
-                        heightAuto: false,
-                        showConfirmButton: true,
-                        confirmButtonText: 'OK',
-                        confirmButtonColor: '#e98b11',
-                        showDenyButton: false,
-                        showCancelButton: false,
-                        allowOutsideClick: false,
-                      }).then((result) => {
-                        // Une fois la génération terminée, masquez l'indicateur de chargement
-                        this.loading = false;
-                      });
-                    }
-                  }
+                  })
+
                 },
                 error: (err) => {
                   this.errorMessage = err.error.message;

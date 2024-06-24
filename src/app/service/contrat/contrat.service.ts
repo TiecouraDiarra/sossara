@@ -34,7 +34,14 @@ export class ContratService {
 
   //AFFICHER UN CONTRAT EN FONCTION DE SON UUID
   AfficherContratParUuId(uuid: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/contrat/affichercontratparuuid/${uuid}`);
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/contrat/affichercontratparuuid/${uuid}`,{headers});
+  }
+
+  //checkContratParUser
+  checkContratParUser(uuid: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/contrat/check/${uuid}`,{ headers } );
   }
 
 
