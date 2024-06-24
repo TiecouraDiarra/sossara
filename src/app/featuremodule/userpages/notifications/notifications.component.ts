@@ -34,6 +34,7 @@ export class NotificationsComponent implements OnInit {
   notifications: any
   senderCheck: any;
   users: any;
+  errorMessage: any = '';
 
 
 
@@ -73,6 +74,10 @@ export class NotificationsComponent implements OnInit {
     }
 
     //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
+    this.AfficherLesNotifi();
+  }
+
+  AfficherLesNotifi(): void {
     this.notificationService.AfficherListeNotification().subscribe(data => {
       this.notifications = data.reverse().slice(0, 3);
 
@@ -98,8 +103,99 @@ export class NotificationsComponent implements OnInit {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
+      console.log(this.candidature);
+      
     }
     );
+  }
+
+  //METHODE PERMETTANT DE SUPPRIMER UNE NOTIFICATION
+  Supprimer(id: any): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'swal2-confirm btn',
+        cancelButton: 'swal2-cancel btn',
+      },
+      heightAuto: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        // title: 'Etes-vous sûre de vous déconnecter?',
+        text: 'Etes-vous sûre de suppimer cette notification?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Supprimer',
+        cancelButtonText: 'Annuler',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const user = this.storageService.getUser();
+          if (user && user.token) {
+            // Définissez le token dans le service serviceUser
+            this.serviceUser.setAccessToken(user.token);
+
+            // Appelez la méthode PrendreRdv() avec le contenu et l'ID
+            this.notificationService.SupprimerNotification(id).subscribe({
+              next: (data) => {
+                if (data.status) {
+                  let timerInterval = 2000;
+                  Swal.fire({
+                    position: 'center',
+                    text: data.message,
+                    title: "Suppression d'une notification",
+                    icon: 'success',
+                    heightAuto: false,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#e98b11',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                    timer: timerInterval,
+                    timerProgressBar: true,
+                  }).then(() => {
+                    //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
+                    this.AfficherLesNotifi();
+                    window.location.reload();
+                  });
+                } else {
+                  Swal.fire({
+                    position: 'center',
+                    text: data.message,
+                    title: 'Erreur',
+                    icon: 'error',
+                    heightAuto: false,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#e98b11',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    allowOutsideClick: false,
+                  }).then((result) => { });
+                }
+              },
+              error: (err) => {
+
+                this.errorMessage = err.error.message;
+
+              },
+            });
+          } else {
+
+          }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // L'utilisateur a annulé l'action
+          const cancelNotification = Swal.fire({
+            title: 'Action annulée',
+            text: "Vous avez annulé la suppression.",
+            icon: 'info',
+            showConfirmButton: false, // Supprime le bouton "OK"
+            timer: 2000, // Durée en millisecondes (par exemple, 3000 ms pour 3 secondes)
+          });
+
+          // Vous n'avez pas besoin de setTimeout pour fermer cette notification, car "timer" le fait automatiquement après la durée spécifiée.
+        }
+      });
   }
 
   //METHODE PERMETTANT DE SE DECONNECTER
