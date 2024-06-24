@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, NgZone } from '@angular/core';
 import Swal from 'sweetalert2';
 import * as L from 'leaflet';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -156,6 +156,7 @@ export class ModifierBienComponent {
     private caracteristiqueService: CaracteristiqueService,
     private route: ActivatedRoute,
     private serviceCommodite: CommoditeService,
+    private cdRef: ChangeDetectorRef,
     private serviceUser: UserService,
     private serviceBienImmo: BienimmoService
   ) {
@@ -202,6 +203,8 @@ export class ModifierBienComponent {
      //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
        this.bien = data;
+       console.log(this.bien);
+       
        setTimeout(() => {
          this.form = {
            nom: this.bien?.nom,
@@ -234,6 +237,9 @@ export class ModifierBienComponent {
 
          this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
           this.les_commodite = data;
+          console.log(this.les_commodite);
+          this.cdRef.detectChanges(); // Force detection of changes
+          
   
           if (this.bien && this.bien.commodites) {
   
@@ -551,17 +557,57 @@ export class ModifierBienComponent {
     }
   }
 
-  onChangeCommodite() {
-    if (this.les_commodite) {
-      const commoditeArray = [];
-      for (const item of this.les_commodite) {
-        if (item.selected) {
-          commoditeArray.push(item.id);
-        }
+  selectedCommoditesIds: number[] = [];
+
+  onChangeCommodite(id: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      this.selectedCommoditesIds.push(id);
+    } else {
+      const index = this.selectedCommoditesIds.indexOf(id);
+      if (index > -1) {
+        this.selectedCommoditesIds.splice(index, 1);
       }
-      this.form.commodite = commoditeArray;
     }
+    console.log('Selected Commodities:', this.selectedCommoditesIds);
   }
+
+  // onChangeCommodite() {
+  //   if (this.les_commodite) {
+  //     const commoditeArray = [];
+  //     for (const item of this.les_commodite) {
+  //       if (item.selected) {
+  //         commoditeArray.push(item.id);
+  //       }
+  //     }
+  //     this.form.commodite = commoditeArray;
+  //   }
+  // }
+
+  // onChangeCommodites(): void {
+  //   if (this.les_commodite) {
+  //     const commoditeArray = this.les_commodite
+  //       .filter(item => item.selected)
+  //       .map(item => item.id);
+  //     this.form.commodite = commoditeArray;
+  //     console.log('Selected Commodities:', this.form.commodite);
+  //   }
+  // }
+
+  onChangeCommodites(id: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.les_commodite = this.les_commodite.map(item =>
+      item.id === id ? { ...item, selected: isChecked } : item
+    );
+
+    const commoditeArray = this.les_commodite
+      .filter(item => item.selected)
+      .map(item => item.id);
+
+    this.form.commodite = commoditeArray;
+    console.log('Selected Commodities:', this.form.commodite);
+  }
+
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO;
