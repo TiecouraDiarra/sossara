@@ -121,6 +121,7 @@ export class ContratComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
       this.contrat = data;
+      
 
       this.bien = data?.bien;
       this.locataire = data?.locataire;
@@ -442,7 +443,7 @@ export class ContratComponent {
 
 
   //ACCEPTER LA CANDIDATURE D'UN BIEN PROPRIETAIRE C'EST A DIRE VALIDE
-  ValiderContratProprietaire(): void {
+  ValiderContratProprietaire(uuid:any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -466,7 +467,7 @@ export class ContratComponent {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
           // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
-          this.serviceContrat.AccepterCandidaterBien(sessionStorage.getItem("idCandidature")).subscribe({
+          this.serviceContrat.AccepterCandidaterBien(uuid).subscribe({
             next: (data) => {
               this.isSuccess = true;
               this.errorMessage = 'Candidature acceptée avec succès';

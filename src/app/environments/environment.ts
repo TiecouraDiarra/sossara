@@ -12,9 +12,9 @@ export const environment = {
     Url_PHOTO:"http://127.0.0.1:8080",
     socketUrl: '//127.0.0.1:8080/chat-socket'
 
-    // Url_BASE:"http://10.175.48.89:8080/api",
-    // Url_PHOTO:"http://10.175.48.89:8080",
-    // socketUrl: '//10.175.48.89:8080/chat-socket'
+    // Url_BASE:"http://10.175.48.166:8080/api",
+    // Url_PHOTO:"http://10.175.48.166:8080",
+    // socketUrl: '//10.175.48.166:8080/chat-socket'
     
   };
   
