@@ -1,204 +1,684 @@
 <!-- Breadscrumb Section -->
 <div class="breadcrumb-bar">
-    <div class="container">
-        <div class="row align-items-center text-center">
-            <div class="col-md-12 col-12">
-                <h2 class="breadcrumb-title">Profile</h2>
-                <nav aria-label="breadcrumb" class="page-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a [routerLink]="routes.home1">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
-                    </ol>
-                </nav>							
-            </div>
-        </div>
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col-md-12 col-12">
+        <h2 class="breadcrumb-title">Profil</h2>
+        <nav aria-label="breadcrumb" class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="routes.home9">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Profil</li>
+          </ol>
+        </nav>
+      </div>
     </div>
+  </div>
 </div>
 <!-- /Breadscrumb Section -->
 
 <!-- Profile Content -->
-<div class="dashboard-content">		
-    <div class="container">
-        <div class="">			        
-            <ul class="dashborad-menus">
-                <li>
-                    <a [routerLink]="routes.dashboard">
-                        <i class="feather-grid"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-                <li  class="active">
-                    <a [routerLink]="routes.profile">
-                        <i class="fa-solid fa-user"></i> <span>Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="routes.mylisting">
-                        <i class="feather-list"></i> <span>My Listing</span>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Bookmarks</span>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="routes.messages">
-                        <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Reviews</span>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="routes.login">
-                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Logout</span>
-                    </a>
-                </li>
-            </ul>											
-        </div>
-        <div class="profile-content">
-             <div class="row dashboard-info">
-                <div class="col-lg-9">
-                    <div class="card dash-cards">
-                        <div class="card-header">
-                            <h4>Profile Details</h4>																
-                        </div>
-                        <div class="card-body">
-                            <div class="profile-photo">
-                                <div class="profile-img">
-                                    <div class="settings-upload-img">
-                                         <img src="assets/img/profile-img.jpg" alt="profile">
-                                    </div>										    
-                                     <div class="settings-upload-btn">											    
-                                        <input type="file" accept="image/*" name="image" class="hide-input image-upload" id="file">
-                                        <label for="file" class="file-upload">Upload New photo</label>												
-                                     </div>	
-                                     <span>Max file size: 10 MB</span>
-                                </div>                                        									
-                                <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a>										
-                            </div>
-                            <div class="profile-form">
-                                 <form>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Your Full Name</label>
-                                        <div class="pass-group group-img">
-                                            <span class="lock-icon"><i class="feather-user"></i></span>
-                                            <input type="text" class="form-control" value="John Doe">													
-                                        </div>
-                                    </div> 
-                                    <div class="row">
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Phone Number</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="feather-phone-call"></i></span>
-                                                    <input type="tel" class="form-control" value="+44 215346 1223">													
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Email Address</label>
-                                                <div class="group-img">
-                                                    <i class="feather-mail"></i>
-                                                    <input type="text" class="form-control" value="johndoe@email.com">
-                                                </div>
-                                            </div>
-                                         </div>											
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Notes</label>
-                                        <div class="pass-group group-img">
-                                            <textarea rows="4" class="form-control">Mauris vestibulum lorem a condimentum vulputate. Integer vitae turpis turpis. Cras at tincidunt urna. Aenean leo justo, congue et felis a, elementum rutrum felis. Fusce rutrum ipsum eu pretium faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean leo justo, congue et felis a.  Aenean leo justo, congue et felis a.	</textarea>												
-                                        </div>
-                                    </div>
-                                    <div class="row socialmedia-info">
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Facebook</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fab fa-facebook-f"></i></span>
-                                                    <input type="text" class="form-control" value="https://www.facebook.com/">												
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Twitter</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fab fa-twitter"></i></span>
-                                                    <input type="text" class="form-control" value="https://twitter.com/">												
-                                                </div>
-                                            </div>
-                                         </div>											
-                                    </div>
-                                    <div class="row socialmedia-info">
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group formlast-input">
-                                                <label class="col-form-label">Google+</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fa-brands fa-google-plus-g"></i></span>
-                                                    <input type="text" class="form-control" value="https://www.google.com/">												
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="col-lg-6 col-md-6">
-                                            <div class="form-group formlast-input">
-                                                <label class="col-form-label">Instagram</label>
-                                                <div class="pass-group group-img">
-                                                    <span class="lock-icon"><i class="fab fa-instagram"></i></span>
-                                                    <input type="text" class="form-control" value="https://www.instagram.com/">												
-                                                </div>
-                                            </div>
-                                         </div>											
-                                    </div>										 
-                                 </form>
-                            </div> 
-                        </div>								
-                    </div>	
+<div class="dashboard-content">
+  <div class="container">
+    <div class="">
+      <ul class="dashborad-menus">
+        <li>
+          <a [routerLink]="routes.dashboard">
+            <i class="feather-grid"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="routes.mylisting">
+            <i class="feather-list"></i> <span>Mes biens</span>
+          </a>
+        </li>
+        <li *ngIf="isAgence">
+          <a [routerLink]="routes.bookmarks">
+            <i class="fas fa-users"></i> <span>Mes agents</span>
+          </a>
+        </li>
+        <li *ngIf="isAgence ||  isProprietaire">
+          <a [routerLink]="routes.rdv">
+            <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="routes.messages">
+            <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="routes.reviews">
+            <i class="fas fa-bell"></i> <span>Notifications</span>
+          </a>
+        </li>
+        <li class="active">
+          <a [routerLink]="routes.profile">
+            <i class="fa-solid fa-user"></i> <span>Profil</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="profile-content">
+      <div class="row dashboard-info">
+        <div class="col-lg-9">
+          <div class="card dash-cards">
+            <div class="card-header">
+              <h4>Details du profil</h4>
+            </div>
+            <div class="card-body">
+              <div class="profile-photo">
+                <div class="profile-img">
+                  <div class="settings-upload-img" *ngIf="users && users.utilisateurPhoto">
+                    <img [src]="generateImageUrl(photo?.photo?.nom)" alt="profile"
+                      (error)="handleAuthorImageError($event)" />
+                  </div>
+
+                  <div class="settings-upload-btn">
+                    <input type="file" accept="image/*" name="photo" class="hide-input image-upload" id="photo"
+                      (change)="onPhotoChange($event)" accept=".png, .jpeg, .jpg, .svg, .webp" />
+                    <label for="file" class="file-upload">Changer Photo profil</label>
+                  </div>
+                  <span>Taille Max: 5MB</span>
                 </div>
-                <div class="col-lg-3">
-                    <div class="profile-sidebar">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Change Password</h4>
-                            </div>	
-                            <div class="card-body">
-                               <form>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Current Password</label>
-                                        <div class="pass-group group-img">
-                                            <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" class="form-control pass-input" placeholder="Password">													
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">New Password</label>
-                                        <div class="pass-group group-img">
-                                            <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" class="form-control pass-input" value="..............">
-                                            
-                                            <span  [ngClass]="Toggledata == true ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"  (click)="iconLogle()"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Confirm New Password</label>
-                                        <div class="pass-group group-img">
-                                            <span class="lock-icon"><i class="feather-lock"></i></span>
-                                            <input type="password" class="form-control pass-input" value="..............">
-                                            <span [ngClass]="Toggle == true ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'" (click)="icon()"></span>
-                                        </div>
-                                    </div>	
-                                    <button class="btn btn-primary" type="submit"> Change Password</button>											
-                               </form>								
-                            </div>  									
-                        </div>							
+                <span style="font-size: 15px; font-weight: bold;" *ngIf="isAgence">{{ users?.nomAgence }}</span>
+                <!-- <a href="javascript:void(0)" class="profile-img-del"><i class="feather-trash-2"></i></a> -->
+              </div>
+              <div class="profile-form">
+                <form>
+                  <div class="form-group" *ngIf="users && users.nom">
+                    <label class="col-form-label">Votre nom et prenom</label>
+                    <div class="pass-group group-img">
+                      <span class="lock-icon"><i class="feather-user"></i></span>
+                      <input type="text" class="form-control" value="{{ users.nom }}" />
                     </div>
-                </div>							
-             </div>				
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                      <div class="form-group" *ngIf="users && users.telephone">
+                        <label class="col-form-label">Numero</label>
+                        <div class="pass-group group-img">
+                          <span class="lock-icon"><i class="feather-phone-call"></i></span>
+                          <input type="tel" class="form-control" value="{{ users.telephone }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <div class="form-group" *ngIf="users && users?.email">
+                        <label class="col-form-label">Adresse Email</label>
+                        <div class="group-img">
+                          <i class="feather-mail"></i>
+                          <input type="text" class="form-control" value="{{ users.email }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row socialmedia-info">
+                    <div class="col-lg-6 col-md-6" *ngIf="users?.dateNaissance">
+                      <div class="form-group">
+                        <label class="col-form-label">Date de naissance</label>
+                        <div class="pass-group group-img">
+                          <span class="lock-icon"><i class="fa-sharp fa-solid fa-calendar-days"></i></span>
+                          <input type="text" class="form-control" value="{{
+                              users?.dateNaissance
+                                | date : 'dd MMM yyyy' : locale
+                            }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6" *ngIf="users?.profil">
+                      <div class="form-group">
+                        <label class="col-form-label">Statut</label>
+                        <div class="pass-group group-img">
+                          <span class="lock-icon"><i class="fas fa-info-circle"></i></span>
+                          <input type="text" class="form-control" readonly [value]="users?.profil" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row socialmedia-info">
+                    <div class="col-lg-6 col-md-6" *ngIf="users?.documents && users?.documents[0]">
+                      <div class="form-group">
+                        <label class="col-form-label">Type de piece</label>
+                        <div class="pass-group group-img">
+                          <span class="lock-icon"><i class="fas fa-id-card"></i></span>
+                          <input type="text" class="form-control" value="{{ users?.documents[0]?.nomDoc }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6" *ngIf="users?.documents && users?.documents[0]">
+                      <div class="form-group">
+                        <label class="col-form-label">Numero de la carte</label>
+                        <div class="pass-group group-img">
+                          <span class="lock-icon"><i class="fas fa-file"></i></span>
+                          <input type="text" class="form-control" value="{{ users?.documents[0]?.numDoc }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="d-flex real-estate-search">
+                      <div class="flex-grow-1 ms-3">
+                        <p>
+                          <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse"
+                            href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Plus d'informations
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse" id="collapseExample">
+                    <div class="row">
+
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Pays</label>
+
+                        <div class="d-flex real-estate-search form-control">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-map-pin"></i>
+                            </div>
+                          </div>
+                          &nbsp;
+                          <span class="mt-1 input">{{
+                            users?.adresse?.commune?.cercle?.region?.pays?.nompays
+                            }}</span>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Region</label>
+
+                        <div class="d-flex real-estate-search form-control">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-map-pin"></i>
+                            </div>
+                          </div>
+                          &nbsp;
+                          <span class="mt-1 input">{{
+                            users?.adresse?.commune?.cercle?.region?.nomregion
+                            }}</span>
+                        </div>
+                      </div>
+
+
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Cercle</label>
+
+                        <div class="d-flex real-estate-search form-control">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-map-pin"></i>
+                            </div>
+                          </div>
+                          &nbsp;
+                          <span class="mt-1 input">{{
+                            users?.adresse?.commune?.cercle?.nomcercle
+                            }}</span>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Commune</label>
+
+                        <div class="d-flex real-estate-search form-control">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <i class="feather-map-pin"></i>
+                            </div>
+                          </div>
+                          &nbsp;
+                          <span class="mt-1 input">{{
+                            users?.adresse?.commune?.nomcommune
+                            }}</span>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Quartier</label>
+
+                        <div class="d-flex form-control" readonly>
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <img style="width: 20px" src="../../../../assets/img/icons/quartier.png" alt="" />
+                            </div>
+                          </div>
+                          &nbsp;
+                          <span class="mt-2 input">{{
+                            users.adresse.quartier
+                            }}</span>
+                          <!-- <input type="text" style="border: none;"  readonly [value]="users.adresse.quartier"> -->
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Rue</label>
+                        <div class="d-flex form-control" readonly>
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <img style="width: 20px" src="../../../../assets/img/icons/route.png" alt="" />
+                            </div>
+                          </div>
+                          &nbsp;
+                          <span class="mt-2 input">{{
+                            users.adresse.rue
+                            }}</span>
+                          <!-- <input type="text" style="border: none;"  readonly [value]="users.adresse.rue"> -->
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 mb-4" *ngIf="users?.adresse && users?.adresse">
+                        <label class="col-form-label">Porte</label>
+                        <div class="d-flex form-control" readonly>
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                            <div class="icon-blk rounded-circle">
+                              <img style="width: 20px" src="../../../../assets/img/icons/porte.png" alt="" />
+                            </div>
+                          </div>
+                          &nbsp;
+                          <span class="mt-2 input">{{
+                            users?.adresse?.porte
+                            }}</span>
+                          <!-- <input style="border: none;" readonly [value]="users.adresse.porte" type="text" 
+                                                        /> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group text-center">
+                    <button class="btn btn-primary" type="submit" data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop">
+                      Modifier mon profil
+                    </button>
+                    &nbsp; &nbsp;
+
+                    <button class="btn btn-primary" type="submit" data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop2">
+                      Modifier mon adresse
+                    </button>
+                  </div>
+
+                  <!-- Modal MODIFICATION PROFIL -->
+                  <div style="margin-top: 100px;" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">
+                            Modification du profil
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <!-- nom et prenom  -->
+                            <div class="form-group group-img">
+                              <div class="group-img" id="datepicker">
+                                <i class="feather-user"></i>
+                                <input placeholder="Prenom et Nom" name="nom" type="text" class="form-control"
+                                  [(ngModel)]="formModif.nom" required
+                                  [ngClass]="{'is-invalid': formModif.nom && !islongNom(formModif.nom)}" />
+                              </div>
+                              <div *ngIf="formModif.nom && !islongNom(formModif.nom)" class="invalid-feedback"
+                                style="display:block;">
+                                Le nom complet ne doit pas dépasser 40 caractères et ne doit contenir que des lettres.
+                              </div>
+                            </div>
+                            <!-- email  -->
+                            <div class="form-group group-img">
+                              <div class="group-img">
+                                <i class="feather-mail"></i>
+                                <input type="email" placeholder="Adresse Email" name="email" required
+                                  class="form-control" [(ngModel)]="formModif.email"
+                                  [ngClass]="{'is-invalid': formModif.email && !validateEmail(formModif.email)}" />
+                              </div>
+                              <div *ngIf="formModif.email && !validateEmail(formModif.email)" class="invalid-feedback"
+                                style="display:block;">
+                                Votre adresse email n'est pas valide.
+                              </div>
+                            </div>
+                            <!-- telephone  -->
+                            <div class="form-group group-img">
+                              <div class="group-img">
+                                <i class="feather-phone"></i>
+                                <input [(ngModel)]="formModif.telephone" maxlength="8" type="text" required
+                                  name="telephone" class="form-control" placeholder="Numero de Telephone"
+                                  [ngClass]="{'is-invalid': formModif.telephone && !islongNumero(formModif.telephone)}" />
+                              </div>
+                              <div *ngIf="formModif.telephone && !islongNumero(formModif.telephone)"
+                                class="invalid-feedback" style="display:block;">
+                                Le numero de telephone doit etre exactement 8 chiffres.
+                              </div>
+                            </div>
+                            <!-- date de naissance  -->
+                            <!-- date de naissance  -->
+                            <div class="form-group group-img">
+                              <div class="group-img">
+                                <i class="feather-calendar"></i>
+                                <!-- Utilisation d'une icône de calendrier pour représenter la date de naissance -->
+                                <input [(ngModel)]="formModif.dateNaissance" type="date" required name="dateNaissance"
+                                  class="form-control" [max]="getMaximumDate()" placeholder="Date de Naissance" />
+                              </div>
+                            </div>
+
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Retour
+                          </button>
+                          <button (click)="ModifierProfilUser()" type="button" class="btn btn-primary">
+                            Modifier
+                          </button>
+                          <!-- Indicateur de chargement -->
+                          <div *ngIf="loading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Chargement en cours...</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade " style="margin-top: 100px;" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">
+                            Modification de mon adresse
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="row">
+                              <div class="col-md-6">
+                            <div class=" d-flex real-estate-search">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-map-pin"></i>
+                                </div>
+                              </div>
+
+                              <div class="flex-grow-1 ms-3">
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                  <mat-label *ngIf="selectedCategory == ''">pays</mat-label>
+                                  <mat-select name="pays" (selectionChange)="onChange2($event)"
+                                    [(ngModel)]="selectedValue">
+                                    <mat-option *ngFor="let item of pays" [value]="item.nompays">
+                                      {{ item.nompays }}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+
+
+                                  <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Region</mat-label>
+                                    <mat-select name="region" (selectionChange)="onChangeRegion($event)"
+                                      [(ngModel)]="selectedValueR">
+                                      <mat-option *ngFor="let Region of regions" [value]="Region.nomregion">
+                                        {{ Region?.nomregion }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+
+
+
+                                  <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Cercle</mat-label>
+                                    <mat-select name="cercle" (selectionChange)="onChangeCercle($event)"
+                                      [(ngModel)]="selectedValueC">
+                                      <mat-option *ngFor="let Cercle of cercles" [value]="Cercle.nomcercle">
+                                        {{ Cercle?.nomcercle }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-map-pin"></i>
+                                  </div>
+                                </div>
+
+                                <div class="flex-grow-1 ms-3">
+
+
+                                  <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Commune</mat-label>
+                                    <mat-select name="communeform" [(ngModel)]="formModifadress.communeform">
+                                      <mat-option *ngFor="let Commune of communes" [value]="Commune.id">
+                                        {{ Commune?.nomcommune }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-12">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img style="width: 20px" src="../../../../assets/img/icons/quartier.png" alt="" />
+                                  </div>
+                                </div>
+
+                                <div class="flex-grow-1 ms-3">
+                                  <input type="text" placeholder="Votre quartier" name="quartier" required
+                                    class="form-control" [(ngModel)]="formModifadress.quartier" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img style="width: 20px" src="../../../../assets/img/icons/route.png" alt="" />
+                                  </div>
+                                </div>
+
+                                <div class="flex-grow-1 ms-3">
+                                  <input type="text" placeholder="Numéro rue" name="rue" required class="form-control"
+                                    [(ngModel)]="formModifadress.rue" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img style="width: 20px" src="../../../../assets/img/icons/porte.png" alt="" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <input [(ngModel)]="formModifadress.porte" type="text" required name="porte"
+                                    class="form-control" placeholder="Numéro porte" />
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+
+                            <div class="form-group" *ngIf="isAgence">
+
+                              <div class="form-floating">
+                                <quill-editor name="description" [(ngModel)]="formModifadress.description"
+                                  placeholder="Description" [modules]="quillConfig"
+                                  (onSelectionChanged)="onSelectionChanged($event)"
+                                  (onContentChanged)="onContentChanged($event)">
+                                </quill-editor>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Retour
+                          </button>
+                          <button (click)="ModifierAdressUser()" type="button" class="btn btn-primary">
+                            Modifier
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
         </div>
-    </div>		
-</div>		
+        <div class="col-lg-3">
+          <div class="profile-sidebar">
+            <div class="card">
+              <div class="card-header">
+                <h6 style="margin-left: auto; margin-right: auto">
+                  Changer Mot de passe
+                </h6>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <label class="col-form-label">Ancien mot de passe</label>
+                    <div class="pass-group group-img">
+                      <span class="lock-icon"><i class="feather-lock"></i></span>
+                      <input name="oldPassword" [(ngModel)]="ChangeMdpForm.oldPassword" type="password"
+                        [type]="Toggledataold ? 'password' : 'text'" class="form-control pass-input"
+                        placeholder="Ancien mot de passe" />
+                      <span [ngClass]="
+                        Toggledataold == false
+                          ? 'toggle-password feather-eye'
+                          : 'toggle-password feather-eye-off'
+                      " (click)="iconold()"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label">Nouveau mot de passe</label>
+                    <div class="pass-group group-img">
+                      <span class="lock-icon"><i class="feather-lock"></i></span>
+                      <input name="newPassword" [(ngModel)]="ChangeMdpForm.newPassword" type="password"
+                        [type]="Toggledata ? 'password' : 'text'" class="form-control pass-input"
+                        [ngClass]="{'is-invalid': ChangeMdpForm.newPassword && !validatePassword(ChangeMdpForm.newPassword)}"
+                        placeholder="Nouveau mot de passe" />
+                      <span
+                        [ngClass]="Toggledata == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
+                        (click)="iconLogle()"></span>
+                    </div>
+                    <div *ngIf="ChangeMdpForm.newPassword && !validatePassword(ChangeMdpForm.newPassword)"
+                      class="invalid-feedback" style="display:block;">
+                      Votre mot de passe doit avoir 8 caractères avec une majuscule, une minuscule, un chiffre et un
+                      symbole.
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label">Confirmer Nouveau MDP</label>
+                    <div class="pass-group group-img">
+                      <span class="lock-icon"><i class="feather-lock"></i></span>
+                      <input name="confirmPassword" [(ngModel)]="ChangeMdpForm.confirmPassword" type="password"
+                        [type]="Toggle ? 'password' : 'text'" class="form-control pass-input" placeholder="Confirmation"
+                        [ngClass]="{'is-invalid': ChangeMdpForm.confirmPassword && !passwordsMatch()}" />
+                      <span
+                        [ngClass]="Toggle == false ? 'toggle-password feather-eye' : 'toggle-password feather-eye-off'"
+                        (click)="icon()"></span>
+                    </div>
+                    <div *ngIf="ChangeMdpForm.confirmPassword && !passwordsMatch()" class="invalid-feedback"
+                      style="display:block;">
+                      Les mots de passe ne correspondent pas.
+                    </div>
+                  </div>
+
+                  <button class="btn btn-primary" [disabled]="
+                      !ChangeMdpForm.oldPassword ||
+                      ChangeMdpForm.oldPassword.trim() === '' ||
+                      !ChangeMdpForm.newPassword ||
+                      ChangeMdpForm.newPassword.trim() === '' ||
+                      !ChangeMdpForm.confirmPassword ||
+                      ChangeMdpForm.confirmPassword.trim() === ''
+                    " (click)="ChangerMotDePasse()" type="submit">
+                    Changer mot de passe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-sidebar mt-3">
+            <div class="card">
+              <div class="card-header">
+                <h6 style="margin-left: auto; margin-right: auto">
+                  Reseaux sociaux
+                </h6>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row socialmedia-info">
+                    <div class="form-group">
+                      <label class="col-form-label">Facebook</label>
+                      <div class="pass-group group-img">
+                        <span class="lock-icon"><i class="fab fa-facebook-f"></i></span>
+                        <input type="text" class="form-control" value="https://www.facebook.com/" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row socialmedia-info">
+                    <div class="form-group">
+                      <label class="col-form-label">Twitter</label>
+                      <div class="pass-group group-img">
+                        <span class="lock-icon"><i class="fab fa-twitter"></i></span>
+                        <input type="text" class="form-control" value="https://twitter.com/" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row socialmedia-info">
+                    <div class="form-group formlast-input">
+                      <label class="col-form-label">Google+</label>
+                      <div class="pass-group group-img">
+                        <span class="lock-icon"><i class="fa-brands fa-google-plus-g"></i></span>
+                        <input type="text" class="form-control" value="https://www.google.com/" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row socialmedia-info">
+                    <div class="form-group formlast-input">
+                      <label class="col-form-label">Instagram</label>
+                      <div class="pass-group group-img">
+                        <span class="lock-icon"><i class="fab fa-instagram"></i></span>
+                        <input type="text" class="form-control" value="https://www.instagram.com/" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- /Profile Content -->

@@ -1,0 +1,91 @@
+.image-size {
+    width: 100%;
+    /* Remplacez cette valeur par la taille souhaitée */
+    height: 300px;
+    /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.image-sizeresents {
+    width: 100%;
+    /* Remplacez cette valeur par la taille souhaitée */
+    height: 200px;
+    /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
+
+.Pblog{
+    font-size: 25px;
+    font-weight: 700;
+    color: #131212;
+}
+
+/* Personnalisation de Bootstrap */
+
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h1, h2, h3 {
+    font-weight: bold;
+  }
+  
+  p {
+    margin-bottom: 10px;
+  }
+  
+  /* En-tête */
+  
+  header {
+    padding: 20px;
+  }
+  
+  /* Parties */
+  
+  .parties {
+    margin-bottom: 20px;
+  }
+  
+  .parties h2 {
+    margin-top: 0;
+  }
+  
+  /* Conditions */
+  
+  .conditions {
+    margin-bottom: 20px;
+  }
+  
+  .conditions h2 {
+    margin-top: 0;
+  }
+  
+  /* Signatures */
+  
+  .signatures {
+    margin-bottom: 20px;
+  }
+  
+  .signatures h2 {
+    margin-top: 0;
+  }
+  
+  .signatures .border {
+    border-color: #ddd;
+  }
+  
+  /* Responsive design */
+  
+  @media (max-width: 768px) {
+    .parties, .conditions, .signatures {
+      margin-bottom: 10px;
+    }
+  }
+  
+  

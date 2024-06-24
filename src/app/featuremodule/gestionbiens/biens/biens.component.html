@@ -1,0 +1,529 @@
+<!-- Breadscrumb Section -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col-md-12 col-12">
+        <h2 class="breadcrumb-title">Les biens immobiliés</h2>
+        <nav aria-label="breadcrumb" class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="routes.home9">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Biens</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Breadscrumb Section -->
+
+<!-- Main Content Section -->
+<div class="list-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 theiaStickySidebar">
+        <div class="stickybar">
+          <div class="listings-sidebar">
+            <div class="card">
+              <h4>
+                <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
+                Filtrer
+              </h4>
+              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <!--<div class="filter-content looking-input form-group">
+                  <input type="text" class="form-control" placeholder="What are you looking for?" />
+                </div>-->
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Statut</mat-label>
+                    <mat-select (selectionChange)="onStatutSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Statut.nom" *ngFor="let Statut of status">{{Statut?.nom}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Région</mat-label>
+                    <mat-select (selectionChange)="onRegionSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Region.nomregion" *ngFor="let Region of region">{{ Region?.nomregion
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Cercle</mat-label>
+                    <mat-select (selectionChange)="onCercleSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Cercle.nomcercle" *ngFor="let Cercle of filteredCercles">{{ Cercle?.nomcercle
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Commune</mat-label>
+                    <mat-select (selectionChange)="onCommuneSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Commune.nomcommune"
+                        *ngFor="let Commune of communes1">{{Commune?.nomcommune}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+                <!-- <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Statut</mat-label>
+                    <mat-select (selectionChange)="onStatutSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option>A louer</mat-option>
+                      <mat-option>A vendre</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div> -->
+                <!-- <div class="filter-content looking-input form-group input-placeholder">
+                  <div class="group-img">
+                    <input type="text" class="form-control" placeholder="Where to look?" />
+                    <i class="feather-map-pin"></i>
+                  </div>
+                </div> -->
+                <!--<div class="filter-content form-group region">
+
+                  <select class="form-control form-select region-select">
+                    <option value="">Statut</option>
+                    <option>A louer</option>
+                    <option>A vendre</option>
+                  </select>
+                </div>-->
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Type</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type?.nom
+                        }}</mat-option>
+                    </mat-select> 
+                  </mat-form-field>
+                </div>
+                <!-- <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de chambre</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de salon</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de cuisine</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group">
+                  <mat-form-field class="mat-custom-select">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Nombre de toilette</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                            searchCategory(searchInputCategory)
+                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type" *ngFor="let Type of valuesSelect">{{Type
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div> -->
+                <!-- <div class="filter-content form-group amenities">
+                  <h4 class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">Autres commodités</h4>
+                  <div class="collapse" id="cautrecomm">
+                    <div class="row">
+                      <div class="col-6" *ngFor="let Commodite of commodite">
+                        <div class="form-check mb-2">
+                          <input v class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault">
+                            {{Commodite.nom}}
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="filter-content form-group amenities radius">
+                  <div class="slidecontainer">
+                    <div class="slider-info">
+                      <h4>Radius</h4>
+                      <div class="demo">
+                        <span>{{ slidevalue }}</span> Radius
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="filter-range">
+                      <ngx-slider [(value)]="slidevalue" [options]="options"></ngx-slider>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="filter-content amenities mb-0">
+                  <div class="search-btn">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fa fa-search" aria-hidden="true"></i> Rechercher
+                    </button>
+                    <button class="btn btn-reset mb-0" type="submit">
+                      <i class="fas fa-light fa-arrow-rotate-right"></i> Actualiser
+                    </button>
+                  </div>
+                </div> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="row sorting-div">
+          <!--<div class="col-lg-4 col-md-4 col-sm-4 align-items-center d-flex">
+            <div class="count-search">
+              <p>Showing <span>1-8</span> of 10 Results</p>
+            </div>
+          </div>-->
+          <div class="col-lg-8 col-md-8 col-sm-8 align-items-center">
+            <!-- <div class="sortbyset">
+              <span class="sortbytitle">Trier</span>
+              <div class="sorting-select">
+                <select class="form-control form-select" [(ngModel)]="searchText">
+                  <option value="" selected>Tout</option>
+                  <option>A louer</option>
+                  <option>A vendre</option>
+                </select>
+              </div>
+            </div> -->
+            <div class="grid-listview">
+              <ul>
+                <!--<li>
+                  <a [routerLink]="routes.listinggridsidebar">
+                    <i class="feather-list"></i>
+                  </a>
+                </li>-->
+                <!-- <li>
+                  <a [routerLink]="routes.listinggridsidebar" class="active">
+                    <i class="feather-grid"></i>
+                  </a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-view listgrid-sidebar">
+          <div class="row">
+            <!-- <ng-template #loadedContent> -->
+            <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
+              <div class="col-lg-6 col-md-4"
+                *ngFor="let BienImo of applyFilters(bienImmo)">
+                <div class="card">
+                  <div class="blog-widget">
+                    <div class="blog-img">
+                      <a (click)="goToDettailBien(BienImo?.uuid)" class="crd">
+                        <div *ngIf="BienImo?.photos; else noImages">
+                          <img src="{{ generateImageUrl(BienImo?.photos) }}" class="img-fluid image-size"
+                            alt="blog-img">
+                        </div>
+                        <ng-template #noImages>
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                              alt="default-img">
+                          </div>
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                            <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                              alt="default-img">
+                          </div>
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                              alt="default-img">
+                          </div>
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                              alt="default-img">
+                          </div>
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                              alt="default-img">
+                          </div>
+                          <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Magasin'">
+                            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                              alt="default-img">
+                          </div>
+                        </ng-template>
+                      </a> 
+                      <div class="fav-item">
+                        <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }" class="Featured-text">{{
+                          BienImo?.statut?.nom }}</span>
+                          <!-- <span style="background-color: #384b5c;" class="Featured-text">{{
+                            BienImo?.periode?.nom }}</span> -->
+                        <a href="javascript:void(0)" *ngIf="isLoggedIn == true " class="fav-icon"
+                          (click)="AimerBien(BienImo?.uuid)"
+                          [style.background-color]="favoriteStatus[BienImo?.uuid] ? '#e98b11' : 'white'">
+                          <i [style.color]="favoriteStatus[BienImo?.uuid] ? 'white' : 'black'" class="feather-heart"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- Block level -->
+
+                    <div class="bloglist-content">
+                      <div class="card-body">
+                        <div class="blogfeaturelink">
+                          <div class="grid-author" style="width: 90%;">
+                            <img src="{{generateImageUrl(BienImo?.utilisateur?.photo)}}" alt="author"
+                              (error)="handleAuthorImageError($event)" />
+                              <span *ngIf="BienImo?.statut.nom=='A louer'" style="background-color: #384b5c;" class="Featured-text float-end">{{
+                                BienImo?.periode?.nom }}</span>
+                          </div>
+                          <div class="blog-features">
+                            <a href="javascript:void(0)"><span>
+                                <i class="fa-regular fa-circle-stop"></i>
+                                {{ BienImo?.typeImmo?.nom }}</span></a>
+                          </div>
+                          <div class="blog-author text-end">
+                            <span>
+                              <i class="feather-eye"></i>{{ favoritedPropertiesCount1[BienImo?.uuid] }}
+                              <!-- <i class="feather-eye"></i>{{ BienImo?.nombreDeFavoris }} -->
+                            </span>
+                          </div>
+                        </div>
+                        <h6 class="crd">
+                          <a (click)="goToDettailBien(BienImo?.uuid)">{{ BienImo?.nom ? BienImo?.nom : BienImo?.typeImmo?.nom
+                            }}</a>
+                        </h6>
+                        <div class="blog-location-details">
+                          <div class="location-info">
+                            <i class="feather-map-pin"></i> {{ BienImo?.adresse?.quartier }}
+                          </div>
+                          <div class="location-info">
+                            <i class="fa-solid fa-calendar-days"></i>{{BienImo?.createdAt | date:"dd MMM yyyy":locale}}
+
+                          </div>
+                        </div>
+                        <div class="amount-details">
+                          <div class="amount">
+                            <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
+                            <!--<span>{{ slide.oldamount }}</span>-->
+                          </div>
+                          <div class="ratings">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #noBiens>
+              <div class="row Pblog" style="margin-left: auto !important;
+              margin-right: auto !important;">
+                <div class="col-lg-6 col-md-4" aria-hidden="true">
+                  <div class="card">
+                    <div class="blog-widget placeholder-glow">
+                      <div class="blog-img">
+                        <a>
+                          <div>
+                            <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img">
+                          </div>
+                        </a>
+                        <div class="fav-item placeholder-glow">
+                          <span class="placeholder">hhhhhh</span>
+                          <a href="javascript:void(0)" class="fav-icon placeholder">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="bloglist-content placeholder-glow">
+                        <div class="card-body">
+                          <div class="blogfeaturelink">
+                            <div class="grid-author placeholder">
+                              <img class="placeholder" alt="author" />
+                            </div>
+                            <div class="blog-features placeholder-glow">
+                              <a href="javascript:void(0)"><span class="placeholder">
+                                  jjjjjjjjjjjjjjj</span></a>
+                            </div>
+                            <div class="blog-author text-end placeholder-glow">
+                              <span class="placeholder">jjjjljjjjjjjjjjjl
+                              </span>
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                            </div>
+                            <div class="location-info placeholder">aaaaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="amount-details placeholder-glow">
+                            <div class="amount">
+                              <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                            </div>
+                            <div class="ratings">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-4" aria-hidden="true">
+                  <div class="card">
+                    <div class="blog-widget placeholder-glow">
+                      <div class="blog-img">
+                        <a>
+                          <div>
+                            <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img">
+                          </div>
+                        </a>
+                        <div class="fav-item placeholder-glow">
+                          <span class="placeholder">hhhhhh</span>
+                          <a href="javascript:void(0)" class="fav-icon placeholder">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="bloglist-content placeholder-glow">
+                        <div class="card-body">
+                          <div class="blogfeaturelink">
+                            <div class="grid-author placeholder">
+                              <img class="placeholder" alt="author" />
+                            </div>
+                            <div class="blog-features placeholder-glow">
+                              <a href="javascript:void(0)"><span class="placeholder">
+                                  jjjjjjjjjjjjjjj</span></a>
+                            </div>
+                            <div class="blog-author text-end placeholder-glow">
+                              <span class="placeholder">jjjjljjjjjjjjjjjl
+                              </span>
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="blog-location-details placeholder-glow">
+                            <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                            </div>
+                            <div class="location-info placeholder">aaaaaaaaaaaaaa
+                            </div>
+                          </div>
+                          <div class="amount-details placeholder-glow">
+                            <div class="amount">
+                              <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                            </div>
+                            <div class="ratings">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <!-- </ng-template> -->
+          </div>
+        </div>
+
+  
+        <div class="blog-pagination">
+          <nav>
+              <ul class="pagination">
+                  <li class="page-item previtem crd">
+                      <a class="page-link" (click)="previousPage()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
+                  </li>
+                  <li class="justify-content-center pagination-center"> 
+                      <div class="pagelink">
+                          <ul>
+                             <li class="page-item crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
+                              (click)="setCurrentPage(page)">
+                                  <a class="page-link">{{ page }}</a>
+                              </li>
+                         </ul>
+                      </div>													
+                  </li>													
+                  <li class="page-item nextlink crd">
+                      <a class="page-link" (click)="nextPage()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
+                  </li>
+              </ul>
+          </nav>
+        </div>
+<!--/Pagination-->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Main Content Section -->

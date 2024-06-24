@@ -9,15 +9,15 @@ export class DataService {
   API_URL = 'http://192.168.1.108:8000/api/bien/immo';
   categories: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   public header: any = [
     {
       tittle: 'Accueil',
-      base: 'home',
+      base: 'accueil',
       showAsTab: false,
       separateRoute: true,
 
-      route: '/home-nine',
+      route: '/accueil',
     },
     /*{
       tittle: 'Accueil',
@@ -127,6 +127,14 @@ export class DataService {
       ],
     },*/
     {
+      tittle: 'Biens',
+      base: 'biens',
+      showAsTab: false,
+      separateRoute: true,
+
+      route: '/biens',
+    },
+    /*{
       tittle: 'Listings',
       base: 'listings',
       showAsTab: false,
@@ -183,8 +191,8 @@ export class DataService {
           subMenus: [],
         },
       ],
-    },
-    {
+    },*/
+    /*{
       tittle: 'Pages',
       base: 'pages',
       showAsTab: false,
@@ -301,88 +309,120 @@ export class DataService {
           subMenus: [],
         },
       ],
-    },
+    },*/
 
     {
-      tittle: 'User Pages',
-      base: 'userpages',
+      tittle: 'Trouver votre bien',
+      base: 'trouverbien',
       showAsTab: false,
-      separateRoute: false,
-      menu: [
-        {
-          menuValue: 'Dashboard',
-          route: '/userpages/dashboard',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'dashboard',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Profile',
-          route: '/userpages/profile',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'profile',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'My Listing',
-          route: '/userpages/my-listing',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'my-listing',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Bookmarks',
-          route: '/userpages/bookmarks',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'bookmarks',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Messages',
-          route: '/userpages/messages',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'messages',
-          last: '',
-          subMenus: [],
-        },
-
-        {
-          menuValue: 'Reviews',
-          route: '/userpages/reviews',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'reviews',
-          last: '',
-          subMenus: [],
-        },
-        {
-          menuValue: 'Add Listing',
-          route: '/userpages/add-listing',
-          hasSubRoute: false,
-          showSubRoute: false,
-          base: 'userpages',
-          page: 'add-listing',
-          last: '',
-          subMenus: [],
-        },
-      ],
+      separateRoute: true,
+      route: '/trouverbien',
     },
     {
+      tittle: 'Agences',
+      base: 'agences',
+      showAsTab: false,
+      separateRoute: true,
+      route: '/agences',
+    },
+
+    /* {
+       tittle: 'User Pages',
+       base: 'userpages',
+       showAsTab: false,
+       separateRoute: false,
+       menu: [
+         {
+           menuValue: 'Dashboard',
+           route: '/userpages/dashboard',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'dashboard',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Profile',
+           route: '/userpages/profile',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'profile',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'My Listing',
+           route: '/userpages/my-listing',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'my-listing',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Bookmarks',
+           route: '/userpages/bookmarks',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'bookmarks',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Messages',
+           route: '/userpages/messages',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'messages',
+           last: '',
+           subMenus: [],
+         },
+ 
+         {
+           menuValue: 'Reviews',
+           route: '/userpages/reviews',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'reviews',
+           last: '',
+           subMenus: [],
+         },
+         {
+           menuValue: 'Add Listing',
+           route: '/userpages/add-listing',
+           hasSubRoute: false,
+           showSubRoute: false,
+           base: 'userpages',
+           page: 'add-listing',
+           last: '',
+           subMenus: [],
+         },
+       ],
+     },*/
+    {
+      tittle: 'Blog',
+      base: 'blog',
+      showAsTab: false,
+      separateRoute: true,
+
+      route: '/blog',
+    },
+
+    // {
+    //   tittle: 'A propos',
+    //   base: 'apropos',
+    //   showAsTab: false,
+    //   separateRoute: true,
+
+    //   route: '/apropos',
+    // },
+    /*{
       tittle: 'Blog',
       base: 'blog',
       showAsTab: false,
@@ -439,16 +479,35 @@ export class DataService {
           subMenus: [],
         },
       ],
-    },
+    },*/
+    
     {
       tittle: 'Contact',
-      base: 'Contact',
+      base: 'contact',
       showAsTab: false,
       separateRoute: true,
 
       route: '/contact',
     },
+    // {
+    //   tittle: 'Connexion',
+    //   base: 'contact',
+    //   showAsTab: false,
+    //   separateRoute: true,
+
+    //   route: '/contact',
+    // },
+    // {
+    //   tittle: 'Inscription',
+    //   base: 'contact',
+    //   showAsTab: false,
+    //   separateRoute: true,
+
+    //   route: '/contact',
+    // },
   ];
+
+  
   public categoriesList = [
     {
       categoryName: 'Automotive',
@@ -511,24 +570,24 @@ export class DataService {
       img: 'assets/img/icons/category-12.svg',
     },
   ];
-  public categorieslocation=[
+  public categorieslocation = [
     {
       categoryName: 'USA',
       count: '09 Ads',
       img: 'assets/img/icons/category-1.svg',
-     },
-     {
+    },
+    {
       categoryName: 'UK',
       count: '09 Ads',
       img: 'assets/img/icons/category-1.svg',
-     },
-     {
+    },
+    {
       categoryName: 'UAE',
       count: '09 Ads',
       img: 'assets/img/icons/category-1.svg',
-     }
-]
- 
+    }
+  ]
+
   public featuredadsList = [
     {
       img1: 'assets/img/featured/feature-9.jpg',
@@ -600,19 +659,31 @@ export class DataService {
       rating: '4.5',
       rating1: '(50)',
     },
-  ];
+  ];     
   public testimonialList = [
     {
-      img: 'assets/img/testimonial-1.jpg',
-      posting: 'Dev',
-      position: 'Lead Intranet Technician',
-      para: 'Omnis totam molestiae delectus nemo alias nesciunt harum et Nobis dolorum excepturi quod vel Sunt est qui ab non dolores repellat rem impedit dolores Ut ea rerum cum eum Alias dolores tempore illo accusantium est et voluptatem voluptas',
+      img: 'assets/img/testimonial-1.png',
+      posting: 'Tiecoura DIARRA',
+      position: 'Proprietaire',
+      para: "Sossara a complètement transformé la façon dont je gère mes investissements immobiliers. La simplicité d'utilisation, l'automatisation des tâches et les rapports détaillés m'ont permis de maximiser mes rendements tout en réduisant considérablement mon temps de gestion. C'est un outil indispensable pour tout propriétaire immobilier.",
     },
     {
-      img: 'assets/img/testimonial-2.jpg',
-      posting: 'Esther Hills',
-      position: 'Lead Intranet Technician',
-      para: 'Omnis totam molestiae delectus nemo alias nesciunt harum et Nobis dolorum excepturi quod vel Sunt est qui ab non dolores repellat rem impedit dolores Ut ea rerum cum eum Alias dolores tempore illo accusantium est et voluptatem voluptas',
+      img: 'assets/img/testimonial-2.png',
+      posting: 'Boubacar KONE',
+      position: 'Acheteur',
+      para: "Sossara a rendu mon expérience d'achat immobilier fluide et sans stress. Je recommande cette plateforme à tous ceux qui recherchent une solution conviviale pour trouver et acheter leur prochaine propriété. Merci Sossara pour avoir fait de mon rêve une réalité.",
+    },
+    {
+      img: 'assets/img/testimonial-3.png',
+      posting: 'Moustapha NIMAGA',
+      position: 'Locataire',
+      para: "En tant que locataire, j'apprécie la transparence et la communication facilitée que Sossara offre. Je peux payer mon loyer en ligne, soumettre des demandes de réparation en quelques clics et suivre l'état de ma location. Cela rend la vie locative beaucoup plus simple et agréable.",
+    },
+    {
+      img: 'assets/img/testimonial-4.png',
+      posting: 'Oumou NIMAGA',
+      position: 'Locataire',
+      para: "En tant que locataire, je peux dire avec certitude que Sossara a amélioré considérablement ma vie. Avant de découvrir cette plateforme, j'avais toujours des inquiétudes et des tracas liés à la location, mais Sossara a changé la donne. La possibilité de payer mon loyer en ligne est un énorme avantage pour moi, car cela simplifie grandement mes finances. ",
     },
   ];
   public blogList = [
@@ -817,7 +888,7 @@ export class DataService {
   public bookmarkList = [
     {
       img1: 'assets/img/list/listgrid-1.jpg',
-      headline: 'Featured',
+      headline: 'A louer',
       img2: 'assets/img/profiles/avatar-02.jpg',
       search: '4000 ',
       select: '  Vehicles',
@@ -831,7 +902,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/list/listgrid-4.jpg',
-      headline: 'Featured',
+      headline: 'A vendre',
       img2: 'assets/img/profiles/avatar-03.jpg',
       search: '4000 ',
       select: '  Electronics',
@@ -845,7 +916,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/list/listgrid-8.jpg',
-      headline: 'Featured',
+      headline: 'A louer',
       img2: 'assets/img/profiles/avatar-03.jpg',
       search: '4000 ',
       select: '  Electronics',
@@ -857,7 +928,7 @@ export class DataService {
       rating: '4.7',
       rating1: '(50)',
     },
-    {
+    /*{
       img1: 'assets/img/featured/feature-4.jpg',
       headline: 'Featured',
       img2: 'assets/img/profiles/avatar-05.jpg',
@@ -940,7 +1011,7 @@ export class DataService {
       oldamount: '$450',
       rating: '4.7',
       rating1: '(50)',
-    },
+    },*/
   ];
   public gridsidebarList = [
     {
@@ -1060,7 +1131,7 @@ export class DataService {
   public listsidebarList = [
     {
       img1: 'assets/img/blog/bloglistimg-1.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: '  Construction',
       img2: 'assets/img/profiles/avatar-01.jpg',
       name: 'John Doe',
@@ -1075,7 +1146,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-2.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: '   Jobs',
       img2: 'assets/img/profiles/avatar-10.jpg',
       name: 'Orlando Diggs',
@@ -1090,7 +1161,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-3.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: '  Electronics',
       img2: 'assets/img/profiles/avatar-04.jpg',
       name: 'Kate Morrison',
@@ -1105,7 +1176,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-4.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: '  Vehicles',
       img2: 'assets/img/profiles/avatar-06.jpg',
       name: 'Koray Okumus',
@@ -1120,7 +1191,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-5.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: '  Vehicles',
       img2: 'assets/img/profiles/avatar-05.jpg',
       name: 'Ava Wright',
@@ -1135,7 +1206,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-6.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: ' Electronics',
       img2: 'assets/img/profiles/avatar-08.jpg',
       name: 'Eve Leroy',
@@ -1150,7 +1221,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-7.jpg',
-      headline: 'Featured',
+      headline: 'A Louer',
       select: ' Electronics',
       img2: 'assets/img/profiles/avatar-09.jpg',
       name: 'Zahir Mays',
@@ -1165,7 +1236,7 @@ export class DataService {
     },
     {
       img1: 'assets/img/blog/bloglistimg-8.jpg',
-      headline: 'Featured',
+      headline: 'A Vendre',
       select: ' Electronics',
       img2: 'assets/img/profiles/avatar-10.jpg',
       name: 'Zahir Mays',
@@ -1417,41 +1488,53 @@ export class DataService {
   ];
   public universitiesCompanies = [
     {
-      img: 'assets/img/partners/partners-1.svg',
+      img: 'assets/img/partners/logo.png',
     },
     {
-      img: 'assets/img/partners/partners-2.svg',
+      img: 'assets/img/partners/awd-logo.png',
     },
     {
-      img: 'assets/img/partners/partners-3.svg',
+      img: 'assets/img/partners/orange.png',
     },
     {
-      img: 'assets/img/partners/partners-4.svg',
+      img: 'assets/img/partners/avitweb.jpeg',
     },
-    {
-      img: 'assets/img/partners/partners-5.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-6.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-1.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-2.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-3.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-4.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-5.svg',
-    },
-    {
-      img: 'assets/img/partners/partners-6.svg',
-    },
+    // {
+    //   img: 'assets/img/partners/logo.png',
+    // },
+    // {
+    //   img: 'assets/img/partners/awd-logo.png',
+    // },
+    // {
+    //   img: 'assets/img/partners/orange.png',
+    // },
+    // {
+    //   img: 'assets/img/partners/avitweb.jpeg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-5.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-6.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-1.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-2.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-3.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-4.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-5.svg',
+    // },
+    // {
+    //   img: 'assets/img/partners/partners-6.svg',
+    // },
   ];
   public popularList = [
     {
@@ -1709,76 +1792,67 @@ export class DataService {
   ];
   public gridBlog = [
     {
-      img: 'assets/img/blog/blog-1.jpg',
-      category1: 'Health',
-      category2: 'Care',
-      img1: 'assets/img/profiles/avatar-13.jpg',
-      name: 'Mary',
-      date: 'October 6, 2022',
-      content: 'The Best Spa Saloons for your relaxations?',
+      id: 0,
+      img2: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      img3: 'assets/img/banner/maison.jpg',
+      img4: 'assets/img/banner/immo.jpg',
+      category1: 'Louer',
+      category2: 'Vendre',
+      pays : 'Mali',
+      img1: 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=',
+      name: 'Admin',
+      date: '01 Juin 2023',
+      content: 'Mali : Construction de logements sociaux au Mali',
       description:
-        'Dimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type ...',
+        'Egalement appelé les trois « PPP » Partenaire Public-Privé, c’est dans ce cadre qu’ils ont procédé, le Lundi 16 Mars 2015 à l’Hôtel Radisson Blue, à la signature de protocoles d’accords pour la réalisation de 20.000 logements au Mali, entre le Gouvernement à travers le Ministre de l’Urbanisme et de l’Habitat et des sociétés immobilières parmi lesquelles la société immobilière...',
       details: 'ViewDetails',
     },
     {
-      img: 'assets/img/blog/blog-4.jpg',
-      category1: 'Health',
-      category2: 'Care',
-      img1: 'assets/img/profiles/avatar-14.jpg',
-      name: 'Barbara ',
-      date: 'October 6, 2022',
-      content: 'The Best Spa Saloons for your relaxations?',
+      id: 1,
+      img2: 'assets/img/banner/immo.jpg',
+      img3: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      img4: 'assets/img/banner/maison.jpg',
+      category1: 'Vendre',
+      category2: 'Louer',
+      pays : 'Mali',
+      img1: 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=',
+      name: 'Admin ',
+      date: '12 Juin 2023',
+      content: 'Procedure de demande de Bail',
       description:
-        'Dimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type ...',
-      details: 'ViewDetails',
-    },
-
-    {
-      img: 'assets/img/blog/blog-1.jpg',
-      category1: 'Health',
-      category2: 'Care',
-      img1: 'assets/img/profiles/avatar-12.jpg',
-      name: 'Darryl ',
-      date: 'October 6, 2022',
-      content: 'The Best Spa Saloons for your relaxations?',
-      description:
-        'Dimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type ...',
+        'le bail est une location de bien immobilier, du domaine privé de l’état, dûment immatriculé ou transféré au nom de celui-ci. Le bail se présente sous deux formes : Bail emphytéotique et Bail avec promesse de vente. Bail emphytéotique : c’est celui par lequel l’Etat, le bailleur, confère au preneur, l’emphytéote, moyennant le versement d’une redevance annuelle, un droit réel...',
       details: 'ViewDetails',
     },
     {
-      img: 'assets/img/blog/blog-4.jpg',
-      category1: 'Health',
-      category2: 'Care',
-      img1: 'assets/img/profiles/avatar-11.jpg',
-      name: ' Amara',
-      date: 'October 6, 2022',
-      content: 'The Best Spa Saloons for your relaxations?',
+      id: 2,
+      img2: 'assets/img/banner/maison.jpg',
+      img3: 'assets/img/banner/immo.jpg',
+      img4: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      category1: 'Vendre',
+      category2: 'Louer',
+      pays : 'Mali',
+      img1: 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=',
+      name: 'Admin ',
+      date: '24 Janvier 2023',
+      content: 'Titre provisoire en titre foncier (CUH, CRH et contrat de bail avec promesse de vente)',
       description:
-        'Dimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type ...',
+        "PROCÉDURE ET LIEUX DE DÉLIVRANCE : Dépôt d'une demande de morcellement par le propriétaire du terrain. Le Chef de Bureau du lieu de situation de l'immeuble (la parcelle) délivre une réquisition à un Géomètre Expert. Le Géomètre dresse le plan de délimitation du terrain. Rédaction du PV du bornage par le Géomètre et sa signature par tous les assistants. DOCUMENTS À FOURNIR...",
       details: 'ViewDetails',
     },
     {
-      img: 'assets/img/blog/blog-1.jpg',
-      category1: 'Health',
-      category2: 'Care',
-      img1: 'assets/img/profiles/avatar-14.jpg',
-      name: 'Wilkerson ',
-      date: 'October 6, 2022',
-      content: 'The Best Spa Saloons for your relaxations?',
+      id: 3,
+      img2: 'assets/img/gallery/gallery1/gallery-1.jpg',
+      img3: 'assets/img/banner/immo.jpg',
+      img4: 'assets/img/banner/maison.jpg',
+      category1: 'Louer',
+      category2: 'Vendre',
+      pays : 'Mali',
+      img1: 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=',
+      name: ' Admin',
+      date: '13 Fevrier 2023',
+      content: 'Déclaration des revenus fonciers',
       description:
-        'Dimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type ...',
-      details: 'ViewDetails',
-    },
-    {
-      img: 'assets/img/blog/blog-4.jpg',
-      category1: 'Health',
-      category2: 'Care',
-      img1: 'assets/img/profiles/avatar-11.jpg',
-      name: ' Joseph',
-      date: 'October 6, 2022',
-      content: 'The Best Spa Saloons for your relaxations?',
-      description:
-        'Dimply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type ...',
+        'PROCÉDURE ET LIEUX DE DÉLIVRANCE : La déclaration de revenus fonciers incombe aux propriétaires ou gérants de biens immobiliers qu’ils soient particuliers ou personnes morales. Cette déclaration doit être jointe : Pour les particuliers, à la déclaration de revenus. Pour les entreprises, à la déclaration d’impôts sur les sociétés. Qui peut faire une déclaration de revenus...',
       details: 'ViewDetails',
     },
   ];
@@ -2089,7 +2163,7 @@ export class DataService {
       rating: ' 4.9',
       review: '(2,612 Reviews)',
     },
-   
+
   ];
   public tripdata = [
     {
@@ -2456,7 +2530,7 @@ export class DataService {
       details: 'Villa 457 sq.m. In Benidorm Fully Qquipped House',
       img: 'assets/img/list/tablelist-1.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2466,7 +2540,7 @@ export class DataService {
       details: 'CDL A OTR Compnay Driver Job-N',
       img: 'assets/img/list/tablelist-2.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Vendre',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2476,7 +2550,7 @@ export class DataService {
       details: 'HP Gaming 15.6 Touchscren 12G',
       img: 'assets/img/list/tablelist-3.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Vendre',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2486,7 +2560,7 @@ export class DataService {
       details: '2012 AudiR8  GT Spider Convrtibile',
       img: 'assets/img/list/tablelist-4.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2496,7 +2570,7 @@ export class DataService {
       details: '2017 Gulfsteam Ameri-Lite',
       img: 'assets/img/list/tablelist-5.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2506,7 +2580,7 @@ export class DataService {
       details: 'Fashion Luxury Men Date',
       img: 'assets/img/list/tablelist-6.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2516,7 +2590,7 @@ export class DataService {
       details: 'Apple iPhone 6 16GB 4G LTE',
       img: 'assets/img/list/tablelist-7.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Published',
+      status: 'Vendre',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2526,7 +2600,7 @@ export class DataService {
       details: 'Customized Apple iMac 21.5″ All-In ',
       img: 'assets/img/list/tablelist-8.jpg',
       description: 'Mauris vestibulum lorem a condimentum vulputate.',
-      status: 'Un Published',
+      status: 'Louer',
       view: '1523',
       select: 'Electronics',
       oldamount: '$350000.00',
@@ -2641,19 +2715,19 @@ export class DataService {
       rating1: '(50)',
     },
     {
-      img1:"assets/img/list/listgrid-7.jpg"  ,
-      headline:"Featured",
-      img2:"assets/img/profiles/avatar-07.jpg" ,
+      img1: "assets/img/list/listgrid-7.jpg",
+      headline: "Featured",
+      img2: "assets/img/profiles/avatar-07.jpg",
       eye: 'assets/img/eye.svg',
-      search:"4000 ",
-      select:"   Vehicles",
-      details:"HP Gaming 15.6 Touchscren 12G",
-      map:"Los Angeles",
+      search: "4000 ",
+      select: "   Vehicles",
+      details: "HP Gaming 15.6 Touchscren 12G",
+      map: "Los Angeles",
       date: " 02 Oct, 2022",
-      amount:"$450",
-      oldamount:"$350",
-      rating:"4.7",
-      rating1:"(50)"
+      amount: "$450",
+      oldamount: "$350",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
       img1: 'assets/img/list/listgrid-1.jpg',
@@ -2669,121 +2743,122 @@ export class DataService {
       oldamount: '$450',
       rating: '4.7',
       rating1: '(50)',
-    },   
+    },
   ]
 
- 
-  public reviewdata=[
+
+  public reviewdata = [
     {
-      reviewType:"Visitor Review",
-      dropdown:"All Listing",
-      menu:"Next Week",
-      menu1:"Last Month",
-      menu2:"Next Month",
-      reviewimg1:"assets/img/profiles/avatar-11.jpg",
-      reviewername1:"Joseph",
-      reviewedby:"by: Joseph",
-      month:"4 months ago",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery:"assets/img/gallery/review-1.jpg",
-      gallery2:"assets/img/gallery/review-2.jpg",
-      gallery3:"assets/img/gallery/review-3.jpg",
-      gallery:"assets/img/gallery/review-4.jpg",
-      reviewimg2:"assets/img/profiles/avatar-01.jpg",
-      reviewername2:"Dev",
-      month2:"6 months ago",
-      reviewedby1:"by: Joseph",
-      feedback2:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewimg3:"assets/img/profiles/avatar-01.jpg",
-      reviewername3:"Jonson",
-      month3:"8 months ago",
-      reviewedby2:"by: Joseph",
-      feedback3:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery2:"assets/img/gallery/review-1.jpg",
-      gallery4:"assets/img/gallery/review-2.jpg",
-      gallery5:"assets/img/gallery/review-3.jpg",
-      gallery6:"assets/img/gallery/review-4.jpg",
-     
+      reviewType: "Visitor Review",
+      dropdown: "All Listing",
+      menu: "Next Week",
+      menu1: "Last Month",
+      menu2: "Next Month",
+      reviewimg1: "assets/img/profiles/avatar-11.jpg",
+      reviewername1: "Joseph",
+      reviewedby: "by: Joseph",
+      month: "4 months ago",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery: "assets/img/gallery/review-1.jpg",
+      gallery2: "assets/img/gallery/review-2.jpg",
+      gallery3: "assets/img/gallery/review-3.jpg",
+      gallery: "assets/img/gallery/review-4.jpg",
+      reviewimg2: "assets/img/profiles/avatar-01.jpg",
+      reviewername2: "Dev",
+      month2: "6 months ago",
+      reviewedby1: "by: Joseph",
+      feedback2: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewimg3: "assets/img/profiles/avatar-01.jpg",
+      reviewername3: "Jonson",
+      month3: "8 months ago",
+      reviewedby2: "by: Joseph",
+      feedback3: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery2: "assets/img/gallery/review-1.jpg",
+      gallery4: "assets/img/gallery/review-2.jpg",
+      gallery5: "assets/img/gallery/review-3.jpg",
+      gallery6: "assets/img/gallery/review-4.jpg",
+
     },
     {
-      reviewType:"Your Review",
-      dropdown:"All Listing",
-      menu:"Next Week",
-      menu1:"Last Month",
-      menu2:"Next Month",
-      reviewimg1:"assets/img/profile-img.jpg",
-      reviewername1:"John Doe",
-      reviewedby:"by: John Doe",
-      month:"4 months ago",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery:"assets/img/gallery/review-1.jpg",
-      gallery2:"assets/img/gallery/review-2.jpg",
-      gallery3:"assets/img/gallery/review-3.jpg",
-      gallery:"assets/img/gallery/review-4.jpg",
-      reviewimg2:"assets/img/profile-img.jpg",
-      reviewername:"John Doe",
-      month2:"6 months ago",
-      reviewedby1:"by: John Doe",
-      feedback2:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewimg3:"assets/img/profiles/avatar-01.jpg",
-      reviewername3:"Jonson",
-      month3:" 11 months ago",
-      reviewedby2:"by: John Doe",
-      feedback3:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
-      reviewgallery2:"assets/img/gallery/review-1.jpg",
-      gallery4:"assets/img/gallery/review-2.jpg",
-      gallery5:"assets/img/gallery/review-3.jpg",
-      gallery6:"assets/img/gallery/review-4.jpg",
-      
+      reviewType: "Your Review",
+      dropdown: "All Listing",
+      menu: "Next Week",
+      menu1: "Last Month",
+      menu2: "Next Month",
+      reviewimg1: "assets/img/profile-img.jpg",
+      reviewername1: "John Doe",
+      reviewedby: "by: John Doe",
+      month: "4 months ago",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery: "assets/img/gallery/review-1.jpg",
+      gallery2: "assets/img/gallery/review-2.jpg",
+      gallery3: "assets/img/gallery/review-3.jpg",
+      gallery: "assets/img/gallery/review-4.jpg",
+      reviewimg2: "assets/img/profile-img.jpg",
+      reviewername: "John Doe",
+      month2: "6 months ago",
+      reviewedby1: "by: John Doe",
+      feedback2: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewimg3: "assets/img/profiles/avatar-01.jpg",
+      reviewername3: "Jonson",
+      month3: " 11 months ago",
+      reviewedby2: "by: John Doe",
+      feedback3: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy.",
+      reviewgallery2: "assets/img/gallery/review-1.jpg",
+      gallery4: "assets/img/gallery/review-2.jpg",
+      gallery5: "assets/img/gallery/review-3.jpg",
+      gallery6: "assets/img/gallery/review-4.jpg",
+
     }
   ]
-  public dashboardreview=[
+  public dashboardreview = [
     {
-      img:"assets/img/profiles/avatar-11.jpg",
-      name:"Joseph",
-      month:"4 months ago",
-      reviewdby:"by: Demo Test",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      img: "assets/img/profiles/avatar-11.jpg",
+      name: "Joseph",
+      month: "4 months ago",
+      reviewdby: "by: Demo Test",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     },
     {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Dev",
-      month:"4 months ago",
-      reviewdby:"by: Demo Test",
-      feedback:"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Dev",
+      month: "4 months ago",
+      reviewdby: "by: Demo Test",
+      feedback: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     }
 
-    
+
   ]
-  public accountcreation=[
+  public accountcreation = [
     {
-      number:"01",
-      process:"Create Account",
-      details:"Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      number: "01",
+      process: "Achat",
+      details: "Vous avez un projet d'investissement immobilier ? Alors, Sossara vous propose des biens immobiliers classés par types et catégories par zones géographiques."
     },
     {
-      number:"02",
-      process:"Post An Ad",
-      details:"Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      number: "02",
+      process: "Vente",
+      details: "Sossara se positionne comme un canal supplémentaire pour optimiser le processus de vente des biens immobiliers des particuliers et des programmes immo de professionnels."
     },
     {
-      number:"03",
-      process:"Find,Buy & Own Dreams",
-      details:"Morbi nisi justo, venenatis ac nibh at, bibendum mattis risus. Maecenas tincidunt, ligula sed congue tempus, magna augue cursus ipsum, in malesuada justo risus nec lorem. Nam augue augue, mollis nec condimentum euismod, lacinia ultricies leo."
+      number: "03",
+      // process: "Trouver, Louer, Acheter et Vendre un bien",
+      process: "Location",
+      details: "Vous avez besoin d'une location longue durée, d'une location saisonnière ou de toutes autres locations ? les filtres de critères de Sossara vous permettrons d'affiner encore plus vos choix."
     }
   ]
-  
-  public lovedata=[
+
+  public lovedata = [
     {
-      img :"assets/img/celebrate.jpg",
+      img: "assets/img/celebrate.jpg",
     },
     {
-      img:"assets/img/celebrate-01.jpg"
+      img: "assets/img/celebrate-01.jpg"
     }
   ]
-  public shops=[
+  public shops = [
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'America – Grand canyon, Golden Gate',
       mappin: 'Westminster , London',
@@ -2793,7 +2868,7 @@ export class DataService {
       review: '(2,312 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-2.jpg",
+      img: "assets/img/recommended/gallery-2.jpg",
       title: 'top rated',
       servicedetails: 'Argentina – Great Diving Trip',
       mappin: 'Westminster , London',
@@ -2803,7 +2878,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-3.jpg",
+      img: "assets/img/recommended/gallery-3.jpg",
       title: 'best seller',
       servicedetails: 'Brazil – Rio de Janeiro',
       mappin: 'Westminster , London',
@@ -2813,7 +2888,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-4.jpg",
+      img: "assets/img/recommended/gallery-4.jpg",
       title: 'Break Fast Included',
       servicedetails: 'India – Mumbai, New Delhi',
       mappin: 'Westminster , London',
@@ -2823,7 +2898,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'Lorem Ipsum is simply dummy text of the printing',
       mappin: 'Westminster , London',
@@ -2833,9 +2908,9 @@ export class DataService {
       review: '(2,612 Reviews)',
     }
   ]
-  public business=[
+  public business = [
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'America – Grand canyon, Golden Gate',
       mappin: 'Westminster , London',
@@ -2845,7 +2920,7 @@ export class DataService {
       review: '(2,312 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-2.jpg",
+      img: "assets/img/recommended/gallery-2.jpg",
       title: 'top rated',
       servicedetails: 'Argentina – Great Diving Trip',
       mappin: 'Westminster , London',
@@ -2855,7 +2930,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-3.jpg",
+      img: "assets/img/recommended/gallery-3.jpg",
       title: 'best seller',
       servicedetails: 'Brazil – Rio de Janeiro',
       mappin: 'Westminster , London',
@@ -2865,7 +2940,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-4.jpg",
+      img: "assets/img/recommended/gallery-4.jpg",
       title: 'Break Fast Included',
       servicedetails: 'India – Mumbai, New Delhi',
       mappin: 'Westminster , London',
@@ -2875,7 +2950,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'Lorem Ipsum is simply dummy text of the printing',
       mappin: 'Westminster , London',
@@ -2885,9 +2960,9 @@ export class DataService {
       review: '(2,612 Reviews)',
     }
   ]
-  public lifestyle=[
+  public lifestyle = [
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'America – Grand canyon, Golden Gate',
       mappin: 'Westminster , London',
@@ -2897,7 +2972,7 @@ export class DataService {
       review: '(2,312 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-2.jpg",
+      img: "assets/img/recommended/gallery-2.jpg",
       title: 'top rated',
       servicedetails: 'Argentina – Great Diving Trip',
       mappin: 'Westminster , London',
@@ -2907,7 +2982,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-3.jpg",
+      img: "assets/img/recommended/gallery-3.jpg",
       title: 'best seller',
       servicedetails: 'Brazil – Rio de Janeiro',
       mappin: 'Westminster , London',
@@ -2917,7 +2992,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-4.jpg",
+      img: "assets/img/recommended/gallery-4.jpg",
       title: 'Break Fast Included',
       servicedetails: 'India – Mumbai, New Delhi',
       mappin: 'Westminster , London',
@@ -2927,7 +3002,7 @@ export class DataService {
       review: '(2,612 Reviews)',
     },
     {
-      img:"assets/img/recommended/gallery-1.jpg",
+      img: "assets/img/recommended/gallery-1.jpg",
       title: 'best seller',
       servicedetails: 'Lorem Ipsum is simply dummy text of the printing',
       mappin: 'Westminster , London',
@@ -2937,957 +3012,954 @@ export class DataService {
       review: '(2,612 Reviews)',
     }
   ]
-  public amazingwork=[
+  public amazingwork = [
     {
-      img:"assets/img/gallery/gallery-01.jpg",
-      overlay1:"Wedding Venues",
-      overlay2:"15 Photos and 5 Videos",
-      img2:"assets/img/gallery/gallery-02.jpg",
-      overlay3:"Wedding Venues",
-      overlay4:"55 Photos and 5 Videos",
-      img3:"assets/img/gallery/gallery-03.jpg",
-      overlay5:"Wedding Venues",
-      overlay6:"135 Photos and 5 Videos",
-      img4:"assets/img/gallery/gallery-04.jpg",
-      overlay7:"Wedding Venues",
-      overlay8:"115 Photos and 5 Videos",
-      img5:"assets/img/gallery/gallery-05.jpg",
-      overlay9:"Wedding Venues",
-      overlay10:"155 Photos and 5 Videos",
-      img6:"assets/img/gallery/gallery-06.jpg",
-      overlay11:"Wedding Venues",
-      overlay12:"155 Photos and 5 Videos",
-     
+      img: "assets/img/gallery/gallery-01.jpg",
+      overlay1: "Wedding Venues",
+      overlay2: "15 Photos and 5 Videos",
+      img2: "assets/img/gallery/gallery-02.jpg",
+      overlay3: "Wedding Venues",
+      overlay4: "55 Photos and 5 Videos",
+      img3: "assets/img/gallery/gallery-03.jpg",
+      overlay5: "Wedding Venues",
+      overlay6: "135 Photos and 5 Videos",
+      img4: "assets/img/gallery/gallery-04.jpg",
+      overlay7: "Wedding Venues",
+      overlay8: "115 Photos and 5 Videos",
+      img5: "assets/img/gallery/gallery-05.jpg",
+      overlay9: "Wedding Venues",
+      overlay10: "155 Photos and 5 Videos",
+      img6: "assets/img/gallery/gallery-06.jpg",
+      overlay11: "Wedding Venues",
+      overlay12: "155 Photos and 5 Videos",
+
     },
     {
-      img:"assets/img/gallery/gallery-02.jpg",
-      overlay1:"Wedding Venues",
-      overlay2:"155 Photos and 5 Videos",
-      img2:"assets/img/gallery/gallery-01.jpg",
-      overlay3:"Wedding Venues",
-      overlay4:"155 Photos and 5 Videos",
-      img3:"assets/img/gallery/gallery-03.jpg",
-      overlay5:"Wedding Venues",
-      overlay6:"155 Photos and 5 Videos",
-      img4:"assets/img/gallery/gallery-04.jpg",
-      overlay7:"Wedding Venues",
-      overlay8:"155 Photos and 5 Videos",
-      img5:"assets/img/gallery/gallery-05.jpg",
-      overlay9:"Wedding Venues",
-      overlay10:"155 Photos and 5 Videos",
-      img6:"assets/img/gallery/gallery-06.jpg",
-      overlay11:"Wedding Venues",
-      overlay12:"155 Photos and 5 Videos",
-      
+      img: "assets/img/gallery/gallery-02.jpg",
+      overlay1: "Wedding Venues",
+      overlay2: "155 Photos and 5 Videos",
+      img2: "assets/img/gallery/gallery-01.jpg",
+      overlay3: "Wedding Venues",
+      overlay4: "155 Photos and 5 Videos",
+      img3: "assets/img/gallery/gallery-03.jpg",
+      overlay5: "Wedding Venues",
+      overlay6: "155 Photos and 5 Videos",
+      img4: "assets/img/gallery/gallery-04.jpg",
+      overlay7: "Wedding Venues",
+      overlay8: "155 Photos and 5 Videos",
+      img5: "assets/img/gallery/gallery-05.jpg",
+      overlay9: "Wedding Venues",
+      overlay10: "155 Photos and 5 Videos",
+      img6: "assets/img/gallery/gallery-06.jpg",
+      overlay11: "Wedding Venues",
+      overlay12: "155 Photos and 5 Videos",
+
     }
   ]
-  public trendingplace=[
+  public trendingplace = [
     {
-      img:"assets/img/business/business-01.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-03.jpg",
-      subtitle1:"Restaurant",
-      subtitle2:"Paris",
-      place:"Mattone Restaurant",
-      currentamount:"$350",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-01.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-03.jpg",
+      subtitle1: "Restaurant",
+      subtitle2: "Paris",
+      place: "Mattone Restaurant",
+      currentamount: "$350",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-03.jpg",
-      subtitle1:"Fitness",
-      subtitle2:"New York",
-      place:"Gym Equipment",
-      currentamount:"$370",
-      oldamount:"$470",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-03.jpg",
+      subtitle1: "Fitness",
+      subtitle2: "New York",
+      place: "Gym Equipment",
+      currentamount: "$370",
+      oldamount: "$470",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-03.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-04.jpg",
-      subtitle1:"Beauty Care",
-      subtitle2:"Australia",
-      place:"Beauty Parlour",
-      currentamount:"$300",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-03.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-04.jpg",
+      subtitle1: "Beauty Care",
+      subtitle2: "Australia",
+      place: "Beauty Parlour",
+      currentamount: "$300",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-04.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-05.jpg",
-      subtitle1:" Shopping",
-      subtitle2:" Texas",
-      place:"Shop Mall",
-      currentamount:"$250",
-      oldamount:"$370",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-04.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-05.jpg",
+      subtitle1: " Shopping",
+      subtitle2: " Texas",
+      place: "Shop Mall",
+      currentamount: "$250",
+      oldamount: "$370",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/business/business-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-06.jpg",
-      subtitle1:" Gym",
-      subtitle2:"  Florida",
-      place:"Gym Equipment",
-      currentamount:"$330",
-      oldamount:"$350",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/business/business-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-06.jpg",
+      subtitle1: " Gym",
+      subtitle2: "  Florida",
+      place: "Gym Equipment",
+      currentamount: "$330",
+      oldamount: "$350",
+      rating: "4.7",
+      rating1: "(50)"
     },
-    
-   
+
+
   ]
-  public businessslider=[
+  public businessslider = [
     {
-      img:"assets/img/latest/latest-01.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-03.jpg",
-      subtitle1:"Restaurant",
-      subtitle2:"Paris",
-      place:"Mattone Restaurant",
-      currentamount:"$350",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-01.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-03.jpg",
+      subtitle1: "Restaurant",
+      subtitle2: "Paris",
+      place: "Mattone Restaurant",
+      currentamount: "$350",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/latest/latest-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-02.jpg",
-      subtitle1:" Lodging",
-      subtitle2:" New York",
-      place:"Lodging",
-      currentamount:"$370",
-      oldamount:"$470",
-      rating:"4.7",
-      rating1:"(50)"
-    },
-     {
-      img:"assets/img/latest/latest-03.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-04.jpg",
-      subtitle1:" Outdoors",
-      subtitle2:"  Australia",
-      place:"Outdoors",
-      currentamount:"$300",
-      oldamount:"$450",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-02.jpg",
+      subtitle1: " Lodging",
+      subtitle2: " New York",
+      place: "Lodging",
+      currentamount: "$370",
+      oldamount: "$470",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/latest/latest-04.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-05.jpg",
-      subtitle1:"Automotive",
-      subtitle2:"Texas",
-      place:"Automotive",
-      currentamount:"$250",
-      oldamount:"$370",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-03.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-04.jpg",
+      subtitle1: " Outdoors",
+      subtitle2: "  Australia",
+      place: "Outdoors",
+      currentamount: "$300",
+      oldamount: "$450",
+      rating: "4.7",
+      rating1: "(50)"
     },
     {
-      img:"assets/img/latest/latest-02.jpg",
-      title:"Featured",
-      img2:"assets/img/profiles/avatar-06.jpg",
-      subtitle1:"  Lodging",
-      subtitle2:" Florida",
-      place:"Lodging",
-      currentamount:"$330",
-      oldamount:"$350",
-      rating:"4.7",
-      rating1:"(50)"
+      img: "assets/img/latest/latest-04.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-05.jpg",
+      subtitle1: "Automotive",
+      subtitle2: "Texas",
+      place: "Automotive",
+      currentamount: "$250",
+      oldamount: "$370",
+      rating: "4.7",
+      rating1: "(50)"
+    },
+    {
+      img: "assets/img/latest/latest-02.jpg",
+      title: "Featured",
+      img2: "assets/img/profiles/avatar-06.jpg",
+      subtitle1: "  Lodging",
+      subtitle2: " Florida",
+      place: "Lodging",
+      currentamount: "$330",
+      oldamount: "$350",
+      rating: "4.7",
+      rating1: "(50)"
     },
   ]
-  public customersays=[
+  public customersays = [
     {
-      heading:"It was a wonderful experience",
-      para:"Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
-      img:"assets/img/testimonial-1.jpg",
-      name:"Dev"
+      heading: "It was a wonderful experience",
+      para: "Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
+      img: "assets/img/testimonial-1.jpg",
+      name: "Dev"
     },
     {
-      heading:"It was a very good experience",
-      para:"Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem volupta",
-      img:"assets/img/testimonial-2.jpg",
-      name:"Esther Hills"
+      heading: "It was a very good experience",
+      para: "Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem volupta",
+      img: "assets/img/testimonial-2.jpg",
+      name: "Esther Hills"
     },
     {
-      heading:"It was a good experience",
-      para:"Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
-      img:"assets/img/testimonial-3.jpg",
-      name:"Hannah Schmitt"
+      heading: "It was a good experience",
+      para: "Omnis totam molestiae delectus nemo alias nesciunt harum et. Nobis dolorum excepturi quod vel. Sunt est qui ab non dolores repellat rem impedit dolores. Ut ea rerum cum eum. Alias dolores tempore illo accusantium est et voluptatem voluptas",
+      img: "assets/img/testimonial-3.jpg",
+      name: "Hannah Schmitt"
     }
   ]
-  public trendingsearch=[
-  {
-   img:"./assets/img/work/trending-car-1.jpg",
-   sentance:"Used Cars price from $20,000"
-  },
-  {
-    img:"./assets/img/work/trending-car-2.jpg",
-    sentance:"Low Mileage Pickup Trucks"
-  },
-  {
-    img:"./assets/img/work/trending-car-3.jpg",
-    sentance:"Family Cars from $10,000"
-   },
-   {
-    img:"./assets/img/work/trending-car-4.jpg",
-    sentance:"Cars price more than $5,000"
-   },
-   {
-    img:"./assets/img/work/trending-car-5.jpg",
-    sentance:"Family Cars from $10,000"
-   },
-   {
-    img:"./assets/img/work/trending-car-2.jpg",
-    sentance:"Low Mileage Pickup Trucks"
-   }
-  ]
-  public choosecar=[
+  public trendingsearch = [
     {
-      name:"Suv",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-1.png",
-     
+      img: "./assets/img/work/trending-car-1.jpg",
+      sentance: "Used Cars price from $20,000"
     },
     {
-      name:"Sports",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-4.png",
+      img: "./assets/img/work/trending-car-2.jpg",
+      sentance: "Low Mileage Pickup Trucks"
     },
     {
-      name:"Coupe",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-2.png",
+      img: "./assets/img/work/trending-car-3.jpg",
+      sentance: "Family Cars from $10,000"
     },
     {
-      name:"Sedan",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-5.png",
+      img: "./assets/img/work/trending-car-4.jpg",
+      sentance: "Cars price more than $5,000"
     },
     {
-      name:"Luxury",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-3.png",
+      img: "./assets/img/work/trending-car-5.jpg",
+      sentance: "Family Cars from $10,000"
     },
     {
-      name:"Vip Cars",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-6.png",
-    },
-    {
-      name:"Suv",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-1.png",
-     
-    },
-    {
-      name:"Sports",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-4.png",
-    },
-    {
-      name:"Coupe",
-      stock:"30 Cars Available",
-      img:"./assets/img/cars-class-2.png",
-    },
-  ]
-  public Makecar=[
-    {
-      name:"Audi",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-1.png",
-     
-    },
-    {
-      name:"KIA",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-2.png",
-    },
-    {
-      name:"Honda",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-3.png",
-    },
-    {
-      name:"Chevorlet",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-4.png",
-    },
-    {
-      name:"Nissan",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-5.png",
-    },
-    {
-      name:"Bently ",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-6.png",
-    },
-    {
-      name:"Audi ",
-      stock:"(30)",
-      img:"./assets/img/partners/brand-1.png",
-    }
-   
-  ]
-  public Topbrand=[
-    {
-      img:"./assets/img/featured/feature-car-1.jpg",
-      centerlisth:"Manufactured",
-      centerlistp:"2010",
-      centerlisth1:"Total",
-      centerlistp1:"20000 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Petrol",
-      centerlist3:"Car Type",
-      centerlistp3:"Automatic",
-      brand:"Coupe",
-      name:"AG MC Ford Raptor",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-02.jpg",
-      dealer:"Dealer :",
-      dealername:"Mic Harzdeni",
-      amount:"$25000"
-    },
-    {
-      img:"./assets/img/featured/feature-car-2.jpg",
-      centerlisth:"Manufactured",
-      centerlistp:"2000",
-      centerlisth1:"Total",
-      centerlistp1:"2040 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Desiel",
-      centerlist3:"Car Type",
-      centerlistp3:"Manual",
-      brand:"Coupe",
-      name:"Benz G-Class",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-04.jpg",
-      dealer:"Dealer :",
-      dealername:"Rebecca",
-      amount:"$25000"
-    },
-    {
-      img:"./assets/img/featured/feature-car-3.jpg",
-      centerlisth:"Manufactured",
-      centerlistp:"2020",
-      centerlisth1:"Total",
-      centerlistp1:"5000 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Hybrid",
-      centerlist3:"Car Type",
-      centerlistp3:"Automatic",
-      brand:"Coupe",
-      name:"Toyota Camry",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-05.jpg",
-      dealer:"Dealer :",
-      dealername:"Fernanderz",
-      amount:"$81000"
-    },
-    {
-      img:"./assets/img/featured/feature-car-4.png",
-      centerlisth:"Manufactured",
-      centerlistp:"2000",
-      centerlisth1:"Total",
-      centerlistp1:"2040 KM",
-      centerlist2:"Engine",
-      centerlistp2:"Desiel",
-      centerlist3:"Car Type",
-      centerlistp3:"Manual",
-      brand:"Coupe",
-      name:"Benz G-Class",
-      bottomp:"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
-      img1:"./assets/img/profiles/avatar-08.jpg",
-      dealer:"Dealer :",
-      dealername:"Rebecca",
-      amount:"$43000"
-    },
-  ]
-  public Rentcar=[
-    {
-      img:"./assets/img/car-rental-slider-img.jpg",
-      Edition:"Limited Edition",
-      name:"2021 Jaguar XF facelift",
-      rentamount:"$400",
-      month:"/ Month",
-      para:"$0 First payment paid by jaquar up to $325",
-      para1:"taxes, title and fees extra",
-    },
-    {
-      img:"./assets/img/car-rental-slider-img-2.jpg",
-      Edition:"Limited Edition",
-      name:"2021 Audi RS7",
-      rentamount:"$450",
-      month:"/ Month",
-      para:"$0 First payment paid by jaquar up to $453",
-      para1:"taxes, title and fees extra",
+      img: "./assets/img/work/trending-car-2.jpg",
+      sentance: "Low Mileage Pickup Trucks"
     }
   ]
-  public Teammembers=[
+  public choosecar = [
     {
-      img:"./assets/img/business/team-1.jpg",
-      name:"Joana Dewel",
-      position:"Car Dealer"
+      name: "Suv",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-1.png",
+
     },
     {
-      img:"./assets/img/business/team-2.jpg",
-      name:"Mark Antonio",
-      position:"Car Dealer"
+      name: "Sports",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-4.png",
     },
     {
-      img:"./assets/img/business/team-3.jpg",
-      name:"Alexander Rebel",
-      position:"Car Dealer"
+      name: "Coupe",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-2.png",
     },
     {
-      img:"./assets/img/business/team-4.jpg",
-      name:"Richerd Dewel",
-      position:"Car Dealer"
+      name: "Sedan",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-5.png",
     },
     {
-      img:"./assets/img/business/team-5.jpg",
-      name:"John Dew",
-      position:"Car Dealer"
+      name: "Luxury",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-3.png",
+    },
+    {
+      name: "Vip Cars",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-6.png",
+    },
+    {
+      name: "Suv",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-1.png",
+
+    },
+    {
+      name: "Sports",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-4.png",
+    },
+    {
+      name: "Coupe",
+      stock: "30 Cars Available",
+      img: "./assets/img/cars-class-2.png",
+    },
+  ]
+  public Makecar = [
+    {
+      name: "Audi",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-1.png",
+
+    },
+    {
+      name: "KIA",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-2.png",
+    },
+    {
+      name: "Honda",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-3.png",
+    },
+    {
+      name: "Chevorlet",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-4.png",
+    },
+    {
+      name: "Nissan",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-5.png",
+    },
+    {
+      name: "Bently ",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-6.png",
+    },
+    {
+      name: "Audi ",
+      stock: "(30)",
+      img: "./assets/img/partners/brand-1.png",
+    }
+
+  ]
+  public Topbrand = [
+    {
+      img: "./assets/img/featured/feature-car-1.jpg",
+      centerlisth: "Manufactured",
+      centerlistp: "2010",
+      centerlisth1: "Total",
+      centerlistp1: "20000 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Petrol",
+      centerlist3: "Car Type",
+      centerlistp3: "Automatic",
+      brand: "Coupe",
+      name: "AG MC Ford Raptor",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-02.jpg",
+      dealer: "Dealer :",
+      dealername: "Mic Harzdeni",
+      amount: "$25000"
+    },
+    {
+      img: "./assets/img/featured/feature-car-2.jpg",
+      centerlisth: "Manufactured",
+      centerlistp: "2000",
+      centerlisth1: "Total",
+      centerlistp1: "2040 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Desiel",
+      centerlist3: "Car Type",
+      centerlistp3: "Manual",
+      brand: "Coupe",
+      name: "Benz G-Class",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-04.jpg",
+      dealer: "Dealer :",
+      dealername: "Rebecca",
+      amount: "$25000"
+    },
+    {
+      img: "./assets/img/featured/feature-car-3.jpg",
+      centerlisth: "Manufactured",
+      centerlistp: "2020",
+      centerlisth1: "Total",
+      centerlistp1: "5000 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Hybrid",
+      centerlist3: "Car Type",
+      centerlistp3: "Automatic",
+      brand: "Coupe",
+      name: "Toyota Camry",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-05.jpg",
+      dealer: "Dealer :",
+      dealername: "Fernanderz",
+      amount: "$81000"
+    },
+    {
+      img: "./assets/img/featured/feature-car-4.png",
+      centerlisth: "Manufactured",
+      centerlistp: "2000",
+      centerlisth1: "Total",
+      centerlistp1: "2040 KM",
+      centerlist2: "Engine",
+      centerlistp2: "Desiel",
+      centerlist3: "Car Type",
+      centerlistp3: "Manual",
+      brand: "Coupe",
+      name: "Benz G-Class",
+      bottomp: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, aliquid ex commodi minima veniam",
+      img1: "./assets/img/profiles/avatar-08.jpg",
+      dealer: "Dealer :",
+      dealername: "Rebecca",
+      amount: "$43000"
+    },
+  ]
+  public Rentcar = [
+    {
+      img: "./assets/img/car-rental-slider-img.jpg",
+      Edition: "Limited Edition",
+      name: "2021 Jaguar XF facelift",
+      rentamount: "$400",
+      month: "/ Month",
+      para: "$0 First payment paid by jaquar up to $325",
+      para1: "taxes, title and fees extra",
+    },
+    {
+      img: "./assets/img/car-rental-slider-img-2.jpg",
+      Edition: "Limited Edition",
+      name: "2021 Audi RS7",
+      rentamount: "$450",
+      month: "/ Month",
+      para: "$0 First payment paid by jaquar up to $453",
+      para1: "taxes, title and fees extra",
     }
   ]
-  public clienttestimonials=[
+  public Teammembers = [
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Daniela Fransis",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-12.jpg"
+      img: "./assets/img/business/team-1.jpg",
+      name: "Joana Dewel",
+      position: "Car Dealer"
     },
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Alexander Rebel",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-13.jpg"
+      img: "./assets/img/business/team-2.jpg",
+      name: "Mark Antonio",
+      position: "Car Dealer"
     },
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Mark Antonio",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-14.jpg"
+      img: "./assets/img/business/team-3.jpg",
+      name: "Alexander Rebel",
+      position: "Car Dealer"
     },
     {
-      img:"./assets/img/Polygon.svg",
-      name:"Daniela Fransis",
-      from:"Customer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
-      img2:"./assets/img/profiles/avatar-12.jpg"
+      img: "./assets/img/business/team-4.jpg",
+      name: "Richerd Dewel",
+      position: "Car Dealer"
+    },
+    {
+      img: "./assets/img/business/team-5.jpg",
+      name: "John Dew",
+      position: "Car Dealer"
     }
   ]
-  public peopleFeedback=[
+  public clienttestimonials = [
     {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Lisa",
-      head:"Great Services!!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Radon Restaurant",
-      city:"London"
+      img: "./assets/img/Polygon.svg",
+      name: "Daniela Fransis",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-12.jpg"
     },
     {
-      img:"assets/img/profiles/avatar-02.jpg",
-      name:"John Doe",
-      head:"Good !!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Food Trucks",
-      city:"Mexico"
+      img: "./assets/img/Polygon.svg",
+      name: "Alexander Rebel",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-13.jpg"
     },
     {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"William",
-      head:"Nice !!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Pop-up Restaurants",
-      city:"Canada"
+      img: "./assets/img/Polygon.svg",
+      name: "Mark Antonio",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-14.jpg"
     },
     {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Lisa",
-      head:"Wonderful!!!",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      place:"Fine Dining Restaurant",
-      city:"Australia"
+      img: "./assets/img/Polygon.svg",
+      name: "Daniela Fransis",
+      from: "Customer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua reader will be distracted by the readable content",
+      img2: "./assets/img/profiles/avatar-12.jpg"
     }
   ]
-  public jobholder=[
+  public peopleFeedback = [
     {
-      img:"assets/img/profiles/avatar-02.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Lisa",
+      head: "Great Services!!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Radon Restaurant",
+      city: "London"
     },
     {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"Alfred",
-      position:"Graphic Designer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-      
+      img: "assets/img/profiles/avatar-02.jpg",
+      name: "John Doe",
+      head: "Good !!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Food Trucks",
+      city: "Mexico"
     },
     {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-     
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "William",
+      head: "Nice !!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Pop-up Restaurants",
+      city: "Canada"
     },
     {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Mike Torello",
-      head:"Mexico",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"Alfred",
-      position:"Graphic Designer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-01.jpg",
-      name:"Mike Torello",
-      position:"Mexico",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-    {
-      img:"assets/img/profiles/avatar-04.jpg",
-      name:"Kirsten",
-      position:"Marketing Manager",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    },
-    {
-      img:"assets/img/profiles/avatar-03.jpg",
-      name:"Alfred",
-      position:"Graphic Designer",
-      para:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
-    
-    },
-  ]
-  
-  public listing= 
-  [
-    {
-      img:"assets/img/featured/property-feature-1.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"./assets/img/profiles/avatar-01.jpg",
-      location:"$700/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"MS Northbound, Peachfield Road, Uk",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:".assets/img/icons/bath-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/featured/property-feature-2.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"/assets/img/profiles/avatar-02.jpg",
-      location:"$510/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"Iris Watson, Frederick Nebraska 20620",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Condos"
-    },
-    {
-      img:"assets/img/featured/property-feature-3.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"./assets/img/profiles/avatar-03.jpg",
-      location:"$600/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"Store in Woodside Park, New York",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/featured/property-feature-2.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"/assets/img/profiles/avatar-04.jpg",
-      location:"$510/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"Iris Watson, Frederick Nebraska 20620",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Condos"
-    },
-    {
-      img:"assets/img/featured/property-feature-3.jpg",
-      img1:"assets/img/featured/feature-text-logo.png",
-      img2:"./assets/img/profiles/avatar-03.jpg",
-      location:"$600/m",
-      map:"Sydney CBD, NSW",
-      listingmap:"MS Northbound, Peachfield Road, Uk",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      type:"Apartments"
-    },
-  ]
-  public managementcomponies=[
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"121",
-      content:"Properties",
-      propertyname:"Elite Poperty",
-      companiescount:"45",
-      companiescount2:"45",
-      companiescount3:"45",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"671",
-      content:"Properties",
-      propertyname:"Tangible Property",
-      companiescount1:"05",
-      companiescount2:"99",
-      companiescount3:"76",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"165",
-      content:"Personal Property",
-      propertyname:"Tangible Property",
-      companiescount1:"77",
-      companiescount2:"22",
-      companiescount3:"06",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"991",
-      content:" Property",
-      propertyname:"Public Property",
-      companiescount1:"87",
-      companiescount2:"32",
-      companiescount3:"64",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"101",
-      content:" Property",
-      propertyname:"Personal Property",
-      companiescount1:"45",
-      companiescount2:"98",
-      companiescount3:"32",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"165",
-      content:"Personal Property",
-      propertyname:"Tangible Property",
-      companiescount1:"77",
-      companiescount2:"22",
-      companiescount3:"06",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"991",
-      content:" Property",
-      propertyname:"Public Property",
-      companiescount1:"87",
-      companiescount2:"32",
-      companiescount3:"64",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"121",
-      content:"Properties",
-      propertyname:"Elite Poperty",
-      companiescount:"45",
-      name:"Listing",
-    },
-    {
-      logo:"assets/img/icons/property.svg",
-      number:"101",
-      content:" Property",
-      propertyname:"Personal Property",
-      companiescount1:"45",
-      companiescount2:"98",
-      companiescount3:"32",
-      name:"Listing",
-    },
-  ]
-  public hoildayCabin=[
-    {
-      img:"assets/img/bg/holiday-cabin-slider-img-1.jpg",
-      rate:"$64",
-      per:"Per night",
-      head:"Perfect Holiday Cabin",
-      para:"Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/bg/holiday-cabin-slider-img-2.jpg",
-      rate:"$64",
-      per:"Per night",
-      head:"Perfect Holiday Cabin",
-      para:"Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
-    },
-    {
-      img:"assets/img/bg/holiday-cabin-slider-img-1.jpg",
-      rate:"$64",
-      per:"Per night",
-      head:"Perfect Holiday Cabin",
-      para:"Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
-    },
-  ]
-  public bestrooms=[
-    {
-      img:"assets/img/featured/best-room-img-1.jpg",
-      roomtype:"Shared Rooms",
-      listing:"40 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-2.jpg",
-      roomtype:"Bed Room",
-      listing:"30 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-3.jpg",
-      roomtype:"Villas",
-      listing:"50 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-4.jpg",
-      roomtype:"Condos",
-      listing:"45 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-1.jpg",
-      roomtype:"Shared Rooms",
-      listing:"40 Listings"
-    },
-    {
-      img:"assets/img/featured/best-room-img-2.jpg",
-      roomtype:"Bed Room",
-      listing:"30 Listings"
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Lisa",
+      head: "Wonderful!!!",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+      place: "Fine Dining Restaurant",
+      city: "Australia"
     }
   ]
-  public recentproperties=[
+  public jobholder = [
     {
-      img:"assets/img/gallery/top-rent-room-img-1.jpg",
-      userimg:"./assets/img/profiles/avatar-01.jpg",
-      typehouse:"Pent house",
-      location:"Mattapan, Boston",
-      head:"South King Royal Palace ",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-02.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
     },
     {
-      img:"assets/img/gallery/top-rent-room-img-2.jpg",
-      userimg:"./assets/img/profiles/avatar-02.jpg",
-      typehouse:"Pent house",
-      location:"East Side, New York",
-      head:"Victorian Bed & Breakfast",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "Alfred",
+      position: "Graphic Designer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
     },
     {
-      img:"assets/img/gallery/top-rent-room-img-1.jpg",
-      userimg:"./assets/img/profiles/avatar-05.jpg",
-      typehouse:"Mattapan, Boston",
-      location:"South King Royal Palace",
-      head:"Victorian Bed & Breakfast",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
     },
     {
-      img:"assets/img/gallery/top-rent-room-img-2.jpg",
-      userimg:"./assets/img/profiles/avatar-06.jpg",
-      typehouse:"Pent house",
-      location:"South King Royal Palace",
-      head:"Victorian Bed & Breakfast",
-      amount:"$600",
-      per:"Per day",
-      areaicon:"assets/img/icons/area-icon.svg",
-      area:"Area:56000/m2",
-      bedicon:"assets/img/icons/bed-icon.svg",
-      bed:"Beds:3",
-      bath:"Baths:2",
-      bathicon:"assets/img/icons/bath-icon.svg",
-      floor:"Floors:4",
-      flooricon:"assets/img/icons/floor-icon.svg",
-      guest:"Guest:4",
-      guesticon:"assets/img/icons/guest-icon.svg",
-      type:"Apartments"
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Mike Torello",
+      head: "Mexico",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "Alfred",
+      position: "Graphic Designer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-01.jpg",
+      name: "Mike Torello",
+      position: "Mexico",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+    {
+      img: "assets/img/profiles/avatar-04.jpg",
+      name: "Kirsten",
+      position: "Marketing Manager",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+    },
+    {
+      img: "assets/img/profiles/avatar-03.jpg",
+      name: "Alfred",
+      position: "Graphic Designer",
+      para: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nibh eu aliquam consequat  morbi leo. Pharetra lacus vitae nisl porttitor duis. In et velit turpis nislvulputate in nunc, habitant eget. Dui",
+
+    },
+  ]
+
+  public listing =
+    [
+      {
+        img: "assets/img/featured/property-feature-1.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "./assets/img/profiles/avatar-01.jpg",
+        location: "$700/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "MS Northbound, Peachfield Road, Uk",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: ".assets/img/icons/bath-icon.svg",
+        type: "Apartments"
+      },
+      {
+        img: "assets/img/featured/property-feature-2.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "/assets/img/profiles/avatar-02.jpg",
+        location: "$510/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "Iris Watson, Frederick Nebraska 20620",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Condos"
+      },
+      {
+        img: "assets/img/featured/property-feature-3.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "./assets/img/profiles/avatar-03.jpg",
+        location: "$600/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "Store in Woodside Park, New York",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Apartments"
+      },
+      {
+        img: "assets/img/featured/property-feature-2.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "/assets/img/profiles/avatar-04.jpg",
+        location: "$510/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "Iris Watson, Frederick Nebraska 20620",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Condos"
+      },
+      {
+        img: "assets/img/featured/property-feature-3.jpg",
+        img1: "assets/img/featured/feature-text-logo.png",
+        img2: "./assets/img/profiles/avatar-03.jpg",
+        location: "$600/m",
+        map: "Sydney CBD, NSW",
+        listingmap: "MS Northbound, Peachfield Road, Uk",
+        areaicon: "assets/img/icons/area-icon.svg",
+        area: "Area:56000/m2",
+        bedicon: "assets/img/icons/bed-icon.svg",
+        bed: "Beds:3",
+        bath: "Baths:2",
+        bathicon: "assets/img/icons/bath-icon.svg",
+        type: "Apartments"
+      },
+    ]
+  public managementcomponies = [
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "121",
+      content: "Properties",
+      propertyname: "Elite Poperty",
+      companiescount: "45",
+      companiescount2: "45",
+      companiescount3: "45",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "671",
+      content: "Properties",
+      propertyname: "Tangible Property",
+      companiescount1: "05",
+      companiescount2: "99",
+      companiescount3: "76",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "165",
+      content: "Personal Property",
+      propertyname: "Tangible Property",
+      companiescount1: "77",
+      companiescount2: "22",
+      companiescount3: "06",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "991",
+      content: " Property",
+      propertyname: "Public Property",
+      companiescount1: "87",
+      companiescount2: "32",
+      companiescount3: "64",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "101",
+      content: " Property",
+      propertyname: "Personal Property",
+      companiescount1: "45",
+      companiescount2: "98",
+      companiescount3: "32",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "165",
+      content: "Personal Property",
+      propertyname: "Tangible Property",
+      companiescount1: "77",
+      companiescount2: "22",
+      companiescount3: "06",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "991",
+      content: " Property",
+      propertyname: "Public Property",
+      companiescount1: "87",
+      companiescount2: "32",
+      companiescount3: "64",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "121",
+      content: "Properties",
+      propertyname: "Elite Poperty",
+      companiescount: "45",
+      name: "Listing",
+    },
+    {
+      logo: "assets/img/icons/property.svg",
+      number: "101",
+      content: " Property",
+      propertyname: "Personal Property",
+      companiescount1: "45",
+      companiescount2: "98",
+      companiescount3: "32",
+      name: "Listing",
+    },
+  ]
+  public hoildayCabin = [
+    {
+      img: "assets/img/bg/holiday-cabin-slider-img-1.jpg",
+      rate: "$64",
+      per: "Per night",
+      head: "Perfect Holiday Cabin",
+      para: "Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
+    },
+    {
+      img: "assets/img/bg/holiday-cabin-slider-img-2.jpg",
+      rate: "$64",
+      per: "Per night",
+      head: "Perfect Holiday Cabin",
+      para: "Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
+    },
+    {
+      img: "assets/img/bg/holiday-cabin-slider-img-1.jpg",
+      rate: "$64",
+      per: "Per night",
+      head: "Perfect Holiday Cabin",
+      para: "Spectacular Condo In Summerlin! View of Spring Mountains and Charleston Peak!!! 1 Bedrooms, Private Bathroom and a Queen Size Vertical Wall Bed. Fireplace, Kitchen, Dishwasher and Microwave , Open And Spacious Floorplan! Great Summerlin Location!",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
+    },
+  ]
+  public bestrooms = [
+    {
+      img: "assets/img/featured/best-room-img-1.jpg",
+      roomtype: "Shared Rooms",
+      listing: "40 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-2.jpg",
+      roomtype: "Bed Room",
+      listing: "30 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-3.jpg",
+      roomtype: "Villas",
+      listing: "50 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-4.jpg",
+      roomtype: "Condos",
+      listing: "45 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-1.jpg",
+      roomtype: "Shared Rooms",
+      listing: "40 Listings"
+    },
+    {
+      img: "assets/img/featured/best-room-img-2.jpg",
+      roomtype: "Bed Room",
+      listing: "30 Listings"
     }
   ]
-  public ourtestimonials=[
-  {
-   head:"Really Awesome",
-   para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-   img:"./assets/img/profiles/avatar-01.jpg",
-   name:"Thompson Greig",
-   job:"Agent"
-  },
-  {
-    head:"Really Awesome",
-    para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-    img:"./assets/img/profiles/avatar-02.jpg",
-    name:"Lori triump",
-    job:"Agent"
-   },
-   {
-    head:"Really Awesome",
-    para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-    img:"./assets/img/profiles/avatar-03.jpg",
-    name:"Angela Mathew",
-    job:"Agent"
-   },
-   {
-    head:"Really Awesome",
-    para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
-    img:"./assets/img/profiles/avatar-03.jpg",
-    name:"Angela Mathew",
-    job:"Agent"
-   }
-  ]
-  public recentarticle=[
+  public recentproperties = [
     {
-      img:"assets/img/blog/property-blog-1.jpg",
-      head:"Skills That You Can Learn In The Real Estate Market",
-      calendar:"7 Jan 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-1.jpg",
+      userimg: "./assets/img/profiles/avatar-01.jpg",
+      typehouse: "Pent house",
+      location: "Mattapan, Boston",
+      head: "South King Royal Palace ",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     },
     {
-      img:"assets/img/blog/property-blog-2.jpg",
-      head:"5 Essential Steps for Buying an Investment",
-      calendar:"15 Jan 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-2.jpg",
+      userimg: "./assets/img/profiles/avatar-02.jpg",
+      typehouse: "Pent house",
+      location: "East Side, New York",
+      head: "Victorian Bed & Breakfast",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     },
     {
-      img:"assets/img/blog/property-blog-3.jpg",
-      head:"Bedroom Colors You’ll Never Regret",
-      calendar:"27 Feb 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-1.jpg",
+      userimg: "./assets/img/profiles/avatar-05.jpg",
+      typehouse: "Mattapan, Boston",
+      location: "South King Royal Palace",
+      head: "Victorian Bed & Breakfast",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     },
     {
-      img:"assets/img/blog/property-blog-1.jpg",
-      head:"Skills That You Can Learn In The Real Estate Market",
-      calendar:" 28 Mar 2023",
-      para:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+      img: "assets/img/gallery/top-rent-room-img-2.jpg",
+      userimg: "./assets/img/profiles/avatar-06.jpg",
+      typehouse: "Pent house",
+      location: "South King Royal Palace",
+      head: "Victorian Bed & Breakfast",
+      amount: "$600",
+      per: "Per day",
+      areaicon: "assets/img/icons/area-icon.svg",
+      area: "Area:56000/m2",
+      bedicon: "assets/img/icons/bed-icon.svg",
+      bed: "Beds:3",
+      bath: "Baths:2",
+      bathicon: "assets/img/icons/bath-icon.svg",
+      floor: "Floors:4",
+      flooricon: "assets/img/icons/floor-icon.svg",
+      guest: "Guest:4",
+      guesticon: "assets/img/icons/guest-icon.svg",
+      type: "Apartments"
     }
   ]
- 
-  
- 
+  public ourtestimonials = [
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-01.jpg",
+      name: "Thompson Greig",
+      job: "Agent"
+    },
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-02.jpg",
+      name: "Lori triump",
+      job: "Agent"
+    },
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-03.jpg",
+      name: "Angela Mathew",
+      job: "Agent"
+    },
+    {
+      head: "Really Awesome",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has ",
+      img: "./assets/img/profiles/avatar-03.jpg",
+      name: "Angela Mathew",
+      job: "Agent"
+    }
+  ]
+  public recentarticle = [
+    {
+      img: "assets/img/blog/property-blog-1.jpg",
+      head: "Skills That You Can Learn In The Real Estate Market",
+      calendar: "7 Jan 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    },
+    {
+      img: "assets/img/blog/property-blog-2.jpg",
+      head: "5 Essential Steps for Buying an Investment",
+      calendar: "15 Jan 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    },
+    {
+      img: "assets/img/blog/property-blog-3.jpg",
+      head: "Bedroom Colors You’ll Never Regret",
+      calendar: "27 Feb 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    },
+    {
+      img: "assets/img/blog/property-blog-1.jpg",
+      head: "Skills That You Can Learn In The Real Estate Market",
+      calendar: " 28 Mar 2023",
+      para: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+    }
+  ]
 
 
 
@@ -3896,15 +3968,18 @@ export class DataService {
 
 
 
-    
-  
-  
-  
-
-  
 
 
 
-    
-  
+
+
+
+
+
+
+
+
+
+
+
 }

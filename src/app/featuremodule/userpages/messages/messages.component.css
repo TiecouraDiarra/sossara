@@ -1,0 +1,150 @@
+.mine-message {
+  background-color: #e0f2f1;
+  /* Exemple de couleur pour les messages "mine" */
+}
+
+.other-message {
+  background-color: #f5f5f5;
+  /* Exemple de couleur pour les autres messages */
+}
+.card {
+  height: 350px;
+  border-radius: 15px !important;
+  /* background: linear-gradient(90deg, rgb(140, 200, 253) 0%, rgb(93, 226, 241) 100%); */
+  /* border: 1px solid rgb(140, 200, 253); */
+}
+
+.cardS {
+  height: 500px;
+  border-radius: 15px !important;
+  /* background: linear-gradient(90deg, rgb(140, 200, 253) 0%, rgb(93, 226, 241) 100%); */
+  /* border: 1px solid rgb(140, 200, 253); */
+}
+
+.crd:hover {
+  cursor: pointer;
+}
+
+.crd {
+  cursor: pointer;
+}
+
+.my-message {
+  background-color: #3498db;
+  /* Couleur de fond pour les messages de l'utilisateur actuel */
+  color: white;
+  /* Couleur du texte pour les messages de l'utilisateur actuel */
+  margin-left: auto;
+  /* Décalage à droite pour les messages de l'utilisateur actuel */
+}
+
+.other-user-message {
+  background-color: #f1f1f1;
+  /* Couleur de fond pour les messages de l'autre utilisateur */
+  color: black;
+  /* Couleur du texte pour les messages de l'autre utilisateur */
+  margin-right: auto;
+  /* Décalage à gauche pour les messages de l'autre utilisateur */
+}
+
+/* Styles pour les divs de messages */
+.mine-message {
+  display: flex;
+  justify-content: flex-end;
+  /* Alignez les divs à droite */
+  margin-right: 0;
+  /* Optionnel : ajustez les marges si nécessaire */
+}
+
+div.avatar.flex-shrink-0.imagChat img {
+  padding: 0;
+}
+
+/* .chat-body .msg-box > div {
+    padding: 0;
+    border-radius: 10px 10px 0 0;
+    margin: 0 0 20px 12px;
+    display: inline-block;
+    position: relative;
+} */
+.img_cont {
+  position: relative;
+  height: 70px;
+  width: 70px;
+}
+
+.img_cont_msg {
+  height: 40px;
+  width: 40px;
+  /* background-color: red; */
+}
+.user_img {
+  height: 70px;
+  width: 70px;
+  border: 1.5px solid #f5f6fa;
+
+}
+
+.text_inside_circle1 {
+  background: rgb(167, 165, 165);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+}
+.msg_card_body {
+  overflow-y: auto !important;
+}
+
+.msg_card_body::-webkit-scrollbar {
+  width: 5px !important;
+}
+.cardS::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+.text_inside_circle4 {
+  background: rgb(77, 190, 203);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  /* margin-left: 5px; */
+}
+
+.text_inside_circle3 {
+  background: rgb(140, 200, 253);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  /* margin-right: 15px; */
+}
+
+.user_img_msg {
+  height: 40px;
+  width: 40px;
+  border: 1.5px solid #f5f6fa;
+
+}
+
+@media (max-width: 667.98px) {
+.chat-users-list {
+  max-height: calc(100vh - 92px);
+  overflow: auto;
+  /* background: red; */
+  width: 120%;
+  margin-left: -10%;
+}
+}

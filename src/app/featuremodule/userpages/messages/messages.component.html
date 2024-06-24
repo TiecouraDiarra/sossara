@@ -6,10 +6,10 @@
                 <h2 class="breadcrumb-title">Messages</h2>
                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a [routerLink]="routes.home1">Home</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Messages</li>
                     </ol>
-                </nav>							
+                </nav>
             </div>
         </div>
     </div>
@@ -17,9 +17,9 @@
 <!-- /Breadscrumb Section -->
 
 <!-- Profile Content -->
-<div class="dashboard-content">		
+<div class="dashboard-content">
     <div class="container">
-        <div class="">			        
+        <div class="">
             <ul class="dashborad-menus">
                 <li>
                     <a [routerLink]="routes.dashboard">
@@ -27,18 +27,18 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="routes.profile">
-                        <i class="fa-solid fa-user"></i> <span>Profile</span>
-                    </a>
-                </li>
-                <li>
                     <a [routerLink]="routes.mylisting">
-                        <i class="feather-list"></i> <span>My Listing</span>
+                        <i class="feather-list"></i> <span>Mes biens</span>
                     </a>
                 </li>
-                <li>
+                <li *ngIf="isAgence">
                     <a [routerLink]="routes.bookmarks">
-                        <i class="fas fa-solid fa-heart"></i> <span>Bookmarks</span>
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence ||   isProprietaire">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
                     </a>
                 </li>
                 <li class="active">
@@ -48,259 +48,217 @@
                 </li>
                 <li>
                     <a [routerLink]="routes.reviews">
-                        <i class="fas fa-solid fa-star"></i> <span>Reviews</span>
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="routes.login">
-                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Logout</span>
+                    <a [routerLink]="routes.profile">
+                        <i class="fa-solid fa-user"></i> <span>Profil</span>
                     </a>
                 </li>
-            </ul>											
+                <!-- <li class="crd">
+                    <a (click)="logout()">
+                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
+                    </a>
+                </li> -->
+            </ul>
         </div>
         <div class="profile-content">
-             <div class="row dashboard-info chat-window">
-                <div class="col-lg-4">
-                     <div class="chat-cont-left">
+            <div class="row dashboard-info chat-window">
+                <div class="col-lg-5">
+                    <div class="chat-cont-left">
                         <form class="chat-search">
                             <div class="form-group">
                                 <div class="group-img">
                                     <img src="assets/img/chatsearch.svg" alt="">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input name="searchText" [(ngModel)]="searchText" type="text" class="form-control"
+                                        placeholder="Rechercher">
                                 </div>
                             </div>
                         </form>
-                        <div class="chat-users-list">
-                            <div class="chat-scroll">
-                                <a href="javascript:void(0);" class="media d-flex active">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-online">
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
+
+                        <div class=" card chat-users-list" [style.display]="isMobile ? 'none' : 'block'">
+                            <div class="card-body msg_card_bodyZ chat-scroll">
+                                <a class="media d-flex" *ngFor="let Conversations of chatList | filter:searchText">
+                                    <div class="media-img-wrap flex-shrink-0 crd"
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
+                                        <div class="img_cont">
+                                            <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName!= senderCheck">
+                                                {{Conversations?.expediteurInfo?.nom.substring(0,1)}}</div>
+                                                <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName == senderCheck">
+                                                {{Conversations?.destinateurInfo?.nom.substring(0,1)}}</div>
+                                            <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                          {{firstUserName.substring(0,1)}}</div> -->
+                                        </div> &nbsp; &nbsp;
                                     </div>
-                                    <div class="media-body flex-grow-1">
+                                    <div class="media-body flex-grow-1 mt-4"
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
                                         <div>
-                                        <div class="user-name">Marvin Downey </div>
-                                        <div class="user-last-chat">Hey, How are you?</div>
+                                            <div class="user-name" *ngIf="secondUserName!= senderCheck">{{Conversations?.expediteurInfo?.nom}}</div>
+                                            <div class="user-name" *ngIf="secondUserName== senderCheck">{{Conversations?.destinateurInfo?.nom}}</div>
+
+                                            <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
                                         </div>
+
                                         <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        <div class="badge badge-success rounded-pill">15</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="media d-flex">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-away">
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="media-body flex-grow-1">
-                                        <div>
-                                        <div class="user-name">Charlene Reed</div>
-                                        <div class="user-last-chat">I'll Call you later</div>
-                                        </div>
-                                        <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="media d-flex">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-online">
-                                        <img src="assets/img/profiles/avatar-05.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="media-body flex-grow-1">
-                                        <div>
-                                        <div class="user-name">Travis Trimmble</div>
-                                        <div class="user-last-chat">Give me a full explain...</div>
-                                        </div>
-                                        <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        <div class="badge badge-success rounded-pill">15</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="media d-flex">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-away">
-                                        <img src="assets/img/profiles/avatar-03.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="media-body flex-grow-1">
-                                        <div>
-                                        <div class="user-name">Marvin Dorway</div>
-                                        <div class="user-last-chat">Hey, How are you?</div>
-                                        </div>
-                                        <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        <div class="badge badge-success rounded-pill">15</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="media d-flex">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-offline">
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="media-body flex-grow-1">
-                                        <div>
-                                        <div class="user-name">Charlene Reed</div>
-                                        <div class="user-last-chat">I'll Call you later</div>
-                                        </div>
-                                        <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="media d-flex">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-online">
-                                        <img src="assets/img/profiles/avatar-05.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="media-body flex-grow-1">
-                                        <div>
-                                        <div class="user-name">Travis Trimmble</div>
-                                        <div class="user-last-chat">Give me a full explain...</div>
-                                        </div>
-                                        <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        <div class="badge badge-success rounded-pill">15</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="media d-flex">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-offline">
-                                        <img src="assets/img/profiles/avatar-04.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="media-body flex-grow-1">
-                                        <div>
-                                        <div class="user-name">Charlene Reed</div>
-                                        <div class="user-last-chat">I'll Call you later</div>
-                                        </div>
-                                        <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0);" class="media d-flex">
-                                    <div class="media-img-wrap flex-shrink-0">
-                                        <div class="avatar avatar-online">
-                                        <img src="assets/img/profiles/avatar-05.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                    </div>
-                                    <div class="media-body flex-grow-1">
-                                        <div>
-                                        <div class="user-name">Travis Trimmble</div>
-                                        <div class="user-last-chat">Give me a full explain...</div>
-                                        </div>
-                                        <div>
-                                        <div class="last-chat-time block">2 min</div>
-                                        <div class="badge badge-success rounded-pill">15</div>
+                                            <div class="badge badge-success rounded-pill">
+                                                {{Conversations?.messages?.length}}</div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        </div>		 
-                    </div>					
+                        </div>
+                        <div class=" card chat-users-list" [style.display]="!isMobile ? 'none' : 'block'">
+                            <div class="card-body msg_card_bodyZ chat-scroll">
+                                <a class="media d-flex" [routerLink]="'/userpages/details-conversation'" *ngFor="let Conversations of chatList | filter:searchText">
+                                    <div class="media-img-wrap flex-shrink-0 crd"
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
+                                        <div class="img_cont">
+                                            <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName!= senderCheck">
+                                                {{Conversations?.expediteurInfo?.nom.substring(0,1)}}</div>
+                                                <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName == senderCheck">
+                                                {{Conversations?.destinateurInfo?.nom.substring(0,1)}}</div>
+                                            <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                          {{firstUserName.substring(0,1)}}</div> -->
+                                        </div> &nbsp; &nbsp;
+                                    </div>
+                                    <div class="media-body flex-grow-1 mt-4"
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
+                                        <div>
+                                            <div class="user-name" *ngIf="secondUserName!= senderCheck">{{Conversations?.expediteurInfo?.nom}}vc</div>
+                                            <div class="user-name" *ngIf="secondUserName== senderCheck">{{Conversations?.destinateurInfo?.nom}}</div>
+
+                                            <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
+                                        </div>
+
+                                        <div>
+                                            <div class="badge badge-success rounded-pill">
+                                                {{Conversations?.messages?.length}}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-8">
+
+                <div class="col-lg-7" [style.display]="isMobile ? 'none' : 'block'">
                     <div class="chat-cont-right">
                         <div class="chat-header">
                             <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
-                               <i class="fa-solid fa-chevron-left"></i>
+                                <i class="fa-solid fa-chevron-left"></i>
                             </a>
                             <div class="media d-flex align-items-center">
-                                <div class="media-img-wrap flex-shrink-0">
-                                    <div class="avatar avatar-online">
-                                    <img src="assets/img/profiles/avatar-03.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                    </div>
-                                </div>
+                                <div class="img_cont">
+                                    <div class="rounded-circle user_img text_inside_circle1"
+                                        *ngIf="secondUserName!=senderCheck">
+                                        {{chatData[0]?.expediteurInfo?.nom?.substring(0,1)}}</div>
+                                        <div class="rounded-circle user_img text_inside_circle1"
+                                        *ngIf="secondUserName==senderCheck">
+                                        {{chatData[0]?.destinateurInfo?.nom?.substring(0,1)}}</div>
+                                    <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                      {{firstUserName.substring(0,1)}}</div> -->
+                                </div> &nbsp; &nbsp;
                                 <div class="media-body flex-grow-1">
-                                    <div class="user-name">Marvin Downey</div>
+                                    <div class="user-name"  *ngIf="secondUserName!=senderCheck">{{chatData[0]?.expediteurInfo?.nom}}</div>
+                                    <div class="user-name"  *ngIf="secondUserName==senderCheck">{{chatData[0]?.destinateurInfo?.nom}}</div>
+
                                 </div>
-                            </div>									
+                            </div>
                         </div>
                         <div class="chat-body">
-                            <div class="chat-scroll">
-                                <ul class="list-unstyled">
-                                    <li class="media d-flex received">
-                                        <div class="avatar flex-shrink-0">
-                                           <img src="assets/img/profiles/avatar-03.jpg" alt="User Image" class="avatar-img rounded-circle">
-                                        </div>
-                                        <div class="media-body flex-grow-1">
-                                           <div class="msg-box">
-                                             <div>
-                                                <p>I'm just looking around.</p>
-                                                <p>Will you tell me something about yourself?</p>
-                                                <ul class="chat-msg-info">
-                                                    <li>
-                                                        <div class="chat-time">
-                                                            <span>8:35 AM</span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                             </div>
-                                            </div>
-                                            <div class="msg-box">
-                                                <div>
-                                                    <p>Are you there? That time!</p>
-                                                    <ul class="chat-msg-info">
+                            <div class="card">
+                                <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                                    <ul class="list-unstyled ">
+                                        <li class="media d-flex received">
+                                            <!-- <div class="avatar flex-shrink-0">
+                                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                                                alt="User Image" class="avatar-img rounded-circle">
+                                        </div> -->
+                                            <div class="media-body flex-grow-1">
+                                                <div class="msg-box" *ngFor="let Messages of messageList">
+                                                    <!-- <div class="avatar flex-shrink-0 imagChat" *ngIf="!Messages.senderEmail==senderCheck">
+                                                    <img src="{{generateImageUrl(users?.photos[0].nom)}}" (error)="handleAuthorImageError($event)" alt="Image du message">
+                                                </div> -->
+                                                    <div class="d-flex justify-content-end mb-2"
+                                                        *ngIf="Messages.senderEmail==senderCheck">
+                                                        <div class="msg_cotainer_send">
+                                                            <!-- {{msg.replymessage | json}} -->
+                                                            <p
+                                                                style="background-color: #e98b11; padding: 15px; border-radius: 20px; margin-right: 5px;">
+                                                                {{Messages.message}}</p>
+                                                            <!-- <ul class="chat-msg-info">
                                                         <li>
                                                             <div class="chat-time">
-                                                                <span>8:40 AM</span>
+                                                                <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
                                                             </div>
                                                         </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="msg-box">
-                                                <div>
-                                                    <div class="chat-msg-attachments">
-                                                        <div class="chat-attachment">
-                                                            <img src="assets/img/chat-attachment.jpg" alt="Attachment">
-                                                            <a href="javascript:void(0)" class="chat-attach-download">
-                                                            <i class="feather-download"></i>
-                                                            </a>
+                                                    </ul> -->
+                                                            <span class="msg_time_send float-end">{{ Messages.time |
+                                                                date:"dd MMM yyyy HH:mm":locale}}</span>
                                                         </div>
-                                                        <div class="chat-attachment">
-                                                            <img src="assets/img/chat-attachment.jpg" alt="Attachment">
-                                                            <a href="javascript:void(0)" class="chat-attach-download">
-                                                            <i class="feather-download"></i>
-                                                            </a>
+                                                        <div class="img_cont_msg">
+                                                            <span
+                                                                class="rounded-circle user_img_msg text_inside_circle4">{{Messages.senderEmail.substring(0,1)}}</span>
                                                         </div>
                                                     </div>
+                                                    <div class="d-flex justify-content-start mb-2"
+                                                        *ngIf="Messages.senderEmail!=senderCheck">
+                                                        <div class="img_cont_msg">
+                                                            <span
+                                                                class="rounded-circle user_img_msg text_inside_circle3">{{Messages?.senderEmail.substring(0,1)}}</span>
+                                                        </div>
+                                                        <div class="msg_cotainer">
+                                                            <p
+                                                                style="background-color: #374b5c; padding: 15px;border-radius: 20px; margin-left: 5px;">
+                                                                {{Messages?.message}}</p>
+                                                            <!-- <ul class="chat-msg-info">
+                                                           <li>
+                                                               <div class="chat-time">
+                                                                   <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                               </div>
+                                                           </li>
+                                                       </ul> -->
+                                                            <span class="msg_time_send">{{ Messages?.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div [ngClass]="{'mine-message': Messages.senderEmail==senderCheck, 'other-message': !Messages.senderEmail==senderCheck}"
+                                                    [ngStyle]="{'background-color': Messages.senderEmail==senderCheck ? '#e98b11' : '#374b5c', 'margin-left': Messages.senderEmail==senderCheck ? '70%' : 'auto'}">
+                                                  
+
+                                                    <p>{{Messages.message }}</p>
+
                                                     <ul class="chat-msg-info">
                                                         <li>
                                                             <div class="chat-time">
-                                                               <span>8:41 AM</span>
+                                                                <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
                                                             </div>
                                                         </li>
                                                     </ul>
-                                                </div>
-                                            </div> 													
-                                        </div>
-                                    </li>
-                                    <li class="media d-flex sent">
-                                        <div class="media-body flex-grow-1">
-                                            <div class="msg-box">
-                                                <div>
-                                                    <p>Hello. What can I do for you?</p>
-                                                    <ul class="chat-msg-info">
-                                                        <li>
-                                                            <div class="chat-time">
-                                                                <span>8:30 AM</span>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                </div> -->
                                                 </div>
                                             </div>
-                                            <div class="msg-box">
+                                        </li>
+                                        <li class="media d-flex sent">
+                                            <div class="media-body flex-grow-1">
+                                                <!-- <div class="msg-box" *ngFor="let Messages of filteredMessagesUserCurrent">
+                                                <div>
+                                                    <p>{{Messages.content}}</p>
+                                                    <ul class="chat-msg-info">
+                                                        <li>
+                                                            <div class="chat-time">
+                                                                <span>{{Messages.createdAt |
+                                                                    date:"HH:mm"}}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+                                                <!-- <div class="msg-box">
                                                 <div>
                                                     <p>OK, my name is Limingqiang. I like singing, playing basketballand so on.</p>
                                                     <ul class="chat-msg-info">
@@ -330,28 +288,33 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div> 		
-                                        </div>
-                                    </li>											
-                                </ul>									
+                                            </div> -->
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div> 	
+                        </div>
                         <div class="chat-footer">
                             <div class="input-group">
-                                <div class="attach-btn">									
-                                    <input type="text" class="input-msg-send form-control" placeholder="Type something">
+                                <div class="attach-btn">
+                                    <input name="content" [(ngModel)]="MessageForm.content" type="text"
+                                        class="input-msg-send form-control" placeholder="Message">
                                     <div class="btn-file btn">
                                         <i class="fa fa-paperclip"></i>
-                                        <input type="file">
+                                        <input name="file" type="file">
                                     </div>
                                 </div>
-                                <button type="button" class="btn msg-send-btn"><i class="fas fa-paper-plane"></i></button>
+                                <button (click)="sendMessage()"
+                                    [disabled]="!MessageForm.content || MessageForm.content.trim() === '' "
+                                    type="button" class="btn msg-send-btn"><i class="fas fa-paper-plane"></i></button>
                             </div>
-                        </div>								
-                    </div>		
-                </div>                       						
-             </div>				
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </div>		
-</div>		
+    </div>
+</div>
 <!-- /Profile Content -->

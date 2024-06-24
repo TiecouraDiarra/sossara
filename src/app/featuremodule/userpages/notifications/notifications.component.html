@@ -1,0 +1,327 @@
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
+    integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
+
+<!-- Breadscrumb Section -->
+<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title">Notifications</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Breadscrumb Section -->
+
+<!-- Reviews Content -->
+<div class="dashboard-content">
+    <div class="container">
+        <div class="">
+            <ul class="dashborad-menus">
+                <li>
+                    <a [routerLink]="routes.dashboard">
+                        <i class="feather-grid"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.mylisting">
+                        <i class="feather-list"></i> <span>Mes biens</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence">
+                    <a [routerLink]="routes.bookmarks">
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence ||   isProprietaire">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.messages">
+                        <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a [routerLink]="routes.reviews">
+                        <i class="fas fa-bell"></i><span>Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.profile">
+                        <i class="fa-solid fa-user"></i> <span>Profil</span>
+                    </a>
+                </li>
+                <!-- <li class="crd">
+                    <a (click)="logout()">
+                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <!-- <div class="row dashboard-info reviewpage-content "> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 left">
+                    <div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
+                        <div class="p-3 border-top border-bottom">
+                            <h5 class="font-weight-bold text-dark mb-1 mt-0">Notifications</h5>
+                        </div>
+                        <!-- <div class="p-3">
+                                <div class="d-flex align-items-top mb-2">
+                                    <p class="mb-0 text-muted">Posted</p>
+                                    <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">1 day ago</p>
+                                </div>
+                                <div class="d-flex align-items-top">
+                                    <p class="mb-0 text-muted">Applicant Rank</p>
+                                    <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">25</p>
+                                </div>
+                            </div> -->
+                    </div>
+                </div>
+                <div class="col-lg-9 right">
+                    <!-- <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Recent</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px; font-weight: bold;">
+                                    <div class="text-truncate">DAILY RUNDOWN: WEDNESDAY</div>
+                                    <div class="small">Income tax sops on the cards, The bias in VC funding, and
+                                        other top news for you</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group dropdown">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
+                                                Marquer comme lu</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="text-right text-muted pt-1">3d</div>
+                                </span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Paiements</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px; font-weight: bold;">
+                                    <div class="text-truncate">DAILY RUNDOWN: WEDNESDAY</div>
+                                    <div class="small text-success"><i class="fa fa-check-circle"></i> You sent
+                                        Mandeep a message</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i>
+                                                Marquer comme lu</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="text-right text-muted pt-1">3d</div>
+                                </span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Candidatures</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div *ngIf="candidature.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de notification</p>
+                                </div>
+                            </div>
+                            <div *ngFor="let Candidature of candidature" class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                    src="{{generateImageUrl(Candidature?.sender?.photo)}}"
+                                        alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px;">
+                                    <div class="text-truncate" style="font-weight: bold;">{{Candidature?.sender?.nom}}</div>
+                                    <div class="small"><i style="color: #e98b11;" class="fa-sharp fa-solid fa-home"></i>
+                                        Reference du bien : <span style="font-weight: bold; cursor: pointer;"
+                                            (click)="goToDettailBien(Candidature?.candidature?.bien?.uuid)">{{Candidature?.candidature?.bien?.reference}}</span>
+                                    </div>
+                                    <div class="small text-success"><i class="fa fa-check-circle"></i> {{Candidature?.notif}}</div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Candidature?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Candidature?.date |
+                                        date:"HH:mm":locale}}</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button *ngIf="Candidature?.candidature?.contrat" (click)="goToPageContrat(Candidature?.candidature?.contrat?.uuid)" class="dropdown-item crd" type="button"><i class="mdi mdi-eye"></i>
+                                                Voir le contrat</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Rendez-vous</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div *ngIf="rdv.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de notification</p>
+                                </div>
+                            </div>
+                            <div *ngFor="let Rdv of rdv"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                        src="{{generateImageUrl(Rdv?.rdv?.locataire?.photo)}}" alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px;">
+                                    <div style="font-weight: bold;" class="text-truncate">{{Rdv?.rdv?.locataire?.nom}}
+                                    </div>
+                                    <div class="small"><i style="color: #e98b11;" class="fa-sharp fa-solid fa-home"></i>
+                                        Reference du bien : <span style="font-weight: bold; cursor: pointer;"
+                                            (click)="goToDettailBien(Rdv?.rdv?.bien?.uuid)">{{Rdv?.rdv?.bien?.reference}}</span>
+                                    </div>
+                                    <div class="small"><i style="color: #e98b11;"
+                                            class="fa-sharp fa-solid fa-calendar-days"></i>
+                                        Date du rendez-vous : <span style="font-weight: bold;">{{Rdv?.rdv?.date |
+                                            date:"dd MMM yyyy":locale}} à {{Rdv?.rdv?.heure}}</span></div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Rdv?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Rdv?.date |
+                                        date:"HH:mm":locale}}</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group float-end">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>   
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button [routerLink]="routes.rdv" class="dropdown-item" type="button"><i class="mdi mdi-eye"></i>
+                                                 Voir detail</button>
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <!-- <div class="text-right text-muted pt-1">{{Rdv?.date |
+                                        date:"dd MMM yyyy":locale}}</div> -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Messages</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div *ngIf="message.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de notification</p>
+                                </div>
+                            </div>
+                            <div *ngFor="let Message of message"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck"
+                                    class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                        src="{{generateImageUrl(Message?.message?.destinateur?.photo)}}" alt="" />
+                                </div>
+                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck"
+                                    class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                        src="{{generateImageUrl(Message?.message?.expediteur?.photo)}}" alt="" />
+                                </div>
+                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck" class=""
+                                    style="margin-right: 16px;">
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" class="text-truncate" style=" font-weight: bold; cursor: pointer;">
+                                        {{Message?.message?.expediteur?.nom}}</div>
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" style="font-weight: bold; cursor: pointer;" class="small text-success"><i
+                                            class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}
+                                    </div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Message?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Message?.date |
+                                        date:"HH:mm":locale}}</div>
+                                </div>
+                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck" class=""
+                                    style="margin-right: 16px;">
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" class="text-truncate" style=" font-weight: bold; cursor: pointer;">
+                                        {{Message?.message?.destinateur?.nom}}</div>
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" style=" font-weight: bold; cursor: pointer;" class="small text-success"><i
+                                            class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}
+                                    </div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Message?.date |
+                                        date:"dd MMM yyyy":locale}} à {{Message?.date |
+                                        date:"HH:mm":locale}}</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-light btn-sm rounded"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i>
+                                                Supprimer</button>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+</div>
+<!-- /Reviews Content -->

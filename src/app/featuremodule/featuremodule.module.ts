@@ -5,6 +5,10 @@ import { FeaturemoduleRoutingModule } from './featuremodule-routing.module';
 import { FeaturemoduleComponent } from './featuremodule.component';
 import { SharedModule } from '../shared/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharethisAngularModule } from 'sharethis-angular';
+
 
 @NgModule({
   declarations: [FeaturemoduleComponent],
@@ -12,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule, 
     FeaturemoduleRoutingModule, 
     SharedModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule,
     HttpClientModule
   ],
 })

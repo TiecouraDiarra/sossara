@@ -1,0 +1,291 @@
+<div class="breadcrumb-bar">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col-md-12 col-12">
+        <h2 class="breadcrumb-title">
+          Les Sociétés de Gestion de biens(Agences)
+        </h2>
+        <nav aria-label="breadcrumb" class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="routes.home9">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Agences</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 theiaStickySidebar mt-5">
+      <div class="stickybar mt-4">
+        <div class="listings-sidebar">
+          <div class="card">
+            <h4>
+              <img style="width: 27px" src="assets/img/details-icon.svg" alt="details-icon" />
+              Filtrer
+            </h4>
+            <form>
+              <div class="filter-content form-group maforme">
+                <mat-form-field class="mat-custom-select" style="width: 100%">
+                  <mat-label *ngIf="selectedCategory == ''"> Région</mat-label>
+                  <mat-select (selectionChange)="onRegionSelectionChange($event)">
+                    <mat-option disabled class="search-input-option">
+                      <input name="searchInputCategory" [(ngModel)]="searchInputCategory"
+                        (ngModelChange)="searchCategory(searchInputCategory)" class="search-input" type="text" />
+                    </mat-option>
+                    <mat-option [value]="" selected>Toutes</mat-option>
+                    <mat-option [value]="Region.nomregion" *ngFor="let Region of region">{{ Region?.nomregion
+                      }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="filter-content form-group maforme">
+                <mat-form-field class="mat-custom-select" style="width: 100%">
+                  <mat-label *ngIf="selectedCategory == ''"> Cercle</mat-label>
+                  <mat-select (selectionChange)="onCercleSelectionChange($event)">
+                    <mat-option disabled class="search-input-option">
+                      <input name="searchInputCategory" [(ngModel)]="searchInputCategory"
+                        (ngModelChange)="searchCategory(searchInputCategory)" class="search-input" type="text" />
+                    </mat-option>
+                    <mat-option [value]="Cercle.nomcercle" *ngFor="let Cercle of filteredCercles">{{ Cercle?.nomcercle
+                      }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="filter-content form-group maforme">
+                <mat-form-field class="mat-custom-select" style="width: 100%">
+                  <mat-label *ngIf="selectedCategory == ''"> Commune</mat-label>
+                  <mat-select (selectionChange)="onCommuneSelectionChange($event)">
+                    <mat-option disabled class="search-input-option">
+                      <input name="searchInputCategory" [(ngModel)]="searchInputCategory"
+                        (ngModelChange)="searchCategory(searchInputCategory)" class="search-input" type="text" />
+                    </mat-option>
+                    <mat-option [value]="Commune.nomcommune" *ngFor="let Commune of communes1">{{ Commune?.nomcommune
+                      }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="section properties-managments common-padding" *ngIf="agence && agence.length > 0; else noAgences">
+        <div class="container">
+          <div class="search-bar mb-3">
+            <input type="text" class="form-control" placeholder="Rechercher une agence..." [(ngModel)]="searchText">
+          </div>
+          <div class="row aos" data-aos-delay="200">
+            <ng-container *ngFor="
+                let Agence of applyFilters(agence)?.slice(
+                  (currentPage - 1) * itemsPerPage,
+                  currentPage * itemsPerPage) ">
+              <div class="col-md-12">
+                <div class="property-item">
+                  <a>
+                    <div class="companies-set mb-4">
+                      <div class="row">
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                          <div class="image-container">
+                            <img 
+                              src="{{
+                                generateImageUrl(Agence?.agencePhoto)
+                              }}" 
+                              alt="img" 
+                              class="rounded border p-2" 
+                              (error)="handleAuthorImageErrorAgence($event)" 
+                              style="max-width: 100%; max-height: 120px; object-fit: cover;" />
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="companies-set-head">
+                            <!-- <div class="companies-set-logo">
+                              <span>
+                                <img src="{{
+                                    generateImageUrl(Agence?.utilisateurPhoto?.nom)
+                                  }}" alt="img" (error)="handleAuthorImageError($event)" />
+                              </span>
+                            </div> -->
+                            <div class="companies-set-content">
+                              <h4 style="font-size: 18px;">{{ Agence?.nomAgence }}</h4>
+                              <h5 *ngIf="Agence?.adresse">
+                                {{ Agence?.adresse?.commune?.cercle?.nomcercle }} - {{ Agence?.adresse?.quartier }}
+                                <!-- <span>{{ Agence?.telephone }}</span> -->
+                              </h5>
+                            </div>
+                          </div>
+                          <div class="companies-set-count">
+                            <div class="tst" style="background-color: white; margin-bottom: 8px;">
+                              <ul>
+                                <li>
+                                  <h6>{{ Agence?.nombreBienAgence }}</h6>
+                                  <span>Biens</span>
+                                </li>
+                                <li>
+                                  <h6>{{ Agence?.nombreBiensALouerAgence }}</h6>
+                                  <span>Louer</span>
+                                </li>
+                                <li>
+                                  <h6>{{ Agence?.nombreBiensAVendreAgence}}</h6>
+                                  <span>Vendre</span>
+                                </li>
+                                <li>
+                                  <h6>{{ Agence?.nombreAgents }}</h6>
+                                  <span>Agents</span>
+                                </li>
+    
+                              </ul>
+                            </div>
+                            <div class="companies-set-btn">
+                              <a (click)="goToDettailAgence(Agence?.nomAgence)" class="btn btn-linebtn">Savoir plus<i
+                                  class="fa fa-arrow-right ms-3" aria-hidden="true"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- PAGINATION -->
+
+          <!--Pagination-->
+          <div class="blog-pagination">
+            <nav>
+              <ul class="pagination">
+                <li class="page-item previtem crd">
+                  <a class="page-link" (click)="previousPage()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
+                </li>
+                <li class="justify-content-center pagination-center">
+                  <div class="pagelink">
+                    <ul>
+                      <li class="page-item crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
+                        (click)="setCurrentPage(page)">
+                        <a class="page-link">{{ page }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="page-item nextlink crd">
+                  <a class="page-link" (click)="nextPage()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!--/Pagination-->
+        </div>
+      </div>
+      <ng-template #noAgences>
+        <div class="row Pblog" style="margin-left: auto !important; margin-right: auto !important">
+          <div class="col-lg-6 col-md-4" aria-hidden="true">
+            <div class="card">
+              <div class="blog-widget placeholder-glow">
+                <div class="blog-img">
+                  <a>
+                    <div>
+                      <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img" />
+                    </div>
+                  </a>
+                  <div class="fav-item placeholder-glow">
+                    <span class="placeholder">hhhhhh</span>
+                    <a href="javascript:void(0)" class="fav-icon placeholder">
+                    </a>
+                  </div>
+                </div>
+                <div class="bloglist-content placeholder-glow">
+                  <div class="card-body">
+                    <div class="blogfeaturelink">
+                      <div class="grid-author placeholder">
+                        <img class="placeholder" alt="author" />
+                      </div>
+                      <div class="blog-features placeholder-glow">
+                        <a href="javascript:void(0)"><span class="placeholder"> jjjjjjjjjjjjjjj</span></a>
+                      </div>
+                      <div class="blog-author text-end placeholder-glow">
+                        <span class="placeholder">jjjjljjjjjjjjjjjl </span>
+                      </div>
+                    </div>
+                    <div class="blog-location-details placeholder-glow">
+                      <div class="location-info placeholder">aaaaaaaaaaaa</div>
+                    </div>
+                    <div class="blog-location-details placeholder-glow">
+                      <div class="location-info placeholder">
+                        aaaaaaaaaaaaaaaaa
+                      </div>
+                      <div class="location-info placeholder">
+                        aaaaaaaaaaaaaa
+                      </div>
+                    </div>
+                    <div class="amount-details placeholder-glow">
+                      <div class="amount">
+                        <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                      </div>
+                      <div class="ratings"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-4" aria-hidden="true">
+            <div class="card">
+              <div class="blog-widget placeholder-glow">
+                <div class="blog-img">
+                  <a>
+                    <div>
+                      <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img" />
+                    </div>
+                  </a>
+                  <div class="fav-item placeholder-glow">
+                    <span class="placeholder">hhhhhh</span>
+                    <a href="javascript:void(0)" class="fav-icon placeholder">
+                    </a>
+                  </div>
+                </div>
+                <div class="bloglist-content placeholder-glow">
+                  <div class="card-body">
+                    <div class="blogfeaturelink">
+                      <div class="grid-author placeholder">
+                        <img class="placeholder" alt="author" />
+                      </div>
+                      <div class="blog-features placeholder-glow">
+                        <a href="javascript:void(0)"><span class="placeholder"> jjjjjjjjjjjjjjj</span></a>
+                      </div>
+                      <div class="blog-author text-end placeholder-glow">
+                        <span class="placeholder">jjjjljjjjjjjjjjjl </span>
+                      </div>
+                    </div>
+                    <div class="blog-location-details placeholder-glow">
+                      <div class="location-info placeholder">aaaaaaaaaaaa</div>
+                    </div>
+                    <div class="blog-location-details placeholder-glow">
+                      <div class="location-info placeholder">
+                        aaaaaaaaaaaaaaaaa
+                      </div>
+                      <div class="location-info placeholder">
+                        aaaaaaaaaaaaaa
+                      </div>
+                    </div>
+                    <div class="amount-details placeholder-glow">
+                      <div class="amount">
+                        <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                      </div>
+                      <div class="ratings"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

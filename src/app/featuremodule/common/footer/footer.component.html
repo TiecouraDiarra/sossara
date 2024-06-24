@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="footer">
-    <div class="container">
+    <!-- <div class="container">
            <div class="stay-tuned">
             <h3>Stay Tuned With Us</h3>
             <p>Subcribe to our newletter and never miss our latest news and promotions. Our newsletter is sent once a week, every thursday.</p>
@@ -14,25 +14,26 @@
                 <button [routerLink]="routes.home1" class="btn btn-primary" > Subscribe</button>
             </form>
         </div>
-    </div>
+    </div> -->
 
     <!-- Footer Top -->
-    <div class="footer-top aos" data-aos="fade-up" data-aos-duration="1200">
+    <div class="footer-top aos">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <!-- Footer Widget -->
                     <div class="footer-widget">
-                        <div class="footer-logo">
-                            <a href="#"><img src="assets/img/footerlogo.svg" alt="logo"></a>
+                        <div class="footer-logo" style="color: #e98b11; font-weight: bold;font-size: 20px;">
+                            <!--<a href="#"><img src="assets/img/footerlogo.svg" alt="logo"></a>-->
+                            Sossara
                         </div>
                         <div class="footer-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt et magna aliqua.  </p>
+                            <p> <span style="color: #e98b11;">Sossara</span> est une plateforme 100% dédiée à l'immobilier, qui permet de démartérialiser complètement et d'automatiser le parcours de gestion des locatives, des syndics et des ventes immobilières. </p>
                         </div>
                         <div class="social-icon">
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0)" target="_blank"><i class="fab fa-facebook-f"></i> </a>
+                                    <a href="https://web.facebook.com/africanwealthsdevelopment?locale=fr_FR" target="_blank"><i class="fab fa-facebook-f"></i> </a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)" target="_blank"><i class="fab fa-twitter"></i> </a>
@@ -41,7 +42,7 @@
                                     <a href="javascript:void(0)" target="_blank"><i class="fab fa-instagram"></i></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://www.linkedin.com/company/african-wealths-development" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -51,22 +52,22 @@
                 <div class="col-lg-2 col-md-6">
                     <!-- Footer Widget -->
                     <div class="footer-widget footer-menu">
-                        <h2 class="footer-title">About us</h2>
+                        <h4 class="footer-title">A propos</h4>
                         <ul>
                             <li>
-                                <a [routerLink]="routes.about">Our product</a>
+                                <a [routerLink]="routes.about">A propos</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="javascript:void(0)">Documentation</a>
                             </li>
                             <li>
-                                <a [routerLink]="routes.servicedetails">Our Services</a>
+                                <a [routerLink]="routes.servicedetails">Services</a>
+                            </li>-->
+                            <li>
+                                <a [routerLink]="routes.login">Commencer</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">Get Started Us</a>
-                            </li>
-                            <li>
-                                <a [routerLink]="routes.contact">Contact Us</a>
+                                <a [routerLink]="routes.contact">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -75,47 +76,47 @@
                 <div class="col-lg-2 col-md-6">
                     <!-- Footer Widget -->
                     <div class="footer-widget footer-menu">
-                        <h2 class="footer-title">Quick links</h2>
+                        <h2 class="footer-title">Liens rapides</h2>
                         <ul>
                             <li>
-                                <a href="javascript:void(0)">Market Place</a>
+                                <a [routerLink]="routes.home9">Accueil</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">Documentation</a>
+                                <a [routerLink]="routes.listinggridsidebar">Biens</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="javascript:void(0)">Customers</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">Carriers</a>
-                            </li>
+                            </li>-->
                             <li>
-                                <a [routerLink]="routes.bloglist">Our Blog</a>
+                                <a [routerLink]="routes.bloggridsidebar">Notre Blog</a>
                             </li>
                         </ul>
                     </div>
                     <!-- /Footer Widget -->
                 </div>
-                <div class="col-lg-2 col-md-6">
+                <div class="col-lg-2 col-md-6" *ngIf="commune && commune.length > 0">
                     <!-- Footer Widget -->
                     <div class="footer-widget footer-menu">
-                        <h2 class="footer-title">Top Cities</h2>
+                        <h2 class="footer-title">Top villes</h2>
                         <ul>
-                            <li>
-                                <a href="javascript:void(0)">Manhatten</a>
+                            <li *ngFor="let Commune of commune">
+                                <a style="cursor: pointer;" class="crd" *ngIf="Commune && Commune?.nomcommune" (click)="goToDettailCommune(Commune?.nomcommune)">{{Commune?.nomcommune}}</a>
+                            </li>
+                            <!-- <li>
+                                <a href="javascript:void(0)">Commune III</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">Los Angeles</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Houston</a>
-                            </li>
-                            <li>
+                                <a href="javascript:void(0)">Commune I</a>
+                            </li> -->
+                            <!--<li>
                                 <a href="javascript:void(0)">Chicago</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">Alabama</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                     <!-- /Footer Widget -->
@@ -126,12 +127,12 @@
                         <h2 class="footer-title">Communication</h2>
                         <div class="footer-contact-info">
                                 <div class="footer-address">
-                                    <img src="assets/img/call-calling.svg" alt="Callus">
-                                    <p><span>Call Us</span> <br> +017 123 456 78	 </p>
+                                    <img style="width: 30px;" src="assets/img/icons/phone.svg" alt="Callus">
+                                    <p><span>Contactez-nous</span> <br> +223 67 16 77 77 </p>
                                 </div>
                                 <div class="footer-address">
-                                    <img src="assets/img/sms-tracking.svg" alt="Callus">
-                                    <p><span>Send Message</span> <br> contact@example.com	 </p>
+                                    <img style="width: 30px;" src="assets/img/icons/mess.svg" alt="Callus">
+                                    <p><span>Envoyer Message</span> <br> contact@sossara.ml</p>
                                 </div>
                         </div>
                     </div>
@@ -140,7 +141,7 @@
             </div>
 
             <!-- Footer Counter Section-->
-            <div class="footercount">
+            <!--<div class="footercount">
                     <div class="row">
                              <div class="col-lg-3 col-md-3">
                                 <div class="vistors-details">
@@ -174,7 +175,7 @@
                                 </div>
                              </div>
                     </div>
-            </div>
+            </div>-->
             <!-- /Footer  Counter Section-->
 
         </div>
@@ -186,15 +187,15 @@
         <div class="container">
             <!-- Copyright -->
             <div class="copyright">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row text-center">
+                    <!-- <div class="col-md-6"> -->
                         <div class="copyright-text">
-                            <p class="mb-0">All Copyrights Reserved &copy; 2023 - Listee.</p>
+                            <p class="mb-0">Tous droits reserves. &copy; 2023 - 2024 - Sossara.</p>
                         </div>
-                    </div>
-                    <div class="col-md-6">
+                    <!-- </div> -->
+                    <!-- <div class="col-md-6"> -->
                         <!-- Copyright Menu -->
-                        <div class="copyright-menu">
+                        <!-- <div class="copyright-menu">
                             <ul class="policy-menu">
                                 <li>
                                     <a [routerLink]="routes.privacypolicy">Privacy </a>
@@ -206,9 +207,9 @@
                                     <a [routerLink]="routes.termscondition">Terms</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <!-- /Copyright Menu -->
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
             <!-- /Copyright -->

@@ -1,0 +1,80 @@
+<!-- Breadscrumb Section -->
+<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title">Mes biens</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Biens</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Breadscrumb Section -->
+<!-- Dashboard Content -->
+<div class="dashboard-content">
+    <div class="container">
+        <div class="">
+            <ul class="dashborad-menus">
+                <li>
+                    <a [routerLink]="routes.dashboard">
+                        <i class="feather-grid"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a [routerLink]="routes.mylisting">
+                        <i class="feather-list"></i> <span>Mes biens</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence">
+                    <a [routerLink]="routes.bookmarks">
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence ||  isProprietaire">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.messages">
+                        <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.reviews">
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.profile">
+                        <i class="fa-solid fa-user"></i> <span>Profil</span>
+                    </a>
+                </li>
+                <!-- <li class="crd">
+                    <a (click)="logout()">
+                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+
+        <!-- Debut AGENCE ET PROPRIETAIRE  -->
+        <div class="container-fluid card shadow d-flex justify-content-center mt-5" style="width: 100%;"
+            *ngIf="isLocataire==false">
+            <app-agence></app-agence>
+        </div>
+        <!-- Fin AGENCE ET PROPRIETAIRE  -->
+        <!-- Debut LOCATAIRE  -->
+        <div class="container card shadow d-flex justify-content-center mt-5" *ngIf="isLocataire==true">
+            <app-locataire></app-locataire>
+        </div>
+        <!-- Fin LOCATAIRE  -->
+
+    </div>
+</div>
+<!-- /Dashboard Content -->

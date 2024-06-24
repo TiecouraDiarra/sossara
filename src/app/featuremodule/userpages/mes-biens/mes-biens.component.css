@@ -1,0 +1,467 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination__container {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination__page {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__page--active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination__page--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pagination__previous,
+.pagination__next {
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination__previous:hover,
+.pagination__next:hover,
+.pagination__page:hover {
+  background-color: #f0f0f0;
+}
+
+
+.custom-tab-link {
+  font-weight: 600;
+  color: #333;
+  /* Couleur du texte non sélectionné */
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 10px 15px;
+  transition: background-color 0.3s, border-bottom 0.3s;
+}
+
+.custom-tab-link.active,
+.custom-tab-link:hover {
+  color: #fff;
+  /* Couleur du texte sélectionné */
+  border-radius: 10px;
+  background-color: #e98b11;
+  /* Couleur de l'onglet sélectionné */
+  border-bottom-color: #fff;
+  /* Couleur de la bordure du bas de l'onglet sélectionné */
+}
+
+.nav {
+  background-color: #293d4a;
+  /* Couleur de fond de la barre de navigation */
+  padding: 10px 0;
+  border-bottom: 2px solid #1b2b34;
+  /* Bordure inférieure */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Ombre légère */
+  border-radius: 6px;
+
+}
+
+.nav-item {
+  margin: 0 10px;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: #fff;
+  /* Couleur du texte non sélectionné */
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: #fff;
+  /* Couleur du texte sélectionné et en survol */
+  background-color: #e98b11;
+  /* Couleur de fond en survol */
+}
+
+.nav-justified {
+  justify-content: space-between;
+}
+
+.review-gallery li {
+  margin-right: 10px;
+  /* Ajustez la valeur selon votre préférence */
+}
+
+.ligne {
+  overflow-y: scroll;
+  height: 390px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /*Ajustez cette valeur selon vos besoins */
+  overflow: hidden;
+  /* Pour éviter le débordement */
+}
+
+.avatar-img {
+  width: 100%;
+  /* Pour que l'image occupe toute la largeur du conteneur */
+  height: auto;
+  /* Pour conserver les proportions de l'image */
+}
+
+
+.ligne {
+  overflow-y: scroll;
+  height: 390px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ligneL {
+  overflow-y: scroll;
+  height: 420px;
+  --overflow: hidden;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.crd:hover {
+  cursor: pointer;
+}
+
+.crd {
+  cursor: pointer;
+}
+
+.review-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+/* Style de la liste des avis */
+.review-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style de chaque élément d'avis */
+.review-box {
+  display: flex;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style de l'image de profil */
+.review-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+/* Style des détails de l'avis */
+.review-details {
+  flex-grow: 1;
+}
+
+/* Style du nom de l'auteur */
+.review-details h6 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+/* Style de l'icône d'évaluation */
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  color: #f2b600;
+}
+
+/* Style des étoiles d'évaluation */
+.rating-star {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+/* Style de l'icône de la date et de l'heure */
+.rating i {
+  margin-right: 5px;
+}
+
+/* Style de la date */
+.rating-date {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Style de l'heure */
+.rating-time {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Ajuster la position du modal par rapport à la barre de navigation */
+.modal-dialog {
+  margin-top: 90px;
+  /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
+}
+
+.media-image {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+}
+
+.close-icon {
+  font-size: 1.5em;
+  color: red;
+}
+
+.image-container img {
+  max-width: 100%;
+  /* Redimensionne l'image pour qu'elle s'adapte à la largeur du conteneur */
+  height: auto;
+  /* Maintient le rapport d'aspect de l'image */
+}
+
+/* Annuler la transition sombre du modal Bootstrap */
+.my-custom-modal.show {
+  background-color: rgba(0, 0, 0, 0);
+  /* Arrière-plan transparent */
+  transition: none;
+  /* Désactiver la transition */
+}
+
+
+.action-btn {
+  position: relative;
+  /* display: inline-block; */
+  text-decoration: none;
+}
+
+.hover-text {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  background-color: #e98b11;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.action-btn:hover .hover-text {
+  opacity: 1;
+}
+
+
+/* CSS FACTURE  */
+.text-danger strong {
+  color: #e98b11;
+}
+
+.receipt-main {
+  background: #ffffff none repeat scroll 0 0;
+  border-bottom: 12px solid #e98b11;
+  border-top: 12px solid #e98b11;
+  /* margin-top: 50px; */
+  /* margin-bottom: 50px; */
+  padding: 40px 30px !important;
+  position: relative;
+  box-shadow: 0 1px 21px #acacac;
+  color: #e98b11;
+  font-family: open sans;
+}
+
+.receipt-main p {
+  color: #333333;
+  font-family: open sans;
+  line-height: 1.42857;
+}
+
+.receipt-footer h1 {
+  font-size: 15px;
+  font-weight: 400 !important;
+  margin: 0 !important;
+}
+
+.receipt-main::after {
+  background: #374b5c none repeat scroll 0 0;
+  content: "";
+  height: 5px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -13px;
+}
+
+.receipt-main thead {
+  background: #e98b11 none repeat scroll 0 0;
+}
+
+.receipt-main thead th {
+  color: #fff;
+}
+
+.receipt-right h5 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 7px 0;
+}
+
+.receipt-right p {
+  font-size: 12px;
+  margin: 0px;
+}
+
+.receipt-right p i {
+  text-align: center;
+  width: 18px;
+}
+
+.receipt-main td {
+  padding: 9px 20px !important;
+}
+
+.receipt-main th {
+  padding: 13px 20px !important;
+}
+
+.receipt-main td {
+  font-size: 13px;
+  font-weight: initial !important;
+}
+
+.receipt-main td p:last-child {
+  margin: 0;
+  padding: 0;
+}
+
+.receipt-main td h2 {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.receipt-header-mid .receipt-left h1 {
+  font-weight: 100;
+  margin: 34px 0 0;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.receipt-header-mid {
+  margin: 24px 0;
+  overflow: hidden;
+}
+
+#container {
+  background-color: #dcdcdc;
+}
+
+/* Style to display name and image inline */
+.name-and-image {
+  display: inline-flex; /* Display as inline flex container */
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Adjust the gap between the name and image */
+}
+.crd:hover {
+  cursor: pointer;
+}
+
+.crd {
+  cursor: pointer;
+}
+
+.scroll-text {
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+.scroll-text .scroll-textl {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  animation: scroll-text 20s linear infinite;
+  margin-top: 5px;
+}
+@keyframes scroll-text {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}

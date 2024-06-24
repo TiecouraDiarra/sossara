@@ -1,0 +1,429 @@
+<!-- Breadscrumb Section -->
+<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title">Mes agents</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Mes agents</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Breadscrumb Section -->
+
+<!-- Bookmark Content -->
+<div class="dashboard-content">
+    <div class="container">
+        <div class="">
+            <ul class="dashborad-menus">
+                <li>
+                    <a [routerLink]="routes.dashboard">
+                        <i class="feather-grid"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.mylisting">
+                        <i class="feather-list"></i> <span>Mes biens</span>
+                    </a>
+                </li>
+                <li class="active" *ngIf="isAgence">
+                    <a [routerLink]="routes.bookmarks">
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.messages">
+                        <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.reviews">
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.profile">
+                        <i class="fa-solid fa-user"></i> <span>Profil</span>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a [routerLink]="routes.login">
+                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <!-- <div class="bookmarks-content grid-view featured-slider"> -->
+        <div class="container">
+            <div class="dash-cards card">
+                <!-- <div class="row scroll-text">
+                    <div class="scroll-textl">Mot de passe par defaut d'un agent : 
+                        <span style="font-size: 15px; font-weight: bold; color: #e98b11;" #motDePasseSpan></span></div>
+                </div> -->
+                <!-- <div class="card-header">
+                    </div> -->
+                <div class="card-body">
+                    <div class="justify-content-center row">
+                        <!-- Filtrage et le bouton Ajouter un agent  -->
+                        <div class="col-lg-12">
+                            <div class="candidate-list-widgets mb-4">
+                                <form action="#" class="">
+                                    <div class="g-2 row">
+                                        <!-- Nom Agence  -->
+                                        <!-- <div class="col-lg-3">
+                                            <div class="filler-job-form">
+                                                <i class="uil uil-briefcase-alt"></i>
+                                                <div class="agency-name">{{ nomAgence }}</div>
+                                            </div>
+                                        </div> -->
+                                        
+                                        <!-- Recherche Par nom  -->
+                                        <div class="col-lg-3">
+                                            <div class="filler-job-form">
+                                                <i class="uil uil-briefcase-alt"></i><input name="searchText"
+                                                    [(ngModel)]="searchText" id="exampleFormControlInput1"
+                                                    placeholder="nom, telephone ... " type="search"
+                                                    class="form-control filler-job-input-box form-control" />
+                                            </div>
+                                        </div>
+                                        <!-- Par Etat  -->
+                                        <div class="col-lg-3">
+                                            <mat-form-field class="mat-custom-select" style="width: 100%;">
+                                                <mat-label *ngIf="selectedCategory == ''">État</mat-label>
+                                                <mat-select (selectionChange)="onStateSelectionChange($event)">
+                                                    <mat-option [value]="null">Tous</mat-option>
+                                                    <mat-option [value]="true">Actif</mat-option>
+                                                    <mat-option [value]="false">Inactif</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>                                            
+                                        </div>
+                                        <!-- Par commune  -->
+                                        <div class="col-lg-3">
+                                            <mat-form-field class="mat-custom-select" style="width: 100%;">
+                                                <mat-label *ngIf="selectedCategory == ''">
+                                                  Commune</mat-label>
+                                                <mat-select (selectionChange)="onCommuneSelectionChange($event)">
+                                                  <mat-option disabled class="search-input-option">
+                                                    <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                                        searchCategory(searchInputCategory)
+                                                      " class="search-input" type="text" />
+                                                  </mat-option>
+                                                  <mat-option [value]="">Toutes</mat-option>
+                                                  <mat-option [value]="Commune.nomcommune" *ngFor="let Commune of commune">{{Commune?.nomcommune}}</mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-3 text-center">
+                                            <div>
+                                                <a class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#ajouteragent"><i class="uil uil-filter"></i>
+                                                    Ajouter un agent</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- Modal -->
+                                <div style="margin-top: 100px;" class="modal fade" id="ajouteragent" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Ajouter un agent</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group group-img">
+                                                    <div class="group-img" id="datepicker">
+                                                        <i class="feather-user"></i>
+                                                        <input placeholder="Prenom et Nom" name="nom"
+                                                            [(ngModel)]="agentForm.nom" type="text" class="form-control"
+                                                            required />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group group-img">
+                                                    <div class="group-img">
+                                                        <i class="feather-mail"></i>
+                                                        <input type="email" [(ngModel)]="agentForm.email"
+                                                            placeholder="Adresse Email" name="email" required
+                                                            class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group group-img">
+                                                    <div class="group-img">
+                                                        <i class="feather-phone"></i>
+                                                        <input type="text" [(ngModel)]="agentForm.telephone" required
+                                                            name="telephone" class="form-control"
+                                                            placeholder="Numero de Telephone" />
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="form-group group-img">
+                                                    <div class="group-img" id="datepicker">
+                                                        <i class="feather-map-pin"></i>
+                                                        <input placeholder="Quartier" name="quartier"
+                                                            [(ngModel)]="agentForm.quartier" type="text"
+                                                            class="form-control" required />
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Annuler</button>
+                                                <!-- <button type="button" (click)="AjouterAgent()"
+                                                    class="btn btn-primary">Ajouter</button>
+                                                <div *ngIf="loading" class="spinner-border" style="color: #374b5c;" role="status">
+                                                    <span class="sr-only">Chargement en cours...</span>
+                                                </div> -->
+                                                <button style="padding: 2px 34px;" type="button"
+                                                    (click)="AjouterAgent()" class="btn btn-primary"
+                                                    [disabled]="loading">
+                                                    <ng-container *ngIf="!loading">Ajouter</ng-container>
+                                                    <ng-container *ngIf="loading">
+                                                        <div class="spinner-border"
+                                                            style="color: #374b5c;font-size: 13px;" role="status">
+                                                            <span class="sr-only">Chargement en cours...</span>
+                                                        </div>
+                                                    </ng-container>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="
+        agent && agent.length > 0;
+                else noBiensAgence
+              ">
+              <table matSort class="listing-table datatable" id="listdata-table">
+                  <thead>
+                      <tr>
+                          <th mat-sort-header="img" class="no-sort">Image</th>
+                          <th mat-sort-header="details" class="no-sort">Details</th>
+                          <th mat-sort-header="adresse">Adresse</th>
+                          <th mat-sort-header="status">Statut</th>
+                          <th mat-sort-header="Action">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let Agent of filterAgentsByState(agent) | filter:searchText | filter :selectedCommune | paginate:{itemsPerPage :4, currentPage:p1}">
+                          <td>
+                              <div class="candidate-list-images">
+                                  <a href="#"><img src="{{generateImageUrl(Agent?.photo)}}" alt=""
+                                          class="avatar-md img-thumbnail rounded-circle"
+                                          (error)="handleAuthorImageError($event)" /></a>
+                              </div>
+                          </td>
+                          <td>
+                              <div class="candidate-list-content mt-3 mt-lg-0">
+                                  <h5 class="fs-19 mb-0">
+                                      <a class="primary-link">{{Agent?.nom}}</a>
+                                  </h5>
+                                  <p class="text-muted mb-2">{{Agent?.email}}</p>
+                                  <ul class="list-inline mb-0 text-muted">
+                                      <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{Agent?.telephone}}
+                                      </li>
+                                  </ul>
+                              </div>
+                          </td>
+      
+                          <td>
+                              <span *ngIf="Agent.adresse !== undefined">
+                                  <span class="status-text" style="color: #374b5c;">{{ Agent?.adresse?.quartier || 'Aucune
+                                      adresse disponible' }}</span>
+                              </span>
+                          </td> 
+                          <td>
+                              <span>
+                                  <label (click)="openIsActiveModal(Agent.id)" data-bs-toggle="modal"
+                                      data-bs-target="#exampleModal" class="toggle-switchy"
+                                      [for]="'example_colors_' + Agent.id" data-size="sm" data-style="rounded"
+                                      data-color="orange">
+                                      <input [checked]="Agent?.etat" type="checkbox" [id]="'example_colors_' + Agent.id">
+                                      <span class="toggle" [class.active]="Agent?.etat">
+                                          <span class="switch"></span>
+                                      </span>
+                                  </label>
+                              </span>
+                          </td>
+      
+                          <td>
+                              <div class="action">
+                                  <a (click)="goToDettailAgent(Agent.uuid)" class="action-btn btn-view crd"><i
+                                          class="feather-eye"></i></a>
+                                  <!-- <a (click)="SupprimerAgent(Agent.id)" class="action-btn btn-trash crd"><i
+                                          class="feather-trash-2"></i></a> -->
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <pagination-controls (pageChange)="p1 = $event" previousLabel="Précédent"
+                  nextLabel="Suivant" class="pagination" previousClass="pagination__previous" nextClass="pagination__next"
+                  containerClass="pagination__container" pageClass="pagination__page"
+                  activeClassName="pagination__page--active" disabledClass="pagination__page--disabled"></pagination-controls>
+            </ng-container>
+            <ng-template #noBiensAgence>
+              <h4 style="font-size: 21px;">Pas d'agent disponible</h4>
+            </ng-template>
+
+        <!-- Modal pour desactiver un agent  -->
+        <div style="margin-top: 100px;" class="modal fade my-custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Verification
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                        <p>Veuillez confirmer votre mot de passe pour désactiver cet agent.</p>
+                        <!-- Login Form -->
+                        <form>
+                            <div class="form-group">
+                                <div class="pass-group group-img">
+                                    <i class="feather-lock"></i>
+                                    <input type="password" name="password" [type]="Toggledata ? 'password' : 'text'"
+                                        class="form-control pass-input" placeholder="Mot de passe"
+                                        [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+                                    <span [ngClass]="
+                                      Toggledata == true
+                                        ? 'toggle-password feather-eye-off'
+                                        : 'toggle-password feather-eye'
+                                    " (click)="iconLogle()"></span>
+                                    <!-- <div *ngIf="password.errors && f.submitted" class="invalid-feedback text-center">
+                                        <div *ngIf="password.errors['required']">Mot de passe obligatoire</div>
+                                        <div *ngIf="password.errors['minlength']">
+                                            Mot de passe minimun 6 caractères
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <!-- <button type="button" (click)="Bannir()" class="btn btn-primary">Envoyer</button> -->
+                        <button style="padding: 2px 34px;" type="button" (click)="Active()"
+                            class="btn btn-primary" [disabled]="loading">
+                            <ng-container *ngIf="!loading">Desactiver</ng-container>
+                            <ng-container *ngIf="loading">
+                                <div class="spinner-border" style="color: #374b5c;font-size: 13px;" role="status">
+                                    <span class="sr-only">Chargement en cours...</span>
+                                </div>
+                            </ng-container>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row"> -->
+        <!-- <div class="col-lg-4 col-md-4 col-sm-6 " *ngFor="let data of Bookmarksdata">
+                    <div class="card aos aos-init aos-animate" data-aos="fade-up">
+                        <div class="blog-widget">
+                            <div class="blog-img">
+                                <a [routerLink]="routes.servicedetails">
+                                    <img [src]="data. img1" class="img-fluid" alt="blog-img">
+                                </a>
+                                <div class="fav-item">
+                                    <span class="Featured-text">{{data.headline}}</span>
+                                        <a href="javascript:void(0)" class="fav-icon">
+                                            <i class="feather-heart"></i>
+                                        </a>										
+                                </div>	
+                            </div>
+                            <div class="bloglist-content">
+                                <div class="card-body">
+                                    <div class="blogfeaturelink">
+                                        <div class="grid-author">
+                                        <img  [src]="data.img2" alt="author">	
+                                        </div>
+                                        <div class="blog-features">
+                                           <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{data. select}}</span></a>
+                                        </div>																	  
+                                        <div class="blog-author text-end"> 
+                                            <span>  <img [src]="data.eye" alt="electronics">{{data.search}}  </span>
+                                        </div>
+                                    </div> 
+                                    <h6><a [routerLink]="routes.servicedetails">{{data.details}}</a></h6>																	 
+                                    <div class="blog-location-details">
+                                        <div class="location-info">
+                                           <i class="feather-map-pin"></i> {{data. map}}
+                                        </div>
+                                        <div class="location-info">
+                                            <i class="fa-solid fa-calendar-days"></i> {{data.date}}
+                                        </div>
+                                    </div>
+                                    <div class="amount-details">
+                                        <div class="amount">
+                                            <span class="validrate">{{data.amount}}</span>
+                                            <span>{{data.oldamount}}</span>
+                                        </div>
+                                        <div class="ratings">
+                                            <span>{{data. rating}}</span> {{data.rating1}}
+                                        </div>												
+                                    </div>	
+                                </div>	
+                            </div>			 
+                        </div> 
+                    </div>
+                </div> -->
+
+
+        <!--Pagination-->
+        <!-- <div class="blog-pagination">
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item previtem">
+                                <a class="page-link" href="javascript:void(0)"><i class="fas fa-regular fa-arrow-left"></i> Prev</a>
+                            </li>
+                            <li class="justify-content-center pagination-center"> 
+                                <div class="pagelink">
+                                    <ul>
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:void(0)">1</a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a class="page-link" href="javascript:void(0)">2 <span class="visually-hidden">(current)</span></a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:void(0)">3</a>
+                                       </li>
+                                       <li class="page-item">
+                                            <a class="page-link" href="javascript:void(0)">...</a>
+                                       </li>
+                                       <li class="page-item">
+                                            <a class="page-link" href="javascript:void(0)">14</a>
+                                       </li>
+                                   </ul>
+                                </div>													
+                            </li>													
+                            <li class="page-item nextlink">
+                                <a class="page-link" href="javascript:void(0)">Next <i class="fas fa-regular fa-arrow-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div> -->
+        <!--/Pagination-->
+
+        <!-- </div>						 -->
+        <!-- </div> -->
+    </div>
+</div>
+<!-- /Bookmark Content -->

@@ -1,0 +1,44 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+  } 
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    /* right: 0; */
+    /* padding: 5px; */
+  }
+  
+  .close-icon {
+    font-size: 10px;
+    color: red;
+  }
+  .image-container img {
+    max-width: 30%; /* Redimensionne l'image pour qu'elle s'adapte à la largeur du conteneur */
+    height: auto; /* Maintient le rapport d'aspect de l'image */
+  }
+
+  .tts{
+    background: rgba(233, 139, 17) !important;
+    background-image: url("../../../assets/img/banner-05.png") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    height: 110% !important;
+  }
+
+  .loading-spinner {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    z-index: 9999; /* Assure que le spinner est au-dessus de tout le contenu */
+  }
+  
+  .list-group {
+    list-style-type: disc;
+    /* ou 'circle' ou 'square' selon votre préférence */
+  }

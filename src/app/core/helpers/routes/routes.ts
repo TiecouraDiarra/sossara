@@ -32,13 +32,13 @@ export class routes {
     return this.baseUrl + '/userpages';
   }
   public static get blogdetails(): string {
-    return this.baseUrl + '/blog/blog-details';
+    return this.baseUrl + '/blog-details';
   }
   public static get bloggrid(): string {
     return this.baseUrl + '/blog/blog-grid';
   }
   public static get bloggridsidebar(): string {
-    return this.baseUrl + '/blog/blog-grid-sidebar';
+    return this.baseUrl + '/blog';
   }
   public static get bloglist(): string {
     return this.baseUrl + '/blog/blog-list';
@@ -71,25 +71,28 @@ export class routes {
     return this.baseUrl + '/home-eight';
   }
   public static get home9(): string {
-    return this.baseUrl + '/home-nine';
+    return this.baseUrl + '/accueil';
+  }
+  public static get agences(): string {
+    return this.baseUrl + '/agences';
   }
   public static get listinggrid(): string {
-    return this.baseUrl + '/listings/listing-grid';
+    return this.baseUrl + '/bienparcommune';
   }
   public static get listinggridsidebar(): string {
-    return this.baseUrl + '/listings/listing-grid-sidebar';
+    return this.baseUrl + '/biens';
   }
   public static get listinglistsidebar(): string {
-    return this.baseUrl + '/listings/listing-list-sidebar';
+    return this.baseUrl + '/detailsagence';
   }
   public static get listingmapgrid(): string {
-    return this.baseUrl + '/listings/listingmap-grid';
+    return this.baseUrl + '/trouverbien';
   }
   public static get listingmaplist(): string {
-    return this.baseUrl + '/listings/listingmap-list';
+    return this.baseUrl + '/details-agent';
   }
   public static get about(): string {
-    return this.baseUrl + '/pages/about';
+    return this.baseUrl + '/apropos';
   }
   public static get categories(): string {
     return this.baseUrl + '/pages/categories';
@@ -110,31 +113,37 @@ export class routes {
     return this.baseUrl + '/pages/privacy-policy';
   }
   public static get servicedetails(): string {
-    return this.baseUrl + '/pages/service-details';
+    return this.baseUrl + '/details-bien';
   }
   public static get termscondition(): string {
     return this.baseUrl + '/pages/terms-condition';
   }
   public static get addlisting(): string {
-    return this.baseUrl + '/userpages/add-listing';
+    return this.baseUrl + '/userpages/ajouter-bien';
   }
   public static get bookmarks(): string {
-    return this.baseUrl + '/userpages/bookmarks';
+    return this.baseUrl + '/userpages/mes-agents';
+  }
+  public static get rdv(): string {
+    return this.baseUrl + '/userpages/mes-rdv';
+  }
+  public static get paiement(): string {
+    return this.baseUrl + '/userpages/paiement';
   }
   public static get dashboard(): string {
     return this.baseUrl + '/userpages/dashboard';
   }
   public static get messages(): string {
-    return this.baseUrl + '/userpages/messages';
+    return this.baseUrl + '/userpages/chat';
   }
   public static get mylisting(): string {
-    return this.baseUrl + '/userpages/my-listing';
+    return this.baseUrl + '/userpages/mes-biens';
   }
   public static get profile(): string {
-    return this.baseUrl + '/userpages/profile';
+    return this.baseUrl + '/userpages/profil';
   }
   public static get reviews(): string {
-    return this.baseUrl + '/userpages/reviews';
+    return this.baseUrl + '/userpages/notification';
   }
   public static get error(): string {
     return this.baseUrl + '/error';
@@ -146,12 +155,16 @@ export class routes {
     return this.baseUrl + '/error/error500';
   }
   public static get forgotpassword(): string {
-    return this.baseUrl + '/auth/forgot-password';
+    return this.baseUrl + '/auth/mdp-oublie';
   }
   public static get login(): string {
-    return this.baseUrl + '/auth/login';
+    return this.baseUrl + '/auth/connexion';
   }
   public static get signup(): string {
-    return this.baseUrl + '/auth/signup';
+    return this.baseUrl + '/auth/inscription';
+  }
+
+  public static get rechercher(): string {
+    return this.baseUrl + '/rechercher';
   }
 }

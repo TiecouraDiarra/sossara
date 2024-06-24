@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Listee-Angular": {
+    "sossara": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/listee-angular",
+            "outputPath": "dist/sossara",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -41,6 +41,7 @@
               "./node_modules/ngx-lightbox/lightbox.css",
               "node_modules/aos/dist/aos.css",
               "node_modules/animate.css/animate.min.css",
+              "node_modules/leaflet/dist/leaflet.css",
               "src/assets/css/style.css",
               "src/styles.css",
               "src/style.css"
@@ -81,10 +82,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Listee-Angular:build:production"
+              "browserTarget": "sossara:build:production"
             },
             "development": {
-              "browserTarget": "Listee-Angular:build:development"
+              "browserTarget": "sossara:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +93,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Listee-Angular:build"
+            "browserTarget": "sossara:build"
           }
         },
         "test": {

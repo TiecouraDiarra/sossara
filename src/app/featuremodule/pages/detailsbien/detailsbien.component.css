@@ -1,0 +1,361 @@
+.ligne {
+    overflow-y: scroll;
+    height: 350px;
+    --overflow: hidden;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.disabled-button {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
+
+
+/* Ajuster la position du modal par rapport à la barre de navigation */
+.modal-dialog {
+    margin-top: 8%;
+    /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
+}
+.callnow a {
+  background: #e98b11;
+  color: #fff;
+  padding: 14px 38px;
+  border-radius: 10px;
+  border: 1px solid #e98b11;
+  font-size: 18px;
+}
+
+  
+.media-image {
+    position: relative;
+  }
+  
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+  }
+  
+  .close-icon {
+    font-size: 1.5em;
+    color: red;
+  }
+  .image-container img {
+    max-width: 100%; /* Redimensionne l'image pour qu'elle s'adapte à la largeur du conteneur */
+    height: auto; /* Maintient le rapport d'aspect de l'image */
+  }
+
+  /* Style de la liste des avis */
+.review-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style de chaque élément d'avis */
+.review-box {
+  display: flex;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style de l'image de profil */
+.review-img img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+/* Style des détails de l'avis */
+.review-details {
+  flex-grow: 1;
+}
+
+/* Style du nom de l'auteur */
+.review-details h6 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+/* Style de l'icône d'évaluation */
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  color: #f2b600;
+}
+
+/* Style des étoiles d'évaluation */
+.rating-star {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+/* Style de l'icône de la date et de l'heure */
+.rating i {
+  margin-right: 5px;
+}
+
+/* Style de la date */
+.rating-date {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Style de l'heure */
+.rating-time {
+  font-size: 14px;
+  color: #777;
+}
+
+.image-gallery {
+  width: 100%; /* Ajustez la largeur souhaitée */
+  height: 50%; /* Laissez la hauteur s'ajuster automatiquement pour maintenir les proportions */
+  /* Autres styles si nécessaire */
+}
+
+.image-size {
+  width: 100%; /* Remplacez cette valeur par la taille souhaitée */
+  height: 180px; /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.image-size1{
+  width: 200px; /* Remplacez cette valeur par la taille souhaitée */
+  height: 150px;
+}
+.image-size3{
+  width: 1000px !important;
+  height: 750px !important;
+  object-fit: cover;
+}
+
+.icone-size {
+  width: 30%;
+  /* Remplacez cette valeur par la taille souhaitée */
+  height: 80px;
+  /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.icone-img  img{
+  /* background: #f1f1f1; */
+  /* padding: 11px; */
+  /* border-radius: 50%; */
+  /* width: 80px; */
+  /* height: 80px; */
+  margin-right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* margin: 0 15px 0 0; */
+}
+
+.blog-comment::before,
+.blog-comment::after,
+.blog-comment-form::before,
+.blog-comment-form::after{
+    content: "";
+	display: table;
+	clear: both;
+}
+
+/* .blog-comment{
+    padding-left: 15%;
+	padding-right: 15%;
+} */
+
+.blog-comment ul{
+	list-style-type: none;
+	padding: 0;
+}
+
+.blog-comment img{
+	opacity: 1;
+	filter: Alpha(opacity=100);
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	  	 -o-border-radius: 4px;
+			border-radius: 4px;
+}
+
+.blog-comment img.avatar {
+	position: relative;
+	float: left;
+	margin-left: 0;
+	margin-top: 0;
+	width: 65px;
+	height: 65px;
+}
+
+.blog-comment .post-comments{
+	border: 1px solid #eee;
+    margin-bottom: 10px;
+    margin-left: 85px;
+	  margin-right: 0px;
+    padding: 5px 15px;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+	  background: #fff;
+	  color: #6b6e80;
+	  position: relative;
+}
+
+.blog-comment .meta {
+	font-size: 13px;
+	color: #aaaaaa;
+	padding-bottom: 8px;
+	margin-bottom: 10px !important;
+	border-bottom: 1px solid #eee;
+}
+.blog-comment .heure {
+	font-size: 13px;
+	color: #aaaaaa;
+	/* padding-bottom: 8px; */
+	/* margin-bottom: 10px !important; */
+	border-top: 1px solid #eee;
+}
+
+.blog-comment ul.comments ul{
+	list-style-type: none;
+	padding: 0;
+	margin-left: 85px;
+}
+
+.blog-comment-form{
+	padding-left: 15%;
+	padding-right: 15%;
+	padding-top: 40px;
+}
+
+.blog-comment h3,
+.blog-comment-form h3{
+	margin-bottom: 40px;
+	font-size: 26px;
+	line-height: 30px;
+	font-weight: 800;
+}
+
+/* Media queries pour les petits écrans */
+@media screen and (min-width: 768px) {
+  .map-container {
+    width: 100%; 
+    height: 25vw; /* Réduire la hauteur pour les écrans plus petits */
+  }
+}
+
+/* Media queries pour les petits écrans */
+@media screen and (max-width: 768px) {
+  .map-container {
+    height: 50vw; /* Réduire la hauteur pour les écrans plus petits */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .map-container {
+    height: 75vw; /* Encore moins de hauteur pour les écrans très petits */
+  }
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--bs-modal-color);
+  pointer-events: auto;
+  background-color: var(--bs-modal-bg);
+  background-clip: padding-box;
+  border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+  border-radius: var(--bs-modal-border-radius);
+  outline: 0;
+  margin-top: 180px;
+}
+@media (max-width: 667.98px) {
+  .feedbackbox .review-details {
+    margin-left: 0;
+    margin-top: 0;
+    display: none;
+  }
+  .blog-comment .heure {
+    font-size: 10px;
+  }
+  .clearfix img.avatar{
+    margin: -40px;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    margin-top: -10px;
+    border-radius: 100%;
+  }
+  .post-comments{
+    width: 100% !important;
+  }
+  .post-comments{
+    margin: 0;
+    padding: 0;
+  }
+   .post-comments{
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    margin-left: 15px !important;
+    margin-right: 0px;
+    padding: 5px 15px;
+    position: relative;
+    border-radius: 4px;
+    background: #fff;
+      background-color: rgb(66, 17, 17);
+    color: #6b6e80;
+    position: relative;
+  }
+  
+    .card {
+      padding: 10px 10px;
+      width: 100%;
+      font-size: 10px;
+    }
+    .card .msg-send-btn{
+      font-size: 15px !important;
+      width: 43px;
+      height: 50px;
+    }
+  
+  
+}
+
+.swal2-confirm {
+  background-color: #4caf50 !important; /* Vert */
+  color: white !important;
+}
+
+.swal2-cancel {
+  background-color: #f44336 !important; /* Rouge */
+  color: white !important;
+}

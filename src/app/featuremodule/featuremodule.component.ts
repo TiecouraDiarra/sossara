@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { routes } from '../core/helpers/routes/routes';
 import { SidebarService } from '../service/sidebar.service';
 import { CommonService } from '../service/common.service';
@@ -22,7 +22,11 @@ export class FeaturemoduleComponent implements OnInit {
   public firstHeader: boolean = false;
   public hideFooter: boolean = false;
  
-  constructor(private router: Router,private sidebar: SidebarService,private common: CommonService) {
+  constructor(
+    private router: Router,
+    private sidebar: SidebarService,
+    private common: CommonService
+  ) {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         // call the function to apply condition in page changes
@@ -30,16 +34,18 @@ export class FeaturemoduleComponent implements OnInit {
       }
     });
     this.sidebar.toogleSidebar.subscribe((res: any) => {
-      if (res == 'true') {
-        this.showMiniSidebar = true;
-      } else {
-        this.showMiniSidebar = false;
-      }
+      this.showMiniSidebar = res === 'true';
     });
-    
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Vérifiez si l'URL actuelle inclut 'trouverbien'
+        this.hideFooter = event.url.includes('/trouverbien');
+      }
+    });
+
     this.calculateScrollPercentage();
   }
 
@@ -53,7 +59,7 @@ export class FeaturemoduleComponent implements OnInit {
     window.addEventListener('scroll', () => {
       var body = document.body,
         html = document.documentElement;
-      //gets the total height of page till scroll
+      // gets the total height of page till scroll
       var totalheight = Math.max(
         body.scrollHeight,
         body.offsetHeight,
@@ -74,8 +80,12 @@ export class FeaturemoduleComponent implements OnInit {
       if (window.innerHeight + window.scrollY >= totalheight) {
         this.strokeValue = 0;
       }
-    
 
+      if (this.tittle.toLowerCase().includes('trouverbien')) {
+        this.hideFooter = true;
+      } else {
+        this.hideFooter = false;
+      }
     });
   }
 
@@ -102,23 +112,17 @@ export class FeaturemoduleComponent implements OnInit {
         break;
     }
     // hide home one in other home pages
-    if (
-      route.url == routes.home9
-    ) {
-      this.firstHeader = false;
-    } else {
-      this.firstHeader = true;
-    }
+    // this.firstHeader = route.url !== routes.home9;
 
     // hide the footer in list map and grid page
     if (
-      route.url == routes.listingmaplist ||
-      route.url == routes.listingmapgrid
+      route.url === routes.listingmaplist ||
+      route.url === routes.listingmapgrid ||
+      route.url.includes('/trouverbien')
     ) {
       this.hideFooter = true;
     } else {
       this.hideFooter = false;
     }
-    
   }
 }

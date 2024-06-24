@@ -1,0 +1,12 @@
+/* Ajuster la position du modal par rapport à la barre de navigation */
+.modal-dialog {
+    margin-top: 90px;
+    /* Ajustez cette valeur en fonction de la hauteur de votre barre de navigation */
+  }
+  .crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}

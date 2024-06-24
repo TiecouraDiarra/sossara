@@ -5,9 +5,9 @@ import { PagesComponent } from './pages.component';
 const routes: Routes = [
   { path: '', component: PagesComponent,children:[
     {
-    path: 'about',
+    path: 'apropos',
     loadChildren: () =>
-      import('./about/about.module').then((m) => m.AboutModule),
+      import('./apropos/apropos.module').then((m) => m.AproposModule),
   },
   {
     path: 'categories',
@@ -37,10 +37,10 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'service-details',
+    path: 'service-details/:id',
     loadChildren: () =>
-      import('./service-details/service-details.module').then(
-        (m) => m.ServiceDetailsModule
+      import('./detailsbien/detailsbien.module').then(
+        (m) => m.DetailsbienModule
       ),
   },
   {

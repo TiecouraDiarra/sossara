@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -11,7 +14,11 @@ import { ProfileComponent } from './profile.component';
   ],
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    FormsModule,
+    SharedModule,
+    ProfileRoutingModule,
+    QuillModule.forRoot(), // ngx-quill
+
   ]
 })
 export class ProfileModule { }

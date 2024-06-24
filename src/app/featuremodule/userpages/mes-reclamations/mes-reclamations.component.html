@@ -1,0 +1,132 @@
+<div class="card-header">
+    <h4>Les reclamations que j'ai fait</h4>
+</div>
+<div class="ligne"> 
+    <div class="card-body">
+        <div id="review-chart">
+            <ul class="review-list">
+                <li class="review-box"
+                    *ngFor="let Reclamation of reclamationUser">
+                    <div class="review-profile">
+                        <div class="review-img">
+                            <img src="{{generateImageUrl(Reclamation?.bien?.utilisateur?.photo?.nom)}}"
+                                class="img-fluid" alt="img"
+                                (error)="handleAuthorImageError($event)">
+                        </div>
+                    </div>
+                    <div class="review-details">
+                        <h6>{{Reclamation?.bien?.utilisateur?.nom}}</h6>
+                        <div class="rating">
+                            <div class="rating-star">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                            </div>
+                            <div *ngIf="Reclamation && Reclamation.createdAt">
+                                <i style="color: #e98b11; font-weight: bold;"
+                                    class="fa-sharp fa-solid fa-calendar-days"></i>
+                                {{Reclamation.createdAt
+                                |
+                                date:"dd MMM yyyy":locale}}
+                            </div>
+                            <div *ngIf="Reclamation && Reclamation.createdAt">
+                                <i
+                                    class="fa-sharp fa-solid fa-clock"></i>{{Reclamation?.createdAt
+                                |
+                                date:"HH:mm"}}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col"
+                                *ngIf="Reclamation && Reclamation.bien">
+                                {{Reclamation?.bien?.nom}}
+                            </div>
+                            <div class="col"
+                                style="color: #e98b11; font-weight: bold;"
+                                *ngIf="Reclamation && Reclamation.bien">
+                                {{ formatPrice(Reclamation?.bien?.prix) }}
+                                FCFA
+                            </div>
+                        </div>
+                        <ul class="review-gallery">
+                            <li
+                                *ngFor="let photo of Reclamation.bien.photos.slice(0, 4); let i = index">
+                                <img class="img-fluid" alt="Image"
+                                    [src]="generateImageUrl(photo?.nom)">
+                            </li>
+                            <ng-container
+                                *ngIf="Reclamation.bien.photos.length === 0">
+                                <li *ngFor="let _ of [1, 2, 3, 4]">
+                                    <!-- Répéter 4 fois -->
+                                    <img class="img-fluid"
+                                        alt="Image par défaut"
+                                        src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                </li>
+                            </ng-container>
+                        </ul>
+                        <div class="m-3"
+                            *ngIf="Reclamation && Reclamation.type_probleme && Reclamation.type_probleme.nom">
+                            <i style="color: #e98b11; font-weight: bold;"
+                                class="fa-solid fa-circle-exclamation"></i>
+                            Probleme : {{Reclamation?.type_probleme?.nom}}
+                        </div>
+                        <div class="m-3"
+                            *ngIf="Reclamation && Reclamation.contenu">
+                            <i style="color: #e98b11; font-weight: bold;"
+                                class="fa-solid fa-check"></i>
+                            Motif : {{Reclamation?.contenu}}
+                        </div>
+                        <div class="m-3" *ngIf="Reclamation && Reclamation.prix_estimatif">
+                            <i style="color: #e98b11; font-weight: bold;"
+                                class="fa-solid fa-check"> </i> Cout: <span
+                                style="color: #e98b11; font-weight: bold;">
+                                {{ formatPrice(Reclamation?.prix_estimatif) }}
+                                FCFA </span>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="row scroll-text">
+                                <!-- <div class="scroll-textl" *ngIf="Reclamation && Reclamation.prix_estimatif <= 10000">
+                                    C'est en votre charge </div> -->
+                                <div class="scroll-textl">
+                                    {{Reclamation?.charge}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="blog-category">
+                                    <a data-bs-toggle="collapse"
+                                        href="#quelquesimages" role="button"
+                                        aria-expanded="false"
+                                        aria-controls="collapseExample"><span>Quelques
+                                            images</span></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="collapse" id="quelquesimages">
+                            <ul class="review-gallery">
+                                <li
+                                    *ngFor="let photo of Reclamation.photoReclamations?.slice(0, 4); let i = index">
+                                    <img class="img-fluid" alt="Image"
+                                        [src]="generateImageUrl(photo.nom)">
+                                </li>
+                                <ng-container
+                                    *ngIf="Reclamation.photoReclamations?.length === 0">
+                                    <li *ngFor="let _ of [1, 2, 3, 4]">
+                                        <!-- Répéter 4 fois -->
+                                        <img class="img-fluid"
+                                            alt="Image par défaut"
+                                            src="assets/img/gallery/gallery1/gallery-1.jpg">
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,154 @@
+<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title">Rendez-vous</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Rendez-vous</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Breadscrumb Section -->
+
+<div class="dashboard-content"> 
+    <div class="container">
+        <div class="">
+            <ul class="dashborad-menus">
+                <li>
+                    <a [routerLink]="routes.dashboard">
+                        <i class="feather-grid"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.mylisting">
+                        <i class="feather-list"></i> <span>Mes biens</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence">
+                    <a [routerLink]="routes.bookmarks">
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
+                    </a>
+                </li>
+                <li class="active" *ngIf="isAgence || isProprietaire">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.messages">
+                        <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.reviews">
+                        <i class="fas fa-bell"></i><span>Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.profile">
+                        <i class="fa-solid fa-user"></i> <span>Profil</span>
+                    </a>
+                </li>
+                <!-- <li class="crd">
+                    <a (click)="logout()">
+                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="dashboard-details">
+            <div class="row dashboard-info">
+                <div class="col-lg-6 d-flex">
+                    <div class="card dash-cards w-100">
+                        <div class="card-header">
+                            <h4>Rendez-vous</h4>
+                            <div class="card-dropdown">
+                                
+                                <ul>
+                                    <li class="nav-item dropdown has-arrow logged-item">
+                                        <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <span>Tout</span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
+                                            <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
+                                            <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="ligne">
+                            <div class="card-body">
+                                <ul class="review-list">
+                                    <ng-container *ngIf="
+                                    rdv && rdv.length > 0;else noRdv">
+                                    <li class="review-box" *ngFor="let Rdv of rdv">
+                                        <div class="review-profile">
+                                            <div class="review-img">
+                                                <img src="{{generateImageUrl(Rdv.utilisateur.photo)}}" class="img-fluid"
+                                                    alt="img" (error)="handleAuthorImageError($event)">
+                                            </div>
+                                        </div>
+                                       &nbsp; &nbsp; <div class="review-details">
+                                            <h6 class="mb-2">{{Rdv?.utilisateur?.nom}}</h6>
+                                            <a  class="maReference" style="cursor: pointer;">Référence du bien : {{Rdv?.bien?.reference}}</a>   
+                                            <div class="rating">
+                                                <!-- <div class="rating-star">
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                    <i class="fas fa-star filled"></i>
+                                                </div> -->
+                                               
+                                                <div> Date de rendez-vous :  <i class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv?.date |
+                                                    date:"dd MMM yyyy":locale}}</div>
+                                                <div>{{Rdv?.heure}}</div>
+                                            </div>
+                                            <!-- <p>{{data.feedback}}</p>																	 -->
+                                        </div>
+                                    </li>
+                                    </ng-container>
+                                    <ng-template #noRdv>
+                                        <h4 style="font-size: 17px;">Pas de rendez-vous</h4>
+                                    </ng-template>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-6 d-flex" *ngIf="rdv && rdv.length > 0">
+                    <div class="card dash-cards w-100">
+                        <div class="card-header">
+                            <h4>Rendez-vous acceptés</h4>
+                            <div class="card-dropdown">
+                                <ul>
+                                    <li class="nav-item dropdown has-arrow logged-item">
+                                        <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <span>Tout</span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
+                                            <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
+                                            <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        
+    </div>
+</div>

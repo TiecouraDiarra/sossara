@@ -1,0 +1,304 @@
+<!-- Breadscrumb Section -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col-md-12 col-12">
+        <h2 class="breadcrumb-title">Les biens qui sont dans la {{nomcommune}}</h2>
+        <nav aria-label="breadcrumb" class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="routes.listinggridsidebar">Biens</a></li>
+            <!-- <li class="breadcrumb-item active" aria-current="page">Grid</li> -->
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Breadscrumb Section -->
+
+<!-- Bookmark Content -->
+<div class="list-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 theiaStickySidebar">
+        <div class="stickybar">
+          <div class="listings-sidebar">
+            <div class="card">
+              <h4>
+                <img style="width: 27px;" src="assets/img/details-icon.svg" alt="details-icon" />
+                Filtrer
+              </h4>
+              <form>
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Statut</mat-label>
+                    <mat-select (selectionChange)="onStatutSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                            searchCategory(searchInputCategory)
+                                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Statut.nom" *ngFor="let Statut of status">{{Statut?.nom}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="filter-content form-group maforme">
+                  <mat-form-field class="mat-custom-select" style="width: 100%;">
+                    <mat-label *ngIf="selectedCategory == ''">
+                      Type</mat-label>
+                    <mat-select (selectionChange)="onTypeSelectionChange($event)">
+                      <mat-option disabled class="search-input-option">
+                        <input name="searchInputCategory" [(ngModel)]="searchInputCategory" (ngModelChange)="
+                                            searchCategory(searchInputCategory)
+                                          " class="search-input" type="text" />
+                      </mat-option>
+                      <mat-option [value]="Type.nom" *ngFor="let Type of typebien">{{Type?.nom
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="bookmarks-content grid-view featured-slider">
+          <div class="row sorting-div mt-3">
+            <div class="row">
+              <ng-container *ngIf="bienImmo && bienImmo.length > 0; else noBiens">
+                <div class="col-lg-6 col-md-4 col-sm-6 "
+                  *ngFor="let BienImo of applyFilters(bienImmo)?.slice(
+                    (currentPage - 1) * itemsPerPage,
+                    currentPage * itemsPerPage
+                )">
+                  <div class="card aos aos-init aos-animate" data-aos="fade-up">
+                    <div class="blog-widget">
+                      <div class="blog-img">
+                        <a (click)="goToDettailBien(BienImo?.uuid)">
+                          <div *ngIf="BienImo?.photos; else noImages">
+                            <img src="{{ generateImageUrl(BienImo?.photos) }}" class="img-fluid image-size crd"
+                              alt="blog-img">
+                          </div>
+                          <ng-template #noImages>
+                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size crd"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size crd"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size crd"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size crd"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size crd"
+                                  alt="default-img">
+                              </div>
+                              <div class="type" *ngIf="BienImo.typeImmo.nom === 'Magasin'">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size crd"
+                                  alt="default-img">
+                              </div>
+                          </ng-template>
+                        </a>
+                        <div class="fav-item">
+                          <span [ngClass]="{'statutbien': BienImo?.statut?.nom === 'A vendre' }"
+                            class="Featured-text">{{ BienImo?.statut?.nom }}</span>
+                          <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
+                            (click)="AimerBien(BienImo?.uuid)"
+                            [style.background-color]="favoriteStatus[BienImo?.uuid] ? '#e98b11' : 'white'">
+                            <i [style.color]="favoriteStatus[BienImo?.uuid] ? 'white' : 'black'" class="feather-heart"></i>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="bloglist-content">
+                        <div class="card-body">
+                          <div class="blogfeaturelink">
+                            <div class="grid-author">
+                              <img src="{{generateImageUrl(BienImo?.utilisateur?.photo)}}" alt="author"
+                                (error)="handleAuthorImageError($event)"/>
+                            </div>
+                            <div class="blog-features">
+                              <a href="javascript:void(0)"><span> <i class="fa-regular fa-circle-stop"></i> {{
+                                  BienImo?.typeImmo?.nom }}</span></a>
+                            </div>
+                            <div class="blog-author text-end">
+                              <span> <i class="feather-eye"></i>{{
+                                favoritedPropertiesCount1[BienImo?.uuid] }}</span>
+                            </div>
+                          </div>
+                          <h6><a class="crd" (click)="goToDettailBien(BienImo?.uuid)">{{ BienImo?.nom ? BienImo?.nom :
+                              BienImo?.typeImmo?.nom }}</a></h6>
+                          <div class="blog-location-details">
+                            <div class="location-info">
+                              <i class="feather-map-pin"></i> {{ BienImo?.adresse?.quartier }}
+                            </div>
+                            <div class="location-info">
+                              <i class="fa-solid fa-calendar-days"></i> {{BienImo?.createdAt |
+                              date:"dd/MM/yyyy"}}
+                            </div>
+                          </div>
+                          <div class="amount-details">
+                            <div class="amount">
+                              <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
+                              <!-- <span>{{slide.oldamount}}</span> -->
+                            </div>
+                            <div class="ratings">
+                              <!-- <span>{{slide.rating}}</span> {{slide.rating1}} -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #noBiens>
+                <div class="row Pblog" style="margin-left: auto !important;
+                            margin-right: auto !important;">
+                  <div class="col-lg-6 col-md-4" aria-hidden="true">
+                    <div class="card">
+                      <div class="blog-widget placeholder-glow">
+                        <div class="blog-img">
+                          <a>
+                            <div>
+                              <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img">
+                            </div>
+                          </a>
+                          <div class="fav-item placeholder-glow">
+                            <span class="placeholder">hhhhhh</span>
+                            <a href="javascript:void(0)" class="fav-icon placeholder">
+                            </a>
+                          </div>
+                        </div>
+                        <div class="bloglist-content placeholder-glow">
+                          <div class="card-body">
+                            <div class="blogfeaturelink">
+                              <div class="grid-author placeholder">
+                                <img class="placeholder" alt="author" />
+                              </div>
+                              <div class="blog-features placeholder-glow">
+                                <a href="javascript:void(0)"><span class="placeholder">
+                                    jjjjjjjjjjjjjjj</span></a>
+                              </div>
+                              <div class="blog-author text-end placeholder-glow">
+                                <span class="placeholder">jjjjljjjjjjjjjjjl
+                                </span>
+                              </div>
+                            </div>
+                            <div class="blog-location-details placeholder-glow">
+                              <div class="location-info placeholder">aaaaaaaaaaaa
+                              </div>
+                            </div>
+                            <div class="blog-location-details placeholder-glow">
+                              <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                              </div>
+                              <div class="location-info placeholder">aaaaaaaaaaaaaa
+                              </div>
+                            </div>
+                            <div class="amount-details placeholder-glow">
+                              <div class="amount">
+                                <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                              </div>
+                              <div class="ratings">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-4" aria-hidden="true">
+                    <div class="card">
+                      <div class="blog-widget placeholder-glow">
+                        <div class="blog-img">
+                          <a>
+                            <div>
+                              <img src="assets/img/test.jpg" class="img-fluid image-size" alt="blog-img">
+                            </div>
+                          </a>
+                          <div class="fav-item placeholder-glow">
+                            <span class="placeholder">hhhhhh</span>
+                            <a href="javascript:void(0)" class="fav-icon placeholder">
+                            </a>
+                          </div>
+                        </div>
+                        <div class="bloglist-content placeholder-glow">
+                          <div class="card-body">
+                            <div class="blogfeaturelink">
+                              <div class="grid-author placeholder">
+                                <img class="placeholder" alt="author" />
+                              </div>
+                              <div class="blog-features placeholder-glow">
+                                <a href="javascript:void(0)"><span class="placeholder">
+                                    jjjjjjjjjjjjjjj</span></a>
+                              </div>
+                              <div class="blog-author text-end placeholder-glow">
+                                <span class="placeholder">jjjjljjjjjjjjjjjl
+                                </span>
+                              </div>
+                            </div>
+                            <div class="blog-location-details placeholder-glow">
+                              <div class="location-info placeholder">aaaaaaaaaaaa
+                              </div>
+                            </div>
+                            <div class="blog-location-details placeholder-glow">
+                              <div class="location-info placeholder">aaaaaaaaaaaaaaaaa
+                              </div>
+                              <div class="location-info placeholder">aaaaaaaaaaaaaa
+                              </div>
+                            </div>
+                            <div class="amount-details placeholder-glow">
+                              <div class="amount">
+                                <span class="placeholder">aaaaaaaaaaaaaaaaa</span>
+                              </div>
+                              <div class="ratings">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+
+              <!--Pagination-->
+              <div class="blog-pagination">
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item previtem crd">
+                                        <a class="page-link" (click)="previousPage()"><i class="fas fa-regular fa-arrow-left"></i> Prec</a>
+                                    </li>
+                                    <li class="justify-content-center pagination-center"> 
+                                        <div class="pagelink">
+                                            <ul>
+                                               <li class="page-item crd" *ngFor="let page of pages" [class.is-active]="currentPage === page"
+                                                (click)="setCurrentPage(page)">
+                                                    <a class="page-link">{{ page }}</a>
+                                                </li>
+                                           </ul>
+                                        </div>													
+                                    </li>													
+                                    <li class="page-item nextlink crd">
+                                        <a class="page-link" (click)="nextPage()">Suiv <i class="fas fa-regular fa-arrow-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+              </div>
+              <!--/Pagination-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Bookmark Content -->

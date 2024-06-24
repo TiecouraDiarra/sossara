@@ -1,0 +1,157 @@
+.commune-image {
+    width: 100%;
+    height: 100%; /* Pour conserver le rapport hauteur/largeur de l'image */
+    object-fit: fill; /* ou 'cover' selon l'effet souhaité */
+}
+
+.car-location-img-container {
+    height: 60%;
+}
+
+
+
+
+.carousel-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex; /* Aligner les images horizontalement */
+}
+
+.carousel-background img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out; /* Ajouter une transition de fondu */
+    opacity: 0; /* Commencer avec une opacité de 0 pour la transition */
+}
+
+.image-size {
+    width: 200px; /* Remplacez cette valeur par la taille souhaitée */
+    height: 180px; /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.image-sizeresents {
+    width: 100%; /* Remplacez cette valeur par la taille souhaitée */
+    height: 200px; /* Remplacez cette valeur par la taille souhaitée */
+  }
+
+  .crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
+
+
+.image-sizeparter {
+    width: 100%; /* Remplacez cette valeur par la taille souhaitée */
+    height: 60px; /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.image-sizeblog {
+    width: 100%; /* Remplacez cette valeur par la taille souhaitée */
+    height: 300px; /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.ici{
+    -webkit-line-clamp: 1 !important;
+    background-color: red;
+    -webkit-box-orient: vertical;
+}
+
+.image-size {
+    width: 100%;
+    /* Remplacez cette valeur par la taille souhaitée */
+    height: 300px;
+    /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.image-sizeresents {
+    width: 100%;
+    /* Remplacez cette valeur par la taille souhaitée */
+    height: 200px;
+    /* Remplacez cette valeur par la taille souhaitée */
+}
+
+.crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
+
+.Pblog{
+    font-size: 25px;
+    font-weight: 700;
+    color: #131212;
+}
+
+/* Personnalisation de Bootstrap */
+
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h1, h2, h3 {
+    font-weight: bold;
+  }
+  
+  p {
+    margin-bottom: 10px;
+  }
+  
+  /* En-tête */
+  
+  header {
+    padding: 20px;
+  }
+  
+  /* Parties */
+  
+  .parties {
+    margin-bottom: 20px;
+  }
+  
+  .parties h2 {
+    margin-top: 0;
+  }
+  
+  /* Conditions */
+  
+  .conditions {
+    margin-bottom: 20px;
+  }
+  
+  .conditions h2 {
+    margin-top: 0;
+  }
+  
+  /* Signatures */
+  
+  .signatures {
+    margin-bottom: 20px;
+  }
+  
+  .signatures h2 {
+    margin-top: 0;
+  }
+  
+  .signatures .border {
+    border-color: #ddd;
+  }
+  
+  /* Responsive design */
+  
+  @media (max-width: 768px) {
+    .parties, .conditions, .signatures {
+      margin-bottom: 10px;
+    }
+  }
+  
+  

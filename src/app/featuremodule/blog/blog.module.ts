@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BlogRoutingModule } from './blog-routing.module';
 import { BlogComponent } from './blog.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { BlogComponent } from './blog.component';
   ],
   imports: [
     CommonModule,
-    BlogRoutingModule
+    BlogRoutingModule,
+    Ng2SearchPipeModule
   ]
 })
 export class BlogModule { }

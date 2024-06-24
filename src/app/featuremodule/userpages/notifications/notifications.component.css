@@ -1,0 +1,45 @@
+.ligne {
+    overflow-y: scroll;
+    height: 450px;
+    --overflow: hidden;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.crd:hover {
+    cursor: pointer;
+}
+
+.crd {
+    cursor: pointer;
+}
+
+/* Style de la liste des avis */
+.review-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Style de chaque élément d'avis */
+
+
+/* body{
+    margin-top:20px;
+    background-color: #f0f2f5;
+} */
+.dropdown-list-image {
+    position: relative;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.dropdown-list-image img {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.btn-light {
+    color: #384b5c;
+    background-color: #FFFF;
+    border-color: #384b5c;
+}

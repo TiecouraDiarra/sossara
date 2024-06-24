@@ -1,0 +1,287 @@
+<!-- Breadscrumb Section -->
+<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title">Messages</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Messages</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Breadscrumb Section -->
+
+<!-- Profile Content -->
+<div class="dashboard-content">
+    <div class="container">
+        <div class="">
+            <ul class="dashborad-menus">
+                <li>
+                    <a [routerLink]="routes.dashboard">
+                        <i class="feather-grid"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.mylisting">
+                        <i class="feather-list"></i> <span>Mes biens</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence">
+                    <a [routerLink]="routes.bookmarks">
+                        <i class="fas fa-users"></i> <span>Mes agents</span>
+                    </a>
+                </li>
+                <li *ngIf="isAgence ||   isProprietaire">
+                    <a [routerLink]="routes.rdv">
+                        <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a [routerLink]="routes.messages">
+                        <i class="fa-solid fa-comment-dots"></i> <span>Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.reviews">
+                        <i class="fas fa-bell"></i> <span>Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="routes.profile">
+                        <i class="fa-solid fa-user"></i> <span>Profil</span>
+                    </a>
+                </li>
+                <!-- <li class="crd">
+                    <a (click)="logout()">
+                        <i class="fas fa-light fa-circle-arrow-left"></i> <span>Deconnexion</span>
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <div class="profile-content">
+            <div class="row dashboard-info chat-window">
+                <div class="col-lg-5" [style.display]="isMobile ? 'none' : 'block'">
+                    <div class="chat-cont-left">
+                        <form class="chat-search">
+                            <div class="form-group">
+                                <div class="group-img">
+                                    <img src="assets/img/chatsearch.svg" alt="">
+                                    <input name="searchText" [(ngModel)]="searchText" type="text" class="form-control"
+                                        placeholder="Rechercher">
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class=" card chat-users-list">
+                            <div class="card-body msg_card_bodyZ chat-scroll">
+                                <a class="media d-flex" *ngFor="let Conversations of chatList | filter:searchText">
+                                    <div class="media-img-wrap flex-shrink-0 crd"
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
+                                        <div class="img_cont">
+                                            <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName!= senderCheck">
+                                                {{Conversations?.expediteurInfo?.nom.substring(0,1)}}</div>
+                                                <div class="rounded-circle user_img text_inside_circle1"
+                                                *ngIf="secondUserName == senderCheck">
+                                                {{Conversations?.destinateurInfo?.nom.substring(0,1)}}</div>
+                                            <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                          {{firstUserName.substring(0,1)}}</div> -->
+                                        </div> &nbsp; &nbsp;
+                                    </div>
+                                    <div class="media-body flex-grow-1 mt-4"
+                                        (click)="loadChatByEmail(Conversations?.destinateur, Conversations?.expediteur)">
+                                        <div>
+                                            <div class="user-name" *ngIf="secondUserName!= senderCheck">{{Conversations?.expediteurInfo?.nom}}</div>
+                                            <div class="user-name" *ngIf="secondUserName== senderCheck">{{Conversations?.destinateurInfo?.nom}}</div>
+
+                                            <!-- <div class="user-last-chat">{{Conversations.content}}</div> -->
+                                        </div>
+
+                                        <div>
+                                            <div class="badge badge-success rounded-pill">
+                                                {{Conversations?.messages?.length}}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="chat-cont-right">
+                        <div class="chat-header">
+                            <a id="back_user_list" [routerLink]="'/userpages/messages'" class="back-user-list">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </a>
+                            <div class="media d-flex align-items-center">
+                                <div class="img_cont">
+                                    <div class="rounded-circle user_img text_inside_circle1"
+                                        *ngIf="secondUserName!=senderCheck">
+                                        {{chatData[0]?.expediteurInfo?.nom?.substring(0,1)}}</div>
+                                        <div class="rounded-circle user_img text_inside_circle1"
+                                        *ngIf="secondUserName==senderCheck">
+                                        {{chatData[0]?.destinateurInfo?.nom?.substring(0,1)}}</div>
+                                    <!-- <div class="rounded-circle user_img text_inside_circle1" *ngIf="secondUserName==senderCheck">
+                                      {{firstUserName.substring(0,1)}}</div> -->
+                                </div> &nbsp; &nbsp;
+                                <div class="media-body flex-grow-1">
+                                    <div class="user-name"  *ngIf="secondUserName!=senderCheck">{{chatData[0]?.expediteurInfo?.nom}}</div>
+                                    <div class="user-name"  *ngIf="secondUserName==senderCheck">{{chatData[0]?.destinateurInfo?.nom}}</div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-body">
+                            <div class="card">
+                                <div class="card-body msg_card_body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                                    <ul class="list-unstyled ">
+                                        <li class="media d-flex received">
+                                            <!-- <div class="avatar flex-shrink-0">
+                                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                                                alt="User Image" class="avatar-img rounded-circle">
+                                        </div> -->
+                                            <div class="media-body flex-grow-1">
+                                                <div class="msg-box" *ngFor="let Messages of messageList">
+                                                    <!-- <div class="avatar flex-shrink-0 imagChat" *ngIf="!Messages.senderEmail==senderCheck">
+                                                    <img src="{{generateImageUrl(users?.photos[0].nom)}}" (error)="handleAuthorImageError($event)" alt="Image du message">
+                                                </div> -->
+                                                    <div class="d-flex justify-content-end mb-2"
+                                                        *ngIf="Messages.senderEmail==senderCheck">
+                                                        <div class="msg_cotainer_send">
+                                                            <!-- {{msg.replymessage | json}} -->
+                                                            <p
+                                                                style="background-color: #e98b11; padding: 15px; border-radius: 20px; margin-right: 5px;">
+                                                                {{Messages.message}}</p>
+                                                            <!-- <ul class="chat-msg-info">
+                                                        <li>
+                                                            <div class="chat-time">
+                                                                <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul> -->
+                                                            <span class="msg_time_send float-end">{{ Messages.time |
+                                                                date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                        </div>
+                                                        <div class="img_cont_msg">
+                                                            <span
+                                                                class="rounded-circle user_img_msg text_inside_circle4">{{Messages.senderEmail.substring(0,1)}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-start mb-2"
+                                                        *ngIf="Messages.senderEmail!=senderCheck">
+                                                        <div class="img_cont_msg">
+                                                            <span
+                                                                class="rounded-circle user_img_msg text_inside_circle3">{{Messages?.senderEmail.substring(0,1)}}</span>
+                                                        </div>
+                                                        <div class="msg_cotainer">
+                                                            <p
+                                                                style="background-color: #374b5c; padding: 15px;border-radius: 20px; margin-left: 5px;">
+                                                                {{Messages?.message}}</p>
+                                                            <!-- <ul class="chat-msg-info">
+                                                           <li>
+                                                               <div class="chat-time">
+                                                                   <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                               </div>
+                                                           </li>
+                                                       </ul> -->
+                                                            <span class="msg_time_send">{{ Messages?.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div [ngClass]="{'mine-message': Messages.senderEmail==senderCheck, 'other-message': !Messages.senderEmail==senderCheck}"
+                                                    [ngStyle]="{'background-color': Messages.senderEmail==senderCheck ? '#e98b11' : '#374b5c', 'margin-left': Messages.senderEmail==senderCheck ? '70%' : 'auto'}">
+                                                  
+
+                                                    <p>{{Messages.message }}</p>
+
+                                                    <ul class="chat-msg-info">
+                                                        <li>
+                                                            <div class="chat-time">
+                                                                <span>{{ Messages.time | date:"dd MMM yyyy HH:mm":locale}}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div> -->
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="media d-flex sent">
+                                            <div class="media-body flex-grow-1">
+                                                <!-- <div class="msg-box" *ngFor="let Messages of filteredMessagesUserCurrent">
+                                                <div>
+                                                    <p>{{Messages.content}}</p>
+                                                    <ul class="chat-msg-info">
+                                                        <li>
+                                                            <div class="chat-time">
+                                                                <span>{{Messages.createdAt |
+                                                                    date:"HH:mm"}}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+                                                <!-- <div class="msg-box">
+                                                <div>
+                                                    <p>OK, my name is Limingqiang. I like singing, playing basketballand so on.</p>
+                                                    <ul class="chat-msg-info">
+                                                        <li>
+                                                            <div class="chat-time">
+                                                                <span>9:45 AM</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                             <div class="msg-box">
+                                                <div>
+                                                    <div class="chat-msg-attachments">
+                                                        <div class="chat-attachment">
+                                                            <img src="assets/img/chat-attachment.jpg" alt="Attachment">
+                                                            <a href="javascript:void(0)" class="chat-attach-download">
+                                                            <i class="feather-download"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="chat-msg-info">
+                                                        <li>
+                                                            <div class="chat-time">
+                                                               <span>8:41 AM</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-footer">
+                            <div class="input-group">
+                                <div class="attach-btn">
+                                    <input name="content" [(ngModel)]="MessageForm.content" type="text"
+                                        class="input-msg-send form-control" placeholder="Message">
+                                    <div class="btn-file btn">
+                                        <i class="fa fa-paperclip"></i>
+                                        <input name="file" type="file">
+                                    </div>
+                                </div>
+                                <button (click)="sendMessage()"
+                                    [disabled]="!MessageForm.content || MessageForm.content.trim() === '' "
+                                    type="button" class="btn msg-send-btn"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Profile Content -->

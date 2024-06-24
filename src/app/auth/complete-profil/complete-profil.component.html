@@ -1,0 +1,124 @@
+<!-- Breadscrumb Section -->
+<!--<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row align-items-center text-center">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title">Mot de passe oublié</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home9">Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Mot de passe oublié</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- /Breadscrumb Section -->
+
+<!-- Login Section -->
+<div class="login-content tts" style="margin-top: 100px;">
+    <div class="container">
+        <div class="row mb-5 py-3">
+            <div class="col-md-9 col-lg-9 mx-auto">
+                <div class="login-wrap password-form">
+
+                    <div class="login-header">
+                        <h5>Completer votre profil</h5>
+                        <p style="font-size: 12px;">Entrez vos informations pour completer votre profil.</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6 mb-3">
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">pays</mat-label>
+                                    <mat-select name="pays" (selectionChange)="onChange2($event)"
+                                        [(ngModel)]="selectedValue">
+                                        <mat-option *ngFor="let item of pays" [value]="item.nompays">
+                                            {{ item.nompays }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Region</mat-label>
+                                    <mat-select name="region" (selectionChange)="onChangeRegion($event)"
+                                        [(ngModel)]="selectedValueR">
+                                        <mat-option *ngFor="let Region of regions" [value]="Region.nomregion">
+                                            {{ Region?.nomregion }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Cercle</mat-label>
+                                    <mat-select name="cercle" (selectionChange)="onChangeCercle($event)"
+                                        [(ngModel)]="selectedValueC">
+                                        <mat-option *ngFor="let Cercle of cercles" [value]="Cercle.nomcercle">
+                                            {{ Cercle?.nomcercle }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                    <mat-label *ngIf="selectedCategory == ''">Commune</mat-label>
+                                    <mat-select name="communeform" [(ngModel)]="formModifadress.communeform">
+                                        <mat-option *ngFor="let Commune of communes" [value]="Commune.id">
+                                            {{ Commune?.nomcommune }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group group-img">
+                                    <div class="group-img">
+                                        <input [(ngModel)]="formModifadress.quartier" type="text" placeholder="Votre quartier" name="quartier" required
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group group-img">
+                                    <div class="group-img">
+                                        <input type="text" [(ngModel)]="formModifadress.rue" placeholder="Numéro rue" name="rue" required
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group group-img">
+                                    <div class="group-img">
+                                        <input [(ngModel)]="formModifadress.porte" type="text" placeholder="Numéro porte" name="porte" required
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3" *ngIf="isAgence">
+                                <div class="form-group group-img">
+                                    <div class="form-floating">
+                                        <quill-editor name="description" [(ngModel)]="formModifadress.description"
+                                            placeholder="Description de l'agence" [modules]="quillConfig"
+                                            (onSelectionChanged)="onSelectionChanged($event)"
+                                            (onContentChanged)="onContentChanged($event)">
+                                        </quill-editor>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="CompleterProfil()" class="btn btn-primary w-100 login-btn"
+                            type="submit">Completer votre profil</button>
+                    </form>
+                    <!-- <a [routerLink]="routes.login" class="back-home"><i class="fas fa-regular fa-arrow-left me-1"></i>
+                        Retour</a> -->
+                    <!-- /Login Form -->
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /Login Section -->

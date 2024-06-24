@@ -1,0 +1,1485 @@
+<!-- <app-header-accueil></app-header-accueil> -->
+<!-- <app-header ></app-header> -->
+
+<!-- Banner -->
+<section class="banner-section banner-nine" [ngStyle]="{
+    'background-image': 'url(' + carouselImages[currentImageIndex] + ')'
+  }">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="banner-contents">
+          <h2 style="color: #e98b11" class="aos" data-aos-duration="1200" data-aos-anchor-placement="top-bottom">
+            Trouvez la maison de vos rêves
+          </h2>
+          <h6 class="mb-0 aos" data-aos-anchor-placement="top-bottom">
+            Seule plateforme immobilière avec plus de 10 000 vendeurs hautement
+            cotés
+          </h6>
+          <p class="aos" data-aos-delay="200">
+            Optimiser le processus de vente des biens immobiliers des
+            particuliers et des programmes immo de professionnels.
+          </p>
+          <div class="banner-nine-btn-group">
+            <a (click)="AjouterBienOrLogin()" class="aos crd" data-aos-delay="300">
+              <span>Ajouter un bien</span>
+            </a>
+            <a [routerLink]="routes.listingmapgrid" class="aos" data-aos-delay="300">
+              <span>Rechercher un bien</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Banner -->
+
+<!-- Search Filter Section -->
+<section class="car-search-filter realestate-search-filter aos" data-aos-delay="400">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="car-filter-section">
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+                type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                Trouver un bien
+              </button>
+            </li>
+            <!--<li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                                aria-selected="false">Vendre une propriété</button>
+                        </li>-->
+            <!--<li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-loue-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-loue" type="button" role="tab" aria-controls="pills-profile"
+                                aria-selected="false">Louer une propriété</button>
+                        </li>-->
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+              tabindex="0">
+              <div class="search-tab-col">
+                <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                  <div class="row align-items-center search-form">
+                    <div class="col-12 col-lg-10 search-group">
+                      <div class="card card-body">
+                        <div class="row">
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-map-pin"></i>
+                                </div>
+                              </div>
+                              <!--<div class="flex-grow-1 ms-3">
+                                                             <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
+                                                        </div>-->
+                              <div class="flex-grow-1 ms-3">
+                                <mat-form-field class="mat-custom-select" style="width: 98%">
+                                  <mat-label *ngIf="selectedCategory == ''">Region</mat-label>
+                                  <mat-select name="region" (selectionChange)="onChangeRegion($event)">
+                                    <mat-option *ngFor="let Region of region" [value]="Region.nomregion">
+                                      {{ Region.nomregion }}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-map-pin"></i>
+                                </div>
+                              </div>
+                              <!--<div class="flex-grow-1 ms-3">
+                                                            <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
+                                                        </div>-->
+                              <div class="flex-grow-1 ms-3">
+                                <mat-form-field class="mat-custom-select" style="width: 100%">
+                                  <mat-label *ngIf="selectedCategory == ''">Cercle</mat-label>
+                                  <mat-select name="cercle" (selectionChange)="onChangeCercle($event)">
+                                    <mat-option *ngFor="let Cercle of cercles" [value]="Cercle.id">{{ Cercle.nomcercle
+                                      }}</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-map-pin"></i>
+                                </div>
+                              </div>
+                              <div class="flex-grow-1 ms-3">
+                                <mat-form-field class="mat-custom-select" style="width: 100%">
+                                  <mat-label *ngIf="selectedCategory == ''">
+                                    Commune</mat-label>
+                                  <mat-select name="commune" [(ngModel)]="form.commune">
+                                             <mat-option *ngFor="let Commune of communes1" [value]="Commune.id">{{
+                                      Commune.nomcommune }}</mat-option>
+                                           
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-xl-3 mb-2">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 d-flex align-items-center">
+                                <div class="icon-blk rounded-circle">
+                                  <i class="feather-plus"></i>
+                                </div>
+                              </div>
+                              <!-- &nbsp; &nbsp; -->
+                              <div class="real-estate-search w-100">
+                                <div class="flex-grow-1 ms-3">
+                                  <p>
+                                    <a class="flex-shrink-0 d-flex align-items-center" data-bs-toggle="collapse"
+                                      href="#collapseExample" role="button" aria-expanded="false"
+                                      aria-controls="collapseExample">
+                                      Plus de recherche
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="collapse" id="collapseExample">
+                          <div class="row">
+                            <div class="col-lg-6 col-xl-4 mb-2">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <i class="feather-home"></i>
+                                  </div>
+                                </div>
+                                <!--<div class="flex-grow-1 ms-3">
+                                                                    <input type="text" name="name" class="border-0 text-truncate px-0 form-control" placeholder="Commune">
+                                                                </div>-->
+                                <div class="flex-grow-1 ms-3">
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
+                                    <mat-label *ngIf="selectedCategory == ''">
+                                      Type</mat-label>
+                                    <mat-select [(ngModel)]="form.type" name="type">
+                                      <mat-option *ngFor="let Type of typebien" [value]="Type.id">
+                                        {{ Type.nom }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-4 mb-2">
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img style="width: 20px" src="./assets/img/icons/fax-icon.png" alt="" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
+                                    <mat-label *ngIf="selectedCategory == ''">
+                                      Statut</mat-label>
+                                    <mat-select [(ngModel)]="form.statut" name="statut"
+                                      (selectionChange)="onStatutChange($event)">
+                                      <mat-option *ngFor="let Statut of statut" [value]="Statut.id">
+                                        {{ Statut.nom }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-4 mb-2">
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img src="./assets/img/icons/bed-icon.svg" alt="" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
+                                    <mat-label *ngIf="selectedCategory == ''">
+                                      Chambres</mat-label>
+                                    <mat-select [(ngModel)]="form.chambre" name="chambre">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-6 col-xl-4 mb-2">
+                              <div class="d-flex real-estate-search">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img src="./assets/img/icons/area-icon.svg" alt="" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
+                                    <mat-label *ngIf="selectedCategory == ''">
+                                      Nombre de salon</mat-label>
+                                    <mat-select [(ngModel)]="form.nb_piece" name="nb_piece">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-4 mb-2">
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img src="./assets/img/icons/bath-icon.svg" alt="" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
+                                    <mat-label *ngIf="selectedCategory == ''">
+                                      Toilette</mat-label>
+                                    <mat-select [(ngModel)]="form.toilette" name="toilette">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-4 mb-2">
+                              <div class="d-flex real-estate-search real-select">
+                                <div class="flex-shrink-0 d-flex align-items-center">
+                                  <div class="icon-blk rounded-circle">
+                                    <img style="width: 20px" src="./assets/img/icons/649395.png" alt="" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                  <mat-form-field class="mat-custom-select" style="width: 100%">
+                                    <mat-label *ngIf="selectedCategory == ''">
+                                      Cuisines</mat-label>
+                                    <mat-select [(ngModel)]="form.cuisine" name="cuisine">
+                                      <mat-option *ngFor="let item of valuesSelect" [value]="item">
+                                        {{ item }}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flex-grow-1 ms-3">
+                            <p>
+                              <a class="row mt-3 fw-bold" data-bs-toggle="collapse" href="#cautrecomm" role="button"
+                                aria-expanded="false" aria-controls="collapseExample">
+                                Autres commodites
+                              </a>
+                            </p>
+                          </div>
+                          <div class="collapse" id="cautrecomm">
+                            <div class="card card-body">
+                              <div class="row">
+                                <div class="col-3" *ngFor="let Commodite of commodite">
+                                  <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                      [(ngModel)]="Commodite.selected" [value]="Commodite.id" id="flexCheckDefault"
+                                      (change)="onChangeCommodite()" name="commodite" />
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                      {{ Commodite.nom }}
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-2 real-search-bar">
+                      <button class="btn car-search-icon" type="submit">
+                        Rechercher
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!--<div class="tab-pane fade show" id="pills-loue" role="tabpanel" aria-labelledby="pills-loue-tab"
+                            tabindex="0">
+                            <div class="search-tab-col">
+                                <form action="listing-grid-sidebar.html">
+                                    <div class="row align-items-center search-form">
+                                        <div class="col-12 col-lg-10 datepicker-col search-group">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="d-flex real-estate-search">
+                                                        <div class="flex-shrink-0 d-flex align-items-center">
+                                                            <div class="icon-blk rounded-circle">
+                                                                <i class="feather-map-pin"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <input type="text" name="name"
+                                                                class="border-0 text-truncate px-0 form-control"
+                                                                placeholder="Search location of Property">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="d-flex real-estate-search">
+                                                        <div class="flex-shrink-0 d-flex align-items-center">
+                                                            <div class="icon-blk rounded-circle">
+                                                                <img src="./assets/img/icons/calender.svg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <input type="text" name="checkin"
+                                                                class="border-0 text-truncate px-0 form-control datetimepicker"
+                                                                placeholder="Check-in" bsDatepicker
+                                                                [bsConfig]="{ isAnimated: true }">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="d-flex real-estate-search">
+                                                        <div class="flex-shrink-0 d-flex align-items-center">
+                                                            <div class="icon-blk rounded-circle">
+                                                                <img src="./assets/img/icons/calender.svg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <input type="text" name="checkout"
+                                                                class="border-0 text-truncate px-0 form-control datetimepicker"
+                                                                placeholder="Check- out" bsDatepicker
+                                                                [bsConfig]="{ isAnimated: true }">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="d-flex real-estate-search real-select">
+                                                        <div class="flex-shrink-0 d-flex align-items-center">
+                                                            <div class="icon-blk rounded-circle">
+                                                                <img src="./assets/img/icons/users.svg" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <select class="form-control select category-select">
+                                                                <option>Guest</option>
+                                                                <option>User</option>
+                                                                <option>Admin</option>
+                                                                <option>Seller</option>
+                                                                <option>Buyer</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-2 real-search-bar">
+                                            <button class="btn car-search-icon" type="submit">Search Properties</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Search Filter Section -->
+
+
+<!-- Recent Properties for Rent -->
+<section class="property-for-rent common-padding" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
+  <div class="footer-six-bg footer-nine-bg">
+    <!-- <img src="./assets/img/bg/feature-bg.png" alt="" /> -->
+  </div>
+  <div class="container">
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center" *ngIf="BienLoueRecens && BienLoueRecens.length > 0">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 aos aos-init aos-animate text-center">
+          <h3>Ils sont tout frais !!</h3>
+          <p>Découvrez les nouveaux venus sur <span style="color: #e98b11; font-weight: bold;">Sossara</span> ! Des
+            propriétés uniques pour tous les goûts.</p>
+        </div>
+        <div class="col-md-3 text-md-end aos aos-init aos-animate">
+        </div>
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="car-class-carousel">
+          <div class="top-listings-rent-slider">
+            <owl-carousel-o [options]="recentpropertiesOwlOptions">
+              <ng-container *ngFor="let bienRecent of BienLoueRecens">
+                <ng-template carouselSlide>
+                  <div class="top-rent-room" [style.width]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '50%' : ''">
+                    <div class="top-room-img">
+                      <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
+                        <div *ngIf="
+                            bienRecent?.photos;
+                            else noImages
+                          ">
+                          <img src="{{
+                              generateImageUrl(bienRecent?.photos)
+                            }}" class="img-fluid image-size" alt="blog-img" />
+                        </div>
+                        <ng-template #noImages>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Villa'">
+                            <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Appartement'">
+                            <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Terrain'">
+                            <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Bureau'">
+                            <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="bienRecent?.typeImmo?.nom === 'Champ'">
+                            <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                          <div class="type" *ngIf="
+                              bienRecent?.typeImmo?.nom === 'Magasin'
+                            ">
+                            <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                              alt="default-img" />
+                          </div>
+                        </ng-template>
+                      </a>
+                    </div>  
+                    <div class="top-listing-rounded-img">
+                      <div class="favourite-small-user">
+                        <img class="img-fluid" src="{{
+                            generateImageUrl(
+                              bienRecent?.proprietaire?.photo
+                            )
+                          }}" alt="" (error)="handleAuthorImageError($event)" />
+                      </div>
+                    </div>
+                  
+                    <div class="pent-house Featured-text" [style.right]="isMobile ? '100%' : BienLoueRecens.length < 2 ? '670px' : ''" [ngClass]="{'statutbien': bienRecent?.statut?.nom === 'A vendre' }">
+                      <span class="" >{{ bienRecent?.statut?.nom }}</span>
+                    </div>
+                    <div class="top-rent-room-info">
+                      <div class="top-rent-room-location">
+                        <div class="room-address">
+                          <span><i class="fa-solid fa-location-dot"></i>{{ bienRecent?.adresse?.quartier }}</span>
+                          <a (click)="goToDettailBien(bienRecent?.uuid)" class="crd">
+                            <h5 class="text-truncate crd" style="max-width: 250px">
+                              {{
+                              bienRecent?.nom
+                              ? bienRecent?.nom
+                              : bienRecent?.typeImmo?.nom
+                              }}
+                            </h5>
+                          </a>
+                        </div>
+                        <div class="star-rated">
+                          <!-- <span><i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i></span> -->
+                          <p>
+                            <span style="font-weight: bold; font-size: 17px;">{{ formatPrice(bienRecent?.prix) }}
+                              FCFA</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="top-room-details">
+                        <div class="area">
+                          <span><img src="assets/img/icons/bed-icon.svg" class="img-fluid" alt="" />{{
+                            bienRecent?.typeImmo?.nom }}</span>
+                        </div>
+                        <div class="area" *ngIf="bienRecent?.surface">
+                          <span><img src="assets/img/icons/area-icon.svg" class="img-fluid" alt="" />Surface:{{
+                            bienRecent?.surface }}/m2</span>
+                        </div>
+                        <!--<div class="area">
+                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
+                                                            alt="">{{slide.nb_piece}}</span>
+                                                </div>-->
+                        <div class="area" *ngIf="bienRecent?.chambre">
+                          <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid" alt="" />Chambre:{{
+                            bienRecent?.chambre }}</span>
+                        </div>
+                        <!--<div class="area">
+                                                    <span><img src="assets/img/icons/floor-icon.svg" class="img-fluid"
+                                                            alt="">{{slide.adresse.commune.nom}}</span>
+                                                </div>-->
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Recent Properties for Rent -->
+
+<!-- Make It Easy -->
+<!-- <section class="make-it-easy common-padding">
+  <div class="container">
+      <h2 class="mb-0">Nous facilitons la recherche de votre logement idéal parmi plus d'un million de locations.</h2>
+      <p>Circumstances certain circumstances and owing.</p>
+      <a [routerLink]="routes.agences">Search Properties</a>
+  </div>
+</section> -->
+<!-- /Make It Easy -->
+
+<!-- Why Choose Us -->
+<section class="real-why-us common-padding position-relative">
+  <div class="real-why-us-floating-bg">
+    <!-- <img src="./assets/img/bg/why-us-bg.png" alt="" /> -->
+  </div>
+  <div class="container">
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 aos aos-init aos-animate text-center">
+          <h3>Pourquoi choisir SOSSARA ?</h3>
+          <p><span style="color: #e98b11; font-weight: bold;">SOSSARA</span> est votre partenaire de confiance pour une
+            expérience complète, sur mesure et sans faille, parce que chez nous, votre satisfaction est notre combat.
+          </p>
+        </div>
+        <div class="col-md-3 text-md-end aos aos-init aos-animate"></div>
+      </div>
+    </div>
+    <div class="row aos" data-aos-delay="200">
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="choose-set">
+          <span><img src="assets/img/icons/achat.svg" alt="img" /></span>
+          <h6>Achat</h6>
+          <p>
+            Vous avez un projet d'investissement immobilier ? Alors,
+            <span style="color: #e98b11; font-weight: bold">Sossara</span> vous
+            propose des biens immobiliers classés par types et catégories par
+            zones géographiques
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="choose-set">
+          <span><img src="assets/img/icons/vendre.svg" alt="img" /></span>
+          <h6>Vente</h6>
+          <p>
+            <span style="color: #e98b11; font-weight: bold">Sossara</span> se
+            positionne comme un canal supplémentaire pour optimiser le processus
+            de vente des biens immobiliers des particuliers et des programmes
+            immo de professionnels.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="choose-set">
+          <span><img src="assets/img/icons/location.svg" alt="img" /></span>
+          <h6>Location</h6>
+          <p>
+            Vous avez besoin d'une location longue durée, d'une location
+            saisonnière ou de toutes autres locations ? les filtres de critères
+            de
+            <span style="color: #e98b11; font-weight: bold">Sossara</span> vous
+            permettrons d'affiner encore plus vos choix.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="choose-set">
+          <span><img src="assets/img/icons/agence.svg" alt="img" /></span>
+          <h6>Gestion Immobilière</h6>
+          <p>
+            Le terme « gestion immobilière » est utilisé pour parler de la
+            gestion appliquée aux meubles (location, gérance et vente de biens),
+            qu'ils soient résidentiels, commerciaux ou industriels.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Why Choose Us -->
+
+<!-- Listed Properties Management Companies -->
+<div class="section properties-managments common-padding" *ngIf="agence && agence.length > 0">
+  <div class="container">
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center">
+        <!-- <div class="col-lg-4 col-md-3"></div> -->
+        <div class="col-lg-12 col-md-12 aos aos-init aos-animate text-center">
+          <h3>Agences Partenaires</h3>
+          <p>Les Agences Partenaires Certifiées chez SOSSARA sont Sélectionnées à travers un processus de vérification
+            rigoureux pour une expérience immobilière de premier choix.
+            Parce que votre confort nous est inestimable nous ne traitons qu'avec les meilleurs.</p>
+        </div>
+        <!-- <div class="col-lg-4 col-md-3 text-md-end aos aos-init aos-animate">
+        </div> -->
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.agences" class="btn btn-view">Voir toutes les agences</a>
+      </div>
+    </div>
+    <div class="row aos" data-aos-delay="200">
+      <div class="col-lg-12">
+        <div class="car-class-carousel">
+          <div class="property-listing-slider">
+            <owl-carousel-o [options]="managementcomponiesOwlOptions">
+              <ng-container *ngFor="let Agence of agence">
+                <ng-template carouselSlide>
+                  <div class="property-item" [style.width]="isMobile ? '100%' : agence.length < 2 ? '50%' : ''">
+                    <a>
+                      <div class="companies-set mb-4">
+                        <div class="companies-set-head">
+                          <div class="companies-set-logo">
+                            <span>
+                              <img src="{{
+                                  generateImageUrl(
+                                    Agence?.agencePhoto
+                                  )
+                                }}" alt="img" (error)="handleAuthorImageError($event)" />
+                            </span>
+                          </div>
+                          <div class="companies-set-content">
+                            <h6>{{ Agence?.nomAgence }}</h6>
+                            <h5 *ngIf="Agence?.adresse">
+                              <span>{{
+                                Agence?.adresse?.commune?.cercle?.nomcercle
+                                }}
+                                - {{ Agence?.adresse?.quartier }}</span>
+                            </h5>
+                            <!-- <h5><span>{{ NombreBienCount[Agence.id] }}</span>Biens</h5> -->
+                          </div>
+                        </div>
+                        <div class="companies-set-count">
+                          <ul>
+                            <li>
+                              <h6>
+                                {{
+                                Agence?.nombreBienAgence
+                                }}
+                              </h6>
+                              <span>Biens</span>
+                            </li>
+                            <li>
+                              <h6>
+                                {{
+                                Agence?.nombreBiensALouerAgence
+                                }}
+                              </h6>
+                              <span>Louer</span>
+                            </li>
+                            <li>
+                              <h6>
+                                {{
+                                Agence?.nombreBiensAVendreAgence
+                                }}
+                              </h6>
+                              <span>Vendre</span>
+                            </li>
+                            <li>
+                              <h6>
+                                {{
+                                Agence?.nombreAgents
+                                }}
+                              </h6>
+                              <span>Agents</span>
+                            </li>
+                          </ul>
+                          <div class="companies-set-btn">
+                            <a (click)="goToDettailAgence(Agence?.nomAgence)" class="btn btn-linebtn">Savoir plus<i
+                                class="fa fa-arrow-right ms-3" aria-hidden="true"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <!-- <div class="property-item">
+                                        <a [routerLink]="routes.categories">
+                                            <div class="companies-set mb-4">
+                                                <div class="companies-set-head">
+                                                    <div class="companies-set-logo">
+                                                        <span><img [src]="slide.logo" alt="img"></span>
+                                                    </div>
+                                                    <div class="companies-set-content">
+                                                        <h5><span>{{slide. number}}</span>{{slide.content}}</h5>
+                                                        <h6>{{slide. propertyname}}</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="companies-set-count">
+                                                    <ul>
+                                                        <li>
+                                                            <h6>{{slide. companiescount1}}</h6>
+                                                            <span>{{slide.name}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <h6>{{slide. companiescount2}}</h6>
+                                                            <span>{{slide.name}}</span>
+                                                        </li>
+                                                        <li>
+                                                            <h6>{{slide. companiescount3}}</h6>
+                                                            <span>{{slide.name}}</span>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="companies-set-btn">
+                                                        <a [routerLink]="routes.listinglistsidebar"
+                                                            class="btn btn-linebtn">View All Listing<i
+                                                                class="fa fa-arrow-right ms-3"
+                                                                aria-hidden="true"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                    </div> -->
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Listed Properties Management Companies -->
+
+<!-- Perfect Holiday Cabin Section -->
+<!--<section class="perfect-holiday-cabin-section">
+    <div class="holiday-cabin-img-slider ">
+        <owl-carousel-o [options]="hoildayCabinOwlOptions">
+            <ng-container *ngFor="let slide of hoildayCabin">
+                <ng-template carouselSlide>
+                    <div class="item">
+                        <img [src]="slide.img" class="img-fluid" alt="">
+                        <div class="container">
+                            <div class="holiday-cabin-info">
+                                <div class="rate-per-day">
+                                    <span>{{slide. rate}}</span>
+                                    <h6>{{slide. per}}</h6>
+                                </div>
+                                <div class="section-heading">
+                                    <h2>{{ slide.head}}</h2>
+                                    <p>{{slide.para}} </p>
+                                </div>
+                                <div class="room-categories">
+                                    <span><img [src]="slide.areaicon" class="img-fluid" alt="">{{slide.area}}</span>
+                                    <span><img [src]="slide.bedicon" class="img-fluid" alt="">{{slide.bed}}</span> 
+                                    <span><img [src]="slide.floor" class="img-fluid" alt="">{{slide.floor}}</span>
+                                    <span><img [src]="slide.flooricon" class="img-fluid" alt="">{{slide.guest}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+       
+       
+    </div>
+</section> -->
+<!-- /Perfect Holiday Cabin Section -->
+
+<!-- Explore Our Categories -->
+<!--<section class="explore-categories common-padding">
+    <div class="container">
+        <div class="section-heading section-heading-nine  aos">
+            <div class="row align-items-center">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 aos aos-init aos-animate text-center">
+                    <h2>Explore Our Categories</h2>
+                    <p>The most trendy accommodations available</p>
+                </div>
+                <div class="col-md-3 text-md-end aos aos-init aos-animate">
+                    <a [routerLink]="routes.categories" class="btn  btn-view">View all Catgeorries</a>
+                </div>		
+            </div>	
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+                <div class="car-class-carousel">
+                    <div class="best-places-rent-slider " data-aos="fade-right">
+                        <owl-carousel-o [options]="bestroomsOwlOptions">
+                            <ng-container *ngFor="let slide of bestrooms">
+                                <ng-template carouselSlide> 
+                                    <div class="best-room">
+                                        <div class="best-room-img">
+                                            <a [routerLink]="routes.listinglistsidebar"><img [src]="slide.img" class="img-fluid" alt=""></a>
+                                        </div>
+                                        <a [routerLink]="routes.listinglistsidebar">
+                                            <div class="best-room-type">
+                                                <h5>{{slide.roomtype}}</h5>
+                                                <span>{{slide.listing}}</span>
+                                                <i class="fa-solid fa-arrow-right-long"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </ng-template>
+                             </ng-container>
+                        </owl-carousel-o>
+                       
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!-- /Explore Our Categories -->
+
+<!-- Counter -->
+<!-- <section class="property-counter common-padding position-relative"> -->
+<section class="property-counter common-padding position-relative" *ngIf="BienTotal && BienTotal.length > 0">
+  <div class="property-counter-float-bg">
+    <!-- <img src="./assets/img/bg/counter-bg.png" alt="" /> -->
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <div class="property-counter-list text-center">
+          <!-- <h4 class="counterUp " [countUp]="66180" [options]="{ duration: 30 }">{{nombreBienLoue}}</h4> -->
+          <!-- <h4 class="counterUp " >{{nombreBienLoue}}</h4> -->
+          <h4 class="counterUp" [countUp]="nombreBienLoue" [options]="{ duration: 10 }">
+            {{ nombreBienLoue }}
+          </h4>
+          <p>Nombre de Biens a louer</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="property-counter-list text-center">
+          <h4 class="counterUp" [countUp]="nombreBienVendre" [options]="{ duration: 10 }">
+            {{ nombreBienVendre }}
+          </h4>
+          <!-- <h4 class="counterUp" >{{nombreBienVendre}}</h4> -->
+          <p>Nombre de Biens a vendre</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="property-counter-list text-center">
+          <h4 class="counterUp" [countUp]="nombreAgence" [options]="{ duration: 10 }">
+            {{ nombreAgence }}
+          </h4>
+          <!-- <h4 class="counterUp" >{{nombreAgence}}</h4> -->
+          <p>Nombre d'agence</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="property-counter-list text-center">
+          <h4 class="counterUp" [countUp]="totalzone" [options]="{ duration: 10 }">
+            {{ totalzone }}
+          </h4>
+          <p>Nombre de commune</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Counter -->
+
+<!-- Featured Listings -->
+<section class="featured-listing-section common-padding" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
+  <div class="footer-six-bg footer-nine-bg">
+    <!-- <img src="./assets/img/bg/feature-bg.png" alt="" /> -->
+  </div>
+  <div class="container">
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center" *ngIf="bienImmoPlusVue && bienImmoPlusVue?.length > 0">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 aos aos-init aos-animate text-center">
+          <h3>À ne pas manquer sur Sossara</h3>
+          <p>Découvrez les biens immobiliers triés spécialement sur le volet pour faire votre <span
+              style="color: #e98b11; font-weight: bold;">bonheur</span>.</p>
+        </div>
+        <div class="col-md-3 text-md-end aos aos-init aos-animate">
+        </div>
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
+      </div>
+    </div>
+    <div class="row aos" data-aos-delay="200">
+      <div class="col-lg-12">
+        <div class="bookmarks-content grid-view featured-slider">
+          <div class="row">
+            <owl-carousel-o [options]="listingOwlOptions">
+              <ng-container *ngFor="let BienImo of bienImmoPlusVue">
+                <ng-template carouselSlide>
+                  <div class=" " [style.width]="isMobile ? '100%' : bienImmoPlusVue.length < 2 ? '50%' : ''">
+                    <div class="card aos aos-init aos-animate">
+                      <div class="blog-widget">
+                        <div class="blog-img">
+                          <a (click)="goToDettailBien(BienImo?.uuid)" class="crd">
+                            <div *ngIf="
+                                BienImo?.photos;
+                                else noImages
+                              ">
+                              <img src="{{
+                                  generateImageUrl(BienImo?.photos)
+                                }}" class="img-fluid image-size" alt="blog-img" />
+                            </div>
+                            <ng-template #noImages>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Villa'">
+                                <img src="../../../../assets/img/typebien/villa.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Appartement'">
+                                <img src="../../../../assets/img/typebien/appartement.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Terrain'">
+                                <img src="../../../../assets/img/typebien/terrain.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Bureau'">
+                                <img src="../../../../assets/img/typebien/bureau.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="BienImo?.typeImmo?.nom === 'Champ'">
+                                <img src="../../../../assets/img/typebien/champ.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                              <div class="type" *ngIf="
+                                  BienImo?.typeImmo?.nom ===
+                                  'Magasin'
+                                ">
+                                <img src="../../../../assets/img/typebien/magasin.png" class="img-fluid image-size"
+                                  alt="default-img" />
+                              </div>
+                            </ng-template>
+                          </a>
+                          <div class="fav-item">
+                            <span [ngClass]="{
+                                statut: BienImo?.statut?.nom === 'A vendre'
+                              }" class="Featured-text">{{ BienImo?.statut?.nom }}</span>
+                            <a href="javascript:void(0)" *ngIf="isLoggedIn == true" class="fav-icon"
+                              (click)="AimerBien(BienImo?.uuid)" [style.background-color]="
+                                favoriteStatus[BienImo?.uuid]
+                                  ? '#e98b11'
+                                  : 'white'
+                              ">
+                              <i [style.color]="
+                                  favoriteStatus[BienImo?.uuid]
+                                    ? 'white'
+                                    : 'black'
+                                " class="feather-heart"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="bloglist-content">
+                          <div class="card-body">
+                            <div class="blogfeaturelink">
+                              <div class="grid-author">
+                                <img src="{{
+                                    generateImageUrl(
+                                      BienImo?.proprietaire?.photo
+                                    )
+                                  }}" alt="author" (error)="handleAuthorImageError($event)" />
+                                <!-- <ng-container *ngIf="hasRole('ROLE_AGENCE'); else NoAgenceTemplate">
+                                    <a>{{ BienImo?.utilisateur?.nomAgence }}</a>
+                                  </ng-container>
+                                  <ng-template #NoAgenceTemplate>
+                                    <a>{{ BienImo?.utilisateur?.nom }}</a>
+                                  </ng-template> -->
+                              </div>
+                              <div class="blog-features">
+                                <a href="javascript:void(0)"><span>
+                                    <i class="fa-regular fa-circle-stop"></i>
+                                    {{ BienImo?.typeImmo?.nom }}</span></a>
+                              </div>
+                              <div class="blog-author text-end">
+                                <span>
+                                  <i class="feather-eye"></i>{{
+                                  BienImo?.nombreDeFavoris
+                                  }}</span>
+                              </div>
+                            </div>
+                            <h6 class="crd">
+                              <a (click)="goToDettailBien(BienImo?.uuid)">{{
+                                BienImo?.nom
+                                ? BienImo?.nom
+                                : BienImo?.typeImmo?.nom
+                                }}</a>
+                            </h6>
+                            <div class="blog-location-details">
+                              <div class="location-info">
+                                <i class="feather-map-pin"></i>
+                                {{ BienImo?.adresse?.quartier }}
+                              </div>
+                              <div class="location-info">
+                                <i class="fa-solid fa-calendar-days"></i>{{
+                                BienImo?.createdAt
+                                | date : "dd MMM yyyy" : locale
+                                }}
+                              </div>
+                            </div>
+                            <div class="amount-details">
+                              <div class="amount">
+                                <span class="validrate">{{ formatPrice(BienImo?.prix) }} FCFA</span>
+                                <!--<span>{{slide.oldamount}}</span>-->
+                              </div>
+                              <div class="ratings">
+                                <!--<span>{{slide.rating}}</span> {{slide.rating1}}-->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Featured Listings -->
+
+<!-- Premium and essential services -->
+<!--<section class="premium-and-essential-services common-padding position-relative">
+    <div class="preminum-float-bg">
+        <img src="./assets/img/bg/premium-bg.png" alt="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="premium-header text-center aos">
+                    <h2>Premium and essential services in Listee, contributing to enhancing residents' life experience</h2>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 aos" data-aos-delay="200">
+                <div class="listee-premium">
+                    <div class="listee-premium-img">
+                        <span><img src="assets/img/icons/service-1.svg" alt="img"></span>
+                    </div>
+                    <div class="listee-premium-content">
+                        <h6>Add your listing</h6>
+                        <p>Lorem Ipsum is simply dummy text printing and type setting industry</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 aos" data-aos-delay="400">
+                <div class="listee-premium">
+                    <div class="listee-premium-img">
+                        <span><img src="assets/img/icons/service-2.svg" alt="img"></span>
+                    </div>
+                    <div class="listee-premium-content">
+                        <h6>Easy Finance</h6>
+                        <p>Lorem Ipsum is simply dummy text printing and type setting industry</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 aos" data-aos-delay="600">
+                <div class="listee-premium">
+                    <div class="listee-premium-img">
+                        <span><img src="assets/img/icons/service-3.svg" alt="img"></span>
+                    </div>
+                    <div class="listee-premium-content">
+                        <h6>Publish your listing</h6>
+                        <p>Lorem Ipsum is simply dummy text printing and type setting industry</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 aos" data-aos-delay="200">
+                <div class="listee-premium bottom-list-premium ">
+                    <div class="listee-premium-img">
+                        <span><img src="assets/img/icons/service-4.svg" alt="img"></span>
+                    </div>
+                    <div class="listee-premium-content">
+                        <h6>Register for free</h6>
+                        <p>Lorem Ipsum is simply dummy text printing and type setting industry</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 aos" data-aos-delay="400">
+                <div class="listee-premium bottom-list-premium ">
+                    <div class="listee-premium-img">
+                        <span><img src="assets/img/icons/service-5.svg" alt="img"></span>
+                    </div>
+                    <div class="listee-premium-content">
+                        <h6>Get reservations</h6>
+                        <p>Lorem Ipsum is simply dummy text printing and type setting industry</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 aos" data-aos-delay="600">
+                <div class="listee-premium bottom-list-premium ">
+                    <div class="listee-premium-img">
+                        <span><img src="assets/img/icons/service-6.svg" alt="img"></span>
+                    </div>
+                    <div class="listee-premium-content">
+                        <h6>Upload beautiful images</h6>
+                        <p>Lorem Ipsum is simply dummy text printing and type setting industry</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!-- /Premium and essential services -->
+
+
+
+<!-- COMMUNES -->
+<section class="car-location common-padding" *ngIf="commune && commune.length > 0">
+  <div class="container">
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center">
+        <!-- <div class="col-md-3"></div> -->
+        <div class="col-md-12 aos aos-init aos-animate text-center">
+          <h3>Laquelle de ces communes vous séduit elle à Bamako ?</h3>
+          <p>Alors vous n'avez plus qu'a découvrir ce qu'elle vous réserve. Nous en sommes convaincu, vous allez adorer
+            !</p>
+        </div>
+        <!-- <div class="col-md-3 text-md-end aos aos-init aos-animate">
+        </div> -->
+      </div>
+      <div class="bouton text-center mt-3">
+        <a [routerLink]="routes.listinggridsidebar" class="btn btn-view">Voir tous les biens</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4" *ngFor="let Commune of commune; let i = index">
+        <a (click)="goToDettailCommune(Commune?.nomcommune)" class="crd">
+          <div style="height: 80%" class="car-location-img aos">
+            <img width="100%" [src]="'assets/img/communes/' + imagesCommunes[i]" style="object-fit: fill"
+              class="commune-image img-fluid" alt="" />
+            <span>{{ Commune?.nomcommune }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /COMMUNES -->
+
+<!-- Verified Owners -->
+<!--<section class="verified-owner-section">
+    <div class="container">
+        <div class="section-heading section-heading-nine  aos">
+            <div class="row align-items-center">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 aos aos-init aos-animate text-center">
+                    <h2>Featured Verified Owners</h2>
+                    <p>Highlight the most popular owners</p>
+                </div>
+                <div class="col-md-3 text-md-end aos aos-init aos-animate">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-3 col-sm-6 aos" data-aos-delay="200">
+                <div class="owner-card">
+                    <div class="owner-card-img">
+                        <a [routerLink]="routes.profile"><img src="assets/img/profiles/avatar-15.jpg" class="img-fluid"
+                                alt=""></a>
+                    </div>
+                    <div class="owner-info">
+                        <div class="owner-name">
+                            <a [routerLink]="routes.profile">Jonny baristow</a>
+                            <span class="double-tick"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+                        <span class="owner-list-span">50 Listings</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3 col-sm-6 aos" data-aos-delay="400">
+                <div class="owner-card">
+                    <div class="owner-card-img">
+                        <a [routerLink]="routes.profile"><img src="assets/img/profiles/avatar-16.jpg" class="img-fluid"
+                                alt=""></a>
+                    </div>
+                    <div class="owner-info">
+                        <div class="owner-name">
+                            <a [routerLink]="routes.profile">Angeline Marshall</a>
+                            <span class="double-tick"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+                        <span class="owner-list-span">25 Listings</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3 col-sm-6 aos" data-aos-delay="600">
+                <div class="owner-card">
+                    <div class="owner-card-img">
+                        <a [routerLink]="routes.profile"><img src="assets/img/profiles/avatar-17.jpg" class="img-fluid"
+                                alt=""></a>
+                    </div>
+                    <div class="owner-info">
+                        <div class="owner-name">
+                            <a [routerLink]="routes.profile">Abraham Musol</a>
+                            <span class="double-tick"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+                        <span class="owner-list-span">30 Listings</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3 col-sm-6 aos" data-aos-delay="800">
+                <div class="owner-card">
+                    <div class="owner-card-img">
+                        <a [routerLink]="routes.profile"><img src="assets/img/profiles/avatar-18.jpg" class="img-fluid"
+                                alt=""></a>
+                    </div>
+                    <div class="owner-info">
+                        <div class="owner-name">
+                            <a [routerLink]="routes.profile">Rayon Akram</a>
+                            <span class="double-tick"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+                        <span class="owner-list-span">35 Listings</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <a [routerLink]="routes.listingmaplist" class="verified-owner-list-btn">View all Owners</a>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!-- /Verified Owners -->
+
+<!-- Our Testimonials -->
+<!--<section class=" property-testimonial common-padding position-relative">
+    <div class="testimonial-float-bg">
+        <img src="./assets/img/bg/testimonal-bg.png" alt="">
+    </div>
+    <div class="container">
+        <div class="section-heading section-heading-nine  aos">
+            <div class="row align-items-center">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 aos aos-init aos-animate text-center">
+                    <h2>Our Testimonials</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                </div>
+                <div class="col-md-3 text-md-end aos aos-init aos-animate">
+                </div>		
+            </div>	
+          </div>
+          <div class="row">
+            <div class="col-md-12 aos" data-aos-delay="200">
+                <div class="car-class-carousel">
+                    <div class="verified-owner-slider">
+                        <owl-carousel-o [options]="ourtestimonialsOwlOptions">
+                            <ng-container *ngFor="let slide of ourtestimonials">
+                                <ng-template carouselSlide>
+                                    <div class="property-testimonial-item">
+                                        <h5 class="mb-0">{{slide.head}}</h5>
+                                        <div class="car-client-rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <p>{{slide.para}} </p>
+                                        <div class="property-profile-block">
+                                            <div class="property-profile">
+                                                <a [routerLink]="routes.profile"><img [src]="slide.img" class="img-fluid" alt=""></a>
+                                            </div>
+                                            <div class="property-client-details">
+                                                <a [routerLink]="routes.profile">{{slide. name}}</a>
+                                                <span>{{slide.job}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                        
+                       
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+</section>-->
+<!-- /Our Testimonials -->
+
+<!-- Join Us -->
+<section class="buy-property aos">
+  <div class="container">
+    <div class="buy-property-content">
+      <h4 style="color: white; font-size: 26px;" class="aos mb-3" data-aos-delay="200">Rejoignez les millions de
+        personnes qui tirent davantage de leur domicile.</h4>
+      <!-- <p class="aos" data-aos-delay="400">Sossara offre une interface conviviale pour les propriétaires, gestionnaires immobiliers et locataires, facilitant l'accès aux informations essentielles et la gestion des contrats de location :</p> -->
+      <div class="row mb-2" style="color: white;">
+        <div class="col-12 col-md-12">
+          <ul class="list-unstyled mb-0">
+            <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Simplifiez
+              la gestion de vos propriétés avec Sossara.</li>
+            <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Trouvez le
+              locataire idéal pour votre propriété en quelques clics.</li>
+            <li class="aos py-1" data-aos-delay="400"><i style="color: white;" class="fas fa-check me-2"></i>Communiquez
+              facilement avec vos locataires et gérez vos contrats de location et vos paiement en toute sécurité:
+              Quittance, reçu, facture, tout y passe nous avons tout prévu.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- <a  [routerLink]="routes.mylisting">Savoir plus</a> -->
+    </div>
+  </div>
+</section>
+<!-- /Join Us -->
+
+<!-- Recent Articles -->
+<section class="property-articles common-padding" *ngIf="blog && blog.length > 0">
+  <div class="container">
+    <div class="section-heading section-heading-nine aos">
+      <div class="row align-items-center">
+        <div class="col-md-12 aos aos-init aos-animate text-center">
+          <h3>Articles recents</h3>
+          <!-- <p>The most trendy accommodations available</p> -->
+        </div>
+        <!-- <div class="col-md-5 text-md-end aos aos-init aos-animate">
+        </div> -->
+        <div class="bouton text-center mt-3">
+          <a [routerLink]="routes.blog" class="btn btn-view">Voir tous les articles</a>
+        </div>
+      </div>
+    </div>
+    <div class="bloglist-section bloggrid-sidebar">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="car-class-carousel">
+              <div class="blog-slider">
+                <owl-carousel-o [options]="recentarticleOwlOptions">
+                  <ng-container *ngFor="let slide  of blog">
+                    <ng-template carouselSlide>
+                      <!-- <div class="blog grid-blog aos" class="property-item" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
+                        <div class="blog-image">
+                          <a (click)="goToDettailBlog(Blog?.uuid)"><img class="img-fluid image-sizeblog crd"
+                              src="{{ generateImageUrl(Blog?.photo) }}" (error)="handleBlogImageError($event)"
+                              alt="Post Image" /></a>
+                        </div>
+                        <div class="blog-content">
+                          <h3 class="blog-title text-truncate crd" style="max-width: 320px">
+                            <a (click)="goToDettailBlog(Blog?.uuid)">{{
+                              Blog?.titre
+                              }}</a>
+                          </h3>
+                          <ul class="entry-meta meta-item">
+                            <li class="date-icon">
+                              <i class="feather-calendar"></i>
+                              {{
+                              Blog?.createdAt | date : "dd MMM yyyy" : locale
+                              }}
+                            </li>
+                          </ul>
+                          <p class="blog-description" style="  font-size: 15px;" [innerHTML]="
+                              Blog ? Blog?.description : 'Aucune description'
+                            "></p>
+                          <div class="viewlink crd">
+                            <a (click)="goToDettailBlog(Blog?.uuid)">Voir plus</a>
+                          </div>
+                        </div>
+                      </div> -->
+
+                      <div class="blog grid-blog" [style.width]="isMobile ? '100%' : blog.length < 2 ? '50%' : ''">
+                        <div class="blog-image">
+                          <a (click)="goToDettailBlog(slide?.uuid)"><img class="img-fluid image-size crd"
+                              src="{{generateImageUrl(slide?.photo)}}" (error)="handleAuthorImageError1($event)"
+                              alt="Post Image"></a>
+                        </div>
+                        <div class="blog-content">
+
+                          <ul class="entry-meta meta-item">
+                            <li>
+
+                            </li>
+                            <li class="date-icon"><i class="fa-solid fa-calendar-days"></i>
+                              {{slide?.createdAt | date:"dd MMM yyyy":locale}}</li>
+                          </ul>
+                          <h3 class="blog-title crd"><a (click)="goToDettailBlog(slide?.uuid)">{{slide?.titre}}</a>
+                          </h3>
+
+                          <p class="blog-description" [innerHTML]="slide ? slide?.description : 'Aucune description'">
+                          </p>
+                          <div class="viewlink crd"><a (click)="goToDettailBlog(slide?.uuid)">Voir plus <i
+                                class="feather-arrow-right"></i></a></div>
+                        </div>
+                      </div>
+
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Recent Articles -->
+
+<!-- Become Agent -->
+<section class="join-us-dealer common-padding">
+  <div class="join-us-dealer-bg home-nine-bg">
+    <!-- <img src="./assets/img/bg/agent-bg.png" alt=""> -->
+  </div>
+  <div class="container">
+    <div class="row align-items-center aos">
+      <div class="col-lg-6 col-md-12">
+        <div class="joinus-dealer-content">
+          <h3 class="aos" style="font-size: 23px;" data-aos-delay="200">Simplifiez vos démarches immobilières dès
+            maintenant !</h3>
+          <p class="aos" data-aos-delay="300">Avec <span style="font-weight: bold;">Sossara</span>, gérez vos biens
+            immobiliers en toute confiance et libérez du temps pour vous concentrer sur ce qui compte le plus pour vous.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="join-as-dealer-btn">
+          <a [routerLink]="routes.about">Savoir plus</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Become Agent -->
+
+<!-- Partners Section -->
+
+<div class="partners-section">
+
+  <div class="container">
+    <p class="partners-heading">Nos partenaires</p>
+    <owl-carousel-o [options]="universitiesCompaniesOwlOptions">
+      <ng-container *ngFor="let slide of universitiesCompanies">
+        <ng-template carouselSlide>
+          <ul class="partnerslist d-flex">
+            <li>
+              <a href="javascript:void(0);"><img class="img-fluid image-sizeparter" [src]="slide.img"
+                  alt="partners" /></a>
+            </li>
+          </ul>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</div>
+<!-- /Partners Section -->
+<!--<app-footer-nine></app-footer-nine>-->
