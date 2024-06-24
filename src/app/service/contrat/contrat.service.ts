@@ -37,6 +37,12 @@ export class ContratService {
     return this.http.get(`${URL_BASE}/contrat/affichercontratparuuid/${uuid}`);
   }
 
+  //checkContratParUser
+  checkContratParUser(uuid: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/contrat/check/${uuid}`,{ headers } );
+  }
+
 
   //ANNULER UN CONTRAT COTE LOCATAIRE 
   AnnulerContratLocataire(id: any, motifAnnulationLocataire:any): Observable<any> {

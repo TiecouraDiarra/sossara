@@ -28,9 +28,15 @@ export class NotificationService {
     });
   }
 
-    //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
-    AfficherListeNotification(): Observable<any> {
-      const headers = this.getHeaders();
-      return this.http.get(`${URL_BASE}/notifications/get`, { headers });
-    }
+  //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
+  AfficherListeNotification(): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/notifications/get`, { headers });
+  }
+
+  //SUPPRIMER UNE NOTIFICATION
+  SupprimerNotification(id: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post(`${URL_BASE}/notifications/supprimer/${id}`, null, { headers });
+  }
 }

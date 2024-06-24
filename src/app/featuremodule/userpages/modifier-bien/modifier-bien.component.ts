@@ -557,17 +557,57 @@ export class ModifierBienComponent {
     }
   }
 
-  onChangeCommodite() {
-    if (this.les_commodite) {
-      const commoditeArray = [];
-      for (const item of this.les_commodite) {
-        if (item.selected) {
-          commoditeArray.push(item.id);
-        }
+  selectedCommoditesIds: number[] = [];
+
+  onChangeCommodite(id: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      this.selectedCommoditesIds.push(id);
+    } else {
+      const index = this.selectedCommoditesIds.indexOf(id);
+      if (index > -1) {
+        this.selectedCommoditesIds.splice(index, 1);
       }
-      this.form.commodite = commoditeArray;
     }
+    console.log('Selected Commodities:', this.selectedCommoditesIds);
   }
+
+  // onChangeCommodite() {
+  //   if (this.les_commodite) {
+  //     const commoditeArray = [];
+  //     for (const item of this.les_commodite) {
+  //       if (item.selected) {
+  //         commoditeArray.push(item.id);
+  //       }
+  //     }
+  //     this.form.commodite = commoditeArray;
+  //   }
+  // }
+
+  // onChangeCommodites(): void {
+  //   if (this.les_commodite) {
+  //     const commoditeArray = this.les_commodite
+  //       .filter(item => item.selected)
+  //       .map(item => item.id);
+  //     this.form.commodite = commoditeArray;
+  //     console.log('Selected Commodities:', this.form.commodite);
+  //   }
+  // }
+
+  onChangeCommodites(id: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.les_commodite = this.les_commodite.map(item =>
+      item.id === id ? { ...item, selected: isChecked } : item
+    );
+
+    const commoditeArray = this.les_commodite
+      .filter(item => item.selected)
+      .map(item => item.id);
+
+    this.form.commodite = commoditeArray;
+    console.log('Selected Commodities:', this.form.commodite);
+  }
+
   //IMAGE
   generateImageUrl(photoFileName: string): string {
     const baseUrl = URL_PHOTO;
