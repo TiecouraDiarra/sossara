@@ -339,7 +339,7 @@
                         <li>
                           <label class="custom_check">
                             <input type="checkbox" [(ngModel)]=" item.selected" [value]=" item?.id"
-                              (change)="onChangeCommodite()" name="commodite" />
+                            (ngModelChange)="onChangeCommodite()" (change)="onChangeCommodite()"  name="commodite" />
                             <span class="checkmark"></span> {{ item?.nom }}
                           </label>
                         </li>

@@ -110,18 +110,9 @@ export class HeaderComponent implements OnInit {
     this.checkScreenWidth();
     this.checkUserStatus();
     // this.chatService.initConnectionWebSocket(); // Initialise la connexion WebSocket
-    this.serviceUser.getUnreadNotificationsCount().subscribe(
-      (data) => {
-        this.notif = data;
-        console.log(data)
-      });
 
-    //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
-    this.notificationService.AfficherListeNotification().subscribe(data => {
-      this.notifications = data.reverse().slice(0, 2);
-      console.log(this.notifications);
-    }
-    );
+
+
   }
 
   checkUserStatus(): void {
@@ -160,6 +151,15 @@ export class HeaderComponent implements OnInit {
           console.error('Erreur lors de la récupération des données de l\'utilisateur', error);
           this.isLoginFailed = true;
         }
+      );
+      this.serviceUser.getUnreadNotificationsCount().subscribe(
+        (data) => {
+          this.notif = data;
+        });
+      //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
+      this.notificationService.AfficherListeNotification().subscribe(data => {
+        this.notifications = data.reverse().slice(0, 2);
+      }
       );
     } else {
       this.isLoginFailed = false;

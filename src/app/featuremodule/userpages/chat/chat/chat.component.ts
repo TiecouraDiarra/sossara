@@ -102,8 +102,6 @@ export class ChatComponent {
       this.isChatPresent=false;
     }
 
-    // this.chatService.getUnreadNotificationsCount().subscribe((data) => {
-    //  console.log(data);
      
     // });
 

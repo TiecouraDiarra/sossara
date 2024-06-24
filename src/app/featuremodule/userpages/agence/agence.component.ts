@@ -375,7 +375,6 @@ export class AgenceComponent {
     //FAIT
     this.serviceBienImmo.AfficherBienImmoParUser().subscribe(data => {
       this.bienImmo = data.reverse();
-      console.log(this.bienImmo)
 
       // Filtrer les biens immobiliers
       this.bienImmo.forEach((bien: any) => {
@@ -395,8 +394,6 @@ export class AgenceComponent {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-
-      // console.log(this.bienImmoDejaLoue);
 
 
 
@@ -472,8 +469,6 @@ export class AgenceComponent {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      // // Afficher les biens déjà loués et déjà vendus
-      // console.log(this.bienImmoDejaLoueLocataire);
 
 
 
@@ -511,7 +506,6 @@ export class AgenceComponent {
     //AFFICHER LA LISTE DES CANDIDATURES SUR LES BIENS DE USER CONNECTE
     // this.serviceBienImmo.AfficherCandidatureSurMesBiens().subscribe(data => {
     //   this.candidature = data.reverse();
-    //   console.log(this.candidature);
     // });
       //AFFICHER LA LISTE DES CANDIDATURE PAR USER
     //FAIT
@@ -535,7 +529,6 @@ export class AgenceComponent {
 
         // Le reste de votre logique pour traiter les favoris...
       });
-      console.log(this.candidatureAccepter);
       
    
     }
@@ -592,7 +585,6 @@ export class AgenceComponent {
         //   // Le reste de votre logique pour traiter les favoris...
 
       });
-      console.log(this.bienImmoAgenceTotal);
       
       // Parcourir la liste des biens immobiliers
       this.bienImmoAgenceTotal.forEach((bien: {
@@ -1012,7 +1004,7 @@ export class AgenceComponent {
       text: "Etes-vous sûr cette opération ?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Supprimer',
+      confirmButtonText: 'Envoyer',
       cancelButtonText: 'Annuler',
       reverseButtons: true
     }).then((result) => {

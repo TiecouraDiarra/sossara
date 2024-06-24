@@ -181,8 +181,10 @@ export class AjouterBienComponent implements OnInit {
         }
       }
       this.form.commodite = commoditeArray;
+      // console.log(this.form.commodite); // Vérifiez la sortie dans la console pour déboguer
     }
   }
+  
 
   form: any = {
     commodite: null,
@@ -565,7 +567,7 @@ export class AjouterBienComponent implements OnInit {
       swalWithBootstrapButtons.fire(
         this.message = 'Le statut du bien est obligatoire !',
       );
-    }else if (this.form.commodite === null) {
+    }else if (this.form.commodite === null || this.form.commodite.length === 0) {
       swalWithBootstrapButtons.fire(
         this.message = 'Choisir au moins une commodité !',
       );

@@ -79,7 +79,6 @@ export class OrangeMoneyComponent {
     //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
-      // console.log(this.facture);
       this.contrat = data?.contrat;
       this.candidature = data;
       this.bien = data?.bien;
