@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, NgZone } from '@angular/core';
 import Swal from 'sweetalert2';
 import * as L from 'leaflet';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -156,6 +156,7 @@ export class ModifierBienComponent {
     private caracteristiqueService: CaracteristiqueService,
     private route: ActivatedRoute,
     private serviceCommodite: CommoditeService,
+    private cdRef: ChangeDetectorRef,
     private serviceUser: UserService,
     private serviceBienImmo: BienimmoService
   ) {
@@ -202,6 +203,8 @@ export class ModifierBienComponent {
      //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
        this.bien = data;
+       console.log(this.bien);
+       
        setTimeout(() => {
          this.form = {
            nom: this.bien?.nom,
@@ -234,6 +237,9 @@ export class ModifierBienComponent {
 
          this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
           this.les_commodite = data;
+          console.log(this.les_commodite);
+          this.cdRef.detectChanges(); // Force detection of changes
+          
   
           if (this.bien && this.bien.commodites) {
   
