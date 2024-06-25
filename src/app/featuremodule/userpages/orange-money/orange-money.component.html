@@ -1,5 +1,5 @@
 <!-- Breadscrumb Section -->
-<div class="breadcrumb-bar">
+<!-- <div class="breadcrumb-bar">
     <div class="container">
         <div class="row align-items-center text-center">
             <div class="col-md-12 col-12">
@@ -13,11 +13,33 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+<div class="breadcrumb-bar" *ngIf="loadingPage">
+    <div class="container">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12 col-12">
+          <h2 class="breadcrumb-title" style="color: white" *ngIf="loadingPage">
+            Paiement Orange Money
+          </h2>
+          <!-- <h2 class="breadcrumb-title" style="color: white"  *ngIf="!loadingPage">
+            Page non trouvée
+          </h2> -->
+          <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="routes.home9">Accueil</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Paiment</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- /Breadscrumb Section -->
 
 
-<div class="bloglist-section bloggrid-sidebar container d-lg-flex">
+<div class="bloglist-section bloggrid-sidebar container d-lg-flex"  *ngIf="loadingPage">
     <div class="box-1 bg-light user">
         <!-- <div class="d-flex align-items-center mb-3">
             <img src="{{generateImageUrl(bien?.proprietaire?.photo?.nom)}}" (error)="handleAuthorImageError($event)"
