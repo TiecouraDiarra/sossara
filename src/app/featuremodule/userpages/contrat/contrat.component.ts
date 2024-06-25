@@ -105,37 +105,33 @@ export class ContratComponent {
   };
 
   ngOnInit(): void {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: '',
-        cancelButton: '',
-      },
-      heightAuto: false
-    })
+  
     //RECUPERER L'UUID D'UN CONTRAT 
     this.id = this.route.snapshot.params["uuid"]
     if (this.storageService.isLoggedIn()) {
       this.serviceContrat.checkContratParUser(this.id).subscribe((data) => {
         this.check = data;
-        console.log(this.check);
-        if(data.status){
+        if (data.status) {
           this.contratUser();
           this.loadingPage = true;
-        }else{
-          window.history.back();
+        } else {
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            this.router.navigate(['/']); // Redirection vers la page d'accueil
+          }
         }
-        
+
       })
     }
 
 
-    
-    
+
+
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     // this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
     //   this.contrat = data;
-    //   console.log(this.contrat);
-      
+
     //   // if(this.contrat)
 
     //   this.bien = data?.bien;
@@ -160,30 +156,29 @@ export class ContratComponent {
   }
 
   contratUser() {
-     //RECUPERER L'UUID D'UN CONTRAT 
-     this.id = this.route.snapshot.params["uuid"]
-     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
-     this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
-       this.contrat = data;
-       console.log(this.contrat);
-       
-       // if(this.contrat)
- 
-       this.bien = data?.bien;
-       this.locataire = data?.locataire;
-       this.proprietaire = data?.bien?.proprietaire;
-       this.serviceUser.AfficherUserConnecter().subscribe(
-         (data) => {
-           this.users = data[0];
-           this.emailProprietaire = this.users.email
-           // this.emailProprietaire = this.storageService.getUser().email
-           if (this.emailProprietaire == this.proprietaire.email) {
-             this.isAgenceProprietaire = true;
-           }
-         })
-       this.photoImmo = data?.bien?.photoImmos;
- 
-     })
+    //RECUPERER L'UUID D'UN CONTRAT 
+    this.id = this.route.snapshot.params["uuid"]
+    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+    this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+      this.contrat = data;
+
+      // if(this.contrat)
+
+      this.bien = data?.bien;
+      this.locataire = data?.locataire;
+      this.proprietaire = data?.bien?.proprietaire;
+      this.serviceUser.AfficherUserConnecter().subscribe(
+        (data) => {
+          this.users = data[0];
+          this.emailProprietaire = this.users.email
+          // this.emailProprietaire = this.storageService.getUser().email
+          if (this.emailProprietaire == this.proprietaire.email) {
+            this.isAgenceProprietaire = true;
+          }
+        })
+      this.photoImmo = data?.bien?.photoImmos;
+
+    })
   }
 
   selectPaymentMode(mode: any) {
@@ -484,7 +479,7 @@ export class ContratComponent {
 
 
   //ACCEPTER LA CANDIDATURE D'UN BIEN PROPRIETAIRE C'EST A DIRE VALIDE
-  ValiderContratProprietaire(uuid:any): void {
+  ValiderContratProprietaire(uuid: any): void {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -514,8 +509,61 @@ export class ContratComponent {
               this.errorMessage = 'Candidature acceptée avec succès';
 
               // Afficher le premier popup de succès
-              this.popUpConfirmation();
-              this.loadingValiderProprietaire = false;
+              // this.popUpConfirmation();
+
+              if (data.status) {
+                this.loadingValiderProprietaire = false;
+                let timerInterval = 2000;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: "Contrat validé",
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  timer: timerInterval,
+                  timerProgressBar: true,
+                }).then(() => {
+                  //RECUPERER L'UUID D'UN CONTRAT 
+                  this.id = this.route.snapshot.params["uuid"]
+                  //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+                  this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+                    this.contrat = data;
+                    this.bien = data?.bien;
+                    this.locataire = data?.locataire;
+                    this.proprietaire = data?.bien?.proprietaire;
+                    this.photoImmo = data?.bien?.photoImmos;
+                    // if (this.proprietaire.role.includes("ROLE_PROPRIETAIRE")) {
+                    //   this.isProprietaire = true;
+                    // }
+
+                    // if (this.proprietaire.role.includes("ROLE_AGENCE")) {
+                    //   this.isAgence = true;
+                    // }
+                  })
+
+                  this.loadingValiderProprietaire = false;
+                });
+              } else {
+                this.loadingValiderProprietaire = false;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Erreur',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => { });
+              }
             },
             error: (err) => {
 
@@ -649,8 +697,55 @@ export class ContratComponent {
 
 
               // Afficher le premier popup de succès
-              this.popUpConfirmationLocataire();
+              // this.popUpConfirmationLocataire();
               this.loadingValiderLocataire = false;
+              if (data.status) {
+                this.loadingValiderLocataire = false;
+                let timerInterval = 2000;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: "Contrat validé",
+                  icon: 'success',
+                  heightAuto: false,
+                  showConfirmButton: false,
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                  timer: timerInterval,
+                  timerProgressBar: true,
+                }).then(() => {
+                  //RECUPERER L'UUID D'UN CONTRAT 
+                  this.id = this.route.snapshot.params["uuid"]
+                  //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+                  this.serviceContrat.AfficherContratParUuId(this.id).subscribe(data => {
+                    this.contrat = data;
+                    this.bien = data?.bien;
+                    this.locataire = data?.locataire;
+                    this.proprietaire = data?.bien?.proprietaire;
+                    this.photoImmo = data?.bien?.photoImmos;
+                    this.goToDettailFacture(this.bien?.contrat[0]?.facture[0]?.uuid)
+                  })
+
+                  this.loadingValiderLocataire = false;
+                });
+              } else {
+                this.loadingValiderLocataire = false;
+                Swal.fire({
+                  position: 'center',
+                  text: data.message,
+                  title: 'Erreur',
+                  icon: 'error',
+                  heightAuto: false,
+                  showConfirmButton: true,
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#e98b11',
+                  showDenyButton: false,
+                  showCancelButton: false,
+                  allowOutsideClick: false,
+                }).then((result) => { });
+              }
             },
             error: (err) => {
 

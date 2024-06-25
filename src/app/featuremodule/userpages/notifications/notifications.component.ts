@@ -103,7 +103,6 @@ export class NotificationsComponent implements OnInit {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      console.log(this.candidature);
       
     }
     );

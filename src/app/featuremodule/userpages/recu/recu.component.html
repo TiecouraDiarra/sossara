@@ -315,7 +315,7 @@
 
                                             <!-- Mensuel  -->
                                             <tr class="bg-grea"
-                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
+                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !paiement?.facture?.mensuel">
                                                 <td>
                                                     <div class="item-desc-1">
                                                         <span>01</span>
@@ -331,7 +331,7 @@
                                                 </td>
                                             </tr>
                                             <tr
-                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
+                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !paiement?.facture?.mensuel">
                                                 <td>
                                                     <div class="item-desc-1">
                                                         <span>02</span>
@@ -346,7 +346,7 @@
                                                 </td>
                                             </tr>
                                             <tr class="tr2"
-                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
+                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !paiement?.facture?.mensuel">
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -357,7 +357,7 @@
                                                 </td>
                                             </tr>
                                             <tr class="tr2" style="font-weight: bold;"
-                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'">
+                                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !paiement?.facture?.mensuel">
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -368,6 +368,41 @@
                                                     FCFA
                                                 </td>
                                             </tr>
+
+                                            <!-- Mensuel Facture Generer  -->
+                                            <tr class="bg-grea"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && paiement?.facture?.mensuel">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>01</span>
+
+                                                </div>
+                                            </td>
+                                            <td class="pl0">Loyer mensuel</td>
+                                            <td class="text-center">{{formatPrice(bien?.prix)}}</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-end">
+                                                {{formatPrice(bien?.prix)}} FCFA
+                                            </td>
+                                        </tr>
+                                        <tr class="tr2"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && paiement?.facture?.mensuel">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">Total</td>
+                                            <td class="text-end">{{ formatPrice(bien?.prix) }}
+                                                FCFA</td>
+                                        </tr>
+                                        <tr class="tr2" style="font-weight: bold;"
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && paiement?.facture?.mensuel">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center f-w-600 active-color">Total</td>
+                                            <td class="f-w-600 text-end active-color">{{ formatPrice(bien?.prix)}} FCFA</td>
+
+                                        </tr>
 
                                             <!-- Vente  -->
                                             <tr class="tr" *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A vendre'">

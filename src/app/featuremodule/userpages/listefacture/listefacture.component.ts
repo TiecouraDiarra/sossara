@@ -81,6 +81,7 @@ export class ListefactureComponent {
     this.serviceFacture.AfficherFactureParBien(this.id).subscribe(data => {
       this.facture = data;
       
+      
       this.paiement = this.facture?.paiments;
       this.modePaiement = data[0]?.modePaiement;
       this.bien = data[0]?.bien;

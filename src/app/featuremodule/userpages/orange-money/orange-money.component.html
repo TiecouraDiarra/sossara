@@ -234,13 +234,29 @@
                                 </div> -->
                             </div>
                         </div>
+                        <!-- Paiement Mensuel  -->
                         <div class="col-md-12 mb-3"
-                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer'">
+                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer' && facture.mensuel">
                             <div class="d-flex flex-column dis">
-                                <!-- <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <p>Nombre de mois</p>
-                                    <p>{{ nombreMoisChoisi }} <span class="fw-bold" *ngIf="nombreMoisChoisi === 1">Mois</span><span class="fw-bold" *ngIf="nombreMoisChoisi !== 1">Mois</span></p>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <p>Loyer mensuel</p>
+                                    <p>{{formatPrice(bien?.prix)}} <span class="fw-bold">FCFA</span></p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <p class="fw-bold">Total</p>
+                                    <p class="fw-bold">{{ formatPrice(bien?.prix) }}
+                                        <span class="fw-bold">FCFA</span>
+                                    </p>
+                                </div>
+                                <!-- <div class="btn btn-primary mt-2">Pay<span class="fas fa-dollar-sign px-1"></span>35.80
                                 </div> -->
+                            </div>
+                        </div>
+
+                        <!-- Premier paiement Mensuel  -->
+                        <div class="col-md-12 mb-3"
+                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer' && !facture.mensuel">
+                            <div class="d-flex flex-column dis">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <p>Avance</p>
                                     <p>{{bien?.avance}} <span class="fw-bold">Mois</span></p>
@@ -401,9 +417,26 @@
                                     FCFA</span>
                             </div> -->
 
+                            <!-- Paiment mensuel  -->
                             <button [disabled]="!isValidPhoneNumber(paiementForm.numeroPaiement) || loadingPaiement"
                                 (click)="FairePaiement(facture?.uuid)"
-                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer'"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer' && facture.mensuel"
+                                style="background-color: #e98b11; color:white" class="btn mt-2">
+                                <ng-container *ngIf="!loadingPaiement">
+                                    Confirmer {{ formatPrice(bien?.prix) }}<span class="px-1">
+                                        FCFA</span>
+                                </ng-container>
+                                <ng-container *ngIf="loadingPaiement">
+                                    <div class="spinner-border" style="color: #374b5c;font-size: 13px;" role="status">
+                                        <span class="sr-only">Chargement en cours...</span>
+                                    </div>
+                                </ng-container>
+                            </button>
+
+                            <!-- Premier paiement mensuel  -->
+                            <button [disabled]="!isValidPhoneNumber(paiementForm.numeroPaiement) || loadingPaiement"
+                                (click)="FairePaiement(facture?.uuid)"
+                                *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer' && !facture.mensuel"
                                 style="background-color: #e98b11; color:white" class="btn mt-2">
                                 <ng-container *ngIf="!loadingPaiement">
                                     Confirmer {{ formatPrice((bien?.prix > 0 ?
@@ -443,3 +476,19 @@
         </div>
     </div>
 </div>
+<div class="login-content tts" style="margin-top: 280px;" *ngIf="!loadingPage">
+    <div class="container">
+      <div class="row mb-5 py-3">
+        <div class="col-md-6 col-lg-5 mx-auto"></div>
+        <div class="col-md-2 col-lg-2 mx-auto">
+          <div class="login-wrap1 password-form1 justify-content-center">
+            <div *ngIf="!loadingPage" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 mx-auto"></div>
+      </div>
+  
+    </div>
+  </div>

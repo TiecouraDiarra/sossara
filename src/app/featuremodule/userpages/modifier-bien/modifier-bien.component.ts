@@ -203,7 +203,6 @@ export class ModifierBienComponent {
      //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
      this.serviceBienImmo.AfficherBienImmoParId(this.id).subscribe((data) => {
        this.bien = data;
-       console.log(this.bien);
        
        setTimeout(() => {
          this.form = {
@@ -237,7 +236,6 @@ export class ModifierBienComponent {
 
          this.serviceCommodite.AfficherListeCommodite().subscribe((data) => {
           this.les_commodite = data;
-          console.log(this.les_commodite);
           this.cdRef.detectChanges(); // Force detection of changes
           
   
@@ -569,7 +567,6 @@ export class ModifierBienComponent {
         this.selectedCommoditesIds.splice(index, 1);
       }
     }
-    console.log('Selected Commodities:', this.selectedCommoditesIds);
   }
 
   // onChangeCommodite() {
@@ -590,7 +587,6 @@ export class ModifierBienComponent {
   //       .filter(item => item.selected)
   //       .map(item => item.id);
   //     this.form.commodite = commoditeArray;
-  //     console.log('Selected Commodities:', this.form.commodite);
   //   }
   // }
 
@@ -603,9 +599,6 @@ export class ModifierBienComponent {
     const commoditeArray = this.les_commodite
       .filter(item => item.selected)
       .map(item => item.id);
-
-    this.form.commodite = commoditeArray;
-    console.log('Selected Commodities:', this.form.commodite);
   }
 
   //IMAGE
