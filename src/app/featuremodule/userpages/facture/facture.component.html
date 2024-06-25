@@ -287,7 +287,7 @@
 
                                         <!-- Mensuel  -->
                                         <tr class="bg-grea"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !facture.mensuel">
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !facture?.mensuel">
                                             <td>
                                                 <div class="item-desc-1">
                                                     <span>01</span>
@@ -302,7 +302,7 @@
                                                 formatPrice(bien.prix * bien.caution) }} FCFA
                                             </td>
                                         </tr>
-                                        <tr *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !facture.mensuel">
+                                        <tr *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && !facture?.mensuel">
                                             <td>
                                                 <div class="item-desc-1">
                                                     <span>02</span>
@@ -317,7 +317,7 @@
                                             </td>
                                         </tr>
                                         <tr class="tr2"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && !facture.mensuel">
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && !facture?.mensuel">
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -328,7 +328,7 @@
                                                 FCFA</td>
                                         </tr>
                                         <tr class="tr2" style="font-weight: bold;"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && !facture.mensuel">
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && !facture?.mensuel">
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -340,7 +340,7 @@
                                         </tr>
                                         <!-- Mensuel Facture Generer  -->
                                         <tr class="bg-grea"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && facture.mensuel">
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer' && facture?.mensuel">
                                             <td>
                                                 <div class="item-desc-1">
                                                     <span>01</span>
@@ -355,7 +355,7 @@
                                             </td>
                                         </tr>
                                         <tr class="tr2"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && facture.mensuel">
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && facture?.mensuel">
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -364,7 +364,7 @@
                                                 FCFA</td>
                                         </tr>
                                         <tr class="tr2" style="font-weight: bold;"
-                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && facture.mensuel">
+                                            *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom === 'A louer'  && facture?.mensuel">
                                             <td></td>
                                             <td></td>
                                             <td></td>

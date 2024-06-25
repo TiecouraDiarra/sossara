@@ -80,7 +80,6 @@ export class ListefactureComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.serviceFacture.AfficherFactureParBien(this.id).subscribe(data => {
       this.facture = data;
-      console.log(this.facture);
       
       
       this.paiement = this.facture?.paiments;

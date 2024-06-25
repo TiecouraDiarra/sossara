@@ -74,7 +74,6 @@ export class RecuComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.paiementService.AfficherPaiementParUuId(this.id).subscribe(data => {
       this.paiement = data;
-      console.log(this.paiement);
       
       
       // this.facture = data?.facture;

@@ -54,9 +54,6 @@ export class ModepaiementService {
     formData.append('sommePayer', sommePayer);
     formData.append('modePaiement', modePaiement);
     formData.append('numeroPaiement', numeroPaiement);
-    console.log(uuid);
-    console.log(nombreJours);
-    console.log(nombreSemaine);
 
     
     

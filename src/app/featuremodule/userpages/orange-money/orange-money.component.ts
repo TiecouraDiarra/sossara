@@ -79,11 +79,11 @@ export class OrangeMoneyComponent {
     //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
+      console.log(this.facture);
       this.contrat = data?.contrat;
       this.candidature = data;
       this.bien = data?.bien;
       this.photoImmo = data?.bien?.photoImmos;
-      console.log(this.contrat);
       
     })
   }
@@ -158,12 +158,16 @@ export class OrangeMoneyComponent {
     //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
+      
       this.contrat = data?.contrat;
       this.candidature = data;
       this.bien = data?.bien;
       this.photoImmo = data?.bien?.photoImmos;
       if (this.bien.statut.nom === 'A louer' && this.bien?.periode?.nom === 'Mensuel') {
-        // Vérifier si à la fois avance et caution sont égaux à zéro
+        if(this.facture.mensuel){
+          this.paiementForm.sommePayer = this.bien.prix;
+        }else{
+           // Vérifier si à la fois avance et caution sont égaux à zéro
         if (this.bien.avance === 0 && this.bien.caution === 0) {
           // Calculer sommePayer en utilisant le prix du bien
           this.paiementForm.sommePayer = this.bien.prix;
@@ -172,6 +176,7 @@ export class OrangeMoneyComponent {
           this.paiementForm.nombreMois = this.bien.avance + this.bien.caution;
           // Calculer sommePayer en utilisant le prix du bien multiplié par nombreMois
           this.paiementForm.sommePayer = this.bien.prix * this.paiementForm.nombreMois;
+        }
         }
         this.paiementForm.nombreJours = 0;
         this.paiementForm.nombreSemaine = 0;
@@ -186,11 +191,6 @@ export class OrangeMoneyComponent {
         this.paiementForm.sommePayer = this.bien?.prix;
       }
       this.paiementForm.modePaiement = 1;
-      // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
-      console.log(
-        uuid, this.paiementForm.nombreMois, this.paiementForm.nombreSemaine, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1
-      );
-      
       this.paiementService.FairePaiement(uuid, this.paiementForm.nombreMois, this.paiementForm.nombreSemaine, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1).subscribe({
         next: (data) => {
           if (data.status) {

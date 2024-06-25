@@ -91,7 +91,6 @@ export class FactureComponent {
     //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
-      console.log(this.facture);
       
       
       this.modePaiement = data?.modePaiement;
