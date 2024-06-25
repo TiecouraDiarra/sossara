@@ -38,7 +38,7 @@ export class ModepaiementService {
 
   //FAIRE LE PAIEMENT
   FairePaiement(
-    id: any,
+    uuid: any,
     nombreMois: any,
     nombreSemaine: any,
     nombreJours: any,
@@ -48,14 +48,21 @@ export class ModepaiementService {
   ): Observable<any> {
     const headers = this.getHeaders();
     const formData = new FormData();
-    formData.append('nombreMois', nombreMois || 0);
-    formData.append('nombreSemaine', nombreSemaine || 0);
-    formData.append('nombreJours', nombreJours || 0);
+    formData.append('nombreMois', nombreMois ?? 0);
+    formData.append('nombreSemaine', nombreSemaine ?? 0);
+    formData.append('nombreJours', nombreJours ?? 0);
     formData.append('sommePayer', sommePayer);
     formData.append('modePaiement', modePaiement);
     formData.append('numeroPaiement', numeroPaiement);
+    console.log(uuid);
+    console.log(nombreJours);
+    console.log(nombreSemaine);
+
+    
+    
+    
   
-    return this.http.post(`${URL_BASE}/paiement/fairepaiement/${id}`, formData, { headers });
+    return this.http.post(`${URL_BASE}/paiement/fairepaiement/${uuid}`, formData, { headers });
   }
 
   //AFFICHER UN PAIEMENT EN FONCTION DE SON UUID
