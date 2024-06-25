@@ -452,6 +452,7 @@
                     <th mat-sort-header="status">Statut</th>
                     <th mat-sort-header="view">Date</th>
                     <th mat-sort-header="Action">Locataires</th>
+                    <th mat-sort-header="Action">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -537,6 +538,21 @@
                           </div>
                         </li>
                       </ul>
+                    </td>
+                    <td>
+                      <div class="action">
+                        <a (click)="goToListeFacture(BienImmo?.uuid)"
+                            class="action-btn btn-view crd">
+                            <img class="icone-size"
+                                src="../../../../assets/img/iconeBien/facture1.png"
+                                alt="Room amenities">
+                            <span class="hover-text">Voir les factures</span>
+                        </a>
+                        <!-- <a (click)="goToPageContrat(BienImmo.contrat.uuid)" class="action-btn btn-edit crd">
+                            <img class="icone-size" src="../../../../assets/img/iconeBien/contrat2.png" alt="Room amenities">
+                            <span class="hover-text">Voir le contrat</span>
+                        </a> -->
+                    </div>
                     </td>
                   </tr>
                 </tbody>

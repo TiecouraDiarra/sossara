@@ -394,6 +394,8 @@ export class AgenceComponent {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
+      console.log(this.bienImmoDejaLoue);
+      
 
 
 
