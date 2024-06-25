@@ -83,6 +83,8 @@ export class OrangeMoneyComponent {
       this.candidature = data;
       this.bien = data?.bien;
       this.photoImmo = data?.bien?.photoImmos;
+      console.log(this.contrat);
+      
     })
   }
   //FORMATER LE PRIX
@@ -106,7 +108,7 @@ export class OrangeMoneyComponent {
   loadingPaiement = false;
 
   //FAIRE LE PAIEMENT AVEC ORANGE MONEY
-  FairePaiement(id: any): void {
+  FairePaiement(uuid:any): void {
     const { contenu, nombreMois, nombreSemaine, nombreJours, sommePayer, numeroPaiement, modePaiement, } = this.paiementForm;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -151,77 +153,93 @@ export class OrangeMoneyComponent {
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
           this.serviceUser.setAccessToken(user.token);
-
-          if (this.bien.statut.nom === 'A louer' && this.bien?.periode?.nom === 'Mensuel') {
-            // Vérifier si à la fois avance et caution sont égaux à zéro
-            if (this.bien.avance === 0 && this.bien.caution === 0) {
-              // Calculer sommePayer en utilisant le prix du bien
-              this.paiementForm.sommePayer = this.bien.prix;
-            } else {
-              // Calculer nombreMois comme étant égal à avance + caution
-              this.paiementForm.nombreMois = this.bien.avance + this.bien.caution;
-              // Calculer sommePayer en utilisant le prix du bien multiplié par nombreMois
-              this.paiementForm.sommePayer = this.bien.prix * this.paiementForm.nombreMois;
-            }
-            // this.paiementForm.sommePayer = this.bien?.prix * this.paiementForm.nombreMois
-          } else if (this.bien?.periode?.nom === 'Journalier') {
-            this.paiementForm.nombreJours = this.contrat?.nombreJour;
-            this.paiementForm.sommePayer = this.bien?.prix * this.contrat?.nombreJour;
-          } else if (this.bien?.periode?.nom === 'Hebdomadaire') {
-            this.paiementForm.nombreSemaine = this.contrat?.nombreSemaine;
-            this.paiementForm.sommePayer = this.bien?.prix * this.contrat?.nombreSemaine;
-          } else if (this.bien.statut.nom === 'A vendre' && this.bien?.periode?.nom === 'Mensuel') {
-            this.paiementForm.sommePayer = this.bien?.prix;
+          //RECUPERER L'UUID D'UN BLOG 
+    this.id = this.route.snapshot.params["uuid"]
+    //AFFICHER UNE CANDIDATURE EN FONCTION DE SON ID
+    this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
+      this.facture = data;
+      this.contrat = data?.contrat;
+      this.candidature = data;
+      this.bien = data?.bien;
+      this.photoImmo = data?.bien?.photoImmos;
+      if (this.bien.statut.nom === 'A louer' && this.bien?.periode?.nom === 'Mensuel') {
+        // Vérifier si à la fois avance et caution sont égaux à zéro
+        if (this.bien.avance === 0 && this.bien.caution === 0) {
+          // Calculer sommePayer en utilisant le prix du bien
+          this.paiementForm.sommePayer = this.bien.prix;
+        } else {
+          // Calculer nombreMois comme étant égal à avance + caution
+          this.paiementForm.nombreMois = this.bien.avance + this.bien.caution;
+          // Calculer sommePayer en utilisant le prix du bien multiplié par nombreMois
+          this.paiementForm.sommePayer = this.bien.prix * this.paiementForm.nombreMois;
+        }
+        this.paiementForm.nombreJours = 0;
+        this.paiementForm.nombreSemaine = 0;
+        // this.paiementForm.sommePayer = this.bien?.prix * this.paiementForm.nombreMois
+      } else if (this.bien?.periode?.nom === 'Journalier') {
+        this.paiementForm.nombreJours = this.contrat?.nombreJour;
+        this.paiementForm.sommePayer = this.bien?.prix * this.contrat?.nombreJour;
+      } else if (this.bien?.periode?.nom === 'Hebdomadaire') {
+        this.paiementForm.nombreSemaine = this.contrat?.nombreSemaine;
+        this.paiementForm.sommePayer = this.bien?.prix * this.contrat?.nombreSemaine;
+      } else if (this.bien.statut.nom === 'A vendre' && this.bien?.periode?.nom === 'Mensuel') {
+        this.paiementForm.sommePayer = this.bien?.prix;
+      }
+      this.paiementForm.modePaiement = 1;
+      // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
+      console.log(
+        uuid, this.paiementForm.nombreMois, this.paiementForm.nombreSemaine, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1
+      );
+      
+      this.paiementService.FairePaiement(uuid, this.paiementForm.nombreMois, this.paiementForm.nombreSemaine, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1).subscribe({
+        next: (data) => {
+          if (data.status) {
+            this.loadingPaiement = false;
+            let timerInterval = 2000;
+            Swal.fire({
+              position: 'center',
+              text: "Paiement effectué avec succès",
+              title: "Paiement",
+              icon: 'success',
+              heightAuto: false,
+              showConfirmButton: false,
+              confirmButtonColor: '#e98b11',
+              showDenyButton: false,
+              showCancelButton: false,
+              allowOutsideClick: false,
+              timer: timerInterval,
+              timerProgressBar: true,
+            }).then(() => {
+              this.goToPageRecu(data.message)
+            });
+          } else {
+            this.loadingPaiement = false;
+            Swal.fire({
+              position: 'center',
+              text: data.message,
+              title: 'Erreur',
+              icon: 'error',
+              heightAuto: false,
+              showConfirmButton: true,
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#e98b11',
+              showDenyButton: false,
+              showCancelButton: false,
+              allowOutsideClick: false,
+            }).then((result) => { });
           }
-          this.paiementForm.modePaiement = 1;
+        },
+        error: (err) => {
 
-          // Appelez la méthode ACCEPTERCANDIDATUREBIEN() avec le contenu et l'ID
-          this.paiementService.FairePaiement(id, this.paiementForm.nombreMois, this.paiementForm.nombreSemaine, this.paiementForm.nombreJours, this.paiementForm.sommePayer, numeroPaiementSansTiret, 1).subscribe({
-            next: (data) => {
-              if (data.status) {
-                this.loadingPaiement = false;
-                let timerInterval = 2000;
-                Swal.fire({
-                  position: 'center',
-                  text: "Paiement effectué avec succès",
-                  title: "Paiement",
-                  icon: 'success',
-                  heightAuto: false,
-                  showConfirmButton: false,
-                  confirmButtonColor: '#e98b11',
-                  showDenyButton: false,
-                  showCancelButton: false,
-                  allowOutsideClick: false,
-                  timer: timerInterval,
-                  timerProgressBar: true,
-                }).then(() => {
-                  this.goToPageRecu(data.message)
-                });
-              } else {
-                this.loadingPaiement = false;
-                Swal.fire({
-                  position: 'center',
-                  text: data.message,
-                  title: 'Erreur',
-                  icon: 'error',
-                  heightAuto: false,
-                  showConfirmButton: true,
-                  confirmButtonText: 'OK',
-                  confirmButtonColor: '#e98b11',
-                  showDenyButton: false,
-                  showCancelButton: false,
-                  allowOutsideClick: false,
-                }).then((result) => { });
-              }
-            },
-            error: (err) => {
+          this.errorMessage = err.error.message;
+          this.isError = true
+          // Gérez les erreurs ici
+        }
+      }
+      );
+    })
 
-              this.errorMessage = err.error.message;
-              this.isError = true
-              // Gérez les erreurs ici
-            }
-          }
-          );
+         
         } else {
         }
       }

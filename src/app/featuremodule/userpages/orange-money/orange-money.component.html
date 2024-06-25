@@ -341,7 +341,7 @@
                                     FCFA</span>
                             </div> -->
                             <button [disabled]="!isValidPhoneNumber(paiementForm.numeroPaiement) || loadingPaiement"
-                                (click)="FairePaiement(facture?.id)" *ngIf="bien?.periode?.nom === 'Journalier'"
+                                (click)="FairePaiement(facture?.uuid)" *ngIf="bien?.periode?.nom === 'Journalier'"
                                 style="background-color: #e98b11; color:white" class="btn mt-2">
                                 <ng-container *ngIf="!loadingPaiement">Confirmer {{ formatPrice(bien?.prix *
                                     contrat?.nombreJour) }}<span class="px-1">
@@ -360,7 +360,7 @@
                             </div> -->
 
                             <button [disabled]="!isValidPhoneNumber(paiementForm.numeroPaiement) || loadingPaiement"
-                                (click)="FairePaiement(facture?.id)" *ngIf="bien?.periode?.nom === 'Hebdomadaire'"
+                                (click)="FairePaiement(facture?.uuid)" *ngIf="bien?.periode?.nom === 'Hebdomadaire'"
                                 style="background-color: #e98b11; color:white" class="btn mt-2">
                                 <ng-container *ngIf="!loadingPaiement">Confirmer {{ formatPrice(bien?.prix *
                                     contrat?.nombreSemaine) }}<span class="px-1">
@@ -380,7 +380,7 @@
                             </div> -->
 
                             <button [disabled]="!isValidPhoneNumber(paiementForm.numeroPaiement) || loadingPaiement"
-                                (click)="FairePaiement(facture?.id)"
+                                (click)="FairePaiement(facture?.uuid)"
                                 *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A louer'"
                                 style="background-color: #e98b11; color:white" class="btn mt-2">
                                 <ng-container *ngIf="!loadingPaiement">
@@ -399,7 +399,7 @@
                                 {{formatPrice(bien?.prix)}}<span class="px-1">
                                     FCFA</span>
                             </div> -->
-                            <button (click)="FairePaiement(facture?.id)"
+                            <button (click)="FairePaiement(facture?.uuid)"
                                 *ngIf="bien?.periode?.nom === 'Mensuel' && bien?.statut?.nom ==='A vendre'"
                                 style="background-color: #e98b11; color:white" class="btn mt-2"
                                 [disabled]="!isValidPhoneNumber(paiementForm.numeroPaiement) || loadingPaiement">

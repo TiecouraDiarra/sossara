@@ -269,8 +269,6 @@ export class DetailsbienComponent implements AfterViewInit {
     //RECUPERER L'ID D'UN BIEN
     this.id = this.route.snapshot.params['id'];
     this.bienparid()
-
-
   }
   open(index: number, albumArray: Array<any>): void {
     this._lightbox.open(albumArray, index);
