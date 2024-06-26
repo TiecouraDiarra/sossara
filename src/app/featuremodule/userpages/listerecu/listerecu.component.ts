@@ -37,8 +37,11 @@ export class ListerecuComponent {
   selectedBienImmoId: any;
   CandidatureUser: any;
   public electronics: any = []
+  loadingPage = false;
+
 
   isMobile= false;
+  check: any;
   @HostListener('window:resize', ['$event'])
   onResize(event: any) { 
     this.isMobile = event.target.innerWidth <= 767;
@@ -76,8 +79,34 @@ export class ListerecuComponent {
 
   ngOnInit(): void {
     //RECUPERER L'UUID D'UN BLOG 
-    this.id = this.route.snapshot.params["uuid"]
-    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+
+
+    if (this.storageService.isLoggedIn()) {
+      
+    
+      this.id = this.route.snapshot.params["uuid"]
+      if (this.storageService.isLoggedIn()) {
+        this.serviceFacture.checkFactureAllParUser(this.id).subscribe((data) => {
+          this.check = data;
+          console.log(data);
+          if (data.status) {
+            this.factureUser();
+            this.loadingPage = true;
+          } else {
+            if (window.history.length > 1) {
+              window.history.back();
+            } else {
+              this.router.navigate(['/']); // Redirection vers la page d'accueil
+            }
+          }
+        });
+      }
+    
+    }
+   
+  }
+
+  factureUser(){
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
       this.paiement = this.facture?.paiments;

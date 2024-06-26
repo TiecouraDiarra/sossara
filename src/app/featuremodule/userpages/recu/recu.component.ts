@@ -1,5 +1,5 @@
 import { Component, HostListener, Inject, LOCALE_ID } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
@@ -28,10 +28,13 @@ export class RecuComponent {
   locataire: any;
   proprietaire: any;
   loading = false;
+  loadingPage = false;
+
   modePaiement: any;
 
   isMobile= false;
   facture: any;
+  check: any;
   @HostListener('window:resize', ['$event'])
   onResize(event: any) { 
     this.isMobile = event.target.innerWidth <= 767;
@@ -44,6 +47,8 @@ export class RecuComponent {
     private storageService: StorageService,
     private route: ActivatedRoute,
     private serviceBienImmo: BienimmoService,
+    private router: Router,
+
 
   ) {
     this.locale = localeId;
@@ -69,13 +74,30 @@ export class RecuComponent {
   }
 
   ngOnInit(): void {
-    //RECUPERER L'UUID D'UN BLOG 
-    this.id = this.route.snapshot.params["uuid"]
-    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+
+     //RECUPERER L'UUID D'UN PAIEMENT 
+     this.id = this.route.snapshot.params["uuid"]
+     if (this.storageService.isLoggedIn()) {
+       this.paiementService.checkRecuAllParUser(this.id).subscribe((data) => {
+         this.check = data;
+         console.log(data);
+         if (data.status) {
+           this.RecuUser();
+           this.loadingPage = true;
+         } else {
+           if (window.history.length > 1) {
+             window.history.back();
+           } else {
+             this.router.navigate(['/']); // Redirection vers la page d'accueil
+           }
+         }
+       });
+     }
+   
+  }
+  RecuUser(){
     this.paiementService.AfficherPaiementParUuId(this.id).subscribe(data => {
       this.paiement = data;
-      
-      
       // this.facture = data?.facture;
       this.modePaiement = data?.modePaiement;
       this.bien = data?.transaction?.bien;

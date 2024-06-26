@@ -74,7 +74,7 @@
         <div class="row">
           <div class="col callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" *ngIf="
               isLoggedIn == true &&
-              currentUser == false
+              currentUser == false && bien.is_publish
             ">
             <a class="action-btn btn-edit">
               <i class="feather-phone-call"></i>Prendre Rendez-vous</a>
@@ -89,23 +89,30 @@
           <div class="col callnow crd mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" *ngIf="
               isLoggedIn == true &&
               currentUser == false &&
-              candidaterWithModal == true
+              candidaterWithModal == true && bien.is_publish
             ">
             <a class="action-btn btn-edit">
               <i class="feather-edit-3"></i>Candidater pour ce bien</a>
           </div>
           <div class="col callnow crd mt-5" *ngIf="
-              isLoggedIn == false 
+              isLoggedIn == false && bien.is_publish
             ">
             <a class="action-btn btn-edit" [routerLink]="['/auth/connexion']">
               <i class="feather-edit-3"></i> Candidater pour ce bien
             </a>
           </div>
+          <div class="col  crd mt-5 disabled-link" *ngIf="!bien.is_publish && currentUser != true">
+            <a class="action-btn btn-edit " (click)="$event.preventDefault()">
+              Bien non disponible
+            </a>
+          </div>
+          
+          
           
           <div class="col callnow crd mt-5" *ngIf="
               isLoggedIn == true &&
               currentUser == false &&
-              candidaterWithModal == false
+              candidaterWithModal == false && bien.is_publish
             ">
             <a (click)="CandidaterBien()" class="action-btn btn-edit">
               <i class="feather-edit-3"></i>Candidater pour ce bien</a>
@@ -447,7 +454,7 @@
               </div>
 
 
-              <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false">
+              <div class="card mb-0" *ngIf="isLoggedIn == true && currentUser == false && bien?.is_publish">
                 <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
                 <form class="contactbusinessform">
                   <div class="form-group">
@@ -948,7 +955,7 @@
             </div>
            
 
-            <div class="card mb-0" *ngIf=" currentUser == false">
+            <div class="card mb-0" *ngIf=" currentUser == false && bien?.is_publish">
               <h4><i class="feather-phone-call"></i> Prendre Rendez-vous</h4>
               <form class="contactbusinessform">
                 <div class="form-group">

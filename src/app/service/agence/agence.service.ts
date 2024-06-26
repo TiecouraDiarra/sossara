@@ -85,7 +85,6 @@ export class AgenceService {
   //SUPPRIMER UN AGENT
   SupprimerAgent(id: any): Observable<any> {
     const headers = this.getHeaders();
-   
     return this.http.post(`${URL_BASE}/user/child/delete/${id}`, null, { headers });
   }
 

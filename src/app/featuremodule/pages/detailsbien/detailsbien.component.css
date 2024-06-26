@@ -359,3 +359,17 @@
   background-color: #f44336 !important; /* Rouge */
   color: white !important;
 }
+.disabled-link a {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  color: gray !important; /* Vous pouvez personnaliser la couleur comme vous le souhaitez */
+  text-decoration: none !important;  /* Enlever le soulignement pour ressembler à un texte désactivé */
+  cursor: not-allowed !important;
+  cursor: none !important;
+  background: #F0E6D8; ;
+  color: #fff;
+  padding: 14px 38px;
+  border-radius: 10px;
+  border: 1px solid #F0E6D8; ;
+  font-size: 18px;
+}

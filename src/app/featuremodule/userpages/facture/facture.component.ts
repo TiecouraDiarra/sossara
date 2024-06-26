@@ -87,7 +87,7 @@ export class FactureComponent {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       
-    }
+    
     this.id = this.route.snapshot.params["uuid"]
     if (this.storageService.isLoggedIn()) {
       this.serviceFacture.checkFactureAllParUser(this.id).subscribe((data) => {
@@ -106,7 +106,7 @@ export class FactureComponent {
       });
     }
   
- 
+  }
 
     //AFFICHER LA LISTE DES MODES DE PAIEMENTS
     this.modepaiementService.AfficherListeModePaiement().subscribe(data => {
