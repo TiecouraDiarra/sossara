@@ -94,7 +94,7 @@
             <a class="action-btn btn-edit">
               <i class="feather-edit-3"></i>Candidater pour ce bien</a>
           </div>
-          
+
           <div class="col callnow crd mt-5" *ngIf="
               isLoggedIn == false && bien?.is_publish
             ">
@@ -248,9 +248,14 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Retour
         </button>
-        <button (click)="PrendreRvd(bien?.uuid)" type="button" class="btn btn-primary">
-          Envoyer
+        <button (click)="PrendreRvd(bien?.uuid)" type="button" class="btn btn-primary" [disabled]="isLoadingRdv">
+          <span *ngIf="!isLoadingRdv">Envoyer</span>
+          <span *ngIf="isLoadingRdv">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span class="visually-hidden">Chargement...</span>
+          </span>
         </button>
+
       </div>
     </div>
   </div>
@@ -789,7 +794,7 @@
                 </ul>
               </div>
 
-              <ul class="" *ngIf="bien?.is_publish" >
+              <ul class="" *ngIf="bien?.is_publish">
 
                 <li class="review-box feedbackbox mb-0">
                   <div class="review-details">
@@ -915,7 +920,8 @@
                 <textarea name="content" [(ngModel)]="messageInput" class="input-msg-send form-control"
                   placeholder="Message"></textarea>
               </div>
-              <button *ngIf="isLoggedIn == false && bien?.is_publish" (click)="goToLogin()" class="btn btn-primary submit-btn w-100">
+              <button *ngIf="isLoggedIn == false && bien?.is_publish" (click)="goToLogin()"
+                class="btn btn-primary submit-btn w-100">
                 Envoyer un message
               </button>
               <button *ngIf="isLoggedIn == true && currentUser == false && bien?.is_publish"
@@ -982,10 +988,13 @@
                   {{ errorMessage }}
                 </div>
                 <div class="submit-section">
-                  <button *ngIf="isLoggedIn == true" (click)="PrendreRvd(bien?.uuid)" class="btn btn-primary submit-btn"
-                    type="submit">
-                    Envoyer
-                  </button>
+                  <button (click)="PrendreRvd(bien?.uuid)" type="button" class="btn btn-primary" [disabled]="isLoadingRdv">
+                    <span *ngIf="!isLoadingRdv">Envoyer</span>
+                    <span *ngIf="isLoadingRdv">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <span class="visually-hidden">Chargement...</span>
+                    </span>
+                  </button>                  
                   <button *ngIf="isLoggedIn == false" class="btn btn-primary submit-btn" type="submit">
                     <a class="" [routerLink]="['/auth/connexion']">
                       Envoyer</a>
