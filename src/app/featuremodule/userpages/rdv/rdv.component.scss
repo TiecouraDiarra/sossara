@@ -8,13 +8,16 @@
         display: none;
     }
 }
+
 .crd:hover {
     cursor: pointer;
 }
-.maReference{
+
+.maReference {
     cursor: pointer;
 }
-.maReference:hover{
+
+.maReference:hover {
     color: #f2b600;
 }
 
@@ -104,7 +107,7 @@
     background-color: #dcdcdc;
 }
 
-.headingTop{
+.headingTop {
     margin-bottom: -20px;
 }
 
@@ -131,7 +134,8 @@
     padding: 8px 25px;
     color: white;
 }
-.accept-button:hover{
+
+.accept-button:hover {
     background-color: #fff;
     border: 1px solid #e98b11;
     box-shadow: inset 0 70px 0 0 #ffffff;
@@ -179,4 +183,79 @@
 
 .status-text p.rejected {
     color: red;
+}
+
+.status-text p.attente {
+    color: #e98b11;
+}
+
+.custom-tab-link {
+    font-weight: 600;
+    color: #333;
+    /* Couleur du texte non sélectionné */
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    padding: 10px 15px;
+    transition: background-color 0.3s, border-bottom 0.3s;
+}
+
+.custom-tab-link.active,
+.custom-tab-link:hover {
+    color: #fff;
+    /* Couleur du texte sélectionné */
+    border-radius: 10px;
+    background-color: #e98b11;
+    /* Couleur de l'onglet sélectionné */
+    border-bottom-color: #fff;
+    /* Couleur de la bordure du bas de l'onglet sélectionné */
+}
+
+.image-size1 {
+    width: 290px;
+    /* Remplacez cette valeur par la taille souhaitée */
+    height: 160px;
+    /* Remplacez cette valeur par la taille souhaitée */
+    margin-left: 10px;
+    border-radius: 1rem;
+
+}
+
+.sidebar1 {
+    background-color: #293d4a;
+    /* Couleur de fond de la barre de navigation */
+    padding: 10px 0;
+    border-bottom: 2px solid #1b2b34;
+    /* Bordure inférieure */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Ombre légère */
+    border-radius: 6px;
+
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #fff;
+    /* Couleur du texte non sélectionné */
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: #fff;
+    /* Couleur du texte sélectionné et en survol */
+    background-color: #e98b11;
+    /* Couleur de fond en survol */
+    
+}
+
+.nav-justified {
+    justify-content: space-between;
 }

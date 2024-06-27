@@ -31,6 +31,10 @@ export class RdvComponent {
   isProprietaire = false;
   profil: any;
   errorMessage: any = '';
+  rdvUser: any;
+  loadingAccepter = false;
+  loadingAnnuler = false;
+  activeButtonId: string | null = null;
 
 
   constructor(
@@ -72,10 +76,17 @@ export class RdvComponent {
     //FAIT
     this.serviceUser.AfficherLaListeRdv().subscribe(data => {
       this.rdv = data.reverse();
-      console.log(this.rdv);
+    }
+    );
+    //AFFICHER LA LISTE DES RDV DE USER CONNECTE
+    //FAIT
+    this.serviceUser.AfficherLaListeRdvUserConnecte().subscribe(data => {
+      this.rdvUser = data.reverse();
     }
     );
   }
+
+  
 
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
@@ -90,6 +101,7 @@ export class RdvComponent {
 
   //METHODE PERMETTANT D'ACCEPTER UN RDV
   AccepterRdv(uuid: any): void {
+    this.activeButtonId = 'acceptBtn-' + uuid; // Activer le chargement pour le bouton Accepter
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -109,6 +121,7 @@ export class RdvComponent {
       })
       .then((result) => {
         if (result.isConfirmed) {
+          this.loadingAccepter = true;
           const user = this.storageService.getUser();
           if (user && user.token) {
             // Définissez le token dans le service serviceUser
@@ -118,6 +131,7 @@ export class RdvComponent {
             this.serviceRdv.AccepterRdv(uuid).subscribe({
               next: (data) => {
                 if (data.status) {
+                  this.loadingAccepter = false;
                   let timerInterval = 2000;
                   Swal.fire({
                     position: 'center',
@@ -139,6 +153,7 @@ export class RdvComponent {
                     );
                   });
                 } else {
+                  this.loadingAccepter = false;
                   Swal.fire({
                     position: 'center',
                     text: data.message,
@@ -159,9 +174,12 @@ export class RdvComponent {
                 this.errorMessage = err.error.message;
 
               },
+              complete: () => {
+                this.activeButtonId = null; // Désactiver le chargement une fois l'action terminée
+              }
             });
           } else {
-
+            this.activeButtonId = null; // Désactiver le chargement si l'utilisateur annule
           }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           // L'utilisateur a annulé l'action
@@ -181,6 +199,7 @@ export class RdvComponent {
 
   //METHODE PERMETTANT D'ANNULER UN RDV
   AnnulerRdv(uuid: any): void {
+    this.activeButtonId = 'cancelBtn-' + uuid; // Activer le chargement pour le bouton Annuler
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -200,6 +219,7 @@ export class RdvComponent {
       })
       .then((result) => {
         if (result.isConfirmed) {
+          this.loadingAnnuler = true;
           const user = this.storageService.getUser();
           if (user && user.token) {
             // Définissez le token dans le service serviceUser
@@ -209,6 +229,7 @@ export class RdvComponent {
             this.serviceRdv.AnnulerRdv(uuid).subscribe({
               next: (data) => {
                 if (data.status) {
+                  this.loadingAnnuler = false;
                   let timerInterval = 2000;
                   Swal.fire({
                     position: 'center',
@@ -230,6 +251,7 @@ export class RdvComponent {
                     );
                   });
                 } else {
+                  this.loadingAnnuler = false;
                   Swal.fire({
                     position: 'center',
                     text: data.message,
@@ -250,9 +272,12 @@ export class RdvComponent {
                 this.errorMessage = err.error.message;
 
               },
+              complete: () => {
+                this.activeButtonId = null; // Désactiver le chargement une fois l'action terminée
+              }
             });
           } else {
-
+            this.activeButtonId = null; // Désactiver le chargement si l'utilisateur annule
           }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           // L'utilisateur a annulé l'action
@@ -267,6 +292,19 @@ export class RdvComponent {
           // Vous n'avez pas besoin de setTimeout pour fermer cette notification, car "timer" le fait automatiquement après la durée spécifiée.
         }
       });
+  }
+
+  selectedTab: string = 'home'; // Déclaration de la variable selectedTab avec la valeur par défaut 'home'
+
+
+  // Méthode pour changer l'onglet sélectionné
+  changeTab(tab: string) {
+    this.selectedTab = tab;
+  }
+
+  // Méthode pour vérifier si un onglet est actif
+  isTabActive(tab: string): boolean {
+    return this.selectedTab === tab;
   }
 
 }

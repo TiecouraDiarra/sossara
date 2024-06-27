@@ -34,7 +34,7 @@
                         <i class="fas fa-users"></i> <span>Mes agents</span>
                     </a>
                 </li>
-                <li class="active" *ngIf="isAgence || isProprietaire">
+                <li class="active">
                     <a [routerLink]="routes.rdv">
                         <i class="far fa-calendar-alt"></i> <span>Rendez-vous</span>
                     </a>
@@ -61,78 +61,22 @@
                 </li> -->
             </ul>
         </div>
-        <div class="dashboard-details">
-            <div class="row dashboard-info">
-                <div class="col-lg-7 d-flex" style="margin-left: auto; margin-right: auto;">
-                    <div class="card dash-cards w-100">
-                        <div class="card-header">
-                            <h4>Rendez-vous</h4>
-                            <div class="card-dropdown">
-
-                                <ul>
-                                    <li class="nav-item dropdown has-arrow logged-item">
-                                        <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <span>Tout</span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
-                                            <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
-                                            <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="ligne">
-                            <div class="card-body">
-                                <ul class="review-list">
-                                    <ng-container *ngIf="rdv && rdv.length > 0; else noRdv">
-                                        <li class="review-box" *ngFor="let Rdv of rdv">
-                                            <div class="review-profile">
-                                                <div class="review-img">
-                                                    <img src="{{generateImageUrl(Rdv.utilisateur.photo)}}"
-                                                        class="img-fluid" alt="img"
-                                                        (error)="handleAuthorImageError($event)">
-                                                </div>
-                                            </div>
-                                            &nbsp; &nbsp;
-                                            <div class="review-details">
-                                                <h6 class="mb-2">{{Rdv?.utilisateur?.nom}}</h6>
-                                                <a class="maReference" style="cursor: pointer;">Référence du bien :
-                                                    {{Rdv?.bien?.reference}}</a>
-                                                <div class="rating">
-                                                    <div>
-                                                        Date de rendez-vous : <i
-                                                            class="fa-sharp fa-solid fa-calendar-days"></i> {{Rdv?.date
-                                                        | date: "dd MMM yyyy":locale}} à {{Rdv?.heure}}
-                                                    </div>
-                                                </div>
-                                                <p>{{Rdv?.createdAt | date: "dd MMM yyyy":locale}} à {{Rdv?.createdAt |
-                                                    date: "HH:mm":locale}}</p>
-                                            </div>
-                                            <!-- Buttons for accepting and rejecting -->
-                                            <div class="action-buttons" *ngIf="Rdv?.statut === 'En attente'">
-                                                <button class="btn accept-button"
-                                                    (click)="AccepterRdv(Rdv?.uuid)">Accepter</button>
-                                                <button class="btn reject-button"
-                                                    (click)="AnnulerRdv(Rdv?.uuid)">Annuler</button>
-                                            </div>
-                                            <!-- Show status if accepted or rejected -->
-                                            <div class="status-text" *ngIf="Rdv?.statut !== 'En attente'">
-                                                <p [ngClass]="{'accepted': Rdv?.statut === 'Accepté', 'rejected': Rdv?.statut === 'Annulé'}">
-                                                    Rendez-vous : {{Rdv?.statut}}
-                                                </p>
-                                            </div>                                                                               
-                                        </li>
-                                    </ng-container>
-                                    <ng-template #noRdv>
-                                        <h4 style="font-size: 17px;">Pas de rendez-vous</h4>
-                                    </ng-template>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+        <div class="container-fluid card shadow d-flex justify-content-center mt-5">
+            <div class="row dashboard-info" id="wrapper">
+                <div class="col-md-3 border-right sidebar1" id="sidebar-wrapper">
+                    <ul class="nav flex-column">
+                        <li class="nav-item crd" style="margin-bottom: 5px;">
+                            <a class="nav-link custom-tab-link" [class.active]="isTabActive('home')"
+                                (click)="changeTab('home')" id="home-tab" data-toggle="tab" role="tab"
+                                aria-controls="home" aria-selected="true">Mes
+                                rendez-vous</a>
+                        </li>
+                        <li class="nav-item crd" *ngIf="isAgence || isAgent || isProprietaire">
+                            <a class="nav-link custom-tab-link" id="rdvBien-tab" data-toggle="tab"
+                                [class.active]="isTabActive('rdvBien')" (click)="changeTab('rdvBien')" role="tab"
+                                aria-controls="rdvBien" aria-selected="false">Les rendez-vous sur mes biens</a>
+                        </li>
+                    </ul>
                 </div>
                 <!-- <div class="col-lg-6 d-flex" *ngIf="rdv && rdv.length > 0">
                     <div class="card dash-cards w-100">
@@ -156,6 +100,182 @@
                         </div>
                     </div>
                 </div> -->
+                <div class="col-md-9 tab-content" id="myTabContent">
+                    <!-- Debut des rendez-vous sur mes biens -->
+                    <div class="tab-pane fade show" [class.active]="isTabActive('rdvBien')" id="rdvBien" role="tabpanel"
+                        aria-labelledby="rdvBien-tab">
+                        <div class="card dash-cards w-100">
+                            <div class="card-header">
+                                <h4>Rendez-vous</h4>
+                                <div class="card-dropdown">
+
+                                    <ul>
+                                        <li class="nav-item dropdown has-arrow logged-item">
+                                            <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <span>Tout</span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ligne">
+                                <div class="card-body">
+                                    <ul class="review-list">
+                                        <ng-container *ngIf="rdv && rdv.length > 0; else noRdv">
+                                            <li class="review-box" *ngFor="let Rdv of rdv">
+                                                <div class="review-profile">
+                                                    <div class="review-img">
+                                                        <img src="{{generateImageUrl(Rdv.utilisateur.photo)}}"
+                                                            class="img-fluid" alt="img"
+                                                            (error)="handleAuthorImageError($event)">
+                                                    </div>
+                                                </div>
+                                                &nbsp; &nbsp;
+                                                <div class="review-details">
+                                                    <h6 class="mb-2">{{Rdv?.utilisateur?.nom}}</h6>
+                                                    <a class="maReference" style="cursor: pointer;">Référence du bien :
+                                                        {{Rdv?.bien?.reference}}</a>
+                                                    <div class="rating">
+                                                        <div>
+                                                            Date de rendez-vous : <i
+                                                                class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                            {{Rdv?.date
+                                                            | date: "dd MMM yyyy":locale}} à {{Rdv?.heure}}
+                                                        </div>
+                                                    </div>
+                                                    <p>{{Rdv?.createdAt | date: "dd MMM yyyy":locale}} à
+                                                        {{Rdv?.createdAt |
+                                                        date: "HH:mm":locale}}</p>
+                                                </div>
+                                                <!-- Buttons for accepting and rejecting -->
+                                                <div class="action-buttons" *ngIf="Rdv?.statut === 'En attente'">
+                                                    <!-- Buttons for accepting and rejecting -->
+                                                    <div class="action-buttons" *ngIf="Rdv?.statut === 'En attente'">
+                                                        <button [disabled]="loadingAccepter" class="btn accept-button"
+                                                            id="acceptBtn-{{Rdv?.uuid}}"
+                                                            (click)="AccepterRdv(Rdv?.uuid)">
+                                                            Accepter
+                                                            <span
+                                                                *ngIf="loadingAccepter && activeButtonId === 'acceptBtn-' + Rdv?.uuid"
+                                                                class="spinner-border spinner-border-sm" role="status"
+                                                                aria-hidden="true"></span>
+                                                        </button>
+
+                                                        <button [disabled]="loadingAnnuler" class="btn reject-button"
+                                                            id="cancelBtn-{{Rdv?.uuid}}"
+                                                            (click)="AnnulerRdv(Rdv?.uuid)">
+                                                            Annuler
+                                                            <span
+                                                                *ngIf="loadingAnnuler && activeButtonId === 'cancelBtn-' + Rdv?.uuid"
+                                                                class="spinner-border spinner-border-sm" role="status"
+                                                                aria-hidden="true"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <!-- Show status if accepted or rejected -->
+                                                <div class="status-text" *ngIf="Rdv?.statut !== 'En attente'">
+                                                    <p
+                                                        [ngClass]="{'accepted': Rdv?.statut === 'Accepté', 'rejected': Rdv?.statut === 'Annulé'}">
+                                                        Rendez-vous : {{Rdv?.statut}}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ng-container>
+                                        <ng-template #noRdv>
+                                            <h4 style="font-size: 17px;">Pas de rendez-vous</h4>
+                                        </ng-template>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin des rendez-vous sur mes biens -->
+
+                    <!-- Debut de mes rendez-vous   -->
+                    <div class="tab-pane fade show" [class.active]="isTabActive('home')" id="home" role="tabpanel"
+                        aria-labelledby="home-tab">
+                        <div class="card dash-cards w-100">
+                            <div class="card-header">
+                                <h4>Rendez-vous</h4>
+                                <div class="card-dropdown">
+
+                                    <ul>
+                                        <li class="nav-item dropdown has-arrow logged-item">
+                                            <a href="#" class="dropdown-toggle pageviews-link" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <span>Tout</span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="javascript:void(0)">Semaine passee</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">Cette senaine</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">Semaine prochaine</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ligne">
+                                <div class="card-body">
+                                    <ul class="review-list">
+                                        <ng-container *ngIf="rdvUser && rdvUser.length > 0; else noRdv">
+                                            <li class="review-box" *ngFor="let Rdv of rdvUser">
+                                                <div class="review-profile">
+                                                    <div class="review-img">
+                                                        <img src="{{generateImageUrl(Rdv?.bien?.proprietaire?.photo)}}"
+                                                            class="img-fluid" alt="img"
+                                                            (error)="handleAuthorImageError($event)">
+                                                    </div>
+                                                </div>
+                                                &nbsp; &nbsp;
+                                                <div class="review-details">
+                                                    <h6 class="mb-2">{{Rdv?.bien?.proprietaire?.nom}}</h6>
+                                                    <a class="maReference" style="cursor: pointer;">Référence du bien :
+                                                        {{Rdv?.bien?.reference}}</a>
+                                                    <div class="rating">
+                                                        <div>
+                                                            Date de rendez-vous : <i
+                                                                class="fa-sharp fa-solid fa-calendar-days"></i>
+                                                            {{Rdv?.date
+                                                            | date: "dd MMM yyyy":locale}} à {{Rdv?.heure}}
+                                                        </div>
+                                                    </div>
+                                                    <p>{{Rdv?.createdAt | date: "dd MMM yyyy":locale}} à
+                                                        {{Rdv?.createdAt |
+                                                        date: "HH:mm":locale}}</p>
+                                                </div>
+                                                <!-- Buttons for accepting and rejecting -->
+                                                <!-- <div class="action-buttons" *ngIf="Rdv?.statut === 'En attente'">
+                                                    <button class="btn accept-button"
+                                                        (click)="AccepterRdv(Rdv?.uuid)">Accepter</button>
+                                                    <button class="btn reject-button"
+                                                        (click)="AnnulerRdv(Rdv?.uuid)">Annuler</button>
+                                                </div> -->
+                                                <!-- Show status if accepted or rejected -->
+                                                <div class="status-text">
+                                                    <p
+                                                        [ngClass]="{'accepted': Rdv?.statut === 'Accepté', 'rejected': Rdv?.statut === 'Annulé', 'attente': Rdv?.statut === 'En attente'}">
+                                                        Rendez-vous : {{Rdv?.statut}}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ng-container>
+                                        <ng-template #noRdv>
+                                            <h4 style="font-size: 17px;">Pas de rendez-vous</h4>
+                                        </ng-template>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Fin de mes rendez-vous  -->
+                </div>
             </div>
         </div>
 

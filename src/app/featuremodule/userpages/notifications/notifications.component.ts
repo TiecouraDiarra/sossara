@@ -35,6 +35,7 @@ export class NotificationsComponent implements OnInit {
   senderCheck: any;
   users: any;
   errorMessage: any = '';
+  loadingPage = false;
 
 
 
@@ -80,8 +81,7 @@ export class NotificationsComponent implements OnInit {
   AfficherLesNotifi(): void {
     this.notificationService.AfficherListeNotification().subscribe(data => {
       this.notifications = data.reverse().slice(0, 3);
-
-
+      this.loadingPage = true;
       data.forEach((Notification: any) => {
         if (Notification.rdv) {
           this.rdv?.push(Notification);
@@ -103,6 +103,7 @@ export class NotificationsComponent implements OnInit {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
+      
       
     }
     );
