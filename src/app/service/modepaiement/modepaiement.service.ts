@@ -53,12 +53,7 @@ export class ModepaiementService {
     formData.append('nombreJours', nombreJours ?? 0);
     formData.append('sommePayer', sommePayer);
     formData.append('modePaiement', modePaiement);
-    formData.append('numeroPaiement', numeroPaiement);
-
-    
-    
-    
-  
+    formData.append('numeroPaiement', numeroPaiement);  
     return this.http.post(`${URL_BASE}/paiement/fairepaiement/${uuid}`, formData, { headers });
   }
 
@@ -66,6 +61,13 @@ export class ModepaiementService {
   AfficherPaiementParUuId(uuid: number): Observable<any> {
     return this.http.get(`${URL_BASE}/paiement/afficherpaiementparuuid/${uuid}`);
   }
+
+    //checkRecuAllParUser
+    checkRecuAllParUser(uuid: number): Observable<any> {
+      const headers = this.getHeaders();
+      return this.http.get(`${URL_BASE}/paiement/checkall/${uuid}`,{ headers } );
+    }
+  
 
   //ENREGISTRER UN PAIEMENT OU NE PAS ENREGISTRER
   EnregistrerOuNon(id: number): Observable<any> {

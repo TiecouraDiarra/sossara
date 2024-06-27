@@ -89,8 +89,16 @@
                 <!-- <input type="text" name="prix" [(ngModel)]="form.prix" class="form-control pass-input" required
                   aria-required="true" placeholder="FCFA" appThousandSeparator /> -->
 
-                <input type="text" (keypress)="onKeyPress($event)" name="prix" [(ngModel)]="form.prix"
-                  class="form-control pass-input" required aria-required="true" placeholder="FCFA" />
+                  <input type="text"
+                  (keypress)="onKeyPress($event)"
+                  (input)="onInput($event)"
+                  name="prix"
+                  [(ngModel)]="form.prix"
+                  class="form-control pass-input"
+                  required
+                  aria-required="true"
+                  placeholder="FCFA" />
+           
               </div>
             </div>
 

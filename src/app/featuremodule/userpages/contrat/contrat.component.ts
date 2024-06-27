@@ -105,13 +105,7 @@ export class ContratComponent {
   };
 
   ngOnInit(): void {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: '',
-        cancelButton: '',
-      },
-      heightAuto: false
-    })
+  
     //RECUPERER L'UUID D'UN CONTRAT 
     this.id = this.route.snapshot.params["uuid"]
     if (this.storageService.isLoggedIn()) {
@@ -121,7 +115,11 @@ export class ContratComponent {
           this.contratUser();
           this.loadingPage = true;
         } else {
-          window.history.back();
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            this.router.navigate(['/']); // Redirection vers la page d'accueil
+          }
         }
 
       })

@@ -310,6 +310,8 @@ export class DetailsbienComponent implements AfterViewInit {
           this.users = data[0];
 
           this.currentUser2 = this.users;
+          this.uuidChat = window.sessionStorage.getItem("chatUuid")
+          this.chatService2.joinRoom(this.uuidChat);
           this.senderCheck = this.users.email
         })
 
@@ -321,8 +323,7 @@ export class DetailsbienComponent implements AfterViewInit {
     const Users = this.storageService.getUser();
     const token = Users.token;
     this.serviceUser.setAccessToken(token);
-    this.uuidChat = window.sessionStorage.getItem("chatUuid")
-    this.chatService2.joinRoom(this.uuidChat);
+
 
     //AFFICHER LA LISTE DES commentaireS EN FONCTION D'UN BIEN
     this.servicecommentaire.AffichercommentaireParBien(this.id).subscribe((data) => {
@@ -752,7 +753,7 @@ export class DetailsbienComponent implements AfterViewInit {
         }
       })
     }
-    
+
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -836,7 +837,7 @@ export class DetailsbienComponent implements AfterViewInit {
       }
     });
   }
-  
+
 
   // Méthode pour obtenir les informations de l'utilisateur connecté
   getCurrentUser(): any {

@@ -48,6 +48,18 @@ export class FactureService {
     return this.http.get(`${URL_BASE}/facture/afficherfactureparuuid/${uuid}`);
   }
 
+    //checkFactureParUser
+    checkFactureParUser(uuid: number): Observable<any> {
+      const headers = this.getHeaders();
+      return this.http.get(`${URL_BASE}/facture/check/${uuid}`,{ headers } );
+    }
+    //checkFactureAllParUser
+    checkFactureAllParUser(uuid: number): Observable<any> {
+      const headers = this.getHeaders();
+      return this.http.get(`${URL_BASE}/facture/checkall/${uuid}`,{ headers } );
+    }
+  
+
   //AFFICHER UNE FACTURE EN FONCTION DE SON UUID
   AfficherFactureParBien(uuid: number): Observable<any> {
     const headers = this.getHeaders();

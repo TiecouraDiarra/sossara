@@ -22,6 +22,8 @@ export class FactureComponent {
   locale!: string;
   paiement: any;
   modepaiement: any;
+  loadingPage = false;
+
   bien: any;
   photoImmo: any;
   transaction: any;
@@ -41,6 +43,7 @@ export class FactureComponent {
   defaultImageUrl: string = 'assets/img/typebien/villa.png';
   emailProprietaire: any;
   users: any;
+  check: any;
  
   setDefaultImage(event: any): void {
     // Si le chargement de l'image échoue, utilisez l'image par défaut
@@ -84,35 +87,51 @@ export class FactureComponent {
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       
-    }
-
-    //RECUPERER L'UUID D'UN BLOG 
+    
     this.id = this.route.snapshot.params["uuid"]
-    //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
-    this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
-      this.facture = data;
-      
-      
-      this.modePaiement = data?.modePaiement;
-      this.bien = data?.bien;
-      this.locataire = data?.locataire;
-      this.proprietaire = data?.bien?.proprietaire;
-      this.transaction = data?.transaction;
-      this.serviceUser.AfficherUserConnecter().subscribe((data) => {
-        this.users = data && data.length > 0 ? data[0] : null;
-        this.emailProprietaire = this.users.email
-        if (this.emailProprietaire == this.proprietaire.email) {
-          this.isAgenceProprietaire = true;
+    if (this.storageService.isLoggedIn()) {
+      this.serviceFacture.checkFactureAllParUser(this.id).subscribe((data) => {
+        this.check = data;
+        console.log(data);
+        if (data.status) {
+          this.factureUser();
+          this.loadingPage = true;
+        } else {
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            this.router.navigate(['/']); // Redirection vers la page d'accueil
+          }
         }
-      })
-      // this.photoImmo = data?.bien?.photoImmos;
-    })
+      });
+    }
+  
+  }
 
     //AFFICHER LA LISTE DES MODES DE PAIEMENTS
     this.modepaiementService.AfficherListeModePaiement().subscribe(data => {
       this.modepaiement = data.reverse();
     }
     );
+  }
+  factureUser(){
+       //AFFICHER UN PAIEMENT EN FONCTION DE SON ID
+       this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
+        this.facture = data;
+        this.modePaiement = data?.modePaiement;
+        this.bien = data?.bien;
+        this.locataire = data?.locataire;
+        this.proprietaire = data?.bien?.proprietaire;
+        this.transaction = data?.transaction;
+        this.serviceUser.AfficherUserConnecter().subscribe((data) => {
+          this.users = data && data.length > 0 ? data[0] : null;
+          this.emailProprietaire = this.users.email
+          if (this.emailProprietaire == this.proprietaire.email) {
+            this.isAgenceProprietaire = true;
+          }
+        })
+        // this.photoImmo = data?.bien?.photoImmos;
+      })
   }
   //FORMATER LE PRIX
   formatPrice(price: number): string {

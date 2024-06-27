@@ -86,7 +86,8 @@ export class BienimmoService {
 
   //AFFICHER UN BIEN IMMO EN FONCTION DE SON ID
   AfficherBienImmoParId(id: number): Observable<any> {
-    return this.http.get(`${URL_BASE}/bien/afficherbienparid/${id}`);
+    const headers = this.getHeaders();
+    return this.http.get(`${URL_BASE}/bien/afficherbienparid/${id}`, { headers });
   }
 
   //AFFICHER UNE CANDIDATURE EN FONCTION DE SON UUID
