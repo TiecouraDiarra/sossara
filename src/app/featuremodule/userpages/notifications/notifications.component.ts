@@ -91,7 +91,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     // this.AfficherLesNotifi();
     this.checkNotifications();
     // Vérifiez les notifications toutes les 5 secondes
-    this.intervalSubscription = interval(30000).subscribe(() => this.checkNotifications());
+    // this.intervalSubscription = interval(30000).subscribe(() => this.checkNotifications());
   }
 
   checkNotifications(): void {
@@ -124,7 +124,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           this.candidature.push(Notification);
         }
       });
-      console.log(this.candidature);
+      console.log(this.paiement);
 
       this.loadingCandidature = false;
       this.loadingRdv = false;
@@ -163,10 +163,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
-      
-      
-      
-      
+
+
+
+
     }
     );
   }
@@ -292,6 +292,11 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   }
 
+  //FORMATER LE PRIX
+  formatPrice(price: number): string {
+    return price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+
   // IMAGE PAR DEFAUT USER
   handleAuthorImageError(event: any) {
     event.target.src = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=';
@@ -317,5 +322,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE CONTRAT
   goToPageContrat(id: number) {
     return this.router.navigate(['userpages/contrat', id])
+  }
+
+  //LA METHODE PERMETTANT DE NAVIGUER VERS LA PAGE RECU
+  goToPageRecu(id: number) {
+    return this.router.navigate(['userpages/recufacture', id])
   }
 }
