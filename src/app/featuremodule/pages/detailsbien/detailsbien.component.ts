@@ -544,8 +544,12 @@ export class DetailsbienComponent implements AfterViewInit {
     })
   }
 
+  isLoadingRdv: boolean = false;
+
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
   PrendreRvd(id: any): void {
+    // Activer le chargement
+    this.isLoadingRdv = true;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'swal2-confirm btn',
@@ -638,7 +642,11 @@ export class DetailsbienComponent implements AfterViewInit {
         .PrendreRdv(this.RdvForm.date, this.RdvForm.heure, id)
         .subscribe({
           next: (data) => {
+            // Désactiver le chargement après la réponse de l'API
+            this.isLoadingRdv = false;
             if (data.status) {
+              // Désactiver le chargement après la réponse de l'API
+              this.isLoadingRdv = false;
               let timerInterval = 2000;
               Swal.fire({
                 position: 'center',
@@ -657,6 +665,8 @@ export class DetailsbienComponent implements AfterViewInit {
                 this.reloadPage();
               });
             } else {
+              // Désactiver le chargement après la réponse de l'API
+              this.isLoadingRdv = false;
               Swal.fire({
                 position: 'center',
                 text: data.message,

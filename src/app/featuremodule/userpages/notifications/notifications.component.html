@@ -69,7 +69,7 @@
             </ul>
         </div>
         <!-- <div class="row dashboard-info reviewpage-content "> -->
-        <div class="container" *ngIf="loadingPage">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-3 left">
                     <div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
@@ -162,14 +162,20 @@
                             <h6 class="m-0">Candidatures</h6>
                         </div>
                         <div class="box-body p-0">
-                            <div *ngIf="candidature.length === 0"
+                            <div *ngIf="loadingCandidature"
+                                class="p-3 d-flex align-items-center justify-content-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="!loadingCandidature && candidature.length === 0"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="text-center" style="width: 100%;">
                                     <p>Pas de notification</p>
                                 </div>
                             </div>
                             <div *ngFor="let Candidature of candidature"
-                            [ngStyle]="{'background-color': Candidature.lu ? '' : '#e4e6e7'}"
+                                [ngStyle]="{'background-color': Candidature.lu ? '' : '#e4e6e7'}"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
                                     <img class="rounded-circle" (error)="handleAuthorImageError($event)"
@@ -183,26 +189,24 @@
                                         Reference du bien : <span style="font-weight: bold; cursor: pointer;"
                                             (click)="goToDettailBien(Candidature?.candidature?.bien?.uuid)">{{Candidature?.candidature?.bien?.reference}}</span>
                                     </div>
-                                    <!-- <div class="small text-success"><i class="fa fa-check-circle"></i> {{Candidature?.notif}}</div> -->
                                     <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
-                                        {{Candidature?.date |
-                                        date:"dd MMM yyyy":locale}} à {{Candidature?.date |
+                                        {{Candidature?.date | date:"dd MMM yyyy":locale}} à {{Candidature?.date |
                                         date:"HH:mm":locale}}</div>
                                 </div>
                                 <span class="mb-auto" style="margin-left: auto;">
                                     <div class="btn-group">
-                                        <button [ngStyle]="{'background-color': Candidature.lu ? '' : '#e4e6e7'}" type="button" class="btn btn-light btn-sm rounded"
-                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button [ngStyle]="{'background-color': Candidature.lu ? '' : '#e4e6e7'}"
+                                            type="button" class="btn btn-light btn-sm rounded" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <button *ngIf="Candidature?.candidature?.contrat"
                                                 (click)="goToPageContrat(Candidature?.candidature?.contrat?.uuid)"
-                                                class="dropdown-item crd" type="button"><i class="mdi mdi-eye"></i>
-                                                Voir le contrat</button>
+                                                class="dropdown-item crd" type="button"><i class="mdi mdi-eye"></i> Voir
+                                                le contrat</button>
                                             <button (click)="Supprimer(Candidature?.uuid)" class="dropdown-item"
-                                                type="button"><i class="mdi mdi-delete"></i>
-                                                Supprimer</button>
+                                                type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
                                         </div>
                                     </div>
                                 </span>
@@ -214,15 +218,19 @@
                             <h6 class="m-0">Rendez-vous</h6>
                         </div>
                         <div class="box-body p-0">
-                            <div *ngIf="rdv.length === 0"
+                            <div *ngIf="loadingRdv" class="p-3 d-flex align-items-center justify-content-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="!loadingRdv && rdv.length === 0"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="text-center" style="width: 100%;">
                                     <p>Pas de notification</p>
                                 </div>
                             </div>
-                            <div *ngFor="let Rdv of rdv"
-                                class="p-3 d-flex align-items-center border-bottom osahan-post-header"
-                                [ngStyle]="{'background-color': Rdv.lu ? '' : '#e4e6e7'}">
+                            <div *ngFor="let Rdv of rdv" [ngStyle]="{'background-color': Rdv.lu ? '' : '#e4e6e7'}"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
                                     <img class="rounded-circle" (error)="handleAuthorImageError($event)"
                                         src="{{generateImageUrl(Rdv?.sender?.photo)}}" alt="" />
@@ -235,32 +243,27 @@
                                             (click)="goToDettailBien(Rdv?.rdv?.bien?.uuid)">{{Rdv?.rdv?.bien?.reference}}</span>
                                     </div>
                                     <div class="small"><i style="color: #e98b11;"
-                                            class="fa-sharp fa-solid fa-calendar-days"></i>
-                                        Date du rendez-vous : <span style="font-weight: bold;">{{Rdv?.rdv?.date |
-                                            date:"dd MMM yyyy":locale}} à {{Rdv?.rdv?.heure}}</span></div>
+                                            class="fa-sharp fa-solid fa-calendar-days"></i> Date du rendez-vous : <span
+                                            style="font-weight: bold;">{{Rdv?.rdv?.date | date:"dd MMM yyyy":locale}} à
+                                            {{Rdv?.rdv?.heure}}</span></div>
                                     <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
                                         {{Rdv?.date | date:"dd MMM yyyy":locale}} à {{Rdv?.date | date:"HH:mm":locale}}
                                     </div>
                                 </div>
                                 <span class="mb-auto" style="margin-left: auto;">
                                     <div class="btn-group float-end">
-                                        <button [ngStyle]="{'background-color': Rdv.lu ? '' : '#e4e6e7'}" type="button" class="btn btn-light btn-sm rounded"
-                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button [ngStyle]="{'background-color': Rdv.lu ? '' : '#e4e6e7'}" type="button"
+                                            class="btn btn-light btn-sm rounded" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <button [routerLink]="routes.rdv" class="dropdown-item" type="button"><i
-                                                    class="mdi mdi-eye"></i>
-                                                Voir detail</button>
                                             <button (click)="Supprimer(Rdv?.uuid)" class="dropdown-item"
-                                                type="button"><i class="mdi mdi-delete"></i>
-                                                Supprimer</button>
+                                                type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
                                         </div>
                                     </div>
-                                    <br />
                                 </span>
                             </div>
-
                         </div>
                     </div>
                     <div class="box shadow-sm rounded bg-white mb-3">
@@ -268,63 +271,89 @@
                             <h6 class="m-0">Messages</h6>
                         </div>
                         <div class="box-body p-0">
-                            <div *ngIf="message.length === 0"
+                            <div *ngIf="loadingMessage" class="p-3 d-flex align-items-center justify-content-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="!loadingMessage && message.length === 0"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
                                 <div class="text-center" style="width: 100%;">
                                     <p>Pas de notification</p>
                                 </div>
                             </div>
                             <div *ngFor="let Message of message"
-                            [ngStyle]="{'background-color': Message.lu ? '' : '#e4e6e7'}"
+                                [ngStyle]="{'background-color': Message.lu ? '' : '#e4e6e7'}"
                                 class="p-3 d-flex align-items-center border-bottom osahan-post-header">
-                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck"
-                                    class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
                                     <img class="rounded-circle" (error)="handleAuthorImageError($event)"
-                                        src="{{generateImageUrl(Message?.message?.destinateur?.photo)}}" alt="" />
+                                        src="{{generateImageUrl(Message?.sender?.photo)}}" alt="" />
                                 </div>
-                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck"
-                                    class="dropdown-list-image mr-3" style="margin-right: 16px;">
-                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
-                                        src="{{generateImageUrl(Message?.message?.expediteur?.photo)}}" alt="" />
-                                </div>
-                                <div *ngIf="Message?.message?.expediteur?.email != senderCheck" class=""
-                                    style="margin-right: 16px;">
-                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" class="text-truncate"
-                                        style=" font-weight: bold; cursor: pointer;">
-                                        {{Message?.message?.expediteur?.nom}}</div>
-                                    <div (click)="goToDetailMessage(Message?.message?.uuid)"
-                                        style="font-weight: bold; cursor: pointer;" class="small text-success"><i
-                                            class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}
+                                <div class="" style="margin-right: 16px;">
+                                    <div class="text-truncate"><span
+                                            style="font-weight: 600;">{{Message?.sender?.nom}}</span> {{Message?.notif}}
                                     </div>
                                     <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
-                                        {{Message?.date |
-                                        date:"dd MMM yyyy":locale}} à {{Message?.date |
-                                        date:"HH:mm":locale}}</div>
-                                </div>
-                                <div *ngIf="Message?.message?.destinateur?.email != senderCheck" class=""
-                                    style="margin-right: 16px;">
-                                    <div (click)="goToDetailMessage(Message?.message?.uuid)" class="text-truncate"
-                                        style=" font-weight: bold; cursor: pointer;">
-                                        {{Message?.message?.destinateur?.nom}}</div>
-                                    <div (click)="goToDetailMessage(Message?.message?.uuid)"
-                                        style=" font-weight: bold; cursor: pointer;" class="small text-success"><i
-                                            class="fa fa-check-circle"></i> {{Message?.message?.lastMessage?.message}}
-                                    </div>
-                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
-                                        {{Message?.date |
-                                        date:"dd MMM yyyy":locale}} à {{Message?.date |
+                                        {{Message?.date | date:"dd MMM yyyy":locale}} à {{Message?.date |
                                         date:"HH:mm":locale}}</div>
                                 </div>
                                 <span class="mb-auto" style="margin-left: auto;">
-                                    <div class="btn-group">
-                                        <button [ngStyle]="{'background-color': Message.lu ? '' : '#e4e6e7'}" type="button" class="btn btn-light btn-sm rounded"
-                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="btn-group float-end">
+                                        <button [ngStyle]="{'background-color': Message.lu ? '' : '#e4e6e7'}"
+                                            type="button" class="btn btn-light btn-sm rounded" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <button (click)="Supprimer(Message?.uuid)" class="dropdown-item"
-                                                type="button"><i class="mdi mdi-delete"></i>
-                                                Supprimer</button>
+                                                type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Paiements</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div *ngIf="loadingPaiement" class="p-3 d-flex align-items-center justify-content-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="!loadingPaiement && paiement.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de notification</p>
+                                </div>
+                            </div>
+                            <div *ngFor="let Paiement of paiement"
+                                [ngStyle]="{'background-color': Paiement.lu ? '' : '#e4e6e7'}"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                        src="{{generateImageUrl(Paiement?.sender?.photo)}}" alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px;">
+                                    <div class="text-truncate"><span
+                                            style="font-weight: 600;">{{Paiement?.sender?.nom}}</span>
+                                        {{Paiement?.notif}}</div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Paiement?.date | date:"dd MMM yyyy":locale}} à {{Paiement?.date |
+                                        date:"HH:mm":locale}}</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group float-end">
+                                        <button [ngStyle]="{'background-color': Paiement.lu ? '' : '#e4e6e7'}"
+                                            type="button" class="btn btn-light btn-sm rounded" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button (click)="Supprimer(Paiement?.uuid)" class="dropdown-item"
+                                                type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
                                         </div>
                                     </div>
                                 </span>
@@ -339,19 +368,19 @@
 </div>
 <!-- /Reviews Content -->
 
-<div class="login-content tts" style="margin-top: 280px;" *ngIf="!loadingPage">
+<!-- <div class="login-content tts" style="margin-top: 280px;" *ngIf="!loadingPage">
     <div class="container">
-      <div class="row mb-5 py-3">
-        <div class="col-md-6 col-lg-5 mx-auto"></div>
-        <div class="col-md-2 col-lg-2 mx-auto">
-          <div class="login-wrap1 password-form1 justify-content-center">
-            <div *ngIf="!loadingPage" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-              <span class="visually-hidden">Loading...</span>
+        <div class="row mb-5 py-3">
+            <div class="col-md-6 col-lg-5 mx-auto"></div>
+            <div class="col-md-2 col-lg-2 mx-auto">
+                <div class="login-wrap1 password-form1 justify-content-center">
+                    <div *ngIf="!loadingPage" class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-md-4 col-lg-4 mx-auto"></div>
         </div>
-        <div class="col-md-4 col-lg-4 mx-auto"></div>
-      </div>
-  
+
     </div>
-  </div>
+</div> -->

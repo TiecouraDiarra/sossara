@@ -1,5 +1,6 @@
-import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
+import { Component, Inject, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription, interval } from 'rxjs';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { environment } from 'src/app/environments/environment';
 import { AuthService } from 'src/app/service/auth/auth.service';
@@ -19,7 +20,7 @@ const URL_PHOTO: string = environment.Url_PHOTO;
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
-export class NotificationsComponent implements OnInit {
+export class NotificationsComponent implements OnInit, OnDestroy {
   public routes = routes;
   locale!: string;
   isLocataire = false;
@@ -36,7 +37,19 @@ export class NotificationsComponent implements OnInit {
   users: any;
   errorMessage: any = '';
   loadingPage = false;
+  loadingCandidature: boolean = true;
+  loadingRdv: boolean = true;
+  loadingMessage: boolean = true;
+  loadingPaiement: boolean = true;
+  intervalSubscription!: Subscription;
 
+
+  ngOnDestroy(): void {
+    // Arrêtez l'intervalle lorsqu'on quitte la page
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
+  }
 
 
 
@@ -75,7 +88,52 @@ export class NotificationsComponent implements OnInit {
     }
 
     //AFFICHER LA LISTE DES NOTIFICATIONS DE USER CONNECTE
-    this.AfficherLesNotifi();
+    // this.AfficherLesNotifi();
+    this.checkNotifications();
+    // Vérifiez les notifications toutes les 5 secondes
+    this.intervalSubscription = interval(30000).subscribe(() => this.checkNotifications());
+  }
+
+  checkNotifications(): void {
+    this.notificationService.AfficherListeNotification().subscribe(data => {
+      this.loadingCandidature = true;
+      this.loadingRdv = true;
+      this.loadingMessage = true;
+      this.loadingPaiement = true;
+
+      // Réinitialiser les tableaux
+      this.notifications = [];
+      this.rdv = [];
+      this.message = [];
+      this.paiement = [];
+      this.candidature = [];
+
+      this.notifications = data.reverse().slice(0, 3);
+      this.notifications.forEach((Notification: any) => {
+        if (Notification.rdv) {
+          this.rdv.push(Notification);
+        }
+        if (Notification.message) {
+          this.message.push(Notification);
+        }
+        if (Notification.paiement) {
+          this.paiement.push(Notification);
+        }
+        if (Notification.candidature) {
+          this.candidature.push(Notification);
+        }
+      });
+
+      this.loadingCandidature = false;
+      this.loadingRdv = false;
+      this.loadingMessage = false;
+      this.loadingPaiement = false;
+    }, err => {
+      this.loadingCandidature = false;
+      this.loadingRdv = false;
+      this.loadingMessage = false;
+      this.loadingPaiement = false;
+    });
   }
 
   AfficherLesNotifi(): void {
