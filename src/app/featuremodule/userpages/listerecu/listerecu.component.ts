@@ -88,7 +88,6 @@ export class ListerecuComponent {
       if (this.storageService.isLoggedIn()) {
         this.serviceFacture.checkFactureAllParUser(this.id).subscribe((data) => {
           this.check = data;
-          console.log(data);
           if (data.status) {
             this.factureUser();
             this.loadingPage = true;
@@ -109,7 +108,9 @@ export class ListerecuComponent {
   factureUser(){
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
-      this.paiement = this.facture?.paiments;
+      console.log(this.facture);
+      
+      this.paiement = this.facture?.paiements;
       this.modePaiement = data?.modePaiement;
       this.bien = data?.bien;
       this.locataire = data?.locataire;
