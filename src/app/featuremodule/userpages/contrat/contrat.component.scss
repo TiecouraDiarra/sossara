@@ -3228,3 +3228,28 @@ input[type="radio"]:checked:after {
     /* Remplacez cette valeur par la taille souhaitée */
 }
 
+
+.contratlocation {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    position: relative;
+    min-height: 100%;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.card-body {
+    padding-bottom: 90px;
+    /* Ajouter un padding pour ne pas recouvrir le contenu */
+}
+
+.che {
+    margin-right: 5px;
+    margin-top: 10px;
+}

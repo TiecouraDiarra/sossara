@@ -207,105 +207,130 @@
                           <p>
                             Le présent contrat est conclu entre les soussignés :
                           </p>
-                          <ul>
-                            <li>
-                              <strong>1. Qualité du bailleur:</strong>
-                              <label class="checkbox-inline" *ngIf="isAgence(proprietaire?.profil)">
-                                <input type="checkbox" value="Personne physique" />
-                                Personne physique
-                              </label>
-                              <label class="checkbox-inline" *ngIf="isAgence(proprietaire?.profil)">
-                                <input type="checkbox" checked readonly value="Personne morale" />
-                                Personne morale
-                              </label>
-                              <label class="checkbox-inline" *ngIf="isProprietaire(proprietaire?.profil)">
-                                <input type="checkbox" checked readonly value="Personne physique" />
-                                Personne physique
-                              </label>
-                              <label class="checkbox-inline" *ngIf="isProprietaire(proprietaire?.profil)">
-                                <input type="checkbox" value="Personne morale" />
-                                Personne morale
-                              </label>
-                            </li>
-                            <li>
-                              <strong>Nom et prénom du bailleur:
-                                <span style="color: #e98b11">{{
-                                  proprietaire?.nom
-                                  }}</span>
-                              </strong>
-                            </li>
-                            <li *ngIf="isAgence(proprietaire?.profil)">
-                              <strong>Dénomination (si personne morale):
-                              </strong>
-                              <ol>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <ul>
                                 <li>
-                                  <strong>Type du document :
+                                  <strong>1. Qualité du bailleur:</strong>
+                                  <br />
+                                  <label class="checkbox-inline che" *ngIf="proprietaire?.profil=='AGENCE'">
+                                    <input type="checkbox" value="Personne physique" disabled />
+                                    Personne physique
+                                  </label>
+                                  <label class="checkbox-inline che" *ngIf="proprietaire?.profil=='AGENCE'">
+                                    <input type="checkbox" checked readonly value="Personne morale" disabled/>
+                                    Personne morale
+                                  </label>
+                                  <label class="checkbox-inline che" *ngIf="proprietaire?.profil=='PROPRIETAIRE'">
+                                    <input type="checkbox" checked readonly value="Personne physique" disabled />
+                                    Personne physique
+                                  </label>
+                                  <label class="checkbox-inline che" *ngIf="proprietaire?.profil=='PROPRIETAIRE'">
+                                    <input type="checkbox" value="Personne morale" disabled />
+                                    Personne morale
+                                  </label>
+                                </li>
+                                <li>
+                                  <strong>Nom et prénom du bailleur:
                                     <span style="color: #e98b11">{{
-                                      proprietaire?.document[0]?.nomDoc
+                                      proprietaire?.nom
+                                      }}</span>
+                                  </strong>
+                                </li>
+                                <li *ngIf="proprietaire?.profil=='AGENCE'">
+                                  <strong>Dénomination (si personne morale):
+                                  </strong>
+                                  <ol>
+                                    <li>
+                                      <strong>Type du document :
+                                        <span style="color: #e98b11">{{
+                                          proprietaire?.document[0]?.nomDoc
+                                          }}</span></strong>
+                                    </li>
+                                    <li>
+                                      <strong>Numero du document :
+                                        <span style="color: #e98b11">{{
+                                          proprietaire?.document[0]?.numDoc
+                                          }}</span></strong>
+                                    </li>
+                                  </ol>
+                                </li>
+    
+                                <!-- <li>
+                                  <strong>Domicile ou siège social du bailleur:
+                                    <span style="color: #e98b11">{{
+                                      proprietaire?.adresse?.commune?.cercle
+                                      ?.region?.pays?.nompays
+                                      }},
+                                      {{
+                                      proprietaire?.adresse?.commune?.cercle
+                                      ?.nomcercle
+                                      }},
+                                      {{
+                                      proprietaire?.adresse?.commune?.nomcommune
+                                      }}</span></strong>
+                                </li> -->
+                                <li>
+                                  <strong>Adresse:
+                                    <span style="color: #e98b11">{{
+                                      proprietaire?.adresse?.commune?.cercle
+                                      ?.region?.pays?.nompays
+                                      }},
+                                      {{
+                                      proprietaire?.adresse?.commune?.cercle
+                                      ?.nomcercle
+                                      }},
+                                      {{
+                                      proprietaire?.adresse?.commune?.nomcommune
                                       }}</span></strong>
                                 </li>
                                 <li>
-                                  <strong>Numero du document :
+                                  <strong>Adresse email (facultatif):
                                     <span style="color: #e98b11">{{
-                                      proprietaire?.document[0]?.numDoc
+                                      proprietaire?.email
                                       }}</span></strong>
                                 </li>
-                              </ol>
-                            </li>
-
-                            <li>
-                              <strong>Domicile ou siège social du bailleur:
-                                <span style="color: #e98b11">{{
-                                  proprietaire?.adresse?.commune?.cercle
-                                  ?.region?.pays?.nompays
-                                  }},
-                                  {{
-                                  proprietaire?.adresse?.commune?.cercle
-                                  ?.nomcercle
-                                  }},
-                                  {{
-                                  proprietaire?.adresse?.commune?.nomcommune
-                                  }}</span></strong>
-                            </li>
-                            <li>
-                              <strong>Adresse:
-                                <span style="color: #e98b11">{{
-                                  proprietaire?.adresse?.commune?.cercle
-                                  ?.region?.pays?.nompays
-                                  }},
-                                  {{
-                                  proprietaire?.adresse?.commune?.cercle
-                                  ?.nomcercle
-                                  }},
-                                  {{
-                                  proprietaire?.adresse?.commune?.nomcommune
-                                  }}</span></strong>
-                            </li>
-                            <li>
-                              <strong>Adresse email (facultatif):
-                                <span style="color: #e98b11">{{
-                                  proprietaire?.email
-                                  }}</span></strong>
-                            </li>
-                          </ul>
-                          <ul>
-                            <li>
-                              <strong>2. Locataire:</strong>
-                            </li>
-                            <li>
-                              <strong>Nom et prénom du locataire:
-                                <span style="color: #e98b11">{{
-                                  locataire?.nom
-                                  }}</span></strong>
-                            </li>
-
-                            <li>
-                              <strong>Adresse email (facultatif):
-                                <span style="color: #e98b11">{{
-                                  locataire?.email
-                                  }}</span></strong>
-                            </li>
-                          </ul>
+                              </ul>
+                            </div>
+                            <div class="col-md-6">
+                              <ul>
+                                <li>
+                                  <strong>2. Qualité du locataire:</strong>
+                                  <br />
+                                    <label class="checkbox-inline che" *ngIf="locataire?.profil=='AGENCE'">
+                                      <input type="checkbox" value="Personne physique" disabled/>
+                                      Personne physique
+                                    </label>
+                                    &nbsp;
+                                    <label class="checkbox-inline" *ngIf="locataire?.profil=='AGENCE'">
+                                      <input type="checkbox" checked readonly value="Personne morale" disabled />
+                                      Personne morale
+                                    </label>
+                                    <label class="checkbox-inline che" *ngIf="locataire?.profil=='LOCATAIRE' || locataire?.profil=='AGENT' || locataire?.profil=='PROPRIETAIRE'">
+                                      <input type="checkbox" checked readonly value="Personne physique" disabled />
+                                      Personne physique
+                                    </label>
+                                    <label class="checkbox-inline" *ngIf="locataire?.profil=='LOCATAIRE' || locataire?.profil=='AGENT' || locataire?.profil=='PROPRIETAIRE'">
+                                      <input type="checkbox" value="Personne morale" disabled />
+                                      Personne morale
+                                    </label>
+                                </li>
+                                <li>
+                                  <strong>Nom et prénom du locataire:
+                                    <span style="color: #e98b11">{{
+                                      locataire?.nom
+                                      }}</span></strong>
+                                </li>
+    
+                                <li>
+                                  <strong>Adresse email (facultatif):
+                                    <span style="color: #e98b11">{{
+                                      locataire?.email
+                                      }}</span></strong>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
                         </article>
                         <article class="article">
                           <h5 class="headArticle">
@@ -451,7 +476,7 @@
                                   contrat?.DateEntreeMaison
                                   }}</span></strong>
                             </li>
-                            <li *ngIf="isAgence(proprietaire?.profil) && bien?.periode?.nom === 'Mensuel'">
+                            <li *ngIf="proprietaire?.profil=='AGENCE' && bien?.periode?.nom === 'Mensuel'">
                               <strong>Durée du contrat :</strong>
                               <label class="checkbox-inline">
                                 <input type="checkbox" value="3 ans" /> 3 ans
@@ -474,7 +499,7 @@
                                 La location du Logement est consentie pour une durée hebdomadaire.
                               </label>
                             </li>
-                            <li *ngIf="isProprietaire(proprietaire?.profil) && bien?.periode?.nom === 'Mensuel'">
+                            <li *ngIf="proprietaire?.profil=='PROPRIETAIRE' && bien?.periode?.nom === 'Mensuel'">
                               <strong>Durée du contrat :</strong>
                               <label class="checkbox-inline">
                                 <input type="checkbox" checked readonly value="3 ans" />
@@ -505,6 +530,20 @@
                             conformément aux dispositions légales en vigueur.
                           </p>
                         </article>
+                        <article class="article">
+                          <h5 class="headArticle">
+                            <span class="article-heading">Article 6 :</span>
+                            Droits du Propriétaire
+                          </h5>
+                          <p>
+                            Le Bailleur conserve les droits de propriété des
+                            locaux et peut accéder à ceux-ci pour effectuer des
+                            inspections, des réparations nécessaires, ou pour
+                            d'autres raisons légales.
+                          </p>
+                        </article>
+
+                        
                       </div>
                       <div class="card-footer text-muted">
                         <p class="text-center">
@@ -520,27 +559,16 @@
                 <div class="row">
                   <div class="col-md-12" style="margin-left: auto; margin-right: auto">
                     <div class="card">
-                      <div class="card-header">
+                      <!-- <div class="card-header">
                         <h3 class="text-center">
-                          CONTRAT TYPE DE LOCATION OU DE CO-LOCATION
+                          CONTRAT DE BAIL
                         </h3>
                         <p class="text-center">
                           Date: {{ contrat?.createdAt | date : "dd/MM/yyyy" }}
                         </p>
-                      </div>
+                      </div> -->
                       <div class="card-body">
-                        <article class="article">
-                          <h5 class="headArticle">
-                            <span class="article-heading">Article 6 :</span>
-                            Droits du Propriétaire
-                          </h5>
-                          <p>
-                            Le Bailleur conserve les droits de propriété des
-                            locaux et peut accéder à ceux-ci pour effectuer des
-                            inspections, des réparations nécessaires, ou pour
-                            d'autres raisons légales.
-                          </p>
-                        </article>
+                        
                         <article class="article">
                           <h5 class="headArticle">
                             <span class="article-heading">Article 7 :</span>
@@ -653,7 +681,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="card-footer text-muted" style="margin-top: 20vh !important">
+                      <div class="card-footer text-muted foo" style="margin-top: 20vh !important">
                         <p class="text-center">
                           © 2024 Sossara. Tous droits réservés.
                         </p>
@@ -701,21 +729,21 @@
                                 <li>
                                   <strong style="font-size: 1.5em">1. Qualité du vendeur:</strong>
                                   <br />
-                                  <label class="checkbox-inline" *ngIf="isAgence(proprietaire?.profil)">
-                                    <input type="checkbox" value="Personne physique" />
+                                  <label class="checkbox-inline che" *ngIf="proprietaire?.profil=='AGENCE'">
+                                    <input type="checkbox" value="Personne physique" disabled/>
                                     Personne physique
                                   </label>
                                   &nbsp;
-                                  <label class="checkbox-inline" *ngIf="isAgence(proprietaire?.profil)">
-                                    <input type="checkbox" checked readonly value="Personne morale" />
+                                  <label class="checkbox-inline" *ngIf="proprietaire?.profil=='AGENCE'">
+                                    <input type="checkbox" checked readonly value="Personne morale" disabled />
                                     Personne morale
                                   </label>
-                                  <label class="checkbox-inline" *ngIf="isProprietaire(proprietaire?.profil)">
-                                    <input type="checkbox" checked readonly value="Personne physique" />
+                                  <label class="checkbox-inline che" *ngIf="proprietaire?.profil=='PROPRIETAIRE'">
+                                    <input type="checkbox" checked readonly value="Personne physique" disabled/>
                                     Personne physique
                                   </label>
-                                  <label class="checkbox-inline" *ngIf="isProprietaire(proprietaire?.profil)">
-                                    <input type="checkbox" value="Personne morale" />
+                                  <label class="checkbox-inline" *ngIf="proprietaire?.profil =='PROPRIETAIRE'">
+                                    <input type="checkbox" value="Personne morale" disabled />
                                     Personne morale
                                   </label>
                                 </li>
@@ -726,7 +754,7 @@
                                       }}</span>
                                   </strong>
                                 </li>
-                                <li *ngIf="isAgence(proprietaire?.profil)">
+                                <li *ngIf="proprietaire?.profil=='AGENCE'">
                                   <strong>Dénomination (si personne morale):
                                   </strong>
                                   <ol>
@@ -774,6 +802,25 @@
                               <ul>
                                 <li>
                                   <strong style="font-size: 1.5em">2. Achéteur:</strong>
+                                </li>
+                                <li>
+                                  <label class="checkbox-inline che" *ngIf="locataire?.profil=='AGENCE'">
+                                    <input type="checkbox" value="Personne physique" disabled/>
+                                    Personne physique
+                                  </label>
+                                  &nbsp;
+                                  <label class="checkbox-inline" *ngIf="locataire?.profil=='AGENCE'">
+                                    <input type="checkbox" checked readonly value="Personne morale" disabled />
+                                    Personne morale
+                                  </label>
+                                  <label class="checkbox-inline che" *ngIf="locataire?.profil=='LOCATAIRE' || locataire?.profil=='AGENT' || locataire?.profil=='PROPRIETAIRE'">
+                                    <input type="checkbox" checked readonly value="Personne physique" disabled />
+                                    Personne physique
+                                  </label>
+                                  <label class="checkbox-inline" *ngIf="locataire?.profil=='LOCATAIRE' || locataire?.profil=='AGENT' || locataire?.profil=='PROPRIETAIRE'">
+                                    <input type="checkbox" value="Personne morale" disabled />
+                                    Personne morale
+                                  </label>
                                 </li>
                                 <li>
                                   <strong>Nom et prénom du Achéteur:

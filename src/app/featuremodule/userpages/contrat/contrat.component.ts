@@ -12,6 +12,7 @@ import { ModepaiementService } from 'src/app/service/modepaiement/modepaiement.s
 import Swal from 'sweetalert2';
 import html2canvas from 'html2canvas';
 import { ContentChange, SelectionChange } from 'ngx-quill';
+import html2pdf from "html2pdf.js";
 
 const URL_PHOTO: string = environment.Url_PHOTO;
 
@@ -47,11 +48,11 @@ export class ContratComponent {
   check: any;
 
   isProprietaire(roles: any[]): boolean {
-    return roles?.some(role => role.name === 'PROPRIETAIRE');
+    return roles?.some(role => role?.name === 'PROPRIETAIRE');
   }
 
   isAgence(roles: any[]): boolean {
-    return roles?.some(role => role.name === 'AGENCE');
+    return roles?.some(role => role?.name === 'AGENCE');
   }
   errorMessage: any = '';
   loadingAnnulerProp = false;
@@ -105,7 +106,7 @@ export class ContratComponent {
   };
 
   ngOnInit(): void {
-  
+
     //RECUPERER L'UUID D'UN CONTRAT 
     this.id = this.route.snapshot.params["uuid"]
     if (this.storageService.isLoggedIn()) {
@@ -167,6 +168,8 @@ export class ContratComponent {
       this.bien = data?.bien;
       this.locataire = data?.locataire;
       this.proprietaire = data?.bien?.proprietaire;
+
+
       this.serviceUser.AfficherUserConnecter().subscribe(
         (data) => {
           this.users = data[0];
@@ -770,50 +773,173 @@ export class ContratComponent {
   }
 
   //GENERER CONTRAT LOCATAION
+  // async genererPDFContrat() {
+  //   try {
+  //     this.loading = true; // Affiche l'indicateur de chargement
+
+  //     // Créer une instance de jsPDF
+  //     const pdf = new jsPDF();
+
+  //     // Générer la première page du contrat
+  //     await this.generateFirstPage(pdf);
+
+  //     // Générer la deuxième page du contrat
+  //     await this.generateSecondPage(pdf);
+
+  //     // Télécharger le PDF
+  //     pdf.save('contrat.pdf');
+
+  //     // Une fois la génération terminée, masquer l'indicateur de chargement
+  //     this.loading = false;
+  //   } catch (error) {
+
+  //     this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
+  //   }
+  // }
   async genererPDFContrat() {
+    this.loading = true; // Affiche l'indicateur de chargement
     try {
-      this.loading = true; // Affiche l'indicateur de chargement
+      // Sélectionner le contenu HTML
+      const firstPageContent = document.querySelector('.contratlocation') as HTMLElement;
 
-      // Créer une instance de jsPDF
-      const pdf = new jsPDF();
+      if (!firstPageContent) {
+        throw new Error('Le contenu de la première page est introuvable.');
+      }
 
-      // Générer la première page du contrat
-      await this.generateFirstPage(pdf);
+      // Ajouter des styles spécifiques pour la génération du PDF
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .contratlocation {
+          font-size: 12px !important;
+          line-height: 1.5 !important;
+          position: relative;
+          min-height: 100%;
+        }
+        .che {
+          margin-top: 5px;
+          margin-right: 10px;
+        }
+        .card-footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background-color: #f8f9fa;
+          text-align: center;
+        }
+        .card-body {
+          padding-bottom: 80px; /* Ajouter un padding pour ne pas recouvrir le contenu */
+        }
+        .foo {
+          margin-top: 200px !important;
+        }
+      `;
+      document.head.appendChild(style);
 
-      // Générer la deuxième page du contrat
-      await this.generateSecondPage(pdf);
+      // Options pour html2pdf
+      const opt = {
+        margin: [0.1, 0.1, 0.1, 0.1], // Marges en pouces
+        filename: 'contrat.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
 
-      // Télécharger le PDF
-      pdf.save('contrat.pdf');
+      // Générer le PDF
+      await html2pdf().from(firstPageContent).set(opt).save();
+
+      // Supprimer les styles spécifiques après la génération du PDF
+      document.head.removeChild(style);
 
       // Une fois la génération terminée, masquer l'indicateur de chargement
       this.loading = false;
     } catch (error) {
-
+      console.error('Erreur lors de la génération du PDF : ', error);
       this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
     }
   }
+
+
+  // async genererPDFContratVente() {
+  //   try {
+  //     this.loading = true; // Affiche l'indicateur de chargement
+
+  //     // Créer une instance de jsPDF
+  //     const pdf = new jsPDF();
+
+  //     // Générer la première page du contrat
+  //     await this.generateFirstPage(pdf);
+
+  //     // Télécharger le PDF
+  //     pdf.save('contrat.pdf');
+
+  //     // Une fois la génération terminée, masquer l'indicateur de chargement
+  //     this.loading = false;
+  //   } catch (error) {
+
+  //     this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
+  //   }
+  // }
 
   async genererPDFContratVente() {
+    this.loading = true; // Affiche l'indicateur de chargement
     try {
-      this.loading = true; // Affiche l'indicateur de chargement
+      // Sélectionner le contenu HTML
+      const firstPageContent = document.querySelector('.contratlocation') as HTMLElement;
 
-      // Créer une instance de jsPDF
-      const pdf = new jsPDF();
+      if (!firstPageContent) {
+        throw new Error('Le contenu de la première page est introuvable.');
+      }
 
-      // Générer la première page du contrat
-      await this.generateFirstPage(pdf);
+      // Ajouter des styles spécifiques pour la génération du PDF
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .contratlocation {
+          font-size: 12px !important;
+          line-height: 1.5 !important;
+          position: relative;
+          min-height: 100%;
+        }
+        .che {
+          margin-top: 5px;
+          margin-right: 10px;
+        }
+        .card-footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background-color: #f8f9fa;
+          text-align: center;
+        }
+        .card-body {
+          padding-bottom: 100px; /* Ajouter un padding pour ne pas recouvrir le contenu */
+        }
+      `;
+      document.head.appendChild(style);
 
-      // Télécharger le PDF
-      pdf.save('contrat.pdf');
+      // Options pour html2pdf
+      const opt = {
+        margin: [0.1, 0.1, 0.1, 0.1], // Marges en pouces
+        filename: 'contrat.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      // Générer le PDF
+      await html2pdf().from(firstPageContent).set(opt).save();
+
+      // Supprimer les styles spécifiques après la génération du PDF
+      document.head.removeChild(style);
 
       // Une fois la génération terminée, masquer l'indicateur de chargement
       this.loading = false;
     } catch (error) {
-
+      console.error('Erreur lors de la génération du PDF : ', error);
       this.loading = false; // Assurez-vous de masquer l'indicateur de chargement en cas d'erreur
     }
   }
+
+
 
   async generateFirstPage(pdf: jsPDF) {
     return new Promise<void>((resolve, reject) => {

@@ -24,6 +24,10 @@
       "dom"
     ]
   },
+  "include": [
+    "src/**/*",
+    "declaration.d.ts" // Ajoutez cette ligne pour inclure le fichier de déclaration
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
