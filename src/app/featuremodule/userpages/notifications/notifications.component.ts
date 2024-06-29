@@ -108,7 +108,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       this.paiement = [];
       this.candidature = [];
 
-      this.notifications = data.reverse().slice(0, 3);
+      this.notifications = data.reverse();
+      // this.notifications = data.reverse().slice(0, 3);
       this.notifications.forEach((Notification: any) => {
         if (Notification.rdv) {
           this.rdv.push(Notification);
@@ -123,6 +124,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           this.candidature.push(Notification);
         }
       });
+      console.log(this.candidature);
 
       this.loadingCandidature = false;
       this.loadingRdv = false;
@@ -161,6 +163,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
         //   // Le reste de votre logique pour traiter les favoris...
       });
+      
+      
       
       
     }

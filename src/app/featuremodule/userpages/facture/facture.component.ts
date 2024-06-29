@@ -92,7 +92,6 @@ export class FactureComponent {
     if (this.storageService.isLoggedIn()) {
       this.serviceFacture.checkFactureAllParUser(this.id).subscribe((data) => {
         this.check = data;
-        console.log(data);
         if (data.status) {
           this.factureUser();
           this.loadingPage = true;

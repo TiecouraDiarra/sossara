@@ -258,6 +258,9 @@
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
+                                            <button [routerLink]="routes.rdv" class="dropdown-item" type="button"><i
+                                                    class="mdi mdi-eye"></i>
+                                                Voir detail</button>
                                             <button (click)="Supprimer(Rdv?.uuid)" class="dropdown-item"
                                                 type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
                                         </div>
@@ -289,9 +292,14 @@
                                     <img class="rounded-circle" (error)="handleAuthorImageError($event)"
                                         src="{{generateImageUrl(Message?.sender?.photo)}}" alt="" />
                                 </div>
-                                <div class="" style="margin-right: 16px;">
+                                <div class="" style="margin-right: 16px; cursor: pointer;" (click)="goToDetailMessage(Message?.message?.uuid)">
                                     <div class="text-truncate"><span
-                                            style="font-weight: 600;">{{Message?.sender?.nom}}</span> {{Message?.notif}}
+                                            style="font-weight: 600;">{{Message?.sender?.nom}}</span>
+                                    </div>
+                                    <div (click)="goToDetailMessage(Message?.message?.uuid)"
+                                        style="font-weight: bold; cursor: pointer;" class="small text-success"><i
+                                            class="fa fa-check-circle"></i>
+                                        {{Message?.message?.lastMessage?.message}}
                                     </div>
                                     <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
                                         {{Message?.date | date:"dd MMM yyyy":locale}} à {{Message?.date |
