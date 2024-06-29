@@ -90,7 +90,7 @@ export class AjouterBienComponent implements OnInit {
 
   @HostListener('input', ['$event']) onInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/,/g, ''); // Remove existing commas
+    let value = input.value?.replace(/,/g, ''); // Remove existing commas
     
     // Format the number with commas as thousand separators
     value = this.formatNumber(value);

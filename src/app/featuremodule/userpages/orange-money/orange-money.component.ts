@@ -84,7 +84,6 @@ export class OrangeMoneyComponent {
     if (this.storageService.isLoggedIn()) {
       this.serviceFacture.checkFactureParUser(this.id).subscribe((data) => {
         this.check = data;
-        console.log(data);
         if (data.status) {
           this.factureUser();
           this.loadingPage = true;

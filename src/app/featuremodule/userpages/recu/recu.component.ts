@@ -80,7 +80,6 @@ export class RecuComponent {
      if (this.storageService.isLoggedIn()) {
        this.paiementService.checkRecuAllParUser(this.id).subscribe((data) => {
          this.check = data;
-         console.log(data);
          if (data.status) {
            this.RecuUser();
            this.loadingPage = true;
@@ -98,6 +97,7 @@ export class RecuComponent {
   RecuUser(){
     this.paiementService.AfficherPaiementParUuId(this.id).subscribe(data => {
       this.paiement = data;
+      
       // this.facture = data?.facture;
       this.modePaiement = data?.modePaiement;
       this.bien = data?.transaction?.bien;

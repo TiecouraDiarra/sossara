@@ -111,14 +111,25 @@
 
 
 
-          <div class="col callnow crd mt-5" *ngIf="
+          <!-- <div class="col callnow crd mt-5" *ngIf="
               isLoggedIn == true &&
               currentUser == false &&
               candidaterWithModal == false && bien?.is_publish && !bien?.candidater
             ">
             <a (click)="CandidaterBien()" class="action-btn btn-edit">
               <i class="feather-edit-3"></i>Candidater pour ce bien</a>
-          </div>
+          </div> -->
+          <div class="col callnow crd mt-5" *ngIf="isLoggedIn == true && currentUser == false && candidaterWithModal == false && bien?.is_publish && !bien?.candidater">
+            <a (click)="CandidaterBien()" class="action-btn btn-edit" [class.disabled]="isLoadingCandi">
+              <span *ngIf="!isLoadingCandi">
+                <i class="feather-edit-3"></i>Candidater pour ce bien
+              </span>
+              <span *ngIf="isLoadingCandi">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span class="visually-hidden">Chargement...</span>
+              </span>
+            </a>
+          </div>          
           <div class="col  crd mt-5 disabled-link" *ngIf="isLoggedIn == true &&
           currentUser == false && bien?.is_publish && bien?.candidater">
             <a class="action-btn btn-edit " (click)="$event.preventDefault()">
@@ -207,14 +218,19 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Retour
         </button>
-        <button (click)="CandidaterBien()" type="button" class="btn btn-primary">
-          Candidater
+        <button (click)="CandidaterBien()" type="button" class="btn btn-primary" [disabled]="isLoadingCandi">
+          <span *ngIf="!isLoadingCandi">Candidater</span>
+          <span *ngIf="isLoadingCandi">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span class="visually-hidden">Chargement...</span>
+          </span>
         </button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal POUR LE RENDEZ-VOUS -->
 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">

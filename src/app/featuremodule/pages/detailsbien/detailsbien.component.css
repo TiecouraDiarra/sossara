@@ -373,3 +373,8 @@
   border: 1px solid #F0E6D8; ;
   font-size: 18px;
 }
+
+a.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
