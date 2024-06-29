@@ -124,7 +124,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
           this.candidature.push(Notification);
         }
       });
-      console.log(this.paiement);
 
       this.loadingCandidature = false;
       this.loadingRdv = false;

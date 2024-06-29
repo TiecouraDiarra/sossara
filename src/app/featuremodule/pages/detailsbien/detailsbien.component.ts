@@ -545,6 +545,7 @@ export class DetailsbienComponent implements AfterViewInit {
   }
 
   isLoadingRdv: boolean = false;
+  isLoadingCandi: boolean = false;
 
   //METHODE PERMETTANT DE PRENDRE UN RENDEZ-VOUS
   PrendreRvd(id: any): void {
@@ -733,6 +734,8 @@ export class DetailsbienComponent implements AfterViewInit {
           showDenyButton: false,
           showCancelButton: false,
           allowOutsideClick: false,
+        }).then(()=>{
+          this.isLoadingCandi = false; // Activer l'état de chargement
         });
         return; // Arrêter la fonction si la date est invalide
       }
@@ -758,6 +761,8 @@ export class DetailsbienComponent implements AfterViewInit {
             showDenyButton: false,
             showCancelButton: false,
             allowOutsideClick: false,
+          }).then(()=>{
+            this.isLoadingCandi = false; // Activer l'état de chargement
           });
           return; // Arrêter la fonction si le champ usage est null
         }
@@ -783,6 +788,7 @@ export class DetailsbienComponent implements AfterViewInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
+        this.isLoadingCandi = true; // Activer l'état de chargement
         const user = this.storageService.getUser();
         if (user && user.token) {
           // Définissez le token dans le service serviceUser
@@ -793,6 +799,7 @@ export class DetailsbienComponent implements AfterViewInit {
             // Appelez la méthode PrendreRdv() avec le contenu et l'ID
             this.serviceBienImmo.CandidaterBien(this.idBien, this.formCandidater.usage, this.formCandidater.date, this.formCandidater.nombreJours, this.formCandidater.nombreSemaine).subscribe({
               next: (data) => {
+                this.isLoadingCandi = false; // Activer l'état de chargement
                 if (data.status) {
                   let timerInterval = 2000;
                   Swal.fire({
@@ -828,6 +835,7 @@ export class DetailsbienComponent implements AfterViewInit {
                 }
               },
               error: (err) => {
+                this.isLoadingCandi = false; // Activer l'état de chargement
                 this.errorMessage = err.error.message;
                 this.isError = true
                 // Gérez les erreurs ici
@@ -843,7 +851,10 @@ export class DetailsbienComponent implements AfterViewInit {
             );
           });
         } else {
+          this.isLoadingCandi = false; // Activer l'état de chargement
         }
+      }else{
+        this.isLoadingCandi = false; // Activer l'état de chargement
       }
     });
   }

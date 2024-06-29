@@ -108,7 +108,6 @@ export class ListerecuComponent {
   factureUser(){
     this.serviceFacture.AfficherFactureParUuId(this.id).subscribe(data => {
       this.facture = data;
-      console.log(this.facture);
       
       this.paiement = this.facture?.paiements;
       this.modePaiement = data?.modePaiement;

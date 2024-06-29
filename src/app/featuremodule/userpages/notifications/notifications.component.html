@@ -159,6 +159,63 @@
                     </div> -->
                     <div class="box shadow-sm rounded bg-white mb-3">
                         <div class="box-title border-bottom p-3">
+                            <h6 class="m-0">Paiements</h6>
+                        </div>
+                        <div class="box-body p-0">
+                            <div *ngIf="loadingPaiement" class="p-3 d-flex align-items-center justify-content-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div *ngIf="!loadingPaiement && paiement.length === 0"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="text-center" style="width: 100%;">
+                                    <p>Pas de notification</p>
+                                </div>
+                            </div>
+                            <div *ngFor="let Paiement of paiement"
+                                [ngStyle]="{'background-color': Paiement.lu ? '' : '#e4e6e7'}"
+                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
+                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
+                                        src="{{generateImageUrl(Paiement?.sender?.photo)}}" alt="" />
+                                </div>
+                                <div class="" style="margin-right: 16px;">
+                                    <div class="text-truncate"><span
+                                            style="font-weight: 600;">{{Paiement?.sender?.nom}}</span>
+                                        {{Paiement?.notif}}</div>
+                                        <div class="small"><i style="color: #e98b11;" class="fa-sharp fa-solid fa-home"></i>
+                                            Reference du bien : <span style="font-weight: bold; cursor: pointer;"
+                                                (click)="goToDettailBien(Paiement?.paiement?.bien?.uuid)">{{Paiement?.paiement?.bien?.reference}}</span>
+                                        </div>
+                                        <!-- Ajout du numéro de transaction et du montant -->
+                                        <div class="small">Numéro de la facture: #{{Paiement?.paiement?.numeroFacture}}</div>
+                                        <div class="small">Montant payé: <span style="font-weight: 600;">{{formatPrice(Paiement?.paiement?.somme)}} FCFA</span></div>
+                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
+                                        {{Paiement?.date | date:"dd MMM yyyy":locale}} à {{Paiement?.date |
+                                        date:"HH:mm":locale}}</div>
+                                </div>
+                                <span class="mb-auto" style="margin-left: auto;">
+                                    <div class="btn-group float-end">
+                                        <button [ngStyle]="{'background-color': Paiement.lu ? '' : '#e4e6e7'}"
+                                            type="button" class="btn btn-light btn-sm rounded" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <button (click)="goToPageRecu(Paiement?.paiement?.paie?.uuid)"
+                                                class="dropdown-item crd" type="button"><i class="mdi mdi-eye"></i> Voir
+                                                le reçu</button>
+                                            <button (click)="Supprimer(Paiement?.uuid)" class="dropdown-item"
+                                                type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box shadow-sm rounded bg-white mb-3">
+                        <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Candidatures</h6>
                         </div>
                         <div class="box-body p-0">
@@ -314,63 +371,6 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <button (click)="Supprimer(Message?.uuid)" class="dropdown-item"
-                                                type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box shadow-sm rounded bg-white mb-3">
-                        <div class="box-title border-bottom p-3">
-                            <h6 class="m-0">Paiements</h6>
-                        </div>
-                        <div class="box-body p-0">
-                            <div *ngIf="loadingPaiement" class="p-3 d-flex align-items-center justify-content-center">
-                                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </div>
-                            <div *ngIf="!loadingPaiement && paiement.length === 0"
-                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
-                                <div class="text-center" style="width: 100%;">
-                                    <p>Pas de notification</p>
-                                </div>
-                            </div>
-                            <div *ngFor="let Paiement of paiement"
-                                [ngStyle]="{'background-color': Paiement.lu ? '' : '#e4e6e7'}"
-                                class="p-3 d-flex align-items-center border-bottom osahan-post-header">
-                                <div class="dropdown-list-image mr-3" style="margin-right: 16px;">
-                                    <img class="rounded-circle" (error)="handleAuthorImageError($event)"
-                                        src="{{generateImageUrl(Paiement?.sender?.photo)}}" alt="" />
-                                </div>
-                                <div class="" style="margin-right: 16px;">
-                                    <div class="text-truncate"><span
-                                            style="font-weight: 600;">{{Paiement?.sender?.nom}}</span>
-                                        {{Paiement?.notif}}</div>
-                                        <div class="small"><i style="color: #e98b11;" class="fa-sharp fa-solid fa-home"></i>
-                                            Reference du bien : <span style="font-weight: bold; cursor: pointer;"
-                                                (click)="goToDettailBien(Paiement?.paiement?.bien?.uuid)">{{Paiement?.paiement?.bien?.reference}}</span>
-                                        </div>
-                                        <!-- Ajout du numéro de transaction et du montant -->
-                                        <div class="small">Numéro de la facture: {{Paiement?.paiement?.numeroFacture}}</div>
-                                        <div class="small">Montant payé: <span style="font-weight: 600;">{{formatPrice(Paiement?.paiement?.somme)}} FCFA</span></div>
-                                    <div style="color: #8b9196; font-size: 14px;" class="text-right text-muted pt-1">
-                                        {{Paiement?.date | date:"dd MMM yyyy":locale}} à {{Paiement?.date |
-                                        date:"HH:mm":locale}}</div>
-                                </div>
-                                <span class="mb-auto" style="margin-left: auto;">
-                                    <div class="btn-group float-end">
-                                        <button [ngStyle]="{'background-color': Paiement.lu ? '' : '#e4e6e7'}"
-                                            type="button" class="btn btn-light btn-sm rounded" data-bs-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <button (click)="goToPageRecu(Paiement?.paiement?.uuid)"
-                                                class="dropdown-item crd" type="button"><i class="mdi mdi-eye"></i> Voir
-                                                le reçu</button>
-                                            <button (click)="Supprimer(Paiement?.uuid)" class="dropdown-item"
                                                 type="button"><i class="mdi mdi-delete"></i> Supprimer</button>
                                         </div>
                                     </div>
