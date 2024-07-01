@@ -69,7 +69,7 @@ const routes: Routes = [
           // canActivate: [AuthGuard]
       },
       {
-        path: 'detailsagence/:id',
+        path: 'detailsagence/:nom',
         loadChildren: () =>
           import('./gestionbiens/detailsagence/detailsagence.module').then(
             (m) => m.DetailsagenceModule

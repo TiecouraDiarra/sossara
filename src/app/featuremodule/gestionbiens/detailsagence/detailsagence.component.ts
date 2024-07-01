@@ -213,7 +213,7 @@ export class DetailsagenceComponent implements OnInit {
     }
 
     //RECUPERER L'ID D'UNE AGENCE
-    this.id = this.route.snapshot.params["id"]
+    this.id = this.route.snapshot.params["nom"]
     this.serviceAgence.AfficherAgenceParNom(this.id).subscribe(data => {
 
       // Parcourir chaque agent
